@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     default: 'Hoplight | AI systems for labor, advocacy, and mission-driven organizations',
     template: '%s | Hoplight',
   },
-  description: 'Hoplight builds production AI systems for labor unions, political campaigns, and mission-driven organizations operating under high-stakes constraints. Founded by Whit Kathner.',
+  description: 'Hoplight builds production AI systems for labor unions, political campaigns, and organizations operating under high-stakes public-interest constraints. Founded by Whit Kathner.',
   authors: [{ name: 'Whit Kathner' }],
   openGraph: {
     type: 'website',
@@ -17,12 +17,12 @@ export const metadata: Metadata = {
     url: 'https://hoplight.ai',
     siteName: 'Hoplight',
     title: 'Hoplight | AI systems for labor, advocacy, and mission-driven organizations',
-    description: 'Production AI systems for unions, campaigns, and organizations where failure has real consequences. 70+ systems shipped. Zero compliance violations.',
+    description: 'Production AI systems for unions, campaigns, and organizations where failure has real consequences. 130+ systems shipped.',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Hoplight | AI for labor and advocacy',
-    description: 'Production AI systems for unions, campaigns, and mission-driven organizations. Founded by Whit Kathner.',
+    description: 'Production AI systems for unions, campaigns, and values-first organizations. Founded by Whit Kathner.',
   },
 }
 

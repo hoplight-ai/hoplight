@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Contact',
-  description: 'Book a session with Hoplight. AI strategy, vendor audits, research roadmaps, meeting intelligence setup, and AI operations security for labor unions and mission-driven organizations.',
+  description: 'Book a session with Hoplight. AI strategy, vendor audits, research roadmaps, meeting intelligence setup, and AI operations security for labor unions and organizations with public accountability.',
   alternates: { canonical: 'https://hoplight.ai/contact' },
   openGraph: {
     title: 'Book a session | Hoplight',

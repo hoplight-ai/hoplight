@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Services',
-  description: 'AI governance sprints, capacity building cohorts, agentic systems design, persuasion systems, and GEO audits for labor unions, progressive organizations, and mission-driven businesses. Book a session or scope an engagement.',
+  description: 'AI governance sprints, capacity building cohorts, agentic systems design, persuasion systems, and GEO audits for labor unions, progressive organizations, and values-first businesses. Book a session or scope an engagement.',
   alternates: { canonical: 'https://hoplight.ai/services' },
   openGraph: {
     title: 'Services | Hoplight',
-    description: 'AI governance, agentic operations, persuasion systems, capacity building, and GEO audits for mission-driven organizations.',
+    description: 'AI governance, agentic operations, persuasion systems, capacity building, and GEO audits for organizations where the stakes are public.',
     url: 'https://hoplight.ai/services',
   },
 }

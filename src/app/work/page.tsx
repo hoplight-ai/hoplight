@@ -49,7 +49,7 @@ const jsonLd = {
       item: {
         '@type': 'CreativeWork',
         name: 'AI Intelligence Newsletter',
-        description: 'Weekly AI analysis for political and policy staff at SEIU.',
+        description: 'Weekly AI analysis for political and policy staff at a national labor union.',
         creator: { '@type': 'Organization', name: 'Hoplight' },
       },
     },
@@ -79,7 +79,7 @@ const jsonLd = {
       item: {
         '@type': 'CreativeWork',
         name: 'Agentic AI Systems for Operations',
-        description: 'Design and deployment of 70+ agentic AI systems for operational automation.',
+        description: 'Design and deployment of 130+ agentic AI systems for operational automation.',
         creator: { '@type': 'Organization', name: 'Hoplight' },
       },
     },
@@ -99,7 +99,7 @@ const jsonLd = {
       item: {
         '@type': 'CreativeWork',
         name: 'AI Governance Frameworks',
-        description: 'Authored governing AI policy document for SEIU, a 2-million-member labor union.',
+        description: 'Authored governing AI policy document for a 2-million-member labor union.',
         creator: { '@type': 'Organization', name: 'Hoplight' },
       },
     },
@@ -216,7 +216,7 @@ export default function WorkPage() {
           <h2>Agentic AI Systems for Operations</h2>
           <p className="project-meta">Systems Design</p>
           <p>
-            Design and deployment of 70+ agentic AI systems built on an 80/20 philosophy: automate
+            Design and deployment of 130+ agentic AI systems built on an 80/20 philosophy: automate
             the high-frequency, low-judgment work so human attention concentrates where it compounds.
             Covers research, drafting, scheduling, tracking, and cross-platform coordination.
           </p>
@@ -224,7 +224,7 @@ export default function WorkPage() {
             <span className="tag">Process Automation</span>
             <span className="tag">Systems Design</span>
             <span className="tag">Operations</span>
-            <span className="tag">70+ Systems</span>
+            <span className="tag">130+ Systems</span>
           </div>
         </div>
 

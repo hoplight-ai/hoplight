@@ -21,11 +21,11 @@ export default function Home() {
             "name": "Whit Kathner",
             "alternateName": "Whit Pendergast",
             "jobTitle": "Founder",
-            "description": "AI strategist directing adoption for a 2-million-member labor union. Previously Regional Campaigns Director at SEIU, co-founder of Republic Restoratives, and operator of 70+ production AI systems across electoral, organizing, and compliance contexts.",
+            "description": "AI strategist directing adoption for a 2-million-member labor union. Previously Regional Campaigns Director at SEIU, co-founder of Republic Restoratives, and operator of 130+ production AI systems across electoral, organizing, and compliance contexts.",
             "knowsAbout": ["AI Governance", "AI Systems Architecture", "Labor Technology", "Political Campaign Technology", "Psychometric Assessment Design", "Agentic AI Systems", "Generative Engine Optimization", "AI Policy Research", "Workforce Automation Strategy", "Persuasion Systems"],
             "sameAs": ["https://www.linkedin.com/in/whitkathner"]
           },
-          "description": "AI systems consultancy for labor unions, political campaigns, progressive organizations, and mission-driven businesses.",
+          "description": "AI systems consultancy for labor unions, political campaigns, progressive organizations, and values-first businesses.",
           "areaServed": "United States",
           "knowsAbout": ["AI Governance for Nonprofits", "AI for Labor Unions", "Political Campaign AI", "Agentic AI Operations", "AI Policy Intelligence", "Psychometric Messaging", "Generative Engine Optimization"]
         })}}
@@ -96,9 +96,9 @@ export default function Home() {
 
       <h2>Who this is for</h2>
 
-      <p>Labor unions navigating AI-driven workforce restructuring. Progressive organizations deploying AI without compromising mission. Advocacy groups that need policy intelligence at scale. Political campaigns that need persuasion systems that hold up under compliance review. Foundations funding AI capacity-building cohorts. Mission-driven businesses operating in regulated industries.</p>
+      <p>Labor unions navigating AI-driven workforce restructuring. Progressive organizations deploying AI without compromising mission. Advocacy groups that need policy intelligence at scale. Political campaigns that need persuasion systems that hold up under compliance review. Foundations funding AI capacity-building cohorts. Social-justice-anchored businesses operating in regulated industries.</p>
 
-      <p>If you're exploring what serious AI infrastructure looks like inside an organization like yours, happy to talk.</p>
+      <p>If you're exploring what serious AI infrastructure looks like inside an organization like yours, book a session and we'll scope it.</p>
 
       <Link href="/contact" className="cta">Book a session</Link>
     </>

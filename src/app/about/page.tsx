@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://hoplight.ai/about' },
   openGraph: {
     title: 'About Whit Kathner | Hoplight',
-    description: 'AI strategist directing adoption for a 2-million-member labor union. Co-founded Republic Restoratives. Ran $10M+ in political programs. Built 70+ production AI systems.',
+    description: 'AI strategist directing adoption for a 2-million-member labor union. Co-founded Republic Restoratives. Ran $10M+ in political programs. Built 130+ production AI systems.',
     url: 'https://hoplight.ai/about',
     type: 'profile',
   },
@@ -27,10 +27,7 @@ export default function About() {
           "description": "AI strategist directing adoption for a 2-million-member labor union. Builds production AI systems for organizations operating under political, regulatory, and reputational constraints. Previously SEIU Regional Campaigns Director managing $10M+ in electoral programs across 20 states. Co-founder of Republic Restoratives, the largest crowdfunded distillery in US history.",
           "sameAs": ["https://www.linkedin.com/in/whitkathner"],
           "knowsAbout": ["Artificial Intelligence Strategy", "AI Governance", "Labor Union Technology", "Political Campaign Operations", "Agentic AI Systems", "Psychometric Assessment Design", "AI Policy Research", "Persuasion Systems", "Generative Engine Optimization", "Workforce Automation Analysis"],
-          "worksFor": [
-            { "@type": "Organization", "name": "Hoplight LLC", "url": "https://hoplight.ai" },
-            { "@type": "Organization", "name": "SEIU", "description": "Service Employees International Union" }
-          ],
+          "worksFor": [{ "@type": "Organization", "name": "Hoplight LLC", "url": "https://hoplight.ai" }],
           "founder": { "@type": "Organization", "name": "Hoplight LLC", "url": "https://hoplight.ai", "foundingDate": "2024" },
           "alumniOf": [{ "@type": "EducationalOrganization", "name": "Wheaton College", "address": { "@type": "PostalAddress", "addressLocality": "Norton", "addressRegion": "MA" }}],
           "address": { "@type": "PostalAddress", "addressLocality": "Portland", "addressRegion": "OR", "addressCountry": "US" }
@@ -41,7 +38,7 @@ export default function About() {
 
       <p>Whit Kathner directs AI strategy for one of the largest labor unions in the United States, building policy intelligence tools, governance architecture, and deployment frameworks for a 2-million-member organization. He authored the union's governing directional document on AI, built <a href="https://ai-policy-tool.vercel.app" target="_blank" rel="noopener noreferrer">ARIA</a> (a policy intelligence tool covering 5,600+ documents across 101 jurisdictions), and presents to the International Executive Board on AI adoption strategy. His AI-generated messaging outperforms human progressive alternatives by 26 points with conservative-leaning audiences in randomized controlled trials.</p>
 
-      <p>He founded Hoplight in 2024 to bring that institutional-grade AI capability to progressive organizations, political campaigns, and mission-driven businesses. The firm has shipped 70+ production systems across electoral, organizing, and compliance contexts with zero compliance violations.</p>
+      <p>He founded Hoplight in 2024 to bring that institutional-grade AI capability to progressive organizations, political campaigns, and social-justice-anchored businesses. The firm has shipped 130+ production systems across electoral, organizing, and compliance contexts with no material compliance incidents.</p>
 
       <p>Before AI: Kathner co-founded Republic Restoratives, the largest crowdfunded distillery in United States history and the first women-owned distillery in Washington, DC. He scaled it from a crowdfunding campaign to a $10M valuation with no venture capital, building coast-to-coast distribution, managing $1M+ in federally regulated advertising, and running 20+ AI systems across marketing, operations, and customer experience before the AI industry had a name for what he was doing.</p>
 
@@ -57,7 +54,7 @@ export default function About() {
 
       <p>At the union: directing the organization's AI strategy, authoring governance frameworks, building policy intelligence infrastructure (ARIA), onboarding and directing the policy team's strategic focus, advising on AI-driven workforce restructuring, and presenting build capabilities to the International Executive Board.</p>
 
-      <p>At Hoplight: AI governance sprints for mission-driven organizations, capacity-building cohorts for foundations and intermediaries, agentic AI systems for operational automation, GEO audits, and a psychometric research program spanning 65+ theoretical traditions investigating how message frames interact with personality architecture.</p>
+      <p>At Hoplight: AI governance sprints for organizations with public-interest obligations, capacity-building cohorts for foundations and intermediaries, agentic AI systems for operational automation, GEO audits, and a psychometric research program spanning 65+ theoretical traditions investigating how message frames interact with personality architecture.</p>
 
       <h2>Research interests</h2>
 
@@ -73,11 +70,11 @@ export default function About() {
         <div className="timeline-item">
           <span className="date">2024 - present</span>
           <div className="role">Founder, Hoplight LLC</div>
-          <p>AI systems consultancy for labor, advocacy, and mission-driven organizations.</p>
+          <p>AI systems consultancy for labor, advocacy, and values-first organizations.</p>
         </div>
         <div className="timeline-item">
           <span className="date">2020 - present</span>
-          <div className="role">Senior Political Strategist, SEIU</div>
+          <div className="role">Senior Political Strategist, national labor union</div>
           <p>Elevated to head AI strategist. Directing AI adoption, governance, and infrastructure for the 2-million-member union.</p>
         </div>
         <div className="timeline-item">
