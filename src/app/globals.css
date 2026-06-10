@@ -2,13 +2,13 @@
 /* Colors from locked brand decisions */
 
 :root {
-  --ink: #0A1628;
-  --gold: #E8A838;
-  --gold-deep: #B8851F;
-  --paper: #F7F5F0;
-  --stone: #8B8578;
-  --signal: #4A6FA5;
-  --flag: #B84A3E;
+  --ink: #0a1628;
+  --gold: #e8a838;
+  --gold-deep: #b8851f;
+  --paper: #f7f5f0;
+  --stone: #8b8578;
+  --signal: #4a6fa5;
+  --flag: #b84a3e;
 
   --font-body: 'GT America', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   --font-mono: 'GT America Mono', 'SF Mono', 'Fira Code', monospace;
@@ -17,9 +17,15 @@
   --nav-height: 64px;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: var(--font-body);
@@ -67,7 +73,9 @@ a {
   border-bottom: 1px solid transparent;
   transition: border-color 0.15s ease;
 }
-a:hover { border-bottom-color: var(--gold); }
+a:hover {
+  border-bottom-color: var(--gold);
+}
 
 h1 {
   font-weight: 500;
@@ -92,7 +100,9 @@ h3 {
   margin-bottom: 0.4rem;
 }
 
-p { margin-bottom: 1.1rem; }
+p {
+  margin-bottom: 1.1rem;
+}
 
 .container {
   max-width: var(--max-width);
@@ -106,8 +116,12 @@ p { margin-bottom: 1.1rem; }
   margin-bottom: 2.5rem;
 }
 
-.gold-accent { color: var(--gold); }
-.stone-text { color: var(--stone); }
+.gold-accent {
+  color: var(--gold);
+}
+.stone-text {
+  color: var(--stone);
+}
 
 .cta {
   display: inline-block;
@@ -141,7 +155,9 @@ p { margin-bottom: 1.1rem; }
   transition: border-color 0.15s ease;
   cursor: pointer;
 }
-.cta-outline:hover { border-color: var(--gold); }
+.cta-outline:hover {
+  border-color: var(--gold);
+}
 
 .credentials {
   background: rgba(10, 22, 40, 0.03);
@@ -154,7 +170,9 @@ p { margin-bottom: 1.1rem; }
   margin-bottom: 0.5rem;
   font-size: 0.95rem;
 }
-.credentials p:last-child { margin-bottom: 0; }
+.credentials p:last-child {
+  margin-bottom: 0;
+}
 
 .grid {
   display: grid;
@@ -162,7 +180,11 @@ p { margin-bottom: 1.1rem; }
   gap: 1.25rem;
   margin: 1.5rem 0;
 }
-@media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 .card {
   background: rgba(10, 22, 40, 0.02);
@@ -170,8 +192,15 @@ p { margin-bottom: 1.1rem; }
   border-radius: 4px;
   padding: 1.2rem;
 }
-.card h3 { margin-top: 0; font-size: 1rem; }
-.card p { font-size: 0.9rem; color: var(--stone); margin-bottom: 0; }
+.card h3 {
+  margin-top: 0;
+  font-size: 1rem;
+}
+.card p {
+  font-size: 0.9rem;
+  color: var(--stone);
+  margin-bottom: 0;
+}
 
 .tag {
   display: inline-block;
@@ -191,21 +220,29 @@ p { margin-bottom: 1.1rem; }
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(139, 133, 120, 0.15);
 }
-.project:last-of-type { border-bottom: none; }
-.project h2 { margin-top: 0; }
+.project:last-of-type {
+  border-bottom: none;
+}
+.project h2 {
+  margin-top: 0;
+}
 .project-meta {
   font-size: 0.9rem;
   color: var(--stone);
   margin-bottom: 0.8rem;
 }
-.project-meta a { color: var(--gold-deep); }
+.project-meta a {
+  color: var(--gold-deep);
+}
 
 .timeline {
   border-left: 2px solid rgba(139, 133, 120, 0.2);
   padding-left: 1.5rem;
   margin: 1.5rem 0;
 }
-.timeline-item { margin-bottom: 1.5rem; }
+.timeline-item {
+  margin-bottom: 1.5rem;
+}
 .timeline-item .date {
   font-size: 0.8rem;
   color: var(--stone);
@@ -213,7 +250,9 @@ p { margin-bottom: 1.1rem; }
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
-.timeline-item .role { font-weight: 500; }
+.timeline-item .role {
+  font-weight: 500;
+}
 .timeline-item p {
   font-size: 0.95rem;
   margin-top: 0.3rem;
@@ -227,7 +266,9 @@ p { margin-bottom: 1.1rem; }
   padding-bottom: 2rem;
   border-bottom: 1px solid rgba(139, 133, 120, 0.15);
 }
-.faq-item:last-of-type { border-bottom: none; }
+.faq-item:last-of-type {
+  border-bottom: none;
+}
 .faq-item h3 {
   font-size: 1.1rem;
   margin-top: 0;
@@ -250,7 +291,9 @@ p { margin-bottom: 1.1rem; }
   padding-bottom: 1.5rem;
   border-bottom: 1px solid rgba(139, 133, 120, 0.15);
 }
-.service-item:last-of-type { border-bottom: none; }
+.service-item:last-of-type {
+  border-bottom: none;
+}
 .service-item h3 {
   margin-top: 0;
   margin-bottom: 0.4rem;
@@ -268,5 +311,9 @@ footer {
   font-size: 0.85rem;
   color: var(--stone);
 }
-footer a { color: var(--stone); }
-footer a:hover { color: var(--gold); }
+footer a {
+  color: var(--stone);
+}
+footer a:hover {
+  color: var(--gold);
+}

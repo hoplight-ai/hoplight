@@ -1,6 +1,12 @@
 // H3: Letter construction. H with gold Vesica lens as crossbar.
 // Two construction circles behind stems, lens fills as crossbar.
-export function HoplightSymbol({ size = 32, className = '' }: { size?: number; className?: string }) {
+export function HoplightSymbol({
+  size = 32,
+  className = '',
+}: {
+  size?: number
+  className?: string
+}) {
   return (
     <svg
       width={size}
@@ -12,8 +18,22 @@ export function HoplightSymbol({ size = 32, className = '' }: { size?: number; c
       aria-label="Hoplight"
     >
       {/* Two construction circles - very subtle */}
-      <circle cx="22" cy="32" r="18" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
-      <circle cx="42" cy="32" r="18" stroke="currentColor" strokeWidth="0.5" opacity="0.08" />
+      <circle
+        cx="22"
+        cy="32"
+        r="18"
+        stroke="currentColor"
+        strokeWidth="0.5"
+        opacity="0.08"
+      />
+      <circle
+        cx="42"
+        cy="32"
+        r="18"
+        stroke="currentColor"
+        strokeWidth="0.5"
+        opacity="0.08"
+      />
       {/* Left stem */}
       <rect x="17" y="12" width="7" height="40" rx="1" fill="currentColor" />
       {/* Right stem */}
