@@ -96,7 +96,7 @@ export default function About() {
         >
           AGIS
         </a>{' '}
-        (a policy intelligence tool covering 6,450 sources across 225
+        (a policy intelligence tool covering 7,250+ sources across 225
         jurisdictions), and presents to the International Executive Board on AI
         adoption strategy. His AI-generated messaging outperforms human
         progressive alternatives by 26 points with conservative-leaning

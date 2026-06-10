@@ -148,7 +148,7 @@ export default function Home() {
           >
             AGIS
           </a>
-          , a policy intelligence tool covering 6,450 sources across 225
+          , a policy intelligence tool covering 7,250+ sources across 225
           jurisdictions.
         </p>
         <p>

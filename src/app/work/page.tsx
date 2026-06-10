@@ -32,7 +32,7 @@ const jsonLd = {
         name: 'AGIS: AI Governance Intelligence System',
         url: 'https://ai-policy-tool.vercel.app',
         description:
-          'Comprehensive AI policy database covering 6,450 sources across 225 jurisdictions.',
+          'Comprehensive AI policy database covering 7,250+ sources across 225 jurisdictions.',
         applicationCategory: 'ResearchApplication',
         creator: { '@type': 'Organization', name: 'Hoplight' },
       },
@@ -154,11 +154,13 @@ export default function WorkPage() {
           </h2>
           <p className="project-meta">SoftwareApplication</p>
           <p>
-            A public-facing AI policy research tool indexing 6,450 sources
-            across 225 jurisdictions: AI laws, corporate lobby positions,
-            enforcement actions, and court decisions, cross-referenced and
-            searchable. Built for policy professionals, researchers, and
-            advocates navigating the global AI governance landscape.
+            A public-facing AI policy research tool indexing 7,250+ sources
+            across 225 jurisdictions: laws, lobbying spend, power maps, think
+            tank funding, PAC money, CEO donations, pro-worker AI contract
+            language, enforcement actions, research funding conflicts, and 290+
+            strategic analyses, cross-referenced and searchable. Built for
+            policy professionals, researchers, and advocates navigating the
+            global AI governance landscape.
           </p>
           <div>
             <span className="tag">AI Governance</span>
