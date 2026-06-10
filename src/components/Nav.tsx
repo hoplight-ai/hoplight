@@ -48,7 +48,7 @@ export function Nav() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            ARIA
+            AGIS
           </a>
           <Link
             href="/contact"

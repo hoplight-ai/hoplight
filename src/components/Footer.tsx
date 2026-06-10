@@ -23,7 +23,7 @@ export function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              ARIA
+              AGIS
             </a>
             <span style={{ margin: '0 0.75rem' }}>·</span>
             <Link href="/services">Services</Link>

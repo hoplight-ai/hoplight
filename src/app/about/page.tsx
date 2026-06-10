@@ -94,9 +94,9 @@ export default function About() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          ARIA
+          AGIS
         </a>{' '}
-        (a policy intelligence tool covering 5,600+ documents across 101
+        (a policy intelligence tool covering 6,450 sources across 225
         jurisdictions), and presents to the International Executive Board on AI
         adoption strategy. His AI-generated messaging outperforms human
         progressive alternatives by 26 points with conservative-leaning
@@ -158,7 +158,7 @@ export default function About() {
       <p>
         At the union: directing the organization's AI strategy, authoring
         governance frameworks, building policy intelligence infrastructure
-        (ARIA), onboarding and directing the policy team's strategic focus,
+        (AGIS), onboarding and directing the policy team's strategic focus,
         advising on AI-driven workforce restructuring, and presenting build
         capabilities to the International Executive Board.
       </p>
@@ -195,7 +195,7 @@ export default function About() {
       <p>
         Policy diffusion: how AI regulatory ideas spread between jurisdictions.
         Which governments lead, which follow, and where the gaps persist.
-        Tracked live through ARIA across 101 jurisdictions.
+        Tracked live through AGIS across 225 jurisdictions.
       </p>
 
       <h2>Background</h2>

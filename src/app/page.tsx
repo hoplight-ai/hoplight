@@ -146,9 +146,9 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            ARIA
+            AGIS
           </a>
-          , a policy intelligence tool covering 5,600+ documents across 101
+          , a policy intelligence tool covering 6,450 sources across 225
           jurisdictions.
         </p>
         <p>
@@ -180,7 +180,7 @@ export default function Home() {
           <h3>Policy intelligence systems</h3>
           <p>
             AI-powered research tools that synthesize thousands of documents
-            into sourced, queryable answers. Live example: ARIA covers 101
+            into sourced, queryable answers. Live example: AGIS covers 225
             jurisdictions.
           </p>
         </div>
