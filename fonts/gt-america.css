@@ -1,0 +1,25 @@
+/* GT America — self-hosted webfont declarations (site-local copy)
+   Families: 'GT America' (Standard width) + 'GT America Mono'
+   NOTE: TRIAL conversions. Licensed for local preview/mockup ONLY.
+   Replace .woff2 files with licensed conversions before any public deploy. */
+
+@font-face {
+  font-family: 'GT America';
+  src: url('./GT-America-Standard-Regular-Trial.woff2') format('woff2');
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'GT America';
+  src: url('./GT-America-Standard-Medium-Trial.woff2') format('woff2');
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'GT America';
+  src: url('./GT-America-Standard-Bold-Trial.woff2') format('woff2');
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: 'GT America Mono';
+  src: url('./GT-America-Mono-Regular-Trial.woff2') format('woff2');
+  font-weight: 400 500; font-style: normal; font-display: swap;
+}
