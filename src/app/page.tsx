@@ -1,9 +1,27 @@
 import Link from 'next/link';
 import Collapse from '@/components/Collapse';
+import JsonLd from '@/components/JsonLd';
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Hoplight',
+  url: 'https://hoplight.ai',
+  description: 'AI strategy for labor, advocacy, and mission-driven organizations.',
+  founder: {
+    '@type': 'Person',
+    name: 'Whit Pendergast',
+    jobTitle: 'Founder, Hoplight',
+    knowsAbout: ['AI strategy', 'AI governance', 'Labor technology', 'Psychographic message testing', 'AI adoption'],
+  },
+  areaServed: 'US',
+  knowsAbout: ['AI governance', 'AI adoption', 'Workforce AI strategy', 'Psychographic messaging', 'Generative engine optimization'],
+};
 
 export default function Home() {
   return (
     <>
+      <JsonLd data={orgSchema} />
       {/* HERO */}
       <div className="hero">
         <div className="wrap">
