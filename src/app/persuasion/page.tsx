@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import VoterStepper from '@/components/VoterStepper';
 import ProofBand from '@/components/ProofBand';
-import EvTrajectory from '@/components/EvTrajectory';
+import EvMap from '@/components/EvMap';
 
 export const metadata: Metadata = {
   title: 'Persuasion',
@@ -36,14 +36,14 @@ export default function Persuasion() {
         </div>
       </section>
 
-      {/* THE PROGRESSIVE MAP — Ink statement, two-column */}
+      {/* THE PROGRESSIVE MAP — Ink statement + animated cartogram */}
       <section className="slate" style={{ paddingTop: 0 }}>
-        <div className="wrap mapsplit">
-          <div className="statement">
+        <div className="wrap">
+          <div className="section-head" style={{ marginBottom: '34px', maxWidth: '40ch' }}>
             <h2>The progressive map has been shrinking for 15 years.</h2>
-            <p className="sub">Five cycles, one trajectory.</p>
+            <p className="map-stat">365 <span className="evo-arrow" aria-hidden="true">→</span> 226 <span className="evo-unit">electoral votes</span></p>
           </div>
-          <EvTrajectory />
+          <EvMap />
         </div>
       </section>
 

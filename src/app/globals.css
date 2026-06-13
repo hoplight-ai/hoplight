@@ -399,23 +399,26 @@ footer.site { padding: 48px 0; border-top: 1px solid var(--line); }
 .statement-center { text-align: center; max-width: 22ch; margin: 0 auto; }
 .statement-center h2 { font-size: clamp(2.2rem, 1.5rem + 3vw, 3.6rem); }
 
-/* === Electoral trajectory (two-column with statement) === */
-.mapsplit { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 84px); align-items: center; }
-@media (max-width: 820px) { .mapsplit { grid-template-columns: 1fr; gap: 36px; } }
-.evo-head { font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem); font-weight: 500; letter-spacing: -0.02em; color: var(--paper); display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
-.evo-head .evo-arrow { color: var(--gold-bright); }
-.evo-head .evo-unit { font-size: 0.95rem; font-weight: 500; color: rgba(244,240,231,0.6); font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.1em; }
-.evo-svg { width: 100%; height: auto; margin-top: 20px; display: block; }
-.evo-svg .evo-yr { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em; fill: rgba(244,240,231,0.6); }
-.evo-svg .evo-ev { font-family: var(--font-mono); font-size: 13px; font-weight: 500; fill: var(--paper); }
-.evo-svg .evo-line { stroke-dasharray: 900; stroke-dashoffset: 900; }
-.evo-svg.show .evo-line { transition: stroke-dashoffset 1400ms ease-out; stroke-dashoffset: 0; }
-.evo-svg .evo-pt { opacity: 0; transition: opacity 360ms ease-out; }
-.evo-svg.show .evo-pt { opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .evo-svg .evo-line { stroke-dashoffset: 0; }
-  .evo-svg .evo-pt { opacity: 1; }
-}
+/* === Electoral cartogram === */
+.map-stat { font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.4rem); font-weight: 500; letter-spacing: -0.02em; color: var(--paper); margin: 14px 0 0; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.map-stat .evo-arrow { color: var(--gold-bright); }
+.map-stat .evo-unit { font-family: var(--font-mono); font-size: 0.8rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(244,240,231,0.6); }
+.evmap { max-width: 820px; }
+.evmap-controls { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-bottom: 18px; }
+.evmap-tabs { display: inline-flex; gap: 6px; flex-wrap: wrap; }
+.evmap-tab { font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.04em; color: rgba(244,240,231,0.6); background: transparent; border: 1px solid rgba(244,240,231,0.18); border-radius: 5px; padding: 7px 12px; cursor: pointer; transition: color 150ms ease, background 150ms ease, border-color 150ms ease; }
+.evmap-tab:hover { color: var(--paper); border-color: rgba(244,240,231,0.4); }
+.evmap-tab.on { color: var(--ink); background: var(--gold-bright); border-color: var(--gold-bright); font-weight: 500; }
+.evmap-readout { font-size: 0.9rem; color: rgba(244,240,231,0.7); }
+.evmap-readout .er-ev { font-size: 1.45rem; font-weight: 500; color: var(--paper); font-variant-numeric: tabular-nums lining-nums; }
+.evmap-readout .er-sub { color: rgba(244,240,231,0.55); }
+.evmap-svg { width: 100%; height: auto; display: block; }
+.evmap-lbl { font-family: var(--font-mono); font-size: 11px; font-weight: 500; fill: rgba(255,255,255,0.92); letter-spacing: 0.02em; }
+.evmap-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; margin-top: 18px; }
+.evmap-legend { display: inline-flex; align-items: center; gap: 8px; font-size: 0.85rem; color: rgba(244,240,231,0.75); }
+.evmap-legend i { width: 13px; height: 13px; border-radius: 3px; display: inline-block; }
+.evmap-note { font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(244,240,231,0.42); }
+@media (max-width: 560px) { .evmap-controls { align-items: flex-start; } .evmap-lbl { font-size: 10px; } }
 
 /* === Coalition exodus: asymmetric headline collage === */
 .exodus { display: grid; grid-template-columns: repeat(12, 1fr); gap: clamp(22px, 3vw, 40px) clamp(28px, 4vw, 56px); max-width: var(--maxw); }
