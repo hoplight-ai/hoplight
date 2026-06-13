@@ -42,22 +42,27 @@ function CountNum({ target, suffix = '' }: { target: number; suffix?: string }) 
   return <span ref={ref}>{val.toLocaleString('en-US')}{suffix}</span>;
 }
 
-const cards = [
-  { num: <CountNum target={26} suffix=" pts" />, cap: 'net lift with religious conservatives' },
-  { num: '11–26 pts', cap: 'net across conservative segments' },
-  { num: 'Base held', cap: 'no erosion on the left' },
-  { num: <CountNum target={3006} />, cap: 'person RCT, voter-file matched' },
-];
-
 export default function ProofBand() {
   return (
-    <div className="proofgrid">
-      {cards.map((c, i) => (
-        <div className="proofcard" key={i}>
-          <div className="pnum">{c.num}</div>
-          <div className="pcap">{c.cap}</div>
+    <div className="proof">
+      <div className="proof-lead">
+        <div className="pnum-xl"><CountNum target={26} suffix=" pts" /></div>
+        <div className="pcap">net lift with religious conservatives, over messaging written by a skilled human communicator</div>
+      </div>
+      <div className="proof-ledger">
+        <div className="pledger-row">
+          <span className="pl-num">11–26 pts</span>
+          <span className="pl-cap">net across conservative segments</span>
         </div>
-      ))}
+        <div className="pledger-row">
+          <span className="pl-num">Base held</span>
+          <span className="pl-cap">no erosion on the left</span>
+        </div>
+        <div className="pledger-row">
+          <span className="pl-num"><CountNum target={3006} /></span>
+          <span className="pl-cap">person RCT, voter-file matched</span>
+        </div>
+      </div>
     </div>
   );
 }

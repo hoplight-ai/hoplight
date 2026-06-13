@@ -36,9 +36,9 @@ export default function Persuasion() {
         </div>
       </section>
 
-      {/* THE PROGRESSIVE MAP — Ink statement */}
+      {/* THE PROGRESSIVE MAP — Ink statement, two-column */}
       <section className="slate" style={{ paddingTop: 0 }}>
-        <div className="wrap">
+        <div className="wrap mapsplit">
           <div className="statement">
             <h2>The progressive map has been shrinking for 15 years.</h2>
             <p className="sub">From 365 electoral votes to 226.</p>
@@ -52,40 +52,56 @@ export default function Persuasion() {
               <div className="evhead"><span>2024</span><b>226 EV</b></div>
               <div className="evtrack"><div className="evfill" style={{ width: '42%', background: '#7C8CA6' }} /></div>
             </div>
+            <div className="evdrop" aria-hidden="true">139 electoral votes, gone.</div>
           </div>
         </div>
       </section>
 
-      {/* THE COALITION EXODUS — Paper */}
+      {/* THE COALITION EXODUS — Paper, headline collage */}
       <section>
         <div className="wrap">
-          <div className="section-head" style={{ marginBottom: '28px' }}>
+          <div className="section-head" style={{ marginBottom: '36px' }}>
             <span className="label">The coalition exodus</span>
-            <h2>The coalition exodus.</h2>
+            <h2>Demography is not destiny.</h2>
           </div>
-          <div className="chips">
-            <span className="chip">Drop-off voters decided 2024.</span>
-            <span className="chip">The Latino shift toward the right.</span>
-            <span className="chip">Black support softening at the margins.</span>
-            <span className="chip">Young voters swinging, not anchored.</span>
-            <span className="chip">A working-class realignment underway.</span>
+          <div className="exodus">
+            <article className="clip col-7 lg">
+              <span className="clip-kick">Post-election</span>
+              <p className="clip-head">Drop-off voters decided 2024.</p>
+            </article>
+            <article className="clip col-5">
+              <span className="clip-kick">The realignment</span>
+              <p className="clip-head">The Latino shift toward the right.</p>
+            </article>
+            <article className="clip col-5">
+              <span className="clip-kick">At the margins</span>
+              <p className="clip-head">Black support softening at the margins.</p>
+            </article>
+            <article className="clip col-7 lg">
+              <span className="clip-kick">The generation gap</span>
+              <p className="clip-head">Young voters swinging, not anchored.</p>
+            </article>
+            <article className="clip col-12 xl">
+              <span className="clip-kick">The big picture</span>
+              <p className="clip-head">A working-class realignment underway.</p>
+            </article>
           </div>
-          <p style={{ marginTop: '28px', color: 'var(--ink-soft)', fontSize: '1.1rem', fontWeight: 500 }}>Demographics stopped predicting the vote.</p>
+          <p className="exodus-close">Demographics stopped predicting the vote.</p>
         </div>
       </section>
 
-      {/* ECHO CHAMBER — Ink statement */}
+      {/* ECHO CHAMBER — Ink statement, floating quotes */}
       <section className="slate">
         <div className="wrap">
-          <div className="statement" style={{ maxWidth: '28ch', marginBottom: '28px' }}>
+          <div className="statement" style={{ maxWidth: '28ch', marginBottom: '36px' }}>
             <h2>Trapped in an echo chamber.</h2>
           </div>
-          <div className="chips">
-            <span className="chip quote">&ldquo;They&apos;re voting against their own interests.&rdquo;</span>
-            <span className="chip quote">&ldquo;If they could just see the facts.&rdquo;</span>
-            <span className="chip quote">&ldquo;We need better education.&rdquo;</span>
+          <div className="echoes">
+            <blockquote className="echo echo-1">They&apos;re voting against their own interests.</blockquote>
+            <blockquote className="echo echo-2">If they could just see the facts.</blockquote>
+            <blockquote className="echo echo-3">We need better education.</blockquote>
           </div>
-          <p className="intro" style={{ marginTop: '24px', maxWidth: '46ch' }}>If you find yourself saying any of that, this tool is for you.</p>
+          <p className="intro" style={{ marginTop: '36px', maxWidth: '46ch' }}>If you find yourself saying any of that, this tool is for you.</p>
         </div>
       </section>
 
@@ -121,10 +137,10 @@ export default function Persuasion() {
         </div>
       </section>
 
-      {/* THE SHIFT — Ink statement */}
+      {/* THE SHIFT — Ink statement, centered */}
       <section className="slate">
         <div className="wrap">
-          <div className="statement">
+          <div className="statement statement-center">
             <h2>So we tested a different approach.</h2>
           </div>
         </div>
@@ -174,28 +190,32 @@ export default function Persuasion() {
             <h2>It sharpens while you sleep.</h2>
           </div>
           <div className="loopwrap">
-            <svg className="loopsvg" viewBox="0 0 420 300" role="img" aria-label="A repeating cycle: Deploy, Measure, Feed back, Improve.">
+            <svg className="loopsvg" viewBox="0 0 400 400" role="img" aria-label="A repeating cycle: Deploy, Measure, Feed back, Improve.">
               <defs>
-                <marker id="arrow" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
                   <path d="M0 0L10 5L0 10z" fill="#E3AC42" />
                 </marker>
               </defs>
-              <g fill="none" stroke="#E3AC42" strokeWidth="2" markerEnd="url(#arrow)">
-                <path d="M150 60 A130 130 0 0 1 360 150" />
-                <path d="M360 150 A130 130 0 0 1 270 240" />
-                <path d="M270 240 A130 130 0 0 1 60 150" />
-                <path d="M60 150 A130 130 0 0 1 150 60" />
+              {/* Four arc segments, each ending in the gap before the next node */}
+              <g fill="none" stroke="#E3AC42" strokeWidth="2" strokeLinecap="round" markerEnd="url(#arrow)">
+                <path d="M251.3 59.0 A150 150 0 0 1 341.0 148.7" />
+                <path d="M341.0 251.3 A150 150 0 0 1 251.3 341.0" />
+                <path d="M148.7 341.0 A150 150 0 0 1 59.0 251.3" />
+                <path d="M59.0 148.7 A150 150 0 0 1 148.7 59.0" />
               </g>
+              {/* Nodes sit on the ring; arcs stop short so nothing overlaps */}
               <g>
-                <circle cx="210" cy="40" r="34" fill="rgba(227,172,66,0.14)" stroke="#E3AC42" strokeWidth="1.5" />
-                <circle cx="380" cy="150" r="34" fill="rgba(227,172,66,0.14)" stroke="#E3AC42" strokeWidth="1.5" />
-                <circle cx="210" cy="260" r="34" fill="rgba(227,172,66,0.14)" stroke="#E3AC42" strokeWidth="1.5" />
-                <circle cx="40" cy="150" r="34" fill="rgba(227,172,66,0.14)" stroke="#E3AC42" strokeWidth="1.5" />
+                <circle cx="200" cy="50" r="50" fill="rgba(227,172,66,0.12)" stroke="#E3AC42" strokeWidth="1.5" />
+                <circle cx="350" cy="200" r="50" fill="rgba(227,172,66,0.12)" stroke="#E3AC42" strokeWidth="1.5" />
+                <circle cx="200" cy="350" r="50" fill="rgba(227,172,66,0.12)" stroke="#E3AC42" strokeWidth="1.5" />
+                <circle cx="50" cy="200" r="50" fill="rgba(227,172,66,0.12)" stroke="#E3AC42" strokeWidth="1.5" />
               </g>
-              <text x="210" y="44">Deploy</text>
-              <text x="380" y="154">Measure</text>
-              <text x="210" y="264">Feed back</text>
-              <text x="40" y="154">Improve</text>
+              <g style={{ fontSize: '13px' }} dominantBaseline="middle">
+                <text x="200" y="51">Deploy</text>
+                <text x="350" y="201">Measure</text>
+                <text x="200" y="351">Feed back</text>
+                <text x="50" y="201">Improve</text>
+              </g>
             </svg>
           </div>
           <p className="intro" style={{ maxWidth: '64ch' }}>
