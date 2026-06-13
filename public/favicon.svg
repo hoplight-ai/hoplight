@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Hoplight">
+  <rect width="512" height="512" rx="104" fill="#0A1628"/>
+  <g fill="#E8A838">
+    <rect x="146" y="150" width="66" height="212"/>
+    <rect x="300" y="150" width="66" height="212"/>
+    <rect x="146" y="223" width="220" height="66"/>
+  </g>
+</svg>

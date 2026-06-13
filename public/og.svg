@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Hoplight">
+  <rect width="1200" height="630" fill="#151C26"/>
+  <rect x="0" y="0" width="1200" height="6" fill="#C8922A"/>
+  <g transform="translate(96, 250)">
+    <!-- beacon mark -->
+    <g transform="translate(0,-20)">
+      <circle cx="26" cy="26" r="13" fill="#C8922A"/>
+      <g stroke="#E3AC42" stroke-width="3.4" stroke-linecap="round">
+        <path d="M26 2v9M26 41v9M2 26h9M41 26h9M9 9l6.4 6.4M36.6 36.6L43 43M43 9l-6.4 6.4M15.4 36.6L9 43"/>
+      </g>
+    </g>
+    <text x="80" y="22" font-family="Helvetica, Arial, sans-serif" font-size="76" font-weight="600" letter-spacing="10" fill="#F4F0E7">HOPLIGHT</text>
+  </g>
+  <text x="96" y="392" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="400" fill="rgba(244,240,231,0.82)">AI strategy for labor, advocacy, and</text>
+  <text x="96" y="438" font-family="Helvetica, Arial, sans-serif" font-size="34" font-weight="400" fill="rgba(244,240,231,0.82)">mission-driven organizations.</text>
+</svg>
