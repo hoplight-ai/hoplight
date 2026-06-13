@@ -1,13 +1,42 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
+import JsonLd from '@/components/JsonLd';
 
 export const metadata: Metadata = {
-  title: 'Services — Hoplight',
-  description: 'Hoplight services: AI governance and readiness, workforce and AI threat assessment, capacity building, custom builds, and AI visibility.',
+  title: 'Services',
+  description:
+    'Hoplight services: AI governance and readiness, workforce and AI threat assessment, capacity building, custom builds, and AI visibility. Scoped to the organization in front of us.',
+  alternates: { canonical: '/services' },
+  openGraph: {
+    title: 'Services — Hoplight',
+    description: 'AI governance, workforce threat assessment, capacity building, custom builds, and AI visibility.',
+    url: 'https://hoplight.ai/services',
+  },
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  serviceType: 'AI strategy and governance',
+  provider: { '@type': 'Organization', name: 'Hoplight', url: 'https://hoplight.ai' },
+  areaServed: 'US',
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Hoplight capabilities',
+    itemListElement: [
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI governance and readiness' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Workforce and AI threat assessment' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Capacity building and training' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Custom AI builds' } },
+      { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'AI visibility, GEO and AEO' } },
+    ],
+  },
 };
 
 export default function Services() {
   return (
     <>
+      <JsonLd data={serviceSchema} />
       <div className="page-hero">
         <div className="wrap">
           <span className="label">Services</span>
@@ -52,13 +81,12 @@ export default function Services() {
             <span className="label">The Hoplight approach</span>
             <h2>Start with the thing people hate doing every week. Solve that first.</h2>
           </div>
-          <p className="unlock" style={{ borderLeftColor: 'var(--gold-bright)', color: 'var(--paper)' }}>The moment that unlocks an organization is when someone says: wait, if it can do this, can it do that? Everything else follows from there.</p>
           <div className="steps">
             <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
               <div className="n" style={{ color: 'var(--gold-bright)' }}>01</div>
               <div>
                 <h3>Sentiment and stack audit</h3>
-                <p style={{ color: 'rgba(244,240,231,0.7)' }}>Anonymous, no wrong answers. What are people already using, what are they afraid of, and where is the shadow AI. You cannot govern what you cannot see.</p>
+                <p style={{ color: 'rgba(244,240,231,0.7)' }}>Anonymous, no wrong answers. What are people already using, what are they afraid of, and where is the shadow AI. You can&apos;t govern what you can&apos;t see.</p>
               </div>
             </div>
             <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
@@ -71,7 +99,7 @@ export default function Services() {
             <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
               <div className="n" style={{ color: 'var(--gold-bright)' }}>03</div>
               <div>
-                <h3>Upskill, do not just train</h3>
+                <h3>Upskill, don&apos;t just train</h3>
                 <p style={{ color: 'rgba(244,240,231,0.7)' }}>You have an intern with access to everything ever written, who starts fresh every morning unless you build the infrastructure for them to step into. We teach people to hold a conversation with that intern, not to Google in a smarter way.</p>
               </div>
             </div>
@@ -79,10 +107,11 @@ export default function Services() {
               <div className="n" style={{ color: 'var(--gold-bright)' }}>04</div>
               <div>
                 <h3>Iterate and maintain</h3>
-                <p style={{ color: 'rgba(244,240,231,0.7)' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <p style={{ color: 'rgba(244,240,231,0.7)' }}>We don&apos;t hand you a tool and walk away. We stay on to iterate, retrain, and maintain, so the systems keep working after we leave and your team keeps getting better at using them.</p>
               </div>
             </div>
           </div>
+          <p className="unlock" style={{ borderLeftColor: 'var(--gold-bright)', color: 'var(--paper)', margin: '44px 0 0' }}>The a-ha moment in AI adoption happens when one of your team asks: wait, if it can do this, can it do that? Everything else follows from there.</p>
         </div>
       </section>
 
@@ -101,10 +130,10 @@ export default function Services() {
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <hr className="rule" style={{ marginBottom: '36px' }} />
-          <h2>Bring the thing your team hates doing. We will start there.</h2>
+          <h2>Bring the thing your team hates doing. We&apos;ll start there.</h2>
           <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
           <div className="cta-row" style={{ marginTop: '32px' }}>
-            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+            <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>
       </section>

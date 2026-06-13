@@ -2,8 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Work — Hoplight',
-  description: 'A portfolio of AI tools and systems built for labor, advocacy, and mission-driven organizations.',
+  title: 'Work',
+  description:
+    'A selection of shipped AI systems built for labor, advocacy, and mission-driven organizations. What each one does, and who it serves.',
+  alternates: { canonical: '/work' },
+  openGraph: {
+    title: 'Work — Hoplight',
+    description: 'Shipped AI systems national organizations are already running.',
+    url: 'https://hoplight.ai/work',
+  },
 };
 
 export default function Work() {
@@ -12,8 +19,8 @@ export default function Work() {
       <div className="page-hero">
         <div className="wrap">
           <span className="label">Work</span>
-          <h1>Are you still unsure what AI can do for you? Take a look at the tools that national organizations are using.</h1>
-          <p>A selection of shipped systems. What each one does and who it serves. The architecture is what you pay us to learn.</p>
+          <h1>Still not sure what AI can do for you? Look at what national organizations are already running.</h1>
+          <p>A selection of shipped systems. What each one does, and who it serves.</p>
         </div>
       </div>
 
@@ -32,7 +39,7 @@ export default function Work() {
               <div>
                 <span className="knum">Persuasion</span>
                 <h3>The Psychographic Message Engine</h3>
-                <p>RCT-validated persuasion you can audit, control, and improve. Up to 26 points over human-written messaging, built on 50+ traditions and 290+ subscales.</p>
+                <p>RCT-validated persuasion you can audit, control, and improve. Validated in a 3,000-person randomized controlled trial.</p>
               </div>
               <span className="go">View &rarr;</span>
             </Link>
@@ -65,17 +72,24 @@ export default function Work() {
               </div>
             </div>
           </div>
-          <a className="more" href="https://visualizations-eta.vercel.app/">See the full portfolio &rarr;</a>
+          <Link className="more" href="/portfolio">See the full portfolio &rarr;</Link>
+        </div>
+      </section>
+
+      {/* ANCHOR LINE — Ink */}
+      <section className="slate">
+        <div className="wrap">
+          <p className="anchorline">AI works best when it&apos;s designed with, and built for, the people it serves.</p>
         </div>
       </section>
 
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <hr className="rule" style={{ marginBottom: '36px' }} />
-          <h2>Bring the thing your team hates doing. We will start there.</h2>
+          <h2>Bring the thing your team hates doing. We&apos;ll start there.</h2>
           <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
           <div className="cta-row" style={{ marginTop: '32px' }}>
-            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+            <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>
       </section>
