@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'About Whit Kathner',
@@ -110,6 +111,8 @@ export default function About() {
       </div>
 
       <p>Based in Portland, Oregon. Trans and queer. Built the first LGBTQ panel at Tales of the Cocktail. Raised $150K+ for social justice causes through integrated product campaigns at Republic Restoratives.</p>
+
+      <Link href="/work" className="cta-outline" style={{ marginTop: '36px' }}>See the work &rarr;</Link>
     </>
   )
 }

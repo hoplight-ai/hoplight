@@ -80,10 +80,10 @@ export default function Home() {
           <h3>Agentic operations</h3>
           <p>Autonomous AI systems that handle the 80% of operational work that follows recognizable patterns, preserving human judgment for the 20% that requires it.</p>
         </div>
-        <div className="card">
+        <Link href="/persuasion" className="card" style={{ borderBottom: 'none' }}>
           <h3>Persuasion and messaging systems</h3>
           <p>AI-generated messaging calibrated to psychographic profiles. RCT-validated. Domain-agnostic framework spanning campaigns, advocacy, and organizational communication.</p>
-        </div>
+        </Link>
         <div className="card">
           <h3>Capacity building and training</h3>
           <p>Multi-org cohort programs and team workshops. Hands-on AI adoption. Participants ship working systems by end of engagement.</p>

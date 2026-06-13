@@ -270,3 +270,28 @@ footer {
 }
 footer a { color: var(--stone); }
 footer a:hover { color: var(--gold); }
+
+/* Tighter section padding utility */
+.section-tight { padding: clamp(32px, 4vw, 56px) 0; }
+
+/* Hamburger toggle */
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.hamburger { display: block; width: 20px; height: 2px; background: var(--ink, #1C1813); position: relative; transition: background 200ms; }
+.hamburger::before, .hamburger::after { content: ''; display: block; width: 20px; height: 2px; background: var(--ink, #1C1813); position: absolute; left: 0; transition: transform 200ms ease-out; }
+.hamburger::before { top: -6px; }
+.hamburger::after { top: 6px; }
+.hamburger.open { background: transparent; }
+.hamburger.open::before { transform: rotate(45deg); top: 0; }
+.hamburger.open::after { transform: rotate(-45deg); top: 0; }
+@media (max-width: 880px) {
+  .nav-toggle { display: block; }
+  .nav-links:not(.open) a:not(.nav-cta) { display: none; }
+  .nav-links.open { flex-wrap: wrap; width: 100%; }
+  .nav-links.open a:not(.nav-cta) { display: block; width: 100%; padding: 12px 0; border-top: 1px solid rgba(28, 24, 19, 0.09); }
+  .nav-links.open .nav-cta { width: 100%; text-align: center; margin-top: 8px; }
+}
+
+/* Voter stepper interactive stacks to one column on mobile */
+@media (max-width: 640px) {
+  .voter-stepper-grid { grid-template-columns: 1fr !important; }
+}

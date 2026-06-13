@@ -12,6 +12,7 @@ export function Footer() {
       }}>
         <div>
           <p style={{ marginBottom: '0.25rem' }}>Hoplight LLC. Portland, Oregon.</p>
+          <p style={{ marginBottom: '0.5rem', color: 'var(--stone)' }}>AI strategy for labor, advocacy, and mission-driven organizations.</p>
           <p style={{ marginBottom: 0 }}>
             <a href="https://ai-policy-tool.vercel.app" target="_blank" rel="noopener noreferrer">ARIA</a>
             <span style={{ margin: '0 0.75rem' }}>·</span>
