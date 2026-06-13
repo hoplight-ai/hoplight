@@ -9,9 +9,10 @@ export default function Nav() {
   const links = [
     { href: '/services', label: 'Services' },
     { href: '/work', label: 'Work' },
-    { href: '/about', label: 'About' },
     { href: '/persuasion', label: 'Persuasion' },
+    { href: '/about', label: 'About' },
     { href: '/faq', label: 'FAQ' },
+    { href: '/contact', label: 'Contact' },
   ];
   return (
     <header className="site">
@@ -33,11 +34,11 @@ export default function Nav() {
         </button>
         <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
           {links.map(({ href, label }) => (
-            <Link key={href} href={href} className={path === href ? 'current' : ''}>
+            <Link key={href} href={href} className={path === href ? 'current' : ''} onClick={() => setMenuOpen(false)}>
               {label}
             </Link>
           ))}
-          <Link className="nav-cta" href="https://calendly.com/whitpendergast">Book a session</Link>
+          <Link className="nav-cta" href="/contact" onClick={() => setMenuOpen(false)}>Start a conversation</Link>
         </nav>
       </div>
     </header>

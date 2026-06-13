@@ -12,7 +12,10 @@ export default function Footer() {
           Hoplight
         </Link>
         <span className="meta">AI strategy for labor, advocacy, and mission-driven organizations</span>
-        <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
+        <span className="foot-links">
+          <Link href="/contact">Contact us</Link>
+          <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
+        </span>
       </div>
     </footer>
   );

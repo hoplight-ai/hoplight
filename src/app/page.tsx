@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Collapse from '@/components/Collapse';
 
 export default function Home() {
   return (
@@ -10,7 +11,7 @@ export default function Home() {
           <h1>Most organizations are bushwhacking their way through AI. Hoplight is your guide.</h1>
           <p className="lede">We start at the front line, build for the people who do the work, and treat AI as a way to <strong>grow capacity, not cut it</strong>.</p>
           <div className="cta-row">
-            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+            <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>
       </div>
@@ -40,25 +41,23 @@ export default function Home() {
             <div className="figure"><b>95%</b> of enterprise AI pilots deliver zero return.</div>
             <span className="src">MIT, State of AI in Business, 2025</span>
           </div>
-          <p className="read">The reason is rarely the technology. It is the corporate playbook: buy the fancy tool, mandate its use, train people badly, and call the headcount you cut an innovation. <strong>We do the opposite.</strong></p>
+          <p className="read">The reason is rarely the technology. It&apos;s the corporate playbook: buy the fancy tool, mandate its use, train people badly, and call the headcount you cut an innovation. <strong>We do the opposite.</strong></p>
         </div>
       </div>
 
       {/* THE CHOICE (slate, collapsible) */}
       <section className="slate">
         <div className="wrap">
-          <details className="collapse">
-            <summary>
-              <div className="summary-row">
-                <div>
-                  <span className="label">The choice</span>
-                  <h2 className="lead-head" style={{ margin: '14px 0 0' }}>Two ways to bring AI into an organization. Only one returns value.</h2>
-                </div>
-                <span className="chev" aria-hidden="true">+</span>
-              </div>
-            </summary>
-            <div className="collapse-body">
-              <p className="intro" style={{ maxWidth: '60ch', margin: '24px 0 36px' }}>The most revolutionary technology in recent history just landed in our laps. The billionaire and CEO response has been austerity. There is another way.</p>
+          <div className="cgroup">
+            <Collapse
+              title={
+                <span>
+                  <span className="label" style={{ display: 'block', marginBottom: '12px' }}>The choice</span>
+                  <span className="lead-head" style={{ fontSize: 'clamp(1.5rem, 1.1rem + 1.7vw, 2.25rem)', fontWeight: 500, lineHeight: 1.18, display: 'block' }}>Two ways to bring AI into an organization. Only one returns value.</span>
+                </span>
+              }
+            >
+              <p className="intro" style={{ maxWidth: '60ch', margin: '0 0 36px' }}>The most revolutionary technology in recent history just landed in our laps. The billionaire and CEO response has been austerity. There&apos;s another way.</p>
               <div className="choice">
                 <div className="choice-col">
                   <div className="top">
@@ -71,7 +70,7 @@ export default function Home() {
                     <li>Surveil and disempower the people using it.</li>
                     <li>Double the revenue. Call the cut an innovation.</li>
                   </ul>
-                  <p className="result">97% of AI pilots never exit the pilot phase. More than 70% of deployments return no positive ROI. They fail because they do not prioritize the workers.</p>
+                  <p className="result">97% of AI pilots never exit the pilot phase. More than 70% of deployments return no positive ROI. They fail because they don&apos;t prioritize the workers.</p>
                 </div>
                 <div className="choice-col good">
                   <div className="top">
@@ -91,8 +90,8 @@ export default function Home() {
                 <p>Using the greatest technological innovation in history as a Trojan horse for austerity is visionless.</p>
                 <span className="attr">The Hoplight thesis</span>
               </div>
-            </div>
-          </details>
+            </Collapse>
+          </div>
         </div>
       </section>
 
@@ -101,7 +100,7 @@ export default function Home() {
         <div className="wrap">
           <span className="label" style={{ display: 'block', marginBottom: '22px' }}>What Hoplight is</span>
           <h2 className="bigline">A vertically integrated governance strategy shop, built for organizations <span className="em">without a Chief AI Officer</span>.</h2>
-          <p style={{ maxWidth: '60ch', color: 'var(--stone)', margin: '24px 0 48px', fontSize: '1.08rem' }}>Most shops offer one layer: a policy, a training, a pile of tools. Real adoption needs all three layers in the same room, each one respected, empowered, and included.</p>
+          <p style={{ maxWidth: '60ch', color: 'var(--stone-deep)', margin: '24px 0 48px', fontSize: '1.08rem' }}>Most shops offer one layer: a policy, a training, a pile of tools. Real adoption needs all three layers in the same room, each one respected, empowered, and included.</p>
 
           <div className="venn-wrap">
             <svg className="venn" viewBox="0 0 600 500" role="img" aria-label="Three overlapping spheres — Governance, Builders, and Practitioners — meeting at real adoption.">
@@ -127,7 +126,7 @@ export default function Home() {
             </div>
             <div className="col">
               <span className="knum">02 / Builders</span>
-              <h3>The pod that can make anything</h3>
+              <h3>The people who can build almost anything</h3>
               <p>They can build almost anything you need. When left out of the loop, they ship every idea they have, burn tokens, and build tools nobody asked for.</p>
             </div>
             <div className="col">
@@ -194,7 +193,7 @@ export default function Home() {
               <span className="go">View &rarr;</span>
             </Link>
           </div>
-          <a className="more" href="https://visualizations-eta.vercel.app/">See the full portfolio &rarr;</a>
+          <Link className="more" href="/portfolio">See the full portfolio &rarr;</Link>
         </div>
       </section>
 
@@ -214,10 +213,10 @@ export default function Home() {
       <section className="slate" id="contact" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <hr className="rule" style={{ marginBottom: '36px' }} />
-          <h2>Bring the thing your team hates doing. We will start there.</h2>
+          <h2>Bring the thing your team hates doing. We&apos;ll start there.</h2>
           <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
           <div className="cta-row" style={{ marginTop: '32px' }}>
-            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+            <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
             <a className="btn btn-ghost" href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
           </div>
         </div>
