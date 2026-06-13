@@ -11,7 +11,7 @@ function useInView<T extends Element>() {
     if (reduce) { setInView(true); return; }
     const obs = new IntersectionObserver(
       ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold: 0.4 }
+      { threshold: 0.35 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -42,27 +42,49 @@ function CountNum({ target, suffix = '' }: { target: number; suffix?: string }) 
   return <span ref={ref}>{val.toLocaleString('en-US')}{suffix}</span>;
 }
 
+// Net support of the AI-generated frame over the human-generated frame (baseline = 0).
+// Scale: 26 pts = full width. Only the fixed RCT figures are used here.
+const rows = [
+  { seg: 'Religious conservatives', val: '+26 pts', left: 0, width: 100 },
+  { seg: 'Conservative segments', val: '+11 to +26 pts', left: 42, width: 58 },
+  { seg: 'Progressive base', val: 'Held', left: 0, width: 3, held: true },
+];
+
+function FrameChart() {
+  const { ref, inView } = useInView<HTMLDivElement>();
+  return (
+    <div className="rct" ref={ref}>
+      <div className="rct-baseline">
+        <span className="rb-name">Human-generated frame</span>
+        <span className="rb-tag">baseline</span>
+      </div>
+      {rows.map((r) => (
+        <div className="rct-row" key={r.seg}>
+          <div className="rct-seg">
+            <span>{r.seg}</span>
+            <span className="rs-val">{r.val}</span>
+          </div>
+          <div className="rct-track">
+            <div
+              className={`rct-fill${r.held ? ' held' : ''}`}
+              style={{ left: `${r.left}%`, width: inView ? `${r.width}%` : '0%' }}
+            />
+          </div>
+        </div>
+      ))}
+      <p className="rct-cap">Bars: AI-generated frame, net support over the human-generated frame written by a skilled communicator. 3,006-person RCT, voter-file matched.</p>
+    </div>
+  );
+}
+
 export default function ProofBand() {
   return (
     <div className="proof">
       <div className="proof-lead">
-        <div className="pnum-xl"><CountNum target={26} suffix=" pts" /></div>
-        <div className="pcap">net lift with religious conservatives, over messaging written by a skilled human communicator</div>
+        <div className="pnum-xl">+<CountNum target={26} /> pts</div>
+        <div className="pcap">net lift with religious conservatives, AI-generated frame over a skilled human communicator&apos;s</div>
       </div>
-      <div className="proof-ledger">
-        <div className="pledger-row">
-          <span className="pl-num">11–26 pts</span>
-          <span className="pl-cap">net across conservative segments</span>
-        </div>
-        <div className="pledger-row">
-          <span className="pl-num">Base held</span>
-          <span className="pl-cap">no erosion on the left</span>
-        </div>
-        <div className="pledger-row">
-          <span className="pl-num"><CountNum target={3006} /></span>
-          <span className="pl-cap">person RCT, voter-file matched</span>
-        </div>
-      </div>
+      <FrameChart />
     </div>
   );
 }

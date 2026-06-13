@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import VoterStepper from '@/components/VoterStepper';
 import ProofBand from '@/components/ProofBand';
+import EvTrajectory from '@/components/EvTrajectory';
 
 export const metadata: Metadata = {
   title: 'Persuasion',
@@ -23,7 +24,7 @@ export default function Persuasion() {
         <div className="wrap">
           <span className="label">The Psychographic Message Engine</span>
           <h1>Persuasion you can audit, control, and improve. Not a billionaire&apos;s black box.</h1>
-          <p>Language models are very persuasive. But it&apos;s a black box. We can&apos;t tune it, we can&apos;t reverse engineer it. So we built a thing we can actually audit, then feed, then fine-tune.</p>
+          <p>Language models are very persuasive. But it&apos;s a black box. We can&apos;t tune it, we can&apos;t reverse engineer it. So we built a tool we can actually audit, then feed, then fine-tune.</p>
         </div>
       </div>
 
@@ -32,7 +33,6 @@ export default function Persuasion() {
         <div className="wrap">
           <span className="label" style={{ display: 'block', marginBottom: '28px' }}>So we tested a different approach.</span>
           <ProofBand />
-          <p className="intro" style={{ marginTop: '28px', maxWidth: '52ch' }}>In this election, demographics did not determine how people voted.</p>
         </div>
       </section>
 
@@ -41,19 +41,9 @@ export default function Persuasion() {
         <div className="wrap mapsplit">
           <div className="statement">
             <h2>The progressive map has been shrinking for 15 years.</h2>
-            <p className="sub">From 365 electoral votes to 226.</p>
+            <p className="sub">Five cycles, one trajectory.</p>
           </div>
-          <div className="evbars">
-            <div className="evbar">
-              <div className="evhead"><span>2008</span><b>365 EV</b></div>
-              <div className="evtrack"><div className="evfill" style={{ width: '67.8%', background: '#4A6FA5' }} /></div>
-            </div>
-            <div className="evbar">
-              <div className="evhead"><span>2024</span><b>226 EV</b></div>
-              <div className="evtrack"><div className="evfill" style={{ width: '42%', background: '#7C8CA6' }} /></div>
-            </div>
-            <div className="evdrop" aria-hidden="true">139 electoral votes, gone.</div>
-          </div>
+          <EvTrajectory />
         </div>
       </section>
 
