@@ -1,9 +1,21 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import mapData from '@/data/us-state-paths.json';
 
-// Democratic nominee results, 2008–2024. Statewide winner per state.
+// Democratic nominee statewide winner per state, [2008,2012,2016,2020,2024].
 // Verified so each cycle's blue-state count reconciles to the real EV total.
 // Maine/Nebraska single-district splits are not shown (whole-state coloring).
+const WINNERS: Record<string, string> = {
+  AK: 'RRRRR', AL: 'RRRRR', AR: 'RRRRR', AZ: 'RRRDR', CA: 'DDDDD', CO: 'DDDDD', CT: 'DDDDD',
+  DC: 'DDDDD', DE: 'DDDDD', FL: 'DDRRR', GA: 'RRRDR', HI: 'DDDDD', IA: 'DDRRR', ID: 'RRRRR',
+  IL: 'DDDDD', IN: 'DRRRR', KS: 'RRRRR', KY: 'RRRRR', LA: 'RRRRR', MA: 'DDDDD', MD: 'DDDDD',
+  ME: 'DDDDD', MI: 'DDRDR', MN: 'DDDDD', MO: 'RRRRR', MS: 'RRRRR', MT: 'RRRRR', NC: 'DRRRR',
+  ND: 'RRRRR', NE: 'RRRRR', NH: 'DDDDD', NJ: 'DDDDD', NM: 'DDDDD', NV: 'DDDDR', NY: 'DDDDD',
+  OH: 'DDRRR', OK: 'RRRRR', OR: 'DDDDD', PA: 'DDRDR', RI: 'DDDDD', SC: 'RRRRR', SD: 'RRRRR',
+  TN: 'RRRRR', TX: 'RRRRR', UT: 'RRRRR', VA: 'DDDDD', VT: 'DDDDD', WA: 'DDDDD', WV: 'RRRRR',
+  WI: 'DDRDR', WY: 'RRRRR',
+};
+
 const YEARS = [
   { year: '2008', ev: 365, d: 28 },
   { year: '2012', ev: 332, d: 26 },
@@ -12,22 +24,9 @@ const YEARS = [
   { year: '2024', ev: 226, d: 19 },
 ];
 
-// ab, col, row, winners for [2008,2012,2016,2020,2024]
-const STATES: [string, number, number, string][] = [
-  ['ME', 10, 0, 'DDDDD'],
-  ['AK', 0, 1, 'RRRRR'], ['VT', 8, 1, 'DDDDD'], ['NH', 9, 1, 'DDDDD'],
-  ['WA', 0, 2, 'DDDDD'], ['ID', 1, 2, 'RRRRR'], ['MT', 2, 2, 'RRRRR'], ['ND', 3, 2, 'RRRRR'], ['MN', 4, 2, 'DDDDD'], ['WI', 5, 2, 'DDRDR'], ['MI', 7, 2, 'DDRDR'], ['NY', 8, 2, 'DDDDD'], ['MA', 9, 2, 'DDDDD'],
-  ['OR', 0, 3, 'DDDDD'], ['NV', 1, 3, 'DDDDR'], ['WY', 2, 3, 'RRRRR'], ['SD', 3, 3, 'RRRRR'], ['IA', 4, 3, 'DDRRR'], ['IL', 5, 3, 'DDDDD'], ['IN', 6, 3, 'DRRRR'], ['OH', 7, 3, 'DDRRR'], ['PA', 8, 3, 'DDRDR'], ['NJ', 9, 3, 'DDDDD'], ['CT', 10, 3, 'DDDDD'], ['RI', 11, 3, 'DDDDD'],
-  ['CA', 0, 4, 'DDDDD'], ['UT', 1, 4, 'RRRRR'], ['CO', 2, 4, 'DDDDD'], ['NE', 3, 4, 'RRRRR'], ['MO', 4, 4, 'RRRRR'], ['KY', 5, 4, 'RRRRR'], ['WV', 6, 4, 'RRRRR'], ['VA', 7, 4, 'DDDDD'], ['MD', 8, 4, 'DDDDD'], ['DE', 9, 4, 'DDDDD'],
-  ['AZ', 1, 5, 'RRRDR'], ['NM', 2, 5, 'DDDDD'], ['KS', 3, 5, 'RRRRR'], ['AR', 4, 5, 'RRRRR'], ['TN', 5, 5, 'RRRRR'], ['NC', 6, 5, 'DRRRR'], ['SC', 7, 5, 'RRRRR'], ['DC', 8, 5, 'DDDDD'],
-  ['OK', 3, 6, 'RRRRR'], ['LA', 4, 6, 'RRRRR'], ['MS', 5, 6, 'RRRRR'], ['AL', 6, 6, 'RRRRR'], ['GA', 7, 6, 'RRRDR'],
-  ['HI', 0, 7, 'DDDDD'], ['TX', 3, 7, 'RRRRR'], ['FL', 7, 7, 'DDRRR'],
-];
-
-const S = 38;
-const STEP = 43;
 const D_COLOR = '#46679A';
 const R_COLOR = '#A8443A';
+const states = mapData.states as Record<string, string>;
 
 export default function EvMap() {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -56,8 +55,6 @@ export default function EvMap() {
   }, [manual]);
 
   const cur = YEARS[yi];
-  const w = 11 * STEP + S;
-  const h = 7 * STEP + S;
 
   return (
     <div className="evmap" ref={ref}>
@@ -83,17 +80,23 @@ export default function EvMap() {
 
       <svg
         className="evmap-svg"
-        viewBox={`0 0 ${w} ${h}`}
+        viewBox={mapData.viewBox}
         role="img"
         aria-label={`Electoral map ${cur.year}: Democrats won ${cur.d} states plus DC, ${cur.ev} electoral votes.`}
       >
-        {STATES.map(([ab, c, r, winners]) => {
-          const dem = winners[yi] === 'D';
+        {Object.entries(states).map(([ab, d]) => {
+          const dem = (WINNERS[ab] ?? 'RRRRR')[yi] === 'D';
           return (
-            <g key={ab} transform={`translate(${c * STEP}, ${r * STEP})`}>
-              <rect width={S} height={S} rx={5} fill={dem ? D_COLOR : R_COLOR} style={{ transition: 'fill 550ms ease' }} />
-              <text x={S / 2} y={S / 2 + 4} textAnchor="middle" className="evmap-lbl">{ab}</text>
-            </g>
+            <path
+              key={ab}
+              d={d}
+              fill={dem ? D_COLOR : R_COLOR}
+              stroke="#151C26"
+              strokeWidth={0.6}
+              style={{ transition: 'fill 550ms ease' }}
+            >
+              <title>{`${ab} — ${dem ? 'Democratic' : 'Republican'} (${cur.year})`}</title>
+            </path>
           );
         })}
       </svg>
