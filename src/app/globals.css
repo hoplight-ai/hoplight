@@ -82,6 +82,8 @@ strong { font-weight: 500; color: var(--ink); }
 a { color: var(--ink); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 160ms ease-out, color 160ms ease-out, background 160ms ease-out; }
 a:hover { border-bottom-color: var(--gold); }
 a:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(200,146,42,0.55); border-radius: 2px; }
+:where(button, [role="button"], input, textarea, select):focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 3px; }
+.stepper-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(200,146,42,0.6); border-radius: 4px; }
 
 .rule { height: 2px; background: var(--gold); border: 0; width: 64px; margin: 0; }
 
