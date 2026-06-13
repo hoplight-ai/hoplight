@@ -1,28 +1,19 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
-export function Footer() {
+export default function Footer() {
   return (
-    <footer>
-      <div className="container" style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'baseline',
-        flexWrap: 'wrap',
-        gap: '1rem',
-      }}>
-        <div>
-          <p style={{ marginBottom: '0.25rem' }}>Hoplight LLC. Portland, Oregon.</p>
-          <p style={{ marginBottom: '0.5rem', color: 'var(--stone)' }}>AI strategy for labor, advocacy, and mission-driven organizations.</p>
-          <p style={{ marginBottom: 0 }}>
-            <a href="https://ai-policy-tool.vercel.app" target="_blank" rel="noopener noreferrer">ARIA</a>
-            <span style={{ margin: '0 0.75rem' }}>·</span>
-            <Link href="/services">Services</Link>
-            <span style={{ margin: '0 0.75rem' }}>·</span>
-            <Link href="/contact">Contact</Link>
-          </p>
-        </div>
-        <p style={{ marginBottom: 0, fontSize: '0.8rem' }}>© {new Date().getFullYear()} Hoplight LLC</p>
+    <footer className="site">
+      <div className="wrap foot">
+        <Link className="brand" href="/" aria-label="Hoplight home">
+          <svg className="beacon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" fill="#C8922A"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="#1C1813" strokeWidth="1.6" strokeLinecap="round"/>
+          </svg>
+          Hoplight
+        </Link>
+        <span className="meta">AI strategy for labor, advocacy, and mission-driven organizations</span>
+        <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
       </div>
     </footer>
-  )
+  );
 }

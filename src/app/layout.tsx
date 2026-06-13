@@ -1,41 +1,21 @@
-import type { Metadata } from 'next'
-import './globals.css'
-import { Nav } from '@/components/Nav'
-import { Footer } from '@/components/Footer'
+import type { Metadata } from 'next';
+import Nav from '@/components/Nav';
+import Footer from '@/components/Footer';
+import './globals.css';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://hoplight.ai'),
-  title: {
-    default: 'Hoplight | AI systems for labor, advocacy, and mission-driven organizations',
-    template: '%s | Hoplight',
-  },
-  description: 'Hoplight builds production AI systems for labor unions, political campaigns, and organizations operating under high-stakes public-interest constraints. Founded by Whit Kathner.',
-  authors: [{ name: 'Whit Kathner' }],
-  openGraph: {
-    type: 'website',
-    locale: 'en_US',
-    url: 'https://hoplight.ai',
-    siteName: 'Hoplight',
-    title: 'Hoplight | AI systems for labor, advocacy, and mission-driven organizations',
-    description: 'Production AI systems for unions, campaigns, and organizations where failure has real consequences. 130+ systems shipped.',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Hoplight | AI for labor and advocacy',
-    description: 'Production AI systems for unions, campaigns, and values-first organizations. Founded by Whit Kathner.',
-  },
-}
+  title: 'Hoplight — AI strategy for labor, advocacy, and mission-driven organizations',
+  description: 'Hoplight is a vertically integrated AI governance and strategy shop for unions, nonprofits, advocacy groups, and foundations.',
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
         <Nav />
-        <main className="container" style={{ paddingTop: '2rem', paddingBottom: '2rem', minHeight: 'calc(100vh - 200px)' }}>
-          {children}
-        </main>
+        {children}
         <Footer />
       </body>
     </html>
-  )
+  );
 }

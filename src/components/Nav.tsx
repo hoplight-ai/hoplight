@@ -1,43 +1,28 @@
-'use client'
+'use client';
+import { useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { HoplightSymbol } from './HoplightSymbol'
-
-export function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false)
-  const close = () => setMenuOpen(false)
-
+export default function Nav() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const path = usePathname();
+  const links = [
+    { href: '/services', label: 'Services' },
+    { href: '/work', label: 'Work' },
+    { href: '/about', label: 'About' },
+    { href: '/persuasion', label: 'Persuasion' },
+    { href: '/faq', label: 'FAQ' },
+  ];
   return (
-    <header style={{
-      borderBottom: '1px solid rgba(139, 133, 120, 0.12)',
-      background: 'var(--paper)',
-      position: 'sticky',
-      top: 0,
-      zIndex: 100,
-    }}>
-      <nav className="container" style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        height: 'var(--nav-height)',
-        fontSize: '0.9rem',
-        position: 'relative',
-      }}>
-        <Link href="/" onClick={close} style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          fontFamily: 'var(--font-mono)',
-          fontWeight: 500,
-          fontSize: '1.05rem',
-          letterSpacing: '-0.01em',
-          borderBottom: 'none',
-        }}>
-          <HoplightSymbol size={28} />
-          <span>oplight</span>
+    <header className="site">
+      <div className="wrap nav">
+        <Link className="brand" href="/" aria-label="Hoplight home">
+          <svg className="beacon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" fill="#C8922A"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="#1C1813" strokeWidth="1.6" strokeLinecap="round"/>
+          </svg>
+          Hoplight
         </Link>
-
         <button
           className="nav-toggle"
           aria-label="Toggle navigation"
@@ -46,17 +31,15 @@ export function Nav() {
         >
           <span className={`hamburger ${menuOpen ? 'open' : ''}`} />
         </button>
-
-        <div className={`nav-links ${menuOpen ? 'open' : ''}`} style={{ display: 'flex', gap: '1.75rem', alignItems: 'center' }}>
-          <Link href="/services" onClick={close}>Services</Link>
-          <Link href="/work" onClick={close}>Work</Link>
-          <Link href="/about" onClick={close}>About</Link>
-          <Link href="/persuasion" onClick={close}>Persuasion</Link>
-          <Link href="/faq" onClick={close}>FAQ</Link>
-          <a href="https://ai-policy-tool.vercel.app" target="_blank" rel="noopener noreferrer" onClick={close}>ARIA</a>
-          <Link href="/contact" onClick={close} className="cta nav-cta" style={{ marginTop: 0, padding: '0.4rem 1rem', fontSize: '0.85rem' }}>Book a session</Link>
-        </div>
-      </nav>
+        <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
+          {links.map(({ href, label }) => (
+            <Link key={href} href={href} className={path === href ? 'current' : ''}>
+              {label}
+            </Link>
+          ))}
+          <Link className="nav-cta" href="https://calendly.com/whitpendergast">Book a session</Link>
+        </nav>
+      </div>
     </header>
-  )
+  );
 }

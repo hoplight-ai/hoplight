@@ -1,106 +1,227 @@
-import type { Metadata } from 'next'
-import Link from 'next/link'
-
-export const metadata: Metadata = {
-  title: 'Hoplight | AI systems for labor, advocacy, and mission-driven organizations',
-  alternates: { canonical: 'https://hoplight.ai/' },
-}
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          "name": "Hoplight LLC",
-          "url": "https://hoplight.ai",
-          "founder": {
-            "@type": "Person",
-            "name": "Whit Kathner",
-            "alternateName": "Whit Pendergast",
-            "jobTitle": "Founder",
-            "description": "AI strategist directing adoption for a 2-million-member labor union. Previously Regional Campaigns Director at SEIU, co-founder of Republic Restoratives, and operator of 130+ production AI systems across electoral, organizing, and compliance contexts.",
-            "knowsAbout": ["AI Governance", "AI Systems Architecture", "Labor Technology", "Political Campaign Technology", "Psychometric Assessment Design", "Agentic AI Systems", "Generative Engine Optimization", "AI Policy Research", "Workforce Automation Strategy", "Persuasion Systems"],
-            "sameAs": ["https://www.linkedin.com/in/whitkathner"]
-          },
-          "description": "AI systems consultancy for labor unions, political campaigns, progressive organizations, and values-first businesses.",
-          "areaServed": "United States",
-          "knowsAbout": ["AI Governance for Nonprofits", "AI for Labor Unions", "Political Campaign AI", "Agentic AI Operations", "AI Policy Intelligence", "Psychometric Messaging", "Generative Engine Optimization"]
-        })}}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          "name": "Hoplight LLC",
-          "url": "https://hoplight.ai",
-          "serviceType": ["AI Consulting", "AI Systems Architecture", "AI Governance", "Political Technology"],
-          "areaServed": { "@type": "Country", "name": "United States" },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "AI Services",
-            "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Foundation Sprint", "description": "Full-stack AI readiness assessment and implementation roadmap for organizations starting from zero AI adoption" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Capacity Building Cohort", "description": "Multi-organization cohort program with structured curriculum and individual advising on AI adoption" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Generative Engine Optimization Audit", "description": "Ensure your organization is accurately represented by AI systems like ChatGPT, Perplexity, and Google AI Overviews" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Agentic AI Systems Design", "description": "Convert manual operational workflows into autonomous agent architectures that run with minimal supervision" }}
-            ]
-          }
-        })}}
-      />
-
-      <div style={{ marginTop: '2rem' }}>
-        <h1>AI systems for labor, advocacy, and mission-driven organizations.</h1>
-        <p className="subtitle">Hoplight builds AI infrastructure for organizations operating under constraints that most consultancies have never encountered: federal labor law, election compliance, multi-state political operations, collective bargaining strategy, and regulated consumer industries.</p>
-      </div>
-
-      <p>Founded by Whit Kathner, who directs AI strategy for one of the largest labor unions in the United States and previously ran $10M+ in political programs across 20 states. Before AI: co-founded the largest crowdfunded distillery in U.S. history, scaling it to a $10M valuation with no venture capital while managing federal alcohol compliance, $1M+ in regulated advertising, and coast-to-coast distribution.</p>
-
-      <div className="credentials">
-        <p><strong>Current:</strong> Directing AI adoption for a 2-million-member labor union. Authored the organization's governing document on AI. Built <a href="https://ai-policy-tool.vercel.app" target="_blank" rel="noopener noreferrer">ARIA</a>, a policy intelligence tool covering 5,600+ documents across 101 jurisdictions.</p>
-        <p><strong>Validated:</strong> AI-generated messaging that outperforms human progressive alternatives by 26 points with conservative-leaning audiences in randomized controlled trials. Persuasion methodology licensed by a national labor institution for 2026 deployment.</p>
-        <p><strong>Research:</strong> Psychometric assessment audit spanning 65+ theoretical traditions and 290+ subscales. Workforce restructuring analysis tracking the 2025-2026 layoff-to-compute conversion pattern across major tech companies.</p>
-      </div>
-
-      <h2>What we build</h2>
-
-      <div className="grid">
-        <div className="card">
-          <h3>AI governance and readiness</h3>
-          <p>Full-stack AI assessment and implementation for organizations starting from zero. Governance frameworks, vendor audits, staff training, integration roadmaps.</p>
-        </div>
-        <div className="card">
-          <h3>Policy intelligence systems</h3>
-          <p>AI-powered research tools that synthesize thousands of documents into sourced, queryable answers. Live example: ARIA covers 101 jurisdictions.</p>
-        </div>
-        <div className="card">
-          <h3>Agentic operations</h3>
-          <p>Autonomous AI systems that handle the 80% of operational work that follows recognizable patterns, preserving human judgment for the 20% that requires it.</p>
-        </div>
-        <Link href="/persuasion" className="card" style={{ borderBottom: 'none' }}>
-          <h3>Persuasion and messaging systems</h3>
-          <p>AI-generated messaging calibrated to psychographic profiles. RCT-validated. Domain-agnostic framework spanning campaigns, advocacy, and organizational communication.</p>
-        </Link>
-        <div className="card">
-          <h3>Capacity building and training</h3>
-          <p>Multi-org cohort programs and team workshops. Hands-on AI adoption. Participants ship working systems by end of engagement.</p>
-        </div>
-        <div className="card">
-          <h3>Generative engine optimization</h3>
-          <p>Ensure AI systems represent your organization accurately. Schema markup, content structure, authority signals, crawler access. How you show up when people ask ChatGPT about your field.</p>
+      {/* HERO */}
+      <div className="hero">
+        <div className="wrap">
+          <span className="eyebrow">AI strategy for labor, advocacy, and mission-driven organizations</span>
+          <h1>Most organizations are bushwhacking their way through AI. Hoplight is your guide.</h1>
+          <p className="lede">We start at the front line, build for the people who do the work, and treat AI as a way to <strong>grow capacity, not cut it</strong>.</p>
+          <div className="cta-row">
+            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+          </div>
         </div>
       </div>
 
-      <h2>Who this is for</h2>
+      {/* WHO WE WORK WITH */}
+      <section>
+        <div className="wrap">
+          <div className="section-head" style={{ marginBottom: '28px' }}>
+            <span className="label">Who we work with</span>
+            <h2>Organizations doing values-aligned work who need someone who already knows what to do with AI.</h2>
+          </div>
+          <div className="aud">
+            <span>Unions</span>
+            <span>Nonprofits</span>
+            <span>Advocacy groups</span>
+            <span>Foundations</span>
+            <span>Progressive agencies</span>
+            <span>Mission-driven campaigns</span>
+          </div>
+        </div>
+      </section>
 
-      <p>Labor unions navigating AI-driven workforce restructuring. Progressive organizations deploying AI without compromising mission. Advocacy groups that need policy intelligence at scale. Political campaigns that need persuasion systems that hold up under compliance review. Foundations funding AI capacity-building cohorts. Social-justice-anchored businesses operating in regulated industries.</p>
+      {/* MIT beat (the problem) */}
+      <div className="beat">
+        <div className="wrap">
+          <div>
+            <div className="figure"><b>95%</b> of enterprise AI pilots deliver zero return.</div>
+            <span className="src">MIT, State of AI in Business, 2025</span>
+          </div>
+          <p className="read">The reason is rarely the technology. It is the corporate playbook: buy the fancy tool, mandate its use, train people badly, and call the headcount you cut an innovation. <strong>We do the opposite.</strong></p>
+        </div>
+      </div>
 
-      <p>If you're exploring what serious AI infrastructure looks like inside an organization like yours, book a session and we'll scope it.</p>
+      {/* THE CHOICE (slate, collapsible) */}
+      <section className="slate">
+        <div className="wrap">
+          <details className="collapse">
+            <summary>
+              <div className="summary-row">
+                <div>
+                  <span className="label">The choice</span>
+                  <h2 className="lead-head" style={{ margin: '14px 0 0' }}>Two ways to bring AI into an organization. Only one returns value.</h2>
+                </div>
+                <span className="chev" aria-hidden="true">+</span>
+              </div>
+            </summary>
+            <div className="collapse-body">
+              <p className="intro" style={{ maxWidth: '60ch', margin: '24px 0 36px' }}>The most revolutionary technology in recent history just landed in our laps. The billionaire and CEO response has been austerity. There is another way.</p>
+              <div className="choice">
+                <div className="choice-col">
+                  <div className="top">
+                    <span className="kicker">AI austerity</span>
+                    <h3>The corporate playbook</h3>
+                  </div>
+                  <ul>
+                    <li>Lay people off and cut headcounts.</li>
+                    <li>Mandate the tool from the top down.</li>
+                    <li>Surveil and disempower the people using it.</li>
+                    <li>Double the revenue. Call the cut an innovation.</li>
+                  </ul>
+                  <p className="result">97% of AI pilots never exit the pilot phase. More than 70% of deployments return no positive ROI. They fail because they do not prioritize the workers.</p>
+                </div>
+                <div className="choice-col good">
+                  <div className="top">
+                    <span className="kicker">AI abundance</span>
+                    <h3>What Hoplight builds</h3>
+                  </div>
+                  <ul>
+                    <li>Keep your people.</li>
+                    <li>Train them up and meet them where they are.</li>
+                    <li>Build the tools around the workforce you have.</li>
+                    <li>10x the revenue, not 2x it.</li>
+                  </ul>
+                  <p className="result">Do more with the same headcount than you ever have. Your people are pumped, because you empowered them instead of mandating it, and upskilled them past the existential economic dread.</p>
+                </div>
+              </div>
+              <div className="pull">
+                <p>Using the greatest technological innovation in history as a Trojan horse for austerity is visionless.</p>
+                <span className="attr">The Hoplight thesis</span>
+              </div>
+            </div>
+          </details>
+        </div>
+      </section>
 
-      <Link href="/contact" className="cta">Book a session</Link>
+      {/* WHAT HOPLIGHT IS */}
+      <section>
+        <div className="wrap">
+          <span className="label" style={{ display: 'block', marginBottom: '22px' }}>What Hoplight is</span>
+          <h2 className="bigline">A vertically integrated governance strategy shop, built for organizations <span className="em">without a Chief AI Officer</span>.</h2>
+          <p style={{ maxWidth: '60ch', color: 'var(--stone)', margin: '24px 0 48px', fontSize: '1.08rem' }}>Most shops offer one layer: a policy, a training, a pile of tools. Real adoption needs all three layers in the same room, each one respected, empowered, and included.</p>
+
+          <div className="venn-wrap">
+            <svg className="venn" viewBox="0 0 600 500" role="img" aria-label="Three overlapping spheres — Governance, Builders, and Practitioners — meeting at real adoption.">
+              <g>
+                <circle cx="300" cy="180" r="150" fill="rgba(28,24,19,0.05)" stroke="#C8922A" strokeOpacity="0.5" strokeWidth="1.5"/>
+                <circle cx="215" cy="320" r="150" fill="rgba(28,24,19,0.05)" stroke="#C8922A" strokeOpacity="0.5" strokeWidth="1.5"/>
+                <circle cx="385" cy="320" r="150" fill="rgba(28,24,19,0.05)" stroke="#C8922A" strokeOpacity="0.5" strokeWidth="1.5"/>
+                <circle cx="300" cy="272" r="52" fill="rgba(200,146,42,0.92)" stroke="#946514" strokeWidth="2"/>
+              </g>
+              <text className="vlabel" x="300" y="118">GOVERNANCE</text>
+              <text className="vlabel" x="168" y="362">BUILDERS</text>
+              <text className="vlabel" x="432" y="362">PRACTITIONERS</text>
+              <text className="vcenter" x="300" y="270" style={{ fill: '#1C1813' }}>REAL</text>
+              <text className="vcenter" x="300" y="286" style={{ fill: '#1C1813' }}>ADOPTION</text>
+            </svg>
+          </div>
+
+          <div className="cols">
+            <div className="col">
+              <span className="knum">01 / Practitioners</span>
+              <h3>The people who do the work</h3>
+              <p>The front line, closest to the actual work. They know exactly what would help. When left out of the loop, they run shadow AI, open security holes, or quietly sabotage the rollout.</p>
+            </div>
+            <div className="col">
+              <span className="knum">02 / Builders</span>
+              <h3>The pod that can make anything</h3>
+              <p>They can build almost anything you need. When left out of the loop, they ship every idea they have, burn tokens, and build tools nobody asked for.</p>
+            </div>
+            <div className="col">
+              <span className="knum">03 / Governance</span>
+              <h3>The people who set the rules</h3>
+              <p>Legal, HR, compliance, and security. They own risk, regulation, and operational exposure. When left out of the loop, they freeze the work.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BARN DOOR: the non-adopter */}
+      <section className="slate">
+        <div className="wrap">
+          <div className="barn">
+            <span className="label" style={{ display: 'block', marginBottom: '18px' }}>Even if you say no</span>
+            <h2>Not adopting AI? You still have to engage with it.</h2>
+            <p className="intro" style={{ fontSize: '1.1rem' }}>You need to understand your exposure, set an AI policy, vet the vendors layering AI into your stack, give your team talking points, and secure against shadow AI. That holds whether or not you deploy a single tool, and we help you justify the call to your own people.</p>
+            <Link className="more" href="/services">See how we help &rarr;</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* CREDENTIAL TRIPTYCH */}
+      <div className="stats">
+        <div className="wrap">
+          <div className="stat">
+            <div className="num">130+</div>
+            <div className="cap">Unique AI tools, systems, and workflows Hoplight has built.</div>
+          </div>
+          <div className="stat">
+            <div className="num">4&times;</div>
+            <div className="cap">Return on ad spend in regulated, social-issue advertising, generated by an AI brand-voice system.</div>
+          </div>
+          <div className="stat">
+            <div className="num">Zero</div>
+            <div className="cap">Material compliance incidents across the systems Hoplight has shipped.</div>
+          </div>
+        </div>
+      </div>
+
+      {/* WORK (cards) */}
+      <section id="work">
+        <div className="wrap">
+          <div className="section-head" style={{ marginBottom: '36px' }}>
+            <span className="label">Work</span>
+            <h2>Are you still unsure what AI can do for you? Take a look at the tools that national organizations are using.</h2>
+          </div>
+          <div className="workcards">
+            <Link className="workcard" href="/work">
+              <div>
+                <span className="knum">Policy intelligence</span>
+                <h3>AGIS, the AI Governance Intelligence System</h3>
+                <p>Query AI governance across 225 jurisdictions in plain English.</p>
+              </div>
+              <span className="go">View &rarr;</span>
+            </Link>
+            <Link className="workcard" href="/persuasion">
+              <div>
+                <span className="knum">Persuasion</span>
+                <h3>The Psychographic Message Engine</h3>
+                <p>RCT-validated persuasion you can audit, control, and improve.</p>
+              </div>
+              <span className="go">View &rarr;</span>
+            </Link>
+          </div>
+          <a className="more" href="https://visualizations-eta.vercel.app/">See the full portfolio &rarr;</a>
+        </div>
+      </section>
+
+      {/* SERVICES TEASER (links out) */}
+      <section className="slate">
+        <div className="wrap">
+          <div className="section-head" style={{ marginBottom: '24px' }}>
+            <span className="label">Services</span>
+            <h2>Where Hoplight goes to work.</h2>
+            <p className="intro">Governance and readiness, workforce and AI threat assessment, capacity building, custom builds, and AI visibility. Scoped to the organization in front of us.</p>
+          </div>
+          <Link className="more" href="/services">See services in full &rarr;</Link>
+        </div>
+      </section>
+
+      {/* CLOSE */}
+      <section className="slate" id="contact" style={{ paddingTop: 0 }}>
+        <div className="wrap">
+          <hr className="rule" style={{ marginBottom: '36px' }} />
+          <h2>Bring the thing your team hates doing. We will start there.</h2>
+          <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
+          <div className="cta-row" style={{ marginTop: '32px' }}>
+            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+            <a className="btn btn-ghost" href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
+          </div>
+        </div>
+      </section>
     </>
-  )
+  );
 }

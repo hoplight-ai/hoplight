@@ -1,124 +1,113 @@
-import type { Metadata } from 'next'
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Services',
-  description: 'AI governance sprints, capacity building cohorts, agentic systems design, persuasion systems, and GEO audits for labor unions, progressive organizations, and values-first businesses. Book a session or scope an engagement.',
-  alternates: { canonical: 'https://hoplight.ai/services' },
-  openGraph: {
-    title: 'Services | Hoplight',
-    description: 'AI governance, agentic operations, persuasion systems, capacity building, and GEO audits for organizations where the stakes are public.',
-    url: 'https://hoplight.ai/services',
-  },
-}
+  title: 'Services — Hoplight',
+  description: 'Hoplight services: AI governance and readiness, workforce and AI threat assessment, capacity building, custom builds, and AI visibility.',
+};
 
 export default function Services() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "ProfessionalService",
-          "name": "Hoplight LLC",
-          "url": "https://hoplight.ai/services",
-          "serviceType": ["AI Consulting", "AI Governance", "AI Systems Architecture", "Political Technology", "Generative Engine Optimization"],
-          "areaServed": { "@type": "Country", "name": "United States" },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "AI Services",
-            "itemListElement": [
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Foundation Sprint", "description": "Full-stack AI readiness assessment and implementation roadmap" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Capacity Building Cohort", "description": "Multi-organization cohort program with structured curriculum and individual advising" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Agentic AI Systems Design", "description": "Convert manual workflows into autonomous agent architectures" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Persuasion & Messaging Systems", "description": "RCT-validated psychographic messaging calibrated to audience segments" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Generative Engine Optimization Audit", "description": "Ensure accurate AI representation of your organization" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "AI Strategy Session", "description": "One-session clarity on where AI fits in your operation" }},
-              { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Vendor Results Audit", "description": "Assessment of what your AI vendor actually delivered" }}
-            ]
-          }
-        })}}
-      />
-
-      <h1>Services</h1>
-      <p className="subtitle">Engagements and sessions for organizations building serious AI infrastructure.</p>
-
-      <p className="tier-label">Engagements</p>
-
-      <div className="service-item">
-        <h3>AI foundation sprint</h3>
-        <p>Full-stack AI readiness assessment and implementation roadmap for organizations starting from zero. Governance frameworks, vendor audits, staff training plans, integration priorities. You leave with a document your board can act on and your team can execute.</p>
-        <p className="audience">For: organizations that know they need AI infrastructure and need a structured path to building it.</p>
+      <div className="page-hero">
+        <div className="wrap">
+          <span className="label">Services</span>
+          <h1>Where Hoplight goes to work.</h1>
+          <p>Five capabilities, scoped to the organization in front of us. Pricing follows the engagement.</p>
+        </div>
       </div>
 
-      <div className="service-item">
-        <h3>Capacity building cohort</h3>
-        <p>Multi-organization cohort program with structured curriculum and individual advising. Participants ship working systems by the end of the engagement. Hands-on AI adoption, not slide decks about AI adoption. Built for foundations and intermediaries funding AI capacity across their grantee networks.</p>
-        <p className="audience">For: foundations, intermediaries, and network organizations that need to build AI capacity across multiple grantees or affiliates.</p>
-      </div>
+      {/* CAPABILITIES */}
+      <section>
+        <div className="wrap">
+          <div className="svc">
+            <div className="svc-row">
+              <h3>AI governance and readiness</h3>
+              <p>Where AI fits, the guardrails to deploy it without breaking trust or security, a roadmap your board can act on, and a vendor audit of who is already touching your data.</p>
+            </div>
+            <div className="svc-row">
+              <h3>Workforce and AI threat assessment</h3>
+              <p>A leadership-ready read on how AI hits your people, your operations, and your strategic position, with a response your executives can move on.</p>
+            </div>
+            <div className="svc-row">
+              <h3>Capacity building and training</h3>
+              <p>Conversation-first training that builds real fluency. Cohorts for funders, workshops for a team, and the infrastructure that makes it stick.</p>
+            </div>
+            <div className="svc-row">
+              <h3>Custom AI builds</h3>
+              <p>Systems built to your workflow and made to run after we leave. Brand-voice environments, RAG over your own documents, agents for the patterned work.</p>
+            </div>
+            <div className="svc-row">
+              <h3>AI visibility, GEO and AEO</h3>
+              <p>How you show up when the answer comes from a language model. Audit, schema, and structure so AI represents you accurately, before your competitors get there.</p>
+            </div>
+          </div>
+          <p className="formats">We work through a foundation sprint, a funder cohort, a standalone audit, a single build, or licensed access to the message engine. Pricing follows the engagement, and the fastest way to find the right scope is a short conversation.</p>
+        </div>
+      </section>
 
-      <div className="service-item">
-        <h3>Agentic AI systems design</h3>
-        <p>Convert manual operational workflows into autonomous agent architectures. The systems handle the 80% of operational work that follows recognizable patterns, preserving human judgment for the 20% that requires it. Production-grade, monitored, and built to improve over time.</p>
-        <p className="audience">For: organizations spending significant staff time on pattern-matching work that could run autonomously.</p>
-      </div>
+      {/* THE HOPLIGHT APPROACH */}
+      <section className="slate">
+        <div className="wrap">
+          <div className="section-head" style={{ marginBottom: '32px' }}>
+            <span className="label">The Hoplight approach</span>
+            <h2>Start with the thing people hate doing every week. Solve that first.</h2>
+          </div>
+          <p className="unlock" style={{ borderLeftColor: 'var(--gold-bright)', color: 'var(--paper)' }}>The moment that unlocks an organization is when someone says: wait, if it can do this, can it do that? Everything else follows from there.</p>
+          <div className="steps">
+            <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
+              <div className="n" style={{ color: 'var(--gold-bright)' }}>01</div>
+              <div>
+                <h3>Sentiment and stack audit</h3>
+                <p style={{ color: 'rgba(244,240,231,0.7)' }}>Anonymous, no wrong answers. What are people already using, what are they afraid of, and where is the shadow AI. You cannot govern what you cannot see.</p>
+              </div>
+            </div>
+            <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
+              <div className="n" style={{ color: 'var(--gold-bright)' }}>02</div>
+              <div>
+                <h3>Build for real pain points</h3>
+                <p style={{ color: 'rgba(244,240,231,0.7)' }}>A custom prompt that pulls the politically sensitive items into their own section. A brand-voice system. A RAG project over your own documents. Bespoke beats a generic training on Claude every time.</p>
+              </div>
+            </div>
+            <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
+              <div className="n" style={{ color: 'var(--gold-bright)' }}>03</div>
+              <div>
+                <h3>Upskill, do not just train</h3>
+                <p style={{ color: 'rgba(244,240,231,0.7)' }}>You have an intern with access to everything ever written, who starts fresh every morning unless you build the infrastructure for them to step into. We teach people to hold a conversation with that intern, not to Google in a smarter way.</p>
+              </div>
+            </div>
+            <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)', borderBottomColor: 'rgba(244,240,231,0.18)' }}>
+              <div className="n" style={{ color: 'var(--gold-bright)' }}>04</div>
+              <div>
+                <h3>Iterate and maintain</h3>
+                <p style={{ color: 'rgba(244,240,231,0.7)' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-      <div className="service-item">
-        <h3>Persuasion and messaging systems</h3>
-        <p>AI-generated messaging calibrated to psychographic profiles using a five-dimension model of message responsiveness. RCT-validated: 26-point lift over human progressive alternatives with conservative-leaning audiences. The policy stays identical. The frame personalizes. Domain-agnostic framework spanning campaigns, advocacy, healthcare, and organizational communication.</p>
-        <p className="audience">For: campaigns, advocacy organizations, and communications teams that need to reach audiences outside their base.</p>
-      </div>
+      {/* THE NON-ADOPTER */}
+      <section>
+        <div className="wrap">
+          <div className="barn">
+            <span className="label" style={{ display: 'block', marginBottom: '18px' }}>Even if you say no</span>
+            <h2>Not adopting AI? You still have to engage with it.</h2>
+            <p>Even if you never deploy a single tool, you need to understand your exposure, set an AI policy, vet the vendors layering AI into your stack, give your team talking points, and secure against shadow AI. We help you do that, and justify the call to your own people.</p>
+          </div>
+        </div>
+      </section>
 
-      <div className="service-item">
-        <h3>Generative engine optimization audit</h3>
-        <p>How does your organization appear when someone asks ChatGPT, Perplexity, or Google AI Overviews about your field? GEO audits assess your schema markup, content structure, authority signals, and crawler access. You leave with a specific action plan for how AI systems represent you.</p>
-        <p className="audience">For: any organization that needs to be accurately represented by AI answer engines.</p>
-      </div>
-
-      <div className="service-item">
-        <h3>AI governance frameworks</h3>
-        <p>Governance checklists, vendor AI audit frameworks, AI integration plans, staff training programs, and implementation guides. Built for institutions that operate across multiple states and jurisdictions with compliance obligations older than the technology. Governance that meets organizations where they are, not where the AI industry wishes they were.</p>
-        <p className="audience">For: unions, membership organizations, and regulated entities that need governance before they need technology.</p>
-      </div>
-
-      <div style={{ marginTop: '3rem' }}>
-        <p className="tier-label">Start here</p>
-        <p style={{ marginBottom: '1.5rem', color: 'var(--stone)', fontSize: '0.95rem' }}>Individual sessions for when you need clarity before committing to an engagement. Each session is a working meeting. You leave with something concrete.</p>
-      </div>
-
-      <div className="service-item">
-        <h3>AI strategy session</h3>
-        <p>Clarity on where AI fits in your operation. We map your current workflows against what AI can realistically handle today, where the opsec and bias vulnerabilities lie, and what's worth investing in vs. what's hype. Sometimes the answer is "not here, not yet."</p>
-        <p className="audience">For: executives and operators who need direction before committing resources.</p>
-        <a href="https://calendly.com/whitpendergast/ai-strategy-session" target="_blank" rel="noopener noreferrer" className="cta-outline">Book this session</a>
-      </div>
-
-      <div className="service-item">
-        <h3>Where your data goes when you use AI</h3>
-        <p>Each major LLM handles your inputs differently: what gets stored, what gets trained on, what's visible to third parties. You learn what data each one exposes and how to secure it, what each tool is best at, and how to match the right tool to the right task without putting sensitive information at risk.</p>
-        <p className="audience">For: organizations handling strategic planning, member data, donor records, health info, or anything with regulatory exposure.</p>
-        <a href="https://calendly.com/whitpendergast/ai-opsec-w-llm" target="_blank" rel="noopener noreferrer" className="cta-outline">Book this session</a>
-      </div>
-
-      <div className="service-item">
-        <h3>Vendor results audit</h3>
-        <p>Assessment of what your vendor actually delivered. We surface industry best practices to benchmark against and create a clear picture of what's working and what to push back on. Useful before renewal conversations or when something feels off but you can't name it.</p>
-        <p className="audience">For: anyone managing a vendor without exact domain expertise.</p>
-        <a href="https://calendly.com/whitpendergast/vendor-results-audit" target="_blank" rel="noopener noreferrer" className="cta-outline">Book this session</a>
-      </div>
-
-      <div className="service-item">
-        <h3>Research roadmap</h3>
-        <p>You bring the question. We build the path to answering it through frontier AI tools. Prompting best practices, the optimal tools for each research step, and common missteps to avoid.</p>
-        <p className="audience">For: leaders facing a decision who need structured thinking, not more tabs.</p>
-        <a href="https://calendly.com/whitpendergast/session-research-roadmap" target="_blank" rel="noopener noreferrer" className="cta-outline">Book this session</a>
-      </div>
-
-      <div className="service-item">
-        <h3>Meeting intelligence setup: Google Workspace</h3>
-        <p>Secure meeting capture with action items and sensitivity filtering. A working system configured before you hang up.</p>
-        <p className="audience">For: anyone drowning in meetings who needs reliable capture without privacy risk.</p>
-        <a href="https://calendly.com/whitpendergast/session-meeting-intelligence" target="_blank" rel="noopener noreferrer" className="cta-outline">Book this session</a>
-      </div>
+      {/* CLOSE */}
+      <section className="slate" style={{ paddingTop: 0 }}>
+        <div className="wrap">
+          <hr className="rule" style={{ marginBottom: '36px' }} />
+          <h2>Bring the thing your team hates doing. We will start there.</h2>
+          <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
+          <div className="cta-row" style={{ marginTop: '32px' }}>
+            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+          </div>
+        </div>
+      </section>
     </>
-  )
+  );
 }

@@ -11,7 +11,7 @@ const voters = [
   { n: 'Voter C', col: '#6B6457', tint: 'rgba(107,100,87,0.14)', badge: 'Sat out 2024', traits: [45, 62, 41, 58, 52] },
 ];
 
-const demo = [
+const demo: [string, string][] = [
   ['Age', '42'], ['Race', 'White'], ['Gender', 'Male'],
   ['Income', '$72K'], ['Education', 'Some college'], ['Location', 'Suburban OH'],
 ];
@@ -31,8 +31,8 @@ export default function VoterStepper() {
   const [step, setStep] = useState(0);
   const s = steps[step];
   return (
-    <div style={{ background: 'var(--paper, #F4F0E7)', borderRadius: 6, padding: '2rem 1.75rem', border: '1px solid rgba(28,24,19,0.14)' }}>
-      <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--gold-deep, #946514)', marginBottom: 10 }}>
+    <div style={{ background: '#F4F0E7', borderRadius: 6, padding: '2rem 1.75rem', border: '1px solid rgba(28,24,19,0.14)' }}>
+      <div style={{ fontFamily: 'var(--font-mono, monospace)', fontSize: '0.72rem', letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: '#946514', marginBottom: 10 }}>
         {s.k}
       </div>
       <div style={{ fontSize: 'clamp(1.1rem, 1rem + 0.5vw, 1.35rem)', fontWeight: 500, color: ink, lineHeight: 1.25, maxWidth: '38ch', marginBottom: '1.5rem' }}>
@@ -74,13 +74,13 @@ export default function VoterStepper() {
         ))}
       </div>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
-        <button onClick={() => step > 0 && setStep(step - 1)} disabled={step === 0} style={{ background: 'transparent', color: ink, border: `1px solid rgba(28,24,19,0.4)`, borderRadius: 3, padding: '10px 18px', fontSize: 14, fontWeight: 500, cursor: step === 0 ? 'default' : 'pointer', opacity: step === 0 ? 0.35 : 1 }}>Back</button>
+        <button onClick={() => step > 0 && setStep(step - 1)} disabled={step === 0} style={{ background: 'transparent', color: ink, border: '1px solid rgba(28,24,19,0.4)', borderRadius: 3, padding: '10px 18px', fontSize: 14, fontWeight: 500, cursor: step === 0 ? 'default' : 'pointer', opacity: step === 0 ? 0.35 : 1 }}>Back</button>
         <div style={{ display: 'flex', gap: 7 }}>
           {steps.map((_, j) => (
             <span key={j} style={{ width: 8, height: 8, borderRadius: '50%', display: 'inline-block', background: j === step ? gold : 'rgba(107,100,87,0.35)' }} />
           ))}
         </div>
-        <button onClick={() => setStep(step === steps.length - 1 ? 0 : step + 1)} style={{ background: ink, color: 'var(--paper, #F4F0E7)', border: 'none', borderRadius: 3, padding: '10px 18px', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+        <button onClick={() => setStep(step === steps.length - 1 ? 0 : step + 1)} style={{ background: ink, color: '#F4F0E7', border: 'none', borderRadius: 3, padding: '10px 18px', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
           {step === steps.length - 1 ? 'Start over' : 'Next'}
         </button>
       </div>
