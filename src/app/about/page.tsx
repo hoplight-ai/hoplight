@@ -2,8 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'About — Hoplight',
-  description: 'Hoplight is led by Whit Pendergast, a political strategist and AI practitioner working at the intersection of labor, advocacy, and AI.',
+  title: 'About',
+  description:
+    'Hoplight is led by Whit Pendergast, who directs AI strategy inside one of the largest labor unions in the United States. Institutional-grade AI capability for organizations that can’t hire a Chief AI Officer.',
+  alternates: { canonical: '/about' },
+  openGraph: {
+    title: 'About — Hoplight',
+    description: 'Led by Whit Pendergast. Institutional-grade AI capability for mission-driven organizations.',
+    url: 'https://hoplight.ai/about',
+  },
 };
 
 export default function About() {
@@ -12,29 +19,37 @@ export default function About() {
       <div className="page-hero">
         <div className="wrap">
           <span className="label">About</span>
-          <h1>Built in the work, not above it.</h1>
-          <p>A decade in labor and a high-stakes run in regulated commerce. The methods were forged under real constraints, with real money and real outcomes on the line.</p>
+          <h1>Hoplight is led by Whit Pendergast.</h1>
+          <p>Institutional-grade AI capability, brought to the organizations that can&apos;t hire a Chief AI Officer.</p>
         </div>
       </div>
 
       <section>
         <div className="wrap">
           <div className="prose" style={{ maxWidth: '65ch' }}>
-            <p style={{ color: 'var(--ink-soft)', fontSize: '1.15rem' }}>Hoplight is led by Whit Pendergast, a political strategist who learned AI the way his clients will: in natural language, by building tools to solve problems nobody else was solving.</p>
-            <p style={{ color: 'var(--stone)' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p style={{ color: 'var(--stone)' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p style={{ color: 'var(--ink-soft)', fontSize: '1.15rem' }}>Whit directs AI strategy inside one of the largest labor unions in the United States, a 2-million-member organization, where he leads AI adoption, governance, and deployment. He founded Hoplight to bring that same institutional-grade capability to organizations that can&apos;t hire a Chief AI Officer.</p>
+            <p style={{ color: 'var(--stone-deep)' }}>His lane is the hard stuff: fascism, long-term structural reform, and now AI. He started in the labor movement in 2010, left in 2015 to co-found Republic Restoratives, which became the largest crowdfunded distillery in US history, and spent the next years building AI, first to market a regulated product, then to move voters. He has no engineering background. Everything he knows about AI he learned by asking questions in natural language until the tools gave up how they work.</p>
           </div>
-          <Link className="more" href="/work">See the work &rarr;</Link>
+
+          <h2 style={{ margin: '52px 0 18px' }}>Not a solo shop.</h2>
+          <div className="prose" style={{ maxWidth: '65ch' }}>
+            <p style={{ color: 'var(--stone-deep)' }}>Whit leads a team: a project manager, a bench of builders, and trusted subcontractors. Engagements ship, and they keep running after we leave.</p>
+          </div>
+
+          <div className="pull" style={{ marginTop: '40px' }}>
+            <p>We&apos;re always talking to exceptional trainers and builders. If that&apos;s you, reach out.</p>
+            <Link className="more" href="/contact?path=talent" style={{ marginTop: '14px' }}>Work with us &rarr;</Link>
+          </div>
         </div>
       </section>
 
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <hr className="rule" style={{ marginBottom: '36px' }} />
-          <h2>Bring the thing your team hates doing. We will start there.</h2>
+          <h2>Bring the thing your team hates doing. We&apos;ll start there.</h2>
           <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
           <div className="cta-row" style={{ marginTop: '32px' }}>
-            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+            <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>
       </section>
