@@ -29,14 +29,14 @@ const POPULATIONS: Population[] = [
   {
     pop: 'Non-voters',
     lead: '+20–21',
-    leadCap: 'point lift from the AI frames over the Care frame.',
-    note: 'The standard Care frame cut union support 10 pts below the placebo. The AI frames reversed it.',
+    leadCap: 'point lift from the AI frames over the standard progressive frame.',
+    note: 'The standard progressive frame cut union support 10 pts below the placebo. The AI frames reversed it.',
   },
   {
     pop: 'Under 35',
     lead: '+12–14',
-    leadCap: 'point lift from the AI frames over the Care frame.',
-    note: 'The Care frame cut support 9 pts versus placebo. The AI frames pulled it back and past.',
+    leadCap: 'point lift from the AI frames over the standard progressive frame.',
+    note: 'The standard progressive frame cut support 9 pts versus placebo. The AI frames pulled it back and past.',
   },
   {
     pop: 'Working class (under $50K)',
@@ -50,7 +50,7 @@ const POPULATIONS: Population[] = [
     leadCap: 'point lift for Personal Safety over the placebo.',
     frames: [
       { name: 'Personal Safety', pct: 76, kind: 'ai' },
-      { name: 'Care frame', pct: 58, kind: 'care' },
+      { name: 'Standard progressive', pct: 58, kind: 'care' },
       { name: 'Placebo (salt ad)', pct: 54, kind: 'placebo' },
     ],
   },
@@ -59,7 +59,7 @@ const POPULATIONS: Population[] = [
     frames: [
       { name: 'Valor', pct: 81, kind: 'ai' },
       { name: 'Personal Safety', pct: 78, kind: 'ai' },
-      { name: 'Care frame', pct: 70, kind: 'care' },
+      { name: 'Standard progressive', pct: 70, kind: 'care' },
       { name: 'Placebo (salt ad)', pct: 56, kind: 'placebo' },
     ],
   },
@@ -68,7 +68,7 @@ const POPULATIONS: Population[] = [
     frames: [
       { name: 'Personal Safety', pct: 78, kind: 'ai' },
       { name: 'Valor', pct: 78, kind: 'ai' },
-      { name: 'Care frame', pct: 73, kind: 'care' },
+      { name: 'Standard progressive', pct: 73, kind: 'care' },
       { name: 'Placebo (salt ad)', pct: 61, kind: 'placebo' },
     ],
   },
@@ -77,9 +77,9 @@ const POPULATIONS: Population[] = [
     frames: [
       { name: 'AI frames', pct: 79, kind: 'ai' },
       { name: 'Placebo (salt ad)', pct: 58, kind: 'placebo' },
-      { name: 'Care frame', pct: 57, kind: 'care' },
+      { name: 'Standard progressive', pct: 57, kind: 'care' },
     ],
-    flag: 'The Care frame performed below the salt ad.',
+    flag: 'The standard progressive frame performed below the salt ad.',
   },
 ];
 
@@ -166,7 +166,7 @@ export default function Persuasion() {
           </div>
 
           <p className="mirror-bottom">
-            The progressive base held. <span className="em">No erosion on the left.</span>
+            The progressive base held. <span className="em">No erosion on the left.</span> The psychographic approach did not sacrifice the base to reach conservative audiences.
           </p>
         </div>
       </section>
@@ -253,7 +253,7 @@ export default function Persuasion() {
             <h2>The same capability, with a conscience.</h2>
           </div>
           <p className="intro" style={{ maxWidth: '64ch', fontSize: '1.12rem' }}>
-            Ask an off-the-shelf model how to stop a union drive and it will help. Ask Change Agent, the same capability rebuilt with a values-aligned system prompt, and it refuses, then redirects to worker power.
+            Ask an off-the-shelf model how to stop a union drive and it will help. Ask Change Agent, the same capability rebuilt with a values-aligned system prompt, and it refuses, then redirects to worker power. Persuasion you can audit is also persuasion you can govern.
           </p>
         </div>
       </section>
