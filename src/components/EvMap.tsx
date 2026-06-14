@@ -16,12 +16,10 @@ const WINNERS: Record<string, string> = {
   WI: 'DDRDR', WY: 'RRRRR',
 };
 
+// The shift, endpoints only. wi indexes the 5-char WINNERS strings [08,12,16,20,24].
 const YEARS = [
-  { year: '2008', ev: 365, d: 28 },
-  { year: '2012', ev: 332, d: 26 },
-  { year: '2016', ev: 232, d: 20 },
-  { year: '2020', ev: 306, d: 25 },
-  { year: '2024', ev: 226, d: 19 },
+  { year: '2008', ev: 365, d: 28, wi: 0 },
+  { year: '2024', ev: 226, d: 19, wi: 4 },
 ];
 
 const D_COLOR = '#46679A';
@@ -85,7 +83,7 @@ export default function EvMap() {
         aria-label={`Electoral map ${cur.year}: Democrats won ${cur.d} states plus DC, ${cur.ev} electoral votes.`}
       >
         {Object.entries(states).map(([ab, d]) => {
-          const dem = (WINNERS[ab] ?? 'RRRRR')[yi] === 'D';
+          const dem = (WINNERS[ab] ?? 'RRRRR')[cur.wi] === 'D';
           return (
             <path
               key={ab}
