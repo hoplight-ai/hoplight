@@ -9,19 +9,18 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Persuasion — Hoplight',
     description:
-      'The standard progressive frame produces identity backlash with the voters who decide elections. We built the engine the other way around.',
+      'The human-generated progressive frame produces identity backlash with the voters who decide elections. We built the engine the other way around.',
     url: 'https://hoplight.ai/persuasion',
   },
 };
 
-type Frame = { name: string; pct: number; kind: 'ai' | 'placebo' | 'care' };
+type Diff = { overBaseline: number; overHuman: number };
 
 type Population = {
   pop: string;
   lead?: string;
-  leadCap?: string;
   note?: string;
-  frames?: Frame[];
+  diff?: Diff;
   flag?: string;
 };
 
@@ -29,57 +28,37 @@ const POPULATIONS: Population[] = [
   {
     pop: 'Non-voters',
     lead: '+20–21',
-    leadCap: 'point lift from the AI frames over the standard progressive frame.',
-    note: 'The standard progressive frame cut union support 10 pts below the placebo. The AI frames reversed it.',
+    note: 'Care frame cut union support 10 below placebo.',
   },
   {
     pop: 'Under 35',
     lead: '+12–14',
-    leadCap: 'point lift from the AI frames over the standard progressive frame.',
-    note: 'The standard progressive frame cut support 9 pts versus placebo. The AI frames pulled it back and past.',
+    note: 'Care frame cut support 9 below placebo.',
   },
   {
     pop: 'Working class (under $50K)',
     lead: '+6–10',
-    leadCap: 'points: the margin the AI frames added over the standard progressive frame.',
-    note: 'The standard frame underperformed across the board with the voters it claims to speak for.',
+    note: 'AI frames outperformed across the board.',
   },
   {
     pop: 'Latinos',
-    lead: '+22',
-    leadCap: 'point lift for Personal Safety over the placebo.',
-    frames: [
-      { name: 'Personal Safety', pct: 76, kind: 'ai' },
-      { name: 'Standard progressive', pct: 58, kind: 'care' },
-      { name: 'Placebo (salt ad)', pct: 54, kind: 'placebo' },
-    ],
+    diff: { overBaseline: 22, overHuman: 18 },
+    flag: 'Human-generated frame moved just +4 over baseline.',
   },
   {
     pop: 'Republicans',
-    frames: [
-      { name: 'Valor', pct: 81, kind: 'ai' },
-      { name: 'Personal Safety', pct: 78, kind: 'ai' },
-      { name: 'Standard progressive', pct: 70, kind: 'care' },
-      { name: 'Placebo (salt ad)', pct: 56, kind: 'placebo' },
-    ],
+    diff: { overBaseline: 25, overHuman: 11 },
+    flag: 'Hoplight’s +25 nearly doubled human copy’s +14.',
   },
   {
     pop: 'Conservatives',
-    frames: [
-      { name: 'Personal Safety', pct: 78, kind: 'ai' },
-      { name: 'Valor', pct: 78, kind: 'ai' },
-      { name: 'Standard progressive', pct: 73, kind: 'care' },
-      { name: 'Placebo (salt ad)', pct: 61, kind: 'placebo' },
-    ],
+    diff: { overBaseline: 17, overHuman: 5 },
+    flag: 'Hoplight beat human-generated copy by 5 pts.',
   },
   {
     pop: 'Religious Conservatives',
-    frames: [
-      { name: 'AI frames', pct: 79, kind: 'ai' },
-      { name: 'Placebo (salt ad)', pct: 58, kind: 'placebo' },
-      { name: 'Standard progressive', pct: 57, kind: 'care' },
-    ],
-    flag: 'The standard progressive frame performed below the salt ad.',
+    diff: { overBaseline: 21, overHuman: 22 },
+    flag: 'Human-generated frame landed below the placebo.',
   },
 ];
 
@@ -91,7 +70,7 @@ export default function Persuasion() {
         <div className="wrap">
           <span className="label">The Psychographic Message Engine</span>
           <h1>
-            The standard progressive frame doesn&apos;t just fail to persuade. It produces identity backlash with the voters who decide elections.
+            The progressive frame doesn&apos;t just fail to persuade. It produces identity backlash with the voters who decide elections.
           </h1>
           <p>
             Language models are good at persuading people. Putting something in a black box and getting something out that works for reasons you cannot see, tune, or replicate is not a strategy. We built the engine the other way around.
@@ -129,7 +108,7 @@ export default function Persuasion() {
           <div className="section-head" style={{ marginBottom: '36px', maxWidth: '64ch' }}>
             <span className="label">The mirror</span>
             <p className="mirror-context">
-              3,006-person randomized controlled trial. Four conditions: a standard progressive frame written by senior union communications staff, two AI-generated psychographic alternatives, and a placebo (Morton Salt advertisement). August 2025.
+              3,006-person randomized controlled trial. Four conditions: a human-generated progressive frame written by senior union communications staff, two AI-generated psychographic alternatives, and a placebo (Morton Salt advertisement). August 2025.
             </p>
           </div>
 
@@ -143,22 +122,28 @@ export default function Persuasion() {
                     <span className="munit">pts</span>
                   </p>
                 )}
-                {p.leadCap && <p className="mleadcap">{p.leadCap}</p>}
                 {p.note && <p className="mnote">{p.note}</p>}
-                {p.frames && (
-                  <ul className="mbars">
-                    {p.frames.map((f) => (
-                      <li className={`mbar mbar-${f.kind}`} key={f.name}>
-                        <div className="mbar-head">
-                          <span className="mbar-name">{f.name}</span>
-                          <span className="mbar-val">{f.pct}%</span>
+                {p.diff && (
+                  <div className="mdiff">
+                    <span className="mdiff-cap">Hoplight message</span>
+                    {[
+                      { name: 'vs. baseline', val: p.diff.overBaseline, primary: true },
+                      { name: 'vs. human-generated', val: p.diff.overHuman, primary: false },
+                    ].map((d) => (
+                      <div className={`mdiff-row${d.primary ? '' : ' secondary'}`} key={d.name}>
+                        <div className="mdiff-head">
+                          <span className="mdiff-name">{d.name}</span>
+                          <span className="mdiff-val">+{d.val} pts</span>
                         </div>
-                        <div className="mbar-track">
-                          <span className="mbar-fill" style={{ width: `${f.pct}%` }} />
+                        <div className="mdiff-track">
+                          <span
+                            className="mdiff-fill"
+                            style={{ width: `${(d.val / Math.max(p.diff!.overBaseline, p.diff!.overHuman)) * 100}%` }}
+                          />
                         </div>
-                      </li>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 )}
                 {p.flag && <p className="mflag">{p.flag}</p>}
               </article>
@@ -166,7 +151,7 @@ export default function Persuasion() {
           </div>
 
           <p className="mirror-bottom">
-            The progressive base held. <span className="em">No erosion on the left.</span> The psychographic approach did not sacrifice the base to reach conservative audiences.
+            <span className="em">The progressive base held.</span> The psychographic approach didn&apos;t sacrifice the base to reach conservative audiences.
           </p>
         </div>
       </section>
@@ -176,14 +161,14 @@ export default function Persuasion() {
         <div className="wrap">
           <div className="section-head" style={{ marginBottom: '24px' }}>
             <span className="label">Why it works</span>
-            <h2>Build the bridge before you deliver the policy.</h2>
+            <h2>Build the bridge first.</h2>
           </div>
           <p style={{ maxWidth: '62ch', color: 'var(--ink-soft)', fontSize: '1.12rem' }}>
             Deep canvassing builds a bridge into the voter&apos;s worldview before delivering policy. The engine does the same thing through message engineering. Deep canvassing costs $50–100 a conversation and reaches hundreds. The engine reaches millions.
           </p>
           <div className="pull">
             <p>
-              &ldquo;what if instead of viewing that as like that makes me so morally righteous what if i was like they&apos;re good people you&apos;re just oriented around really different things&rdquo;
+              The engine enters the voter&apos;s worldview first, then communicates policy within it.
             </p>
           </div>
         </div>
@@ -200,7 +185,7 @@ export default function Persuasion() {
             The Democracy Alliance is investing tens of millions in creators for 2026. They think it&apos;s a platform problem. But if progressive creators push progressive moral language to non-progressive audiences, the RCT shows it won&apos;t work, and could backfire.
           </p>
           <div className="pull">
-            <p>&ldquo;putting our messaging into a billionaire&apos;s black box is not a scalable strategy&rdquo;</p>
+            <p>Renting persuasion from a black box you can&apos;t see into is not a scalable strategy.</p>
           </div>
         </div>
       </section>

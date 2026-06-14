@@ -526,6 +526,18 @@ footer.site { padding: 48px 0; border-top: 1px solid var(--line); }
 .mbar-ai .mbar-fill { background: var(--gold-bright); }
 .mbar-placebo .mbar-fill { background: rgba(244,240,231,0.32); }
 .mbar-care .mbar-fill { background: rgba(244,240,231,0.18); }
+.mcard .mdiff { margin: 18px 0 0; }
+.mcard .mdiff-cap { display: block; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-bright); margin-bottom: 14px; }
+.mdiff-row { margin-bottom: 14px; }
+.mdiff-row:last-child { margin-bottom: 0; }
+.mdiff-head { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 6px; }
+.mdiff-name { font-size: 0.86rem; color: rgba(244,240,231,0.82); }
+.mdiff-val { font-family: var(--font-mono); font-size: 1.02rem; font-weight: 500; color: var(--gold-bright); font-variant-numeric: tabular-nums lining-nums; }
+.mdiff-track { height: 8px; border-radius: 5px; background: rgba(244,240,231,0.08); overflow: hidden; }
+.mdiff-fill { display: block; height: 100%; border-radius: 5px; background: var(--gold-bright); }
+.mdiff-row.secondary .mdiff-name { color: rgba(244,240,231,0.6); }
+.mdiff-row.secondary .mdiff-val { color: rgba(244,240,231,0.78); }
+.mdiff-row.secondary .mdiff-fill { background: rgba(244,240,231,0.32); }
 .mcard .mflag { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid rgba(244,240,231,0.12); font-size: 0.84rem; line-height: 1.4; color: rgba(244,240,231,0.6); font-style: italic; }
 .mirror-bottom { margin: clamp(36px, 5vw, 56px) 0 0; font-size: clamp(1.3rem, 1.05rem + 1vw, 1.8rem); font-weight: 500; letter-spacing: -0.015em; color: var(--paper); }
 .mirror-bottom .em { color: var(--gold-bright); }
