@@ -20,30 +20,31 @@ export default function Portfolio() {
         <div className="wrap">
           <span className="label">Portfolio</span>
           <h1>Systems we&apos;ve shipped.</h1>
-          <p>A selection of systems we&apos;ve shipped. What each one does, and who it serves.</p>
+          <p>National organizations are running these tools in production. Not proofs of concept.</p>
         </div>
       </div>
 
       <section>
         <div className="wrap">
           <div className="portfolio-grid">
-            <div className="pfcard">
+            <a className="pfcard link" href="https://ai-policy-tool.vercel.app/" target="_blank" rel="noopener noreferrer">
               <h3 className="pfname">AGIS</h3>
               <div className="pfrow">
                 <span className="pflabel">What it does</span>
-                <span className="pfval">AI policy and regulation intelligence over thousands of policy documents across many jurisdictions.</span>
+                <span className="pfval">Query AI governance across 225 jurisdictions and 6,450 sources in plain English. Cross-references what companies promise publicly against what they lobby for privately.</span>
               </div>
               <div className="pfrow">
                 <span className="pflabel">Who it serves</span>
                 <span className="pfval">Policy and advocacy teams.</span>
               </div>
-            </div>
+              <span className="go">Open the tool &rarr;</span>
+            </a>
 
             <div className="pfcard">
               <h3 className="pfname">Change Agent</h3>
               <div className="pfrow">
                 <span className="pflabel">What it does</span>
-                <span className="pfval">A persuasion assistant rebuilt with a values-aligned system prompt, it refuses anti-worker requests and redirects to worker power.</span>
+                <span className="pfval">A persuasion assistant rebuilt with a values-aligned system prompt. Refuses anti-worker requests and redirects to worker power.</span>
               </div>
               <div className="pfrow">
                 <span className="pflabel">Who it serves</span>
@@ -55,7 +56,7 @@ export default function Portfolio() {
               <h3 className="pfname">The Psychographic Message Engine</h3>
               <div className="pfrow">
                 <span className="pflabel">What it does</span>
-                <span className="pfval">Auditable, tunable persuasion messaging validated in a 3,000-person RCT.</span>
+                <span className="pfval">RCT-validated persuasion you can audit, control, and improve. Validated in a 3,006-person randomized controlled trial. 11 to 26 points net lift across conservative segments.</span>
               </div>
               <div className="pfrow">
                 <span className="pflabel">Who it serves</span>
@@ -63,6 +64,54 @@ export default function Portfolio() {
               </div>
               <span className="go">View &rarr;</span>
             </Link>
+
+            <div className="pfcard">
+              <h3 className="pfname">Frontier AI Lab Policy Database</h3>
+              <div className="pfrow">
+                <span className="pflabel">What it does</span>
+                <span className="pfval">A structured database of the governance positions of 15 frontier labs, 283 documents, with CEO dossiers and power maps tracking lobbying and trade-association funding.</span>
+              </div>
+              <div className="pfrow">
+                <span className="pflabel">Who it serves</span>
+                <span className="pfval">Policy staff, researchers, and advocacy teams tracking AI governance.</span>
+              </div>
+            </div>
+
+            <div className="pfcard">
+              <h3 className="pfname">Agent-operated systems</h3>
+              <div className="pfrow">
+                <span className="pflabel">What it does</span>
+                <span className="pfval">Systems that run operational workflows autonomously, then monitor their own outputs. Agents handle the patterned 80%, people keep the judgment calls.</span>
+              </div>
+              <div className="pfrow">
+                <span className="pflabel">Who it serves</span>
+                <span className="pfval">Organizations with high-volume, repeating operational work.</span>
+              </div>
+            </div>
+
+            <div className="pfcard">
+              <h3 className="pfname">AI brand voice for regulated commerce</h3>
+              <div className="pfrow">
+                <span className="pflabel">What it does</span>
+                <span className="pfval">A brand-voice system for a women-owned, queer-led distillery selling a federally regulated product on a hostile ad platform. Compliant, converting, human-sounding copy at 4x return on ad spend.</span>
+              </div>
+              <div className="pfrow">
+                <span className="pflabel">Who it serves</span>
+                <span className="pfval">Consumer brands navigating platform restrictions and compliance requirements.</span>
+              </div>
+            </div>
+
+            <div className="pfcard">
+              <h3 className="pfname">Labor AI intelligence product</h3>
+              <div className="pfrow">
+                <span className="pflabel">What it does</span>
+                <span className="pfval">Reframes the week&apos;s AI developments for political and policy staff at one of the largest labor organizations in the US. Built for people who negotiate contracts, run campaigns, and advise elected officials.</span>
+              </div>
+              <div className="pfrow">
+                <span className="pflabel">Who it serves</span>
+                <span className="pfval">National labor organizations and their political and policy staff.</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
