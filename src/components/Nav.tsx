@@ -10,6 +10,7 @@ export default function Nav() {
     { href: '/services', label: 'Services' },
     { href: '/work', label: 'Work' },
     { href: '/persuasion', label: 'Persuasion' },
+    { href: '/research', label: 'Research' },
     { href: '/about', label: 'About' },
     { href: '/faq', label: 'FAQ' },
     { href: '/contact', label: 'Contact' },
