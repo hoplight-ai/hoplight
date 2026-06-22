@@ -9,11 +9,11 @@ export default function Nav() {
   const links = [
     { href: '/services', label: 'Services' },
     { href: '/work', label: 'Work' },
-    { href: '/persuasion', label: 'Persuasion' },
+    // { href: '/persuasion', label: 'Persuasion' }, // hidden from nav, page still accessible
     { href: '/research', label: 'Research' },
     { href: '/about', label: 'About' },
     { href: '/faq', label: 'FAQ' },
-    { href: '/contact', label: 'Contact' },
+    // { href: '/contact', label: 'Contact' }, // hidden from nav
   ];
   return (
     <header className="site">
