@@ -10,7 +10,7 @@ export default function Nav() {
     { href: '/services', label: 'Services' },
     { href: '/work', label: 'Work' },
     // { href: '/persuasion', label: 'Persuasion' }, // hidden from nav, page still accessible
-    { href: '/research', label: 'Research' },
+    // { href: '/research', label: 'Research' }, // hidden from nav, page still accessible
     { href: '/about', label: 'About' },
     { href: '/faq', label: 'FAQ' },
     // { href: '/contact', label: 'Contact' }, // hidden from nav
