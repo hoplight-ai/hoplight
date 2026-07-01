@@ -99,9 +99,8 @@ export default function Faq() {
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <hr className="rule" style={{ marginBottom: '36px' }} />
-          <h2>Bring the thing your team hates doing. We&apos;ll start there.</h2>
-          <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
-          <div className="cta-row" style={{ marginTop: '32px' }}>
+          <p className="lede">Got a question that&apos;s not here?</p>
+          <div className="cta-row" style={{ marginTop: '24px' }}>
             <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>

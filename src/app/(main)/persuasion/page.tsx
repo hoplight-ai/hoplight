@@ -48,7 +48,7 @@ const POPULATIONS: Population[] = [
   {
     pop: 'Republicans',
     diff: { overBaseline: 25, overHuman: 11 },
-    flag: 'Hoplight’s +25 nearly doubled human copy’s +14.',
+    flag: 'Hoplight outpaced the human-generated frame by 11 points.',
   },
   {
     pop: 'Conservatives',

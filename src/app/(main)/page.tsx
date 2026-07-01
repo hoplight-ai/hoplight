@@ -125,7 +125,7 @@ export default function Home() {
                 <li>Surveil and disempower the people using it.</li>
                 <li>Double the revenue. Call the cut an innovation.</li>
               </ul>
-              <p className="ch-result">97% of AI pilots never exit the pilot phase. They fail because they don&apos;t prioritize the workers.</p>
+              <p className="ch-result">They fail because they don&apos;t prioritize the workers.</p>
             </div>
             <div className="ch-col good">
               <span className="ch-tag">AI abundance</span>
@@ -235,7 +235,7 @@ export default function Home() {
               <div className="wcard-body">
                 <span className="wc-tag">Policy intelligence</span>
                 <h3>AGIS, the AI Governance Intelligence System</h3>
-                <p>Query AI governance across 225 jurisdictions in plain English. Cross-references what companies promise publicly against what they lobby for privately.</p>
+                <p>Query AI governance across 2,100+ jurisdictions and 31,900+ sources in plain English. Cross-references what companies promise publicly against what they lobby for privately.</p>
                 <span className="wc-go">View &rarr;</span>
               </div>
             </Link>
@@ -294,28 +294,7 @@ export default function Home() {
       <section className="svc-section">
         <div className="wrap">
           <h2>Where Hoplight goes to work.</h2>
-          <div className="svc-table">
-            <div className="svc-row">
-              <h3>AI governance and readiness</h3>
-              <p>Where AI fits, the guardrails to deploy it, a roadmap your board can act on, and a vendor audit of who is already touching your data.</p>
-            </div>
-            <div className="svc-row">
-              <h3>Workforce and AI threat assessment</h3>
-              <p>A leadership-ready read on how AI hits your people, your operations, and your strategic position.</p>
-            </div>
-            <div className="svc-row">
-              <h3>Capacity building and training</h3>
-              <p>Conversation-first training that builds real fluency. Cohorts, workshops, infrastructure that sticks.</p>
-            </div>
-            <div className="svc-row">
-              <h3>Custom AI builds</h3>
-              <p>Systems built to your workflow and made to run after we leave. Brand-voice environments, RAG, agents for the patterned work.</p>
-            </div>
-            <div className="svc-row">
-              <h3>AI visibility, GEO and AEO</h3>
-              <p>How you show up when the answer comes from a language model. Audit, schema, structure.</p>
-            </div>
-          </div>
+          <p style={{ color: 'var(--stone-deep)', fontSize: '1.1rem', maxWidth: '50ch' }}>AI governance and readiness. Workforce threat assessment. Capacity building and training. Custom AI builds. AI visibility.</p>
           <Link className="see-more" href="/services">See services in full &rarr;</Link>
         </div>
       </section>

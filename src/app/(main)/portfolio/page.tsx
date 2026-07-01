@@ -31,7 +31,7 @@ export default function Portfolio() {
               <h3 className="pfname">AGIS</h3>
               <div className="pfrow">
                 <span className="pflabel">What it does</span>
-                <span className="pfval">Query AI governance across 225 jurisdictions and 6,450 sources in plain English. Cross-references what companies promise publicly against what they lobby for privately.</span>
+                <span className="pfval">Query AI governance across 2,100+ jurisdictions and 31,900+ sources in plain English. Covers federal and state laws, lobbying spend, CEO political donations, enforcement actions, and the governance positions of 15 frontier AI labs. Cross-references what companies promise publicly against what they lobby for privately.</span>
               </div>
               <div className="pfrow">
                 <span className="pflabel">Who it serves</span>
@@ -64,18 +64,6 @@ export default function Portfolio() {
               </div>
               <span className="go">View &rarr;</span>
             </Link>
-
-            <div className="pfcard">
-              <h3 className="pfname">Frontier AI Lab Policy Database</h3>
-              <div className="pfrow">
-                <span className="pflabel">What it does</span>
-                <span className="pfval">A structured database of the governance positions of 15 frontier labs, 283 documents, with CEO dossiers and power maps tracking lobbying and trade-association funding.</span>
-              </div>
-              <div className="pfrow">
-                <span className="pflabel">Who it serves</span>
-                <span className="pfval">Policy staff, researchers, and advocacy teams tracking AI governance.</span>
-              </div>
-            </div>
 
             <div className="pfcard">
               <h3 className="pfname">Agent-operated systems</h3>
@@ -119,9 +107,8 @@ export default function Portfolio() {
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <hr className="rule" style={{ marginBottom: '36px' }} />
-          <h2>Bring the thing your team hates doing. We&apos;ll start there.</h2>
-          <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
-          <div className="cta-row" style={{ marginTop: '32px' }}>
+          <p className="lede">Something here you want to talk about?</p>
+          <div className="cta-row" style={{ marginTop: '24px' }}>
             <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>

@@ -31,7 +31,7 @@ export default function Work() {
               <div>
                 <span className="knum">Policy intelligence</span>
                 <h3>AGIS, the AI Governance Intelligence System</h3>
-                <p>Query AI governance across 225 jurisdictions and 6,450 sources in plain English. Cross-references what companies promise publicly against what they lobby for privately. Built as a public good for the movement.</p>
+                <p>Query AI governance across 2,100+ jurisdictions and 31,900+ sources in plain English. Built as a public good for the movement.</p>
               </div>
               <span className="go">Open the tool &rarr;</span>
             </a>
@@ -39,36 +39,29 @@ export default function Work() {
               <div>
                 <span className="knum">Persuasion</span>
                 <h3>The Psychographic Message Engine</h3>
-                <p>RCT-validated persuasion you can audit, control, and improve. Validated in a 3,000-person randomized controlled trial.</p>
+                <p>RCT-validated persuasion you can audit, control, and improve. 3,006-person randomized controlled trial.</p>
               </div>
               <span className="go">View &rarr;</span>
             </Link>
             <div className="workcard">
               <div>
-                <span className="knum">Governance corpus</span>
-                <h3>Frontier AI Lab Policy Database</h3>
-                <p>A structured database of the governance positions of 15 frontier labs, 283 documents, with CEO dossiers and power maps tracking lobbying and trade-association funding.</p>
-              </div>
-            </div>
-            <div className="workcard">
-              <div>
                 <span className="knum">Agentic operations</span>
                 <h3>Agent-operated systems</h3>
-                <p>Systems that run operational workflows autonomously, then monitor their own outputs. Agents handle the patterned 80%, people keep the judgment calls.</p>
+                <p>Agents handle the patterned 80%. People keep the judgment calls.</p>
               </div>
             </div>
             <div className="workcard">
               <div>
                 <span className="knum">Regulated commerce</span>
                 <h3>A brand voice that could ship</h3>
-                <p>An AI brand-voice system for a women-owned, queer-led distillery selling a federally regulated product on a hostile ad platform. Compliant, converting, human-sounding copy at a 4x return, then ran without its builder in the room.</p>
+                <p>Compliant, converting, human-sounding copy for a regulated product on a hostile ad platform. 4x return on ad spend, then ran without its builder in the room.</p>
               </div>
             </div>
             <div className="workcard">
               <div>
                 <span className="knum">Labor intelligence</span>
                 <h3>AI intelligence for a national labor organization</h3>
-                <p>An AI intelligence product for the political and policy staff of one of the largest labor organizations in the US. Reframes the week&apos;s AI developments for people who negotiate contracts, run campaigns, and advise elected officials.</p>
+                <p>Reframes the week&apos;s AI developments for political and policy staff at a national labor organization.</p>
               </div>
             </div>
           </div>
@@ -86,9 +79,8 @@ export default function Work() {
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <hr className="rule" style={{ marginBottom: '36px' }} />
-          <h2>Bring the thing your team hates doing. We&apos;ll start there.</h2>
-          <p className="lede">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
-          <div className="cta-row" style={{ marginTop: '32px' }}>
+          <p className="lede">See something that fits?</p>
+          <div className="cta-row" style={{ marginTop: '24px' }}>
             <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>
