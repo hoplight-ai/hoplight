@@ -12,6 +12,7 @@ export default function Nav() {
     // { href: '/persuasion', label: 'Persuasion' }, // hidden from nav, page still accessible
     // { href: '/research', label: 'Research' }, // hidden from nav, page still accessible
     { href: '/about', label: 'About' },
+    { href: '/tools/which-ai', label: 'LLM Guide' },
     { href: '/faq', label: 'FAQ' },
     // { href: '/contact', label: 'Contact' }, // hidden from nav
   ];
