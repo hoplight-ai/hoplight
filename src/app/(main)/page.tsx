@@ -31,44 +31,14 @@ export default function Home() {
               <p className="lede">Hoplight is your guide. We start at the front line, build for the people who do the work, and treat AI as a way to <strong>grow capacity, not cut it</strong>.</p>
               <div className="hero-cta">
                 <Link className="btn-gold" href="/contact">Start a conversation</Link>
-                <a className="btn-outline" href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
               </div>
             </div>
             <div className="hero-stack" aria-hidden="true">
-              <div className="tool-card tc-1">
-                <div className="tc-bar">
-                  <span className="tc-dot" /><span className="tc-dot" /><span className="tc-dot" />
-                  <span className="tc-url">ai-policy-tool.vercel.app</span>
-                </div>
-                <div className="tc-body">
-                  <div className="tc-line" style={{ width: '35%', background: 'rgba(232,168,32,0.4)', height: 6, borderRadius: 3 }} />
-                  <div className="tc-line" style={{ width: '80%', background: 'rgba(255,255,255,0.06)' }} />
-                  <div className="tc-line" style={{ width: '60%', background: 'rgba(255,255,255,0.04)' }} />
-                  <div style={{ display: 'flex', gap: 5, marginTop: 4 }}>
-                    <div style={{ flex: 1, height: 32, background: 'rgba(255,255,255,0.04)', borderRadius: 3 }} />
-                    <div style={{ flex: 1, height: 32, background: 'rgba(255,255,255,0.04)', borderRadius: 3 }} />
-                  </div>
-                </div>
+              <div className="hero-shot hs-1">
+                <img src="/screenshots/agis.png" alt="" width={1228} height={925} loading="eager" />
               </div>
-              <div className="tool-card tc-2">
-                <div className="tc-bar">
-                  <span className="tc-dot" /><span className="tc-dot" /><span className="tc-dot" />
-                  <span className="tc-url">hoplight.ai/engine</span>
-                </div>
-                <div className="tc-body">
-                  <div className="tc-line" style={{ width: '28%', background: 'var(--gold)', height: 7, borderRadius: 3 }} />
-                  <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 48, marginTop: 8 }}>
-                    <div style={{ width: 16, borderRadius: '2px 2px 0 0', background: 'rgba(255,255,255,0.08)', height: '30%' }} />
-                    <div style={{ width: 16, borderRadius: '2px 2px 0 0', background: 'rgba(255,255,255,0.08)', height: '50%' }} />
-                    <div style={{ width: 16, borderRadius: '2px 2px 0 0', background: 'rgba(232,168,32,0.35)', height: '40%' }} />
-                    <div style={{ width: 16, borderRadius: '2px 2px 0 0', background: 'var(--gold)', height: '85%' }} />
-                    <div style={{ width: 16, borderRadius: '2px 2px 0 0', background: 'rgba(232,168,32,0.5)', height: '60%' }} />
-                    <div style={{ width: 16, borderRadius: '2px 2px 0 0', background: 'var(--gold)', height: '100%' }} />
-                    <div style={{ width: 16, borderRadius: '2px 2px 0 0', background: 'rgba(232,168,32,0.4)', height: '70%' }} />
-                  </div>
-                  <div className="tc-line" style={{ width: '50%', background: 'rgba(255,255,255,0.06)', marginTop: 8 }} />
-                  <div className="tc-line" style={{ width: '72%', background: 'rgba(255,255,255,0.04)' }} />
-                </div>
+              <div className="hero-shot hs-2">
+                <img src="/screenshots/pme.png" alt="" width={1270} height={794} loading="eager" />
               </div>
             </div>
           </div>
@@ -102,7 +72,7 @@ export default function Home() {
             </div>
             <div className="problem-body">
               <p className="lead-line">of enterprise AI pilots deliver zero return.</p>
-              <p>The reason is rarely the technology. It&apos;s the corporate playbook: buy the fancy tool, mandate its use, train people badly, and call the headcount you cut an innovation. <strong>We do the opposite.</strong></p>
+              <p>The reason is rarely technology. It&apos;s a stale corporate playbook: buy the fancy tool, mandate its use, train people badly, and call the headcount you cut an innovation. <strong>We do the opposite.</strong></p>
             </div>
           </div>
         </div>
@@ -112,31 +82,32 @@ export default function Home() {
       <section className="choice-section">
         <div className="wrap">
           <div className="choice-header">
-            <h2>Two ways to bring AI into an organization.</h2>
-            <p>The most revolutionary technology in recent history just landed in our laps. The billionaire and CEO response has been austerity. There&apos;s another way.</p>
+            <h2>The Choice: Austerity or Abundance</h2>
+            <p>The most revolutionary technology in recent history just landed in our laps. The billionaire and CEO response has been austerity. <strong>There&apos;s another way.</strong></p>
           </div>
           <div className="choice-grid">
             <div className="ch-col bad">
               <span className="ch-tag">AI austerity</span>
-              <h3>The corporate playbook</h3>
+              <h3>The Corporate Playbook</h3>
               <ul>
-                <li>Lay people off and cut headcounts.</li>
-                <li>Mandate the tool from the top down.</li>
+                <li>Unilaterally determine AI use cases and governance.</li>
+                <li>Mandate tools from the top down.</li>
                 <li>Surveil and disempower the people using it.</li>
-                <li>Double the revenue. Call the cut an innovation.</li>
+                <li>Lay people off and cut headcounts.</li>
+                <li>Call the cut an innovation.</li>
               </ul>
-              <p className="ch-result">They fail because they don&apos;t prioritize the workers.</p>
+              <p className="ch-result">Fails because it doesn&apos;t prioritize the end user of AI: workers.</p>
             </div>
             <div className="ch-col good">
               <span className="ch-tag">AI abundance</span>
-              <h3>What Hoplight builds</h3>
+              <h3>Building with Hoplight</h3>
               <ul>
+                <li>Your team identifies the highest ROI deployments for AI.</li>
+                <li>Build the tools and workflows around their priority use cases.</li>
+                <li>Train your team up by meeting them where they are.</li>
                 <li>Keep your people.</li>
-                <li>Train them up and meet them where they are.</li>
-                <li>Build the tools around the workforce you have.</li>
-                <li>10x the revenue, not 2x it.</li>
+                <li>Do more, with the same headcount, than you ever have before.</li>
               </ul>
-              <p className="ch-result">Do more with the same headcount than you ever have. Your people are pumped, because you empowered them.</p>
             </div>
           </div>
           <div className="pull" style={{ marginTop: 40 }}>
@@ -150,8 +121,8 @@ export default function Home() {
       <section className="ident">
         <div className="wrap">
           <div className="ident-top">
-            <h2>A vertically integrated governance strategy shop.</h2>
-            <p>Built for organizations without a Chief AI Officer. Most shops offer one layer: a policy, a training, a pile of tools. Real adoption needs all three in the same room.</p>
+            <h2>Built for organizations without a Chief AI Officer.</h2>
+            <p>Most shops offer one layer: a policy, a training, a pile of tools. Real adoption needs all three in the same room.</p>
           </div>
           <div className="venn-wrap">
             <svg className="venn" viewBox="0 0 600 500" role="img" aria-label="Three overlapping spheres — Governance, Builders, and Practitioners — meeting at real adoption.">
@@ -177,7 +148,7 @@ export default function Home() {
             <div className="ident-col">
               <span className="ic-num">02</span>
               <h3>Builders</h3>
-              <p>They can build almost anything you need. When left out, they ship every idea they have and build tools nobody asked for.</p>
+              <p>They can build almost anything you need. When left out, they ship every idea they have and may build tools nobody asked for.</p>
             </div>
             <div className="ident-col">
               <span className="ic-num">03</span>
@@ -202,10 +173,14 @@ export default function Home() {
             </div>
             <div className="proof-item">
               <div className="proof-num">Zero</div>
-              <div className="proof-cap">Material compliance incidents across shipped systems.</div>
+              <div className="proof-cap">compliance incidents across shipped systems.</div>
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="wrap" style={{ textAlign: 'center', paddingTop: '32px' }}>
+        <Link className="see-more" href="/services">See services in full &rarr;</Link>
       </div>
 
       {/* WORK */}
@@ -218,49 +193,23 @@ export default function Home() {
           <div className="work-cards">
             <Link className="wcard" href="/work">
               <div className="wcard-img">
-                <div className="wcard-mock" aria-hidden="true">
-                  <div className="wm-bar"><span className="wm-dot" /><span className="wm-dot" /><span className="wm-dot" /><span className="wm-url">ai-policy-tool.vercel.app</span></div>
-                  <div className="wm-body">
-                    <div className="wm-ln" style={{ width: '30%', background: 'var(--gold)', height: 6, borderRadius: 3 }} />
-                    <div className="wm-ln" style={{ width: '85%', background: 'rgba(255,255,255,0.07)' }} />
-                    <div className="wm-ln" style={{ width: '65%', background: 'rgba(255,255,255,0.05)' }} />
-                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 5, marginTop: 3 }}>
-                      <div style={{ height: 28, background: 'rgba(255,255,255,0.04)', borderRadius: 3 }} />
-                      <div style={{ height: 28, background: 'rgba(255,255,255,0.04)', borderRadius: 3 }} />
-                    </div>
-                    <div className="wm-ln" style={{ width: '50%', background: 'rgba(255,255,255,0.05)', marginTop: 3 }} />
-                  </div>
-                </div>
+                <img className="wcard-shot" src="/screenshots/agis.png" alt="AGIS search interface showing a world map and plain-English AI governance queries." width={1228} height={925} />
               </div>
               <div className="wcard-body">
                 <span className="wc-tag">Policy intelligence</span>
                 <h3>AGIS, the AI Governance Intelligence System</h3>
-                <p>Query AI governance across 2,100+ jurisdictions and 31,900+ sources in plain English. Cross-references what companies promise publicly against what they lobby for privately.</p>
+                <p>Query AI governance across 2,100+ jurisdictions in plain English. Cross-references what companies promise publicly against what they lobby for privately.</p>
                 <span className="wc-go">View &rarr;</span>
               </div>
             </Link>
             <Link className="wcard" href="/persuasion">
               <div className="wcard-img">
-                <div className="wcard-mock" aria-hidden="true">
-                  <div className="wm-bar"><span className="wm-dot" /><span className="wm-dot" /><span className="wm-dot" /><span className="wm-url">hoplight.ai/persuasion</span></div>
-                  <div className="wm-body">
-                    <div className="wm-ln" style={{ width: '40%', background: 'var(--gold)', height: 6, borderRadius: 3 }} />
-                    <div style={{ display: 'flex', alignItems: 'flex-end', gap: 4, height: 44, marginTop: 6 }}>
-                      <div style={{ width: 14, height: '35%', background: 'rgba(255,255,255,0.07)', borderRadius: '2px 2px 0 0' }} />
-                      <div style={{ width: 14, height: '55%', background: 'rgba(255,255,255,0.07)', borderRadius: '2px 2px 0 0' }} />
-                      <div style={{ width: 14, height: '45%', background: 'rgba(232,168,32,0.3)', borderRadius: '2px 2px 0 0' }} />
-                      <div style={{ width: 14, height: '80%', background: 'var(--gold)', borderRadius: '2px 2px 0 0' }} />
-                      <div style={{ width: 14, height: '100%', background: 'var(--gold)', borderRadius: '2px 2px 0 0' }} />
-                      <div style={{ width: 14, height: '60%', background: 'rgba(232,168,32,0.4)', borderRadius: '2px 2px 0 0' }} />
-                    </div>
-                    <div className="wm-ln" style={{ width: '60%', background: 'rgba(255,255,255,0.05)', marginTop: 6 }} />
-                  </div>
-                </div>
+                <img className="wcard-shot" src="/screenshots/pme.png" alt="The Psychographic Message Engine one-pager showing its four auditable layers and recursive loop." width={1270} height={794} />
               </div>
               <div className="wcard-body">
                 <span className="wc-tag">Persuasion</span>
                 <h3>The Psychographic Message Engine</h3>
-                <p>RCT-validated persuasion you can audit, control, and improve. 11 to 26 points net lift across conservative segments.</p>
+                <p>11 to 26 points net sentiment lift across conservative segments. RCT-validated persuasion you can audit, control, and improve.</p>
                 <span className="wc-go">View &rarr;</span>
               </div>
             </Link>
@@ -274,7 +223,7 @@ export default function Home() {
         <div className="wrap">
           <div className="barn-grid">
             <div>
-              <h2>Not adopting AI? You still have to engage with it.</h2>
+              <h2>Not adopting AI? Governance is still essential.</h2>
               <p>You need to understand your exposure, set an AI policy, vet the vendors layering AI into your stack, and secure against shadow AI.</p>
               <Link className="see-more" href="/services">See how we help &rarr;</Link>
             </div>
@@ -290,12 +239,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICES */}
-      <section className="svc-section">
+      {/* LLM PICKER PROMO */}
+      <section className="tool-promo">
         <div className="wrap">
-          <h2>Where Hoplight goes to work.</h2>
-          <p style={{ color: 'var(--stone-deep)', fontSize: '1.1rem', maxWidth: '50ch' }}>AI governance and readiness. Workforce threat assessment. Capacity building and training. Custom AI builds. AI visibility.</p>
-          <Link className="see-more" href="/services">See services in full &rarr;</Link>
+          <div className="tool-promo-inner">
+            <span className="label">Free tool</span>
+            <h2>Not sure which AI to use?</h2>
+            <p>Answer a few questions about your use case and security requirements. Get a recommendation you can act on.</p>
+            <Link className="btn btn-primary" href="/tools/which-ai">Try the LLM Guide &rarr;</Link>
+          </div>
         </div>
       </section>
 

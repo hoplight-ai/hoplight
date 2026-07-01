@@ -1,10 +1,10 @@
 /* Hoplight v2. White workshop surface, true-black punctuation, electric gold. */
 :root {
-  /* Ink / dark */
-  --ink: #0C0C0C;
-  --ink-mid: #1A1A1A;
-  --ink-soft: #3A3A3A;
-  --slate: #0C0C0C;            /* legacy alias: dark sections are now true black */
+  /* Ink / dark — deep navy palette */
+  --ink: #0F1B2D;
+  --ink-mid: #162640;
+  --ink-soft: #2A3F5F;
+  --slate: #0F1B2D;            /* legacy alias: dark sections are deep navy */
 
   /* Light surfaces */
   --surface: #F5F5F0;
@@ -106,7 +106,7 @@ a:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(212,149,10,0.55); bo
 .btn-outline:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
 
 /* === NAV: dark, persistent, tight === */
-header.site { position: sticky; top: 0; z-index: 50; background: rgba(12,12,12,0.97); backdrop-filter: blur(12px); color: #fff; }
+header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0.97); backdrop-filter: blur(12px); color: #fff; }
 .nav { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 12px 0; }
 .brand { font-family: var(--font-body); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.88rem; border: 0; display: inline-flex; align-items: center; gap: 9px; color: #fff; }
 .brand:hover { border-bottom-color: transparent; }
@@ -133,7 +133,7 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(12,12,12,0
   .nav-links.open {
     display: flex; flex-direction: column; width: 100%;
     position: absolute; top: 100%; left: 0;
-    background: #0C0C0C; padding: 0 clamp(20px, 4vw, 48px) 16px;
+    background: #0F1B2D; padding: 0 clamp(20px, 4vw, 48px) 16px;
     border-bottom: 1px solid var(--line-dark);
     box-shadow: 0 14px 30px rgba(0,0,0,0.5);
   }
@@ -156,8 +156,8 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(12,12,12,0
 
 /* Hero visual: stacked tool cards */
 .hero-stack { position: relative; height: clamp(260px, 30vw, 380px); }
-.tool-card { position: absolute; background: #1A1A1A; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
-.tool-card .tc-bar { height: 28px; background: #222; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; padding: 0 10px; gap: 5px; }
+.tool-card { position: absolute; background: #162640; border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5); }
+.tool-card .tc-bar { height: 28px; background: #1E3252; border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; padding: 0 10px; gap: 5px; }
 .tool-card .tc-dot { width: 7px; height: 7px; border-radius: 50%; background: #444; }
 .tool-card .tc-url { margin-left: 8px; font-family: var(--font-mono); font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 0.02em; }
 .tool-card .tc-body { padding: 12px; }
@@ -170,11 +170,11 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(12,12,12,0
 }
 
 /* === AUDIENCE: gold-backed strip === */
-.aud-strip { background: var(--gold-bg); padding: 16px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
+.aud-strip { background: var(--gold-bg); padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
 .aud-inner { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.aud-label { font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-deep); white-space: nowrap; }
+.aud-label { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-deep); white-space: nowrap; }
 .aud-list { display: flex; flex-wrap: wrap; gap: 6px; }
-.aud-list span { font-size: 0.82rem; color: var(--ink-soft); font-weight: 500; }
+.aud-list span { font-size: 1rem; color: var(--ink-soft); font-weight: 500; }
 .aud-list span:not(:last-child)::after { content: '\00B7'; margin-left: 6px; color: var(--stone); }
 
 /* === PROBLEM: figure + read === */
@@ -214,7 +214,7 @@ section { padding: var(--space-section) 0; }
 .ch-col { padding: 28px clamp(20px, 3vw, 32px); }
 .ch-col.bad { background: var(--surface-card); border-radius: 8px 0 0 8px; }
 .ch-col.good { background: var(--ink); color: #fff; border-radius: 0 8px 8px 0; }
-.ch-col .ch-tag { display: inline-block; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 3px 10px; border-radius: 3px; margin-bottom: 14px; }
+.ch-col .ch-tag { display: inline-block; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; padding: 4px 12px; border-radius: 3px; margin-bottom: 14px; }
 .ch-col.bad .ch-tag { background: rgba(0,0,0,0.06); color: var(--stone-deep); }
 .ch-col.good .ch-tag { background: var(--gold); color: var(--ink); }
 .ch-col h3 { font-size: 1.1rem; margin-bottom: 14px; }
@@ -225,7 +225,7 @@ section { padding: var(--space-section) 0; }
 .ch-col li::before { position: absolute; left: 0; top: 0; font-weight: 700; }
 .ch-col.bad li::before { content: '\2013'; color: var(--stone); }
 .ch-col.good li::before { content: '+'; color: var(--gold-hot); }
-.ch-col .ch-result { font-size: 0.82rem; padding-top: 14px; border-top: 1px solid rgba(128,128,128,0.2); }
+.ch-col .ch-result { font-size: 0.9rem; font-style: italic; font-weight: 500; margin-top: 6px; padding-top: 14px; border-top: 2px solid var(--gold); }
 .ch-col.bad .ch-result { color: var(--stone); }
 .ch-col.good .ch-result { color: rgba(255,255,255,0.5); }
 @media (max-width: 640px) {
@@ -287,8 +287,8 @@ section { padding: var(--space-section) 0; }
 .wcard { display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: var(--white); border: 1px solid var(--line); transition: border-color 160ms, box-shadow 160ms; }
 .wcard:hover { border-color: var(--gold); box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
 .wcard-img { background: var(--ink); aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
-.wcard-mock { width: 82%; height: 72%; background: #1A1A1A; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
-.wm-bar { height: 22px; background: #222; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; padding: 0 8px; gap: 4px; }
+.wcard-mock { width: 82%; height: 72%; background: #162640; border-radius: 6px; border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
+.wm-bar { height: 22px; background: #1E3252; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; align-items: center; padding: 0 8px; gap: 4px; }
 .wm-dot { width: 6px; height: 6px; border-radius: 50%; background: #444; }
 .wm-url { font-family: var(--font-mono); font-size: 8px; color: rgba(255,255,255,0.2); margin-left: 6px; }
 .wm-body { padding: 10px; display: flex; flex-direction: column; gap: 5px; }
@@ -621,3 +621,30 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .foot .foot-links { display: inline-flex; gap: 18px; align-items: baseline; flex-wrap: wrap; }
 .foot a { color: var(--stone-deep); font-size: 0.82rem; font-weight: 500; }
 .foot a:hover { color: var(--ink); }
+
+/* === MVP: real product screenshots === */
+/* Hero stacked shots (replace CSS placeholder cards) */
+.hero-shot { position: absolute; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.12); box-shadow: 0 10px 34px rgba(0,0,0,0.5); background: var(--ink-mid); }
+.hero-shot img { display: block; width: 100%; height: auto; }
+.hs-1 { width: 82%; right: 0; top: 2%; transform: rotate(2deg); z-index: 1; }
+.hs-2 { width: 84%; left: 0; top: 34%; transform: rotate(-1.5deg); z-index: 2; }
+@media (max-width: 768px) {
+  .hs-1 { top: 0; }
+  .hs-2 { top: 42%; }
+}
+
+/* Work-card screenshots (fill 16:9 image well) */
+.wcard-shot { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+
+/* === MVP: LLM picker promo callout === */
+.tool-promo { background: var(--gold-bg); padding: clamp(40px, 5vw, 64px) 0; border-top: 3px solid var(--gold); border-bottom: 1px solid rgba(0,0,0,0.08); }
+.tool-promo-inner { max-width: 60ch; }
+.tool-promo .label { display: block; margin-bottom: 12px; }
+.tool-promo h2 { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.2rem); margin-bottom: 10px; }
+.tool-promo p { color: var(--ink-soft); font-size: 1rem; max-width: 52ch; margin-bottom: 22px; }
+
+/* === MVP: MIT credential badge (About) === */
+.mit-credential { display: inline-flex; align-items: center; gap: 16px; margin-top: 24px; padding: 16px 20px; background: var(--white); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 6px; }
+.mit-credential img { height: 46px; width: auto; display: block; }
+.mit-credential .mc-text { font-size: 0.9rem; color: var(--stone-deep); max-width: 34ch; line-height: 1.4; }
+@media (max-width: 480px) { .mit-credential { flex-direction: column; align-items: flex-start; gap: 12px; } }
