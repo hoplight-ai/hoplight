@@ -2,6 +2,9 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  async rewrites() {
+    return [{ source: '/pme', destination: '/pme.html' }]
+  },
   async redirects() {
     return [
       { source: '/index.html', destination: '/', permanent: true },
