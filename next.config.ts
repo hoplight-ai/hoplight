@@ -3,10 +3,12 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   output: 'standalone',
   async rewrites() {
-    return [{ source: '/pme', destination: '/pme.html' }]
+    return [{ source: '/engine', destination: '/engine.html' }]
   },
   async redirects() {
     return [
+      { source: '/pme', destination: '/engine', permanent: false },
+      { source: '/pme.html', destination: '/engine', permanent: false },
       { source: '/index.html', destination: '/', permanent: true },
       { source: '/services.html', destination: '/services', permanent: true },
       { source: '/work.html', destination: '/work', permanent: true },
