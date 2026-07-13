@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { FACTS } from '@/lib/facts';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -27,9 +28,9 @@ export default function About() {
       <section>
         <div className="wrap">
           <div className="prose" style={{ maxWidth: '65ch' }}>
-            <p style={{ color: 'var(--ink-soft)', fontSize: '1.15rem' }}>Whit leads AI strategy inside one of the largest labor unions in North America, guiding adoption, governance, and deployment across a 2-million-member organization. He founded Hoplight to fill a gap in the AI ecosystem: values-aligned, pro-growth AI adoption that centers and empowers workers.</p>
+            <p style={{ color: 'var(--ink-soft)', fontSize: '1.15rem' }}>Whit leads AI strategy inside one of the largest labor unions in North America, guiding adoption, ethical governance, and deployment across a 2-million-member organization. He founded Hoplight to fill a gap in the AI ecosystem: values-aligned, pro-growth AI adoption that centers and empowers workers.</p>
             <p style={{ color: 'var(--stone-deep)' }}>Twenty years of building at the cutting edge. He started in the labor movement in 2010, where he built a network intelligence system for managing movement relationships and political capital during the campaign to defeat right-to-work legislation - one of the few bright spots for labor in that political era. He left in 2015 to co-found Republic Restoratives, producers of Fascist Tears Vodka and Dissent Gin, which became the largest crowdfunded distillery in US history - because the banks wouldn&apos;t fund them. He got the distillery registered with the FDA, pivoted it to become the second distillery in the country to produce hand sanitizer during the pandemic, and got the product listed on Amazon Prime.</p>
-            <p style={{ color: 'var(--stone-deep)' }}>From frontline congressional races to blind door-knock programs that drove turnout in New Hampshire to selling hand sanitizer in the depths of the pandemic, his career has been defined by building things other people said couldn&apos;t work. He spent the next years building AI: first to market a regulated product on a hostile ad platform at 4x return on ad spend, then to move voters in a 3,006-person randomized controlled trial.</p>
+            <p style={{ color: 'var(--stone-deep)' }}>From frontline congressional races to blind door-knock programs that drove turnout in New Hampshire to selling hand sanitizer in the depths of the pandemic, his career has been defined by building things other people said couldn&apos;t work. He spent the next years building AI: first to market a regulated product on a hostile ad platform at {FACTS.company.roas} return on ad spend, then to move voters in a {FACTS.rct.n}-person randomized controlled trial.</p>
             <p style={{ color: 'var(--stone-deep)' }}>He has no engineering background. Everything he knows about AI he learned by asking questions in natural language until the tools gave up how they work. He holds a certificate from MIT in Agentic AI for Organizational Transformation.</p>
           </div>
 

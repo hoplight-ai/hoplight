@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import { FACTS } from '@/lib/facts';
 
 const orgSchema = {
   '@context': 'https://schema.org',
@@ -28,10 +29,11 @@ export default function Home() {
           <div className="hero-grid">
             <div>
               <h1>Most organizations are bushwhacking their way through AI.</h1>
-              <p className="lede">Hoplight is your guide. We start at the front line, build for the people who do the work, and treat AI as a way to <strong>grow capacity, not cut it</strong>.</p>
+              <p className="lede">{FACTS.company.pilotFailure} of enterprise AI pilots return nothing (MIT). Hoplight builds the ones that do: <strong>{FACTS.company.systems} production AI systems</strong> for the labor, advocacy, and mission-driven organizations that can&apos;t hire a Chief AI Officer.</p>
               <div className="hero-cta">
                 <Link className="btn-gold" href="/contact">Start a conversation</Link>
               </div>
+              <p className="lede" style={{ marginTop: 18, fontSize: '0.9rem' }}>Hoplight&apos;s founder {FACTS.founder}.</p>
             </div>
             <div className="hero-stack" aria-hidden="true">
               <div className="hero-shot hs-1">
@@ -67,7 +69,7 @@ export default function Home() {
         <div className="wrap">
           <div className="problem-row">
             <div>
-              <div className="problem-fig"><span className="pct">95%</span></div>
+              <div className="problem-fig"><span className="pct">{FACTS.company.pilotFailure}</span></div>
               <span className="src-line">MIT, State of AI in Business, 2025</span>
             </div>
             <div className="problem-body">
@@ -93,7 +95,7 @@ export default function Home() {
                 <li>Unilaterally determine AI use cases and governance.</li>
                 <li>Mandate tools from the top down.</li>
                 <li>Surveil and disempower the people using it.</li>
-                <li>Lay people off and cut headcounts.</li>
+                <li>Lay people off, cut headcount, double revenue.</li>
                 <li>Call the cut an innovation.</li>
               </ul>
               <p className="ch-result">Fails because it doesn&apos;t prioritize the end user of AI: workers.</p>
@@ -105,8 +107,8 @@ export default function Home() {
                 <li>Your team identifies the highest ROI deployments for AI.</li>
                 <li>Build the tools and workflows around their priority use cases.</li>
                 <li>Train your team up by meeting them where they are.</li>
-                <li>Keep your people.</li>
-                <li>Do more, with the same headcount, than you ever have before.</li>
+                <li>Keep your people, train them up.</li>
+                <li>10x your revenue, not 2x it.</li>
               </ul>
             </div>
           </div>
@@ -164,16 +166,16 @@ export default function Home() {
         <div className="wrap">
           <div className="proof-grid">
             <div className="proof-item">
-              <div className="proof-num">130+</div>
+              <div className="proof-num">{FACTS.company.systems}</div>
               <div className="proof-cap">Unique AI tools, systems, and workflows built and shipped.</div>
             </div>
             <div className="proof-item">
-              <div className="proof-num">4&times;</div>
-              <div className="proof-cap">Return on ad spend in regulated, social-issue advertising.</div>
+              <div className="proof-num">{FACTS.company.roas}</div>
+              <div className="proof-cap">Return on {FACTS.company.adSpend} in regulated, social-issue ad spend.</div>
             </div>
             <div className="proof-item">
               <div className="proof-num">Zero</div>
-              <div className="proof-cap">compliance incidents across shipped systems.</div>
+              <div className="proof-cap">compliance incidents across {FACTS.company.adSpend} in regulated-industry ad spend.</div>
             </div>
           </div>
         </div>
@@ -209,7 +211,7 @@ export default function Home() {
               <div className="wcard-body">
                 <span className="wc-tag">Persuasion</span>
                 <h3>The Psychographic Message Engine</h3>
-                <p>11 to 26 points net sentiment lift across conservative segments. RCT-validated persuasion you can audit, control, and improve.</p>
+                <p>Validated in a {FACTS.rct.n}-person voter-file-matched RCT: up to {FACTS.rct.liftVsBaseline} points over a no-message baseline. Persuasion you can audit, control, and improve.</p>
                 <span className="wc-go">View &rarr;</span>
               </div>
             </Link>
@@ -244,9 +246,9 @@ export default function Home() {
         <div className="wrap">
           <div className="tool-promo-inner">
             <span className="label">Free tool</span>
-            <h2>Not sure which AI to use?</h2>
-            <p>Answer a few questions about your use case and security requirements. Get a recommendation you can act on.</p>
-            <Link className="btn btn-primary" href="/tools/which-ai">Try the LLM Guide &rarr;</Link>
+            <h2>Trying to pick an AI tool?</h2>
+            <p>Use Which AI, our free guide to what each platform does well and what it does with your data.</p>
+            <Link className="btn btn-primary" href="/tools/which-ai">Use Which AI &rarr;</Link>
           </div>
         </div>
       </section>

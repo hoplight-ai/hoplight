@@ -18,19 +18,19 @@ export const metadata: Metadata = {
 const faqs: { q: string; a: string }[] = [
   {
     q: 'How do you protect our data and our members’ information?',
-    a: 'Your data stays yours. We design every engagement around what is safe to put in front of a model and what never leaves your walls, we set the access rules and the vendor boundaries first, and we train your team on what not to paste. Security comes before any tool goes live.',
+    a: 'We treat your data, and your members’ data, as the whole ballgame. We only build on platform tiers that give you contractual data protection, not just feature promises. Free and consumer-grade tiers can expose your inputs to model training and human review, so we never put member data, strategy documents, or internal communications on them. Before we deploy anything, you get a plain-English breakdown of exactly where your data goes, what the vendor retains, and for how long.',
   },
   {
     q: 'What if we choose the wrong tool, or the wrong direction?',
-    a: 'That’s the risk we’re hired to remove. We start with a sentiment and stack audit so decisions follow evidence, not hype, and we build for a real problem your team already has rather than betting on a tool. Direction is set with you, and it’s reversible.',
+    a: 'That’s the most common way organizations burn money on AI, and it’s why engagements start with your workflows, not a product list. Tools are the last decision we make, not the first. And because we don’t resell anyone’s software, we have no stake in which platform you land on.',
   },
   {
     q: 'What if our members or staff find out we are using AI?',
-    a: 'Then they should see an organization that did it the right way. We build worker-first, with your people, solving problems they named, so the story is upskilling and support, not surveillance and layoffs. That’s a story you can stand behind in public.',
+    a: 'Poorly, if it’s done to them. Well, if it’s done with them. We build worker-centered: we start by asking your staff what problems they actually have, we train people up rather than around, and nothing we build is designed to surveil or replace the people it serves. That’s a stated design constraint, in writing, at the start of every engagement.',
   },
   {
     q: 'We may not want to adopt AI at all. Can you still help?',
-    a: 'Yes. Even if you never deploy a single tool, you have to understand your exposure, set a policy, vet the vendors layering AI into your stack, and give your team talking points. We help you do that, and justify the call to your own people.',
+    a: 'Then you’re not ready, and nobody here is going to push you. AI is getting embedded and mandated all around you. Working with us is the opposite of that: you set the pace, you decide what gets adopted and what doesn’t, and “not yet” is a legitimate outcome. If that’s where you land, you’ll leave knowing what being ready would take, and you won’t have bought anything you didn’t choose.',
   },
   {
     q: 'How much does an engagement cost?',

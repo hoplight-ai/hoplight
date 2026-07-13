@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { FACTS } from '@/lib/facts';
 
 export const metadata: Metadata = {
   title: 'Portfolio',
@@ -31,7 +32,7 @@ export default function Portfolio() {
               <h3 className="pfname">AGIS</h3>
               <div className="pfrow">
                 <span className="pflabel">What it does</span>
-                <span className="pfval">Query AI governance across 2,100+ jurisdictions and 31,900+ sources in plain English. Covers federal and state laws, lobbying spend, CEO political donations, enforcement actions, and the governance positions of 15 frontier AI labs. Cross-references what companies promise publicly against what they lobby for privately.</span>
+                <span className="pfval">Query AI governance across {FACTS.agis.jurisdictions} jurisdictions and {FACTS.agis.sources} sources in plain English. Covers federal and state laws, lobbying spend, CEO political donations, enforcement actions, and the governance positions of 15 frontier AI labs. Cross-references what companies promise publicly against what they lobby for privately.</span>
               </div>
               <div className="pfrow">
                 <span className="pflabel">Who it serves</span>
@@ -56,7 +57,7 @@ export default function Portfolio() {
               <h3 className="pfname">The Psychographic Message Engine</h3>
               <div className="pfrow">
                 <span className="pflabel">What it does</span>
-                <span className="pfval">RCT-validated persuasion you can audit, control, and improve. Validated in a 3,006-person randomized controlled trial. 11 to 26 points net lift across conservative segments.</span>
+                <span className="pfval">RCT-validated persuasion you can audit, control, and improve. Validated in a 3,006-person voter-file-matched randomized controlled trial: up to 26 points over a no-message baseline.</span>
               </div>
               <div className="pfrow">
                 <span className="pflabel">Who it serves</span>
@@ -81,7 +82,7 @@ export default function Portfolio() {
               <h3 className="pfname">AI brand voice for regulated commerce</h3>
               <div className="pfrow">
                 <span className="pflabel">What it does</span>
-                <span className="pfval">A brand-voice system for a women-owned, queer-led distillery selling a federally regulated product on a hostile ad platform. Compliant, converting, human-sounding copy at 4x return on ad spend.</span>
+                <span className="pfval">A brand-voice system for a women-owned, queer-led distillery selling a federally regulated product on a hostile ad platform. Compliant, converting, human-sounding copy at {FACTS.company.roas} return on ad spend.</span>
               </div>
               <div className="pfrow">
                 <span className="pflabel">Who it serves</span>

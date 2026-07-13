@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { FACTS } from '@/lib/facts';
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -31,7 +32,7 @@ export default function Work() {
               <div>
                 <span className="knum">Policy intelligence</span>
                 <h3>AGIS, the AI Governance Intelligence System</h3>
-                <p>Query AI governance across 2,100+ jurisdictions and 31,900+ sources in plain English. Built as a public good for the movement.</p>
+                <p>Query AI governance across {FACTS.agis.jurisdictions} jurisdictions and {FACTS.agis.sources} sources in plain English. Built as a public good for the movement.</p>
               </div>
               <span className="go">Open the tool &rarr;</span>
             </a>
@@ -54,7 +55,7 @@ export default function Work() {
               <div>
                 <span className="knum">Regulated commerce</span>
                 <h3>A brand voice that could ship</h3>
-                <p>Compliant, converting, human-sounding copy for a regulated product on a hostile ad platform. 4x return on ad spend, then ran without its builder in the room.</p>
+                <p>Compliant, converting, human-sounding copy for a regulated product on a hostile ad platform. {FACTS.company.roas} return on ad spend, then ran without its builder in the room.</p>
               </div>
             </div>
             <div className="workcard">

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import { FACTS } from '@/lib/facts';
 
 export const metadata: Metadata = {
   title: 'Services',
@@ -50,8 +51,8 @@ export default function Services() {
         <div className="wrap">
           <div className="svc">
             <div className="svc-row">
-              <h3>AI governance and readiness</h3>
-              <p>Where AI fits, the guardrails to deploy it without breaking trust or security, a roadmap your board can act on, and a vendor audit of who is already touching your data.</p>
+              <h3>Ethical AI governance and readiness</h3>
+              <p>Where AI fits, the guardrails to deploy it without breaking trust or security, a roadmap your board can act on, and a vendor audit of who is already touching your data. Zero compliance incidents across {FACTS.company.adSpend} in regulated-industry ad spend.</p>
             </div>
             <div className="svc-row">
               <h3>Workforce and AI threat assessment</h3>
@@ -59,11 +60,11 @@ export default function Services() {
             </div>
             <div className="svc-row">
               <h3>Capacity building and training</h3>
-              <p>Conversation-first training that builds real fluency. Cohorts for funders, workshops for a team, and the infrastructure that makes it stick.</p>
+              <p>Conversation-first training that builds real fluency. Cohorts for funders, workshops for a team, and the infrastructure that makes it stick. A 10-module AI curriculum, built and delivered.</p>
             </div>
             <div className="svc-row">
               <h3>Custom AI builds</h3>
-              <p>Systems built to your workflow and made to run after we leave. Brand-voice environments, RAG over your own documents, agents for the patterned work.</p>
+              <p>Systems built to your workflow and made to run after we leave. Brand-voice environments, RAG over your own documents, agents for the patterned work. AGIS, one such build, queries AI governance across {FACTS.agis.jurisdictions} jurisdictions and {FACTS.agis.sources} sources in plain English.</p>
             </div>
             <div className="svc-row">
               <h3>AI visibility, GEO and AEO</h3>
@@ -106,8 +107,8 @@ export default function Services() {
             <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)', borderBottomColor: 'rgba(244,240,231,0.18)' }}>
               <div className="n" style={{ color: 'var(--gold-bright)' }}>04</div>
               <div>
-                <h3>Iterate and maintain</h3>
-                <p style={{ color: 'rgba(244,240,231,0.7)' }}>We don&apos;t hand you a tool and walk away. We stay on to iterate, retrain, and maintain, so the systems keep working after we leave and your team keeps getting better at using them.</p>
+                <h3>Stand it up so it&apos;s yours.</h3>
+                <p style={{ color: 'rgba(244,240,231,0.7)' }}>We help you build the maintenance muscle in-house: your people, trained, owning what we built together. You&apos;re not locked into perpetual fees to us. If you want us to stay close, we can, but the goal is that you can run it without us.</p>
               </div>
             </div>
           </div>

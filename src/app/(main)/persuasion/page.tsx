@@ -234,7 +234,7 @@ export default function Persuasion() {
       <section className="slate">
         <div className="wrap">
           <div className="section-head" style={{ marginBottom: '24px' }}>
-            <span className="label">Governance</span>
+            <span className="label">Ethical governance</span>
             <h2>The same capability, with a conscience.</h2>
           </div>
           <p className="intro" style={{ maxWidth: '64ch', fontSize: '1.12rem' }}>
