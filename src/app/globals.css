@@ -613,14 +613,14 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 .rct-citation p { font-size: 0.82rem; color: var(--stone); margin: 0; max-width: 72ch; }
 
 /* === Footer === */
-footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: var(--surface); font-size: 0.82rem; }
-.foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; align-items: baseline; }
-.foot .brand { color: var(--ink); font-size: 0.78rem; }
-.foot .brand:hover { border-bottom-color: transparent; }
-.foot .meta { color: var(--stone); font-size: 0.82rem; max-width: 42ch; }
-.foot .foot-links { display: inline-flex; gap: 18px; align-items: baseline; flex-wrap: wrap; }
-.foot a { color: var(--stone-deep); font-size: 0.82rem; font-weight: 500; }
-.foot a:hover { color: var(--ink); }
+footer.site { padding: 48px 0 36px; border-top: 1px solid var(--line); background: var(--surface); font-size: 0.82rem; }
+.foot-tri { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+@media (max-width: 640px) { .foot-tri { grid-template-columns: 1fr; gap: 28px; } }
+.foot-col { display: flex; flex-direction: column; gap: 8px; }
+.foot-heading { font-weight: 600; font-size: 0.88rem; color: var(--ink); letter-spacing: 0.01em; }
+.foot-text { color: var(--stone-deep); font-size: 0.82rem; line-height: 1.55; margin: 0; max-width: 32ch; }
+.foot-cta { color: var(--gold-deep); font-size: 0.82rem; font-weight: 500; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
+.foot-cta:hover { border-bottom-color: var(--gold-deep); color: var(--ink); }
 
 /* === MVP: real product screenshots === */
 /* Hero stacked shots (replace CSS placeholder cards) */
