@@ -9,7 +9,7 @@ export default function Nav() {
   const links = [
     { href: '/services', label: 'Services' },
     // { href: '/work', label: 'Work' }, // hidden for MVP, page still accessible
-    // { href: '/persuasion', label: 'Persuasion' }, // hidden from nav, page still accessible
+    { href: '/persuasion', label: 'Persuasion' },
     // { href: '/research', label: 'Research' }, // hidden from nav, page still accessible
     { href: '/about', label: 'About' },
     { href: '/tools/which-ai', label: 'LLM Guide' },

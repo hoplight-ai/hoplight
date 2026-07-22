@@ -98,7 +98,7 @@ export default function Home() {
                 <li>Lay people off, cut headcount, double revenue.</li>
                 <li>Call the cut an innovation.</li>
               </ul>
-              <p className="ch-result">Fails because it doesn&apos;t prioritize the end user of AI: workers.</p>
+              <p className="ch-result">The thesis: increase profit by decreasing headcount.</p>
             </div>
             <div className="ch-col good">
               <span className="ch-tag">AI abundance</span>
@@ -106,9 +106,9 @@ export default function Home() {
               <ul>
                 <li>Your team identifies the highest ROI deployments for AI.</li>
                 <li>Build the tools and workflows around their priority use cases.</li>
-                <li>Train your team up by meeting them where they are.</li>
-                <li>Keep your people, train them up.</li>
-                <li>10x your revenue, not 2x it.</li>
+                <li>Train your team by meeting them where they are.</li>
+                <li>Keep your people. Unlock the institutional knowledge they carry.</li>
+                <li>Do more with the same headcount than you ever have before.</li>
               </ul>
             </div>
           </div>
@@ -253,18 +253,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CLOSE */}
-      <section className="close-cta">
-        <div className="wrap">
-          <div style={{ width: 56, height: 2, background: 'var(--gold)', marginBottom: 28 }} />
-          <h2>Bring the thing your team hates doing. We&apos;ll start there.</h2>
-          <p className="cl-sub">A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
-          <div className="btn-row">
-            <Link className="btn-gold" href="/contact">Start a conversation</Link>
-            <a className="btn-outline" href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

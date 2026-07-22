@@ -48,6 +48,12 @@ export default function About() {
             <p>We&apos;re always talking to exceptional trainers and builders. If that&apos;s you, reach out.</p>
             <Link className="more" href="/contact?path=talent" style={{ marginTop: '14px' }}>Work with us &rarr;</Link>
           </div>
+
+          <div style={{ marginTop: '40px', paddingTop: '28px', borderTop: '1px solid var(--line)' }}>
+            <span className="label" style={{ marginBottom: '8px', display: 'block' }}>Writing</span>
+            <p style={{ color: 'var(--stone-deep)', maxWidth: '50ch' }}>Whit writes about AI, labor, and the politics of technology adoption.</p>
+            <a className="more" href="https://whitpendergast.substack.com" target="_blank" rel="noopener noreferrer" style={{ marginTop: '10px' }}>Read on Substack &rarr;</a>
+          </div>
         </div>
       </section>
 
