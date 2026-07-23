@@ -3,22 +3,19 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="site">
-      <div className="wrap foot-tri">
-        <div className="foot-col">
-          <span className="foot-heading">Work with us</span>
-          <p className="foot-text">AI strategy for labor, advocacy, and mission-driven organizations.</p>
-          <Link className="foot-cta" href="/contact">Get in touch &rarr;</Link>
-        </div>
-        <div className="foot-col">
-          <span className="foot-heading">Substack</span>
-          <p className="foot-text">Essays on AI, labor, and the politics of technology adoption.</p>
-          <a className="foot-cta" href="https://whitpendergast.substack.com" target="_blank" rel="noopener noreferrer">Read &rarr;</a>
-        </div>
-        <div className="foot-col">
-          <span className="foot-heading">Start a convo</span>
-          <p className="foot-text">A short conversation is the fastest way to see if we are a fit.</p>
-          <a className="foot-cta" href="https://calendly.com/whitpendergast">Book time &rarr;</a>
-        </div>
+      <div className="wrap foot">
+        <Link className="brand" href="/" aria-label="Hoplight home">
+          <svg className="beacon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" fill="#E8A820"/>
+            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="#111" strokeWidth="1.6" strokeLinecap="round"/>
+          </svg>
+          Hoplight
+        </Link>
+        <span className="meta">AI strategy for labor, advocacy, and mission-driven organizations</span>
+        <span className="foot-links">
+          <Link href="/contact">Contact us</Link>
+          <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
+        </span>
       </div>
     </footer>
   );
