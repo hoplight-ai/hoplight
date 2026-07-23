@@ -667,23 +667,13 @@ export default function WhichAiTool() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', background: 'white', fontFamily: font, paddingBottom: 64 }}>
+    <div style={{ background: 'white', fontFamily: font, paddingBottom: 64 }}>
       <style>{`
         @keyframes fadeSlideIn {
           from { opacity: 0; transform: translateY(12px); }
           to { opacity: 1; transform: translateY(0); }
         }
       `}</style>
-
-      <header style={{ background: C.paper, position: 'sticky', top: 0, zIndex: 50, borderBottom: `2px solid ${C.gold}` }}>
-        <div style={{ maxWidth: 800, margin: '0 auto', padding: '0 24px', height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <div style={{ display: 'flex', alignItems: 'baseline', gap: 12 }}>
-            <span style={{ fontWeight: 700, fontSize: 11, color: C.goldDeep, letterSpacing: '0.1em', textTransform: 'uppercase' }}>HOPLIGHT</span>
-            <span style={{ fontWeight: 600, fontSize: 16, color: C.ink, letterSpacing: '-0.01em' }}>Which AI Should I Use?</span>
-          </div>
-          <span style={{ fontSize: 12, fontWeight: 500, color: C.stone }}>hoplight.ai</span>
-        </div>
-      </header>
 
       <main style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px 0' }}>
         {currentStep === 'landing' ? renderLanding() :
