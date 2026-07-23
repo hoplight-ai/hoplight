@@ -1,0 +1,36 @@
+From ca1b10f40488e3582ca7a0b1f7029ff2fdd65b35 Mon Sep 17 00:00:00 2001
+From: Whit Pendergast <whit@hoplight.ai>
+Date: Wed, 22 Jul 2026 17:37:48 -0700
+Subject: [PATCH] Fix rewrite collision: rename static file to avoid /engine
+ route match
+
+Next.js strips .html from rewrite destinations and matches app router
+pages. The rewrite /persuasion -> /engine.html was serving the React
+page at /engine instead of the static file. Renamed to pme-lever.html
+which has no matching app route.
+---
+ next.config.ts                         | 2 +-
+ public/{engine.html => pme-lever.html} | 0
+ 2 files changed, 1 insertion(+), 1 deletion(-)
+ rename public/{engine.html => pme-lever.html} (100%)
+
+diff --git a/next.config.ts b/next.config.ts
+index 011bcd3..b3e96f9 100644
+--- a/next.config.ts
++++ b/next.config.ts
+@@ -3,7 +3,7 @@ import type { NextConfig } from 'next'
+ const nextConfig: NextConfig = {
+   output: 'standalone',
+   async rewrites() {
+-    return [{ source: '/persuasion', destination: '/engine.html' }]
++    return [{ source: '/persuasion', destination: '/pme-lever.html' }]
+   },
+   async redirects() {
+     return [
+diff --git a/public/engine.html b/public/pme-lever.html
+similarity index 100%
+rename from public/engine.html
+rename to public/pme-lever.html
+-- 
+2.34.1
+

@@ -3,7 +3,7 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   output: 'standalone',
   async rewrites() {
-    return [{ source: '/persuasion', destination: '/engine.html' }]
+    return [{ source: '/persuasion', destination: '/pme-lever.html' }]
   },
   async redirects() {
     return [
