@@ -1,0 +1,1069 @@
+'use client';
+
+import { useEffect, useRef } from 'react';
+
+const pmeCSS = `
+.pme-page {
+  --ink:#0A1628; --gold:#E8A838; --gold-deep:#B8851F; --gold-light:#F4CE8A; --paper:#F7F5F0; --stone:#8B8578;
+  --dark:#0F172A;
+  --card:#1E293B;
+  --card2:#111827;
+  --red:#EF4444; --red-text:#F87171;
+  --green:#10B981; --green-text:#34D399;
+  --flag:#B84A3E;
+  --dem:#2B5DA8; --couch:#9A948A;
+
+  font-family:'Outfit',"Helvetica Neue",Helvetica,Arial,sans-serif;
+  color:var(--ink);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.pme-page *,.pme-page *::before,.pme-page *::after{box-sizing:border-box}
+.pme-page .serif{font-family:'Playfair Display',Georgia,serif}
+.pme-page img,.pme-page svg{display:block;max-width:100%}
+.pme-page a{color:inherit}
+
+.pme-page section{padding:64px 20px}
+@media (min-width:768px){ .pme-page section{padding:88px 40px} }
+
+.pme-page .wrap{max-width:1080px;margin:0 auto}
+.pme-page .wrap-narrow{max-width:760px;margin:0 auto}
+
+.pme-page h1,.pme-page h2,.pme-page h3{margin:0;letter-spacing:-0.01em}
+
+.pme-page .bg-paper{background:var(--paper)}
+.pme-page .bg-white{background:#fff}
+.pme-page .bg-dark{background:var(--dark);color:#fff}
+
+.pme-page .eyebrow{
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:11px;
+  text-transform:uppercase;letter-spacing:.18em;color:var(--gold);
+}
+
+.pme-page h2.section-title{
+  font-family:'Outfit',sans-serif;font-weight:700;
+  font-size:clamp(1.9rem,4vw,2.5rem);
+  line-height:1.15;margin-bottom:28px;
+}
+.pme-page h2.section-title.center{text-align:center;margin-left:auto;margin-right:auto}
+
+.pme-page strong{font-weight:700}
+.pme-page strong.gold{color:var(--gold);font-weight:700}
+.pme-page strong.white{color:#fff;font-weight:700}
+
+/* ---------- reveal ---------- */
+.pme-page .reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+}
+.pme-page .reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+@media (prefers-reduced-motion:reduce){
+  .pme-page .reveal, .pme-page .reveal.active{ opacity:1!important; transform:none!important; transition:none!important; }
+}
+
+/* ---------- S1 hero ---------- */
+.pme-page .hero{padding-top:88px;padding-bottom:72px}
+.pme-page .hero .eyebrow{display:block;margin-bottom:18px}
+.pme-page .hero h1{
+  font-family:'Outfit',sans-serif;font-weight:800;
+  font-size:clamp(2.6rem,6vw,4.5rem);
+  line-height:1.1;letter-spacing:-0.02em;
+}
+.pme-page .hero h1 .gold-line{color:var(--gold);display:block}
+.pme-page .hero h1 .ink-line{color:var(--ink);display:block}
+.pme-page .hero blockquote{
+  margin:36px 0 0;padding-left:22px;
+  border-left:3px solid var(--gold);
+  color:var(--stone);
+  font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;
+  font-size:clamp(1.15rem,2.4vw,1.6rem);
+  line-height:1.5;
+  max-width:44rem;
+}
+
+/* ---------- S2 merged demography section ---------- */
+.pme-page .chip-stack{position:relative;max-width:640px;margin:0 auto}
+@media (min-width:640px){
+  .pme-page .chip-stack{min-height:280px}
+}
+.pme-page .chip{
+  background:#fff;border-radius:10px;padding:20px 22px;
+  font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;
+  font-size:1.02rem;line-height:1.4;color:var(--ink);
+  box-shadow:0 12px 32px rgba(10,22,40,.12);
+  margin-bottom:18px;
+}
+@media (min-width:640px){
+  .pme-page .chip-stack{display:block}
+  .pme-page .chip{
+    position:absolute;width:82%;margin-bottom:0;
+  }
+  .pme-page .chip1{top:0;left:0;transform:rotate(-3deg);z-index:3}
+  .pme-page .chip2{top:100px;left:12%;transform:rotate(2deg);z-index:2}
+  .pme-page .chip3{top:200px;left:2%;transform:rotate(-2deg);z-index:1}
+}
+.pme-page .s2-line{
+  margin-top:56px;text-align:center;
+  font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;
+  font-size:clamp(1.15rem,2.6vw,1.5rem);
+  max-width:46rem;margin-left:auto;margin-right:auto;
+}
+
+/* ---------- S3 fork ---------- */
+.pme-page .fork-wrap{display:flex;flex-direction:column;align-items:center;gap:36px}
+.pme-page .fork-person{display:flex;flex-direction:column;align-items:center;gap:14px}
+.pme-page .fork-card{
+  background:#fff;border-radius:10px;padding:16px 22px;
+  font-weight:500;font-size:.95rem;color:var(--ink);
+  box-shadow:0 8px 24px rgba(10,22,40,.1);
+  text-align:center;white-space:nowrap;
+}
+.pme-page .fork-diagram{width:100%;max-width:820px;position:relative}
+.pme-page .fork-chip{
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:.8rem;
+  letter-spacing:.04em;color:#fff;padding:10px 18px;border-radius:999px;
+  display:inline-block;white-space:nowrap;
+}
+.pme-page .fork-chip.dem{background:var(--dem)}
+.pme-page .fork-chip.flag{background:var(--flag)}
+.pme-page .fork-chip.couch{background:var(--couch)}
+
+.pme-page .fork-path{
+  fill:none;stroke:var(--stone);stroke-width:3;
+  stroke-linecap:round;
+}
+.pme-page .fork-path{
+  stroke-dasharray:400;stroke-dashoffset:400;
+  transition:stroke-dashoffset 1.4s cubic-bezier(.16,1,.3,1);
+}
+.pme-page .reveal.active .fork-path{stroke-dashoffset:0}
+.pme-page .fork-path.p2{transition-delay:.15s}
+.pme-page .fork-path.p3{transition-delay:.3s}
+@media (prefers-reduced-motion:reduce){
+  .pme-page .fork-path{stroke-dashoffset:0!important;transition:none!important}
+}
+
+/* mobile (<768px): stacked layout, short downward-fanning arrows */
+.pme-page .fork-chips-mobile{display:flex;flex-direction:column;gap:22px;align-items:center;margin-top:-40px}
+.pme-page .fork-chips-desktop{display:none}
+.pme-page .fork-diagram.mobile{display:block}
+.pme-page .fork-diagram.desktop{display:none}
+
+/* desktop (>=768px): icon+card left, arrows diverging right, chips distributed right */
+@media (min-width:768px){
+  .pme-page .fork-wrap{flex-direction:row;align-items:center;justify-content:center;gap:0;max-width:1000px;margin:0 auto}
+  .pme-page .fork-person{flex-shrink:0;width:220px}
+  .pme-page .fork-diagram.mobile{display:none}
+  .pme-page .fork-diagram.desktop{display:block;flex:1;max-width:400px;height:280px;margin:0}
+  .pme-page .fork-chips-mobile{display:none}
+  .pme-page .fork-chips-desktop{
+    display:flex;flex-direction:column;justify-content:space-between;
+    height:280px;flex-shrink:0;width:220px;margin-top:0;
+  }
+  .pme-page .fork-chips-desktop .fork-chip{align-self:flex-start}
+}
+
+.pme-page .fork-caption{text-align:center;margin-top:8px;font-size:1.05rem;line-height:1.5}
+.pme-page .fork-caption .l1{font-weight:700;color:var(--ink);display:block}
+.pme-page .fork-caption .l2{font-weight:700;color:var(--gold);display:block;margin-top:2px}
+
+.pme-page .pivot{
+  text-align:center;text-transform:uppercase;letter-spacing:.06em;
+  color:var(--gold);font-family:'Outfit',sans-serif;font-weight:700;
+  font-size:clamp(1.15rem,2.6vw,1.4rem);
+  max-width:42rem;margin:44px auto 0;line-height:1.4;
+}
+
+/* ---------- S4 sting band ---------- */
+.pme-page .sting-band{padding-top:56px;padding-bottom:56px}
+.pme-page .sting{
+  text-align:center;font-weight:500;
+  font-size:clamp(1.6rem,3.2vw,2rem);line-height:1.4;
+  max-width:52rem;margin:0 auto;
+}
+
+/* ---------- S5/S7 shared stat cards ---------- */
+.pme-page .s-head{text-align:center}
+.pme-page .s-head h2{color:#fff}
+.pme-page .s-quote{
+  font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;
+  color:#fff;font-size:clamp(1.15rem,2.4vw,1.5rem);
+  text-align:center;margin:18px auto 0;max-width:42rem;
+}
+.pme-page .study-chip{
+  display:inline-block;margin:26px auto 0;border:1px solid rgba(232,168,56,.5);
+  color:var(--gold);border-radius:999px;padding:8px 20px;font-size:.82rem;font-weight:500;
+}
+.pme-page .study-chip-wrap{text-align:center}
+.pme-page .s-sub{text-align:center;font-size:12px;color:rgba(255,255,255,.7);margin-top:14px}
+
+.pme-page .stat-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:44px}
+@media (min-width:640px){ .pme-page .stat-grid.g3{grid-template-columns:repeat(3,1fr)} }
+
+.pme-page .stat-card{
+  background:var(--card2);border:1px solid rgba(255,255,255,.08);
+  border-radius:12px;padding:28px 24px;
+}
+.pme-page .stat-card .group-name{
+  display:block;font-family:'Outfit',sans-serif;font-weight:700;
+  font-size:clamp(1.3rem,2vw,1.5rem);color:#fff;line-height:1.2;margin-bottom:14px;
+}
+.pme-page .stat-num{
+  font-family:'Outfit',sans-serif;font-weight:800;font-size:clamp(2.5rem,4.5vw,2.75rem);
+  line-height:1;
+}
+.pme-page .stat-num.red{color:var(--red-text)}
+.pme-page .stat-num.green{color:var(--green-text)}
+.pme-page .stat-card .cap{margin-top:14px;color:rgba(255,255,255,.75);font-size:.92rem;line-height:1.5}
+.pme-page .stat-card .cap.serif{color:rgba(255,255,255,.85);font-style:italic;font-family:'Playfair Display',Georgia,serif;font-weight:500;font-size:1rem}
+
+/* ---------- S6 paired vertical bar chart ---------- */
+.pme-page .chart-panel{
+  background:transparent;border:1px solid rgba(255,255,255,.15);
+  border-radius:16px;padding:40px 28px;margin-top:0;
+}
+.pme-page .chart-heading{
+  text-align:center;font-family:'Outfit',sans-serif;font-weight:700;
+  font-size:clamp(1.3rem,2.6vw,1.6rem);line-height:1.4;min-height:2.8em;
+  display:flex;align-items:center;justify-content:center;
+}
+.pme-page .chart-heading .beat{
+  transition:opacity .6s ease;
+}
+.pme-page .chart-heading .beat2{color:#fff}
+.pme-page .chart-heading .beat2 .gold-clause{color:var(--gold)}
+
+.pme-page .bars-chart-area{
+  position:relative;margin-top:24px;display:flex;justify-content:center;
+  gap:64px;padding:0 8px 0;flex-wrap:wrap;
+  height:260px;
+}
+@media (min-width:768px){ .pme-page .bars-chart-area{height:340px} }
+.pme-page .bars-baseline-full{
+  position:absolute;left:12px;right:12px;top:180px;height:1px;background:rgba(255,255,255,.25);z-index:0;
+}
+@media (min-width:768px){ .pme-page .bars-baseline-full{top:250px} }
+.pme-page .bar-cluster{display:flex;flex-direction:column;align-items:center;width:120px;position:relative;z-index:1}
+.pme-page .bar-zero-region{
+  position:relative;width:100%;height:100%;
+  display:flex;flex-direction:column;justify-content:flex-end;
+}
+.pme-page .bar-up-region{position:absolute;left:0;right:0;bottom:80px;top:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.pme-page .bar-down-region{position:absolute;left:0;right:0;top:180px;bottom:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:center}
+@media (min-width:768px){
+  .pme-page .bar-up-region{bottom:90px}
+  .pme-page .bar-down-region{top:250px}
+}
+.pme-page .bar{width:44px;border-radius:4px 4px 0 0}
+@media (min-width:768px){ .pme-page .bar{width:64px} }
+.pme-page .bar.down{border-radius:0 0 4px 4px;background:var(--red);height:0;transition:height .9s cubic-bezier(.16,1,.3,1)}
+.pme-page .bar.up{background:var(--green);height:0;transition:height .9s cubic-bezier(.16,1,.3,1);order:1}
+.pme-page .bar-value{font-family:'Outfit',sans-serif;font-weight:700;font-size:.92rem;white-space:nowrap}
+.pme-page .bar-value.green{color:var(--green-text);margin-bottom:4px;order:0}
+.pme-page .bar-value.red{color:var(--red-text);margin-top:4px}
+.pme-page .bar-group-labels{
+  display:flex;justify-content:center;gap:64px;padding:0 8px;flex-wrap:wrap;margin-top:6px;
+}
+.pme-page .bar-group-label{
+  width:120px;font-family:'Outfit',sans-serif;font-weight:700;color:#fff;font-size:.95rem;
+  text-align:center;line-height:1.3;
+}
+.pme-page.no-js .bar.down, .pme-page.no-js .bar.up{transition:none!important}
+.pme-page.no-js #down-1{height:40px}
+.pme-page.no-js #down-2{height:32px}
+.pme-page.no-js #down-3{height:16px}
+.pme-page.no-js #up-1{height:72px}
+.pme-page.no-js #up-2{height:40px}
+.pme-page.no-js #up-3{height:168px}
+.pme-page.no-js .bar-value.green{opacity:1!important}
+.pme-page.no-js .beat1{display:none!important}
+.pme-page.no-js .beat2{display:inline!important}
+@media (prefers-reduced-motion:reduce){
+  .pme-page .bar.down,.pme-page .bar.up{transition:none!important}
+}
+.pme-page .chart-legend{text-align:center;margin-top:4px;font-size:12px;color:rgba(255,255,255,.65)}
+
+/* ---------- S7 gold callout ---------- */
+.pme-page .gold-callout{
+  background:var(--gold);color:var(--ink);border-radius:14px;
+  margin-top:36px;padding:36px 40px;
+  display:flex;flex-direction:column;gap:20px;align-items:center;text-align:center;
+}
+@media (min-width:700px){
+  .pme-page .gold-callout{flex-direction:row;text-align:left;padding:40px 48px;gap:36px}
+}
+.pme-page .gold-callout .num-block{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+@media (min-width:700px){ .pme-page .gold-callout .num-block{align-items:flex-start} }
+.pme-page .gold-callout .num{font-family:'Outfit',sans-serif;font-weight:800;font-size:4rem;line-height:1}
+.pme-page .gold-callout .num-label{
+  font-family:'Outfit',sans-serif;font-weight:700;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;margin-top:6px;
+}
+.pme-page .gold-callout .txt p{margin:0;font-weight:700;font-size:1.15rem;line-height:1.6}
+.pme-page .gold-callout .txt .sub{font-weight:400;font-size:.92rem;margin-top:12px;line-height:1.6}
+
+/* ---------- S8 already works ---------- */
+.pme-page .cards2{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
+@media (min-width:900px){ .pme-page .cards2{grid-template-columns:1fr 1fr} }
+.pme-page .card9{
+  background:var(--paper);border-radius:14px;padding:30px 26px;border:1px solid rgba(10,22,40,.08);
+  display:flex;flex-direction:column;height:100%;
+}
+.pme-page .card9 h3{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:0}
+.pme-page .card9-rule{width:40px;height:2px;background:var(--gold);margin:14px 0 16px}
+.pme-page .card9 p{font-size:.95rem;margin:0 0 12px}
+.pme-page .card9-pill{
+  display:inline-block;align-self:flex-start;margin-top:auto;padding-top:20px;
+  background:var(--gold);color:var(--ink);font-family:'Outfit',sans-serif;font-weight:700;
+  font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:8px 16px;border-radius:999px;
+}
+
+.pme-page .axis-graphic{margin-top:52px;max-width:560px;margin-left:auto;margin-right:auto}
+
+.pme-page .transition-line{
+  text-align:center;margin-top:48px;font-size:clamp(1.2rem,2.6vw,1.5rem);line-height:1.5;
+  max-width:48rem;margin-left:auto;margin-right:auto;
+}
+
+/* ---------- S9 operationalization gap ---------- */
+.pme-page .s9-intro{
+  text-align:center;font-size:clamp(1.3rem,2.6vw,1.5rem);line-height:1.6;
+  max-width:52rem;margin:0 auto 44px;
+}
+.pme-page .snake-panel{
+  background:var(--dark);border-radius:16px;padding:32px 24px 28px;position:relative;overflow:hidden;
+}
+.pme-page .snake-title{
+  font-family:'Outfit',sans-serif;font-weight:800;color:#fff;
+  font-size:clamp(1.1rem,2.4vw,1.4rem);letter-spacing:-.01em;text-transform:uppercase;
+  margin-bottom:6px;
+}
+.pme-page .snake-svg-wrap{margin-top:8px}
+.pme-page .snake-not-optimal{
+  text-align:right;margin-top:14px;
+}
+.pme-page .snake-rule{height:1px;background:rgba(255,255,255,.25);margin-bottom:10px}
+.pme-page .snake-not-optimal span{
+  font-family:'Outfit',sans-serif;font-weight:800;color:#fff;font-size:clamp(1.1rem,2.6vw,1.6rem);
+  letter-spacing:.02em;text-transform:uppercase;
+}
+.pme-page .snake-mobile{display:none}
+@media (max-width:639px){
+  .pme-page .snake-desktop{display:none}
+  .pme-page .snake-mobile{display:block}
+}
+
+.pme-page .engine-panel{
+  background:var(--dark);border-radius:16px;padding:58px 42px;margin-top:28px;
+}
+.pme-page .engine-eyebrow{color:var(--gold);font-family:'Outfit',sans-serif;font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.16em;margin-bottom:36px;text-align:center}
+.pme-page .engine-flow{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap}
+.pme-page .engine-box{
+  border:1.5px solid var(--gold-deep);border-radius:14px;padding:23px 29px;text-align:center;
+  color:#fff;font-family:'Outfit',sans-serif;font-weight:700;font-size:1.24rem;
+}
+.pme-page .engine-box.gold{
+  background:var(--gold);color:var(--ink);font-size:1.56rem;padding:29px 40px 22px;
+  position:relative;box-shadow:0 0 0 1px rgba(232,168,56,.4),0 0 40px 10px rgba(232,168,56,.35);
+}
+.pme-page .engine-box.gold .engine-ticks{
+  position:absolute;left:16px;right:16px;bottom:8px;display:flex;justify-content:space-between;gap:8px;
+}
+.pme-page .engine-box.gold .engine-ticks span{
+  flex:1;height:3px;background:rgba(10,22,40,.35);border-radius:2px;
+}
+.pme-page .engine-arrow svg{display:block}
+.pme-page .engine-bracket svg{display:block}
+.pme-page .engine-fork{display:flex;flex-direction:column;justify-content:space-between;height:118px;align-items:flex-start}
+.pme-page .engine-pill{
+  border:1.5px solid var(--gold-deep);border-radius:999px;padding:8px 20px;
+  font-family:'Outfit',sans-serif;font-weight:800;color:#fff;
+  font-size:1.03rem;letter-spacing:.04em;text-transform:uppercase;
+}
+.pme-page .engine-bullets{list-style:none;margin:42px 0 0;padding:0;text-align:center;color:rgba(255,255,255,.85);font-size:1.05rem}
+.pme-page .engine-bullets li{margin-bottom:12px}
+.pme-page .engine-line{text-align:center;margin-top:28px;color:var(--gold);font-weight:700;font-size:1.5rem}
+
+.pme-page .s9-statement{
+  text-align:center;margin-top:48px;font-size:clamp(1.5rem,3.2vw,2rem);line-height:1.4;
+  max-width:50rem;margin-left:auto;margin-right:auto;
+}
+
+/* ---------- S10 four layers ---------- */
+.pme-page .s10-intro{max-width:56rem;font-size:1.05rem;color:var(--ink);opacity:.85;margin-bottom:8px}
+.pme-page .layers-wrap{position:relative;margin-top:48px}
+.pme-page .layers-connector{
+  position:absolute;top:40%;left:0;right:0;height:1px;background:rgba(10,22,40,.15);
+  z-index:0;
+}
+.pme-page .layers-row{display:grid;grid-template-columns:1fr;gap:20px;position:relative;z-index:1}
+@media (min-width:640px) and (max-width:1023px){ .pme-page .layers-row{grid-template-columns:repeat(2,1fr)} }
+@media (min-width:1024px){ .pme-page .layers-row{grid-template-columns:repeat(4,1fr)} }
+.pme-page .layer-card{
+  background:#fff;border-radius:14px;padding:26px 22px;position:relative;
+  box-shadow:0 4px 24px rgba(10,22,40,.06);overflow:hidden;
+}
+.pme-page .layer-card.muted{background:#EFECE5}
+.pme-page .layer-num{
+  position:absolute;top:8px;right:16px;font-family:'Outfit',sans-serif;font-weight:800;
+  font-size:3rem;color:var(--stone);opacity:.18;line-height:1;
+}
+.pme-page .layer-pill{
+  display:inline-block;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.01em;
+  padding:7px 16px;border-radius:999px;margin-bottom:16px;
+}
+.pme-page .layer-pill.gold{background:var(--gold);color:var(--ink)}
+.pme-page .layer-pill.stone{background:transparent;color:var(--stone);border:1px solid var(--stone)}
+.pme-page .layer-card p{font-size:.9rem;margin:6px 0 0}
+
+/* ---------- S11 recursive loop ---------- */
+.pme-page .loop-outer{
+  border-radius:20px;padding:3px;
+  background:linear-gradient(135deg,var(--gold-deep),var(--gold));
+}
+.pme-page .loop-card{
+  background:var(--dark);border-radius:18px;padding:52px 36px;
+  position:relative;overflow:hidden;color:#fff;text-align:center;
+}
+.pme-page .loop-kicker{
+  font-family:'Outfit',sans-serif;font-weight:700;color:var(--gold);
+  font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:10px;
+}
+.pme-page .loop-headline{
+  font-family:'Outfit',sans-serif;font-weight:800;color:var(--gold);
+  font-size:clamp(2rem,4.5vw,2.6rem);letter-spacing:-.01em;margin-bottom:36px;
+}
+.pme-page .ring-wrap{position:relative;width:100%;max-width:480px;margin:0 auto}
+
+/* ---------- S12 close ---------- */
+.pme-page .s12-grid{display:grid;grid-template-columns:1fr;gap:44px}
+@media (min-width:900px){ .pme-page .s12-grid{grid-template-columns:1fr 1fr;align-items:start} }
+.pme-page .s12-rule{width:56px;height:3px;background:var(--gold);margin-bottom:24px}
+.pme-page .s12-statement{
+  font-family:'Outfit',sans-serif;font-weight:700;color:var(--ink);
+  font-size:clamp(2.2rem,5vw,3rem);line-height:1.15;
+}
+.pme-page .author-card{background:var(--card2);color:#fff;border-radius:16px;padding:32px 28px}
+.pme-page .author-card .eyebrow{display:block;margin-bottom:16px}
+.pme-page .author-card p{color:rgba(255,255,255,.85);font-size:.95rem;line-height:1.65;margin:0}
+.pme-page .mailto-btn{
+  display:inline-flex;align-items:center;gap:8px;margin-top:24px;
+  background:var(--gold);color:var(--ink);font-weight:700;font-size:.9rem;
+  padding:12px 22px;border-radius:999px;text-decoration:none;
+}
+`;
+
+const pmeHTML = `
+<!-- S1 HERO -->
+<section class="bg-paper hero">
+  <div class="wrap-narrow reveal active">
+    <span class="eyebrow">HOPLIGHT</span>
+    <h1>
+      <span class="ink-line">Progressive messaging works with the choir.</span>
+      <span class="gold-line">We need to reach beyond it.</span>
+    </h1>
+    <blockquote class="serif">“What happens if you message to someone’s psychology instead of to their demographics?”</blockquote>
+  </div>
+</section>
+
+<!-- S2 MERGED DEMOGRAPHY SECTION -->
+<section class="bg-dark">
+  <div class="wrap">
+    <h2 class="section-title reveal" style="color:#fff">Demography isn’t destiny.</h2>
+
+    <div class="chip-stack reveal">
+      <div class="chip chip1">“They’re voting against their own interests”</div>
+      <div class="chip chip2">“If they could just see the facts...”</div>
+      <div class="chip chip3">“We need better education”</div>
+    </div>
+
+    <p class="s2-line reveal" style="color:#fff;font-weight:700;font-family:'Outfit',&quot;Helvetica Neue&quot;,Helvetica,Arial,sans-serif;font-style:normal">And it may not even be the optimal targeting methodology.</p>
+
+    <div class="fork-wrap reveal">
+      <div class="fork-person">
+        <svg width="56" height="56" viewBox="0 0 56 56" aria-hidden="true">
+          <circle cx="28" cy="18" r="12" fill="#fff"/>
+          <path d="M6 54c0-14 9.8-22 22-22s22 8 22 22" fill="#fff"/>
+        </svg>
+        <div class="fork-card">Age 39 · Latino · $50K/yr · No college degree</div>
+      </div>
+
+      <!-- mobile: short downward-fanning arrows -->
+      <svg class="fork-diagram mobile" viewBox="0 0 820 200" aria-hidden="true">
+        <defs>
+          <marker id="forkArrowMobile" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="rgba(255,255,255,.55)"/>
+          </marker>
+        </defs>
+        <path class="fork-path p1" d="M 410 10 C 410 60, 250 60, 160 100" marker-end="url(#forkArrowMobile)" />
+        <path class="fork-path p2" d="M 410 10 C 410 60, 410 60, 410 100" marker-end="url(#forkArrowMobile)" />
+        <path class="fork-path p3" d="M 410 10 C 410 60, 570 60, 660 100" marker-end="url(#forkArrowMobile)" />
+      </svg>
+
+      <div class="fork-chips-mobile">
+        <span class="fork-chip dem">VOTED HARRIS</span>
+        <span class="fork-chip flag">VOTED TRUMP</span>
+        <span class="fork-chip couch">STAYED HOME</span>
+      </div>
+
+      <!-- desktop: arrows diverge right from a single origin point -->
+      <svg class="fork-diagram desktop" viewBox="0 0 400 280" preserveAspectRatio="none" aria-hidden="true">
+        <defs>
+          <marker id="forkArrowDesktop" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0 0 L10 5 L0 10 z" fill="rgba(255,255,255,.55)"/>
+          </marker>
+        </defs>
+        <path class="fork-path p1" d="M 10 140 C 160 140, 200 19, 392 19" marker-end="url(#forkArrowDesktop)" />
+        <path class="fork-path p2" d="M 10 140 C 160 140, 200 140, 392 140" marker-end="url(#forkArrowDesktop)" />
+        <path class="fork-path p3" d="M 10 140 C 160 140, 200 261, 392 261" marker-end="url(#forkArrowDesktop)" />
+      </svg>
+
+      <div class="fork-chips-desktop">
+        <span class="fork-chip dem">VOTED HARRIS</span>
+        <span class="fork-chip flag">VOTED TRUMP</span>
+        <span class="fork-chip couch">STAYED HOME</span>
+      </div>
+    </div>
+
+    <div class="fork-caption reveal">
+      <span class="l1" style="color:#fff">Same demographic profile. Different vote choice in 2024.</span>
+    </div>
+
+    <p class="sting reveal" style="margin-top:44px"><strong class="white">Pushing progressive-coded moral language</strong> on non-progressive audiences <strong class="gold">backfires with the voters who decide elections.</strong></p>
+  </div>
+</section>
+
+<!-- S5 FINDING: THE BACKLASH -->
+<section class="bg-dark">
+  <div class="wrap">
+    <div class="s-head reveal">
+      <h2 class="section-title center">Finding: The Backlash</h2>
+      <div class="study-chip-wrap">
+        <span class="study-chip">The Security Officer Messaging Study · n=3,006 · voter-file matched · August 2025</span>
+      </div>
+      <p class="s-quote serif">Persuasion messaging from progressive human communicators underperformed the placebo message about Morton Salt.</p>
+      <p class="s-sub">Issue tested: “Many security officers are poorly paid and resourced.”</p>
+    </div>
+
+    <div class="stat-grid g3 reveal">
+      <div class="stat-card">
+        <span class="group-name">Under 35</span>
+        <div class="stat-num red">-5 pts</div>
+        <p class="cap">The progressive frame moved them 5 points below placebo.</p>
+      </div>
+      <div class="stat-card">
+        <span class="group-name">Black Voters</span>
+        <div class="stat-num red">-4 pts</div>
+        <p class="cap">The progressive frame moved them 4 points below placebo.</p>
+      </div>
+      <div class="stat-card">
+        <span class="group-name">Religious Conservatives</span>
+        <div class="stat-num red">-2 pts</div>
+        <p class="cap serif">“It’s better for them to hear about Morton Salt than to hear from us.”</p>
+      </div>
+    </div>
+
+    <p class="pivot reveal" style="margin-top:44px">“WHAT HAPPENS IF YOU MESSAGE TO SOMEONE’S PSYCHOLOGY INSTEAD OF TO THEIR DEMOGRAPHICS?”</p>
+  </div>
+</section>
+
+<!-- S7 FINDING: HOLD THE BASE, GROW THE TENT -->
+<section class="bg-dark">
+  <div class="wrap">
+    <h2 class="section-title center reveal" style="color:#fff">Finding: Hold the Base, Grow the Tent</h2>
+
+    <div class="gold-callout reveal">
+      <div class="num-block">
+        <div class="num">+18–26</div>
+        <div class="num-label">Points Net Lift</div>
+      </div>
+      <div class="txt">
+        <p>across all conservative segments</p>
+        <p class="sub">when using AI-generated psychographic messages</p>
+      </div>
+    </div>
+
+    <!-- S6 PAIRED VERTICAL BAR CHART -->
+    <div class="reveal" id="chart-section" style="margin-top:44px">
+      <div class="chart-panel">
+        <div class="chart-heading">
+          <span class="beat beat1" id="beat1">Standard messaging is backfiring.</span>
+          <span class="beat beat2" id="beat2" style="display:none">Standard messaging is backfiring. <span class="gold-clause">Psychographics recover the loss.</span></span>
+        </div>
+
+        <div class="bars-chart-area">
+          <div class="bars-baseline-full"></div>
+          <div class="bar-cluster">
+            <div class="bar-zero-region">
+              <div class="bar-up-region">
+                <div class="bar-value green" id="upval-1" style="opacity:0">+9</div>
+                <div class="bar up" id="up-1" data-value="9"></div>
+              </div>
+              <div class="bar-down-region">
+                <div class="bar down" id="down-1" data-value="5"></div>
+                <div class="bar-value red" id="downval-1">-5</div>
+              </div>
+            </div>
+          </div>
+          <div class="bar-cluster">
+            <div class="bar-zero-region">
+              <div class="bar-up-region">
+                <div class="bar-value green" id="upval-2" style="opacity:0">+5</div>
+                <div class="bar up" id="up-2" data-value="5"></div>
+              </div>
+              <div class="bar-down-region">
+                <div class="bar down" id="down-2" data-value="4"></div>
+                <div class="bar-value red" id="downval-2">-4</div>
+              </div>
+            </div>
+          </div>
+          <div class="bar-cluster">
+            <div class="bar-zero-region">
+              <div class="bar-up-region">
+                <div class="bar-value green" id="upval-3" style="opacity:0">+21</div>
+                <div class="bar up" id="up-3" data-value="21"></div>
+              </div>
+              <div class="bar-down-region">
+                <div class="bar down" id="down-3" data-value="2"></div>
+                <div class="bar-value red" id="downval-3">-2</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bar-group-labels">
+          <div class="bar-group-label">Under 35</div>
+          <div class="bar-group-label">Black Voters</div>
+          <div class="bar-group-label">Religious<br>Conservatives</div>
+        </div>
+
+        <p class="chart-legend">Green = psychographic message · Red = human-generated persuasion message · Baseline = the Morton Salt placebo</p>
+      </div>
+    </div>
+
+    <div class="stat-grid g3 reveal">
+      <div class="stat-card">
+        <span class="group-name">2024 Non-Voters</span>
+        <div class="stat-num green">+22 pts</div>
+      </div>
+      <div class="stat-card">
+        <span class="group-name">Latino Voters</span>
+        <div class="stat-num green">+22 pts</div>
+      </div>
+      <div class="stat-card">
+        <span class="group-name">Working Class (&lt;$50K)</span>
+        <div class="stat-num green">+19 pts</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S8 WE ALREADY KNOW THIS WORKS -->
+<section class="bg-white">
+  <div class="wrap">
+    <h2 class="section-title reveal">We already know this works.</h2>
+    <div class="cards2 reveal">
+      <div class="card9">
+        <h3>Relational Organizing / Deep Canvassing</h3>
+        <div class="card9-rule"></div>
+        <p>These tactics succeed by meeting people inside their worldview. A canvasser who listens, adapts, speaks in the listener’s values: that works.</p>
+        <p><strong>But these tactics are prohibitively expensive to scale.</strong></p>
+        <span class="card9-pill">PROVEN BUT UNSCALABLE</span>
+      </div>
+      <div class="card9">
+        <h3>Off-the-Shelf LLMs</h3>
+        <div class="card9-rule"></div>
+        <p>Research shows us large language models are good at persuading people. But if the model changes, the message changes. No audit trail. No persistent replicability. No institutional knowledge.</p>
+        <p><strong>A billionaire’s black box isn’t a scalable strategy.</strong></p>
+        <span class="card9-pill">SCALABLE BUT UNACCOUNTABLE</span>
+      </div>
+    </div>
+
+    <div class="axis-graphic reveal">
+      <svg viewBox="0 0 480 340" width="100%" aria-hidden="true">
+        <!-- gridlines -->
+        <g stroke="var(--stone)" stroke-opacity=".15" stroke-width="1">
+          <line x1="50" y1="60" x2="450" y2="60"/>
+          <line x1="50" y1="120" x2="450" y2="120"/>
+          <line x1="50" y1="180" x2="450" y2="180"/>
+          <line x1="50" y1="240" x2="450" y2="240"/>
+          <line x1="110" y1="20" x2="110" y2="280"/>
+          <line x1="190" y1="20" x2="190" y2="280"/>
+          <line x1="270" y1="20" x2="270" y2="280"/>
+          <line x1="350" y1="20" x2="350" y2="280"/>
+          <line x1="430" y1="20" x2="430" y2="280"/>
+        </g>
+        <!-- axes -->
+        <line x1="50" y1="20" x2="50" y2="280" stroke="var(--ink)" stroke-width="1.5"/>
+        <line x1="50" y1="280" x2="450" y2="280" stroke="var(--ink)" stroke-width="1.5"/>
+        <!-- arrowheads -->
+        <path d="M 50 20 L 45 30 L 55 30 Z" fill="var(--ink)"/>
+        <path d="M 450 280 L 440 275 L 440 285 Z" fill="var(--ink)"/>
+
+        <!-- y axis label -->
+        <text x="-160" y="26" font-family="Outfit, sans-serif" font-size="14" font-weight="700" letter-spacing="1.5" fill="var(--ink)" transform="rotate(-90)">ACCOUNTABLE</text>
+        <!-- x axis label -->
+        <text x="250" y="310" font-family="Outfit, sans-serif" font-size="14" font-weight="700" letter-spacing="1.5" fill="var(--ink)" text-anchor="middle">SCALABLE</text>
+
+        <!-- deep canvassing: top-left -->
+        <circle cx="100" cy="70" r="7" fill="var(--stone)"/>
+        <rect x="108" y="45" width="120" height="26" rx="13" fill="#fff" stroke="rgba(10,22,40,.1)"/>
+        <text x="168" y="62" font-family="Outfit, sans-serif" font-size="12" fill="var(--ink)" font-weight="600" text-anchor="middle">Deep canvassing</text>
+
+        <!-- off-the-shelf LLMs: bottom-right -->
+        <circle cx="390" cy="235" r="7" fill="var(--stone)"/>
+        <rect x="258" y="240" width="150" height="26" rx="13" fill="#fff" stroke="rgba(10,22,40,.1)"/>
+        <text x="333" y="257" font-family="Outfit, sans-serif" font-size="12" fill="var(--ink)" font-weight="600" text-anchor="middle">Off-the-shelf LLMs</text>
+
+        <!-- the engine: top-right, gold glow -->
+        <circle cx="400" cy="55" r="16" fill="var(--gold)" opacity=".25"/>
+        <circle cx="400" cy="55" r="10" fill="var(--gold)"/>
+        <rect x="330" y="20" width="90" height="26" rx="13" fill="var(--gold)"/>
+        <text x="375" y="37" font-family="Outfit, sans-serif" font-size="12" fill="var(--ink)" font-weight="700" text-anchor="middle">The engine</text>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- S9 THE GAP: OPERATIONALIZATION -->
+<section class="bg-paper">
+  <div class="wrap">
+    <h2 class="section-title reveal">The Gap: Operationalization</h2>
+    <p class="s9-intro reveal">We invest <strong class="gold">millions</strong> in research and message development. But implementing those learnings is riddled with pitfalls.</p>
+
+    <div class="snake-panel reveal">
+      <div class="snake-title">The Current Message Optimization Process</div>
+
+      <div class="snake-svg-wrap snake-desktop">
+        <svg viewBox="0 0 1180 360" width="100%" aria-hidden="true">
+          <defs>
+            <linearGradient id="snakeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#F2C14E"/>
+              <stop offset="20%" stop-color="#E8873A"/>
+              <stop offset="40%" stop-color="#E85D4A"/>
+              <stop offset="60%" stop-color="#F06292"/>
+              <stop offset="80%" stop-color="#E91E8C"/>
+              <stop offset="100%" stop-color="#5B8DB8"/>
+            </linearGradient>
+          </defs>
+          <path d="M 70 190
+                   C 180 190, 180 90, 290 90
+                   C 400 90, 400 270, 510 270
+                   C 620 270, 620 90, 730 90
+                   C 840 90, 840 270, 950 270
+                   C 1010 270, 1050 230, 1110 190"
+                fill="none" stroke="url(#snakeGrad)" stroke-width="44" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 70 190
+                   C 180 190, 180 90, 290 90
+                   C 400 90, 400 270, 510 270
+                   C 620 270, 620 90, 730 90
+                   C 840 90, 840 270, 950 270
+                   C 1010 270, 1050 230, 1110 190"
+                fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.5" stroke-dasharray="6 8"/>
+
+          <g font-family="Outfit, sans-serif" font-weight="700" font-size="14" fill="var(--ink)" text-anchor="middle">
+            <circle cx="70" cy="190" r="52" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="70" y="184"><tspan x="70" dy="0">Original</tspan><tspan x="70" dy="16">Message</tspan></text>
+
+            <circle cx="290" cy="90" r="52" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="290" y="84"><tspan x="290" dy="0">Movement</tspan><tspan x="290" dy="16">Frame</tspan></text>
+
+            <circle cx="510" cy="270" r="52" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="510" y="256"><tspan x="510" dy="0">Pollster Best</tspan><tspan x="510" dy="16">Practices</tspan></text>
+
+            <circle cx="730" cy="90" r="52" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="730" y="76"><tspan x="730" dy="0">Toolkit</tspan><tspan x="730" dy="16">Messaging Recs</tspan></text>
+
+            <circle cx="950" cy="270" r="52" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="950" y="264"><tspan x="950" dy="0">Your Own</tspan><tspan x="950" dy="16">Priors</tspan></text>
+
+            <circle cx="1110" cy="190" r="52" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="1110" y="176"><tspan x="1110" dy="0">Optimized</tspan><tspan x="1110" dy="16">Message =</tspan><tspan x="1110" dy="16">READY!!!</tspan></text>
+          </g>
+        </svg>
+      </div>
+
+      <!-- mobile variant -->
+      <div class="snake-svg-wrap snake-mobile">
+        <svg viewBox="0 0 340 880" width="100%" aria-hidden="true">
+          <defs>
+            <linearGradient id="snakeGradM" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#F2C14E"/>
+              <stop offset="20%" stop-color="#E8873A"/>
+              <stop offset="40%" stop-color="#E85D4A"/>
+              <stop offset="60%" stop-color="#F06292"/>
+              <stop offset="80%" stop-color="#E91E8C"/>
+              <stop offset="100%" stop-color="#5B8DB8"/>
+            </linearGradient>
+          </defs>
+          <path d="M 90 60
+                   C 230 60, 230 150, 130 180
+                   C 30 210, 30 300, 170 320
+                   C 290 340, 290 430, 150 460
+                   C 30 480, 30 570, 170 600
+                   C 250 615, 250 700, 170 750"
+                fill="none" stroke="url(#snakeGradM)" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 90 60
+                   C 230 60, 230 150, 130 180
+                   C 30 210, 30 300, 170 320
+                   C 290 340, 290 430, 150 460
+                   C 30 480, 30 570, 170 600
+                   C 250 615, 250 700, 170 750"
+                fill="none" stroke="#fff" stroke-opacity=".5" stroke-width="1.4" stroke-dasharray="5 7"/>
+          <g font-family="Outfit, sans-serif" font-weight="700" font-size="14" fill="var(--ink)" text-anchor="middle">
+            <circle cx="90" cy="60" r="46" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="90" y="54"><tspan x="90" dy="0">Original</tspan><tspan x="90" dy="16">Message</tspan></text>
+
+            <circle cx="130" cy="180" r="46" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="130" y="174"><tspan x="130" dy="0">Movement</tspan><tspan x="130" dy="16">Frame</tspan></text>
+
+            <circle cx="170" cy="320" r="46" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="170" y="306"><tspan x="170" dy="0">Pollster Best</tspan><tspan x="170" dy="16">Practices</tspan></text>
+
+            <circle cx="150" cy="460" r="46" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="150" y="446"><tspan x="150" dy="0">Toolkit</tspan><tspan x="150" dy="16">Messaging Recs</tspan></text>
+
+            <circle cx="170" cy="600" r="46" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="170" y="594"><tspan x="170" dy="0">Your Own</tspan><tspan x="170" dy="16">Priors</tspan></text>
+
+            <circle cx="170" cy="750" r="46" fill="#fff" stroke="#fff" stroke-width="3"/>
+            <text x="170" y="736"><tspan x="170" dy="0">Optimized</tspan><tspan x="170" dy="16">Message =</tspan><tspan x="170" dy="16">READY!!!</tspan></text>
+          </g>
+        </svg>
+      </div>
+
+      <div class="snake-not-optimal">
+        <div class="snake-rule"></div>
+        <span>...NOT OPTIMAL</span>
+      </div>
+    </div>
+
+    <div class="engine-panel">
+      <div class="engine-eyebrow">With the Hoplight Engine</div>
+      <div class="engine-flow">
+        <div class="engine-box">AUDIENCE + GOAL</div>
+        <span class="engine-arrow"><svg width="47" height="21" viewBox="0 0 36 16" aria-hidden="true"><path d="M0 8 H28 M22 2 L30 8 L22 14" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/></svg></span>
+        <div class="engine-box gold">
+          HOPLIGHT ENGINE
+          <span class="engine-ticks" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        </div>
+        <span class="engine-bracket">
+          <svg width="83" height="118" viewBox="0 0 64 90" aria-hidden="true">
+            <path d="M0 45 H20 M20 45 V15 M20 45 V45 M20 45 V75" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
+            <path d="M20 15 H50 M20 45 H50 M20 75 H50" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
+            <path d="M44 9 L52 15 L44 21" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
+            <path d="M44 39 L52 45 L44 51" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
+            <path d="M44 69 L52 75 L44 81" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/>
+          </svg>
+        </span>
+        <div class="engine-fork">
+          <span class="engine-pill">Local</span>
+          <span class="engine-pill">State</span>
+          <span class="engine-pill">National</span>
+        </div>
+      </div>
+      <ul class="engine-bullets">
+        <li>Deploy effective frames to all users instantly</li>
+        <li>Generate bespoke variants without drift</li>
+      </ul>
+      <p class="engine-line">One input can return 37 platform-ready copy types.</p>
+    </div>
+
+    <p class="s9-statement reveal"><strong>Success is</strong> deploying those best practices with <strong class="gold">high fidelity at scale</strong></p>
+  </div>
+</section>
+
+<!-- S10 FOUR AUDITABLE LAYERS -->
+<section class="bg-white">
+  <div class="wrap">
+    <h2 class="section-title reveal">Four Auditable Layers</h2>
+    <p class="s10-intro reveal">Built on 22 psychometric measurement traditions and 110 subscales. The four layers are the public map, while the proprietary pipeline spans eight stages.</p>
+
+    <div class="layers-wrap reveal">
+      <div class="layers-connector" aria-hidden="true"></div>
+      <div class="layers-row">
+        <div class="layer-card">
+          <span class="layer-num" aria-hidden="true">01</span>
+          <span class="layer-pill gold">TRAIT PROFILE</span>
+          <p>Measures who the listener is psychologically. Takes signals in and outputs a factor vector.</p>
+        </div>
+        <div class="layer-card">
+          <span class="layer-num" aria-hidden="true">02</span>
+          <span class="layer-pill gold">WORLDVIEW</span>
+          <p>Projects the profile into felt worldview: archetype, antagonists, fears, and internal story.</p>
+        </div>
+        <div class="layer-card">
+          <span class="layer-num" aria-hidden="true">03</span>
+          <span class="layer-pill gold">MESSAGE SPEC</span>
+          <p>Maps worldview directly to frame, narrative, metaphor, register, and appeal type.</p>
+        </div>
+        <div class="layer-card muted">
+          <span class="layer-num" aria-hidden="true">04</span>
+          <span class="layer-pill stone">RENDERING</span>
+          <p>LLM writes prose to spec. <strong>The moat is the spec it receives from Layers 1-3.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S11 RECURSIVE MESSAGE REFINEMENT -->
+<section class="bg-white">
+  <div class="wrap reveal">
+    <div class="loop-outer">
+      <div class="loop-card">
+        <div class="loop-kicker">What This Unlocks:</div>
+        <div class="loop-headline">RECURSIVE MESSAGE REFINEMENT</div>
+
+        <div class="ring-wrap">
+          <svg viewBox="0 0 500 460" width="100%" aria-hidden="true">
+            <defs>
+              <marker id="arrowGoldSolid" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--gold)"/>
+              </marker>
+              <marker id="arrowGoldLight" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="var(--gold-light)"/>
+              </marker>
+            </defs>
+
+            <!-- DEVELOP -> DEPLOY : solid gold -->
+            <path d="M 269.1 111.7 A 110 110 0 0 1 353.4 257.6" fill="none" stroke="var(--gold)" stroke-width="7" stroke-linecap="round" marker-end="url(#arrowGoldSolid)"/>
+            <!-- DEPLOY -> DECODE : light gold -->
+            <path d="M 334.3 290.7 A 110 110 0 0 1 165.7 290.7" fill="none" stroke="var(--gold-light)" stroke-width="7" stroke-linecap="round" marker-end="url(#arrowGoldLight)"/>
+            <!-- DECODE -> DEVELOP : light gold -->
+            <path d="M 146.6 257.6 A 110 110 0 0 1 230.9 111.7" fill="none" stroke="var(--gold-light)" stroke-width="7" stroke-linecap="round" marker-end="url(#arrowGoldLight)"/>
+
+            <!-- labels -->
+            <text x="250" y="35" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="26" letter-spacing="1" fill="#fff">DEVELOP</text>
+            <text x="410.2" y="312.5" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="26" letter-spacing="1" fill="#fff">DEPLOY</text>
+            <text x="89.8" y="312.5" text-anchor="middle" font-family="Outfit, sans-serif" font-weight="800" font-size="26" letter-spacing="1" fill="#fff">DECODE</text>
+
+            <!-- micro-copy -->
+            <foreignObject x="150" y="45" width="200" height="40">
+              <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Outfit,sans-serif;font-size:13px;color:rgba(255,255,255,.75);text-align:center;line-height:1.4">Develop a message in the morning.</div>
+            </foreignObject>
+            <foreignObject x="335.2" y="340" width="150" height="55">
+              <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Outfit,sans-serif;font-size:13px;color:rgba(255,255,255,.75);text-align:center;line-height:1.4">Field it in the afternoon.</div>
+            </foreignObject>
+            <foreignObject x="0" y="340" width="170" height="55">
+              <div xmlns="http://www.w3.org/1999/xhtml" style="font-family:Outfit,sans-serif;font-size:13px;color:rgba(255,255,255,.75);text-align:center;line-height:1.4">Decode the results, tune the tool, repeat tomorrow.</div>
+            </foreignObject>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- S12 CLOSE + AUTHOR -->
+<section class="bg-paper">
+  <div class="wrap">
+    <div class="s12-grid reveal">
+      <div>
+        <div class="s12-rule"></div>
+        <p class="s12-statement">Move the people other programs leave out.</p>
+      </div>
+      <div class="author-card">
+        <span class="eyebrow">The Author</span>
+        <p><strong class="white">Whit Pendergast has spent 20 years building the thing before the field knows it needs it.</strong> In 2008 he invented an inverse-knock program in New Hampshire that found, registered, and turned out 2,300 Latino voters the party had no infrastructure to reach. He co-founded the largest crowdfunded distillery in US history, then built AI marketing infrastructure for its outspoken progressive brand before the industry had a playbook. He shipped AGIS, a global-to-local AI-governance intelligence system, and built the persuasion engine now licensed by the second-largest union in North America.</p>
+        <a class="mailto-btn" href="mailto:whit@hoplight.ai">✉ whit@hoplight.ai</a>
+      </div>
+    </div>
+  </div>
+</section>
+`;
+
+export default function PmeContent() {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const items = container.querySelectorAll('.reveal');
+
+    function showBeat2() {
+      const b1 = container!.querySelector('#beat1') as HTMLElement | null;
+      const b2 = container!.querySelector('#beat2') as HTMLElement | null;
+      if (b1) b1.style.display = 'none';
+      if (b2) b2.style.display = 'inline';
+    }
+
+    function growBars() {
+      const pxPerPoint = 8;
+      [1, 2, 3].forEach(function (i) {
+        const down = container!.querySelector('#down-' + i) as HTMLElement | null;
+        const up = container!.querySelector('#up-' + i) as HTMLElement | null;
+        if (down) {
+          const dv = parseFloat(down.getAttribute('data-value') || '0');
+          down.style.height = (dv * pxPerPoint) + 'px';
+        }
+        if (up) {
+          const uv = parseFloat(up.getAttribute('data-value') || '0');
+          setTimeout(function () {
+            up.style.height = (uv * pxPerPoint) + 'px';
+            const uval = container!.querySelector('#upval-' + i) as HTMLElement | null;
+            if (uval) uval.style.opacity = '1';
+          }, (i - 1) * 100);
+        }
+      });
+    }
+
+    if (reduced || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('active'); });
+      showBeat2();
+      growBars();
+      return;
+    }
+
+    const io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    items.forEach(function (el) { io.observe(el); });
+
+    setTimeout(function () {
+      const hero = container!.querySelector('.hero .reveal');
+      if (hero) hero.classList.add('active');
+    }, 100);
+
+    // chart section: trigger beat 1 (red bars) on view, beat 2 (green bars + heading swap) +1200ms later
+    const chartSection = container!.querySelector('#chart-section');
+    if (chartSection) {
+      const chartIo = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            growBars();
+            setTimeout(showBeat2, 1200);
+            chartIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.35 });
+      chartIo.observe(chartSection);
+    }
+
+    return () => {
+      io.disconnect();
+    };
+  }, []);
+
+  return (
+    <div className="pme-page" ref={containerRef}>
+      <style dangerouslySetInnerHTML={{ __html: pmeCSS }} />
+      <div dangerouslySetInnerHTML={{ __html: pmeHTML }} />
+    </div>
+  );
+}
