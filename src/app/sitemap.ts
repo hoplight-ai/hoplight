@@ -3,7 +3,8 @@ import type { MetadataRoute } from 'next';
 const ORIGIN = 'https://hoplight.ai';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ['', '/services', '/work', '/persuasion', '/research', '/about', '/faq', '/contact', '/portfolio'];
+  // '/work' removed 2026-08-13: it now 308s to /portfolio, and a sitemap should not list a redirect.
+  const paths = ['', '/services', '/persuasion', '/research', '/about', '/faq', '/contact', '/portfolio'];
   return paths.map((p) => ({
     url: `${ORIGIN}${p}`,
     changeFrequency: 'monthly' as const,

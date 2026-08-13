@@ -193,7 +193,7 @@ export default function Home() {
             <p>Tools that national organizations are using. Not proofs of concept.</p>
           </div>
           <div className="work-cards">
-            <Link className="wcard" href="/work">
+            <Link className="wcard" href="/portfolio">
               <div className="wcard-img">
                 <img className="wcard-shot" src="/screenshots/agis.png" alt="AGIS search interface showing a world map and plain-English AI governance queries." width={1228} height={925} />
               </div>

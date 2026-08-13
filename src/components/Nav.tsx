@@ -8,7 +8,7 @@ export default function Nav() {
   const path = usePathname();
   const links = [
     { href: '/services', label: 'Services' },
-    // { href: '/work', label: 'Work' }, // hidden for MVP, page still accessible
+    { href: '/portfolio', label: 'Portfolio' },
     { href: '/persuasion', label: 'Persuasion' },
     // { href: '/research', label: 'Research' }, // hidden from nav, page still accessible
     { href: '/about', label: 'About' },

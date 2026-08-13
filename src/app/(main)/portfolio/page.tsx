@@ -2,14 +2,16 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FACTS } from '@/lib/facts';
 
+const GALLERY_URL = 'https://vault-sigma-two.vercel.app/portfolio';
+
 export const metadata: Metadata = {
   title: 'Portfolio',
   description:
-    'A selection of AI systems Hoplight has shipped for labor, advocacy, and mission-driven organizations. What each one does, and who it serves.',
+    'A selection of AI systems Hoplight has shipped for labor, advocacy, and mission-driven organizations. Most of them open in your browser.',
   alternates: { canonical: '/portfolio' },
   openGraph: {
     title: 'Portfolio — Hoplight',
-    description: 'Systems we’ve shipped. What each one does, and who it serves.',
+    description: 'Systems we’ve shipped. Most of them open in your browser.',
     url: 'https://hoplight.ai/portfolio',
   },
 };
@@ -25,22 +27,42 @@ export default function Portfolio() {
         </div>
       </div>
 
+      <section className="slate">
+        <div className="wrap">
+          <div className="section-head">
+            <span className="label">The gallery</span>
+            <h2>Most of it, you can just open.</h2>
+            <p>
+              Live applications and interactive analyses, running in a browser, with no sales call in
+              between. The gallery is the working set, so it changes when the work changes and not
+              when this page gets rebuilt.
+            </p>
+          </div>
+          <div className="cta-row">
+            <a
+              className="btn btn-primary"
+              href={GALLERY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open the gallery &rarr;
+            </a>
+          </div>
+        </div>
+      </section>
+
       <section>
         <div className="wrap">
-          <div className="portfolio-grid">
-            <a className="pfcard link" href="https://ai-policy-tool.vercel.app/" target="_blank" rel="noopener noreferrer">
-              <h3 className="pfname">AGIS</h3>
-              <div className="pfrow">
-                <span className="pflabel">What it does</span>
-                <span className="pfval">Query AI governance across {FACTS.agis.jurisdictions} jurisdictions and {FACTS.agis.sources} sources in plain English. Covers federal and state laws, lobbying spend, CEO political donations, enforcement actions, and the governance positions of 15 frontier AI labs. Cross-references what companies promise publicly against what they lobby for privately.</span>
-              </div>
-              <div className="pfrow">
-                <span className="pflabel">Who it serves</span>
-                <span className="pfval">Policy and advocacy teams.</span>
-              </div>
-              <span className="go">Open the tool &rarr;</span>
-            </a>
+          <div className="section-head">
+            <span className="label">Client engagements</span>
+            <h2>And some of it, you can&apos;t.</h2>
+            <p>
+              These run inside client organizations, on their data, so there is no link to hand you.
+              Here is what each one does and who it serves.
+            </p>
+          </div>
 
+          <div className="portfolio-grid">
             <div className="pfcard">
               <h3 className="pfname">Change Agent</h3>
               <div className="pfrow">
@@ -52,19 +74,6 @@ export default function Portfolio() {
                 <span className="pfval">Unions and organizers.</span>
               </div>
             </div>
-
-            <Link className="pfcard link" href="/persuasion">
-              <h3 className="pfname">The Psychographic Message Engine</h3>
-              <div className="pfrow">
-                <span className="pflabel">What it does</span>
-                <span className="pfval">RCT-validated persuasion you can audit, control, and improve. Validated in a 3,006-person voter-file-matched randomized controlled trial: up to 26 points over a no-message baseline.</span>
-              </div>
-              <div className="pfrow">
-                <span className="pflabel">Who it serves</span>
-                <span className="pfval">Campaigns and advocacy organizations.</span>
-              </div>
-              <span className="go">View &rarr;</span>
-            </Link>
 
             <div className="pfcard">
               <h3 className="pfname">Agent-operated systems</h3>
