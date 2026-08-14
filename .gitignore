@@ -3,3 +3,12 @@ node_modules/
 out/
 .DS_Store
 *.tsbuildinfo
+
+# Environment files — secrets live in Vercel/GitHub env vars, never in git
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Claude Code session state (per-machine; launch.json stays tracked where it already is)
+.claude/
