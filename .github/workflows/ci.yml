@@ -22,6 +22,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
+        with:
+          # fetch-depth: 0 pulls the whole history, which the secret scan below needs.
+          # The default shallow checkout is one commit, and a scan of one commit answers
+          # "is a key in this diff", not "is a key in this repo". A credential deleted from
+          # HEAD three weeks ago is still in the pack file and still scrapeable.
+          fetch-depth: 0
 
       - uses: actions/setup-node@v7
         with:
@@ -33,6 +39,35 @@ jobs:
       - name: install
         id: install
         run: npm ci
+
+      # Every check below carries the same condition: it runs even when an earlier check went red.
+      # A chain that stops at the first failure hides the ones behind it and turns one CI run into
+      # several sequential discoveries. The job still fails at the end if any step failed.
+      #
+      # Leapfrog L3, 2026-08-09. The local pre-commit hook in .githooks/ protects the machine that
+      # has it; this protects every other path into the repo (the GitHub web editor, a clone that
+      # never ran `npm install`, a commit made with --no-verify). It scans the FULL history, not the
+      # diff, and it needs no key, so it belongs in this workflow.
+      # It does not depend on `install`, so it runs even when npm ci fails — hence no
+      # steps.install.outcome condition on this one step.
+      #
+      # Shipped because the full history was measured CLEAN before it was added: gitleaks 8.30.1,
+      # 51 commits, "no leaks found", 2026-08-17. Had history been dirty this step would have been
+      # withheld rather than turning main permanently red for a fault nobody introduced here.
+      - name: 'gate: secret scan'
+        if: ${{ !cancelled() }}
+        run: |
+          curl -sSfL -o /tmp/gitleaks.tar.gz \
+            https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          /tmp/gitleaks git --redact --verbose --no-banner "$GITHUB_WORKSPACE"
+
+      # The repo is TypeScript strict and, until 2026-08-17, nothing typechecked it except
+      # `next build` — which is slower and reports differently. This runs BEFORE build so a type
+      # error is named as a type error rather than surfacing as a build failure.
+      - name: typecheck
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run typecheck
 
       - name: build
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
