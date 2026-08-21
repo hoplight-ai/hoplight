@@ -190,7 +190,15 @@ export default function Home() {
         <div className="wrap">
           <div className="work-top">
             <h2>What we&apos;ve shipped.</h2>
-            <p>Tools that national organizations are using. Not proofs of concept.</p>
+            {/* SITE1 2026-08-21: names Rayli on the highest-traffic page. It is NOT a third work
+                card, because every card in this grid carries a screenshot and there is no Rayli
+                asset — reusing the PME one-pager here would caption an image as something it is
+                not. The card is the right shape once a real screenshot exists. */}
+            <p>
+              Tools that national organizations are using. Not proofs of concept. Our flagship is{' '}
+              <Link href="/rayli">Rayli</Link>, a communications intelligence platform for
+              mission-driven organizations.
+            </p>
           </div>
           <div className="work-cards">
             <Link className="wcard" href="/portfolio">

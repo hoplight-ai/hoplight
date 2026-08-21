@@ -7,6 +7,9 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const path = usePathname();
   const links = [
+    // Rayli leads: SITE1 found the flagship product was not named anywhere a visitor could see it,
+    // which read at first contact as a consulting shop with a side project.
+    { href: '/rayli', label: 'Rayli' },
     { href: '/services', label: 'Services' },
     { href: '/portfolio', label: 'Portfolio' },
     { href: '/persuasion', label: 'Persuasion' },
