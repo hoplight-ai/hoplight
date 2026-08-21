@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import { FACTS } from '@/lib/facts';
 
 function CountUp({ to, format }: { to: number; format?: (n: number) => string }) {
   const [val, setVal] = useState(0);
@@ -61,7 +62,7 @@ export default function ResearchStatBand() {
             <div className="rstat-num">
               <CountUp to={3006} format={(n) => n.toLocaleString()} />
             </div>
-            <p className="rstat-label">person RCT, voter-file matched</p>
+            <p className="rstat-label">person {FACTS.rct.method}, {FACTS.rct.matchRate} voter-file match</p>
           </div>
         </div>
       </div>

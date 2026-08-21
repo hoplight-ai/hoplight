@@ -1,9 +1,13 @@
 import type { Metadata } from 'next';
 import PmeContent from './PmeContent';
+import { FACTS } from '@/lib/facts';
 
 export const metadata: Metadata = {
   title: 'Persuasion',
-  description: 'Message infrastructure that matches the frame to the listener\'s psychology, not their demographics. Validated in a 3,000-person voter-file-matched RCT.',
+  // Reads FACTS rather than carrying its own copy. This string previously said "3,000-person",
+  // where every other surface says 3,006 — a round number in a metadata description is what search
+  // results and link previews show, and it makes the reader wonder what else got rounded.
+  description: `Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a ${FACTS.rct.n}-person ${FACTS.rct.method}, ${FACTS.rct.matchRate} matched to the voter file.`,
   alternates: { canonical: '/persuasion' },
   openGraph: {
     title: 'Persuasion - Hoplight',

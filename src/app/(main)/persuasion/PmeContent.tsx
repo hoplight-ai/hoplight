@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { FACTS } from '@/lib/facts';
 
 const pmeCSS = `
 .pme-page {
@@ -546,7 +547,7 @@ const pmeHTML = `
     <div class="s-head reveal">
       <h2 class="section-title center">Finding: The Backlash</h2>
       <div class="study-chip-wrap">
-        <span class="study-chip">The Security Officer Messaging Study · n=3,006 · voter-file matched · August 2025</span>
+        <span class="study-chip">The Security Officer Messaging Study · n=${FACTS.rct.n} · ${FACTS.rct.matchRate} voter-file match · ${FACTS.rct.date}</span>
       </div>
       <p class="s-quote serif">Persuasion messaging from progressive human communicators underperformed the placebo message about Morton Salt.</p>
       <p class="s-sub">Issue tested: “Many security officers are poorly paid and resourced.”</p>

@@ -3,7 +3,15 @@ export const FACTS = {
   rct: {
     n: '3,006',
     date: 'August 2025',
-    method: 'randomized controlled trial, voter-file matched',
+    // CORRECTED 2026-08-21. This read 'randomized controlled trial, voter-file matched', which
+    // describes a stronger and more expensive design than the one that was run. The study's own
+    // Methodology section on /research is the reference and says: "3,006 US adults (weighted to
+    // 3,004), fielded August 19-20, 2025. 60.9% voter-file match rate." That is a GENERAL ADULT
+    // SAMPLE with a match-rate statistic attached. "Voter-file-matched RCT" reads as "we drew the
+    // sample from the voter file", which is the kind of claim a sophisticated buyer checks.
+    // The match rate is a good fact. It is just a different sentence, so it lives in its own field.
+    method: 'randomized controlled trial',
+    matchRate: '60.9%', // share of the sample matched to a voter file — sample quality, NOT design
     liftVsBaseline: '26', // points over a no-message baseline — the ONLY lift track for public copy
   },
   engine: { traditions: '22', subscales: '110' },
