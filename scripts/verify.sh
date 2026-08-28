@@ -44,9 +44,13 @@ check_present "stone-deep token used" "var\(--stone-deep\)"
 check_present "collapse aria-expanded" "aria-expanded"
 
 echo "== Persuasion IP guardrails =="
-P="$SRC/app/persuasion/page.tsx"
+# CORRECTED 2026-08-28 (lane preview7). This pointed at "$SRC/app/persuasion/page.tsx",
+# a path that has not existed since the routes moved under the (main) route group. grep on a
+# missing file always returns non-zero, so all four guardrails below printed PASS without ever
+# reading anything. Pointing it at the real directory turns them into real checks.
+P="$SRC/app/(main)/persuasion"
 for term in "Change Agent" "Governed, not just powerful" "Built on tradition" "subscales"; do
-  if grep -InEi "$term" "$P" >/dev/null 2>&1; then
+  if grep -RInEi "$term" "$P" >/dev/null 2>&1; then
     echo "FAIL: persuasion still contains '$term'"; fail=1
   else
     echo "PASS: persuasion free of '$term'"
