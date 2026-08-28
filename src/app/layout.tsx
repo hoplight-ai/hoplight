@@ -32,22 +32,6 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
-  // Emits apple-mobile-web-app-capable=yes and apple-mobile-web-app-title.
-  // capable:true is what makes an iOS home-screen launch open without Safari chrome.
-  // The title is the label under the home-screen icon, so it is the short name, not
-  // the full page title, which iOS would truncate.
-  appleWebApp: {
-    capable: true,
-    title: 'Hoplight',
-    statusBarStyle: 'black-translucent',
-  },
-  // Measured against Next 16.2.12: `appleWebApp.capable` emits only the
-  // standards-track `mobile-web-app-capable`, NOT the apple-prefixed legacy name.
-  // Older iOS honours only the legacy name, and it is the tag root CLAUDE.md
-  // requires by name. Emitting both costs one line and loses nothing.
-  other: {
-    'apple-mobile-web-app-capable': 'yes',
-  },
   openGraph: {
     type: 'website',
     siteName: 'Hoplight',
@@ -63,6 +47,19 @@ export const metadata: Metadata = {
     description: 'AI strategy for labor, advocacy, and mission-driven organizations.',
     images: ['/og.png'],
   },
+  // Without this a saved copy opens inside Safari's chrome, address bar and all. `title` is the
+  // label under the home-screen icon, and it is the short name rather than the <title> above,
+  // because iOS truncates at roughly twelve characters — the full title arrives as "Hoplight — A…".
+  appleWebApp: {
+    capable: true,
+    title: 'Hoplight',
+    statusBarStyle: 'default',
+  },
+  // Next emits only the standardised `mobile-web-app-capable` and drops the apple-prefixed
+  // spelling. Current Safari honours the manifest's display:"standalone", so this is belt and
+  // braces — but older iOS reads only this one, and what it prevents fails silently: the icon
+  // saves, it just opens with browser chrome around it.
+  other: { 'apple-mobile-web-app-capable': 'yes' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

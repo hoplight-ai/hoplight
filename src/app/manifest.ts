@@ -1,40 +1,45 @@
-import type { MetadataRoute } from 'next';
+// The web manifest, which is what makes hoplight.ai installable rather than merely bookmarkable.
+//
+// The site already had the parts you can see: a 1200x630 card at /og.png, an absolute og:image
+// courtesy of metadataBase, a 180px apple-touch-icon and an SVG favicon. What it had no way to say
+// was its own NAME on a phone. Without a manifest iOS labels the home-screen icon from <title>,
+// and this site's title is "Hoplight — AI strategy for labor, advocacy, and mission-driven
+// organizations", which arrives cut to about twelve characters. `short_name` is one word.
+//
+// `display: "standalone"`, with the appleWebApp block in layout.tsx, is what opens a saved copy
+// full screen instead of inside Safari's chrome.
+//
+// The icons are the PNGs already in public/ — no new artwork, no second source of truth for the
+// mark. Colours are read off globals.css; nothing new is decided here.
+//
+// theme_color #0F1B2D is --ink (globals.css:4), which is also the sticky header's own background
+// (globals.css:109, rgba(15,27,45,.97)) — the phone status bar sits directly above that header.
+//
+// background_color #F5F5F0 is --surface (globals.css:10), which is what `body` actually paints
+// (globals.css:52). CORRECTED 2026-08-28 by lane preview7: this field was #0F1B2D, matching
+// theme_color. It is the splash colour held while the app loads, so an ink splash handing over to
+// a bone-white page is a visible dark-to-light flash on every cold launch. It must match the page.
+//
+// Deliberately NOT declared maskable: the shipped mark fills its rounded-square canvas edge to
+// edge, so an Android maskable crop would cut into the glyph.
 
-/**
- * Web app manifest, served by Next at /manifest.webmanifest and linked automatically
- * from every page. This is what turns "save to home screen" from a screenshot thumbnail
- * into the Hoplight mark, and what makes the launch open without Safari chrome.
- *
- * Every colour and every icon below is taken from what this site already ships. Nothing
- * here is inferred from a design record (PO-HOPLIGHT-001):
- *   - name          : the existing metadata title in src/app/layout.tsx (frozen copy, unchanged)
- *   - theme_color   : #0F1B2D = --ink, src/app/globals.css:4, the sticky header's own
- *                     background at globals.css:109 (rgba(15,27,45,.97)). The phone status
- *                     bar sits directly above that header, so they should match.
- *   - background_color: #F5F5F0 = --surface, globals.css:10, which is the actual body
- *                     background at globals.css:52 and therefore the correct splash colour.
- *   - icons         : public/favicon-192.png and public/favicon-512.png, already generated
- *                     from public/favicon.svg by scripts/gen-favicons.mjs.
- *
- * Deliberately NOT declared maskable: the shipped mark fills its rounded-square canvas
- * edge to edge, so an Android maskable crop would cut into the glyph. Declaring it would
- * be a claim the artwork does not support.
- */
+import type { MetadataRoute } from "next";
+
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    id: '/',
-    name: 'Hoplight — AI strategy for labor, advocacy, and mission-driven organizations',
-    short_name: 'Hoplight',
+    id: "/",
+    name: "Hoplight — AI strategy for labor, advocacy, and mission-driven organizations",
+    short_name: "Hoplight",
     description:
-      'Hoplight is a vertically integrated AI governance and strategy shop for unions, nonprofits, advocacy groups, and foundations.',
-    start_url: '/',
-    scope: '/',
-    display: 'standalone',
-    theme_color: '#0F1B2D',
-    background_color: '#F5F5F0',
+      "AI strategy for labor, advocacy, and mission-driven organizations. Governance, adoption, custom builds, and message testing.",
+    start_url: "/",
+    scope: "/",
+    display: "standalone",
+    background_color: "#F5F5F0",
+    theme_color: "#0F1B2D",
     icons: [
-      { src: '/favicon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
-      { src: '/favicon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+      { src: "/favicon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+      { src: "/favicon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
     ],
   };
 }
