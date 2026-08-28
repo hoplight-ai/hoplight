@@ -1,0 +1,25 @@
+{
+  "id": "/pme-lever",
+  "name": "The Frame Is the Lever \u2014 Hoplight",
+  "short_name": "The Lever",
+  "description": "Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a 3,000-person voter-file-matched RCT.",
+  "start_url": "/pme-lever",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0F1B2D",
+  "theme_color": "#0F1B2D",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
