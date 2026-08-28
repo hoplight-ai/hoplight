@@ -32,6 +32,22 @@ export const metadata: Metadata = {
     ],
     apple: '/apple-touch-icon.png',
   },
+  // Emits apple-mobile-web-app-capable=yes and apple-mobile-web-app-title.
+  // capable:true is what makes an iOS home-screen launch open without Safari chrome.
+  // The title is the label under the home-screen icon, so it is the short name, not
+  // the full page title, which iOS would truncate.
+  appleWebApp: {
+    capable: true,
+    title: 'Hoplight',
+    statusBarStyle: 'black-translucent',
+  },
+  // Measured against Next 16.2.12: `appleWebApp.capable` emits only the
+  // standards-track `mobile-web-app-capable`, NOT the apple-prefixed legacy name.
+  // Older iOS honours only the legacy name, and it is the tag root CLAUDE.md
+  // requires by name. Emitting both costs one line and loses nothing.
+  other: {
+    'apple-mobile-web-app-capable': 'yes',
+  },
   openGraph: {
     type: 'website',
     siteName: 'Hoplight',
