@@ -5,6 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Frame Is the Lever - Hoplight</title>
 <meta name="description" content="Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a 3,000-person voter-file-matched RCT.">
+
+<!-- App metadata. This page is served at https://hoplight.ai/pme-lever and is handed to
+     prospects, so the four things apply to it exactly as they do to the site around it: a name,
+     preview text, a preview image and a home-screen icon. It shipped with a title and a
+     description and nothing else, which pastes into a message as a bare grey URL.
+
+     og:image MUST be absolute or it renders as a blank card in iMessage and reports no error
+     anywhere. It points at the site's own /og.png — the generic HOPLIGHT brand card, which is the
+     right card for any page here because it makes no page-specific claim. The specificity lives in
+     og:title and og:description below, which are this page's own. -->
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Hoplight">
+<meta property="og:url" content="https://hoplight.ai/pme-lever">
+<meta property="og:title" content="The Frame Is the Lever">
+<meta property="og:description" content="Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a 3,000-person voter-file-matched RCT.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Frame Is the Lever">
+<meta name="twitter:description" content="Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a 3,000-person voter-file-matched RCT.">
+<meta name="twitter:image" content="https://hoplight.ai/og.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="The Lever">
+<link rel="manifest" href="/pme-lever-manifest.json">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.classList.remove('no-js');</script>
 <style>
 @font-face{font-family:'Outfit';src:url('/fonts/outfit-latin-400-normal.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
