@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import EvMap from '@/components/EvMap';
 
 export const metadata: Metadata = {
@@ -249,7 +250,7 @@ export default function Persuasion() {
           <hr className="rule" style={{ marginBottom: '36px' }} />
           <h2>Move the people other programs leave out.</h2>
           <div className="cta-row" style={{ marginTop: '32px' }}>
-            <a className="btn btn-primary" href="https://calendly.com/whitpendergast">Book a conversation</a>
+            <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>
       </section>
