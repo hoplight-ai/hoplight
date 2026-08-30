@@ -14,7 +14,9 @@ export const FACTS = {
     matchRate: '60.9%', // share of the sample matched to a voter file — sample quality, NOT design
     liftVsBaseline: '26', // points over a no-message baseline — the ONLY lift track for public copy
   },
-  engine: { traditions: '22', subscales: '110' },
+  // REMOVED 2026-08-30 (lane site1). This held the measurement-tradition and subscale counts, which
+  // the site's own wording rule in scripts/verify.sh forbids putting in public copy. Nothing in src/
+  // read this entry, so it was a disclosure with no consumer. The counts stay out of the repo.
   agis: { jurisdictions: '2,100+', sources: '31,900+' },
   company: {
     systems: '130+',

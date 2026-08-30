@@ -885,7 +885,7 @@ const pmeHTML = `
 <section class="bg-white">
   <div class="wrap">
     <h2 class="section-title reveal">Four Auditable Layers</h2>
-    <p class="s10-intro reveal">Built on 22 psychometric measurement traditions and 110 subscales. The four layers are the public map, while the proprietary pipeline spans eight stages.</p>
+    <p class="s10-intro reveal">Built on established psychometric measurement traditions. The four layers are the public map, while the proprietary pipeline spans eight stages.</p>
 
     <div class="layers-wrap reveal">
       <div class="layers-connector" aria-hidden="true"></div>
