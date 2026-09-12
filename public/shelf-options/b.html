@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Shelf, in order - Hoplight</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Thirteen Hoplight systems, ranked, with the number behind each one and where that number comes from. Ten open with no login.">
+<meta name="description" content="Ten products open from this page; three more are gated. Every row carries its number and where that number came from.">
 <meta name="theme-color" content="#0F1B2D">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Shelf, in order - Hoplight">
-<meta property="og:description" content="Thirteen systems, ranked, with the number behind each one. Ten open with no login.">
+<meta property="og:description" content="Ten products open from this page; three more are gated.">
 <meta property="og:url" content="https://hoplight.ai/shelf-options/b.html">
 <meta property="og:image" content="https://hoplight.ai/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Shelf, in order - Hoplight">
-<meta name="twitter:description" content="Thirteen systems, ranked, with the number behind each one.">
+<meta name="twitter:description" content="Ten products open from this page; three more are gated.">
 <meta name="twitter:image" content="https://hoplight.ai/og.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="The Shelf">
@@ -36,7 +36,6 @@
   --surface:#F5F5F0;
   --gold:#D4950A;
   --gold-hot:#E8A820;
-  --gold-deep:#845810;
   --gold-bg:#F5E6C4;
   --stone-deep:#555550;
   --line:rgba(0,0,0,0.10);
@@ -54,7 +53,7 @@
   --t-20:20px;
   --t-26:26px;
   --t-34:34px;
-  --t-56:clamp(2.1rem, 1.45rem + 2.65vw, 3.5rem);
+  --t-56:clamp(33.6px, 23.2px + 2.65vw, 56px);
 
   /* three leadings */
   --lh-tight:1.1;
@@ -111,22 +110,23 @@ a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ring);border-radius:var(
 /* Inter caps: section eyebrows and group labels. */
 .eyebrow{
   font-size:var(--t-11);font-weight:700;text-transform:uppercase;
-  letter-spacing:var(--tr-caps);line-height:var(--lh-mid);display:block;color:var(--gold-deep);
+  letter-spacing:var(--tr-caps);line-height:var(--lh-mid);display:block;color:var(--stone-deep);
 }
-.hero .eyebrow{color:var(--gold-hot)}
-.sell .eyebrow{color:var(--gold-hot)}
+.hero .eyebrow,.sell .eyebrow,.unit-i .eyebrow{color:var(--on-dark-2)}
 
 /* JetBrains Mono: machine-verifiable strings only. Sources, dates,
    statuses, hostnames. Nothing else uses this family. */
-.mono{
+.mono,.none{
   font-family:var(--font-mono);font-size:var(--t-11);font-weight:400;
   letter-spacing:var(--tr-mono);text-transform:uppercase;line-height:var(--lh-mid);
   color:var(--stone-deep);display:block;
 }
 .host{
   font-family:var(--font-mono);font-size:var(--t-13);font-weight:400;
-  color:var(--gold-deep);display:inline-flex;align-items:center;gap:var(--s-8);
+  color:var(--ink);display:inline-flex;align-items:center;gap:var(--s-8);
 }
+.host:hover{border-bottom-color:var(--gold)}
+.gated .host{color:var(--stone-deep)}
 
 /* one filled gold control per view */
 .btn{
@@ -134,7 +134,7 @@ a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ring);border-radius:var(
   font-size:var(--t-15);font-weight:700;line-height:var(--lh-mid);
   background:var(--gold);color:var(--ink);border:1px solid var(--gold);
   border-radius:var(--r-4);padding:var(--s-12) var(--s-24);min-height:44px;
-  transition:background var(--dur) var(--ease)
+  transition:background var(--dur) var(--ease), border-color var(--dur) var(--ease)
 }
 .btn:hover{background:var(--gold-hot);border-color:var(--gold-hot)}
 
@@ -146,7 +146,7 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
 .nav-links{display:flex;gap:var(--s-16);align-items:center}
 .nav-links a{font-size:var(--t-13);font-weight:400;color:var(--on-dark-2)}
 .nav-links a:hover{color:var(--on-dark-1)}
-.nav-cta{font-weight:700;color:var(--gold-hot);border:1px solid var(--gold);border-radius:var(--r-4);padding:var(--s-8) var(--s-12)}
+.nav-cta{font-weight:700;color:var(--on-dark-1);border:1px solid var(--on-dark-3);border-radius:var(--r-4);padding:var(--s-8) var(--s-12)}
 .nav-cta:hover{color:var(--ink);background:var(--gold-hot);border-color:var(--gold-hot)}
 .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:var(--s-8);min-height:44px;min-width:44px}
 .hamburger{display:block;width:20px;height:2px;background:var(--on-dark-1);position:relative;transition:background var(--dur) var(--ease)}
@@ -167,39 +167,39 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
     box-shadow:0 14px 30px var(--shadow);
   }
   .nav-links.open a{display:block;padding:var(--s-12) 0;border-top:1px solid var(--on-dark-3);min-height:44px}
-  .nav-links.open .nav-cta{text-align:center;margin-top:var(--s-8);border:1px solid var(--gold)}
+  .nav-links.open .nav-cta{text-align:center;margin-top:var(--s-8);border:1px solid var(--on-dark-3)}
 }
 
 /* ===== HERO ===== */
-.hero{background:var(--ink);color:var(--on-dark-1);padding:var(--space-section) 0}
+.hero{background:var(--ink);color:var(--on-dark-1);padding:var(--s-32) 0}
 .hero h1{max-width:14ch;margin:var(--s-16) 0 var(--s-24);color:var(--on-dark-1)}
-.hero .lede{font-size:var(--t-20);line-height:var(--lh-mid);color:var(--on-dark-2);max-width:42ch;margin-bottom:var(--s-32)}
+.hero .lede{font-size:var(--t-20);line-height:var(--lh-mid);color:var(--on-dark-2);max-width:52ch;margin-bottom:var(--s-32)}
 .hero .lede b{color:var(--on-dark-1);font-weight:700}
 .hero-cta{display:flex;align-items:center;gap:var(--s-24);flex-wrap:wrap}
 .hero-note{font-size:var(--t-13);line-height:var(--lh-mid);color:var(--on-dark-2);max-width:36ch;margin:0}
 
 /* the page's one accent zone: the house proof band, inside the wrap's own edges */
 .proofband{
-  background:var(--gold-bg);border-top:3px solid var(--gold);border-radius:var(--r-8);
-  margin-top:var(--s-32);padding:var(--s-24)
+  background:var(--gold-bg);border-top:3px solid var(--gold);
+  margin-top:var(--s-24);padding:var(--s-16) var(--s-24)
 }
 .proofgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s-32)}
 .proof-num{
-  font-size:var(--t-56);font-weight:800;letter-spacing:var(--tr-head);
+  font-size:var(--t-34);font-weight:800;letter-spacing:var(--tr-head);
   line-height:var(--lh-tight);color:var(--ink);font-variant-numeric:tabular-nums lining-nums;
   display:block;margin-bottom:var(--s-8)
 }
-.proof-num i{font-style:normal;font-size:var(--t-20);font-weight:700}
+.proof-num i{font-style:normal;font-size:var(--t-15);font-weight:700}
 .proof-cap{font-size:var(--t-15);line-height:var(--lh-mid);color:var(--ink);margin-bottom:var(--s-8);max-width:26ch}
 .proofband .mono{color:var(--stone-deep)}
 
 /* ===== THE LEDGER ===== */
-.wall{padding:var(--space-section) 0}
-.wall-head{max-width:56ch}
+.wall{padding:var(--s-24) 0 var(--space-section)}
+.wall-head{max-width:72ch}
 .wall-head h2{margin:var(--s-12) 0 var(--s-12)}
 .wall-head p{font-size:var(--t-15);line-height:var(--lh-read);color:var(--stone-deep)}
 
-.chips{display:flex;flex-wrap:wrap;gap:var(--s-8);margin:var(--s-24) 0 var(--s-32)}
+.chips{display:flex;flex-wrap:wrap;gap:var(--s-8);margin:var(--s-12) 0 var(--s-16)}
 .chips a{
   font-size:var(--t-13);font-weight:700;line-height:var(--lh-mid);color:var(--ink);
   border:1px solid var(--line);border-radius:var(--r-4);
@@ -207,18 +207,18 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
 }
 .chips a:hover{border-color:var(--gold);background:var(--gold-bg)}
 
-.grouphead{margin:var(--s-32) 0 var(--s-8)}
+.grouphead{margin:var(--s-24) 0 var(--s-8)}
 .grouphead .eyebrow{color:var(--stone-deep)}
 .grouphead p{font-size:var(--t-13);line-height:var(--lh-mid);color:var(--stone-deep);max-width:56ch;margin-top:var(--s-4)}
-.ledger:first-of-type .grouphead{margin-top:var(--s-16)}
+.ledger:first-of-type .grouphead{margin-top:var(--s-8)}
 
 .row{
-  display:grid;grid-template-columns:1fr 320px;column-gap:var(--s-32);
+  display:grid;grid-template-columns:1fr 280px;column-gap:var(--s-32);
   border-top:1px solid var(--line);padding:var(--s-24) 0;align-items:start
 }
 .row-name{grid-column:1;display:flex;align-items:center;gap:var(--s-12);flex-wrap:wrap}
+.rowstate{width:auto}
 .row .measure{grid-column:2;grid-row:1 / span 3}
-.row .measure:empty{display:none}
 .row .claim{grid-column:1;font-size:var(--t-15);line-height:var(--lh-read);color:var(--stone-deep);max-width:56ch;margin-top:var(--s-8)}
 .row .act{grid-column:1;margin-top:var(--s-8);display:flex;align-items:center;gap:var(--s-16);flex-wrap:wrap}
 .row .act .host{padding:var(--s-8) 0}
@@ -229,30 +229,39 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
   font-size:var(--t-11);font-weight:700;text-transform:uppercase;letter-spacing:var(--tr-caps);
   background:var(--gold);color:var(--ink);border-radius:var(--r-4);padding:var(--s-4) var(--s-8);line-height:var(--lh-mid)
 }
+.num i{font-style:normal;font-size:var(--t-15);font-weight:700}
 .num{
   font-size:var(--t-26);font-weight:800;letter-spacing:var(--tr-head);line-height:var(--lh-tight);
   color:var(--ink);font-variant-numeric:tabular-nums lining-nums;display:block
 }
 .unit{font-size:var(--t-15);line-height:var(--lh-mid);color:var(--stone-deep);display:block;margin-top:var(--s-4);max-width:30ch}
-.plain{font-size:var(--t-15);line-height:var(--lh-mid);color:var(--stone-deep);display:block;max-width:30ch}
 .measure .mono{margin-top:var(--s-8)}
 .status{color:var(--stone-deep)}
-.lock{width:13px;height:13px;flex:none;color:var(--gold-deep);vertical-align:-1px}
+.lock{width:13px;height:13px;flex:none;color:var(--stone-deep);vertical-align:-1px}
 
 /* personal work: same ramp, one step down, so it is never an equal */
-.own .num{font-size:var(--t-20)}
-.own h3{font-weight:400}
+.own .row{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s-8) var(--s-16);padding:var(--s-8) 0}
+.own .row-name{order:1;flex:none}
+.own h3{font-size:var(--t-15);font-weight:700}
+.own .claim{order:2;flex:1 1 20ch;min-width:0;margin-top:0;font-size:var(--t-13);line-height:var(--lh-mid);max-width:none}
+.own .measure{order:3;flex:none}
+.own .num{font-size:var(--t-15);display:inline}
+.own .unit{font-size:var(--t-13);display:inline;margin-top:0;max-width:none}
+.own .act{order:4;flex:none;margin-top:0}
+.own .act .host{padding:var(--s-4) 0}
+.gated h3{font-size:var(--t-15);font-weight:400}
 
 /* gated: rows, not plates. Lightest objects on the wall. */
-.gated h3{font-weight:400;display:flex;align-items:center;gap:var(--s-8)}
+.gated h3{display:flex;align-items:center;gap:var(--s-8)}
+.gated .row{border-top-style:dashed}
 .gated .claim{margin-top:var(--s-4)}
 
 .wall-foot{border-top:1px solid var(--line);padding-top:var(--s-16);margin-top:0;font-size:var(--t-13);line-height:var(--lh-mid);color:var(--stone-deep);max-width:56ch}
 
 /* the page's one image */
 .plate{margin:var(--s-32) 0;padding:0}
-.plate img{width:100%;border-radius:var(--r-8);border:1px solid var(--line)}
-.plate figcaption{font-size:var(--t-13);line-height:var(--lh-mid);color:var(--stone-deep);margin-top:var(--s-8);max-width:56ch}
+.plate img{width:100%;max-width:860px;margin:0 auto;border-radius:var(--r-8);border:1px solid var(--line)}
+.plate figcaption{max-width:860px;margin-inline:auto;font-size:var(--t-13);line-height:var(--lh-mid);color:var(--stone-deep);margin-top:var(--s-8)}
 
 /* ===== HOW THIS IS SOLD ===== */
 .sell{background:var(--ink);color:var(--on-dark-1);padding:var(--space-section) 0}
@@ -260,10 +269,10 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
 .sell .sub{font-size:var(--t-15);line-height:var(--lh-read);color:var(--on-dark-2);max-width:56ch;margin-bottom:var(--s-32)}
 .units{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--s-24);border-top:1px solid var(--on-dark-3)}
 .unit-i{padding-top:var(--s-16)}
-.unit-i .eyebrow{color:var(--gold-hot);margin-bottom:var(--s-8)}
+.unit-i .eyebrow{margin-bottom:var(--s-8)}
 .unit-i h3{color:var(--on-dark-1);font-size:var(--t-15);margin-bottom:var(--s-4)}
 .unit-i p{font-size:var(--t-13);line-height:var(--lh-mid);color:var(--on-dark-2)}
-.transfer{margin-top:var(--s-32);border-left:3px solid var(--gold);padding-left:var(--s-24);max-width:56ch}
+.transfer{margin-top:var(--s-32);border-left:3px solid var(--on-dark-3);padding-left:var(--s-24);max-width:56ch}
 .transfer .t1{font-size:var(--t-20);font-weight:700;line-height:var(--lh-mid);color:var(--on-dark-1);margin-bottom:var(--s-8)}
 .transfer .t2{font-size:var(--t-15);line-height:var(--lh-read);color:var(--on-dark-2)}
 
@@ -286,30 +295,32 @@ footer.site{border-top:1px solid var(--line);padding:var(--s-24) 0}
    across the row), so no 44px control block is spent per row and the
    whole page still clears the 44px minimum. */
 @media (max-width:560px){
-  .hero{padding:var(--s-12) 0}
+  .hero{padding:var(--s-8) 0}
   /* the sticky bar carries the one gold fill on a phone, so the scroll
      shortcut stops dressing as the primary action */
-  .hero .btn{background:transparent;color:var(--gold-hot);border-color:var(--gold)}
+  .hero .btn{background:transparent;color:var(--on-dark-1);border-color:var(--on-dark-3)}
   .hero h1{margin:var(--s-8) 0 var(--s-8)}
   .hero .lede{margin-bottom:var(--s-12)}
   .hero-cta{gap:var(--s-8)}
   .hero-note{max-width:none}
-  .proofband{margin-top:var(--s-16);padding:var(--s-12)}
+  .proofband{margin-top:var(--s-12);padding:var(--s-8)}
   .proofgrid{grid-template-columns:1fr;gap:var(--s-12)}
   .proof-item{display:grid;grid-template-columns:auto 1fr;column-gap:var(--s-12);align-items:baseline}
-  .proof-num{margin-bottom:0}
+  /* the h1 clamps to 33.6px here, so the proof numbers drop a step again
+     rather than outrank the headline on a phone */
+  .proof-num{font-size:var(--t-26);margin-bottom:0}
   .proof-cap{font-size:var(--t-13);line-height:var(--lh-mid);margin-bottom:var(--s-4);max-width:none}
 
   h2{font-size:var(--t-26)}
   .wall{padding:var(--s-8) 0}
   .wall-head h2{margin:var(--s-4) 0}
   .wall-head p{font-size:var(--t-13);line-height:var(--lh-mid)}
-  .chips{flex-wrap:nowrap;overflow-x:auto;margin:var(--s-8) 0;padding-bottom:var(--s-4)}
-  .chips a{flex:none;white-space:nowrap}
+  .chips{flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;margin:var(--s-4) 0;padding-bottom:var(--s-4)}
+  .chips a{flex:none;white-space:nowrap;scroll-snap-align:start}
   .grouphead{margin:var(--s-4) 0 0}
   .wall-foot{padding-top:var(--s-4);font-size:var(--t-13);line-height:var(--lh-mid)}
 
-  .row{position:relative;grid-template-columns:1fr;padding:var(--s-8) 0}
+  .row{position:relative;grid-template-columns:1fr;padding:var(--s-8) 0 var(--s-4)}
   .row-name,.row .measure,.row .claim,.row .act{grid-column:1}
   .row .measure{grid-row:auto;margin-top:0}
   .measure .num,.measure .unit{display:inline}
@@ -320,25 +331,29 @@ footer.site{border-top:1px solid var(--line);padding:var(--s-24) 0}
   .act .host{padding:0}
   /* the row is the tap target */
   .act .host::after{content:'';position:absolute;inset:0}
+  .row-name,.row .measure,.row .claim{position:relative;z-index:1}
 
   /* personal work: one step smaller again, so it is never an equal */
-  .own h3{font-size:var(--t-15);font-weight:700}
-  .own .num{font-size:var(--t-15)}
-  .gated h3{font-size:var(--t-15);font-weight:700}
+  /* the compact one-line strip is a desktop device; on a phone the group
+     keeps the page's one row shape and stays demoted by size */
+  .own .row{display:grid;grid-template-columns:1fr;gap:0}
+  .own .row-name,.own .claim,.own .measure,.own .act{order:0;flex:none}
+  .own .claim{margin-top:var(--s-4)}
+  .own .measure{margin-top:var(--s-4)}
 
   .plate{margin:var(--s-8) 0}
   /* crop the dark margins out on a phone so the card's own type is as
      large as 350px allows; the caption carries the fact either way */
-  .plate img{height:188px;object-fit:cover;object-position:50% 45%}
+  .plate img{height:152px;object-fit:cover;object-position:50% 45%}
   .plate figcaption{margin-top:var(--s-4)}
   .sell{padding:var(--s-12) 0}
   .sell h2{margin:var(--s-4) 0}
   .sell .sub{font-size:var(--t-13);line-height:var(--lh-mid);margin-bottom:var(--s-8)}
   .units{grid-template-columns:1fr 1fr;gap:var(--s-12)}
-  .unit-i{padding-top:var(--s-8)}
+  .unit-i{padding-top:var(--s-4)}
   .unit-i .eyebrow{margin-bottom:var(--s-4)}
   .unit-i h3{font-size:var(--t-13)}
-  .transfer{margin-top:var(--s-8);padding-left:var(--s-16)}
+  .transfer{margin-top:var(--s-4);padding-left:var(--s-16)}
   .transfer .t1{font-size:var(--t-15)}
   .transfer .t2{font-size:var(--t-13);line-height:var(--lh-mid)}
   .close{padding:var(--s-12) 0}
@@ -395,8 +410,7 @@ footer.site{border-top:1px solid var(--line);padding:var(--s-24) 0}
     <h1>Open the work.</h1>
     <p class="lede">Ten products, <b>live at a URL right now</b>. No demo request, no sales call, no slide about what we would build.</p>
     <div class="hero-cta">
-      <a class="btn" href="#wall">See all ten &darr;</a>
-      <p class="hero-note">One screenshot. The rest is numbers with sources.</p>
+      <a class="btn" href="#wall">Open the ten &darr;</a>
     </div>
 
     <div class="proofband">
@@ -432,35 +446,42 @@ footer.site{border-top:1px solid var(--line);padding:var(--s-24) 0}
 
     <div class="wall-head">
       <span class="eyebrow">The ledger</span>
-      <h2>The shelf, in order.</h2>
-      <p>Ranked by what an organization can license, not by what was fun to build. Every row carries one number and where it came from, or says plainly that there is none.</p>
+      <h2>Ten you can open. Three you cannot, yet.</h2>
+      <p>Ranked by what an organization can license. Where a number exists it is in the right column with its source; where none is published, the column says so.</p>
     </div>
 
     <nav class="chips" aria-label="Jump to the work for your kind of organization">
       <a href="#rayli">Labor institution</a>
-      <a href="#strategist">Advocacy or political org</a>
-      <a href="#agis">Foundation or intermediary</a>
-      <a href="#whatshuman">Cohort or convening</a>
-      <a href="#podcast">Infrastructure funder</a>
+      <a href="#pme">Advocacy or political org</a>
+      <a href="#sell">Foundation or intermediary</a>
+      <a href="#sell">Cohort or convening</a>
+      <a href="#sell">Infrastructure funder</a>
     </nav>
 
     <div class="ledger">
       <div class="grouphead">
-        <span class="eyebrow">Licensed to organizations</span>
+        <span class="eyebrow">Licensed to organizations &middot; 3</span>
       </div>
 
-      <article class="row" id="rayli">
+      <article class="row nonum" id="rayli">
         <div class="row-name">
           <h3>Rayli</h3>
           <span class="badge">Flagship</span>
+          <span class="eyebrow rowstate">Sign-in required</span>
         </div>
         <div class="measure">
-          <span class="plain">Licensed per tenant, annually.</span>
+          <span class="none">No published number</span>
           <span class="mono status">Status: sign-in required</span>
         </div>
-        <p class="claim">Communications intelligence for organizations that have to say the right thing to a lot of people, fast.</p>
+        <p class="claim">Communications intelligence for organizations that have to say the right thing to a lot of people, fast. Licensed per tenant, annually.</p>
         <div class="act"><a class="host" href="https://rayli.ai" target="_blank" rel="noopener">rayli.ai <i>&rarr;</i></a></div>
       </article>
+
+      <figure class="plate">
+        <img src="shots/rayli.jpg" width="860" height="430" loading="lazy" decoding="async"
+             alt="The Rayli sign-in card on a dark ground: the Rayli wordmark, an email field, a password field, a Sign in button, and two links offering a one-tap sign-in email and a demo key.">
+        <figcaption>Rayli's sign-in screen at rayli.ai, 12 Sep 2026: licensed per tenant, so this is as far as a visitor gets.</figcaption>
+      </figure>
 
       <article class="row" id="agis">
         <div class="row-name"><h3>AGIS</h3></div>
@@ -476,7 +497,7 @@ footer.site{border-top:1px solid var(--line);padding:var(--s-24) 0}
       <article class="row" id="pme">
         <div class="row-name"><h3>Psychographic Message Engine</h3></div>
         <div class="measure">
-          <span class="num">Up to 26</span>
+          <span class="num"><i>Up to</i> 26</span>
           <span class="unit">points over a no-message baseline</span>
           <span class="mono">Source: the 3,006-person trial</span>
         </div>
@@ -485,55 +506,78 @@ footer.site{border-top:1px solid var(--line);padding:var(--s-24) 0}
       </article>
     </div>
 
-    <figure class="plate">
-      <img src="shots/rayli.jpg" width="860" height="430" loading="lazy" decoding="async"
-           alt="The Rayli sign-in card on a dark ground: the Rayli wordmark, an email field, a password field, a Sign in button, and two links offering a one-tap sign-in email and a demo key.">
-      <figcaption>Rayli's sign-in screen at rayli.ai, 12 Sep 2026. Licensed per tenant, so this is as far as a visitor gets without an account.</figcaption>
-    </figure>
 
     <div class="ledger">
       <div class="grouphead">
-        <span class="eyebrow">Running in production</span>
+        <span class="eyebrow">Running in production &middot; 2</span>
       </div>
 
-      <article class="row" id="strategist">
+      <article class="row nonum" id="strategist">
         <div class="row-name"><h3>Research Books Strategist</h3></div>
-        <div class="measure"></div>
+        <div class="measure"><span class="none">No published number</span></div>
         <p class="claim">Turn an opposition research book into an earned-media plan, one story at a time.</p>
         <div class="act"><a class="host" href="https://research-books-strategist.vercel.app" target="_blank" rel="noopener">research-books-strategist.vercel.app <i>&rarr;</i></a></div>
       </article>
 
-      <article class="row" id="podcast">
+      <article class="row nonum" id="podcast">
         <div class="row-name"><h3>Podcast knowledge engine</h3></div>
-        <div class="measure"></div>
+        <div class="measure"><span class="none">No published number</span></div>
         <p class="claim">Turns hours of long-form audio into a dated, sourced briefing somebody will read.</p>
         <div class="act"><a class="host" href="https://podcast-knowledge-engine.vercel.app" target="_blank" rel="noopener">podcast-knowledge-engine.vercel.app <i>&rarr;</i></a></div>
       </article>
     </div>
 
+    <div class="ledger gated">
+      <div class="grouphead">
+        <span class="eyebrow">Open after a conversation, not before &middot; 3</span>
+        <p>Gated by somebody else's data, not by size.</p>
+      </div>
+
+      <article class="row nonum" id="inky">
+        <div class="row-name"><h3><svg class="lock" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Inky</h3></div>
+        <div class="measure"><span class="none">No published number</span></div>
+        <p class="claim">Relationship maps over an organization's own network.</p>
+        <div class="act"><a class="host" href="https://hoplight.ai/contact">Runs on client data <i>&rarr;</i></a></div>
+      </article>
+
+      <article class="row nonum" id="vault">
+        <div class="row-name"><h3><svg class="lock" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Vault</h3></div>
+        <div class="measure"><span class="none">No published number</span></div>
+        <p class="claim">Client systems released one password at a time.</p>
+        <div class="act"><a class="host" href="https://hoplight.ai/contact">Access by request <i>&rarr;</i></a></div>
+      </article>
+
+      <article class="row nonum" id="roam">
+        <div class="row-name"><h3><svg class="lock" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Roam</h3><span class="eyebrow rowstate">In development</span></div>
+        <div class="measure"><span class="none">No published number</span></div>
+        <p class="claim">Travel intelligence that answers with no signal.</p>
+        <div class="act"><a class="host" href="https://hoplight.ai/contact">In development <i>&rarr;</i></a></div>
+      </article>
+    </div>
+
     <div class="ledger own">
       <div class="grouphead">
-        <span class="eyebrow">Built on my own time, open anyway</span>
+        <span class="eyebrow">Built on my own time, open anyway &middot; 5</span>
         <p>Not licensed, not sold. Open so you can check the work.</p>
       </div>
 
-      <article class="row" id="ontheclock">
+      <article class="row nonum" id="ontheclock">
         <div class="row-name"><h3>On The Clock</h3></div>
-        <div class="measure"></div>
+        <div class="measure"><span class="none">No published number</span></div>
         <p class="claim">Decision support under a hard clock. The same problem shape as a war room.</p>
         <div class="act"><a class="host" href="https://the-board-red-seven.vercel.app" target="_blank" rel="noopener">the-board-red-seven.vercel.app <i>&rarr;</i></a></div>
       </article>
 
-      <article class="row" id="whatshuman">
+      <article class="row nonum" id="whatshuman">
         <div class="row-name"><h3>What's Human?</h3></div>
-        <div class="measure"></div>
+        <div class="measure"><span class="none">No published number</span></div>
         <p class="claim">One passage, two buttons. Can you tell machine writing from human writing?</p>
         <div class="act"><a class="host" href="https://whatshuman.vercel.app" target="_blank" rel="noopener">whatshuman.vercel.app <i>&rarr;</i></a></div>
       </article>
 
-      <article class="row" id="betappetit">
+      <article class="row nonum" id="betappetit">
         <div class="row-name"><h3>Bet Appetit</h3></div>
-        <div class="measure"></div>
+        <div class="measure"><span class="none">No published number</span></div>
         <p class="claim">Messy personal records turned into a clean ledger. Data hygiene as an interface.</p>
         <div class="act"><a class="host" href="https://bet-appetit.vercel.app" target="_blank" rel="noopener">bet-appetit.vercel.app <i>&rarr;</i></a></div>
       </article>
@@ -556,34 +600,6 @@ footer.site{border-top:1px solid var(--line);padding:var(--s-24) 0}
         </div>
         <p class="claim">Letter formation for a four-year-old. No backend.</p>
         <div class="act"><a class="host" href="https://letters-ten-eta.vercel.app" target="_blank" rel="noopener">letters-ten-eta.vercel.app <i>&rarr;</i></a></div>
-      </article>
-    </div>
-
-    <div class="ledger gated">
-      <div class="grouphead">
-        <span class="eyebrow">Open after a conversation, not before</span>
-        <p>Gated by somebody else's data, not by size.</p>
-      </div>
-
-      <article class="row" id="inky">
-        <div class="row-name"><h3><svg class="lock" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Inky</h3></div>
-        <div class="measure"></div>
-        <p class="claim">Relationship maps over an organization's own network.</p>
-        <div class="act"><a class="host" href="https://hoplight.ai/contact">Runs on client data <i>&rarr;</i></a></div>
-      </article>
-
-      <article class="row" id="vault">
-        <div class="row-name"><h3><svg class="lock" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Vault</h3></div>
-        <div class="measure"></div>
-        <p class="claim">Client systems released one password at a time.</p>
-        <div class="act"><a class="host" href="https://hoplight.ai/contact">Access by request <i>&rarr;</i></a></div>
-      </article>
-
-      <article class="row" id="roam">
-        <div class="row-name"><h3><svg class="lock" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Roam</h3></div>
-        <div class="measure"></div>
-        <p class="claim">Travel intelligence that answers with no signal.</p>
-        <div class="act"><a class="host" href="https://hoplight.ai/contact">In development <i>&rarr;</i></a></div>
       </article>
     </div>
 

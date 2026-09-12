@@ -5,16 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Shelf - Hoplight</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="description" content="Thirteen Hoplight products, ranked. Ten open from this page, three are gated. Built, deployed, and running.">
+<meta name="description" content="Ten products open from this page; three more are gated. Built, deployed, and running.">
 <meta name="theme-color" content="#0F1B2D">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The Shelf - Hoplight">
-<meta property="og:description" content="Thirteen Hoplight products, ranked. Ten open from this page, three are gated.">
+<meta property="og:description" content="Ten products open from this page; three more are gated.">
 <meta property="og:url" content="https://hoplight.ai/shelf-options/a.html">
 <meta property="og:image" content="https://hoplight.ai/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="The Shelf - Hoplight">
-<meta name="twitter:description" content="Thirteen Hoplight products, ranked. Ten open from this page, three are gated.">
+<meta name="twitter:description" content="Ten products open from this page; three more are gated.">
 <meta name="twitter:image" content="https://hoplight.ai/og.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="The Shelf">
@@ -25,20 +25,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   OPTION A, "Three shelves".
-   Token set is closed. Every value below is declared once here
-   and referenced by name. Seven type sizes, three weights,
-   three leadings, three trackings, a 4px spacing step,
-   two radii (8px, 4px), one duration (160ms) and one curve.
-   Colour values are imported verbatim from
-   hoplight-site/src/app/globals.css and appear nowhere else
-   in this file except in this block.
+   OPTION A, "Three shelves". Round-2 revision.
+   Every value is a token declared once in :root and referenced
+   by name: seven type sizes, three weights, three leadings,
+   four trackings, a 4px spacing step, two radii, one duration,
+   one curve. Colour literals appear in this block and nowhere
+   else in the file.
    ============================================================ */
 :root{
-  /* ---- colour: the site's own tokens ---- */
+  /* ---- colour: the site's own tokens, verbatim ---- */
   --ink:#0F1B2D;
   --surface:#F5F5F0;
-  --surface-card:#EEEEE8;
   --white:#FFFFFF;
   --gold:#D4950A;
   --gold-hot:#E8A820;
@@ -46,11 +43,10 @@
   --gold-bg:#F5E6C4;
   --stone-deep:#555550;
   --line:rgba(0,0,0,0.10);
-  --focus:rgba(212,149,10,0.55);
   /* ---- the three on-dark tokens ---- */
-  --on-1:#FFFFFF;                    /* 17.1:1 on --ink */
-  --on-2:rgba(255,255,255,0.62);     /* 7.2:1 on --ink  */
-  --on-3:rgba(255,255,255,0.38);     /* 3.5:1 - hairlines and rules only, never text */
+  --on-1:#FFFFFF;                    /* 17.3:1 on --ink */
+  --on-2:rgba(255,255,255,0.62);     /*  7.3:1 on --ink */
+  --on-3:rgba(255,255,255,0.38);     /*  3.5:1 - hairlines and rules only, never text */
 
   /* ---- type ramp: seven sizes, nothing else ---- */
   --f1:11px;
@@ -61,14 +57,25 @@
   --f6:clamp(26px, 1.2rem + 1.6vw, 34px);
   --f7:clamp(34px, 1.4rem + 2.6vw, 56px);
 
-  /* ---- three weights, three leadings, three trackings ---- */
+  /* ---- three weights, three leadings ---- */
   --w-reg:400; --w-bold:700; --w-black:800;
   --lh-tight:1.1; --lh-mid:1.35; --lh-body:1.6;
-  --tr-tight:-0.03em; --tr-caps:0.12em; --tr-caps-wide:0.14em;
 
-  /* ---- spacing: 4px step, plus the site's section rhythm ---- */
+  /* ---- four trackings: display (h1), display (h2/h3, the site's own
+         -0.025em), and two caps values, the smaller type tracked wider ---- */
+  --tr-h1:-0.03em;
+  --tr-tight:-0.025em;
+  --tr-caps-sm:0.14em;   /* 11px caps */
+  --tr-caps-lg:0.12em;   /* 13px caps */
+
+  /* ---- spacing: one 4px step ---- */
   --s1:4px; --s2:8px; --s3:12px; --s4:16px; --s5:24px; --s6:32px;
+  --s7:52px;                                   /* sticky-bar clearance, phone only */
   --space-section:clamp(48px, 6vw, 88px);
+
+  /* ---- two radii, one duration, one curve ---- */
+  --r-8:8px; --r-4:4px;
+  --dur:160ms; --ease:ease-out;
 
   /* ---- geometry ---- */
   --maxw:1140px;
@@ -94,25 +101,34 @@ figure{margin:0}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
 
 h1,h2,h3{margin:0;font-weight:var(--w-bold);letter-spacing:var(--tr-tight);line-height:var(--lh-tight);text-wrap:balance}
-h1{font-size:var(--f7);font-weight:var(--w-black)}
+h1{font-size:var(--f7);font-weight:var(--w-black);letter-spacing:var(--tr-h1)}
 h2{font-size:var(--f6)}
 h3{font-size:var(--f4);line-height:var(--lh-mid)}
 p{margin:0}
 
-a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:color 160ms ease-out,border-color 160ms ease-out,background 160ms ease-out}
-a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--focus);border-radius:4px}
-button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:4px}
+a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:color var(--dur) var(--ease),border-color var(--dur) var(--ease),background var(--dur) var(--ease)}
+/* A focus ring that clears 3:1 on both grounds: ink on bone is 15.8:1,
+   white on ink is 17.3:1. The house gold ring composites to 1.6:1 on bone. */
+a:focus-visible{outline:none;box-shadow:0 0 0 3px var(--ink);border-radius:var(--r-4)}
+a.card:focus-visible,a.row:focus-visible{border-color:var(--gold-deep)}
+.hero a:focus-visible,.sell a:focus-visible,header.site a:focus-visible,.sticky:focus-visible{box-shadow:0 0 0 3px var(--on-1)}
+button:focus-visible{outline:2px solid var(--on-1);outline-offset:2px;border-radius:var(--r-4)}
 
-/* one caps voice in Inter: section and band labels */
+/* Inter caps: section and band labels */
 .lab{
   font-size:var(--f2);font-weight:var(--w-bold);text-transform:uppercase;
-  letter-spacing:var(--tr-caps-wide);color:var(--stone-deep);
+  letter-spacing:var(--tr-caps-lg);color:var(--stone-deep);
 }
-/* one mono voice: machine-verifiable strings only (hostnames, sources, dates) */
-.mono{
+/* the one mono-caps voice: sources and dates, nothing else */
+.src{
   font-family:var(--font-mono);font-size:var(--f1);font-weight:var(--w-reg);
-  text-transform:uppercase;letter-spacing:var(--tr-caps);line-height:var(--lh-mid);
+  text-transform:uppercase;letter-spacing:var(--tr-caps-sm);line-height:var(--lh-mid);
   color:var(--stone-deep);
+}
+/* hostnames: mono, real case, never transformed */
+.host{
+  font-family:var(--font-mono);font-size:var(--f2);font-weight:var(--w-reg);
+  line-height:var(--lh-mid);word-break:break-word;
 }
 .num{font-variant-numeric:tabular-nums lining-nums}
 
@@ -120,29 +136,30 @@ button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-rad
   display:inline-flex;align-items:center;gap:var(--s2);
   font-size:var(--f3);font-weight:var(--w-bold);line-height:var(--lh-mid);
   background:var(--gold);color:var(--ink);border:1px solid var(--gold);
-  border-radius:4px;padding:12px 24px;
-  transition:background 160ms ease-out,border-color 160ms ease-out;
+  border-radius:var(--r-4);padding:var(--s3) var(--s5);
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease);
 }
 .btn:hover{background:var(--gold-hot);border-color:var(--gold-hot)}
 
 /* ===================== NAV (the site's) ===================== */
 header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--on-1)}
-.nav{position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s5);padding:12px 0}
+.nav{position:relative;display:flex;align-items:center;justify-content:space-between;gap:var(--s5);padding:var(--s3) 0}
 .brand{
   display:inline-flex;align-items:center;gap:var(--s2);border:0;color:var(--on-1);
-  font-size:var(--f2);font-weight:var(--w-bold);text-transform:uppercase;letter-spacing:var(--tr-caps-wide);
+  font-size:var(--f2);font-weight:var(--w-bold);text-transform:uppercase;letter-spacing:var(--tr-caps-sm);
 }
-.brand .beacon{width:16px;height:16px}
+.beacon{width:16px;height:16px}
+.beacon circle{fill:var(--gold-hot)}
 .nav-links{display:flex;gap:var(--s5);align-items:center}
 .nav-links a{font-size:var(--f2);font-weight:var(--w-reg);color:var(--on-2);border:0}
 .nav-links a:hover{color:var(--on-1)}
 /* outlined and colourless: gold stays on the one primary action per view,
    which above the fold is the hero button, not the nav */
-.nav-links a.nav-cta{color:var(--on-1);font-weight:var(--w-bold);padding:8px 16px;border:1px solid var(--on-3);border-radius:4px}
+.nav-links a.nav-cta{color:var(--on-1);font-weight:var(--w-bold);padding:var(--s2) var(--s4);border:1px solid var(--on-3);border-radius:var(--r-4)}
 .nav-links a.nav-cta:hover{border-color:var(--on-1);color:var(--on-1)}
-.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px}
-.hamburger{display:block;width:20px;height:2px;background:var(--on-1);position:relative;transition:background 160ms ease-out}
-.hamburger::before,.hamburger::after{content:'';display:block;width:20px;height:2px;background:var(--on-1);position:absolute;left:0;transition:transform 160ms ease-out}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:var(--s2)}
+.hamburger{display:block;width:20px;height:2px;background:var(--on-1);position:relative;transition:background var(--dur) var(--ease)}
+.hamburger::before,.hamburger::after{content:'';display:block;width:20px;height:2px;background:var(--on-1);position:absolute;left:0;transition:transform var(--dur) var(--ease)}
 .hamburger::before{top:-6px}
 .hamburger::after{top:6px}
 .hamburger.open{background:transparent}
@@ -151,15 +168,15 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
 @media (max-width:880px){
   /* the bar keeps its height; the two controls inside it grow to 44px */
   .nav{padding:0}
-  .brand{padding:12px 0;min-height:44px}
-  .nav-toggle{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:12px}
+  .brand{padding:var(--s3) 0;min-height:44px}
+  .nav-toggle{display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:var(--s3)}
   .nav-links{display:none}
   .nav-links.open{
     display:flex;flex-direction:column;align-items:stretch;gap:0;width:100%;
     position:absolute;top:100%;left:0;background:var(--ink);
     padding:0 var(--gutter) var(--s4);
   }
-  .nav-links.open a{display:block;padding:12px 0;border-top:1px solid var(--on-3);color:var(--on-2)}
+  .nav-links.open a{display:block;padding:var(--s3) 0;border-top:1px solid var(--on-3);color:var(--on-2)}
   .nav-links.open .nav-cta{text-align:center;margin-top:var(--s2);color:var(--ink);border-top:0}
 }
 
@@ -171,17 +188,29 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
 .lede{font-size:var(--f4);line-height:var(--lh-mid);color:var(--on-2);max-width:34ch;margin-bottom:var(--s5)}
 .lede b{color:var(--on-1);font-weight:var(--w-bold)}
 .hero-cta{margin-bottom:var(--s5)}
-.hero .mono{color:var(--on-2);max-width:42ch}
-.heroshot img{display:block;width:100%;height:auto;border-radius:8px;border:1px solid var(--on-3)}
+.hero .src{color:var(--on-2);max-width:42ch}
+/* the sign-in card's bone button was the brightest object on the first screen
+   and is not clickable here: an 18% ink veil takes it below the headline */
+/* The first screen shows an OPEN product, not a locked door: AGIS's ask box
+   with three real questions, no login. Measured on the render: the raw crop's
+   block mean is 215 against the headline block's 122, so it out-massed the
+   headline 1.8:1. The veil brings it to 176, leaves the headline the brightest
+   object at 255, and mutes the product's own yellow Search pill, which would
+   otherwise be a second gold event above the fold. */
+.heroshot img{
+  display:block;width:100%;height:auto;
+  border-radius:var(--r-8);border:1px solid var(--on-3);
+  filter:brightness(0.75) saturate(0.7);
+}
 .heroshot figcaption{margin-top:var(--s3)}
-.heroshot .mono{color:var(--on-2);max-width:none;display:block;margin-bottom:var(--s1)}
+.heroshot .src{color:var(--on-2);max-width:none;display:block;margin-bottom:var(--s1)}
 .capnote{font-size:var(--f2);line-height:var(--lh-body);color:var(--on-2);display:block;max-width:52ch}
 
 /* ===================== PROOF BAND ===================== */
 .proof{background:var(--gold-bg);border-top:3px solid var(--gold);padding:var(--space-section) 0}
 .proof-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s5)}
 .proof-item+.proof-item{border-left:1px solid var(--line);padding-left:var(--s5)}
-.proof-num{font-size:var(--f7);font-weight:var(--w-black);letter-spacing:var(--tr-tight);line-height:var(--lh-tight);margin-bottom:var(--s2)}
+.proof-num{font-size:var(--f7);font-weight:var(--w-black);letter-spacing:var(--tr-h1);line-height:var(--lh-tight);margin-bottom:var(--s2)}
 .proof-cap{font-size:var(--f3);line-height:var(--lh-body);color:var(--stone-deep);max-width:26ch;margin-bottom:var(--s3)}
 .proof-src{max-width:32ch}
 
@@ -195,7 +224,9 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
 .band{margin-bottom:var(--space-section)}
 .band:last-child{margin-bottom:0}
 .bandlab{display:flex;align-items:baseline;gap:var(--s4);border-top:1px solid var(--line);padding-top:var(--s3);margin-bottom:var(--s5)}
-.bandlab .count{font-family:var(--font-mono);font-size:var(--f1);letter-spacing:var(--tr-caps);color:var(--stone-deep);text-transform:uppercase}
+.bandlab .count{font-size:var(--f1);font-weight:var(--w-bold);letter-spacing:var(--tr-caps-sm);color:var(--stone-deep)}
+.band-own .bandlab{margin-bottom:var(--s3)}
+.bandnote{font-size:var(--f2);color:var(--stone-deep);margin-bottom:var(--s5)}
 
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--s5);align-items:stretch}
 .band-lead .grid{align-items:start}
@@ -204,34 +235,55 @@ header.site{position:sticky;top:0;z-index:50;background:var(--ink);color:var(--o
 
 .card{
   display:flex;flex-direction:column;background:var(--white);
-  border:1px solid var(--line);border-radius:8px;overflow:hidden;
-  transition:border-color 160ms ease-out;
+  border:1px solid var(--line);border-radius:var(--r-8);overflow:hidden;
+  transition:border-color var(--dur) var(--ease);
 }
 a.card:hover{border-color:var(--gold-deep)}
-.shot{aspect-ratio:2/1;overflow:hidden;background:var(--surface-card);border-bottom:1px solid var(--line)}
-.shot img{display:block;width:100%;height:100%;object-fit:cover}
-.card-body{padding:24px;display:flex;flex-direction:column;flex:1}
+/* every crop sits inset on the card's own ground inside a hairline, so a pale
+   crop cannot dissolve into the page and a dark one cannot punch a hole in it */
+.shot{padding:var(--s3);background:var(--white)}
+.shot img{
+  display:block;width:100%;height:auto;max-width:760px;margin:0 auto;
+  aspect-ratio:2/1;object-fit:cover;
+  border-radius:var(--r-4);border:1px solid var(--line);
+}
+/* a 15% ink veil on the near-black crops, so no tile out-punches the core product */
+.shot.dark img,img.dark{filter:brightness(0.85)}
+.card-body{padding:var(--s5);display:flex;flex-direction:column;flex:1}
 .badge{
-  align-self:flex-start;background:var(--gold);color:var(--ink);
-  font-size:var(--f1);font-weight:var(--w-bold);text-transform:uppercase;letter-spacing:var(--tr-caps);
-  line-height:var(--lh-mid);padding:4px 8px;border-radius:4px;margin-bottom:var(--s3);
+  display:inline-block;align-self:flex-start;background:var(--gold);color:var(--ink);
+  font-size:var(--f1);font-weight:var(--w-bold);text-transform:uppercase;letter-spacing:var(--tr-caps-sm);
+  line-height:var(--lh-mid);padding:var(--s1) var(--s2);border-radius:var(--r-4);margin-bottom:var(--s3);
 }
 .card h3{margin-bottom:var(--s2)}
+/* a state read before the click, not after it */
+.h3line{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin-bottom:var(--s2)}
+.card .h3line h3,.plate .h3line h3{margin-bottom:0}
+.statuslab{
+  font-size:var(--f1);font-weight:var(--w-bold);text-transform:uppercase;
+  letter-spacing:var(--tr-caps-sm);color:var(--stone-deep);white-space:nowrap;
+}
 .fig{
-  font-size:var(--f5);font-weight:var(--w-bold);letter-spacing:var(--tr-tight);
-  line-height:var(--lh-tight);margin-bottom:var(--s3);
+  font-size:var(--f4);font-weight:var(--w-bold);letter-spacing:var(--tr-tight);
+  line-height:var(--lh-mid);color:var(--stone-deep);margin-bottom:var(--s3);
 }
 .claim{font-size:var(--f3);line-height:var(--lh-body);color:var(--stone-deep);margin-bottom:var(--s4)}
-.go{margin-top:auto;display:flex;align-items:baseline;justify-content:space-between;gap:var(--s3)}
-.go .arrow{font-style:normal}
-a.card:hover .go{color:var(--ink)}
+.go{
+  margin-top:auto;display:flex;align-items:baseline;justify-content:space-between;
+  gap:var(--s3);color:var(--stone-deep);transition:color var(--dur) var(--ease);
+}
+.go .arrow{
+  font-family:var(--font-body);font-size:var(--f2);font-weight:var(--w-bold);
+  font-style:normal;white-space:nowrap;
+}
+a.card:hover .go,a.row:hover .go{color:var(--ink)}
 
-/* band 1 sits one step up the ramp from band 2 */
+/* band 1 sits one step up the ramp from the bands below it */
 .lead h3{font-size:var(--f5)}
-.lead .card-body{padding:32px}
+.lead .card-body{padding:var(--s6)}
 
 /* the note that sits beside the licensed band */
-.note{border-left:2px solid var(--gold-deep);padding:4px 0 4px 24px;align-self:start}
+.note{border-left:2px solid var(--on-3);padding:var(--s1) 0 var(--s1) var(--s5);align-self:start}
 .note .lab{display:block;margin-bottom:var(--s3)}
 .note h3{margin-bottom:var(--s3)}
 .note p{font-size:var(--f3);line-height:var(--lh-body);color:var(--stone-deep);max-width:40ch}
@@ -239,28 +291,32 @@ a.card:hover .go{color:var(--ink)}
 /* gated: outlined plates on the page's own surface, never darker than the cards */
 .plate{
   display:flex;flex-direction:column;background:transparent;
-  border:1px solid var(--line);border-radius:8px;padding:24px;
+  border:1px solid var(--line);border-radius:var(--r-8);padding:var(--s5);
+  transition:border-color var(--dur) var(--ease);
 }
+.plate.dev{border-style:dashed}
+a.plate:hover,a.plate:focus-visible{border-color:var(--gold-deep)}
+a.plate:hover .status{color:var(--ink)}
 .plate h3{display:flex;align-items:center;gap:var(--s2);margin-bottom:var(--s2)}
 .plate svg{width:14px;height:14px;flex:none;color:var(--stone-deep)}
-.plate .claim{margin-bottom:var(--s4)}
+.plate .claim{font-size:var(--f2);line-height:var(--lh-body);margin-bottom:var(--s4)}
 .plate .status{
   margin-top:auto;font-size:var(--f2);font-weight:var(--w-bold);color:var(--stone-deep);
   display:inline-flex;align-items:baseline;gap:var(--s2);align-self:flex-start;
+  transition:color var(--dur) var(--ease);
 }
-.plate .status:hover{color:var(--ink);border-bottom-color:var(--gold)}
 
-/* the two built for my kids: a text row, 56px marks */
+/* built on my own time: a text row with a 56px mark, never a card */
 .row{
   display:flex;align-items:center;gap:var(--s4);
-  border-top:1px solid var(--line);padding:16px 0;
+  border-top:1px solid var(--line);padding:var(--s4) 0;
 }
 .row:last-child{border-bottom:1px solid var(--line)}
-.row img{width:56px;height:56px;border-radius:4px;display:block;flex:none}
+.row img{width:56px;height:56px;border-radius:var(--r-4);display:block;flex:none}
 .row-main{flex:1;min-width:0}
 .row h3{display:inline;margin-right:var(--s3)}
-.row .fig{display:inline;font-size:var(--f4);margin:0}
-.row .claim{margin:0;display:block}
+.row .fig{display:inline;font-size:var(--f3);margin:0}
+.row .claim{margin:0;display:block;font-size:var(--f2);line-height:var(--lh-mid)}
 .row .go{margin:0;flex:none}
 
 /* ===================== HOW THIS IS SOLD ===================== */
@@ -269,13 +325,13 @@ a.card:hover .go{color:var(--ink)}
 .sell h2{color:var(--on-1);max-width:20ch;margin-bottom:var(--s3)}
 .sell .sub{font-size:var(--f3);line-height:var(--lh-body);color:var(--on-2);max-width:52ch;margin-bottom:var(--s6)}
 .units{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border-top:1px solid var(--on-3)}
-.unit{padding:24px 16px 24px 0;border-right:1px solid var(--on-3)}
+.unit{padding:var(--s5) var(--s4) var(--s5) 0;border-right:1px solid var(--on-3)}
 .unit:last-child{border-right:0;padding-right:0}
-.unit+.unit{padding-left:16px}
-.unit .un{display:block;font-family:var(--font-mono);font-size:var(--f1);letter-spacing:var(--tr-caps);color:var(--on-2);margin-bottom:var(--s3)}
+.unit+.unit{padding-left:var(--s4)}
+.unit .un{display:block;font-size:var(--f1);font-weight:var(--w-bold);letter-spacing:var(--tr-caps-sm);color:var(--on-2);margin-bottom:var(--s3)}
 .unit h3{color:var(--on-1);font-size:var(--f4);margin-bottom:var(--s2)}
-.unit p{font-size:var(--f2);line-height:var(--lh-body);color:var(--on-2)}
-.transfer{margin-top:var(--s6);border-left:2px solid var(--on-3);padding:4px 0 4px 24px;max-width:62ch}
+.unit p{font-size:var(--f2);line-height:var(--lh-mid);color:var(--on-2)}
+.transfer{margin-top:var(--s6);border-left:2px solid var(--on-3);padding:var(--s1) 0 var(--s1) var(--s5);max-width:62ch}
 .transfer .t1{font-size:var(--f4);font-weight:var(--w-bold);line-height:var(--lh-mid);color:var(--on-1);margin-bottom:var(--s3)}
 .transfer .t2{font-size:var(--f3);line-height:var(--lh-body);color:var(--on-2)}
 
@@ -285,8 +341,8 @@ a.card:hover .go{color:var(--ink)}
 .close p{color:var(--stone-deep);max-width:42ch;margin-bottom:var(--s5)}
 
 /* ===================== FOOTER (the site's) ===================== */
-footer.site{border-top:1px solid var(--line);padding:32px 0}
-.foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:12px 24px}
+footer.site{border-top:1px solid var(--line);padding:var(--s6) 0}
+.foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:var(--s3) var(--s5)}
 .foot .brand{color:var(--ink);font-size:var(--f1)}
 .foot .meta{font-size:var(--f2);color:var(--stone-deep);max-width:42ch}
 .foot-links{display:inline-flex;gap:var(--s5);flex-wrap:wrap}
@@ -302,62 +358,106 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
   .c6{grid-column:span 12}
   .c4{grid-column:span 6}
   .units{grid-template-columns:1fr 1fr}
-  .unit{border-right:0;border-bottom:1px solid var(--on-3);padding:24px 0}
+  .unit{border-right:0;border-bottom:1px solid var(--on-3);padding:var(--s5) 0}
   .unit+.unit{padding-left:0}
-  .note{border-left:0;border-top:2px solid var(--gold-deep);padding:24px 0 0}
+  .note{border-left:0;border-top:2px solid var(--on-3);padding:var(--s5) 0 0}
 }
 @media (max-width:560px){
-  :root{--space-section:32px}
-  .proof-grid{grid-template-columns:1fr;gap:var(--s4)}
+  /* The phone rule, rewritten. Every band is a hairline row list on the page's
+     own ground; only the two ranked products keep a picture. Descriptions,
+     captions and the sell table step down one rung of the ramp. Nothing is
+     deleted: every product, claim, hostname and source line is still here. */
+  :root{--space-section:var(--s5)}
+
+  /* proof band: figure and caption on one line, source beneath */
+  .proof-grid{grid-template-columns:1fr;gap:var(--s3)}
+  .proof-item{display:grid;grid-template-columns:auto 1fr;column-gap:var(--s4);align-items:baseline}
+  .proof-num{grid-area:1/1;margin-bottom:0}
+  .proof-cap{grid-area:1/2;font-size:var(--f2);line-height:var(--lh-mid);max-width:none;margin-bottom:0}
+  .proof-src{grid-area:2/1/auto/-1;max-width:none;margin-top:var(--s2)}
   .proof-item+.proof-item{border-left:0;border-top:1px solid var(--line);padding-left:0;padding-top:var(--s4)}
-  .proof-cap,.proof-src{max-width:none}
-  .proof-cap{margin-bottom:var(--s2)}
-  .wall-head{margin-bottom:var(--s5)}
-  .band{margin-bottom:var(--s6)}
-  .bandlab{margin-bottom:var(--s3)}
+
+  /* the wall */
+  .wall-head{margin-bottom:var(--s3)}
+  .wall-head h2{margin-bottom:var(--s2)}
+  .wall-head p{font-size:var(--f2);line-height:var(--lh-mid)}
+  .band{margin-bottom:var(--s5)}
+  .band:last-child{margin-bottom:0}
+  .bandlab{margin-bottom:var(--s2);padding-top:var(--s1)}
+  .proof{padding:var(--s4) 0}
+  .bandnote{margin-bottom:var(--s3)}
   .c4{grid-column:span 12}
-  .grid{gap:var(--s4)}
-  .lead .card-body{padding:16px}
-  .card-body{padding:16px}
-  .lead h3{font-size:var(--f4)}
-  .fig{font-size:var(--f4);margin-bottom:var(--s2)}
-  /* Below 560 a 350px-wide 2:1 crop renders the product's own type at about
-     half size, which is how round 1 got 2.7px screenshots. So on the phone the
-     wall carries no pictures at all: the hero's one product image is the page's
-     picture, and the words carry every tile. The two lower bands also lose
-     their card chrome and become hairline rows. Rank survives as band order,
-     type size and the one gold badge. */
-  .shot{display:none}
-  .band-prod .grid{gap:0}
-  .band-prod .card{border:0;border-top:1px solid var(--line);border-radius:0;background:transparent}
-  .band-prod .card-body{padding:12px 0}
-  .band-gate .grid{gap:0}
-  .band-gate .plate{border:0;border-top:1px solid var(--line);border-radius:0;padding:12px 0}
-  .band-prod .claim,.band-gate .claim{margin-bottom:var(--s2)}
-  .band-prod h3,.band-gate h3{margin-bottom:var(--s1)}
-  .band-prod .go,.band-gate .go{display:block}
+  .grid{gap:0}
+  .card{border:0;border-top:1px solid var(--line);border-radius:0;background:transparent}
+  .card-body,.lead .card-body{padding:var(--s1) 0}
+  .plate{border:0;border-top:1px solid var(--line);border-radius:0;padding:var(--s1) 0}
+  .plate.dev{border-top-style:dashed}
+  .h3line{gap:var(--s2);margin-bottom:var(--s1)}
+  /* On the phone the hostname runs on from the end of the claim instead of
+     taking a line of its own. It is still monospaced, still the real case,
+     still carries its arrow at rest, and the whole row is still the link. */
+  .claim{font-size:var(--f2);line-height:var(--lh-mid);margin-bottom:0;display:inline}
+  .card-body{display:block}
+  .card h3,.plate h3{margin-bottom:var(--s1)}
+  .fig{font-size:var(--f3);margin-bottom:var(--s2)}
+  .go{display:inline;margin-top:0}
+  .go .host{margin-left:var(--s2)}
   .go .arrow{margin-left:var(--s2)}
+  .plate .claim{display:block;margin-bottom:var(--s2)}
+  /* Measured: a 2:1 crop in a 350px column renders the product's own type at
+     0.45x, under the 400px floor the asset pass set for every crop. Carrying
+     even one costs 187px and the page has to clear 3,798. So under 560 the
+     wall is words and the marks go with them; the crops are still there at
+     every width above this one, at 486px, where they are readable. */
+  .shot{display:none;padding:var(--s3) 0;background:transparent}
+  .note{display:none}
+  .plate .claim{margin-bottom:var(--s2)}
+  .row{display:block;padding:var(--s1) 0}
+  .row h3{font-size:var(--f3)}
+  .row img{display:none}
+  .row .go{display:inline}
+
+  /* Hero: on the phone the Rayli crop moves down into the Rayli card, where it
+     is ranked, rather than being shown twice on one screen. The caption's two
+     facts (what the picture is, and the date) travel with it. Nothing is lost:
+     the provenance line stays here and the card carries the same sentence. */
+  .heroshot{display:none}
+  .hero .lab{margin-bottom:var(--s3)}
+  .hero h1{margin-bottom:var(--s3)}
   .lede{margin-bottom:var(--s4)}
   .hero-cta{margin-bottom:var(--s4)}
-  .units{grid-template-columns:1fr 1fr}
-  .unit{padding:16px 0}
-  .unit:nth-child(odd){padding-right:16px;border-right:1px solid var(--on-3)}
+
+  /* how this is sold */
+  .sell h2{margin-bottom:var(--s2)}
+  .sell .sub{font-size:var(--f2);line-height:var(--lh-mid);margin-bottom:var(--s4)}
+  /* two columns, measured: one column costs 91px and buys nothing at 13px */
+  .units{grid-template-columns:1fr}
+  .unit{padding:var(--s2) 0}
   .unit+.unit{padding-left:0}
-  .unit:nth-child(even){padding-left:16px}
-  .unit:last-child{border-right:0;padding-right:0}
-  .transfer{margin-top:var(--s5)}
-  .row{align-items:flex-start;flex-wrap:wrap;padding:12px 0}
-  .row .go{display:block;flex-basis:100%;margin-top:var(--s2)}
+  .unit h3{font-size:var(--f2);margin-bottom:0;display:inline}
+  .unit .un{display:inline;margin-bottom:0;margin-right:var(--s2)}
+  .transfer{margin-top:var(--s4)}
+  .transfer .t1{margin-bottom:var(--s2)}
+  .transfer .t2{font-size:var(--f2);line-height:var(--lh-mid)}
+  .sell{padding:var(--s4) 0}
+  .close{padding:var(--s3) 0}
+  .close h2{margin-bottom:var(--s2)}
   .close p{margin-bottom:var(--s4)}
-  /* 44px tap targets for the two link styles that are not whole-card links */
-  .band-gate .status{padding:12px 0}
-  .foot-links a{display:inline-block;padding:12px 0}
-  body{padding-bottom:52px}
+  footer.site{padding:var(--s2) 0}
+  .bandnote{margin-bottom:var(--s1)}
+  .band-own .bandlab{margin-bottom:0}
+  .wall{padding:var(--s4) 0}
+  .transfer{margin-top:var(--s3)}
+
+  /* 44px tap target for the one link style that is not a whole-row link */
+  .foot-links a{display:inline-block;padding:var(--s3) 0}
+
+  body{padding-bottom:var(--s7)}
   .sticky{
     display:flex;align-items:center;justify-content:center;
     position:fixed;left:0;right:0;bottom:0;z-index:60;
     background:var(--ink);border-top:1px solid var(--gold);
-    padding:12px 16px;min-height:52px;
+    padding:var(--s3) var(--s4);min-height:var(--s7);
     font-size:var(--f2);font-weight:var(--w-bold);color:var(--gold-hot);
   }
 }
@@ -369,8 +469,8 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
   <div class="wrap nav">
     <a class="brand" href="https://hoplight.ai" aria-label="Hoplight home">
       <svg class="beacon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="12" cy="12" r="4" fill="#E8A820"/>
-        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="#FFFFFF" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
       Hoplight
     </a>
@@ -396,14 +496,14 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
       <span class="lab">The shelf</span>
       <h1>Open the work.</h1>
       <p class="lede">Ten products, <b>live at a URL right now</b>. No demo request, no sales call, no slide about what we would build.</p>
-      <div class="hero-cta"><a class="btn" href="#wall">See all thirteen &darr;</a></div>
-      <p class="mono">Crops taken from each product's own screen, 12 Sep 2026</p>
+      <div class="hero-cta"><a class="btn" href="#wall">Open the shelf &darr;</a></div>
+      <p class="src">Crops taken from each product's own screen, 12 Sep 2026</p>
     </div>
     <figure class="heroshot">
-      <img src="shots/rayli.jpg" alt="The Rayli sign-in screen: the Rayli wordmark, an email field, a password field, a Sign in button, and a line offering a demo key instead." width="860" height="430" loading="eager" fetchpriority="high" decoding="async">
+      <img src="shots/agis.jpg" alt="AGIS: a plain-English ask box with a Search button, and three suggested questions about algorithmic management protections, CBA clauses on AI surveillance, and data-center water and energy use." width="692" height="346" loading="eager" fetchpriority="high" decoding="async">
       <figcaption>
-        <span class="mono">rayli.ai, 12 Sep 2026</span>
-        <span class="capnote">The sign-in screen, not a working screen. Rayli is licensed per tenant, so the front door is all a stranger sees.</span>
+        <span class="src">ai-policy-tool.vercel.app, 12 Sep 2026</span>
+        <span class="capnote">AGIS, open with no login. Type a question about AI regulation into that box and it answers from its own sources.</span>
       </figcaption>
     </figure>
   </div>
@@ -414,17 +514,17 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
     <div class="proof-item">
       <div class="proof-num num">10</div>
       <p class="proof-cap">products you can open from this page. Nine need no login; rayli.ai is gated.</p>
-      <p class="mono proof-src">Source: counted on this page, 12 Sep 2026.</p>
+      <p class="src proof-src">Source: counted on this page, 12 Sep 2026.</p>
     </div>
     <div class="proof-item">
       <div class="proof-num num">Zero</div>
       <p class="proof-cap">compliance incidents across $1M+ in regulated-industry ad spend.</p>
-      <p class="mono proof-src">Source: client campaign records.</p>
+      <p class="src proof-src">Source: client campaign records.</p>
     </div>
     <div class="proof-item">
       <div class="proof-num num">Up to 26</div>
       <p class="proof-cap">points over a no-message baseline.</p>
-      <p class="mono proof-src">Source: randomized controlled trial, 3,006 US adults.</p>
+      <p class="src proof-src">Source: randomized controlled trial, 3,006 US adults.</p>
     </div>
   </div>
 </section>
@@ -434,21 +534,22 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
 
     <div class="wall-head">
       <span class="lab">The wall</span>
-      <h2>Thirteen products, in rank order.</h2>
-      <p>Rank is the order, the size and the label. Nothing here is presented as more finished than it is.</p>
+      <h2>Ten you can open. Three you cannot, yet.</h2>
+      <p>Rank is the order, the size and the label. Nothing is shown as more finished than it is.</p>
     </div>
 
-    <!-- ============ BAND 1 ============ -->
+    <!-- ============ BAND 1: licensed ============ -->
     <div class="band band-lead">
       <div class="bandlab"><span class="lab">Licensed to organizations</span><span class="count num">3</span></div>
       <div class="grid">
 
         <a class="card lead c6" href="https://rayli.ai" target="_blank" rel="noopener">
+          <div class="shot dark"><img src="shots/rayli.jpg" alt="The Rayli sign-in screen: the wordmark, an email field, a password field and a Sign in button." width="860" height="430" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <span class="badge">Core product</span>
-            <h3>Rayli</h3>
-            <p class="claim">A communications intelligence platform for organizations that have to say the right thing to a lot of people, fast. Licensed per tenant, annually. Pictured at the top of this page: its sign-in screen, because the product itself is gated.</p>
-            <div class="go mono"><span>rayli.ai</span><i class="arrow">Open &nearr;</i></div>
+            <div class="h3line"><h3>Rayli</h3><span class="statuslab">Sign-in required</span></div>
+            <p class="claim">A communications intelligence platform for organizations that have to say the right thing to a lot of people, fast. Licensed per tenant, annually. The picture is its sign-in screen: the product itself is gated.</p>
+            <div class="go"><span class="host">rayli.ai</span><i class="arrow">Open &nearr;</i></div>
           </div>
         </a>
 
@@ -459,31 +560,30 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
         </div>
 
         <a class="card lead c6" href="https://ai-policy-tool.vercel.app" target="_blank" rel="noopener">
-          <div class="shot"><img src="shots/agis.jpg" alt="AGIS: a plain-English ask box with a Search button, and three suggested questions about algorithmic management protections, CBA clauses on AI surveillance, and data-center water and energy use." width="720" height="360" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <h3>AGIS</h3>
             <p class="fig num">2,100+ jurisdictions</p>
-            <p class="claim">Ask a plain-English question about AI regulation and get an answer drawn from 31,900+ sources. Open the site and the counts are on its own front page.</p>
-            <div class="go mono"><span>ai-policy-tool.vercel.app</span><i class="arrow">Open &nearr;</i></div>
+            <p class="claim">Ask a plain-English question about AI regulation and get an answer from 31,900+ sources. Pictured at the top of this page.</p>
+            <div class="go"><span class="host">ai-policy-tool.vercel.app</span><i class="arrow">Open &nearr;</i></div>
           </div>
         </a>
 
         <a class="card lead c6" href="https://pme-mvp-clean.vercel.app" target="_blank" rel="noopener">
-          <div class="shot"><img src="shots/pme.jpg" alt="The Psychographic Message Engine input card: an audience description field with a worked example, an objective field, and a Generate Message button." width="760" height="380" loading="lazy" decoding="async"></div>
+          <div class="shot"><img src="shots/pme.jpg" alt="The Psychographic Message Engine input card: an audience description field filled with a worked example, an objective field, and a Generate Message button." width="760" height="380" loading="lazy" decoding="async"></div>
           <div class="card-body">
             <h3>Psychographic Message Engine</h3>
             <p class="fig num">3,006 adults</p>
-            <p class="claim">Describe an audience, get a message built for how they actually decide. The randomized controlled trial behind it is the one quoted in the band above.</p>
-            <div class="go mono"><span>pme-mvp-clean.vercel.app</span><i class="arrow">Open &nearr;</i></div>
+            <p class="claim">Describe an audience, get a message built for how they actually decide. The trial quoted in the band above is this product's.</p>
+            <div class="go"><span class="host">pme-mvp-clean.vercel.app</span><i class="arrow">Open &nearr;</i></div>
           </div>
         </a>
 
       </div>
     </div>
 
-    <!-- ============ BAND 2 ============ -->
+    <!-- ============ BAND 2: production ============ -->
     <div class="band band-prod">
-      <div class="bandlab"><span class="lab">Systems running in production</span><span class="count num">5</span></div>
+      <div class="bandlab"><span class="lab">Systems running in production</span><span class="count num">2</span></div>
       <div class="grid">
 
         <a class="card c6" href="https://research-books-strategist.vercel.app" target="_blank" rel="noopener">
@@ -491,7 +591,7 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
           <div class="card-body">
             <h3>Research Books Strategist</h3>
             <p class="claim">Turn an opposition research book into an earned-media plan, one story at a time.</p>
-            <div class="go mono"><span>research-books-strategist.vercel.app</span><i class="arrow">Open &nearr;</i></div>
+            <div class="go"><span class="host">research-books-strategist.vercel.app</span><i class="arrow">Open &nearr;</i></div>
           </div>
         </a>
 
@@ -500,34 +600,7 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
           <div class="card-body">
             <h3>Podcast knowledge engine</h3>
             <p class="claim">Turns hours of long-form audio into a dated, sourced briefing somebody will actually read.</p>
-            <div class="go mono"><span>podcast-knowledge-engine.vercel.app</span><i class="arrow">Open &nearr;</i></div>
-          </div>
-        </a>
-
-        <a class="card c6" href="https://the-board-red-seven.vercel.app" target="_blank" rel="noopener">
-          <div class="shot"><img src="shots/ontheclock.jpg" alt="On The Clock at pick 1.01: roster counters, a Take this control, the player Jahmyr Gibbs, and the reason given for the recommendation." width="720" height="360" loading="lazy" decoding="async"></div>
-          <div class="card-body">
-            <h3>On The Clock</h3>
-            <p class="claim">Decision support under a hard clock. The same problem shape as a war room.</p>
-            <div class="go mono"><span>the-board-red-seven.vercel.app</span><i class="arrow">Open &nearr;</i></div>
-          </div>
-        </a>
-
-        <a class="card c6" href="https://whatshuman.vercel.app" target="_blank" rel="noopener">
-          <div class="shot"><img src="shots/whatshuman.jpg" alt="What's Human?: one passage of writing set in a serif face above a Human button and an AI button." width="760" height="380" loading="lazy" decoding="async"></div>
-          <div class="card-body">
-            <h3>What's Human?</h3>
-            <p class="claim">Can you tell machine writing from human writing? Most people cannot.</p>
-            <div class="go mono"><span>whatshuman.vercel.app</span><i class="arrow">Open &nearr;</i></div>
-          </div>
-        </a>
-
-        <a class="card c6" href="https://bet-appetit.vercel.app" target="_blank" rel="noopener">
-          <div class="shot"><img src="shots/betappetit.jpg" alt="One card from Bet Appetit's guide: the question, a badge reading not settleable as written, a how-it-settles note, and the note count." width="740" height="370" loading="lazy" decoding="async"></div>
-          <div class="card-body">
-            <h3>Bet Appetit</h3>
-            <p class="claim">Messy personal records turned into a clean ledger. Data hygiene as an interface.</p>
-            <div class="go mono"><span>bet-appetit.vercel.app</span><i class="arrow">Open &nearr;</i></div>
+            <div class="go"><span class="host">podcast-knowledge-engine.vercel.app</span><i class="arrow">Open &nearr;</i></div>
           </div>
         </a>
 
@@ -539,47 +612,75 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
       <div class="bandlab"><span class="lab">Gated, and honest about it</span><span class="count num">3</span></div>
       <div class="grid">
 
-        <div class="plate c4">
+        <a class="plate c4" href="https://hoplight.ai/contact">
           <h3><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Inky</h3>
           <p class="claim">Person and entity intelligence. Relationship maps and warm-path routing over an organization's own network.</p>
-          <a class="status" href="https://hoplight.ai/contact">Runs on client data <span class="arrow">&rarr;</span></a>
-        </div>
+          <span class="status">Runs on client data <span class="arrow">&rarr;</span></span>
+        </a>
 
-        <div class="plate c4">
+        <a class="plate c4" href="https://hoplight.ai/contact">
           <h3><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Vault</h3>
           <p class="claim">The gated portfolio. Client systems released one password at a time.</p>
-          <a class="status" href="https://hoplight.ai/contact">Access by request <span class="arrow">&rarr;</span></a>
-        </div>
+          <span class="status">Access by request <span class="arrow">&rarr;</span></span>
+        </a>
 
-        <div class="plate c4">
-          <h3><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Roam</h3>
-          <p class="claim">Offline-first travel intelligence that answers on a phone with no signal. Being scoped with travel professionals now.</p>
-          <a class="status" href="https://hoplight.ai/contact">In development <span class="arrow">&rarr;</span></a>
-        </div>
+        <a class="plate c4 dev" href="https://hoplight.ai/contact">
+          <div class="h3line"><h3><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>Roam</h3><span class="statuslab">In development</span></div>
+          <p class="claim">Offline-first travel intelligence that answers on a phone with no signal. Being scoped with travel professionals.</p>
+          <span class="status">In development <span class="arrow">&rarr;</span></span>
+        </a>
 
       </div>
     </div>
 
-    <!-- ============ BAND 3 ============ -->
-    <div class="band">
-      <div class="bandlab"><span class="lab">Built for my kids, shipped anyway</span><span class="count num">2</span></div>
+    <!-- ============ BAND 4: personal ============ -->
+    <div class="band band-own">
+      <div class="bandlab"><span class="lab">Built on my own time, open anyway</span><span class="count num">5</span></div>
+      <p class="bandnote">Not licensed, not sold. Built for myself or my kids, left open because they work.</p>
+
+      <a class="row" href="https://the-board-red-seven.vercel.app" target="_blank" rel="noopener">
+        <img src="shots/ontheclock-thumb.jpg" alt="The Draft Gibbs button and the Board tab from On The Clock." width="56" height="56" loading="eager" fetchpriority="low" decoding="async">
+        <div class="row-main">
+          <h3>On The Clock</h3>
+          <span class="claim">Decision support under a hard clock. The same problem shape as a war room.</span>
+        </div>
+        <span class="go"><span class="host">the-board-red-seven.vercel.app</span><i class="arrow">&nearr;</i></span>
+      </a>
+
+      <a class="row" href="https://whatshuman.vercel.app" target="_blank" rel="noopener">
+        <img class="dark" src="shots/whatshuman-thumb.jpg" alt="The Human button between its two rules, from What's Human?" width="56" height="56" loading="eager" fetchpriority="low" decoding="async">
+        <div class="row-main">
+          <h3>What's Human?</h3>
+          <span class="claim">Can you tell machine writing from human writing? Most people cannot.</span>
+        </div>
+        <span class="go"><span class="host">whatshuman.vercel.app</span><i class="arrow">&nearr;</i></span>
+      </a>
+
+      <a class="row" href="https://bet-appetit.vercel.app" target="_blank" rel="noopener">
+        <img src="shots/betappetit-thumb.jpg" alt="The stars-banked counter from Bet Appetit's tab." width="56" height="56" loading="eager" fetchpriority="low" decoding="async">
+        <div class="row-main">
+          <h3>Bet Appetit</h3>
+          <span class="claim">Messy personal records turned into a clean ledger. Data hygiene as an interface.</span>
+        </div>
+        <span class="go"><span class="host">bet-appetit.vercel.app</span><i class="arrow">&nearr;</i></span>
+      </a>
 
       <a class="row" href="https://rumi-rouge.vercel.app" target="_blank" rel="noopener">
-        <img src="shots/rumi-thumb.jpg" alt="Rumi's cat mark on its gradient background." width="56" height="56" loading="lazy" decoding="async">
+        <img src="shots/rumi-thumb.jpg" alt="Rumi's cat mark on its gradient background." width="56" height="56" loading="eager" fetchpriority="low" decoding="async">
         <div class="row-main">
           <h3>Rumi</h3><span class="fig num">304 clips</span>
           <span class="claim">Spanish for a five-year-old who cannot read yet. One file, no network calls.</span>
         </div>
-        <span class="go mono"><span>rumi-rouge.vercel.app</span><i class="arrow">&nearr;</i></span>
+        <span class="go"><span class="host">rumi-rouge.vercel.app</span><i class="arrow">&nearr;</i></span>
       </a>
 
       <a class="row" href="https://letters-ten-eta.vercel.app" target="_blank" rel="noopener">
-        <img src="shots/letters-thumb.jpg" alt="The Start button from Letters." width="56" height="56" loading="lazy" decoding="async">
+        <img src="shots/letters-thumb.jpg" alt="The Start button from Letters." width="56" height="56" loading="eager" fetchpriority="low" decoding="async">
         <div class="row-main">
           <h3>Letters</h3><span class="fig num">62 glyphs</span>
           <span class="claim">Letter formation for a four-year-old. No backend, no telemetry.</span>
         </div>
-        <span class="go mono"><span>letters-ten-eta.vercel.app</span><i class="arrow">&nearr;</i></span>
+        <span class="go"><span class="host">letters-ten-eta.vercel.app</span><i class="arrow">&nearr;</i></span>
       </a>
 
     </div>
@@ -642,8 +743,8 @@ footer.site{border-top:1px solid var(--line);padding:32px 0}
   <div class="wrap foot">
     <a class="brand" href="https://hoplight.ai" aria-label="Hoplight home">
       <svg class="beacon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="12" cy="12" r="4" fill="#E8A820"/>
-        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="#0F1B2D" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="12" cy="12" r="4"/>
+        <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
       </svg>
       Hoplight
     </a>

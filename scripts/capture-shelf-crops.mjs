@@ -62,8 +62,8 @@ const PRODUCTS = [
   {
     slug: 'agis',
     url: 'https://ai-policy-tool.vercel.app',
-    note: 'The ask box with its gold Search button and three of the suggested questions. Nav bar and hero excluded, so the ARIA/AGIS name mismatch cannot show.',
-    clip: { x: 660, y: 470, width: 720, height: 360 },
+    note: 'The ask box with its gold Search button and three of the suggested questions. Nav bar and hero excluded, so the ARIA/AGIS name mismatch cannot show. Round 2: the rectangle was 660,470,720,360 and cut the third suggestion pill at the bottom frame edge (painter, ex-apple). Widened and dropped 10px so the pill closes with ~15px of air beneath it; still exactly 2:1.',
+    clip: { x: 660, y: 482, width: 692, height: 346 },
     thumb: { x: 180, y: 530, width: 160, height: 160 },
   },
   {
