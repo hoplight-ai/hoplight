@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DNC 2024 After Action Report: Critical Analysis</title>
+<style>
+/* === RESET & BASE === */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.5;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 200ms ease-in-out, color 200ms ease-in-out;
+}
+
+/* === COLOR TOKENS === */
+:root {
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --surface2: #f0efed;
+  --border: #d8d6d0;
+  --text: #1a1a1a;
+  --text-dim: #6b6b6b;
+  --accent: #c0392b;
+  --accent-light: rgba(192,57,43,0.06);
+  --accent-mid: rgba(192,57,43,0.15);
+  --green: #27ae60;
+  --green-light: rgba(39,174,96,0.08);
+  --green-mid: rgba(39,174,96,0.2);
+  --gridline: rgba(0,0,0,0.08);
+  --axis: rgba(0,0,0,0.35);
+  --shadow: rgba(0,0,0,0.06);
+}
+[data-theme="dark"] {
+  --bg: #111113;
+  --surface: #1a1a1e;
+  --surface2: #222228;
+  --border: #333340;
+  --text: #e0e0e8;
+  --text-dim: #888898;
+  --accent: #d95a4e;
+  --accent-light: rgba(217,90,78,0.08);
+  --accent-mid: rgba(217,90,78,0.18);
+  --green: #2ecc71;
+  --green-light: rgba(46,204,113,0.08);
+  --green-mid: rgba(46,204,113,0.2);
+  --gridline: rgba(255,255,255,0.06);
+  --axis: rgba(255,255,255,0.3);
+  --shadow: rgba(0,0,0,0.3);
+}
+
+/* === TYPOGRAPHY === */
+h1 { font-size: clamp(2.5rem, 2rem + 1.5vw, 3.157rem); line-height: 1.05; text-wrap: balance; }
+h2 { font-size: clamp(2rem, 1.7rem + 1vw, 2.369rem); line-height: 1.1; text-wrap: balance; }
+h3 { font-size: clamp(1.6rem, 1.4rem + 0.7vw, 1.777rem); line-height: 1.15; text-wrap: balance; }
+h4 { font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.333rem); line-height: 1.2; text-wrap: balance; }
+.small { font-size: 0.75rem; line-height: 1.3; }
+.tabular { font-variant-numeric: tabular-nums lining-nums; }
+p { max-width: 65ch; }
+h1, h2, h3, h4 { margin-top: 1.5em; margin-bottom: 0.5em; }
+h1:first-child, h2:first-child, h3:first-child, h4:first-child { margin-top: 0; }
+
+/* === NAV === */
+.nav-bar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center;
+  padding: 0 16px;
+  height: 52px;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-bar::-webkit-scrollbar { display: none; }
+.nav-title {
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  color: var(--text-dim); text-transform: uppercase;
+  white-space: nowrap; margin-right: 12px; flex-shrink: 0;
+}
+.nav-btn {
+  font-size: 0.7rem; font-weight: 500;
+  padding: 5px 10px; border: none; background: transparent;
+  color: var(--text-dim); cursor: pointer; white-space: nowrap;
+  border-radius: 4px; transition: all 200ms ease-in-out;
+  min-height: 36px;
+}
+.nav-btn:hover { background: var(--surface2); color: var(--text); }
+.nav-btn.active { background: var(--accent-light); color: var(--accent); font-weight: 700; }
+.nav-btn:focus-visible { box-shadow: 0 0 0 3px var(--accent-light); outline: none; }
+.dark-toggle {
+  margin-left: auto; flex-shrink: 0;
+  font-size: 0.7rem; padding: 5px 10px;
+  border: 1px solid var(--border); border-radius: 4px;
+  background: transparent; color: var(--text-dim); cursor: pointer;
+  transition: all 200ms ease-in-out; min-height: 36px;
+}
+.dark-toggle:hover { background: var(--surface2); }
+
+/* === PAGES === */
+.page { display: none; min-height: calc(100vh - 52px - 56px); padding: 40px 24px 32px; max-width: 1100px; margin: 0 auto; }
+.page.active { display: block; animation: fadeIn 200ms ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+.bottom-nav {
+  position: sticky; bottom: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 24px; height: 56px;
+}
+.nav-arrow {
+  font-size: 0.875rem; font-weight: 600;
+  padding: 10px 20px; border: 1px solid var(--border);
+  background: transparent; color: var(--text); cursor: pointer;
+  border-radius: 6px; transition: all 200ms ease-in-out;
+  min-height: 44px; min-width: 100px;
+}
+.nav-arrow:hover:not(:disabled) { background: var(--surface2); border-color: var(--text-dim); }
+.nav-arrow:disabled { opacity: 0.35; cursor: not-allowed; }
+.page-indicator { font-size: 0.875rem; color: var(--text-dim); font-variant-numeric: tabular-nums lining-nums; }
+
+/* === CARDS === */
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; }
+.card + .card { margin-top: 24px; }
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 24px; }
+.card-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 700px) { .card-grid-2 { grid-template-columns: 1fr; } }
+
+/* === PULL QUOTE === */
+.pull-quote {
+  border-left: 4px solid var(--accent);
+  background: var(--accent-light);
+  padding: 20px 24px;
+  border-radius: 0 8px 8px 0;
+  margin: 24px 0;
+}
+.pull-quote p {
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.333rem);
+  line-height: 1.4; color: var(--text);
+  max-width: 65ch; font-style: italic;
+}
+.pull-quote .attribution { font-size: 0.75rem; color: var(--text-dim); margin-top: 8px; font-style: normal; font-variant-numeric: tabular-nums lining-nums; }
+
+/* === STAT CARDS === */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; margin: 24px 0; }
+.stat-card { background: var(--surface); border: 2px solid var(--border); border-radius: 8px; padding: 20px 16px; }
+.stat-card.accent { border-color: var(--accent); background: var(--accent-light); }
+.stat-card.green-card { border-color: var(--green); background: var(--green-light); }
+.stat-number { font-size: clamp(2rem, 1.7rem + 1vw, 2.8rem); font-weight: 800; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums lining-nums; }
+.stat-card.green-card .stat-number { color: var(--green); }
+.stat-label { font-size: 0.875rem; color: var(--text-dim); margin-top: 8px; max-width: 20ch; line-height: 1.3; }
+
+/* === QUOTE CARDS === */
+.quote-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+.quote-card blockquote { font-size: 1rem; line-height: 1.55; color: var(--text); border-left: 3px solid var(--accent); padding-left: 16px; max-width: 65ch; }
+.quote-meta { font-size: 0.75rem; color: var(--text-dim); margin-top: 10px; }
+.quote-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 3px; background: var(--surface2); color: var(--text-dim); margin-bottom: 10px; }
+.quote-tag.media { background: rgba(52,152,219,0.12); color: #2980b9; }
+.quote-tag.money { background: var(--accent-light); color: var(--accent); }
+.quote-tag.organizing { background: var(--green-light); color: var(--green); }
+.quote-tag.research { background: rgba(155,89,182,0.1); color: #8e44ad; }
+.quote-tag.strategy { background: rgba(230,126,34,0.12); color: #d35400; }
+.quote-tag.demographics { background: rgba(52,73,94,0.1); color: var(--text-dim); }
+
+/* === FILTER === */
+.filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+.filter-btn { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; padding: 6px 14px; border: 1px solid var(--border); border-radius: 20px; background: transparent; color: var(--text-dim); cursor: pointer; transition: all 200ms ease-in-out; min-height: 36px; }
+.filter-btn:hover { background: var(--surface2); }
+.filter-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.filter-btn.green-filter.active { background: var(--green); border-color: var(--green); }
+
+/* === LOSS TABLE === */
+.loss-table { width: 100%; border-collapse: collapse; }
+.loss-table th { text-align: left; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); border-bottom: 2px solid var(--border); padding: 8px 12px; }
+.loss-table td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+.loss-table tr:hover td { background: var(--surface2); }
+.loss-type-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; display: inline-block; white-space: nowrap; }
+.type-structural { background: var(--accent-light); color: var(--accent); }
+.type-tactical { background: rgba(52,152,219,0.1); color: #2980b9; }
+.type-candidate { background: rgba(230,126,34,0.12); color: #d35400; }
+.icon-yes { color: var(--green); text-align: center; }
+.icon-no { color: var(--border); text-align: center; }
+
+/* === CHART CONTAINERS === */
+.chart-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 24px; margin: 24px 0; overflow: hidden; }
+.chart-title { font-size: 1rem; font-weight: 700; margin-bottom: 4px; line-height: 1.3; max-width: 65ch; }
+.chart-sub { font-size: 0.75rem; color: var(--text-dim); margin-bottom: 16px; max-width: 65ch; }
+.chart-source { font-size: 0.7rem; color: var(--text-dim); margin-top: 12px; max-width: 65ch; }
+
+/* === WORD CLOUD === */
+.word-cloud { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; padding: 12px 0; min-height: 120px; }
+
+/* === UNSAID === */
+.unsaid-item { border-left: 4px solid var(--border); padding: 16px 20px; margin-bottom: 16px; background: var(--surface); border-radius: 0 8px 8px 0; }
+.unsaid-item h4 { color: var(--text); margin-top: 0; margin-bottom: 6px; font-size: 1rem; }
+.unsaid-item p { color: var(--text-dim); font-size: 0.875rem; max-width: 65ch; }
+.unsaid-item.critical { border-color: var(--accent); background: var(--accent-light); }
+.unsaid-item.critical h4 { color: var(--accent); }
+
+/* === FINDINGS === */
+.finding { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+.finding h4 { margin-top: 0; margin-bottom: 10px; font-size: 1rem; }
+.finding-quote { font-style: italic; border-left: 3px solid var(--accent); padding-left: 14px; margin: 12px 0; max-width: 65ch; font-size: 0.9rem; color: var(--text); }
+.finding-critique { background: var(--surface2); border-radius: 6px; padding: 12px 16px; margin-top: 12px; font-size: 0.875rem; max-width: 65ch; }
+.finding-critique strong { color: var(--accent); }
+
+/* === COVER === */
+.cover-meta { display: flex; gap: 32px; flex-wrap: wrap; margin: 32px 0; }
+.cover-meta-number { font-size: 1.5rem; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums lining-nums; }
+.cover-meta-label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* === SECTION HEADER === */
+.section-header { margin-bottom: 32px; padding-bottom: 20px; border-bottom: 2px solid var(--border); }
+.section-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 8px; }
+
+/* === ISOTYPE === */
+.isotype-row { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; padding: 8px 0; }
+.iso-icon { font-size: 2rem; }
+
+/* === PRINT === */
+@media print {
+  .nav-bar, .bottom-nav { display: none !important; }
+  .page { display: block !important; break-inside: avoid; page-break-after: always; }
+  .chart-wrap { break-inside: avoid; }
+}
+
+/* === REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0ms !important; transition-duration: 0ms !important; } }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar" role="navigation" aria-label="Page navigation">
+  <span class="nav-title">DNC AAR</span>
+  <button class="nav-btn active" onclick="goTo(0)">1. Cover</button>
+  <button class="nav-btn" onclick="goTo(1)">2. Attention</button>
+  <button class="nav-btn" onclick="goTo(2)">3. Quotes</button>
+  <button class="nav-btn" onclick="goTo(3)">4. Losses</button>
+  <button class="nav-btn" onclick="goTo(4)">5. Mismatch</button>
+  <button class="nav-btn" onclick="goTo(5)">6. Money Trail</button>
+  <button class="nav-btn" onclick="goTo(6)">7. Machine Breaks</button>
+  <button class="nav-btn" onclick="goTo(7)">8. Erosion</button>
+  <button class="nav-btn" onclick="goTo(8)">9. Labor</button>
+  <button class="nav-btn" onclick="goTo(9)">10. Racial Justice</button>
+  <button class="nav-btn" onclick="goTo(10)">11. The Unsaid</button>
+  <button class="dark-toggle" id="dark-toggle-btn" onclick="toggleDark()">Dark</button>
+</nav>
+
+<main>
+
+<!-- PAGE 1: COVER -->
+<div class="page active" id="page-0">
+  <div class="section-header">
+    <div class="section-tag">Critical Analysis</div>
+    <h1>DNC 2024 After Action Report</h1>
+    <p style="color:var(--text-dim); margin-top:8px;">A systematic examination of what the report says, what it omits, and what it means for Democratic politics.</p>
+  </div>
+
+  <div class="cover-meta">
+    <div>
+      <div class="cover-meta-number tabular">480+</div>
+      <div class="cover-meta-label">Pages total</div>
+    </div>
+    <div>
+      <div class="cover-meta-number tabular">~48,000</div>
+      <div class="cover-meta-label">Words analyzed</div>
+    </div>
+    <div>
+      <div class="cover-meta-number tabular">0</div>
+      <div class="cover-meta-label">Named consultants held accountable</div>
+    </div>
+    <div>
+      <div class="cover-meta-number tabular">0</div>
+      <div class="cover-meta-label">Pages in Executive Summary</div>
+    </div>
+    <div>
+      <div class="cover-meta-number tabular">0</div>
+      <div class="cover-meta-label">Pages in Conclusion</div>
+    </div>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Democrats are essentially raising billions of dollars from retirees, activists, working Americans, and organized labor, and transferring most of it to the pockets of legacy and digital media oligarchs."</p>
+    <div class="attribution">DNC After Action Report, p.40</div>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Despite constituting only 8.6 percent of contact attempts, door-to-door canvassing represented 50.0 percent of voter IDs."</p>
+    <div class="attribution">DNC After Action Report, p.89</div>
+  </div>
+
+  <div class="pull-quote">
+    <p>"The idea Trump's negatives were 'baked in' is a major failure of analysis."</p>
+    <div class="attribution">DNC After Action Report, p.31</div>
+  </div>
+
+  <div class="card" style="margin-top:32px;">
+    <h4 style="margin-top:0;">What this analysis does</h4>
+    <p>This dashboard applies four lenses to the DNC's 2024 After Action Report: attention allocation (what did they spend words on), internal contradictions (what they admit vs. what they funded), structural omissions (what is missing entirely), and political economy (who benefits from the choices made).</p>
+    <p style="margin-top:12px; color:var(--text-dim); font-size:0.875rem;">Navigate with left/right arrow keys, the bottom buttons, or the top nav. Every finding is sourced to a specific page number in the report.</p>
+  </div>
+</div>
+
+<!-- PAGE 2: ATTENTION MAP -->
+<div class="page" id="page-1">
+  <div class="section-header">
+    <div class="section-tag">Page 2 of 11</div>
+    <h2>The report spends twice as many words on spending as on what actually happened</h2>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Section word counts reveal that the executive summary and conclusion are blank</div>
+    <div class="chart-sub">Share of total analyzed content by section. Word counts estimated from page counts and document analysis.</div>
+    <svg id="attn-chart" viewBox="0 0 700 380" width="100%" style="display:block;"></svg>
+    <div class="chart-source">Source: DNC 2024 After Action Report section analysis.</div>
+  </div>
+
+  <div class="card-grid-2" style="margin-top:24px;">
+    <div class="card">
+      <h4 style="margin-top:0; color:var(--text-dim);">Terms the report uses most</h4>
+      <div class="word-cloud" id="word-cloud-says"></div>
+      <p class="small" style="color:var(--text-dim); margin-top:8px;">Size = frequency. Red = money/spending terms.</p>
+    </div>
+    <div class="card">
+      <h4 style="margin-top:0; color:var(--accent);">Terms for what actually happened</h4>
+      <div class="word-cloud" id="word-cloud-actually"></div>
+      <p class="small" style="color:var(--text-dim); margin-top:8px;">Green = organizing terms.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: QUOTES -->
+<div class="page" id="page-2">
+  <div class="section-header">
+    <div class="section-tag">Page 3 of 11</div>
+    <h2>In Their Own Words</h2>
+    <p style="color:var(--text-dim);">Direct quotes, verbatim with page numbers. Filter by category.</p>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterQuotes('all', this)">All (29)</button>
+    <button class="filter-btn" onclick="filterQuotes('media', this)">Media</button>
+    <button class="filter-btn" onclick="filterQuotes('money', this)">Money</button>
+    <button class="filter-btn" onclick="filterQuotes('organizing', this)">Organizing</button>
+    <button class="filter-btn" onclick="filterQuotes('research', this)">Research</button>
+    <button class="filter-btn" onclick="filterQuotes('strategy', this)">Strategy</button>
+    <button class="filter-btn" onclick="filterQuotes('demographics', this)">Demographics</button>
+  </div>
+
+  <div id="quotes-container"></div>
+</div>
+
+<!-- PAGE 4: LOSS INVENTORY -->
+<div class="page" id="page-3">
+  <div class="section-header">
+    <div class="section-tag">Page 4 of 11</div>
+    <h2>Loss Inventory: 20 documented failures</h2>
+    <p style="color:var(--text-dim);">Every documented failure, categorized. Filter by type or lens.</p>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterLosses('all', this)">All (20)</button>
+    <button class="filter-btn" onclick="filterLosses('structural', this)">Structural</button>
+    <button class="filter-btn" onclick="filterLosses('tactical', this)">Tactical</button>
+    <button class="filter-btn" onclick="filterLosses('candidate', this)">Candidate</button>
+    <button class="filter-btn green-filter" onclick="filterLosses('labor', this)">Labor lens</button>
+    <button class="filter-btn green-filter" onclick="filterLosses('racial', this)">Racial justice lens</button>
+  </div>
+
+  <div style="overflow-x:auto;">
+    <table class="loss-table">
+      <thead>
+        <tr>
+          <th style="min-width:180px;">Failure</th>
+          <th>Type</th>
+          <th style="min-width:280px;">Description</th>
+          <th style="min-width:50px;">Labor</th>
+          <th style="min-width:60px;">Racial</th>
+        </tr>
+      </thead>
+      <tbody id="loss-tbody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE 5: MISMATCH -->
+<div class="page" id="page-4">
+  <div class="section-header">
+    <div class="section-tag">Page 5 of 11</div>
+    <h2>Democrats spent money where voters weren't watching</h2>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Democrats spent 60%+ on broadcast/cable while target voters spent 74% of media time on streaming</div>
+    <div class="chart-sub">Audience media time share vs. Democratic ad spending allocation. Each group shows audience bars (light) and Dem spending (red) side by side per medium.</div>
+    <svg id="mismatch-chart" viewBox="0 0 700 420" width="100%" style="display:block;"></svg>
+    <div class="chart-source">Source: DNC AAR pp.40-55, Nielsen/Pew Research. Democratic spending allocation reconstructed from report data.</div>
+  </div>
+
+  <h3>The Punchline</h3>
+  <p style="color:var(--text-dim); margin-bottom:16px; margin-top:8px;">Five numbers that summarize the structural failure.</p>
+
+  <div class="stat-grid">
+    <div class="stat-card accent">
+      <div class="stat-number tabular">60%+</div>
+      <div class="stat-label">of ad dollars spent on broadcast and cable</div>
+    </div>
+    <div class="stat-card accent">
+      <div class="stat-number tabular">8.6%</div>
+      <div class="stat-label">of voter contact attempts were face-to-face</div>
+    </div>
+    <div class="stat-card green-card">
+      <div class="stat-number tabular">50%</div>
+      <div class="stat-label">of voter IDs came from that 8.6% of face-to-face attempts</div>
+    </div>
+    <div class="stat-card accent">
+      <div class="stat-number tabular">7:1</div>
+      <div class="stat-label">media to organizing spend ratio ($1.04B vs $150M)</div>
+    </div>
+    <div class="stat-card accent">
+      <div class="stat-number tabular">72%</div>
+      <div class="stat-label">of door IDs collected in the final month, after voting had begun</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6: MONEY TRAIL -->
+<div class="page" id="page-5">
+  <div class="section-header">
+    <div class="section-tag">Page 6 of 11</div>
+    <h2>$1.9 billion went to 30 vendors. None were named critically in the report.</h2>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Democratic spending flowed overwhelmingly to broadcast TV and consultants, not organizing</div>
+    <div class="chart-sub">Simplified flow of federal Democratic spending, 2024 cycle. Figures from report data.</div>
+    <div style="overflow-x:auto;">
+      <svg id="sankey-svg" viewBox="0 0 780 420" width="100%" style="display:block; min-width:560px;"></svg>
+    </div>
+    <div class="chart-source">Source: DNC AAR p.79. "The national campaign invested approximately $150 million in voter contact... $1.04 billion in media expenditures."</div>
+  </div>
+
+  <div class="card" style="border-color: var(--accent); background: var(--accent-light); margin-top:24px;">
+    <h4 style="margin-top:0; color:var(--accent);">The Consultant Accountability Gap</h4>
+    <p><strong>30 vendors received $1.9 billion</strong> — 66.3% of all federal candidate spending. Average take: approximately $63 million per vendor.</p>
+    <p style="margin-top:12px;"><strong>Zero vendors are named critically. Zero have their performance evaluated.</strong></p>
+    <p style="margin-top:12px; color:var(--text-dim); font-size:0.875rem;">"We have enough money to think and act differently." (p.140) The report reaches this conclusion without examining whether the current vendor structure enabled or prevented that possibility.</p>
+  </div>
+
+  <div class="pull-quote" style="margin-top:24px;">
+    <p>"In the current media ecosystem, Republicans own and Democrats rent."</p>
+    <div class="attribution">DNC After Action Report, p.40</div>
+  </div>
+</div>
+
+<!-- PAGE 7: MACHINE BREAKS -->
+<div class="page" id="page-6">
+  <div class="section-header">
+    <div class="section-tag">Page 7 of 11</div>
+    <h2>The Machine Breaks Down</h2>
+    <p style="color:var(--text-dim);">Three structural failures in timing, tactics, and resource allocation.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Democrats spiked spending in the final 90 days while Republicans and Koch/TPUSA maintained year-round presence</div>
+    <div class="chart-sub">Normalized monthly spending index (100 = election month). Democrats go dark between cycles; Republicans and allied groups do not.</div>
+    <svg id="timeline-chart" viewBox="0 0 700 300" width="100%" style="display:block;"></svg>
+    <div class="chart-source">Source: DNC AAR p.54. "Democrats and progressive organizations use a seasonal and late messaging approach... it can be too late." "When Democrats go dark between cycles, it is ceding too much ground."</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Door-to-door contact was 10x more efficient per attempt than phone or text, yet received only 8.6% of the effort</div>
+    <div class="chart-sub">Share of total contact attempts (light) vs. share of voter IDs produced (solid) by each tactic.</div>
+    <svg id="tactics-chart" viewBox="0 0 700 260" width="100%" style="display:block;"></svg>
+    <div class="chart-source">Source: DNC AAR p.89. "Despite constituting only 8.6 percent of contact attempts, door-to-door canvassing represented 50.0 percent of voter IDs."</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">For every $7 spent on media, Democrats spent $1 on organizing</div>
+    <div class="chart-sub">Each icon represents approximately $150M in spending. $1.04B media vs. $150M voter contact.</div>
+    <div style="display:flex; gap:32px; flex-wrap:wrap; padding:12px 0 4px;">
+      <div>
+        <div style="font-size:0.75rem; color:var(--accent); margin-bottom:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;">Media ($1.04B)</div>
+        <div class="isotype-row" id="isotype-media"></div>
+      </div>
+      <div>
+        <div style="font-size:0.75rem; color:var(--green); margin-bottom:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em;">Organizing ($150M)</div>
+        <div class="isotype-row" id="isotype-org"></div>
+      </div>
+    </div>
+    <div class="chart-source">Source: DNC AAR p.79.</div>
+  </div>
+</div>
+
+<!-- PAGE 8: EROSION -->
+<div class="page" id="page-7">
+  <div class="section-header">
+    <div class="section-tag">Page 8 of 11</div>
+    <h2>The Erosion</h2>
+    <p style="color:var(--text-dim);">Two structural declines the report documents but does not adequately explain.</p>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">Democratic majority enrollment collapsed from 7 jurisdictions to 2 between 2008 and 2024</div>
+    <div class="chart-sub">Number of jurisdictions with majority Democratic voter registration.</div>
+    <svg id="slope-chart" viewBox="0 0 700 300" width="100%" style="display:block;"></svg>
+    <div class="chart-source">Source: DNC AAR p.96. "At the time of Barack Obama's election, there were seven jurisdictions with majority Democratic enrollment. In 2024, there were two."</div>
+  </div>
+
+  <div class="pull-quote">
+    <p>"Some advisors argue against voter registration because they feel it could actually bring more non-Democrats into the franchise."</p>
+    <div class="attribution">DNC After Action Report, p.96</div>
+  </div>
+
+  <div class="chart-wrap">
+    <div class="chart-title">72% of door-to-door voter IDs were collected in the final month, after early voting had already begun</div>
+    <div class="chart-sub">Cumulative share of total door-to-door voter IDs over the 2024 campaign timeline.</div>
+    <svg id="ramp-chart" viewBox="0 0 700 280" width="100%" style="display:block;"></svg>
+    <div class="chart-source">Source: DNC AAR p.90. "72 percent of the IDs were collected during last month of the campaign."</div>
+  </div>
+</div>
+
+<!-- PAGE 9: LABOR -->
+<div class="page" id="page-8">
+  <div class="section-header">
+    <div class="section-tag">Page 9 of 11</div>
+    <h2>Labor Lens</h2>
+    <p style="color:var(--text-dim);">What the report says about working-class and union voters, and what it misses.</p>
+  </div>
+  <div id="labor-findings"></div>
+</div>
+
+<!-- PAGE 10: RACIAL JUSTICE -->
+<div class="page" id="page-9">
+  <div class="section-header">
+    <div class="section-tag">Page 10 of 11</div>
+    <h2>Racial Justice Lens</h2>
+    <p style="color:var(--text-dim);">What the report says about voters of color, and what it avoids.</p>
+  </div>
+  <div id="racial-findings"></div>
+</div>
+
+<!-- PAGE 11: THE UNSAID -->
+<div class="page" id="page-10">
+  <div class="section-header">
+    <div class="section-tag">Page 11 of 11</div>
+    <h2>The Unsaid</h2>
+    <p style="color:var(--text-dim);">Missing sections, blank pages, and strategic silences.</p>
+  </div>
+
+  <div class="pull-quote">
+    <p>A report this long with a blank executive summary and no conclusion is not an oversight. It is a choice. The most important pages are empty.</p>
+  </div>
+
+  <div id="unsaid-container"></div>
+</div>
+
+</main>
+
+<div class="bottom-nav">
+  <button class="nav-arrow" id="prev-btn" onclick="goTo(state.page - 1)" disabled>← Previous</button>
+  <span class="page-indicator tabular" id="page-indicator">1 of 11</span>
+  <button class="nav-arrow" id="next-btn" onclick="goTo(state.page + 1)">Next →</button>
+</div>
+
+<script>
+const TOTAL = 11;
+const state = { page: 0 };
+
+function goTo(n) {
+  if (n < 0 || n >= TOTAL) return;
+  state.page = n;
+  document.querySelectorAll('.page').forEach((p, i) => p.classList.toggle('active', i === n));
+  document.querySelectorAll('.nav-btn').forEach((b, i) => b.classList.toggle('active', i === n));
+  document.getElementById('page-indicator').textContent = (n + 1) + ' of ' + TOTAL;
+  document.getElementById('prev-btn').disabled = n === 0;
+  document.getElementById('next-btn').disabled = n === TOTAL - 1;
+  window.location.hash = 'page=' + (n + 1);
+  window.scrollTo(0, 0);
+  drawPage(n);
+}
+
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON') return;
+  if (e.key === 'ArrowRight') goTo(state.page + 1);
+  if (e.key === 'ArrowLeft') goTo(state.page - 1);
+});
+
+function toggleDark() {
+  const html = document.documentElement;
+  const dark = html.getAttribute('data-theme') === 'dark';
+  html.setAttribute('data-theme', dark ? 'light' : 'dark');
+  document.getElementById('dark-toggle-btn').textContent = dark ? 'Dark' : 'Light';
+  drawPage(state.page);
+}
+
+if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  document.getElementById('dark-toggle-btn').textContent = 'Light';
+}
+
+// === DATA ===
+
+const QUOTES = [
+  { text: "In the current media ecosystem, Republicans own and Democrats rent.", page: 40, cat: "media" },
+  { text: "Democrats are essentially raising billions of dollars from retirees, activists, working Americans, and organized labor, and transferring most of it to the pockets of legacy and digital media oligarchs.", page: 40, cat: "money" },
+  { text: "all the Democrats ever do is ask for money.", page: 86, cat: "organizing" },
+  { text: "An incumbent Vice President. With no research to share once she became the nominee.", page: 71, cat: "research" },
+  { text: "Before the candidate switch, the pollsters never reviewed ad copy or content.", page: 70, cat: "research" },
+  { text: "The campaign was informed the plan was for them to poll three times during the general election.", page: 70, cat: "research" },
+  { text: "The idea Trump's negatives were 'baked in' is a major failure of analysis.", page: 31, cat: "strategy" },
+  { text: "The campaign ended up running the same playbook of showing up at the end of a cycle and asking people to support a candidate they had never met.", page: 79, cat: "organizing" },
+  { text: "The party outsourced its core organizing function to independent organizations it cannot direct.", page: 76, cat: "organizing" },
+  { text: "Despite constituting only 8.6 percent of contact attempts, door-to-door canvassing represented 50.0 percent of voter IDs.", page: 89, cat: "organizing" },
+  { text: "72 percent of the IDs were collected during last month of the campaign.", page: 90, cat: "organizing" },
+  { text: "The irony is many of these efforts were emulating what Democrats used to do.", page: 81, cat: "organizing" },
+  { text: "Turning Point USA is not a seasonal, churn and burn ecosystem.", page: 80, cat: "organizing" },
+  { text: "Harris wrote off rural America.", page: 31, cat: "strategy" },
+  { text: "Democrats can't lose non-college voters by massive margins... non-college voters are a majority of the electorate.", page: 28, cat: "demographics" },
+  { text: "Irregular voters are disproportionately voters of color, younger, non-college, male, and urban.", page: 29, cat: "demographics" },
+  { text: "Harris fell below 50% with new voters for the first time in modern Democratic history.", page: 29, cat: "demographics" },
+  { text: "Starr County, which is 97% Hispanic, flipped to Trump - voting Republican for president for the first time since 1892.", page: 38, cat: "demographics" },
+  { text: "Democrats and progressive organizations use a seasonal and late messaging approach... it can be too late.", page: 54, cat: "media" },
+  { text: "When Democrats go dark between cycles, it is ceding too much ground.", page: 54, cat: "media" },
+  { text: "Everything becomes reductive to the tech stack and the dashboard.", page: 64, cat: "research" },
+  { text: "There was a decision in the 2024 Democratic leadership not to engage in negative advertising at the scale required.", page: 61, cat: "strategy" },
+  { text: "Harris lost the 32 percent of voters who identified the economy as their most important issue by 18 to 81, a negative 63 percent margin.", page: 62, cat: "strategy" },
+  { text: "We have enough money to think and act differently.", page: 140, cat: "money" },
+  { text: "Face-to-face organizing is why movement politics can be so powerful.", page: 80, cat: "organizing" },
+  { text: "Focus less on abstract issues and identity politics.", page: 22, cat: "strategy" },
+  { text: "The national campaign invested approximately $150 million in voter contact... $1.04 billion in media expenditures.", page: 79, cat: "money" },
+  { text: "Some advisors argue against voter registration because they feel it could actually bring more non-Democrats into the franchise.", page: 96, cat: "demographics" },
+  { text: "At the time of Barack Obama's election, there were seven jurisdictions with majority Democratic enrollment. In 2024, there were two.", page: 96, cat: "demographics" }
+];
+
+const LOSSES = [
+  { title: "Blank Executive Summary", desc: "The report contains no executive summary. A 480-page document with no synthesized findings for decision-makers is a structural choice, not an editorial oversight.", type: "structural", labor: false, racial: false },
+  { title: "No Conclusion", desc: "The report ends without a conclusion section. Recommendations are scattered across sections with no priority ordering or implementation timeline.", type: "structural", labor: false, racial: false },
+  { title: "Candidate Switch Too Late", desc: "Harris entered the race 107 days before election day with no research infrastructure, no tested messaging, and no polling baseline for the general.", type: "candidate", labor: false, racial: false },
+  { title: "Research Infrastructure Failure", desc: "'An incumbent Vice President. With no research to share once she became the nominee.' (p.71) No ad copy review, polling only three times in the general.", type: "candidate", labor: false, racial: false },
+  { title: "Seven-to-One Spending Ratio", desc: "$1.04B on media vs $150M on voter contact. The party chose media at a 7:1 ratio despite its own data showing face-to-face contact was dramatically more effective.", type: "structural", labor: true, racial: true },
+  { title: "Outsourced Organizing", desc: "The party outsourced core organizing to independent organizations it cannot legally direct or coordinate. When those organizations underperform, the party has no recourse.", type: "structural", labor: true, racial: false },
+  { title: "No Negative Ad Strategy", desc: "'There was a decision in the 2024 Democratic leadership not to engage in negative advertising at the scale required.' (p.61) Trump's negatives treated as already priced in.", type: "tactical", labor: false, racial: false },
+  { title: "Economy Message Failure", desc: "Harris lost voters who prioritized the economy 18-81, a 63-point deficit. The report identifies this but offers no structural explanation for why messaging failed.", type: "candidate", labor: true, racial: false },
+  { title: "Seasonal Media Model", desc: "Democrats go dark between cycles while Koch/AFP/TPUSA maintain year-round presence. The report names this as ceding ground but the party has no structural mechanism to fix it.", type: "structural", labor: false, racial: false },
+  { title: "Late Voter Contact", desc: "72% of door-to-door voter IDs collected in the final month, after early voting had begun in many states. The system identified voters too late to persuade them.", type: "tactical", labor: true, racial: true },
+  { title: "Rural Abandonment", desc: "'Harris wrote off rural America.' (p.31) An explicit choice not to compete in rural areas. The report criticizes this without naming who made the decision.", type: "candidate", labor: true, racial: false },
+  { title: "Non-College Voter Collapse", desc: "Non-college voters are a majority of the electorate. Democrats continued losing them by massive margins while focusing resources on college-educated suburban voters.", type: "structural", labor: true, racial: true },
+  { title: "New Voter Falloff", desc: "Harris fell below 50% with new voters for the first time in modern Democratic history. The party's theory of change, expanding the electorate, failed in practice.", type: "structural", labor: false, racial: true },
+  { title: "Hispanic Voter Erosion", desc: "Starr County (97% Hispanic) voted Republican for the first time since 1892. A decade of Democratic disinvestment in Spanish-dominant organizing preceded it.", type: "structural", labor: true, racial: true },
+  { title: "Consultant Accountability Gap", desc: "30 vendors received $1.9B (66.3% of all federal candidate spending). Zero are named critically. Zero have their performance evaluated.", type: "structural", labor: true, racial: false },
+  { title: "Voter Registration Resistance", desc: "'Some advisors argue against voter registration because they feel it could actually bring more non-Democrats into the franchise.' (p.96) Party elites actively suppressed turnout expansion.", type: "structural", labor: false, racial: true },
+  { title: "Tech Stack Over-Reliance", desc: "'Everything becomes reductive to the tech stack and the dashboard.' (p.64) The party substituted technological sophistication for human infrastructure.", type: "structural", labor: false, racial: false },
+  { title: "Broadcast Spending vs Streaming Reality", desc: "60%+ of ad dollars went to broadcast/cable while 18-29 year olds spend 74% of media time on streaming. The party bought airtime on channels its targets weren't watching.", type: "tactical", labor: false, racial: true },
+  { title: "Irregular Voter Abandonment", desc: "Irregular voters are disproportionately voters of color, younger, non-college, male, and urban. The party's voter contact model systematically deprioritized the voters most likely to swing the election.", type: "structural", labor: true, racial: true },
+  { title: "No Year-Round Organizing Infrastructure", desc: "The party relies on cycle-based surge capacity. Turning Point USA operates year-round. The report identifies this gap but proposes no structural solution.", type: "structural", labor: true, racial: false }
+];
+
+const LABOR = [
+  { title: "Working-class voter collapse is documented but not explained", quote: "Democrats can't lose non-college voters by massive margins... non-college voters are a majority of the electorate. (p.28)", critique: "The report identifies the collapse of non-college support as critical but does not examine whether Democratic economic policy, not just messaging, drove the shift. The analysis stops at message framing and never reaches material conditions." },
+  { title: "Labor's investment produced undirected organizing", quote: "The party outsourced its core organizing function to independent organizations it cannot direct. (p.76)", critique: "Labor unions are among the largest independent organizations referenced. The party cannot coordinate with them legally. Labor's substantial 2024 investment produced voter contact the campaign could not integrate into its strategy." },
+  { title: "The report praises face-to-face organizing as labor's core model", quote: "Face-to-face organizing is why movement politics can be so powerful. (p.80)", critique: "Union organizing is the most durable face-to-face infrastructure Democrats have. The report praises the method without acknowledging that declining union density directly reduces Democratic capacity to deploy it at scale." },
+  { title: "Economy framing failure hit working-class voters hardest", quote: "Harris lost the 32 percent of voters who identified the economy as their most important issue by 18 to 81, a negative 63 percent margin. (p.62)", critique: "A 63-point deficit among economy-first voters is a catastrophic failure concentrated in working-class communities. The report attributes this to messaging without examining whether Democratic economic policy created a credibility gap that no message could close." },
+  { title: "The organizing outsourcing model is described but not challenged", quote: "The party outsourced its core organizing function - voter contact, community relationships, door-to-door canvassing - to independent organizations it cannot direct or coordinate. The report calls this 'offshoring organizing.' (p.76)", critique: "The report names the problem accurately. It does not follow the logic to its conclusion: if the party cannot direct these organizations, the party has no organizing infrastructure. What exists is a collection of allied nonprofits with their own priorities." },
+  { title: "Rural abandonment disproportionately affected rural labor communities", quote: "Harris wrote off rural America. (p.31)", critique: "Rural America is disproportionately working-class, union-adjacent (agriculture, extraction, manufacturing), and historically Democratic. Writing it off is not just a geographic choice, it is a class choice." },
+  { title: "The 7:1 spending ratio reflects a theory of change that excludes labor's model", quote: "The national campaign invested approximately $150 million in voter contact... $1.04 billion in media expenditures. (p.79)", critique: "Labor's theory of political change is relational: people change their votes through trusted relationships, not ads. A 7:1 ratio of broadcast spending to voter contact is not a resourcing failure, it is a theory-of-change failure. The party chose the consultants' model over labor's." }
+];
+
+const RACIAL = [
+  { title: "Hispanic voter erosion is documented but organizing choices are not examined", quote: "Starr County, which is 97% Hispanic, flipped to Trump - voting Republican for president for the first time since 1892. (p.38)", critique: "The report cites Starr County as a data point without examining the decade of Democratic disinvestment in Spanish-dominant organizing that preceded it. A county that has voted Democratic since 1892 does not flip in a single cycle without structural causes." },
+  { title: "Irregular voters of color were systematically deprioritized", quote: "Irregular voters are disproportionately voters of color, younger, non-college, male, and urban. (p.29)", critique: "Irregular voters are the Democratic Party's largest untapped constituency. They are also the voters least likely to respond to broadcast ads and most likely to respond to relational organizing. The party's 7:1 media-to-organizing ratio is a direct structural choice to deprioritize them." },
+  { title: "New voter falloff has concentrated racial justice implications", quote: "Harris fell below 50% with new voters for the first time in modern Democratic history. (p.29)", critique: "New voters are disproportionately young and nonwhite. Falling below 50% with new voters is not primarily a generational failure, it is a signal that the party's relationship with younger voters of color is breaking down." },
+  { title: "Broadcast spending disproportionately misses voters of color", quote: "[Latino and Black media consumption data, pp.40-55]", critique: "Latino viewers spend 55% of media time on streaming, 28% on social. Black viewers: 46% streaming, 30% social. Democrats spent 60%+ on broadcast. The spending allocation was not race-neutral: it systematically missed the channels where voters of color actually consume media." },
+  { title: "Voter registration resistance has racial justice implications the report does not name", quote: "Some advisors argue against voter registration because they feel it could actually bring more non-Democrats into the franchise. (p.96)", critique: "Voter registration expansion disproportionately reaches voters of color, younger voters, and lower-income voters. Party elites resisting registration expansion are, functionally, choosing to suppress turnout among the party's own coalition. The report names this without calling it what it is." },
+  { title: "The civil rights movement citation appears without accountability", quote: "The irony is many of these efforts were emulating what Democrats used to do. (p.81)", critique: "The report uses the civil rights organizing tradition to legitimize Democratic nostalgia without examining why that infrastructure collapsed: COINTELPRO, defunding of community organizations, professionalization of campaigns, and the shift to consultant-driven electoral politics. The movement did not abandon the party. The party abandoned the movement." }
+];
+
+const UNSAID = [
+  { title: "The House Section", desc: "The report contains no section analyzing House race performance, candidate recruitment, or the factors driving House losses alongside the presidential collapse.", critical: true },
+  { title: "Executive Summary: Blank", desc: "A 480-page after-action report with no executive summary. Leadership either could not agree on findings to summarize, or chose not to commit to them in writing.", critical: true },
+  { title: "Conclusion: Blank", desc: "The report ends without a conclusion. Recommendations are scattered across sections. No synthesis, no priority ranking, no implementation timeline.", critical: true },
+  { title: "Israel/Gaza: Zero Mentions", desc: "The report contains zero mentions of Israel, Gaza, ceasefire, or the protest movement that defined the spring 2024 primary cycle and continued into the general. The DNC convention was disrupted by protest. The report treats this as if it did not happen.", critical: true },
+  { title: "Biden Decision Timing", desc: "The report does not examine the decision to support Biden through the primary, the timeline of internal knowledge about his debate preparation failures, or the downstream consequences of the late switch. The most important campaign decision of 2024 is not in the report.", critical: true },
+  { title: "Consultant Accountability", desc: "30 vendors received $1.9 billion. The report names none of them critically. No vendor's performance is evaluated. No contract is questioned. The report was produced with the cooperation of the consultant class it cannot name.", critical: true },
+  { title: "VP Debate", desc: "Walz's vice-presidential debate performance is not analyzed. The report does not examine veep selection, debate preparation, or the VP's role in the ticket's collapse with working-class voters.", critical: false },
+  { title: "Black Voter Erosion Detail", desc: "While the report notes erosion among voters of color broadly, it does not produce a section-level analysis of Black voter turnout decline by state, city, or demographic subgroup. The data exists. The analysis is absent.", critical: true },
+  { title: "Climate Messaging Failure", desc: "Climate change appears as a policy accomplishment (IRA) but not as a messaging failure. The gap between Democratic climate investment and climate as a motivating issue for voters is not examined.", critical: false }
+];
+
+// === RENDER FUNCTIONS ===
+
+function renderQuotes(filter) {
+  const c = document.getElementById('quotes-container');
+  const list = filter === 'all' ? QUOTES : QUOTES.filter(q => q.cat === filter);
+  c.innerHTML = list.map(q => `
+    <div class="quote-card">
+      <span class="quote-tag ${q.cat}">${q.cat}</span>
+      <blockquote>"${q.text}"</blockquote>
+      <div class="quote-meta">DNC After Action Report, p.${q.page}</div>
+    </div>
+  `).join('');
+}
+
+function filterQuotes(cat, btn) {
+  document.querySelectorAll('#page-2 .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderQuotes(cat);
+}
+
+function renderLosses(filter) {
+  const tbody = document.getElementById('loss-tbody');
+  let rows = LOSSES;
+  if (filter === 'structural') rows = rows.filter(l => l.type === 'structural');
+  else if (filter === 'tactical') rows = rows.filter(l => l.type === 'tactical');
+  else if (filter === 'candidate') rows = rows.filter(l => l.type === 'candidate');
+  else if (filter === 'labor') rows = rows.filter(l => l.labor);
+  else if (filter === 'racial') rows = rows.filter(l => l.racial);
+  tbody.innerHTML = rows.map(l => `
+    <tr>
+      <td style="font-weight:600; font-size:0.875rem;">${l.title}</td>
+      <td><span class="loss-type-badge type-${l.type}">${l.type}</span></td>
+      <td style="font-size:0.8rem; color:var(--text-dim);">${l.desc}</td>
+      <td class="${l.labor ? 'icon-yes' : 'icon-no'}" style="text-align:center; font-size:0.75rem;">${l.labor ? '●' : '○'}</td>
+      <td class="${l.racial ? 'icon-yes' : 'icon-no'}" style="text-align:center; font-size:0.75rem;">${l.racial ? '●' : '○'}</td>
+    </tr>
+  `).join('');
+}
+
+function filterLosses(type, btn) {
+  document.querySelectorAll('#page-3 .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLosses(type);
+}
+
+function renderFindings(data, id) {
+  document.getElementById(id).innerHTML = data.map((f, i) => `
+    <div class="finding">
+      <h4>${i+1}. ${f.title}</h4>
+      <div class="finding-quote">"${f.quote}"</div>
+      <div class="finding-critique"><strong>Critique:</strong> ${f.critique}</div>
+    </div>
+  `).join('');
+}
+
+function renderUnsaid() {
+  document.getElementById('unsaid-container').innerHTML = UNSAID.map(u => `
+    <div class="unsaid-item${u.critical ? ' critical' : ''}">
+      <h4>${u.title}</h4>
+      <p>${u.desc}</p>
+    </div>
+  `).join('');
+}
+
+// === SVG UTILS ===
+
+function css(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+function ns(tag, attrs) {
+  const el = document.createElementNS('http://www.w3.org/2000/svg', tag);
+  Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+  return el;
+}
+
+function clear(id) {
+  const el = document.getElementById(id);
+  if (el) while (el.firstChild) el.removeChild(el.firstChild);
+  return el;
+}
+
+function txt(parent, x, y, content, attrs) {
+  const t = ns('text', { x, y, ...attrs });
+  t.textContent = content;
+  parent.appendChild(t);
+  return t;
+}
+
+function rect(parent, x, y, w, h, attrs) {
+  const r = ns('rect', { x, y, width: w, height: h, ...attrs });
+  parent.appendChild(r);
+  return r;
+}
+
+function line(parent, x1, y1, x2, y2, attrs) {
+  const l = ns('line', { x1, y1, x2, y2, ...attrs });
+  parent.appendChild(l);
+  return l;
+}
+
+function path(parent, d, attrs) {
+  const p = ns('path', { d, ...attrs });
+  parent.appendChild(p);
+  return p;
+}
+
+function circle(parent, cx, cy, r, attrs) {
+  const c = ns('circle', { cx, cy, r, ...attrs });
+  parent.appendChild(c);
+  return c;
+}
+
+// === CHART: ATTENTION ===
+
+function drawAttn() {
+  const el = clear('attn-chart');
+  if (!el) return;
+  const W = 700, H = 380;
+  const pad = { top: 16, right: 150, bottom: 28, left: 215 };
+  const accent = css('--accent'), surface2 = css('--surface2'), textCol = css('--text');
+  const textDim = css('--text-dim'), green = css('--green'), border = css('--border');
+  const gridline = css('--gridline');
+
+  const data = [
+    { label: "Spending Analysis", pct: 19.5 },
+    { label: "Media & Communication", pct: 14.6 },
+    { label: "Organizing & Advocacy", pct: 13.5 },
+    { label: "Fundraising Analysis", pct: 13.3 },
+    { label: "What Happened", pct: 11.8 },
+    { label: "Technology & Data", pct: 9.2 },
+    { label: "Electoral Landscape", pct: 8.0 },
+    { label: "Research & Strategy", pct: 7.2 },
+    { label: "Intro / TOC", pct: 2.5 },
+    { label: "Exec Summary", pct: 0, missing: true },
+    { label: "Conclusion", pct: 0, missing: true }
+  ];
+
+  const chartW = W - pad.left - pad.right;
+  const rowH = (H - pad.top - pad.bottom) / data.length;
+  const barH = rowH * 0.5;
+  const maxPct = 22;
+
+  [5,10,15,20].forEach(v => {
+    const x = pad.left + (v / maxPct) * chartW;
+    line(el, x, pad.top, x, H - pad.bottom, { stroke: gridline, 'stroke-width': 1 });
+    txt(el, x, H - pad.bottom + 14, v + '%', { 'font-size': '10', 'text-anchor': 'middle', fill: textDim });
+  });
+
+  data.forEach((d, i) => {
+    const y = pad.top + i * rowH;
+    const color = d.label.includes('Spending') ? accent : (d.label.includes('Organizing') ? green : surface2);
+    const labelColor = d.missing ? accent : textCol;
+
+    txt(el, pad.left - 8, y + rowH / 2, d.label, {
+      'font-size': '11', 'text-anchor': 'end', fill: labelColor,
+      'dominant-baseline': 'middle', 'font-weight': d.missing ? '700' : '400'
+    });
+
+    if (d.missing) {
+      rect(el, pad.left, y + (rowH - barH) / 2, chartW * 0.1, barH, {
+        fill: 'none', stroke: accent, 'stroke-width': 1.5, 'stroke-dasharray': '4 3', rx: 2
+      });
+      txt(el, pad.left + chartW * 0.12, y + rowH / 2, 'BLANK — NO CONTENT', {
+        'font-size': '11', fill: accent, 'dominant-baseline': 'middle', 'font-weight': '700'
+      });
+    } else {
+      const barW = (d.pct / maxPct) * chartW;
+      rect(el, pad.left, y + (rowH - barH) / 2, barW, barH, { fill: color, rx: 2 });
+      txt(el, pad.left + barW + 5, y + rowH / 2, d.pct + '%', {
+        'font-size': '10', fill: textDim, 'dominant-baseline': 'middle', 'font-variant-numeric': 'tabular-nums lining-nums'
+      });
+    }
+  });
+}
+
+// === WORD CLOUDS ===
+
+function drawClouds() {
+  const accent = css('--accent'), green = css('--green'), textDim = css('--text-dim');
+  const moneySet = new Set(['spending','fundraising','investment','consultant','media','broadcast','television','digital','platforms','targeting','CTV','infrastructure']);
+  const orgSet = new Set(['organizing','canvassing','labor','volunteers','grassroots','working-class','turnout','persuasion']);
+
+  const says = [
+    {w:'spending',f:183},{w:'media',f:178},{w:'broadcast',f:142},{w:'digital',f:139},
+    {w:'fundraising',f:135},{w:'messaging',f:128},{w:'infrastructure',f:124},{w:'investment',f:119},
+    {w:'incumbent',f:113},{w:'strategy',f:109},{w:'battleground',f:103},{w:'technology',f:91},
+    {w:'consultant',f:79},{w:'television',f:59},{w:'platforms',f:60},{w:'targeting',f:68},
+    {w:'polling',f:97},{w:'CTV',f:30}
+  ];
+  const actually = [
+    {w:'organizing',f:187},{w:'data',f:121},{w:'turnout',f:101},{w:'canvassing',f:94},
+    {w:'labor',f:61},{w:'rural',f:54},{w:'trust',f:52},{w:'volunteers',f:29},
+    {w:'grassroots',f:27},{w:'working-class',f:71},{w:'misinformation',f:77},{w:'economy',f:75},
+    {w:'abortion',f:73},{w:'persuasion',f:72},{w:'margin',f:70},{w:'training',f:58},
+    {w:'candidates',f:111},{w:'senate',f:107}
+  ];
+
+  function build(terms, cid) {
+    const container = document.getElementById(cid);
+    if (!container) return;
+    container.innerHTML = '';
+    const maxF = Math.max(...terms.map(t => t.f));
+    terms.sort(() => Math.random() - 0.5);
+    terms.forEach(t => {
+      const span = document.createElement('span');
+      const size = 0.65 + (t.f / maxF) * 1.3;
+      span.textContent = t.w;
+      span.style.fontSize = size + 'rem';
+      span.style.fontWeight = t.f > 100 ? '700' : t.f > 60 ? '600' : '400';
+      span.style.color = moneySet.has(t.w) ? accent : (orgSet.has(t.w) ? green : textDim);
+      span.style.lineHeight = '1.4';
+      container.appendChild(span);
+    });
+  }
+
+  build(says, 'word-cloud-says');
+  build(actually, 'word-cloud-actually');
+}
+
+// === CHART: MISMATCH ===
+
+function drawMismatch() {
+  const el = clear('mismatch-chart');
+  if (!el) return;
+  const W = 700, H = 420;
+  const accent = css('--accent'), textCol = css('--text'), textDim = css('--text-dim');
+  const surface2 = css('--surface2'), border = css('--border'), gridline = css('--gridline');
+
+  const groups = [
+    { label: 'Adults 18-29', media: [
+      { m: 'Streaming', aud: 74, dem: 37 }, { m: 'Social', aud: 18, dem: 0 },
+      { m: 'Broadcast', aud: 5, dem: 42 }, { m: 'Cable', aud: 3, dem: 18 }
+    ]},
+    { label: 'Latino voters', media: [
+      { m: 'Streaming', aud: 55, dem: 37 }, { m: 'Social', aud: 28, dem: 0 },
+      { m: 'Broadcast', aud: 10, dem: 42 }, { m: 'Cable', aud: 7, dem: 18 }
+    ]},
+    { label: 'Non-college voters', media: [
+      { m: 'Relational', aud: 29, dem: 9 }, { m: 'Social', aud: 22, dem: 0 },
+      { m: 'Broadcast/Cable', aud: 20, dem: 60 }, { m: 'News', aud: 16, dem: 0 }
+    ]}
+  ];
+
+  const pad = { top: 48, right: 20, bottom: 60, left: 24 };
+  const gW = (W - pad.left - pad.right) / 3;
+  const chartH = H - pad.top - pad.bottom;
+  const maxV = 80;
+  const barW = 15;
+
+  // Legend
+  rect(el, pad.left, 8, 14, 10, { fill: surface2, stroke: border, 'stroke-width': 1, rx: 2 });
+  txt(el, pad.left + 18, 17, 'Audience time', { 'font-size': '10', fill: textDim });
+  rect(el, pad.left + 115, 8, 14, 10, { fill: accent, rx: 2, opacity: '0.8' });
+  txt(el, pad.left + 133, 17, 'Dem ad spending', { 'font-size': '10', fill: textDim });
+
+  groups.forEach((g, gi) => {
+    const gx = pad.left + gi * gW;
+    txt(el, gx + gW / 2, pad.top - 8, g.label, { 'font-size': '12', 'text-anchor': 'middle', fill: textCol, 'font-weight': '600' });
+
+    const mW = gW / (g.media.length + 0.5);
+
+    g.media.forEach((m, mi) => {
+      const mx = gx + mi * mW + mW * 0.1;
+
+      // Audience bar
+      const audH = (m.aud / maxV) * chartH;
+      rect(el, mx, pad.top + chartH - audH, barW, audH, { fill: surface2, stroke: border, 'stroke-width': 1, rx: 2 });
+
+      // Dem bar
+      if (m.dem > 0) {
+        const demH = (m.dem / maxV) * chartH;
+        rect(el, mx + barW + 2, pad.top + chartH - demH, barW, demH, { fill: accent, rx: 2, opacity: '0.85' });
+      }
+
+      // Value labels
+      txt(el, mx + barW / 2, pad.top + chartH - audH - 3, m.aud + '%', { 'font-size': '8', 'text-anchor': 'middle', fill: textDim });
+      if (m.dem > 0) {
+        txt(el, mx + barW * 1.5 + 2, pad.top + chartH - (m.dem / maxV) * chartH - 3, m.dem + '%', { 'font-size': '8', 'text-anchor': 'middle', fill: accent, 'font-weight': '700' });
+      }
+
+      // Medium label
+      const parts = m.m.split('/');
+      parts.forEach((p2, pi) => {
+        txt(el, mx + barW, pad.top + chartH + 12 + pi * 11, p2, { 'font-size': '8', 'text-anchor': 'middle', fill: textDim });
+      });
+    });
+
+    if (gi < 2) line(el, gx + gW - 2, pad.top - 20, gx + gW - 2, H - pad.bottom, { stroke: border, 'stroke-dasharray': '3 3' });
+  });
+}
+
+// === CHART: SANKEY (flow diagram) ===
+
+function drawSankey() {
+  const el = clear('sankey-svg');
+  if (!el) return;
+  const W = 780, H = 420;
+  const accent = css('--accent'), green = css('--green'), border = css('--border');
+  const textCol = css('--text'), textDim = css('--text-dim'), surface2 = css('--surface2');
+  const accentLight = css('--accent-light'), greenLight = css('--green-light');
+
+  const nW = 120, nPad = 10;
+  const c1x = 8, c2x = 290, c3x = 550;
+
+  const sources = [
+    { l: 'Small Donors', a: '$800M', y: 30, h: 55 },
+    { l: 'Large Donors', a: '$600M', y: 105, h: 48 },
+    { l: 'Labor', a: '$400M', y: 173, h: 42 },
+    { l: 'PACs', a: '$750M', y: 235, h: 50 }
+  ];
+
+  const mids = [
+    { l: 'Campaigns', y: 40, h: 95 },
+    { l: 'Super PACs', y: 165, h: 65 },
+    { l: 'Party/JFCs', y: 260, h: 55 }
+  ];
+
+  const dests = [
+    { l: 'Broadcast/Cable TV', a: '$680M', y: 20, h: 68, col: accent, bg: accentLight },
+    { l: 'Digital / CTV', a: '$410M', y: 108, h: 52, col: textDim, bg: surface2 },
+    { l: 'Fundraising Ops', a: '$200M', y: 180, h: 42, col: textDim, bg: surface2 },
+    { l: 'Organizing', a: '$150M', y: 242, h: 40, col: green, bg: greenLight },
+    { l: 'Other', a: '$160M', y: 302, h: 40, col: textDim, bg: surface2 }
+  ];
+
+  function drawNode(x, d, strokeC, bgC) {
+    rect(el, x, d.y, nW, d.h, { fill: bgC || surface2, stroke: strokeC || border, 'stroke-width': 1.5, rx: 4 });
+    txt(el, x + nW / 2, d.y + d.h / 2 - (d.a ? 7 : 0), d.l, { 'font-size': '10', 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: textCol, 'font-weight': '600' });
+    if (d.a) txt(el, x + nW / 2, d.y + d.h / 2 + 7, d.a, { 'font-size': '9', 'text-anchor': 'middle', 'dominant-baseline': 'middle', fill: textDim });
+  }
+
+  function drawFlow(x1, y1, x2, y2, strokeC, opacity) {
+    const mx = (x1 + x2) / 2;
+    path(el, `M ${x1} ${y1} C ${mx} ${y1} ${mx} ${y2} ${x2} ${y2}`, {
+      stroke: strokeC || border, 'stroke-width': '1.5', fill: 'none',
+      opacity: opacity || '0.3', 'stroke-dasharray': '5 3'
+    });
+  }
+
+  // Flows src → mid
+  sources.forEach((s, si) => {
+    const m = mids[si < 2 ? 0 : si === 2 ? 1 : 2];
+    drawFlow(c1x + nW, s.y + s.h / 2, c2x, m.y + m.h / 2, border, '0.35');
+  });
+
+  // Flows mid → dest
+  mids.forEach((m, mi) => {
+    dests.forEach((d, di) => {
+      if ((mi === 0 && di < 3) || (mi === 1 && di >= 3) || (mi === 2 && di === 3)) {
+        drawFlow(c2x + nW, m.y + m.h / 2, c3x, d.y + d.h / 2, d.col === accent ? accent : border, '0.28');
+      }
+    });
+  });
+
+  sources.forEach(s => drawNode(c1x, s));
+  mids.forEach(m => drawNode(c2x, m));
+  dests.forEach(d => drawNode(c3x, d, d.col, d.bg));
+
+  // Column headers
+  [
+    [c1x + nW / 2, 'SOURCES'],
+    [c2x + nW / 2, 'INTERMEDIARIES'],
+    [c3x + nW / 2, 'DESTINATIONS']
+  ].forEach(([x, l]) => txt(el, x, H - 8, l, { 'font-size': '9', 'text-anchor': 'middle', fill: textDim, 'font-weight': '700', 'letter-spacing': '0.08em' }));
+
+  // Callout labels
+  txt(el, c3x + nW + 6, 54, '← 60%+ of ad spend', { 'font-size': '10', fill: accent, 'font-weight': '700' });
+  txt(el, c3x + nW + 6, 262, '← only $150M', { 'font-size': '10', fill: green, 'font-weight': '700' });
+}
+
+// === CHART: TIMELINE ===
+
+function drawTimeline() {
+  const el = clear('timeline-chart');
+  if (!el) return;
+  const W = 700, H = 300;
+  const accent = css('--accent'), green = css('--green'), textDim = css('--text-dim');
+  const border = css('--border'), gridline = css('--gridline');
+
+  const pad = { top: 30, right: 40, bottom: 48, left: 44 };
+  const months = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+  const dem = [2,3,5,5,8,10,15,25,45,80,100,0];
+  const gop = [15,18,20,22,25,30,35,45,55,70,100,10];
+  const tpusa = [30,30,30,30,30,30,30,30,30,30,45,30];
+  const chartW = W - pad.left - pad.right;
+  const chartH = H - pad.top - pad.bottom;
+  const xStep = chartW / (months.length - 1);
+
+  // Grid
+  [25,50,75,100].forEach(v => {
+    const y = pad.top + chartH - (v / 100) * chartH;
+    line(el, pad.left, y, W - pad.right, y, { stroke: gridline, 'stroke-width': 1 });
+    txt(el, pad.left - 6, y + 4, v.toString(), { 'font-size': '10', 'text-anchor': 'end', fill: textDim });
+  });
+
+  months.forEach((m, i) => txt(el, pad.left + i * xStep, H - pad.bottom + 14, m, { 'font-size': '10', 'text-anchor': 'middle', fill: textDim }));
+
+  function makeLine(data, color, dash) {
+    const pts = data.map((v, i) => (pad.left + i * xStep) + ',' + (pad.top + chartH - (v / 100) * chartH));
+    path(el, 'M ' + pts.join(' L '), { stroke: color, 'stroke-width': '2.5', fill: 'none', 'stroke-dasharray': dash || '' });
+  }
+
+  makeLine(tpusa, green, '7 4');
+  makeLine(gop, textDim, '');
+  makeLine(dem, accent, '');
+
+  // Annotation: final 90 days
+  const sepX = pad.left + 8 * xStep;
+  line(el, sepX, pad.top, sepX, H - pad.bottom, { stroke: border, 'stroke-width': 1, 'stroke-dasharray': '4 3' });
+  txt(el, sepX + 4, pad.top + 12, 'Final 90 days', { 'font-size': '9', fill: textDim });
+
+  // Legend
+  const legY = H - 10;
+  [[accent, 'Democrats', ''], [textDim, 'Republicans', ''], [green, 'Koch/AFP/TPUSA baseline', '7 4']].forEach((li, i) => {
+    const lx = pad.left + i * 190;
+    const lineEl = ns('line', { x1: lx, y1: legY, x2: lx + 20, y2: legY, stroke: li[0], 'stroke-width': '2.5', 'stroke-dasharray': li[2] });
+    el.appendChild(lineEl);
+    txt(el, lx + 24, legY + 4, li[1], { 'font-size': '9', fill: textDim });
+  });
+}
+
+// === CHART: TACTICS ===
+
+function drawTactics() {
+  const el = clear('tactics-chart');
+  if (!el) return;
+  const W = 700, H = 260;
+  const accent = css('--accent'), green = css('--green'), textCol = css('--text'), textDim = css('--text-dim');
+  const surface2 = css('--surface2'), border = css('--border');
+
+  const pad = { top: 20, right: 80, bottom: 55, left: 130 };
+  const data = [
+    { l: 'Phone calls', att: 53, ids: 18 },
+    { l: 'Texts', att: 38.4, ids: 31 },
+    { l: 'Door-to-door', att: 8.6, ids: 50 }
+  ];
+  const chartW = W - pad.left - pad.right;
+  const rowH = (H - pad.top - pad.bottom) / data.length;
+  const barH = rowH * 0.32;
+  const maxV = 60;
+
+  data.forEach((d, i) => {
+    const y = pad.top + i * rowH;
+    const isDoor = i === 2;
+    const idColor = isDoor ? green : (i === 0 ? accent : textDim);
+
+    txt(el, pad.left - 8, y + rowH / 2, d.l, {
+      'font-size': '12', 'text-anchor': 'end', fill: isDoor ? green : textCol,
+      'dominant-baseline': 'middle', 'font-weight': isDoor ? '700' : '400'
+    });
+
+    // Attempt bar
+    const attW = (d.att / maxV) * chartW;
+    rect(el, pad.left, y + rowH / 2 - barH - 3, attW, barH, { fill: surface2, stroke: border, rx: 2 });
+    txt(el, pad.left + attW + 5, y + rowH / 2 - barH / 2 - 3, d.att + '% of attempts', { 'font-size': '9', fill: textDim, 'dominant-baseline': 'middle' });
+
+    // ID bar
+    const idsW = (d.ids / maxV) * chartW;
+    rect(el, pad.left, y + rowH / 2 + 3, idsW, barH, { fill: idColor, rx: 2, opacity: isDoor ? '1' : '0.7' });
+    txt(el, pad.left + idsW + 5, y + rowH / 2 + barH / 2 + 3, d.ids + '% of IDs', {
+      'font-size': '9', fill: idColor, 'dominant-baseline': 'middle', 'font-weight': isDoor ? '700' : '400'
+    });
+  });
+
+  // 10x callout
+  txt(el, W - pad.right + 20, pad.top + 2 * rowH + 14, '10x', { 'font-size': '22', fill: green, 'font-weight': '900', 'text-anchor': 'middle' });
+  txt(el, W - pad.right + 20, pad.top + 2 * rowH + 32, 'more', { 'font-size': '9', fill: green, 'text-anchor': 'middle' });
+  txt(el, W - pad.right + 20, pad.top + 2 * rowH + 44, 'efficient', { 'font-size': '9', fill: green, 'text-anchor': 'middle' });
+
+  // Legend
+  rect(el, pad.left, H - 28, 14, 10, { fill: surface2, stroke: border });
+  txt(el, pad.left + 18, H - 20, 'Share of contact attempts', { 'font-size': '10', fill: textDim });
+  rect(el, pad.left + 185, H - 28, 14, 10, { fill: textDim, opacity: '0.7' });
+  txt(el, pad.left + 203, H - 20, 'Share of voter IDs produced', { 'font-size': '10', fill: textDim });
+}
+
+// === ISOTYPE ===
+
+function drawIsotype() {
+  const mediaEl = document.getElementById('isotype-media');
+  const orgEl = document.getElementById('isotype-org');
+  if (!mediaEl || !orgEl) return;
+  mediaEl.innerHTML = '';
+  orgEl.innerHTML = '';
+
+  for (let i = 0; i < 7; i++) {
+    const s = document.createElement('span');
+    s.className = 'iso-icon';
+    s.textContent = '📺';
+    s.title = '~$149M media';
+    mediaEl.appendChild(s);
+  }
+  const ml = document.createElement('span');
+  ml.style.cssText = 'font-size:0.875rem;font-weight:700;color:var(--accent);margin-left:8px;';
+  ml.textContent = '$1.04B';
+  mediaEl.appendChild(ml);
+
+  const s2 = document.createElement('span');
+  s2.className = 'iso-icon';
+  s2.textContent = '🚪';
+  s2.title = '$150M organizing';
+  orgEl.appendChild(s2);
+  const ol = document.createElement('span');
+  ol.style.cssText = 'font-size:0.875rem;font-weight:700;color:var(--green);margin-left:8px;';
+  ol.textContent = '$150M';
+  orgEl.appendChild(ol);
+}
+
+// === CHART: SLOPE ===
+
+function drawSlope() {
+  const el = clear('slope-chart');
+  if (!el) return;
+  const W = 700, H = 300;
+  const accent = css('--accent'), green = css('--green'), textCol = css('--text'), textDim = css('--text-dim');
+  const surfaceCol = css('--surface');
+
+  const pad = { top: 40, right: 190, bottom: 32, left: 190 };
+  const x1 = pad.left, x2 = W - pad.right;
+  const y1 = pad.top + 20, y2 = H - pad.bottom - 20;
+
+  txt(el, x1, pad.top - 10, '2008', { 'font-size': '14', 'text-anchor': 'middle', fill: textDim, 'font-weight': '700' });
+  txt(el, x2, pad.top - 10, '2024', { 'font-size': '14', 'text-anchor': 'middle', fill: textDim, 'font-weight': '700' });
+
+  line(el, x1, y1, x2, y2, { stroke: accent, 'stroke-width': '3' });
+
+  circle(el, x1, y1, 8, { fill: green, stroke: surfaceCol, 'stroke-width': '2' });
+  txt(el, x1, y1 - 20, '7 states', { 'font-size': '22', 'text-anchor': 'middle', fill: green, 'font-weight': '900' });
+  txt(el, x1, y1 + 2, 'with majority Dem registration', { 'font-size': '9', 'text-anchor': 'middle', fill: textDim });
+
+  const states08 = ['California','Connecticut','Massachusetts','New York','Rhode Island','Maryland','DC'];
+  states08.forEach((s, i) => txt(el, x1 - 16, y1 + 28 + i * 17, s, { 'font-size': '9', 'text-anchor': 'end', fill: green }));
+
+  circle(el, x2, y2, 8, { fill: accent, stroke: surfaceCol, 'stroke-width': '2' });
+  txt(el, x2, y2 + 24, '2 states', { 'font-size': '22', 'text-anchor': 'middle', fill: accent, 'font-weight': '900' });
+  txt(el, x2, y2 + 38, 'with majority Dem registration', { 'font-size': '9', 'text-anchor': 'middle', fill: textDim });
+
+  ['Maryland','DC'].forEach((s, i) => txt(el, x2 + 16, y2 - 8 + i * 17, s, { 'font-size': '9', 'text-anchor': 'start', fill: accent }));
+
+  txt(el, (x1 + x2) / 2, (y1 + y2) / 2 - 12, '5 states lost', { 'font-size': '14', 'text-anchor': 'middle', fill: accent, 'font-weight': '700' });
+  txt(el, (x1 + x2) / 2, (y1 + y2) / 2 + 6, 'in 16 years', { 'font-size': '11', 'text-anchor': 'middle', fill: accent });
+}
+
+// === CHART: DOOR ID RAMP ===
+
+function drawRamp() {
+  const el = clear('ramp-chart');
+  if (!el) return;
+  const W = 700, H = 280;
+  const accent = css('--accent'), green = css('--green'), textDim = css('--text-dim');
+  const border = css('--border'), gridline = css('--gridline'), greenLight = css('--green-light');
+
+  const pad = { top: 32, right: 28, bottom: 48, left: 50 };
+  const labels = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct 1','Oct 16','Nov 5'];
+  const cumul = [1,2,3,3,4,5,8,15,28,50,85,100];
+  const chartW = W - pad.left - pad.right;
+  const chartH = H - pad.top - pad.bottom;
+  const xStep = chartW / (labels.length - 1);
+
+  [25,50,75,100].forEach(v => {
+    const y = pad.top + chartH - (v / 100) * chartH;
+    line(el, pad.left, y, W - pad.right, y, { stroke: gridline, 'stroke-width': 1 });
+    txt(el, pad.left - 6, y + 4, v + '%', { 'font-size': '10', 'text-anchor': 'end', fill: textDim });
+  });
+
+  labels.forEach((l, i) => {
+    txt(el, pad.left + i * xStep, H - pad.bottom + 14, l, { 'font-size': '8', 'text-anchor': 'middle', fill: textDim });
+  });
+
+  const pts = cumul.map((v, i) => (pad.left + i * xStep) + ',' + (pad.top + chartH - (v / 100) * chartH));
+  const lastX = pad.left + (labels.length - 1) * xStep;
+  path(el, 'M ' + pts.join(' L ') + ' L ' + lastX + ',' + (pad.top + chartH) + ' L ' + pad.left + ',' + (pad.top + chartH) + ' Z', { fill: greenLight, stroke: 'none' });
+  path(el, 'M ' + pts.join(' L '), { stroke: green, 'stroke-width': '2.5', fill: 'none' });
+
+  // Early voting annotation
+  const votX = pad.left + 9 * xStep;
+  line(el, votX, pad.top, votX, H - pad.bottom, { stroke: accent, 'stroke-width': '1.5', 'stroke-dasharray': '5 3' });
+  txt(el, votX + 4, pad.top + 10, 'Early voting', { 'font-size': '9', fill: accent, 'font-weight': '700' });
+  txt(el, votX + 4, pad.top + 22, 'already begun', { 'font-size': '9', fill: accent });
+
+  // 72% bracket
+  const bx1 = pad.left + 10 * xStep, bx2 = pad.left + 11 * xStep;
+  line(el, bx1, pad.top + 8, bx2, pad.top + 8, { stroke: accent, 'stroke-width': '2' });
+  line(el, bx1, pad.top + 4, bx1, pad.top + 12, { stroke: accent, 'stroke-width': '2' });
+  line(el, bx2, pad.top + 4, bx2, pad.top + 12, { stroke: accent, 'stroke-width': '2' });
+  txt(el, (bx1 + bx2) / 2, pad.top + 2, '72% here', { 'font-size': '9', fill: accent, 'text-anchor': 'middle', 'font-weight': '700' });
+}
+
+// === DISPATCH ===
+
+function drawPage(n) {
+  if (n === 1) { drawAttn(); drawClouds(); }
+  else if (n === 4) drawMismatch();
+  else if (n === 5) drawSankey();
+  else if (n === 6) { drawTimeline(); drawTactics(); drawIsotype(); }
+  else if (n === 7) { drawSlope(); drawRamp(); }
+}
+
+// Dark mode change observer
+new MutationObserver(() => drawPage(state.page)).observe(
+  document.documentElement, { attributes: true, attributeFilter: ['data-theme'] }
+);
+
+// === INIT ===
+
+function init() {
+  renderQuotes('all');
+  renderLosses('all');
+  renderFindings(LABOR, 'labor-findings');
+  renderFindings(RACIAL, 'racial-findings');
+  renderUnsaid();
+
+  const hash = window.location.hash;
+  if (hash) {
+    const m = hash.match(/page=(\d+)/);
+    if (m) {
+      const p = parseInt(m[1]) - 1;
+      if (p >= 0 && p < TOTAL) { goTo(p); return; }
+    }
+  }
+  goTo(0);
+}
+
+init();
+</script>
+</body>
+</html>

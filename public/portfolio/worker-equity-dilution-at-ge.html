@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worker Equity Dilution Model: GE 1940-2020</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --navy: #1B3A5C;
+    --bg: #f8f7f5;
+    --card-bg: #ffffff;
+    --text: #2D2D2D;
+    --text-muted: #6b7280;
+    --border: #e5e5e5;
+    --red: #c4423c;
+    --green: #2d7a4f;
+    --amber: #b8860b;
+    --blue-light: #e8f0fe;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; padding: 24px; }
+  .header { max-width: 1200px; margin: 0 auto 24px; border-bottom: 2px solid var(--navy); padding-bottom: 16px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: var(--navy); }
+  .header .subtitle { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 20px; }
+  .card h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--navy); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .kpi { text-align: center; padding: 12px 8px; background: var(--blue-light); border-radius: 6px; }
+  .kpi .value { font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+  .kpi .label { font-size: 11px; color: var(--text-muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .detail { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .chart-wrap { position: relative; height: 300px; }
+  .controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .control-group label { display: block; font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+  .control-group input[type="range"] { width: 100%; }
+  .control-group .rv { font-size: 16px; font-weight: 700; color: var(--navy); }
+  .finding { padding: 12px 16px; border-left: 3px solid var(--navy); margin-bottom: 12px; background: var(--blue-light); border-radius: 0 6px 6px 0; font-size: 13px; }
+  .finding.warning { border-left-color: var(--red); background: #fef2f2; }
+  .finding.success { border-left-color: var(--green); background: #f0fdf4; }
+  .finding strong { color: var(--navy); }
+  .tag { display: inline-block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 2px 8px; border-radius: 3px; margin-right: 6px; }
+  .tag.a { background: #fee2e2; color: var(--red); }
+  .tag.b { background: #e8f0fe; color: var(--navy); }
+  .tag.c { background: #f0fdf4; color: var(--green); }
+  .meth { font-size: 11px; color: var(--text-muted); line-height: 1.6; }
+  .meth p { margin-top: 8px; }
+  #error-box { color: var(--red); padding: 12px; background: #fef2f2; border-radius: 6px; display: none; margin-bottom: 16px; font-size: 13px; }
+  @media (max-width: 900px) { .row, .kpi-grid, .controls { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>Worker Equity Dilution Model: GE as AI-Company Proxy</h1>
+  <div class="subtitle">80-year simulation (1940-2020) testing three equity structures against historical headcount, revenue, and turnover. Built for Predistribution Initiative analysis.</div>
+</div>
+<div class="container">
+  <div id="error-box"></div>
+
+  <div class="card">
+    <h2>Model Endpoints at Year 80</h2>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="value" id="k1">--</div><div class="label">Model A: Departed Share %</div><div class="detail">Full vesting, keep forever</div></div>
+      <div class="kpi"><div class="value" id="k2">--</div><div class="label">Model A: Per Active Employee</div><div class="detail">Accumulated equity value</div></div>
+      <div class="kpi"><div class="value" id="k3">--</div><div class="label">Model B: Annual Dividend</div><div class="detail">Active employment only</div></div>
+      <div class="kpi"><div class="value" id="k4">--</div><div class="label">Model C: Per Active Employee</div><div class="detail">Hybrid (25% retained on exit)</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Adjust Assumptions</h2>
+    <div class="controls">
+      <div class="control-group">
+        <label>Pool % of Net Income</label>
+        <input type="range" id="s1" min="1" max="15" value="5" step="1">
+        <span class="rv" id="v1">5%</span>
+      </div>
+      <div class="control-group">
+        <label>Hybrid Retention on Exit</label>
+        <input type="range" id="s2" min="0" max="50" value="25" step="5">
+        <span class="rv" id="v2">25%</span>
+      </div>
+      <div class="control-group">
+        <label>Pool Annual Return</label>
+        <input type="range" id="s3" min="2" max="12" value="7" step="1">
+        <span class="rv" id="v3">7%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card"><h2>GE Historical Workforce</h2><div class="chart-wrap"><canvas id="c1"></canvas></div></div>
+    <div class="card"><h2>Revenue and Pool Contribution</h2><div class="chart-wrap"><canvas id="c2"></canvas></div></div>
+  </div>
+  <div class="row">
+    <div class="card"><h2>Departed Shares as % of Total (The Dilution Curve)</h2><div class="chart-wrap"><canvas id="c3"></canvas></div></div>
+    <div class="card"><h2>Value per Active Employee by Model</h2><div class="chart-wrap"><canvas id="c4"></canvas></div></div>
+  </div>
+  <div class="card"><h2>Annual Dividend per Active Employee</h2><div class="chart-wrap"><canvas id="c5"></canvas></div></div>
+
+  <div class="card">
+    <h2>Key Findings</h2>
+    <div class="finding warning"><span class="tag a">Model A</span><strong>Dilution concern validated.</strong> Under full-vesting-keep-forever, departed employees hold 95%+ of shares by year 80. Active workers sit on a $104B pool but their per-capita claim is only $26K. The equity structure becomes a pension obligation to former employees.</div>
+    <div class="finding"><span class="tag b">Model B</span><strong>Clean but modest.</strong> Active-employment-only dividends avoid dilution entirely, but annual payouts are small: $1,600/employee in 2020 at 5% of net income. Functions more like a profit-sharing bonus than a wealth-building mechanism.</div>
+    <div class="finding success"><span class="tag c">Model C</span><strong>Hybrid holds up.</strong> When departing employees keep only 25% of vested shares (75% returns to the active pool), per-active-employee value reaches $143K by year 80. This is the structure closest to Delilah's trust model.</div>
+    <div class="finding"><strong>The turnover rate is the hinge variable.</strong> GE's Welch-era mass layoffs (1981-1985, ~25% annual turnover) accelerated dilution dramatically in Model A. Under Model C, that same period barely moves the needle because forfeited shares recycle.</div>
+    <div class="finding"><strong>Workforce contraction amplifies the problem.</strong> GE went from 402K employees (1980) to 174K (2020). In a shrinking workforce, existing departed claims stay constant while the active denominator drops. Model C partially self-corrects.</div>
+  </div>
+
+  <div class="card">
+    <h2>Methodology and Data Sources</h2>
+    <div class="meth">
+      <p><strong>GE headcount:</strong> Interpolated from known data points (Wikipedia, Macrotrends, Encyclopedia.com). Key anchors: 125K (1940), 170K (1945 WWII peak), 250K (1960), 402K (1980 peak), 340K (2000 GE Capital era), 174K (2020).</p>
+      <p><strong>Revenue/net income:</strong> Known anchors from SEC filings and historical records. Pre-1980 revenue estimated from available growth narratives.</p>
+      <p><strong>Turnover rates:</strong> Era-specific estimates: Organization Man era (1950-65) 10%, Welch restructuring (1981-85) 25%, breakup era (2018+) 28%.</p>
+      <p><strong>Limitations:</strong> Linear interpolation. No shareholder mortality modeling. Tax treatment not modeled. Single equity class assumed.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+try {
+  var GE = {
+    1940:[125000,1.5,0.10],1945:[170000,3.0,0.20],1950:[200000,3.5,0.25],
+    1955:[240000,5.0,0.40],1960:[250000,5.5,0.45],1965:[280000,7.0,0.55],
+    1970:[305000,9.0,0.55],1975:[340000,14.0,0.70],1980:[402000,25.0,1.50],
+    1985:[304000,28.0,2.30],1990:[298000,58.0,4.30],1995:[222000,70.0,6.60],
+    2000:[340000,130.0,12.70],2005:[316000,150.0,16.40],2010:[287000,150.0,6.10],
+    2015:[333000,117.0,1.70],2020:[174000,80.0,5.70]
+  };
+
+  function interp() {
+    var ks = Object.keys(GE).map(Number).sort(function(a,b){return a-b;});
+    var out = {};
+    for (var i = 0; i < ks.length - 1; i++) {
+      var y0 = ks[i], y1 = ks[i+1];
+      var d0 = GE[y0], d1 = GE[y1], span = y1 - y0;
+      for (var y = y0; y < y1; y++) {
+        var t = (y - y0) / span;
+        out[y] = [Math.round(d0[0]+(d1[0]-d0[0])*t), d0[1]+(d1[1]-d0[1])*t, d0[2]+(d1[2]-d0[2])*t];
+      }
+    }
+    out[2020] = GE[2020];
+    return out;
+  }
+
+  function toRate(y) {
+    if(y<1950)return 0.12; if(y<1965)return 0.10; if(y<1980)return 0.15;
+    if(y<1986)return 0.25; if(y<2000)return 0.18; if(y<2010)return 0.20;
+    if(y<2018)return 0.22; return 0.28;
+  }
+
+  function run(pp, hr, pr) {
+    var yd = interp();
+    var R = {years:[],emp:[],rev:[],ni:[],pc:[],
+      adp:[],ava:[],ada:[],
+      bdv:[],
+      cdp:[],cva:[],cda:[]};
+    var aAS=0,aDS=0,aPV=0;
+    var bCP=0;
+    var cAS=0,cDS=0,cPV=0;
+    for(var y=1940;y<=2020;y++){
+      if(!yd[y])continue;
+      var e=yd[y][0],r=yd[y][1],n=yd[y][2];
+      var tr=toRate(y);
+      var ct=Math.max(n*pp/100,0)*1e9;
+      var dep=Math.round(e*tr);
+      var ns=e;
+      // A
+      var spa=aAS>0?aAS/e:0;
+      var adt=spa*dep;
+      aAS=aAS-adt+ns; aDS+=adt;
+      aPV=aPV*(1+pr/100)+ct;
+      var aT=aAS+aDS;
+      var avps=aT>0?aPV/aT:0;
+      var adps=aT>0?ct/aT:0;
+      // B
+      var bd=e>0?ct/e:0;
+      bCP+=ct;
+      // C
+      var spc=cAS>0?cAS/e:0;
+      var cret=spc*dep*(hr/100);
+      var cforf=spc*dep*(1-hr/100);
+      cAS=cAS-cret-cforf+ns+cforf;
+      cDS+=cret;
+      cPV=cPV*(1+pr/100)+ct;
+      var cT=cAS+cDS;
+      var cvps=cT>0?cPV/cT:0;
+      var cdps=cT>0?ct/cT:0;
+
+      R.years.push(y);R.emp.push(e);R.rev.push(r);R.ni.push(n);
+      R.pc.push(ct/1e6);
+      R.adp.push(aT>0?(aDS/aT)*100:0);
+      R.ava.push(e>0?avps*(aAS/e):0);
+      R.ada.push(e>0?adps*(aAS/e):0);
+      R.bdv.push(bd);
+      R.cdp.push(cT>0?(cDS/cT)*100:0);
+      R.cva.push(e>0?cvps*(cAS/e):0);
+      R.cda.push(e>0?cdps*(cAS/e):0);
+    }
+    return R;
+  }
+
+  function fmt(n){
+    if(n>=1e6)return '$'+(n/1e6).toFixed(1)+'M';
+    if(n>=1e3)return '$'+(n/1e3).toFixed(1)+'K';
+    return '$'+Math.round(n);
+  }
+
+  var charts={};
+  function makeOpts(yCb){
+    return {
+      responsive:true, maintainAspectRatio:false,
+      animation:{duration:300},
+      plugins:{legend:{position:'top',labels:{font:{size:11},usePointStyle:true,pointStyle:'circle',padding:16}},tooltip:{mode:'index',intersect:false}},
+      scales:{x:{grid:{display:false},ticks:{font:{size:10},maxTicksLimit:10}},y:{grid:{color:'#f0f0f0'},ticks:{font:{size:10},callback:yCb||undefined}}}
+    };
+  }
+
+  function ds(label,data,color,fill,dash){
+    return {label:label,data:data,borderColor:color,backgroundColor:fill||'transparent',fill:!!fill,tension:0.3,pointRadius:0,borderWidth:2,borderDash:dash||undefined};
+  }
+
+  function draw(d){
+    Object.keys(charts).forEach(function(k){charts[k].destroy();});
+    charts={};
+
+    // C1: Employees
+    charts.c1=new Chart(document.getElementById('c1'),{
+      type:'line',
+      data:{labels:d.years,datasets:[ds('Employees',d.emp,'#1B3A5C','rgba(27,58,92,0.15)')]},
+      options:makeOpts(function(v){return (v/1000).toFixed(0)+'K';})
+    });
+
+    // C2: Revenue + Pool
+    var o2=makeOpts();
+    o2.scales.y={position:'left',grid:{color:'#f0f0f0'},ticks:{font:{size:10},callback:function(v){return '$'+v+'B';}}};
+    o2.scales.y1={position:'right',grid:{display:false},ticks:{font:{size:10},callback:function(v){return '$'+Math.round(v)+'M';}}};
+    charts.c2=new Chart(document.getElementById('c2'),{
+      type:'line',
+      data:{labels:d.years,datasets:[
+        {label:'Revenue ($B)',data:d.rev,borderColor:'#1B3A5C',backgroundColor:'transparent',tension:0.3,pointRadius:0,borderWidth:2,yAxisID:'y'},
+        {label:'Pool Contribution ($M)',data:d.pc,borderColor:'#2d7a4f',backgroundColor:'rgba(45,122,79,0.15)',fill:true,tension:0.3,pointRadius:0,borderWidth:2,yAxisID:'y1'}
+      ]},
+      options:o2
+    });
+
+    // C3: Dilution curve
+    var o3=makeOpts(function(v){return v+'%';});
+    o3.scales.y.min=0; o3.scales.y.max=100;
+    charts.c3=new Chart(document.getElementById('c3'),{
+      type:'line',
+      data:{labels:d.years,datasets:[
+        ds('Model A: Keep Forever',d.adp,'#c4423c'),
+        ds('Model C: Hybrid ('+document.getElementById('s2').value+'%)',d.cdp,'#2d7a4f'),
+        ds('Model B: No Dilution',d.years.map(function(){return 0;}),'#1B3A5C',null,[5,5])
+      ]},
+      options:o3
+    });
+
+    // C4: Value per active
+    charts.c4=new Chart(document.getElementById('c4'),{
+      type:'line',
+      data:{labels:d.years,datasets:[
+        ds('Model A: Keep Forever',d.ava,'#c4423c'),
+        ds('Model C: Hybrid',d.cva,'#2d7a4f')
+      ]},
+      options:makeOpts(function(v){return fmt(v);})
+    });
+
+    // C5: Annual dividend
+    charts.c5=new Chart(document.getElementById('c5'),{
+      type:'line',
+      data:{labels:d.years,datasets:[
+        ds('Model A: Dividend per Active',d.ada,'#c4423c'),
+        ds('Model B: Dividend (active only)',d.bdv,'#1B3A5C','rgba(27,58,92,0.15)'),
+        ds('Model C: Dividend per Active',d.cda,'#2d7a4f')
+      ]},
+      options:makeOpts(function(v){return fmt(v);})
+    });
+
+    // KPIs
+    var L=d.years.length-1;
+    document.getElementById('k1').textContent=d.adp[L].toFixed(1)+'%';
+    document.getElementById('k2').textContent=fmt(d.ava[L]);
+    document.getElementById('k3').textContent=fmt(d.bdv[L]);
+    document.getElementById('k4').textContent=fmt(d.cva[L]);
+  }
+
+  draw(run(5,25,7));
+
+  ['s1','s2','s3'].forEach(function(id){
+    document.getElementById(id).addEventListener('input',function(){
+      var pp=+document.getElementById('s1').value;
+      var hr=+document.getElementById('s2').value;
+      var pr=+document.getElementById('s3').value;
+      document.getElementById('v1').textContent=pp+'%';
+      document.getElementById('v2').textContent=hr+'%';
+      document.getElementById('v3').textContent=pr+'%';
+      draw(run(pp,hr,pr));
+    });
+  });
+
+} catch(e) {
+  var eb=document.getElementById('error-box');
+  if(eb){eb.style.display='block';eb.textContent='Chart error: '+e.message;}
+  console.error(e);
+}
+</script>
+</body>
+</html>

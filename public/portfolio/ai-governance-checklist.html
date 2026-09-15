@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Governance Checklist for Mission-Driven Organizations</title>
+<style>
+  :root {
+    --navy: #1a2744;
+    --accent: #1D9E75;
+    --accent-light: #e8f5ef;
+    --bg: #fafaf8;
+    --surface: #fff;
+    --border: #e5e4e0;
+    --text: #1a2744;
+    --text-secondary: #6b6b68;
+    --pillar-1: #1D9E75;
+    --pillar-2: #2d6bb4;
+    --pillar-3: #7c5cbf;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    background: var(--navy);
+    color: #fff;
+    padding: 48px 24px 40px;
+    text-align: center;
+  }
+
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  .header .subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.85;
+    margin-bottom: 16px;
+  }
+
+  .header .author {
+    font-size: 13px;
+    opacity: 0.6;
+    font-weight: 400;
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .intro {
+    padding: 32px 0 8px;
+  }
+
+  .intro h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text);
+  }
+
+  .intro p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 1.65;
+  }
+
+  .sequencing {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0 32px;
+  }
+
+  .sequencing h3 {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+  }
+
+  .sequencing p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .phase-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+
+  .phase-list li {
+    font-size: 14px;
+    color: var(--text-secondary);
+    padding: 4px 0;
+    padding-left: 20px;
+    position: relative;
+  }
+
+  .phase-list li::before {
+    content: attr(data-phase);
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    color: var(--text);
+    font-size: 12px;
+  }
+
+  /* Pillar sections */
+  .pillar {
+    margin-bottom: 40px;
+  }
+
+  .pillar-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .pillar-number {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .pillar-1 .pillar-number { background: var(--pillar-1); }
+  .pillar-2 .pillar-number { background: var(--pillar-2); }
+  .pillar-3 .pillar-number { background: var(--pillar-3); }
+
+  .pillar-title-block {
+    flex: 1;
+  }
+
+  .pillar-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .pillar-progress {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .progress-bar-track {
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+  }
+
+  .pillar-1 .progress-bar-fill { background: var(--pillar-1); }
+  .pillar-2 .progress-bar-fill { background: var(--pillar-2); }
+  .pillar-3 .progress-bar-fill { background: var(--pillar-3); }
+
+  .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  /* Checklist items */
+  .checklist {
+    list-style: none;
+  }
+
+  .checklist-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 8px;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
+
+  .checklist-item:hover {
+    border-color: #ccccc8;
+  }
+
+  .checklist-item label {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    cursor: pointer;
+  }
+
+  .checklist-item input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    margin-top: 1px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.15s ease;
+  }
+
+  .pillar-1 .checklist-item input[type="checkbox"]:checked {
+    background: var(--pillar-1);
+    border-color: var(--pillar-1);
+  }
+  .pillar-2 .checklist-item input[type="checkbox"]:checked {
+    background: var(--pillar-2);
+    border-color: var(--pillar-2);
+  }
+  .pillar-3 .checklist-item input[type="checkbox"]:checked {
+    background: var(--pillar-3);
+    border-color: var(--pillar-3);
+  }
+
+  .checklist-item input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 6px;
+    height: 11px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .checklist-item.checked {
+    background: #f8f8f6;
+    border-color: var(--border);
+  }
+
+  .checklist-item.checked .item-title {
+    color: var(--text-secondary);
+  }
+
+  .item-content {
+    flex: 1;
+  }
+
+  .item-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 4px;
+    transition: color 0.2s ease;
+  }
+
+  .item-description {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+  }
+
+  /* Overall progress */
+  .overall-progress {
+    background: var(--navy);
+    border-radius: 10px;
+    padding: 24px 28px;
+    margin: 8px 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #fff;
+  }
+
+  .overall-count {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .overall-count span {
+    font-size: 16px;
+    font-weight: 400;
+    opacity: 0.6;
+  }
+
+  .overall-label {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+
+  .overall-bar-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .overall-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.3s ease;
+  }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 32px 0 48px;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .footer-brand {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .footer-note {
+    font-size: 13px;
+    color: var(--text-secondary);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.55;
+  }
+
+  .footer-link {
+    display: inline-block;
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  .footer-link:hover {
+    text-decoration: underline;
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: #fff; }
+    .header { padding: 24px 0 20px; break-after: avoid; }
+    .container { max-width: 100%; padding: 0 16px; }
+    .overall-progress { background: #fff; color: var(--text); border: 2px solid var(--navy); }
+    .overall-count { color: var(--navy); }
+    .overall-label { color: var(--text-secondary); opacity: 1; }
+    .overall-bar-track { background: var(--border); }
+    .checklist-item { break-inside: avoid; border: 1px solid #ccc; }
+    .checklist-item input[type="checkbox"] { border: 2px solid #999; }
+    .pillar { break-inside: avoid; }
+    .pillar-header { break-after: avoid; }
+    .footer { break-before: avoid; }
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .header { padding: 32px 16px 28px; }
+    .header h1 { font-size: 22px; }
+    .header .subtitle { font-size: 14px; }
+    .overall-progress { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .overall-bar-track { width: 100%; }
+    .checklist-item { padding: 14px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container">
+    <h1>AI Governance Checklist</h1>
+    <div class="subtitle">For Mission-Driven Organizations Beginning AI Adoption</div>
+    <div class="author">Whit Pendergast / Hoplight, March 2026</div>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="intro">
+    <h2>Before You Start</h2>
+    <p>Three kinds of professionals typically shape AI adoption: engineers who know what's technically possible, practitioners who hold the workflow knowledge, and governance professionals who think about systems and risk. The vulnerability in undertaking AI adoption takes root when there is limited overlap and domain fluency shared <em>between</em> these stakeholders.</p>
+    <p>AI is also, very likely, already at your door, whether you've authorized it or not. Vendors are pitching new AI tools your team is unsure how to evaluate. Existing vendors are layering AI into products you already pay for. Staff may be using consumer AI tools with limited guidance.</p>
+    <p>The question is whether your organization is leading that process.</p>
+  </div>
+
+  <div class="sequencing">
+    <h3>How to Sequence This</h3>
+    <p>These pillars can be done in sequence, or portions can build on each other.</p>
+    <ul class="phase-list">
+      <li data-phase="1.">Enough of a systems audit to know what you're governing, enough governance to make experimentation safe, enough team engagement to surface quick wins.</li>
+      <li data-phase="2.">Solve 2-3 high-friction, low-risk workflows and let results build momentum.</li>
+      <li data-phase="3.">Build infrastructure to validated demand.</li>
+      <li data-phase="4.">Establish a review cadence and ownership structure before your initial champion moves on.</li>
+    </ul>
+  </div>
+
+  <div class="overall-progress" id="overall-progress">
+    <div>
+      <div class="overall-count"><span id="overall-checked">0</span> <span>/ <span id="overall-total">19</span></span></div>
+      <div class="overall-label">items complete</div>
+    </div>
+    <div class="overall-bar-track">
+      <div class="overall-bar-fill" id="overall-bar"></div>
+    </div>
+  </div>
+
+  <!-- PILLAR 1 -->
+  <section class="pillar pillar-1" data-pillar="1">
+    <div class="pillar-header">
+      <div class="pillar-number">1</div>
+      <div class="pillar-title-block">
+        <div class="pillar-title">People, Adoption & Culture</div>
+        <div class="pillar-progress"><span class="pillar-checked">0</span> of <span class="pillar-total">0</span> complete</div>
+        <div class="progress-bar-track"><div class="progress-bar-fill"></div></div>
+      </div>
+    </div>
+    <ul class="checklist">
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Abundance commitment</div>
+            <div class="item-description">Has leadership stated clearly whether AI expands capacity or reduces headcount? Staff can tell either way.</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Staff concerns addressed with specifics</div>
+            <div class="item-description">Job security, ethics, environmental cost, IP: each gets a concrete answer, not a reassurance.</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">First workflow problem identified</div>
+            <div class="item-description">What is one task someone dreads doing every week that AI could solve? Start there. Let the value speak before rolling out broadly.</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Role-specific use cases mapped</div>
+            <div class="item-description">What AI means for a program director is different from general counsel is different from daily data entry.</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Ongoing support structure</div>
+            <div class="item-description">Who does someone ask when stuck? How do learnings get shared? Where do people surface concerns?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Internal sharing mechanism</div>
+            <div class="item-description">A channel for staff to share what works, submit prompts, request tools, or flag problems.</div>
+          </div>
+        </label>
+      </li>
+    </ul>
+  </section>
+
+  <!-- PILLAR 2 -->
+  <section class="pillar pillar-2" data-pillar="2">
+    <div class="pillar-header">
+      <div class="pillar-number">2</div>
+      <div class="pillar-title-block">
+        <div class="pillar-title">Governance & Decision Framework</div>
+        <div class="pillar-progress"><span class="pillar-checked">0</span> of <span class="pillar-total">0</span> complete</div>
+        <div class="progress-bar-track"><div class="progress-bar-fill"></div></div>
+      </div>
+    </div>
+    <ul class="checklist">
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">AI acceptable use policy</div>
+            <div class="item-description">What is allowed, what is not, where organizational data can and cannot go. Written for staff, not lawyers.</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Vendor evaluation framework</div>
+            <div class="item-description">How do you assess inbound AI pitches? What questions do you ask before signing?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Data security and retention standards</div>
+            <div class="item-description">What are the retention policies for each AI tool? What happens to your data after a contract ends?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Bias and ethics review process</div>
+            <div class="item-description">For anything touching the people you serve or your public communications: who reviews outputs? What is the escalation path?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Accountability structure</div>
+            <div class="item-description">Who is responsible when AI produces something wrong, harmful, or legally problematic?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Incident response plan</div>
+            <div class="item-description">What happens when AI goes wrong? Who gets called? What is the severity scale?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">ROI and measurement framework</div>
+            <div class="item-description">How do you know a deployment is working? When do you kill something that isn't delivering?</div>
+          </div>
+        </label>
+      </li>
+    </ul>
+  </section>
+
+  <!-- PILLAR 3 -->
+  <section class="pillar pillar-3" data-pillar="3">
+    <div class="pillar-header">
+      <div class="pillar-number">3</div>
+      <div class="pillar-title-block">
+        <div class="pillar-title">Infrastructure & Systems</div>
+        <div class="pillar-progress"><span class="pillar-checked">0</span> of <span class="pillar-total">0</span> complete</div>
+        <div class="progress-bar-track"><div class="progress-bar-fill"></div></div>
+      </div>
+    </div>
+    <ul class="checklist">
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Tool inventory</div>
+            <div class="item-description">What software, platforms, and AI tools are in use, including tools staff adopted on their own?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Data flow map</div>
+            <div class="item-description">Where does information live, how does it move, and where is it re-entered manually?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Vendor AI features audit</div>
+            <div class="item-description">Which existing vendors have added AI features? Have data-handling terms changed?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Shadow AI assessment</div>
+            <div class="item-description">Are staff using consumer AI tools with organizational data? Is there guidance?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Integration opportunities</div>
+            <div class="item-description">Which manual handoffs between systems can be automated safely, and in what order?</div>
+          </div>
+        </label>
+      </li>
+      <li class="checklist-item">
+        <label>
+          <input type="checkbox">
+          <div class="item-content">
+            <div class="item-title">Foundation infrastructure</div>
+            <div class="item-description">What is the one unglamorous systems problem blocking everything downstream?</div>
+          </div>
+        </label>
+      </li>
+    </ul>
+  </section>
+
+  <div class="footer">
+    <div class="footer-brand">Hoplight AI</div>
+    <div class="footer-note">This checklist covers the three areas most orgs skip: the people side, the decision framework, and the infrastructure audit.</div>
+    <a class="footer-link" href="https://hoplight.ai" target="_blank" rel="noopener">hoplight.ai</a>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  const pillars = document.querySelectorAll('.pillar');
+  const overallChecked = document.getElementById('overall-checked');
+  const overallTotal = document.getElementById('overall-total');
+  const overallBar = document.getElementById('overall-bar');
+
+  let totalItems = 0;
+
+  // Initialize pillar totals
+  pillars.forEach(pillar => {
+    const items = pillar.querySelectorAll('input[type="checkbox"]');
+    const totalEl = pillar.querySelector('.pillar-total');
+    totalEl.textContent = items.length;
+    totalItems += items.length;
+  });
+
+  overallTotal.textContent = totalItems;
+
+  function updateProgress() {
+    let totalChecked = 0;
+
+    pillars.forEach(pillar => {
+      const items = pillar.querySelectorAll('input[type="checkbox"]');
+      const checked = pillar.querySelectorAll('input[type="checkbox"]:checked');
+      const checkedEl = pillar.querySelector('.pillar-checked');
+      const barFill = pillar.querySelector('.progress-bar-fill');
+
+      checkedEl.textContent = checked.length;
+      const pct = items.length ? (checked.length / items.length) * 100 : 0;
+      barFill.style.width = pct + '%';
+      totalChecked += checked.length;
+
+      // Toggle checked class on items
+      items.forEach(input => {
+        const li = input.closest('.checklist-item');
+        if (input.checked) {
+          li.classList.add('checked');
+        } else {
+          li.classList.remove('checked');
+        }
+      });
+    });
+
+    overallChecked.textContent = totalChecked;
+    const overallPct = totalItems ? (totalChecked / totalItems) * 100 : 0;
+    overallBar.style.width = overallPct + '%';
+  }
+
+  // Attach listeners
+  document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+    cb.addEventListener('change', updateProgress);
+  });
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>

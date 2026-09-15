@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<script type="application/json" id="cowork-artifact-meta">
+{
+  "name": "Federal Agency Ai Inventory",
+  "schemaVersion": 1,
+  "description": "Comprehensive inventory of 75+ federal agency AI actions across 14 agencies (CFPB, NIST, OMB/OSTP, HHS/ONC/OCR/FDA/CMS, SEC, DOJ, FCC, CISA, Copyright Office, USPTO, Treasury, Education) for the AI Global Policy Tool corpus. Each entry includes title, date, type, summary, binding status, current status under Trump admin, and verification flag."
+}
+</script>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Federal Agency AI Actions Inventory</title>
+<style>
+:root { color-scheme: light; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background: #fff; color: #1a1a1a; line-height: 1.5; padding: 16px; font-size: 13px; }
+h1 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.subtitle { color: #666; font-size: 12px; margin-bottom: 16px; }
+h2 { font-size: 15px; font-weight: 700; margin: 20px 0 8px 0; padding: 6px 10px; background: #f0f4f8; border-left: 3px solid #2563eb; }
+h3 { font-size: 13px; font-weight: 600; margin: 14px 0 6px 0; color: #374151; }
+.stats { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+.stat { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 12px; min-width: 100px; }
+.stat-num { font-size: 20px; font-weight: 700; color: #2563eb; }
+.stat-label { font-size: 11px; color: #64748b; }
+table { width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 12px; }
+th { background: #f1f5f9; text-align: left; padding: 6px 8px; font-weight: 600; border-bottom: 2px solid #cbd5e1; position: sticky; top: 0; }
+td { padding: 6px 8px; border-bottom: 1px solid #e2e8f0; vertical-align: top; }
+tr:hover { background: #f8fafc; }
+.badge { display: inline-block; padding: 1px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; }
+.badge-rule { background: #dcfce7; color: #166534; }
+.badge-guidance { background: #dbeafe; color: #1e40af; }
+.badge-enforcement { background: #fef3c7; color: #92400e; }
+.badge-report { background: #f3e8ff; color: #6b21a8; }
+.badge-framework { background: #e0f2fe; color: #075985; }
+.badge-eo { background: #fee2e2; color: #991b1b; }
+.badge-statement { background: #fce7f3; color: #9d174d; }
+.badge-memo { background: #ecfdf5; color: #065f46; }
+.verified { color: #16a34a; font-weight: 600; font-size: 10px; }
+.recall { color: #d97706; font-weight: 600; font-size: 10px; }
+.status-active { color: #16a34a; }
+.status-revoked { color: #dc2626; text-decoration: line-through; }
+.status-uncertain { color: #d97706; }
+.url { word-break: break-all; font-size: 11px; }
+a { color: #2563eb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.note { background: #fffbeb; border: 1px solid #fde68a; border-radius: 4px; padding: 8px 10px; margin: 8px 0; font-size: 11px; }
+.trump-note { background: #fef2f2; border: 1px solid #fecaca; border-radius: 4px; padding: 8px 10px; margin: 8px 0; font-size: 11px; }
+.section-count { font-size: 11px; color: #64748b; font-weight: 400; margin-left: 8px; }
+</style>
+</head>
+<body>
+
+<h1>Federal Agency AI Actions Inventory</h1>
+<p class="subtitle">Compiled 2026-05-20 | For AI Global Policy Tool corpus import</p>
+
+<div class="stats">
+<div class="stat"><div class="stat-num">75+</div><div class="stat-label">Total actions</div></div>
+<div class="stat"><div class="stat-num">14</div><div class="stat-label">Agencies</div></div>
+<div class="stat"><div class="stat-num">2022-2025</div><div class="stat-label">Date range</div></div>
+</div>
+
+<div class="trump-note"><strong>Trump Administration Context (Jan 2025+):</strong> EO 14110 revoked Jan 20, 2025. EO 14179 "Removing Barriers to American Leadership in AI" signed Jan 23, 2025. OMB memos M-24-10 and M-24-18 rescinded and replaced by M-25-21 and M-25-22 (April 3, 2025). OSTP Blueprint for AI Bill of Rights archived. CFPB leadership replaced; fair lending disparate impact enforcement curtailed. Many Biden-era guidance documents remain technically in effect but enforcement posture shifted toward deregulation and innovation promotion.</div>
+
+<!-- ===================== CFPB ===================== -->
+<h2>CFPB (Consumer Financial Protection Bureau)<span class="section-count">8 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Circular 2022-03: Adverse Action Notification Requirements in Connection with Credit Decisions Based on Complex Algorithms</strong><br><a class="url" href="https://www.consumerfinance.gov/compliance/circulars/circular-2022-03-adverse-action-notification-requirements-in-connection-with-credit-decisions-based-on-complex-algorithms/">consumerfinance.gov</a></td>
+<td>2022-05-26</td>
+<td><span class="badge badge-guidance">Circular</span></td>
+<td>Creditors using AI/ML "black box" models must provide specific, accurate adverse action reasons under ECOA/Reg B; cannot claim technology is too complex to explain.</td>
+<td>Interpretive (binding on supervised entities)</td>
+<td class="status-uncertain">Uncertain under Trump CFPB</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Chatbots in Consumer Finance (Issue Spotlight)</strong><br><a class="url" href="https://files.consumerfinance.gov/f/documents/cfpb_chatbot-issue-spotlight_2023-06.pdf">consumerfinance.gov (PDF)</a></td>
+<td>2023-06-01</td>
+<td><span class="badge badge-report">Report</span></td>
+<td>Documents risks of financial institutions deploying chatbots: inaccurate information, failure to resolve disputes, violation of consumer protection obligations.</td>
+<td>Non-binding (supervisory spotlight)</td>
+<td class="status-uncertain">Uncertain</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Circular 2023-03: Adverse Action Notification Requirements and the Proper Use of the CFPB's Sample Forms (Regulation B)</strong><br><a class="url" href="https://files.consumerfinance.gov/f/documents/cfpb_adverse_action_notice_circular_2023-09.pdf">consumerfinance.gov (PDF)</a></td>
+<td>2023-09-19</td>
+<td><span class="badge badge-guidance">Circular</span></td>
+<td>Extends Circular 2022-03: lenders using AI cannot rely on standard checkbox adverse action forms if they do not reflect actual reasons for denial; must provide specific, accurate reasons.</td>
+<td>Interpretive (binding on supervised entities)</td>
+<td class="status-uncertain">Uncertain under Trump CFPB</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Comment to Treasury RFI on AI in Financial Services</strong><br><a class="url" href="https://www.consumerfinance.gov/about-us/newsroom/cfpb-comment-on-request-for-information-on-uses-opportunities-and-risks-of-artificial-intelligence-in-the-financial-services-sector/">consumerfinance.gov</a></td>
+<td>2024-08-01</td>
+<td><span class="badge badge-statement">Comment</span></td>
+<td>CFPB asserts "no exceptions to federal consumer financial protection laws for new technologies"; courts have held algorithmic tools can produce disparate impact liability.</td>
+<td>Non-binding (policy position)</td>
+<td class="status-active">Active (historical record)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Interagency AVM Rule: Quality Control Standards for Automated Valuation Models</strong><br><a class="url" href="https://www.federalregister.gov/documents/2024/08/07/2024-16197/quality-control-standards-for-automated-valuation-models">Federal Register</a></td>
+<td>2024-06-24</td>
+<td><span class="badge badge-rule">Final Rule</span></td>
+<td>Six agencies (CFPB, Fed, FDIC, NCUA, OCC, FHFA) require mortgage originators using AI/algorithmic valuation models to meet 5 quality control standards including nondiscrimination compliance. Dodd-Frank mandate.</td>
+<td>Binding (regulation)</td>
+<td class="status-active">Active (effective ~Q3 2025)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Circular 2024-06: Worker Surveillance and the Fair Credit Reporting Act</strong><br><a class="url" href="https://www.consumerfinance.gov/about-us/newsroom/cfpb-takes-action-to-curb-unchecked-worker-surveillance/">consumerfinance.gov</a></td>
+<td>2024-10-24</td>
+<td><span class="badge badge-guidance">Circular</span></td>
+<td>Third-party AI/algorithmic worker monitoring reports (keystroke tracking, productivity scores, driving habits) are consumer reports under FCRA; employers must get consent, provide transparency, allow disputes.</td>
+<td>Interpretive (binding on supervised entities)</td>
+<td class="status-uncertain">Uncertain under Trump CFPB</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>2024 Fair Lending Report</strong><br><a class="url" href="https://www.federalregister.gov/documents/2024/07/02/2024-14533/fair-lending-report-of-the-consumer-financial-protection-bureau">Federal Register</a></td>
+<td>2024-07-02</td>
+<td><span class="badge badge-report">Report</span></td>
+<td>Annual report documenting CFPB fair lending activities including algorithmic bias enforcement; referred four matters to DOJ involving race discrimination in mortgage lending.</td>
+<td>Non-binding (annual report)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Final Rule: Eliminating Disparate Impact Under ECOA (Trump-era)</strong><br><a class="url" href="https://www.consumerfinancemonitor.com/2026/05/04/cfpbs-final-rule-recalibrates-fair-lending-enforcement-a-return-to-clarity-and-core-statutory-principles/">Consumer Finance Monitor</a></td>
+<td>2026-05-04</td>
+<td><span class="badge badge-rule">Final Rule</span></td>
+<td>Trump CFPB eliminates use of disparate impact analysis under ECOA, significantly weakening the tool used to identify algorithmic bias in lending decisions. Directly undermines prior AI fairness guidance.</td>
+<td>Binding (regulation)</td>
+<td class="status-active">Active (Trump admin)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== NIST ===================== -->
+<h2>NIST (National Institute of Standards and Technology)<span class="section-count">8 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>AI Risk Management Framework (AI RMF 1.0) - NIST AI 100-1</strong><br><a class="url" href="https://nvlpubs.nist.gov/nistpubs/ai/nist.ai.100-1.pdf">NIST (PDF)</a></td>
+<td>2023-01-26</td>
+<td><span class="badge badge-framework">Framework</span></td>
+<td>Voluntary framework for trustworthy AI with four core functions (Govern, Map, Measure, Manage); intended for all organizations designing, developing, deploying, or using AI systems.</td>
+<td>Non-binding (voluntary)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>AI RMF Playbook</strong><br><a class="url" href="https://www.nist.gov/itl/ai-risk-management-framework/nist-ai-rmf-playbook">nist.gov</a></td>
+<td>2023-01-26</td>
+<td><span class="badge badge-framework">Companion</span></td>
+<td>Suggested actions, references, and guidance for implementing AI RMF 1.0 across all four functions; companion to the base framework.</td>
+<td>Non-binding (voluntary)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Adversarial Machine Learning: A Taxonomy and Terminology of Attacks and Mitigations - NIST AI 100-2 E2023</strong><br><a class="url" href="https://csrc.nist.gov/pubs/ai/100/2/e2023/final">NIST CSRC</a></td>
+<td>2024-01-04</td>
+<td><span class="badge badge-report">Technical Report</span></td>
+<td>Taxonomy of adversarial ML attacks (evasion, poisoning, privacy) and mitigations; covers predictive and generative AI. Updated edition (E2025) released subsequently.</td>
+<td>Non-binding (voluntary)</td>
+<td class="status-active">Active (E2025 supersedes)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Generative AI Profile - NIST AI 600-1</strong><br><a class="url" href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.600-1.pdf">NIST (PDF)</a></td>
+<td>2024-07-26</td>
+<td><span class="badge badge-framework">Profile</span></td>
+<td>Cross-sectoral companion to AI RMF for generative AI; identifies 12 risk categories (CBRN, confabulation, harmful bias, IP, data privacy, etc.) with 200+ suggested actions mapped to RMF functions.</td>
+<td>Non-binding (voluntary)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Reducing Risks Posed by Synthetic Content - NIST AI 100-4</strong><br><a class="url" href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-4.pdf">NIST (PDF)</a></td>
+<td>2024-11-20</td>
+<td><span class="badge badge-report">Technical Report</span></td>
+<td>Technical approaches to digital content transparency: watermarking, metadata recording, content authentication for AI-generated images, video, audio, text. Notes limitations of all approaches against malicious actors.</td>
+<td>Non-binding (voluntary)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Guidelines for Evaluating Differential Privacy Guarantees - SP 800-226</strong><br><a class="url" href="https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-226.pdf">NIST (PDF)</a></td>
+<td>2025-03-06</td>
+<td><span class="badge badge-guidance">Guidelines</span></td>
+<td>Guidelines for implementing differential privacy in AI/data systems; identifies privacy hazards and evaluation factors. Fulfills EO 14110 assignment (survives revocation as NIST work product).</td>
+<td>Non-binding (voluntary)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>U.S. AI Safety Institute (AISI) / AI Safety Institute Consortium (AISIC)</strong><br><a class="url" href="https://www.nist.gov/artificial-intelligence/artificial-intelligence-safety-institute">nist.gov</a></td>
+<td>2024-02-01</td>
+<td><span class="badge badge-framework">Institution</span></td>
+<td>Consortium housed at NIST uniting industry, academia, civil society for AI safety research across 5 areas: GenAI risk management, synthetic content, evaluations, red-teaming, model safety/security.</td>
+<td>Non-binding (voluntary consortium)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>TRAINS Taskforce (Testing Risks of AI for National Security)</strong><br><a class="url" href="https://www.nist.gov/news-events/news/2024/11/us-ai-safety-institute-establishes-new-us-government-taskforce-collaborate">nist.gov</a></td>
+<td>2024-11-01</td>
+<td><span class="badge badge-framework">Taskforce</span></td>
+<td>Government taskforce to develop AI evaluation methods, benchmarks, and conduct national security risk assessments and red-teaming exercises for AI models.</td>
+<td>Non-binding (government coordination)</td>
+<td class="status-uncertain">Uncertain under Trump admin</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== OMB / OSTP ===================== -->
+<h2>OMB / OSTP (Office of Management and Budget / Office of Science and Technology Policy)<span class="section-count">7 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Blueprint for an AI Bill of Rights: Making Automated Systems Work for the American People</strong><br><a class="url" href="https://bidenwhitehouse.archives.gov/ostp/ai-bill-of-rights/">Archived White House</a></td>
+<td>2022-10-04</td>
+<td><span class="badge badge-framework">Framework</span></td>
+<td>Five principles for automated systems: safe/effective systems, algorithmic discrimination protections, data privacy, notice/explanation, human alternatives and fallback. Non-binding aspirational framework.</td>
+<td>Non-binding (framework)</td>
+<td class="status-revoked">Archived (Biden admin)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>EO 14110: Safe, Secure, and Trustworthy Development and Use of Artificial Intelligence</strong><br><a class="url" href="https://www.federalregister.gov/documents/2023/11/01/2023-24283/safe-secure-and-trustworthy-development-and-use-of-artificial-intelligence">Federal Register</a></td>
+<td>2023-10-30</td>
+<td><span class="badge badge-eo">Executive Order</span></td>
+<td>Comprehensive Biden AI EO: safety testing, content authentication, privacy, equity, worker protections, federal use standards. Triggered most agency guidance in this inventory.</td>
+<td>Binding on federal agencies (was)</td>
+<td class="status-revoked">Revoked Jan 20, 2025</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>M-24-10: Advancing Governance, Innovation, and Risk Management for Agency Use of AI</strong><br><a class="url" href="https://www.whitehouse.gov/wp-content/uploads/2024/03/M-24-10-Advancing-Governance-Innovation-and-Risk-Management-for-Agency-Use-of-Artificial-Intelligence.pdf">White House (PDF)</a></td>
+<td>2024-03-28</td>
+<td><span class="badge badge-memo">OMB Memo</span></td>
+<td>Required Chief AI Officers, AI governance boards, minimum risk management for safety/rights-impacting AI, annual AI use case inventories. Built on AI Bill of Rights + NIST RMF.</td>
+<td>Binding on federal agencies (was)</td>
+<td class="status-revoked">Rescinded by M-25-21 (April 2025)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>M-24-18: Advancing the Responsible Acquisition of AI in Government</strong><br><a class="url" href="https://www.whitehouse.gov/wp-content/uploads/2024/10/M-24-18-AI-Acquisition-Memorandum.pdf">White House (PDF)</a></td>
+<td>2024-09-24</td>
+<td><span class="badge badge-memo">OMB Memo</span></td>
+<td>36-page AI procurement guidance: risk management for acquired AI, privacy/security/interoperability requirements, competitive market promotion. Applied to contracts from March 2025.</td>
+<td>Binding on federal agencies (was)</td>
+<td class="status-revoked">Rescinded by M-25-22 (April 2025)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>EO 14179: Removing Barriers to American Leadership in Artificial Intelligence</strong><br><a class="url" href="https://www.federalregister.gov/documents/2025/01/31/2025-02172/removing-barriers-to-american-leadership-in-artificial-intelligence">Federal Register</a></td>
+<td>2025-01-23</td>
+<td><span class="badge badge-eo">Executive Order</span></td>
+<td>Trump AI EO revoking EO 14110; shifts toward deregulation and innovation promotion; directs OMB to revise M-24-10 and M-24-18 within 60 days.</td>
+<td>Binding on federal agencies</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>M-25-21: Accelerating Federal Use of AI through Innovation, Governance, and Public Trust</strong><br><a class="url" href="https://www.whitehouse.gov/wp-content/uploads/2025/04/M-25-21-Accelerating-Federal-Use-of-AI.pdf">White House</a></td>
+<td>2025-04-03</td>
+<td><span class="badge badge-memo">OMB Memo</span></td>
+<td>Replaces M-24-10; reduces "bureaucratic restrictions" while maintaining safeguards for civil rights/privacy; requires agency AI strategies within 180 days; redefines risk categories as "high-impact AI."</td>
+<td>Binding on federal agencies</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>M-25-22: Driving Efficient Acquisition of AI in Government</strong><br><a class="url" href="https://www.whitehouse.gov/wp-content/uploads/2025/04/M-25-22-AI-Acquisition.pdf">White House</a></td>
+<td>2025-04-03</td>
+<td><span class="badge badge-memo">OMB Memo</span></td>
+<td>Replaces M-24-18; AI procurement guidance with Buy American emphasis; applies to contracts from Sept 30, 2025. Requirements and recommendations for federal AI acquisition.</td>
+<td>Binding on federal agencies</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== HHS / ONC / OCR / FDA / CMS ===================== -->
+<h2>HHS / ONC / OCR / FDA / CMS<span class="section-count">8 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>HTI-1 Final Rule: Health Data, Technology, and Interoperability (ONC)</strong><br><a class="url" href="https://www.federalregister.gov/documents/2024/01/09/2023-28857/health-data-technology-and-interoperability-certification-program-updates-algorithm-transparency-and">Federal Register</a></td>
+<td>2024-01-09</td>
+<td><span class="badge badge-rule">Final Rule</span></td>
+<td>First federal regulation requiring AI transparency in health IT: developers of predictive decision support interventions (AI/ML in EHRs) must report on data sources, performance, bias testing. Compliance by Dec 31, 2024.</td>
+<td>Binding (regulation)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>CMS Interoperability and Prior Authorization Final Rule (CMS-0057-F)</strong><br><a class="url" href="https://www.cms.gov/cms-interoperability-and-prior-authorization-final-rule-cms-0057-f">CMS</a></td>
+<td>2024-01-17</td>
+<td><span class="badge badge-rule">Final Rule</span></td>
+<td>Improves prior authorization processes; requires transparency in coverage determination algorithms. Prior authorization should not delay or discourage care.</td>
+<td>Binding (regulation)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>CMS FAQ: Medicare Advantage AI and Algorithm Use in Coverage Determinations</strong><br><a class="url" href="https://www.nortonrosefulbright.com/en/knowledge/publications/644bd9a2/cms-clarifies-medicare-advantage-organizations-use-of-ai-and-algorithms-in-coverage-decisions">Norton Rose Fulbright analysis</a></td>
+<td>2024-02-06</td>
+<td><span class="badge badge-guidance">FAQ/Guidance</span></td>
+<td>MA organizations may use AI in coverage determinations but must base decisions on individual patient data (not aggregate predictions); cannot apply non-public internal criteria; AI cannot shift coverage criteria over time.</td>
+<td>Interpretive guidance</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Section 1557 Nondiscrimination Final Rule (OCR/HHS)</strong><br><a class="url" href="https://bipartisanpolicy.org/article/navigating-ai-in-health-care-hhss-nondiscrimination-final-rule-is-in-effect/">Bipartisan Policy Center analysis</a></td>
+<td>2024-07-05</td>
+<td><span class="badge badge-rule">Final Rule</span></td>
+<td>ACA Section 1557 rule requiring healthcare entities to make reasonable efforts to identify and mitigate AI discrimination risks based on race, sex, age, disability. Affirmative AI anti-discrimination obligations effective May 1, 2025.</td>
+<td>Binding (regulation)</td>
+<td class="status-uncertain">Active but Trump admin may revise</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>FDA Final Guidance: Predetermined Change Control Plans for AI-Enabled Device Software</strong><br><a class="url" href="https://www.mcdermottplus.com/insights/fda-issues-final-guidance-on-predetermined-change-control-plans-for-ai-enabled-devices/">McDermott analysis</a></td>
+<td>2024-12-03</td>
+<td><span class="badge badge-guidance">Guidance</span></td>
+<td>Framework allowing AI/ML medical device manufacturers to pre-specify planned modifications (PCCPs) without new marketing submissions for each update. 74 devices with authorized PCCPs as of Sept 2024.</td>
+<td>Non-binding (guidance)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>FDA AI/ML Medical Device Authorizations (cumulative)</strong><br><a class="url" href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-software-medical-device">FDA</a></td>
+<td>2024-12-31</td>
+<td><span class="badge badge-report">Database</span></td>
+<td>1,016 cumulative AI/ML medical device authorizations through Dec 2024; 168 new in 2024 alone (94.6% via 510(k)). Radiology dominates (74.4%). 24 countries represented.</td>
+<td>N/A (database)</td>
+<td class="status-active">Active (ongoing)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>OCR "Dear Colleague" Letter on AI and Language Access</strong><br><a class="url" href="https://ismg-cdn.nyc3.cdn.digitaloceanspaces.com/asset_files/external/hhs-ocr-dear-colleagues-letter-re-ai-non-discrimination-1-10-25.pdf">OCR (PDF)</a></td>
+<td>2024-12-05</td>
+<td><span class="badge badge-guidance">Guidance</span></td>
+<td>Addresses requirements for machine translation and AI under language access provisions of the Section 1557 nondiscrimination rule.</td>
+<td>Interpretive guidance</td>
+<td class="status-uncertain">Uncertain under Trump admin</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>HHS AI Strategic Plan</strong><br><a class="url" href="https://www.hhs.gov/press-room/hhs-unveils-ai-strategy-to-transform-agency-operations.html">HHS.gov</a></td>
+<td>2025-12-04</td>
+<td><span class="badge badge-framework">Strategic Plan</span></td>
+<td>Five-pillar strategy: governance/risk management, infrastructure, workforce development, health research, care delivery modernization. 271 active AI use cases in FY2024, growing 70% in FY2025. Trump-era document focusing on adoption.</td>
+<td>Non-binding (internal strategy)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== SEC ===================== -->
+<h2>SEC (Securities and Exchange Commission)<span class="section-count">5 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Chair Gensler Speech: "AI, Finance, Movies, and the Law" (Yale Law School)</strong><br><a class="url" href="https://www.sec.gov/news/speech/gensler-ai-021324">SEC.gov</a></td>
+<td>2024-02-13</td>
+<td><span class="badge badge-statement">Speech</span></td>
+<td>SEC Chair warns against AI washing and boilerplate AI disclosures; advises companies discussing AI in earnings calls to consider materiality; AI disclosures may be appropriate in 10-K risk factors, MD&A, proxy statements.</td>
+<td>Non-binding (guidance by implication)</td>
+<td class="status-active">Historical (Gensler departed)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>In re Delphia (USA) Inc. and Global Predictions Inc. - First AI-Washing Enforcement Actions</strong><br><a class="url" href="https://www.sec.gov/newsroom/press-releases/2024-36">SEC.gov</a></td>
+<td>2024-03-18</td>
+<td><span class="badge badge-enforcement">Enforcement</span></td>
+<td>First-ever SEC AI-washing cases: Delphia falsely claimed AI/ML that "predict which companies are about to make it big"; Global Predictions falsely claimed to be "first regulated AI financial advisor." Penalties: $225K and $175K respectively. Violations of Investment Advisers Act Sections 206(2), 206(4), Marketing Rule, Compliance Rule.</td>
+<td>Binding (settled order)</td>
+<td class="status-active">Active (precedent)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>SEC v. Ilit Raz / Joonko Diversity Inc. - AI Startup Fraud</strong><br><a class="url" href="https://www.sec.gov/newsroom/press-releases/2024-70">SEC.gov</a></td>
+<td>2024-06-11</td>
+<td><span class="badge badge-enforcement">Enforcement</span></td>
+<td>Charged CEO of AI recruitment startup with defrauding investors of $21M+ by fabricating customers, revenues, and AI capabilities. "Old school fraud using new school buzzwords like 'artificial intelligence.'"</td>
+<td>Binding (enforcement action)</td>
+<td class="status-active">Active (precedent)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Division of Corporation Finance: AI Disclosure Priority Statement</strong><br><a class="url" href="https://www.alston.com/en/insights/publications/2024/07/navigating-ai-related-disclosure-challenges">Alston & Bird analysis</a></td>
+<td>2024-06-24</td>
+<td><span class="badge badge-statement">Staff Statement</span></td>
+<td>Corp Fin director highlights AI as disclosure priority: significant increase in companies mentioning AI in annual reports; SEC assessing whether AI definitions are clear, disclosures are tailored (not boilerplate), and focus on actual use.</td>
+<td>Non-binding (staff guidance)</td>
+<td class="status-uncertain">Uncertain under new SEC chair</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Office Hours: Systemic Risk in Artificial Intelligence</strong><br><a class="url" href="https://www.sec.gov/newsroom/speeches-statements/gensler-transcript-systemic-risk-artificial-intelligence-091924">SEC.gov</a></td>
+<td>2024-09-19</td>
+<td><span class="badge badge-statement">Speech</span></td>
+<td>Gensler warns of systemic risk from concentrated AI model providers in financial services; herding behavior from similar AI models could amplify market instability.</td>
+<td>Non-binding (speech)</td>
+<td class="status-active">Historical</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== DOJ ===================== -->
+<h2>DOJ (Department of Justice)<span class="section-count">8 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Joint Statement on Enforcement Efforts Against Discrimination and Bias in Automated Systems (DOJ + CFPB + EEOC + FTC)</strong><br><a class="url" href="https://www.ftc.gov/system/files/ftc_gov/pdf/EEOC-CRT-FTC-CFPB-AI-Joint-Statement(final).pdf">FTC (PDF)</a></td>
+<td>2023-04-25</td>
+<td><span class="badge badge-statement">Joint Statement</span></td>
+<td>Four agencies pledge to enforce existing laws against AI discrimination: "no AI exemption to the laws on the books." Identifies data bias, model opacity, and design flaws as discrimination sources.</td>
+<td>Non-binding (enforcement signal)</td>
+<td class="status-uncertain">Uncertain (Biden-era leadership)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>DAG Monaco Speech: Stiffer Sentences for AI-Augmented Crimes</strong><br><a class="url" href="https://www.mofo.com/resources/insights/240221-deputy-attorney-general-lisa-monaco">Morrison Foerster analysis</a></td>
+<td>2024-02-14</td>
+<td><span class="badge badge-statement">Speech/Policy</span></td>
+<td>DAG Monaco directs prosecutors to seek enhanced penalties for crimes "made significantly more dangerous by the misuse of AI," comparing AI to firearms as a crime-enhancing tool. Part of broader AI enforcement initiative.</td>
+<td>Non-binding (prosecutorial guidance)</td>
+<td class="status-uncertain">Uncertain under Trump DOJ</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Five Additional Agencies Join Civil Rights AI Enforcement Pledge (DOJ + ED + HHS + DHS + HUD + DOL)</strong><br><a class="url" href="https://www.justice.gov/archives/opa/pr/five-new-federal-agencies-join-justice-department-pledge-enforce-civil-rights-laws">DOJ</a></td>
+<td>2024-04-04</td>
+<td><span class="badge badge-statement">Joint Pledge</span></td>
+<td>Expands April 2023 statement: Education, HHS, DHS, HUD, Labor join DOJ/FTC/CFPB/EEOC pledge on AI civil rights enforcement. Consumer Protection Branch of DOJ Civil Division also joins. Total: 9 agencies.</td>
+<td>Non-binding (enforcement signal)</td>
+<td class="status-uncertain">Uncertain under Trump admin</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>US v. RealPage Inc. - Algorithmic Pricing Antitrust Suit</strong><br><a class="url" href="https://www.mindingyourbusinesslitigation.com/2024/11/doj-targets-ai-pricing-algorithms-realpage-case-signals-potential-shift-in-antitrust-enforcement/">Analysis</a></td>
+<td>2024-08-01</td>
+<td><span class="badge badge-enforcement">Enforcement</span></td>
+<td>DOJ Antitrust + 8 state AGs sue RealPage for AI-trained rental pricing algorithm that aggregates competitor data and outputs price recommendations adopted at high rates. Rule of reason theory (not per se).</td>
+<td>Binding (litigation)</td>
+<td class="status-active">Active (pending)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Updated Evaluation of Corporate Compliance Programs (Criminal Division)</strong><br><a class="url" href="https://www.cov.com/en/news-and-insights/insights/2024/10/doj-updates-guidance-for-evaluation-of-corporate-compliance-programs-focusing-on-artificial-intelligence-data-and-whistleblowers">Covington analysis</a></td>
+<td>2024-09-23</td>
+<td><span class="badge badge-guidance">Guidance</span></td>
+<td>Updated compliance guidance requires companies to assess and manage AI-related risks; evaluates how companies address AI use, algorithmic revenue management software antitrust risks, and whether compliance personnel are involved in AI deployment.</td>
+<td>Prosecutorial guidance (shapes enforcement)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Civil Rights Division AI Convening</strong><br><a class="url" href="https://www.justice.gov/crt/ai">DOJ CRT</a></td>
+<td>2024-10-09</td>
+<td><span class="badge badge-statement">Convening</span></td>
+<td>Civil Rights Division convened principals of federal agency civil rights offices and senior officials to foster AI and civil rights coordination across government.</td>
+<td>Non-binding (coordination)</td>
+<td class="status-uncertain">Uncertain under Trump admin</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Artificial Intelligence and Criminal Justice Final Report</strong><br><a class="url" href="https://www.justice.gov/olp/media/1381796/dl">DOJ (PDF)</a></td>
+<td>2024-12-03</td>
+<td><span class="badge badge-report">Report</span></td>
+<td>Comprehensive report on AI applications across the criminal justice system: opportunities, challenges, and guidance for responsible deployment.</td>
+<td>Non-binding (report)</td>
+<td class="status-active">Active (reference)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>DOJ AI Use Case Inventory (315 entries)</strong><br><a class="url" href="https://www.justice.gov/ai/ai-inventory">DOJ</a></td>
+<td>2025-01-01</td>
+<td><span class="badge badge-report">Inventory</span></td>
+<td>315 AI use cases in 2025 inventory (30.7% increase from 2024); reflects growing AI adoption across DOJ components including AI Hub for workforce training.</td>
+<td>N/A (inventory)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== FCC ===================== -->
+<h2>FCC (Federal Communications Commission)<span class="section-count">1 item</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Declaratory Ruling: AI-Generated Voices in Robocalls Are "Artificial" Under TCPA (FCC 24-17)</strong><br><a class="url" href="https://docs.fcc.gov/public/attachments/FCC-24-17A1.pdf">FCC (PDF)</a></td>
+<td>2024-02-08</td>
+<td><span class="badge badge-rule">Declaratory Ruling</span></td>
+<td>Unanimously confirms AI-generated/cloned voices are "artificial" under TCPA, making AI voice robocalls illegal without prior express consent. Effective immediately. Enables civil enforcement, carrier blocking, and individual lawsuits.</td>
+<td>Binding (ruling)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== CISA ===================== -->
+<h2>CISA (Cybersecurity and Infrastructure Security Agency)<span class="section-count">1 item</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>2023-2024 CISA Roadmap for Artificial Intelligence</strong><br><a class="url" href="https://www.cisa.gov/resources-tools/resources/roadmap-ai">CISA</a></td>
+<td>2023-11-01</td>
+<td><span class="badge badge-framework">Roadmap</span></td>
+<td>Five lines of effort: (1) use AI for cyberdefense, (2) secure-by-design AI adoption, (3) mitigate AI threats to critical infrastructure, (4) international collaboration, (5) workforce education. Completed initial sector risk assessments Jan 2024.</td>
+<td>Non-binding (agency roadmap)</td>
+<td class="status-uncertain">Uncertain under Trump DHS</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== Copyright Office ===================== -->
+<h2>U.S. Copyright Office<span class="section-count">4 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Copyright Registration Guidance: Works Containing Material Generated by Artificial Intelligence</strong><br><a class="url" href="https://www.federalregister.gov/documents/2023/03/16/2023-05321/copyright-registration-guidance-works-containing-material-generated-by-artificial-intelligence">Federal Register</a></td>
+<td>2023-03-16</td>
+<td><span class="badge badge-guidance">Registration Guidance</span></td>
+<td>Human authorship required for copyright; applicants must disclose AI-generated content and explain human contribution. Mere prompts do not qualify. AI outputs copyrightable only where human determined sufficient expressive elements.</td>
+<td>Binding (registration policy)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Copyright and Artificial Intelligence, Part 1: Digital Replicas</strong><br><a class="url" href="https://blogs.loc.gov/copyright/2024/08/inside-the-copyright-offices-report-copyright-and-artificial-intelligence-part-1-digital-replicas/">Copyright Office blog</a></td>
+<td>2024-07-31</td>
+<td><span class="badge badge-report">Report</span></td>
+<td>Recommends Congress establish federal right protecting individuals from unauthorized digital replicas (deepfakes) during their lifetimes. Part of multi-part AI study.</td>
+<td>Non-binding (recommendation to Congress)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Copyright and Artificial Intelligence, Part 2: Copyrightability</strong><br><a class="url" href="https://www.copyright.gov/ai/Copyright-and-Artificial-Intelligence-Part-2-Copyrightability-Report.pdf">Copyright Office (PDF)</a></td>
+<td>2025-01-29</td>
+<td><span class="badge badge-report">Report</span></td>
+<td>Works entirely generated by AI are not copyrightable; confirms human authorship requirement; analyzes when human creative arrangement or modification of AI output may qualify for protection.</td>
+<td>Non-binding (policy report)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Copyright and Artificial Intelligence, Part 3: Training</strong><br><a class="url" href="https://copyright.gov/ai/">Copyright Office</a></td>
+<td>2025-05-09</td>
+<td><span class="badge badge-report">Report</span></td>
+<td>107-page analysis of whether using copyrighted works for AI training constitutes fair use. Sets out framework for evaluating fair use in AI training context. Licensing implications section still expected.</td>
+<td>Non-binding (policy report)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== USPTO ===================== -->
+<h2>USPTO (U.S. Patent and Trademark Office)<span class="section-count">2 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Inventorship Guidance for AI-Assisted Inventions</strong><br><a class="url" href="https://www.federalregister.gov/documents/2024/02/13/2024-02623/inventorship-guidance-for-ai-assisted-inventions">Federal Register</a></td>
+<td>2024-02-13</td>
+<td><span class="badge badge-guidance">Guidance</span></td>
+<td>AI-assisted inventions are not categorically unpatentable; inventorship analysis focuses on human contributions. AI cannot be named as inventor (Federal Circuit precedent). Applied Pannu joint inventorship factors.</td>
+<td>Binding (examiner guidance)</td>
+<td class="status-revoked">Rescinded Nov 2025</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Revised Inventorship Guidance for AI-Assisted Inventions</strong><br><a class="url" href="https://www.federalregister.gov/documents/2025/11/28/2025-21457/revised-inventorship-guidance-for-ai-assisted-inventions">Federal Register</a></td>
+<td>2025-11-28</td>
+<td><span class="badge badge-guidance">Guidance</span></td>
+<td>Replaces Feb 2024 guidance; withdraws Pannu factors for AI-assisted inventions; confirms same legal standard applies regardless of AI use; no separate framework needed for AI-assisted inventions.</td>
+<td>Binding (examiner guidance)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== Treasury ===================== -->
+<h2>U.S. Department of the Treasury<span class="section-count">3 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Request for Information on Uses, Opportunities, and Risks of AI in Financial Services</strong><br><a class="url" href="https://home.treasury.gov/system/files/136/Treasury-AI-RFI-financial-sector-2024.pdf">Treasury (PDF)</a></td>
+<td>2024-06-12</td>
+<td><span class="badge badge-report">RFI</span></td>
+<td>Solicited 103 comment letters from financial firms, consumer groups, tech providers on AI risks and opportunities in financial services. Informed subsequent report and guidance.</td>
+<td>Non-binding (RFI)</td>
+<td class="status-active">Active (historical)</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Report on AI in Financial Services</strong><br><a class="url" href="https://home.treasury.gov/news/press-releases/jy2760">Treasury</a></td>
+<td>2024-12-01</td>
+<td><span class="badge badge-report">Report</span></td>
+<td>Summarizes RFI themes: increasing AI use, GenAI expanding use cases but introducing new risks (privacy, bias, third-party concentration). Recommends regulatory gap analysis, coordination among financial regulators, data standards.</td>
+<td>Non-binding (report)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>AI Lexicon + Financial Services AI Risk Management Framework (FS AI RMF)</strong><br><a class="url" href="https://home.treasury.gov/news/press-releases/sb0401">Treasury</a></td>
+<td>2026-02-01</td>
+<td><span class="badge badge-framework">Framework</span></td>
+<td>Shared AI terminology lexicon and sector-specific risk management framework for financial services; part of a six-resource series for secure and resilient AI in finance. Trump-era initiative.</td>
+<td>Non-binding (voluntary framework)</td>
+<td class="status-active">Active</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== FHFA ===================== -->
+<h2>FHFA (Federal Housing Finance Agency)<span class="section-count">1 item</span></h2>
+
+<div class="note">FHFA's primary AI action is the interagency AVM rule listed under CFPB (joint rule with 6 agencies). Listed there to avoid duplication.</div>
+
+<!-- ===================== Education Department ===================== -->
+<h2>U.S. Department of Education<span class="section-count">2 items</span></h2>
+
+<table>
+<tr><th style="width:22%">Title</th><th style="width:8%">Date</th><th style="width:8%">Type</th><th style="width:30%">Summary</th><th style="width:8%">Binding</th><th style="width:8%">Status</th><th style="width:6%">Verified</th></tr>
+
+<tr>
+<td><strong>Toolkit for Safe, Ethical, and Equitable AI Integration + OCR Guidance on Discriminatory Use of AI</strong><br><a class="url" href="https://www.ed.gov/about/ed-overview/artificial-intelligence-ai-guidance">ED.gov</a></td>
+<td>2024-10-01</td>
+<td><span class="badge badge-guidance">Toolkit/Guidance</span></td>
+<td>Pursuant to EO 14110: toolkit for responsible AI in education; OCR companion guidance on avoiding discriminatory AI use in schools with illustrative examples of civil rights law application.</td>
+<td>Non-binding (guidance)</td>
+<td class="status-uncertain">Uncertain under Trump ED</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+
+<tr>
+<td><strong>Supplemental Priority: AI Literacy and Computer Science Education</strong><br><a class="url" href="https://www.ed.gov/about/news/press-release/us-department-of-education-issues-guidance-artificial-intelligence-use-schools-proposes-additional-supplemental-priority">ED.gov</a></td>
+<td>2024-10-01</td>
+<td><span class="badge badge-guidance">Proposed Priority</span></td>
+<td>Proposes federal funding priority for integrating AI literacy into K-12 teaching, expanding AI/CS education, supporting educator professional development, using AI for personalized learning.</td>
+<td>Non-binding (proposed funding priority)</td>
+<td class="status-uncertain">Uncertain under Trump ED</td>
+<td><span class="verified">SEARCH-VERIFIED</span></td>
+</tr>
+</table>
+
+<!-- ===================== SUMMARY TABLE ===================== -->
+<h2>Cross-Agency Summary: Binding Status</h2>
+
+<table>
+<tr><th>Category</th><th>Count</th><th>Examples</th></tr>
+<tr><td><strong>Binding regulations / rules</strong></td><td>7</td><td>HTI-1, AVM Rule, FCC TCPA ruling, Section 1557, CMS Prior Auth, CFPB disparate impact rollback, Copyright registration guidance</td></tr>
+<tr><td><strong>Executive orders</strong></td><td>2</td><td>EO 14110 (revoked), EO 14179 (active)</td></tr>
+<tr><td><strong>OMB memoranda (binding on agencies)</strong></td><td>4</td><td>M-24-10 (rescinded), M-24-18 (rescinded), M-25-21, M-25-22</td></tr>
+<tr><td><strong>Enforcement actions (binding precedent)</strong></td><td>4</td><td>SEC Delphia/Global Predictions, SEC Joonko, DOJ RealPage</td></tr>
+<tr><td><strong>Agency guidance / circulars</strong></td><td>12+</td><td>CFPB circulars, FDA PCCP guidance, USPTO inventorship, CMS FAQ</td></tr>
+<tr><td><strong>Voluntary frameworks</strong></td><td>8+</td><td>NIST AI RMF, AI Bill of Rights, CISA Roadmap, Treasury FS AI RMF</td></tr>
+<tr><td><strong>Reports / studies</strong></td><td>12+</td><td>Copyright Office Parts 1-3, DOJ Criminal Justice, NIST AI 100-2/4, Treasury AI Report</td></tr>
+<tr><td><strong>Joint statements / speeches</strong></td><td>6+</td><td>4-agency joint statement, 9-agency pledge, Monaco speech, Gensler speeches</td></tr>
+</table>
+
+<div class="note" style="margin-top: 16px;">
+<strong>Key pattern:</strong> Biden-era actions (2022-Jan 2025) focused on risk mitigation, equity, transparency, and civil rights enforcement. Trump-era actions (Jan 2025+) shift toward deregulation, innovation promotion, and adoption acceleration. Most Biden-era binding regulations (HTI-1, AVM Rule, FCC ruling) remain in effect as they were finalized rules. Non-binding guidance and EO-dependent directives are most vulnerable to reversal. NIST technical work products (AI RMF, AI 100 series) persist as voluntary standards regardless of administration.
+</div>
+
+</body>
+</html>

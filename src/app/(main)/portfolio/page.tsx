@@ -2,7 +2,30 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FACTS } from '@/lib/facts';
 
-const GALLERY_URL = 'https://vault-sigma-two.vercel.app/portfolio';
+// The gallery used to live on the vault app's vercel.app address. Whit, 2026-09-15: it belongs on
+// hoplight.ai. The interactive pieces are served from public/portfolio/ (npm run gallery:pull).
+type Piece = { slug: string; title: string; blurb: string; href: string; live?: boolean; thumb?: string };
+
+const PIECES: Piece[] = [
+  { slug: 'dnc-autopsy-taken-apart', title: 'DNC autopsy, taken apart', blurb: 'The party’s own 2024 after-action report, argued from its own numbers.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
+  { slug: 'agis-policy-search-aria', title: 'AGIS policy search (ARIA)', blurb: '32,000 documents, 2,191 jurisdictions, searchable in plain English.', href: 'https://ai-policy-tool.vercel.app', live: true },
+  { slug: 'ai-governance-checklist', title: 'AI Governance Checklist', blurb: 'Interactive checklist a mission-driven org can work through.', href: '/portfolio/ai-governance-checklist.html' },
+  { slug: 'ai-lobbyist-player-map', title: 'AI Lobbyist Player Map', blurb: 'Who lobbies on AI, for whom, and where the money lands.', href: '/portfolio/ai-lobbyist-player-map.html' },
+  { slug: 'bet-appetit', title: 'Bet Appetit', blurb: 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.', href: '/bet-appetit', live: true, thumb: '/portfolio/thumbs/bet-appetit-demo.jpg' },
+  { slug: 'cba-win-pattern-playbook', title: 'CBA Win Pattern Playbook', blurb: 'AI clauses unions actually won, ranked by strength.', href: '/portfolio/cba-win-pattern-playbook.html' },
+  { slug: 'every-political-dollar-buys-less', title: 'Every Political Dollar Buys Less', blurb: 'Cost per vote, 2000 to 2024, climbing.', href: '/portfolio/every-political-dollar-buys-less.html' },
+  { slug: 'federal-agency-ai-inventory', title: 'Federal Agency AI Inventory', blurb: 'What every federal agency is doing on AI, browsable.', href: '/portfolio/federal-agency-ai-inventory.html' },
+  { slug: 'hoplight-persuasion-story-page', title: 'Hoplight persuasion story page', blurb: 'Scroll-driven story explaining the persuasion offer.', href: '/portfolio/hoplight-persuasion-story-page.html' },
+  { slug: 'oregon-school-budget-report', title: 'Oregon school budget report', blurb: 'Where Oregon K-12 money actually goes.', href: '/portfolio/oregon-school-budget-report.html' },
+  { slug: 'pdi-trust-dilution-model', title: 'PDI trust dilution model', blurb: 'A small working model of trust dilution.', href: '/portfolio/pdi-trust-dilution-model.html' },
+  { slug: 'redistricting-seat-shifts', title: 'Redistricting seat shifts', blurb: 'Likely flips and battleground districts.', href: '/portfolio/redistricting-seat-shifts.html' },
+  { slug: 'what-s-human', title: 'What’s Human?', blurb: 'Guess whether a person or a machine wrote the text. Live vote tally.', href: 'https://whatshuman.vercel.app', live: true },
+  { slug: 'where-political-money-actually-works', title: 'Where Political Money Actually Works', blurb: '24 years of political spending sorted by what moved votes.', href: '/portfolio/where-political-money-actually-works.html' },
+  { slug: 'which-ai-should-i-use', title: 'Which AI Should I Use?', blurb: 'Answer a few questions, get told which model fits the job.', href: '/tools/which-ai', live: true },
+  { slug: 'worker-equity-dilution-at-ge', title: 'Worker equity dilution at GE', blurb: 'Eighty years of worker equity draining out of one company.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
+];
+
+const NO_THUMB = new Set(['hoplight-persuasion-story-page']);
 
 export const metadata: Metadata = {
   title: 'Portfolio',
@@ -34,19 +57,36 @@ export default function Portfolio() {
             <h2>Most of it, you can just open.</h2>
             <p>
               Live applications and interactive analyses, running in a browser, with no sales call in
-              between. The gallery is the working set, so it changes when the work changes and not
-              when this page gets rebuilt.
+              between.
             </p>
           </div>
-          <div className="cta-row">
-            <a
-              className="btn btn-primary"
-              href={GALLERY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open the gallery &rarr;
-            </a>
+          <div className="gallery-grid">
+            {PIECES.map((p) => {
+              const external = p.href.startsWith('http');
+              const thumb = p.thumb ?? (NO_THUMB.has(p.slug) ? null : `/portfolio/thumbs/${p.slug}.jpg`);
+              return (
+                <a
+                  key={p.slug}
+                  className="wcard"
+                  href={p.href}
+                  {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                >
+                  <div className="wcard-img">
+                    {thumb ? (
+                      <img src={thumb} alt={`${p.title}, as it renders`} width={1200} height={750} loading="lazy" decoding="async" />
+                    ) : (
+                      <span className="wcard-plate">{p.title}</span>
+                    )}
+                  </div>
+                  <div className="wcard-body">
+                    <span className="wc-tag">{p.live ? 'Live app' : 'Interactive'}</span>
+                    <h3>{p.title}</h3>
+                    <p>{p.blurb}</p>
+                    <span className="wc-go">{p.live ? 'Open the live app →' : 'Open it →'}</span>
+                  </div>
+                </a>
+              );
+            })}
           </div>
         </div>
       </section>

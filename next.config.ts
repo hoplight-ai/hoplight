@@ -3,7 +3,13 @@ import type { NextConfig } from 'next'
 const nextConfig: NextConfig = {
   output: 'standalone',
   async rewrites() {
-    return []
+    // Bet Appetit's demo copy (invented data, no database) runs as its own Vercel project with
+    // basePath /bet-appetit, and hoplight.ai serves it under that path. Whit, 2026-09-15: portfolio
+    // pieces live on hoplight.ai, and the real Bet Appetit carries personal information.
+    return [
+      { source: '/bet-appetit', destination: 'https://bet-appetit-demo.vercel.app/bet-appetit' },
+      { source: '/bet-appetit/:path*', destination: 'https://bet-appetit-demo.vercel.app/bet-appetit/:path*' },
+    ]
   },
   async redirects() {
     return [

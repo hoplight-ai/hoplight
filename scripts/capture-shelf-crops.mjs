@@ -109,7 +109,7 @@ const PRODUCTS = [
   },
   {
     slug: 'betappetit',
-    url: 'https://bet-appetit.vercel.app',
+    url: 'https://hoplight.ai/bet-appetit',
     note: 'One bet card from The Guide, the lifetime bet: the question, the Not settleable as written badge, HOW IT SETTLES and the note count. It is the only card alone on its row, so it crops with air on both sides.',
     clip: { x: 0, y: 2140, width: 740, height: 370 },
     thumb: { x: 380, y: 380, width: 160, height: 160 },

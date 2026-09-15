@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Lobbyist Player Map</title>
+<style>
+:root {
+  --navy: #1a2744;
+  --accent: #1D9E75;
+  --bg: #fafaf8;
+  --surface: #fff;
+  --border: #e5e4e0;
+  --text: #1a2744;
+  --text-secondary: #6b6b68;
+  --accent-light: rgba(29, 158, 117, 0.08);
+  --accent-mid: rgba(29, 158, 117, 0.15);
+  --bar-bg: rgba(29, 158, 117, 0.12);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.header {
+  background: var(--navy);
+  color: #fff;
+  padding: clamp(32px, 5vw, 56px) 24px clamp(28px, 4vw, 48px);
+}
+.header-inner {
+  max-width: 900px;
+  margin: 0 auto;
+}
+.header-brand {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+.header h1 {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.header .subtitle {
+  font-size: clamp(15px, 2vw, 18px);
+  opacity: 0.7;
+  line-height: 1.5;
+  max-width: 600px;
+  font-weight: 400;
+}
+.header .updated {
+  font-size: 12px;
+  opacity: 0.4;
+  margin-top: 16px;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Hero Stats */
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin: clamp(-40px, -4vw, -56px) 0 0;
+  position: relative;
+  z-index: 2;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  text-align: left;
+}
+.stat-card .stat-number {
+  font-size: clamp(28px, 3.5vw, 36px);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.stat-card .stat-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* Sections */
+.section {
+  margin-top: clamp(48px, 6vw, 72px);
+}
+.section-header {
+  margin-bottom: 24px;
+}
+.section-header h2 {
+  font-size: clamp(20px, 2.5vw, 24px);
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.section-header .section-desc {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Intro block */
+.intro-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-top: clamp(32px, 4vw, 48px);
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.intro-block p + p {
+  margin-top: 14px;
+}
+.intro-block strong {
+  font-weight: 600;
+}
+
+/* Company Cards */
+.company-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.company-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 20px 24px 0;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.company-name {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text);
+}
+.company-spend {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums lining-nums;
+  white-space: nowrap;
+}
+.company-spend-context {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+.spend-bar-track {
+  height: 6px;
+  background: var(--bar-bg);
+  margin: 14px 24px 0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.spend-bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+.company-body {
+  padding: 16px 24px 20px;
+}
+.company-body p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.company-body p:last-child { margin-bottom: 0; }
+.company-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 12px;
+}
+.meta-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-light);
+  padding: 3px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.detail-label {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+.detail-label:first-child { margin-top: 0; }
+.personnel-list {
+  list-style: none;
+  padding: 0;
+}
+.personnel-list li {
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(229, 228, 224, 0.5);
+}
+.personnel-list li:last-child { border-bottom: none; }
+.personnel-list .name { font-weight: 600; }
+.personnel-list .role { color: var(--text-secondary); }
+.policy-list {
+  list-style: none;
+  padding: 0;
+}
+.policy-list li {
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 3px 0 3px 16px;
+  position: relative;
+  color: var(--text);
+}
+.policy-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+/* K Street / Trade / PAC cards */
+.org-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 12px;
+}
+.org-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.org-card .org-type {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 10px;
+}
+.org-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.org-card p:last-child { margin-bottom: 0; }
+.org-card .war-chest {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums lining-nums;
+}
+.org-card .war-chest-label {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+/* Coordinated strategy */
+.strategy-block {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  padding: 24px 28px;
+  margin-bottom: 16px;
+}
+.strategy-block h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text);
+}
+.strategy-block p {
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.strategy-block p:last-child { margin-bottom: 0; }
+
+/* Sources */
+.sources {
+  margin-top: clamp(48px, 6vw, 72px);
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  margin-bottom: 64px;
+}
+.sources h2 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+.sources ul {
+  list-style: none;
+  padding: 0;
+}
+.sources li {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(229, 228, 224, 0.3);
+}
+.sources li:last-child { border-bottom: none; }
+
+/* Footer */
+.footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.4);
+  text-align: center;
+  padding: 24px;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .hero-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .company-header {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .company-spend { font-size: 18px; }
+  .container { padding: 0 16px; }
+  .header { padding-left: 16px; padding-right: 16px; }
+}
+
+/* Print */
+@media print {
+  body { font-size: 11pt; background: #fff; }
+  .header { background: var(--navy); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .stat-card, .company-card, .org-card, .strategy-block { break-inside: avoid; }
+  .spend-bar-track { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .spend-bar-fill { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-brand">Hoplight</div>
+    <h1>AI Lobbyist Player Map</h1>
+    <p class="subtitle">Who's lobbying, how much they're spending, and what they want</p>
+    <p class="updated">Updated May 2026</p>
+  </div>
+</div>
+
+<!-- HERO STATS -->
+<div class="container">
+  <div class="hero-stats">
+    <div class="stat-card">
+      <div class="stat-number">3,570</div>
+      <div class="stat-label">Federal lobbyists reporting AI work in 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$100M+</div>
+      <div class="stat-label">Combined federal lobbying spend by top tech and AI companies in 2025</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">1 in 4</div>
+      <div class="stat-label">Federal lobbyists now work on AI issues</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">91 of 100</div>
+      <div class="stat-label">Top organizations lobbying on AI are corporate or corporate trade groups</div>
+    </div>
+  </div>
+
+  <!-- SCALE AND GROWTH -->
+  <div class="intro-block">
+    <p><strong>AI is the fastest-growing lobbying category in Washington.</strong> Public Citizen's February 2026 report "Generative Influence" documented 3,570 federal lobbyists reporting AI work in 2025, a 170 percent increase since 2022. By House lobbying records, 6,110 lobbyists were engaged on AI advocacy by the end of 2025, a 265 percent increase in three years. More lobbyists were active on AI issues than on defense or energy. No labor unions appear in the top 30.</p>
+    <p>Combined federal lobbying spend by top technology and AI companies exceeded $100 million in 2025. The full technology sector spent $314 million on federal lobbying in the first nine months of 2025 alone. The eight largest tech and AI companies combined spent $36 million in H1 2025, averaging <strong>$320,000 per day</strong> Congress was in session. In Q1 2026 alone, six major companies (Alphabet, Anthropic, Meta, Microsoft, Nvidia, OpenAI) hired a combined 307 lobbyists, slightly more than one lobbyist for every two members of Congress.</p>
+    <p>Public Citizen and allied groups documented at least <strong>$1.1 billion</strong> in combined Big Tech political spending during the 2024 election cycle and through 2025, encompassing direct lobbying, campaign contributions, and super PAC spending. This dwarfs the combined political spending of the entire organized labor movement. The asymmetry is structural: the industry can outspend labor on lobbying because it is spending a fraction of the revenue labor is trying to regulate.</p>
+    <p>The growth trajectory is accelerating. Federal lobbying set new records in both 2024 and 2025, with lobbying firms collectively taking in $5 billion in 2025. In California alone, the most active AI regulation state with 24 AI-related laws enacted across 2024 and 2025, tech giants are accelerating election spending specifically to shape which legislators write those laws. AI lobbyists are now present in every US statehouse, per NBC New York's investigation. The infrastructure being built is a permanent political operation designed to outlast any individual bill cycle.</p>
+  </div>
+
+  <!-- COMPANY-BY-COMPANY -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Company-by-Company Lobbying Operations</h2>
+      <p class="section-desc">Federal lobbying spend, key personnel, and policy goals for each major player.</p>
+    </div>
+
+    <!-- Meta -->
+    <div class="company-card">
+      <div class="company-header">
+        <span class="company-name">Meta</span>
+        <span class="company-spend">$26.3M <span class="company-spend-context">federal lobbying 2025</span></span>
+      </div>
+      <div class="spend-bar-track"><div class="spend-bar-fill" style="width:100%"></div></div>
+      <div class="company-body">
+        <p>The single largest corporate spender on AI lobbying. In Q1 2026, Meta spent nearly $7.1 million. It employs 86 lobbyists total (55 reporting AI-specific work), roughly one for every six members of Congress. 85 percent are former government employees, including 30 lobbyists across seven external firms. Meta also dropped $65 million into super PACs to boost tech-friendly state candidates in the 2026 cycle.</p>
+        <div class="company-meta">
+          <span class="meta-tag">86 lobbyists</span>
+          <span class="meta-tag">55 AI-specific</span>
+          <span class="meta-tag">85% former govt</span>
+          <span class="meta-tag">$7.1M Q1 2026</span>
+        </div>
+        <div class="detail-label">Policy Goals</div>
+        <ul class="policy-list">
+          <li>No regulation of AI training on user data</li>
+          <li>No state-level AI bias or discrimination laws</li>
+          <li>Federal preemption that kills emerging state protections</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Amazon -->
+    <div class="company-card">
+      <div class="company-header">
+        <span class="company-name">Amazon</span>
+        <span class="company-spend">$17.89M <span class="company-spend-context">federal lobbying 2025</span></span>
+      </div>
+      <div class="spend-bar-track"><div class="spend-bar-fill" style="width:68%"></div></div>
+      <div class="company-body">
+        <p>Substantial lobbying operation with 48 AI-specific lobbyists. Amazon's lobbying receives less public attention than the frontier lab companies despite its scale.</p>
+        <div class="company-meta">
+          <span class="meta-tag">48 AI-specific lobbyists</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Google -->
+    <div class="company-card">
+      <div class="company-header">
+        <span class="company-name">Google (Alphabet)</span>
+        <span class="company-spend">$13.1M <span class="company-spend-context">federal lobbying 2025</span></span>
+      </div>
+      <div class="spend-bar-track"><div class="spend-bar-fill" style="width:50%"></div></div>
+      <div class="company-body">
+        <p>Roughly $46,000 per day in Q1 2026. Google benefits from AI regulation that raises the cost of entry for competitors but opposes regulation that touches its data practices. Search, Gmail, YouTube, Maps, and Android all generate training data, making its monopoly data position the moat it defends.</p>
+        <div class="company-meta">
+          <span class="meta-tag">~$46K/day Q1 2026</span>
+        </div>
+        <div class="detail-label">Policy Goals</div>
+        <ul class="policy-list">
+          <li>AI regulation that raises barriers to entry for competitors</li>
+          <li>No regulation touching data collection practices</li>
+          <li>Protection of monopoly data position across Search, Gmail, YouTube, Maps, Android</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Apple -->
+    <div class="company-card">
+      <div class="company-header">
+        <span class="company-name">Apple</span>
+        <span class="company-spend">$10M <span class="company-spend-context">federal lobbying 2025</span></span>
+      </div>
+      <div class="spend-bar-track"><div class="spend-bar-fill" style="width:38%"></div></div>
+      <div class="company-body">
+        <p>Substantial lobbying operation that receives less public attention than the frontier lab companies.</p>
+      </div>
+    </div>
+
+    <!-- Microsoft -->
+    <div class="company-card">
+      <div class="company-header">
+        <span class="company-name">Microsoft</span>
+        <span class="company-spend">$9.36M <span class="company-spend-context">federal lobbying 2025</span></span>
+      </div>
+      <div class="spend-bar-track"><div class="spend-bar-fill" style="width:36%"></div></div>
+      <div class="company-body">
+        <p>Deployed 63 lobbyists on AI issues, the most of any pure technology company. Microsoft's play is infrastructure: selling Azure cloud compute that every AI company needs.</p>
+        <div class="company-meta">
+          <span class="meta-tag">63 AI lobbyists</span>
+          <span class="meta-tag">Most of any pure tech co.</span>
+        </div>
+        <div class="detail-label">Policy Goals</div>
+        <ul class="policy-list">
+          <li>Permissive data center construction</li>
+          <li>Continued government cloud contracts</li>
+          <li>No liability framework making Microsoft responsible when customers misuse AI tools</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Nvidia -->
+    <div class="company-card">
+      <div class="company-header">
+        <span class="company-name">Nvidia</span>
+        <span class="company-spend">$4.95M <span class="company-spend-context">federal lobbying 2025</span></span>
+      </div>
+      <div class="spend-bar-track"><div class="spend-bar-fill" style="width:19%"></div></div>
+      <div class="company-body">
+        <p>Increased lobbying spend roughly sevenfold from 2024 to 2025. Nvidia sells the chips every AI model runs on.</p>
+        <div class="company-meta">
+          <span class="meta-tag">~7x increase 2024 to 2025</span>
+        </div>
+        <div class="detail-label">Policy Goals</div>
+        <ul class="policy-list">
+          <li>Permissive export controls (wants to sell to Chinese companies)</li>
+          <li>Government-subsidized infrastructure buildout</li>
+          <li>No regulation that reduces total AI compute volume</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- OpenAI -->
+    <div class="company-card">
+      <div class="company-header">
+        <span class="company-name">OpenAI</span>
+        <span class="company-spend">$2.99M <span class="company-spend-context">federal lobbying 2025</span></span>
+      </div>
+      <div class="spend-bar-track"><div class="spend-bar-fill" style="width:11.4%"></div></div>
+      <div class="company-body">
+        <p>Lobbying trajectory tells the story of an industry gearing up for political war. Spend went from $260,000 in 2023 to $1.76 million in 2024 (a nearly sevenfold increase) to $2.99 million in 2025 to $1 million in Q1 2026 alone, an 82 percent increase over Q1 2025, roughly $11,000 per day. The team is built entirely from former senior Hill staffers, a bipartisan access strategy that ensures whichever party controls Congress, OpenAI has a former insider in the room.</p>
+        <div class="company-meta">
+          <span class="meta-tag">$1M in Q1 2026</span>
+          <span class="meta-tag">~$11K/day</span>
+          <span class="meta-tag">82% increase YoY</span>
+        </div>
+        <div class="detail-label">Key Personnel</div>
+        <ul class="personnel-list">
+          <li><span class="name">Chris Lehane</span> <span class="role">Chief Global Affairs Officer. Former Clinton White House rapid-response operative. Ran Airbnb's global regulatory strategy. Sits on Coinbase board. Architect of OpenAI's "reverse federalism" strategy: lobbying state legislatures to pass harmonized, industry-friendly AI laws as a de facto national standard. Target states: California, New York, Illinois.</span></li>
+          <li><span class="name">Chan Park</span> <span class="role">Head of US Policy. Former Senate Judiciary Committee counsel. Former Microsoft lobbyist.</span></li>
+          <li><span class="name">Reginald Babin</span> <span class="role">Registered lobbyist. Former legal counsel to Senate Majority Leader Chuck Schumer.</span></li>
+          <li><span class="name">Meghan Dorn</span> <span class="role">Former five-year staffer for Senator Lindsey Graham.</span></li>
+        </ul>
+        <div class="detail-label">External Firms</div>
+        <p>DLA Piper, Akin Gump Strauss Hauer &amp; Feld</p>
+      </div>
+    </div>
+
+    <!-- Anthropic -->
+    <div class="company-card">
+      <div class="company-header">
+        <span class="company-name">Anthropic</span>
+        <span class="company-spend">~$1.6M <span class="company-spend-context">Q1 2026 alone</span></span>
+      </div>
+      <div class="spend-bar-track"><div class="spend-bar-fill" style="width:6%"></div></div>
+      <div class="company-body">
+        <p>A 333 percent increase from Q1 2025, outspending OpenAI for the first time. Positions itself as the "safety-first" lab while also putting $20 million into a super PAC.</p>
+        <div class="company-meta">
+          <span class="meta-tag">333% increase YoY</span>
+          <span class="meta-tag">Outspent OpenAI Q1 2026</span>
+          <span class="meta-tag">$20M into super PAC</span>
+        </div>
+        <div class="detail-label">Lobbying Focus Areas</div>
+        <ul class="policy-list">
+          <li>AI procurement</li>
+          <li>Defense Department contracts</li>
+          <li>Supply chain risk</li>
+          <li>Export controls</li>
+          <li>Energy infrastructure</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- K STREET FIRMS AND TRADE ASSOCIATIONS -->
+  <div class="section">
+    <div class="section-header">
+      <h2>K Street Firms and Trade Association Networks</h2>
+      <p class="section-desc">The lobbying firms translating Silicon Valley's money into Washington access, and the trade associations coordinating state and federal strategy.</p>
+    </div>
+
+    <div class="org-card">
+      <h3>Bruce Mehlman / Mehlman Consulting</h3>
+      <div class="org-type">K Street Firm</div>
+      <p>Executive Director of the Technology CEO Council. Former Commerce Department official under George W. Bush. Clients include Andreessen Horowitz, IBM, and ElevenLabs. Describes his career as "explaining Washington to Silicon Valley and Silicon Valley to Washington."</p>
+    </div>
+
+    <div class="org-card">
+      <h3>Tony Samp / DLA Piper</h3>
+      <div class="org-type">K Street Firm</div>
+      <p>Heads DLA Piper's AI policy practice. Founding director of the Senate AI Caucus. Previously worked for Senator Martin Heinrich.</p>
+    </div>
+
+    <div class="org-card">
+      <h3>Invariant &amp; Brownstein Hyatt</h3>
+      <div class="org-type">K Street Firms</div>
+      <p>Additional major firms with significant AI lobbying revenue in 2025.</p>
+    </div>
+
+    <div class="org-card" style="border-left: 3px solid var(--accent);">
+      <h3>TechNet</h3>
+      <div class="org-type">Trade Association / Primary State-Level Lobbying Vehicle</div>
+      <p><strong>Members:</strong> OpenAI, Anthropic, Amazon, Meta, Nvidia, Apple, Microsoft, Comcast.</p>
+      <p>Engaged on <strong>808 bills</strong> across all 50 states, DC, and Puerto Rico in 2025. Self-reported win rate of <strong>87 percent</strong>, meaning the industry's stated position prevailed on nearly nine out of ten state bills it touched. Assets tripled from $5 million (end of 2021) to $15 million (end of 2024).</p>
+      <p>NBC New York documented TechNet opposing: a Wisconsin chatbot safety bill, a Nebraska bill addressing AI-generated child sexual abuse material, data center restrictions in Colorado and New Jersey, and a Rhode Island bill establishing the right to sue AI companies for harm. Named lobbyist Chris Gilrein testified against the New York AI Act in January 2026.</p>
+      <div class="company-meta" style="margin-top:10px;">
+        <span class="meta-tag">808 bills engaged</span>
+        <span class="meta-tag">87% win rate</span>
+        <span class="meta-tag">50 states + DC + PR</span>
+      </div>
+    </div>
+
+    <div class="org-card">
+      <h3>U.S. Chamber of Commerce</h3>
+      <div class="org-type">Trade Association</div>
+      <p>Hired the most AI lobbyists in 2025: <strong>91 total</strong>. The largest business lobbying group in the country. Pushes for voluntary standards, no new regulatory agencies, and federal preemption.</p>
+      <div class="company-meta" style="margin-top:10px;">
+        <span class="meta-tag">91 AI lobbyists</span>
+        <span class="meta-tag">Most of any org</span>
+      </div>
+    </div>
+
+    <div class="org-card">
+      <h3>Information Technology Industry Council (ITI)</h3>
+      <div class="org-type">Trade Association</div>
+      <p><strong>Members:</strong> Amazon, Apple, Google, Meta, Microsoft. Advocates for federal preemption and published an "AI Accountability Framework" as an industry self-regulatory alternative.</p>
+    </div>
+
+    <div class="org-card">
+      <h3>CCIA &amp; BSA (The Software Alliance)</h3>
+      <div class="org-type">Trade Associations</div>
+      <p>File joint briefs and letters alongside ITI, all pushing the same core agenda: a federal floor that preempts state action rather than a ceiling that constrains industry.</p>
+    </div>
+  </div>
+
+  <!-- SUPER PACs -->
+  <div class="section">
+    <div class="section-header">
+      <h2>Super PACs and Political Spending</h2>
+      <p class="section-desc">The electoral infrastructure that determines who writes the laws in the first place.</p>
+    </div>
+
+    <div class="org-card" style="border-left: 3px solid var(--accent);">
+      <h3>Leading the Future</h3>
+      <div class="org-type">AI Industry Flagship Super PAC</div>
+      <div class="war-chest">$125M</div>
+      <div class="war-chest-label">War chest</div>
+      <p>Andreessen Horowitz contributed $50 million, the highest known political contributor in the 2026 cycle. The PAC holds $70 million cash for 2026 midterms and operates two arms: American Mission (Republican) and Think Big (Democratic). Affiliates have spent $5.1 million on federal races in the 2026 cycle, including spending against New York Assemblyman Alex Bores, who sponsored AI safety legislation and is now running for Congress.</p>
+      <p>The ads attacking or supporting candidates largely avoid mentioning AI, following the crypto industry's 2024 playbook of knocking out lawmakers who favor stronger protections without letting voters know that is the reason.</p>
+      <div class="company-meta" style="margin-top:10px;">
+        <span class="meta-tag">$70M cash for 2026</span>
+        <span class="meta-tag">$50M from a16z</span>
+        <span class="meta-tag">Two-party operation</span>
+      </div>
+    </div>
+
+    <div class="org-card">
+      <h3>Fairshake</h3>
+      <div class="org-type">Crypto Super PAC / Shared Funder Ecosystem</div>
+      <div class="war-chest">~$194M</div>
+      <div class="war-chest-label">Holdings including new fundraising (late 2025)</div>
+      <p><strong>Backers:</strong> Coinbase, Andreessen Horowitz, Ripple Labs. Fairshake and aligned groups spent a combined $290 million during the 2024 election cycle. The AI-crypto overlap is structural: the same funders (Andreessen Horowitz, Greg Brockman of OpenAI, Joe Lonsdale of Palantir) power both Fairshake and Leading the Future, creating a unified political spending operation across both industries.</p>
+      <div class="company-meta" style="margin-top:10px;">
+        <span class="meta-tag">$290M in 2024 cycle</span>
+        <span class="meta-tag">AI-crypto overlap</span>
+      </div>
+    </div>
+
+    <div class="org-card">
+      <h3>American Technology Excellence Project</h3>
+      <div class="org-type">Meta Super PAC</div>
+      <p>Separate super PAC funded by Meta to support tech-friendly state candidates and oppose state AI regulation.</p>
+    </div>
+
+    <div class="strategy-block">
+      <h3>Combined War Chest: $300M+</h3>
+      <p>Together, Leading the Future, Fairshake, and Meta's American Technology Excellence Project hold a combined war chest exceeding $300 million available to defeat pro-regulation candidates in 2026.</p>
+      <p>The strategy these PACs share is deliberately invisible to voters. Ads run against pro-regulation candidates typically focus on unrelated issues: crime, immigration, taxes, local controversies. The AI industry funding behind them appears only in FEC filings that most voters never see. The 2024 crypto PAC playbook proved this works: Fairshake successfully defeated multiple members of Congress who supported crypto regulation, and in most races, voters were unaware that crypto industry money was the driving force. Leading the Future is applying the identical playbook to AI.</p>
+      <p>The Jobs and Democracy PAC, a pro-regulation counterweight, has launched ad buys supporting candidates like Bores, but its resources are a fraction of the industry side.</p>
+    </div>
+  </div>
+
+  <!-- COORDINATED LEGISLATIVE STRATEGY -->
+  <div class="section">
+    <div class="section-header">
+      <h2>The Coordinated Legislative Strategy</h2>
+      <p class="section-desc">The unified system behind the spending.</p>
+    </div>
+
+    <div class="strategy-block">
+      <h3>Primary Objective: Federal Preemption</h3>
+      <p>Across all this spending, the industry's primary objective is federal preemption: a single national framework that eliminates state-level protections on AI bias, surveillance, hiring, and safety. The mechanism is coordinated across multiple channels.</p>
+    </div>
+
+    <div class="strategy-block">
+      <h3>ALEC Model State Artificial Intelligence Act</h3>
+      <p>Proposes state-level offices tasked with identifying and removing regulatory barriers, framing regulation itself as the problem.</p>
+    </div>
+
+    <div class="strategy-block">
+      <h3>December 2025 Trump Executive Order</h3>
+      <p>Directed federal agencies to identify, challenge, and preempt state AI laws within 90 days.</p>
+    </div>
+
+    <div class="strategy-block">
+      <h3>Congressional and White House Actions</h3>
+      <p>The House proposal for a 10-year ban on state AI regulation (which failed 99-1 in the Senate) and the March 2026 White House National Policy Framework calling for preemption, regulatory sandboxes, and no new federal regulator are all expressions of the same strategy.</p>
+      <p>When the industry says "regulatory clarity," they mean one standard weak enough to constrain their operations and strong enough to prevent states from doing anything more.</p>
+    </div>
+
+    <div class="strategy-block">
+      <h3>Backup Plan: Reverse Federalism</h3>
+      <p>If federal preemption fails, get the biggest states to pass harmonized industry-friendly laws that create a de facto national standard without Congress acting at all. This is OpenAI's Chris Lehane strategy, targeting California, New York, and Illinois.</p>
+      <p>California's experience illustrates how this plays out. SB 1047, which would have required safety auditing and kill switches for frontier AI models, was vetoed by Governor Newsom in 2024 after intense industry lobbying. OpenAI's lobbying spend increased 44 percent in the first half of 2025, driven partly by the California fight. The replacement bill, SB 53, was weaker, and Anthropic publicly backed it: kill the strong bill, support the weak one, take credit for being pro-safety.</p>
+    </div>
+
+    <div class="strategy-block">
+      <h3>The System</h3>
+      <p>The lobbying spend funds the legislative push. The trade associations coordinate the state-level opposition. The super PACs remove lawmakers who resist. The money flows in one direction, and the unified goal is a regulatory environment that protects the industry's ability to deploy AI without constraint.</p>
+      <p>Understanding this as a coordinated system rather than a collection of individual actors is the essential insight for anyone walking into a room where these interests are represented. The lobbyist across the table is not freelancing. They are executing a strategy backed by over a billion dollars in political infrastructure.</p>
+    </div>
+  </div>
+
+  <!-- SOURCES -->
+  <div class="sources">
+    <h2>Key Sources</h2>
+    <ul>
+      <li>Public Citizen, "Generative Influence" (February 2026).</li>
+      <li>Public Citizen, "$1.1 Billion in Big Tech Political Spending" (2026).</li>
+      <li>Sludge, "AI Boom on K Street: One in Four Lobbyists Now Work on AI" (February 2026).</li>
+      <li>NBC New York, "Lobbyists for AI Are Now in Every U.S. Statehouse" (May 2026).</li>
+      <li>Issue One, "As Big Tech Gears Up for the 2026 Midterms, Its Lobbying Operations Continue Unabated" (2025).</li>
+      <li>Issue One, "Reeling From Major Lawsuit Losses, Big Tech Injects Huge Sums Into Influence Operations" (2026).</li>
+      <li>Bloomberg Government, "AI Lobbying Soars in Washington, Among Big Firms and Upstarts" (2026).</li>
+      <li>Axios, "Anthropic Outspends OpenAI in Biggest-Ever Lobbying Quarter" (April 2026).</li>
+      <li>MIT Technology Review, "OpenAI Has Upped Its Lobbying Efforts Nearly Seven-Fold" (January 2025).</li>
+      <li>OpenSecrets federal lobbying disclosures (2023-2026).</li>
+      <li>Politico, "Inside the Next Phase of OpenAI's Political Strategy" (May 2026).</li>
+      <li>Transformer News, "The Guerilla Warrior Who Taught OpenAI to Fight" (2026).</li>
+      <li>Transformer News, "Meet Meta's AI Lobbying Army" (2026).</li>
+      <li>CalMatters, "Tech Giants Are Spending More Than Ever to Shape California Politics" (March 2026).</li>
+      <li>EPR Research/5W, "The AI Lobbying Industry Map 2026" (2026).</li>
+      <li>CNBC, AI industry super PAC fundraising reporting (January 2026).</li>
+      <li>Bloomberg, Andreessen Horowitz PAC contributions (April 2026).</li>
+      <li>NOTUS, AI super PAC spending on Bores race (2026).</li>
+      <li>ALEC, Model State Artificial Intelligence Act (alec.org).</li>
+      <li>White House, AI preemption executive order (December 2025).</li>
+    </ul>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  Hoplight
+</div>
+
+</body>
+</html>

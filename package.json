@@ -8,6 +8,7 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "check:preview": "node scripts/check-preview-metadata.mjs",
+    "gallery:pull": "node scripts/pull-gallery.mjs",
     "prepare": "git config core.hooksPath .githooks"
   },
   "dependencies": {

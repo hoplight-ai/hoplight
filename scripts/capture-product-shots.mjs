@@ -14,7 +14,7 @@ const TARGETS = [
   { slug: 'mocu',        url: 'https://quick-tools-pi.vercel.app/tools/mocu' },
   { slug: 'whatshuman',  url: 'https://whatshuman.vercel.app' },
   { slug: 'ontheclock',  url: 'https://the-board-red-seven.vercel.app' },
-  { slug: 'betappetit',  url: 'https://bet-appetit.vercel.app' },
+  { slug: 'betappetit',  url: 'https://hoplight.ai/bet-appetit' },
   { slug: 'rumi',        url: 'https://rumi-rouge.vercel.app' },
   { slug: 'letters',     url: 'https://letters-ten-eta.vercel.app' },
   // Research

@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Year Less School — Where Oregon's K-12 Money Actually Goes</title>
+<meta name="description" content="An interactive, data-driven investigation of Oregon's K-12 school finances: administrative spending in national context, the pension mortgage, the starved revenue core, and the instructional time deficit.">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Archivo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  line-height: 1.5; background: var(--bg); color: var(--text);
+  transition: background 200ms ease-in-out, color 200ms ease-in-out;
+}
+.tabular { font-variant-numeric: tabular-nums lining-nums; }
+
+:root, [data-theme="light"] {
+  --bg: #f7f5f0; --surface: #ffffff; --surface2: #efece4;
+  --border: #ddd9cf; --text: #1b1a17; --text-dim: #6d6a60;
+  --accent: #b23c2a; --accent-light: rgba(178,60,42,0.08); --accent-mid: rgba(178,60,42,0.18);
+  --fix: #1e6f5c; --fix-light: rgba(30,111,92,0.09);
+  --gridline: rgba(0,0,0,0.07); --axis: rgba(0,0,0,0.35);
+  --bar-neutral: #b9b4a6; --shadow: rgba(0,0,0,0.06);
+}
+[data-theme="dark"] {
+  --bg: #101013; --surface: #17171c; --surface2: #1f1f26;
+  --border: #2e2e37; --text: #eae8e2; --text-dim: #9a978e;
+  --accent: #e0604e; --accent-light: rgba(224,96,78,0.11); --accent-mid: rgba(224,96,78,0.22);
+  --fix: #4fbd9c; --fix-light: rgba(79,189,156,0.12);
+  --gridline: rgba(255,255,255,0.08); --axis: rgba(255,255,255,0.32);
+  --bar-neutral: #4a4a55; --shadow: rgba(0,0,0,0.4);
+}
+
+h1 { font-size: clamp(2.6rem, 2rem + 2.8vw, 4.4rem); font-weight: 900; line-height: 0.98; letter-spacing: -0.02em; text-wrap: balance; }
+h2 { font-size: clamp(1.9rem, 1.6rem + 1.4vw, 2.8rem); font-weight: 900; line-height: 1.04; letter-spacing: -0.015em; text-wrap: balance; }
+h3 { font-size: clamp(1.35rem, 1.2rem + 0.7vw, 1.7rem); font-weight: 800; line-height: 1.12; text-wrap: balance; }
+h4 { font-size: clamp(1.1rem, 1rem + 0.4vw, 1.25rem); font-weight: 700; line-height: 1.2; }
+p { max-width: 65ch; }
+h1,h2,h3,h4 { margin-top: 1.6em; margin-bottom: 0.45em; }
+h1:first-child,h2:first-child,h3:first-child,h4:first-child { margin-top: 0; }
+.small { font-size: 0.78rem; line-height: 1.4; }
+a { color: var(--accent); }
+
+.nav-bar { position: sticky; top: 0; z-index: 100; background: var(--surface); border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; padding: 0 14px; height: 52px; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.nav-bar::-webkit-scrollbar { display: none; }
+.nav-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; color: var(--text-dim); text-transform: uppercase; white-space: nowrap; margin-right: 10px; flex-shrink: 0; }
+.nav-btn { font-size: 0.72rem; font-weight: 500; padding: 5px 10px; border: none; background: transparent; color: var(--text-dim);
+  cursor: pointer; white-space: nowrap; border-radius: 4px; transition: background 150ms ease-out, color 150ms ease-out; min-height: 36px; font-family: inherit; }
+@media (hover: hover) { .nav-btn:hover { background: var(--surface2); color: var(--text); } }
+.nav-btn.active { background: var(--accent-light); color: var(--accent); font-weight: 700; }
+.nav-btn:focus-visible { box-shadow: 0 0 0 3px var(--accent-mid); outline: none; }
+.dark-toggle { margin-left: auto; flex-shrink: 0; font-size: 0.7rem; padding: 5px 10px; border: 1px solid var(--border); border-radius: 4px;
+  background: transparent; color: var(--text-dim); cursor: pointer; min-height: 36px; font-family: inherit; }
+
+.page { display: none; min-height: calc(100vh - 108px); padding: 44px 24px 40px; max-width: 1080px; margin: 0 auto; }
+.page.active { display: block; }
+.page.fade-in { animation: fadeIn 200ms ease-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+.bottom-nav { position: sticky; bottom: 0; background: var(--surface); border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; padding: 0 20px; height: 56px; }
+.nav-arrow { font-size: 0.85rem; font-weight: 600; border: none; background: transparent; color: var(--accent); cursor: pointer; padding: 10px 12px; border-radius: 6px; font-family: inherit; min-height: 44px; }
+.nav-arrow:disabled { opacity: 0.35; cursor: default; }
+.page-dots { font-size: 0.72rem; color: var(--text-dim); letter-spacing: 0.06em; }
+
+.kicker { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+.lede { font-size: clamp(1.1rem, 1rem + 0.5vw, 1.3rem); line-height: 1.55; color: var(--text); max-width: 62ch; }
+.dim { color: var(--text-dim); }
+
+.stat-strip { display: grid; grid-template-columns: repeat(auto-fit, minmax(158px, 1fr)); gap: 14px; margin: 34px 0; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px 16px 13px; }
+.stat .v { font-size: clamp(1.6rem, 1.4rem + 1vw, 2.2rem); font-weight: 900; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; line-height: 1.05; }
+.stat .v.bad { color: var(--accent); }
+.stat .l { font-size: 0.72rem; color: var(--text-dim); margin-top: 6px; line-height: 1.35; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 22px; margin: 26px 0; }
+.card h4 { margin-top: 0; }
+.chart-wrap { margin: 10px 0 4px; }
+.chart-title { font-size: 1.02rem; font-weight: 800; line-height: 1.25; margin-bottom: 2px; text-wrap: balance; }
+.chart-sub { font-size: 0.78rem; color: var(--text-dim); margin-bottom: 12px; }
+.chart-src { font-size: 0.68rem; color: var(--text-dim); margin-top: 8px; }
+svg text { font-family: 'Archivo', sans-serif; }
+
+.callout { border-left: 3px solid var(--accent); background: var(--accent-light); padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 22px 0; max-width: 70ch; }
+.callout.fix { border-left-color: var(--fix); background: var(--fix-light); }
+.callout b { font-weight: 800; }
+
+table { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+th { text-align: left; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); padding: 8px 10px; border-bottom: 2px solid var(--border); }
+th.num, td.num { text-align: right; font-variant-numeric: tabular-nums lining-nums; }
+td { padding: 8px 10px; border-bottom: 1px solid var(--gridline); }
+tr.hl td { background: var(--accent-light); font-weight: 700; }
+
+.metric-toggle { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+.mbtn { font-size: 0.72rem; font-weight: 600; padding: 7px 12px; border: 1px solid var(--border); background: var(--surface); color: var(--text-dim); border-radius: 999px; cursor: pointer; font-family: inherit; min-height: 36px; }
+.mbtn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.mbtn:focus-visible { box-shadow: 0 0 0 3px var(--accent-mid); outline: none; }
+
+.search-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 18px 0; }
+.search-row input { flex: 1 1 260px; font-family: inherit; font-size: 0.95rem; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); min-height: 44px; }
+.search-row input:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--accent-mid); border-color: var(--accent); }
+.suggest { position: absolute; z-index: 50; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 8px 24px var(--shadow); max-height: 260px; overflow-y: auto; width: min(420px, 90vw); }
+.suggest button { display: block; width: 100%; text-align: left; padding: 9px 14px; border: none; background: transparent; color: var(--text); font-family: inherit; font-size: 0.88rem; cursor: pointer; }
+@media (hover:hover) { .suggest button:hover { background: var(--surface2); } }
+
+.fix-card { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--fix); border-radius: 8px; padding: 20px 22px; margin: 18px 0; }
+.fix-card .who { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin: 4px 0 10px; }
+.fix-card .mag { font-weight: 800; color: var(--fix); }
+.year-grid { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0; }
+.yr { width: 52px; height: 64px; border-radius: 6px; background: var(--surface2); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; }
+.yr span { font-size: 0.55rem; font-weight: 600; color: var(--text-dim); letter-spacing: 0.05em; }
+.yr.lost { background: var(--accent-light); border-color: var(--accent); color: var(--accent); border-style: dashed; }
+footer { text-align: center; padding: 26px 20px 90px; color: var(--text-dim); font-size: 0.72rem; }
+.noscript-note { background: var(--accent-light); padding: 12px 18px; border-radius: 8px; margin: 14px 0; font-size: 0.85rem; }
+@media print { .nav-bar, .bottom-nav { display: none; } .page { display: block !important; } }
+</style>
+</head>
+<body>
+
+<nav class="nav-bar" aria-label="Report sections">
+  <span class="nav-title">Oregon K-12 · By Its Own Numbers</span>
+  <button class="nav-btn active" data-page="verdict">Verdict</button>
+  <button class="nav-btn" data-page="money">The Money</button>
+  <button class="nav-btn" data-page="context">Bloat, In Context</button>
+  <button class="nav-btn" data-page="pension">The Pension Mortgage</button>
+  <button class="nav-btn" data-page="core">The Starved Core</button>
+  <button class="nav-btn" data-page="time">A Year Less School</button>
+  <button class="nav-btn" data-page="district">Your District</button>
+  <button class="nav-btn" data-page="fixes">The Fixes</button>
+  <button class="nav-btn" data-page="methods">Methods</button>
+  <button class="dark-toggle" id="themeBtn" aria-label="Toggle dark mode">◐ Theme</button>
+</nav>
+
+<!-- ============ PAGE 1: VERDICT ============ -->
+<main>
+<section class="page active" id="page-verdict">
+  <div class="kicker">An independent data investigation · July 2026</div>
+  <h1>Oregon spends more per student than most of America. Its students get less classroom and less school.</h1>
+  <p class="lede" style="margin-top:22px">Five years of line-item spending from all 197 Oregon school districts, federal comparison data for all 50 states, and the state's own instructional-time rules point to the same conclusion: the crisis is real, but it is not where the shouting says it is. The villain is not the superintendent's office. It is a pension mortgage, a swelling back office, a revenue core that hasn't grown in real terms, and a school year that quietly shorts every Oregon kid about <b>a full year of school by age 18</b>.</p>
+  <noscript><style>.page { display: block !important; }</style><div class="noscript-note">Charts on this page require JavaScript, but every headline number is in the text.</div></noscript>
+  <div class="stat-strip">
+    <div class="stat"><div class="v tabular">$13.8B</div><div class="l">Total K-12 spending, all funds, 2023-24 (ODE actuals)</div></div>
+    <div class="stat"><div class="v tabular bad">47th</div><div class="l">National rank, actual instructional time delivered to students</div></div>
+    <div class="stat"><div class="v tabular bad">55.4%</div><div class="l">Share of current spending reaching instruction (US average: 59.1%)</div></div>
+    <div class="stat"><div class="v tabular bad">55.6¢</div><div class="l">Benefits paid per $1 of salary (US average: 44.2¢)</div></div>
+    <div class="stat"><div class="v tabular bad">−6%</div><div class="l">Enrollment change 2019-2024, while nominal spending rose 13%</div></div>
+    <div class="stat"><div class="v tabular bad">−2%</div><div class="l">Real change in per-student instruction spending, 2019-2024</div></div>
+  </div>
+  <h3>The one-minute version</h3>
+  <p>Ask why Oregon schools keep announcing layoffs and cuts, and you'll usually hear one of two stories: <i>administrators are bloated</i>, or <i>schools are underfunded</i>. The data says both stories are half-true, and the halves matter.</p>
+  <p style="margin-top:12px"><b>The bloat is real but misplaced.</b> Classic administration — school boards, superintendents, principals — is roughly at the national rate (7.7% of spending vs 7.3%). General administration is actually <i>leaner</i> than the US average. But Oregon's central back office (HR, IT, planning, data, communications) runs at nearly <b>double</b> the national per-student rate, about <b>$330 million a year</b> above US norms, and it grew three times faster than instruction over five years.</p>
+  <p style="margin-top:12px"><b>The structural squeeze is bigger than the bloat.</b> Oregon pays about <b>$553 million a year</b> more in employee benefits than it would at the national benefits-to-salary ratio — a pension mortgage from PERS legacy costs that taxes every classroom dollar. Meanwhile the unrestricted revenue core (Measure 50-capped property taxes plus the State School Fund) grew <b>0.3% in real per-student terms over five years</b>. Zero, effectively.</p>
+  <p style="margin-top:12px"><b>And the kids pay twice.</b> While spending per student rose, real instruction spending per student <i>fell 2%</i> — and Oregon delivers among the least instructional time in America. Minimums so low, and actual hours so short, that a student who goes K-12 in Oregon receives roughly <b>one full school year less</b> than the average American student by graduation.</p>
+  <div class="callout"><b>The indictment, precisely stated:</b> Oregon runs an above-average-cost school system that delivers below-average classroom investment and near-bottom classroom time, while its money leaks into benefits obligations and back-office growth that no parent ever voted for.</div>
+</section>
+
+<!-- ============ PAGE 2: THE MONEY ============ -->
+<section class="page" id="page-money">
+  <div class="kicker">Part 1 · Where the money goes</div>
+  <h2>Instruction is the slowest-growing thing Oregon schools buy</h2>
+  <p class="lede">Oregon districts spent $13.8 billion across all funds in 2023-24. The operating core — the General Fund — was $8.1 billion. Follow the five-year growth rates and the problem stops being abstract: every overhead category is compounding faster than the classroom.</p>
+  <div class="card">
+    <div class="chart-title">General-Fund overhead grew 2-3x faster than instruction, 2019-20 → 2023-24</div>
+    <div class="chart-sub">Indexed spending, 2019-20 = 100. General Fund, all 197 school districts. CPI over this window: +20.7%.</div>
+    <div class="chart-wrap" id="chart-growth"></div>
+    <div class="chart-src">Source: ODE Detailed District Expenditure actuals, FY2019-20 to FY2023-24, function-code groupings per Oregon PBAM chart of accounts.</div>
+  </div>
+  <div class="card">
+    <div class="chart-title">Where a General Fund dollar went in 2023-24</div>
+    <div class="chart-sub">Share of General Fund operating spending, statewide.</div>
+    <div class="chart-wrap" id="chart-shares"></div>
+    <div class="chart-src">Source: ODE actuals. "Central services" = PBAM 2600-series: HR, IT, planning, data, communications. "School admin" = principals' offices (2400s). "General admin" = boards + superintendents (2300s).</div>
+  </div>
+  <div class="callout">Instruction grew <b>+11.2%</b> over five years — half the rate of inflation. General administration grew <b>+32.7%</b>, business services <b>+33.1%</b>, central services <b>+35.4%</b>, transportation <b>+38.0%</b>. When inflation ran +20.7%, only the classroom lost ground.</div>
+  <p class="dim small" style="max-width:70ch">Note: enrollment fell 6% over the same window (582,661 → 547,424). Per-student figures throughout this report use October fall membership. One-time federal pandemic money (ESSER) inflates 2020-2023 totals in non-General funds; General Fund trends shown here largely exclude it — which is what makes the overhead growth harder to excuse.</p>
+</section>
+
+<!-- ============ PAGE 3: BLOAT IN CONTEXT ============ -->
+<section class="page" id="page-context">
+  <div class="kicker">Part 2 · The 50-state test</div>
+  <h2>The "admin bloat" everyone argues about is the wrong bloat</h2>
+  <p class="lede">Put Oregon against all 50 states using the Census Bureau's standardized school-finance data (F-33, FY2023) and a precise picture emerges. Boards and superintendents: lean. Principals' offices: somewhat heavy. The central back office: nearly double the national rate. And the classroom: underfed relative to every neighbor.</p>
+  <div class="stat-strip">
+    <div class="stat"><div class="v tabular">$252</div><div class="l">Oregon general administration per student — BELOW the US average of $316</div></div>
+    <div class="stat"><div class="v tabular bad">$1,074</div><div class="l">School administration per student — above the US average of $889</div></div>
+    <div class="stat"><div class="v tabular bad">$1,266</div><div class="l">"Other support services" per student — nearly 2x the US average of $667</div></div>
+    <div class="stat"><div class="v tabular bad">$9,516</div><div class="l">Instruction per student — below the US average of $9,762, despite higher total spending</div></div>
+  </div>
+  <div class="card">
+    <div class="chart-title" id="rank-title">Oregon ranks near the bottom on the share of spending that reaches instruction</div>
+    <div class="chart-sub">All 50 states + DC, Census F-33 FY2023, current expenditures. Oregon highlighted. Pick a metric:</div>
+    <div class="metric-toggle" id="metricToggle" role="group" aria-label="Choose comparison metric"></div>
+    <div class="chart-wrap" id="chart-states"></div>
+    <div class="chart-src">Source: US Census Bureau, Public Elementary-Secondary Education Finance FY2023, Tables 6-8. "Current expenditures" excludes capital and debt, so states are compared on operations only.</div>
+  </div>
+  <div class="callout">Oregon spends <b>$635 more per student</b> than the US average in total — and <b>$246 less per student</b> on instruction. The difference lives in benefits, student support, school-level administration, and a central-services bucket running at <b>189% of the national rate</b> (~$330M/yr above US norms).</div>
+  <p>Two honest caveats. First, some of Oregon's "student support" premium (+$452/student vs US) pays for counselors and nurses that the 2019 Student Success Act deliberately funded — reasonable people can call that a feature. Second, part of the "other support" gap may reflect Oregon's accounting conventions. Neither caveat survives contact with the growth data on the previous page: whatever you call the back office, it is compounding at triple the classroom's rate.</p>
+</section>
+
+<!-- ============ PAGE 4: PENSION MORTGAGE ============ -->
+<section class="page" id="page-pension">
+  <div class="kicker">Part 3 · The quiet $553 million</div>
+  <h2>Oregon pays teachers less cash and pays more for payroll than almost any state</h2>
+  <p class="lede">Here is the single most misunderstood number in Oregon school finance. For every $1.00 of salary, Oregon schools pay <b>55.6¢</b> in benefits. The national average is <b>44.2¢</b>. At Oregon's payroll, that 11-cent gap is roughly <b>$553 million every year</b> — more than the entire general-administration budget of every district in the state, combined, times three.</p>
+  <div class="card">
+    <div class="chart-title">Benefits per $1 of salary: Oregon vs all states</div>
+    <div class="chart-sub">Census F-33 FY2023, current expenditures. Oregon highlighted.</div>
+    <div class="chart-wrap" id="chart-bensal"></div>
+    <div class="chart-src">Source: US Census Bureau F-33 FY2023, Table 8 (per-pupil salaries and employee benefits).</div>
+  </div>
+  <div class="stat-strip">
+    <div class="stat"><div class="v tabular">$8,811</div><div class="l">Oregon salaries per student — below the US average of $9,099</div></div>
+    <div class="stat"><div class="v tabular bad">$4,898</div><div class="l">Oregon benefits per student — far above the US average of $4,022</div></div>
+    <div class="stat"><div class="v tabular bad">$1.18B</div><div class="l">Direct PERS employer contributions, 2023-24, all funds (object code 210)</div></div>
+  </div>
+  <h3>What this means, without the euphemisms</h3>
+  <p>Oregon educators see <i>less cash</i> per student than the national average while the system pays <i>more total compensation</i>. The difference is mostly the Public Employees Retirement System: employer contribution rates for school districts have run in the high-20s as a percent of payroll (28.02% Tier 1/2 for 2025-27 even after Senate Bill 849 relief). This is a mortgage on decisions made decades ago, and it is paid out of every function — which is exactly why it never shows up in "administration" and why admin-hunting audits keep coming back thin.</p>
+  <p style="margin-top:12px"><b>Fairness requires saying what PERS did NOT do:</b> over 2019-2024, PERS was <i>not</i> the growth driver. General Fund pension payments were essentially flat (SB 1049 re-amortization, side accounts, then SB 849). Benefits explain only 10% of General Fund growth in this window; salaries explain 46% and non-labor costs 44%. PERS is a level burden — a permanent ~$550M/yr headwind versus peer states — not an accelerating one. Anyone who tells you "PERS ate this year's increase" is wrong. Anyone who ignores the baseline drag is also wrong.</p>
+  <div class="callout"><b>The compounding cruelty:</b> the pension mortgage suppresses cash salaries, which fuels labor disputes, which get blamed on "admin," while the actual line item sits untouchable in every budget in the state — constitutionally protected, contractually owed, and invisible in the org chart.</div>
+</section>
+
+<!-- ============ PAGE 5: STARVED CORE ============ -->
+<section class="page" id="page-core">
+  <div class="kicker">Part 4 · The revenue architecture</div>
+  <h2>The money that pays for teachers hasn't grown, in real terms, in five years</h2>
+  <p class="lede">Districts looked flush on paper — total revenue surged after 2020. But almost all of the growth arrived in restricted streams (federal pandemic aid, Student Success Act grants) that legally cannot backfill the operating core. The core itself — Measure 50-capped property taxes plus the State School Fund — grew <b>+21.1% nominal per student</b> over five years against <b>+20.7% inflation</b>. Real growth: <b>0.3%</b>. That is the treadmill under every layoff announcement.</p>
+  <div class="card">
+    <div class="chart-title">Restricted money boomed. The operating core flatlined against inflation.</div>
+    <div class="chart-sub">Revenue by source, all districts, indexed to 2019-20 = 100 (nominal). Dashed line = CPI.</div>
+    <div class="chart-wrap" id="chart-revenue"></div>
+    <div class="chart-src">Source: ODE Detailed District Revenue actuals FY2019-20 to 2023-24. Core = local property tax (source 1110) + State School Fund (3101). "State grants" includes Student Success Act/SIA and High School Success. Federal includes ESSER pandemic aid.</div>
+  </div>
+  <h3>Why the core can't grow</h3>
+  <p><b>Measures 5 and 50</b> (1990, 1997) cap school property tax rates and hold assessed-value growth to 3% a year regardless of market values — so local revenue structurally trails inflation in high-growth years. The <b>State School Fund</b> is supposed to make up the difference; it grew 11.3% over the five years shown, barely half of inflation. The state's own Quality Education Commission has priced the gap between actual funding and its adequacy model at roughly <b>$1.9 billion per biennium</b>.</p>
+  <p style="margin-top:12px">Then came the cliff. Federal pandemic aid (ESSER) expired in September 2024 — right after this data window closes. The 2025-26 "budget crisis" headlines are the sound of one-time money leaving a system whose permanent revenue never kept pace and whose permanent costs (steps, benefits, back office) did. This report's data predicted those headlines before they were written.</p>
+  <div class="callout">Enrollment fell 6% over the window. Under per-student funding formulas, fewer kids means less money — but a district cannot lay off 6% of a school building or 6% of a bus route. Shrinking systems get more expensive per unit. Oregon is running that experiment in 190 districts simultaneously.</div>
+</section>
+
+<!-- ============ PAGE 6: A YEAR LESS SCHOOL ============ -->
+<section class="page" id="page-time">
+  <div class="kicker">Part 5 · The instructional time deficit</div>
+  <h2>By age 18, an Oregon student has received about one year less school than the average American kid</h2>
+  <p class="lede">Everything above is about money. This is about what the money is supposed to buy — and here Oregon isn't middling. It is 47th in the nation in actual instructional time delivered. This is the fact that turns a budget critique into an indictment: Oregon charges above-average prices and delivers a year less product.</p>
+  <div class="stat-strip">
+    <div class="stat"><div class="v tabular bad">900 hrs</div><div class="l">Oregon's required minimum, grades K-8 (990 for grades 9-11; 966 for grade 12)</div></div>
+    <div class="stat"><div class="v tabular">1,227 hrs</div><div class="l">What the average US public school actually delivers per year (6.87 hrs × 178.7 days)</div></div>
+    <div class="stat"><div class="v tabular bad">47th</div><div class="l">Oregon's national rank on actual instructional time delivered</div></div>
+    <div class="stat"><div class="v tabular bad">~1,240 hrs</div><div class="l">Cumulative K-12 gap vs the US average — about one full school year</div></div>
+  </div>
+  <div class="card">
+    <div class="chart-title">Oregon schools deliver 50-120 fewer hours per year than the US average — every year, K through 12</div>
+    <div class="chart-sub">Annual instructional hours: Oregon statutory minimum, Oregon districts' actual average, US actual average.</div>
+    <div class="chart-wrap" id="chart-time"></div>
+    <div class="chart-src">Sources: OAR 581-022-2320 (minimums); Stand for Children 2026 legislative analysis of Oregon district calendars (actuals; Oregon ranked 47th); national actuals from 2025 study of US school calendars (avg 6.87 hrs/day × 178.7 days). Oregon minimums may also count up to 30 hrs of staff development and 30 hrs of parent conferences as "instructional time."</div>
+  </div>
+  <h3>Thirteen years of school. Oregon delivers about twelve.</h3>
+  <p>Run the arithmetic: roughly 116 missing hours per year across nine K-8 years, and about 50 per year across high school, against the US average. That compounds to ~1,240 hours by graduation — right at one full US school year (1,227 hours).</p>
+  <div class="year-grid" id="yearGrid" aria-label="Thirteen school years, one effectively missing"></div>
+  <p class="dim small">Each block is one school year of a K-12 career. The dashed block is the year of instructional time an average Oregon student never receives relative to the average American student.</p>
+  <div class="callout"><b>And it's unequal inside the state:</b> a 2026 analysis of Oregon district calendars found students in some districts receive the equivalent of <b>eight fewer weeks per year</b> than students in others — while nearly every district technically satisfies the state minimum. The floor is so low that massive inequity is fully legal.</div>
+  <p>Oregon is one of only ~10 states with <b>no minimum number of school days at all</b> — only an hours floor low enough that professional development and parent-teacher conferences can partially count toward it. Connect this to the money pages: the system that pays a $553M/yr pension premium and grew its back office 37% found its flexibility in the one place students can't see a line item — the calendar.</p>
+</section>
+
+<!-- ============ PAGE 7: YOUR DISTRICT ============ -->
+<section class="page" id="page-district">
+  <div class="kicker">Part 6 · Look up your district</div>
+  <h2>Every district, plotted. Find yours.</h2>
+  <p class="lede">General Fund spending per student vs district size, 2023-24, for every Oregon school district with more than 300 students. Small districts cost structurally more — the question is which districts deviate from the pattern of their size class.</p>
+  <div class="search-row" style="position:relative">
+    <input type="text" id="distSearch" placeholder="Type a district name (e.g., Portland, Salem-Keizer, Bend)…" aria-label="Search districts" autocomplete="off">
+    <div class="suggest" id="suggestBox" style="display:none"></div>
+  </div>
+  <div class="card">
+    <div class="chart-title">Spending per student falls with size — until it doesn't</div>
+    <div class="chart-sub">Each dot is a district. Horizontal axis: enrollment (log scale). Vertical: General Fund $ per student. Click a dot or search above.</div>
+    <div class="chart-wrap" id="chart-scatter"></div>
+    <div class="chart-src">Source: ODE actuals + fall membership, 2023-24. Excludes ESDs and districts under 300 students (extreme remote-school effects). Virtual-charter sponsor districts can show artificially low per-student figures.</div>
+  </div>
+  <div class="card" id="distCard" style="display:none">
+    <h4 id="dcName">District</h4>
+    <div class="chart-wrap" id="chart-distbars"></div>
+    <p class="small dim" id="dcNote" style="margin-top:8px"></p>
+  </div>
+  <h3>Named outliers the data flags</h3>
+  <table aria-label="Notable districts">
+    <thead><tr><th>District</th><th class="num">Students</th><th class="num">GF $/student</th><th class="num">Admin share</th><th>Why it's flagged</th></tr></thead>
+    <tbody>
+      <tr><td>Portland SD 1J</td><td class="num">43,979</td><td class="num">$17,902</td><td class="num">9.3%</td><td>Highest big-district spending vs size; 2019 SOS audit flagged executive admin and low instructional share</td></tr>
+      <tr><td>Corbett SD 39</td><td class="num">1,063</td><td class="num">$16,001</td><td class="num">13.0%</td><td>Highest admin share among districts over 1,000 students</td></tr>
+      <tr><td>Milton-Freewater SD 7</td><td class="num">1,537</td><td class="num">$13,000</td><td class="num">12.9%</td><td>Admin share ~2x the big-district median</td></tr>
+      <tr><td>Rogue River SD 35</td><td class="num">1,104</td><td class="num">$13,232</td><td class="num">12.7%</td><td>Admin share ~2x the big-district median</td></tr>
+      <tr><td>Tillamook SD 9</td><td class="num">2,061</td><td class="num">$13,033</td><td class="num">12.5%</td><td>Admin share ~2x the big-district median</td></tr>
+      <tr><td>Harney County SD 4</td><td class="num">1,064</td><td class="num">$11,428</td><td class="num">3.3%</td><td>Proof it can be done lean — frontier county, bottom-decile admin share</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ PAGE 8: FIXES ============ -->
+<section class="page" id="page-fixes">
+  <div class="kicker">Part 7 · What would actually work</div>
+  <h2>Six levers, ranked by honesty</h2>
+  <p class="lede">Each lever below names who has the authority, what it's worth, and what the catch is. No lever is free. Together, the first three redirect roughly $600M-$900M a year toward classrooms without a single new tax dollar — and the fourth is the one voters keep being told is the whole problem, which it isn't.</p>
+
+  <div class="fix-card">
+    <h4>1 · Put a real floor under the school year</h4>
+    <div class="who">Authority: Legislature + Oregon Board of Education</div>
+    <p>Set a minimum number of school days (Oregon is one of ~10 states with none), define instructional time bell-to-bell, and stop counting staff development and parent conferences toward the student minimum. The Governor's 2026 emergency order already moved this direction — temporarily.</p>
+    <p style="margin-top:8px"><span class="mag">Worth: ~1,240 hours per student per K-12 career</span> — the single largest lever in this report, and the cheapest per unit of student benefit. The catch: adding days costs money in a system with flat real revenue; it must be paired with levers 2-3, and bargained honestly with educators who are currently absorbing the pension squeeze in cash pay.</p>
+  </div>
+  <div class="fix-card">
+    <h4>2 · Cap and benchmark the back office</h4>
+    <div class="who">Authority: districts + ODE + Secretary of State</div>
+    <p>Oregon's central services (HR, IT, planning, comms) run ~2x the national per-student rate and grew 37% in five years. The 2019 and 2022 Secretary of State audits already recommended benchmarking district spending against peers; nobody built the tool. Publish per-district central-services benchmarks annually and require budget-committee justification of growth above enrollment + inflation.</p>
+    <p style="margin-top:8px"><span class="mag">Worth: up to ~$330M/yr</span> at national rates. The catch: some of this bucket is real compliance load from state mandates — so the state must audit its own reporting demands at the same time.</p>
+  </div>
+  <div class="fix-card">
+    <h4>3 · Set an instruction-share target</h4>
+    <div class="who">Authority: Legislature (SSF conditions) + district budget committees</div>
+    <p>Oregon puts 55.4% of current spending into instruction; the US average is 59.1%. Several states publish instruction-share floors or targets tied to state funding. Closing to the national average moves <span class="mag">~$342M/yr into classrooms</span> at current spending levels. The catch: crude floors invite recoding games — pair the target with the benchmark transparency in lever 2.</p>
+  </div>
+  <div class="fix-card">
+    <h4>4 · Tell the truth about PERS — then manage it</h4>
+    <div class="who">Authority: Legislature + PERS Board (heavily constrained by contract law)</div>
+    <p>The ~$553M/yr benefits premium is mostly legacy pension obligation: constitutionally protected, contractually owed, not fixable by any district. What remains: continue rate-relief mechanics (SB 849 saved districts ~$168M in 2025-27), expand side accounts, and stop letting budget debates pretend this line item is "administration."</p>
+    <p style="margin-top:8px"><span class="mag">Worth: honesty, plus ~$100-200M/biennium in rate management</span>. The catch: the big number amortizes on its own schedule into the 2030s regardless of anyone's op-ed.</p>
+  </div>
+  <div class="fix-card">
+    <h4>5 · Fix the core revenue treadmill</h4>
+    <div class="who">Authority: Legislature + voters (constitutional)</div>
+    <p>Measure 50's 3% assessed-value cap plus an SSF that grew at half of inflation equals a core that cannot keep pace by design. Options span from indexing the SSF to the Quality Education Model's current-service level (the QEC prices the gap at ~$1.9B/biennium) to the third-rail: property tax reform. </p>
+    <p style="margin-top:8px"><span class="mag">Worth: structural, not incremental</span>. The catch: this is the hardest politics in Oregon, and this report's own data shows voters have reason to demand levers 1-3 as the price of new revenue.</p>
+  </div>
+  <div class="fix-card">
+    <h4>6 · Shared services for the long tail</h4>
+    <div class="who">Authority: districts + ESDs + Legislature (incentives)</div>
+    <p>79 districts enroll fewer than 500 students. Their excess narrow-admin spend is only ~$34M/yr — consolidation is not the jackpot people imagine, because geography is real. But payroll, IT, procurement, and food service can be regionalized through ESDs without closing a single school.</p>
+    <p style="margin-top:8px"><span class="mag">Worth: $34M-$100M/yr realistically</span>. The catch: fighting 79 school boards for 0.5% of the budget is how reform energy goes to die. Do it, but do it last.</p>
+  </div>
+  <div class="callout fix"><b>The honest sequence:</b> transparency first (free), instruction-share and back-office discipline second (~$600M), the school-year floor funded by that discipline third, and the revenue conversation last — armed with proof that the system respects the dollar it already gets.</div>
+</section>
+
+<!-- ============ PAGE 9: METHODS ============ -->
+<section class="page" id="page-methods">
+  <div class="kicker">Appendix</div>
+  <h2>Methods, sources, and every caveat we know about</h2>
+  <h3>Primary data</h3>
+  <p>Oregon Department of Education, <a href="https://www.oregon.gov/ode/schools-and-districts/fiscaltransparency/pages/district%20detailed%20revenue.aspx">Detailed District Revenue and Expenditure</a> actuals, FY2019-20 through FY2023-24 — 1.48 million expenditure line items across 197 school districts and 19 ESDs, aggregated by district, fund, 4-digit PBAM function code, and 3-digit object code. Enrollment: ODE <a href="https://www.oregon.gov/ode/reports-and-data/students/Pages/Student-Enrollment-Reports.aspx">Fall Membership Reports</a> (October 1 counts). National comparison: US Census Bureau, <a href="https://www.census.gov/programs-surveys/school-finances.html">Public Elementary-Secondary Education Finance</a> (F-33), FY2023 summary tables 6-8. Instructional time: OAR 581-022-2320; Stand for Children 2026 analysis of Oregon district calendars; 2025 national school-calendar study (6.87 hrs/day, 178.7 days/yr national averages). Audit history: Oregon Secretary of State performance audits (2019 ODE/PPS; 2022 Systemic Risk Report). PERS rates: PERS 2025-27 adopted employer rates; SB 1049 (2019); SB 849 (2025).</p>
+  <h3>Definitions</h3>
+  <p>"Narrow admin" = PBAM functions 2300s (boards, superintendents) + 2400s (principals). "Broad admin" adds business services (2500s excluding plant operations 2540s and transportation 2550s) and central services (2600s). "Current expenditures" for national comparisons excludes capital construction and debt, matching Census definitions. "Core revenue" = local property taxes (source 1110) + State School Fund (3101). Real-dollar statements use CPI-U (+20.7%, 2019-20 to 2023-24 school-year midpoints).</p>
+  <h3>Caveats we insist you know</h3>
+  <p>(1) FY2021-2023 include one-time federal ESSER funds in non-General funds; General Fund trends largely exclude them. (2) PERS costs are embedded in benefits objects within every function — "instruction" spending includes teachers' pension load, which flatters admin-share comparisons everywhere, not just Oregon. (3) Some cross-state differences reflect accounting conventions; the Census standardizes but cannot eliminate this. (4) Virtual-charter sponsor districts (e.g., Fossil SD) show distorted per-student figures. (5) Student-support spending above national rates partly reflects deliberate Student Success Act investments in counselors and nurses. (6) The 2022-23 ODE files were recovered from an archived copy after link rot on the live site; totals reconcile with ODE's own district-total sheets. (7) District instructional-time actuals are from a third-party analysis of published calendars, not an ODE collection — ODE does not currently publish audited instructional-hours data by district, which is itself a finding.</p>
+  <h3>Reproducibility</h3>
+  <p>Every chart derives from public files. The aggregation scripts (Python/pandas) and derived CSVs travel with this report's source packet. Nothing in this report required a records request — which means every claim here was checkable by any newsroom or legislator at any time.</p>
+  <p class="dim small" style="margin-top:20px">Report generated July 2026. Data through FY2023-24 (most recent ODE actuals available; ODE publishes with a 12-month lag).</p>
+</section>
+</main>
+
+<div class="bottom-nav">
+  <button class="nav-arrow" id="prevBtn">← Previous</button>
+  <span class="page-dots tabular" id="pageDots"></span>
+  <button class="nav-arrow" id="nextBtn">Next →</button>
+</div>
+<footer>Built from public data · ODE fiscal transparency actuals FY2020-24 · US Census F-33 FY2023 · v1.0 · July 2026</footer>
+
+<script>
+const DATA = {"states":[{"state":"United States","cur_pp":16526,"ins_pp":9762,"ins_share":0.5907,"ben_sal":0.442,"gadm_pp":316,"sadm_pp":889,"other_sup_pp":667,"stud_sup_pp":1128,"adm_share":0.0729},{"state":"Alabama","cur_pp":12766,"ins_pp":7141,"ins_share":0.5594,"ben_sal":0.364,"gadm_pp":343,"sadm_pp":729,"other_sup_pp":311,"stud_sup_pp":963,"adm_share":0.084},{"state":"Alaska","cur_pp":20340,"ins_pp":10534,"ins_share":0.5179,"ben_sal":0.546,"gadm_pp":302,"sadm_pp":1177,"other_sup_pp":880,"stud_sup_pp":1527,"adm_share":0.0727},{"state":"Arizona","cur_pp":11297,"ins_pp":5956,"ins_share":0.5273,"ben_sal":0.32,"gadm_pp":187,"sadm_pp":526,"other_sup_pp":489,"stud_sup_pp":1065,"adm_share":0.0631},{"state":"Arkansas","cur_pp":12738,"ins_pp":6934,"ins_share":0.5444,"ben_sal":0.317,"gadm_pp":320,"sadm_pp":625,"other_sup_pp":401,"stud_sup_pp":717,"adm_share":0.0742},{"state":"California","cur_pp":18798,"ins_pp":10928,"ins_share":0.5813,"ben_sal":0.478,"gadm_pp":298,"sadm_pp":1154,"other_sup_pp":969,"stud_sup_pp":1382,"adm_share":0.0772},{"state":"Colorado","cur_pp":14858,"ins_pp":7944,"ins_share":0.5347,"ben_sal":0.418,"gadm_pp":246,"sadm_pp":1112,"other_sup_pp":1215,"stud_sup_pp":1120,"adm_share":0.0914},{"state":"Connecticut","cur_pp":25081,"ins_pp":14764,"ins_share":0.5887,"ben_sal":0.534,"gadm_pp":564,"sadm_pp":1406,"other_sup_pp":869,"stud_sup_pp":2038,"adm_share":0.0785},{"state":"Delaware","cur_pp":21340,"ins_pp":11351,"ins_share":0.5319,"ben_sal":0.53,"gadm_pp":185,"sadm_pp":1021,"other_sup_pp":778,"stud_sup_pp":2428,"adm_share":0.0565},{"state":"District of Columbia","cur_pp":31629,"ins_pp":16422,"ins_share":0.5192,"ben_sal":0.164,"gadm_pp":1708,"sadm_pp":2166,"other_sup_pp":1398,"stud_sup_pp":3561,"adm_share":0.1225},{"state":"Florida","cur_pp":11862,"ins_pp":7083,"ins_share":0.5971,"ben_sal":0.349,"gadm_pp":145,"sadm_pp":606,"other_sup_pp":309,"stud_sup_pp":605,"adm_share":0.0633},{"state":"Georgia","cur_pp":14414,"ins_pp":8570,"ins_share":0.5946,"ben_sal":0.436,"gadm_pp":234,"sadm_pp":860,"other_sup_pp":518,"stud_sup_pp":909,"adm_share":0.0759},{"state":"Hawaii","cur_pp":20056,"ins_pp":11599,"ins_share":0.5784,"ben_sal":0.47,"gadm_pp":53,"sadm_pp":1292,"other_sup_pp":615,"stud_sup_pp":1795,"adm_share":0.0671},{"state":"Idaho","cur_pp":10291,"ins_pp":6014,"ins_share":0.5844,"ben_sal":0.387,"gadm_pp":199,"sadm_pp":576,"other_sup_pp":302,"stud_sup_pp":605,"adm_share":0.0753},{"state":"Illinois","cur_pp":20253,"ins_pp":11894,"ins_share":0.5873,"ben_sal":0.635,"gadm_pp":595,"sadm_pp":1040,"other_sup_pp":953,"stud_sup_pp":1628,"adm_share":0.0807},{"state":"Indiana","cur_pp":13121,"ins_pp":7224,"ins_share":0.5506,"ben_sal":0.5,"gadm_pp":259,"sadm_pp":790,"other_sup_pp":466,"stud_sup_pp":808,"adm_share":0.08},{"state":"Iowa","cur_pp":13792,"ins_pp":8019,"ins_share":0.5814,"ben_sal":0.334,"gadm_pp":360,"sadm_pp":796,"other_sup_pp":450,"stud_sup_pp":854,"adm_share":0.0838},{"state":"Kansas","cur_pp":14847,"ins_pp":8902,"ins_share":0.5996,"ben_sal":0.336,"gadm_pp":389,"sadm_pp":788,"other_sup_pp":393,"stud_sup_pp":1042,"adm_share":0.0793},{"state":"Kentucky","cur_pp":14633,"ins_pp":8536,"ins_share":0.5834,"ben_sal":0.627,"gadm_pp":320,"sadm_pp":834,"other_sup_pp":438,"stud_sup_pp":796,"adm_share":0.0788},{"state":"Louisiana","cur_pp":14645,"ins_pp":7943,"ins_share":0.5424,"ben_sal":0.482,"gadm_pp":372,"sadm_pp":854,"other_sup_pp":431,"stud_sup_pp":890,"adm_share":0.0837},{"state":"Maine","cur_pp":18797,"ins_pp":10455,"ins_share":0.5562,"ben_sal":0.417,"gadm_pp":764,"sadm_pp":1021,"other_sup_pp":285,"stud_sup_pp":1477,"adm_share":0.0949},{"state":"Maryland","cur_pp":18887,"ins_pp":11912,"ins_share":0.6307,"ben_sal":0.402,"gadm_pp":139,"sadm_pp":1046,"other_sup_pp":524,"stud_sup_pp":937,"adm_share":0.0627},{"state":"Massachusetts","cur_pp":22947,"ins_pp":13985,"ins_share":0.6094,"ben_sal":0.416,"gadm_pp":339,"sadm_pp":1023,"other_sup_pp":552,"stud_sup_pp":2070,"adm_share":0.0594},{"state":"Michigan","cur_pp":17535,"ins_pp":9800,"ins_share":0.5589,"ben_sal":0.815,"gadm_pp":281,"sadm_pp":908,"other_sup_pp":1101,"stud_sup_pp":1627,"adm_share":0.0678},{"state":"Minnesota","cur_pp":16117,"ins_pp":10179,"ins_share":0.6316,"ben_sal":0.343,"gadm_pp":626,"sadm_pp":625,"other_sup_pp":386,"stud_sup_pp":617,"adm_share":0.0776},{"state":"Mississippi","cur_pp":12093,"ins_pp":6890,"ins_share":0.5697,"ben_sal":0.352,"gadm_pp":396,"sadm_pp":656,"other_sup_pp":351,"stud_sup_pp":705,"adm_share":0.087},{"state":"Missouri","cur_pp":13472,"ins_pp":7458,"ins_share":0.5536,"ben_sal":0.317,"gadm_pp":790,"sadm_pp":752,"other_sup_pp":307,"stud_sup_pp":952,"adm_share":0.1144},{"state":"Montana","cur_pp":13771,"ins_pp":8025,"ins_share":0.5828,"ben_sal":0.311,"gadm_pp":449,"sadm_pp":757,"other_sup_pp":463,"stud_sup_pp":918,"adm_share":0.0876},{"state":"Nebraska","cur_pp":15200,"ins_pp":9309,"ins_share":0.6124,"ben_sal":0.383,"gadm_pp":383,"sadm_pp":754,"other_sup_pp":999,"stud_sup_pp":826,"adm_share":0.0748},{"state":"Nevada","cur_pp":11673,"ins_pp":6716,"ins_share":0.5753,"ben_sal":0.411,"gadm_pp":147,"sadm_pp":773,"other_sup_pp":550,"stud_sup_pp":742,"adm_share":0.0788},{"state":"New Hampshire","cur_pp":21731,"ins_pp":13271,"ins_share":0.6107,"ben_sal":0.514,"gadm_pp":794,"sadm_pp":1235,"other_sup_pp":344,"stud_sup_pp":1850,"adm_share":0.0934},{"state":"New Jersey","cur_pp":26280,"ins_pp":15587,"ins_share":0.5931,"ben_sal":0.669,"gadm_pp":453,"sadm_pp":1178,"other_sup_pp":627,"stud_sup_pp":3133,"adm_share":0.0621},{"state":"New Mexico","cur_pp":15693,"ins_pp":8975,"ins_share":0.5719,"ben_sal":0.365,"gadm_pp":357,"sadm_pp":829,"other_sup_pp":536,"stud_sup_pp":1682,"adm_share":0.0756},{"state":"New York","cur_pp":30012,"ins_pp":20183,"ins_share":0.6725,"ben_sal":0.513,"gadm_pp":452,"sadm_pp":1344,"other_sup_pp":1114,"stud_sup_pp":912,"adm_share":0.0598},{"state":"North Carolina","cur_pp":12492,"ins_pp":7764,"ins_share":0.6215,"ben_sal":0.415,"gadm_pp":136,"sadm_pp":736,"other_sup_pp":443,"stud_sup_pp":773,"adm_share":0.0698},{"state":"North Dakota","cur_pp":16114,"ins_pp":9595,"ins_share":0.5955,"ben_sal":0.381,"gadm_pp":672,"sadm_pp":800,"other_sup_pp":489,"stud_sup_pp":699,"adm_share":0.0914},{"state":"Ohio","cur_pp":16476,"ins_pp":9564,"ins_share":0.5805,"ben_sal":0.39,"gadm_pp":477,"sadm_pp":814,"other_sup_pp":857,"stud_sup_pp":1319,"adm_share":0.0784},{"state":"Oklahoma","cur_pp":11155,"ins_pp":5930,"ins_share":0.5316,"ben_sal":0.351,"gadm_pp":355,"sadm_pp":607,"other_sup_pp":401,"stud_sup_pp":868,"adm_share":0.0863},{"state":"Oregon","cur_pp":17161,"ins_pp":9516,"ins_share":0.5545,"ben_sal":0.556,"gadm_pp":252,"sadm_pp":1074,"other_sup_pp":1266,"stud_sup_pp":1580,"adm_share":0.0773},{"state":"Pennsylvania","cur_pp":20056,"ins_pp":12141,"ins_share":0.6054,"ben_sal":0.66,"gadm_pp":506,"sadm_pp":861,"other_sup_pp":802,"stud_sup_pp":1279,"adm_share":0.0682},{"state":"Rhode Island","cur_pp":21182,"ins_pp":11899,"ins_share":0.5618,"ben_sal":0.475,"gadm_pp":329,"sadm_pp":1028,"other_sup_pp":988,"stud_sup_pp":2644,"adm_share":0.0641},{"state":"South Carolina","cur_pp":13957,"ins_pp":7636,"ins_share":0.5471,"ben_sal":0.434,"gadm_pp":119,"sadm_pp":875,"other_sup_pp":639,"stud_sup_pp":1179,"adm_share":0.0712},{"state":"South Dakota","cur_pp":12005,"ins_pp":6922,"ins_share":0.5766,"ben_sal":0.289,"gadm_pp":414,"sadm_pp":594,"other_sup_pp":458,"stud_sup_pp":731,"adm_share":0.084},{"state":"Tennessee","cur_pp":12197,"ins_pp":7119,"ins_share":0.5837,"ben_sal":0.326,"gadm_pp":244,"sadm_pp":715,"other_sup_pp":371,"stud_sup_pp":724,"adm_share":0.0786},{"state":"Texas","cur_pp":12304,"ins_pp":7144,"ins_share":0.5807,"ben_sal":0.185,"gadm_pp":182,"sadm_pp":668,"other_sup_pp":603,"stud_sup_pp":706,"adm_share":0.0691},{"state":"Utah","cur_pp":10333,"ins_pp":6469,"ins_share":0.6261,"ben_sal":0.434,"gadm_pp":110,"sadm_pp":657,"other_sup_pp":307,"stud_sup_pp":574,"adm_share":0.0742},{"state":"Vermont","cur_pp":26345,"ins_pp":14752,"ins_share":0.56,"ben_sal":0.571,"gadm_pp":518,"sadm_pp":1857,"other_sup_pp":975,"stud_sup_pp":2871,"adm_share":0.0901},{"state":"Virginia","cur_pp":16098,"ins_pp":9447,"ins_share":0.5868,"ben_sal":0.403,"gadm_pp":263,"sadm_pp":921,"other_sup_pp":326,"stud_sup_pp":918,"adm_share":0.0736},{"state":"Washington","cur_pp":18181,"ins_pp":10555,"ins_share":0.5806,"ben_sal":0.375,"gadm_pp":173,"sadm_pp":1058,"other_sup_pp":827,"stud_sup_pp":1551,"adm_share":0.0677},{"state":"West Virginia","cur_pp":14575,"ins_pp":8288,"ins_share":0.5687,"ben_sal":0.441,"gadm_pp":208,"sadm_pp":755,"other_sup_pp":320,"stud_sup_pp":918,"adm_share":0.0661},{"state":"Wisconsin","cur_pp":14882,"ins_pp":8411,"ins_share":0.5652,"ben_sal":0.547,"gadm_pp":305,"sadm_pp":758,"other_sup_pp":922,"stud_sup_pp":886,"adm_share":0.0714},{"state":"Wyoming","cur_pp":19324,"ins_pp":11275,"ins_share":0.5835,"ben_sal":0.474,"gadm_pp":369,"sadm_pp":992,"other_sup_pp":921,"stud_sup_pp":1327,"adm_share":0.0705}],"gf_trend":{"2019-20":{"instruction":4031.7,"student_support":480.6,"instr_staff_support":197.3,"general_admin":100.0,"school_admin":473.5,"business_services":135.1,"central_services":249.9,"plant_om":568.5,"transportation":332.2,"total":6886.3},"2020-21":{"instruction":4086.5,"student_support":467.9,"instr_staff_support":188.7,"general_admin":104.1,"school_admin":486.6,"business_services":145.7,"central_services":271.9,"plant_om":549.7,"transportation":287.1,"total":6920.9},"2021-22":{"instruction":4141.6,"student_support":481.9,"instr_staff_support":195.7,"general_admin":112.0,"school_admin":504.6,"business_services":150.8,"central_services":296.9,"plant_om":626.4,"transportation":380.4,"total":7789.9},"2022-23":{"instruction":4329.3,"student_support":514.7,"instr_staff_support":217.8,"general_admin":124.5,"school_admin":535.4,"business_services":169.0,"central_services":315.8,"plant_om":700.7,"transportation":429.6,"total":7750.2},"2023-24":{"instruction":4483.1,"student_support":535.1,"instr_staff_support":225.4,"general_admin":132.7,"school_admin":559.2,"business_services":179.8,"central_services":338.3,"plant_om":731.1,"transportation":458.3,"total":8064.2}},"enrollment":{"2019-20":582661,"2020-21":559798,"2021-22":551977,"2022-23":552380,"2023-24":547424},"revenue":{"2019-20":{"federal":582.8,"local_other":1297.2,"prop_tax":2784.0,"ssf":4324.8,"state_other":605.7},"2020-21":{"federal":820.0,"local_other":1124.5,"prop_tax":2928.7,"ssf":4489.6,"state_other":843.3},"2021-22":{"federal":1160.3,"local_other":1340.2,"prop_tax":3016.2,"ssf":4458.9,"state_other":1186.7},"2022-23":{"federal":1143.9,"local_other":1614.2,"prop_tax":3183.4,"ssf":4641.2,"state_other":1532.1},"2023-24":{"federal":1201.4,"local_other":1767.3,"prop_tax":3266.0,"ssf":4812.5,"state_other":1355.8}},"districts":[{"n":"Baker SD 5J","e":4829,"pp":12810,"ins":0.75,"adm":0.047,"admb":0.088},{"n":"Huntington SD 16J","e":85,"pp":33594,"ins":0.38,"adm":0.085,"admb":0.102},{"n":"Burnt River SD 30J","e":46,"pp":39070,"ins":0.222,"adm":0.154,"admb":0.214},{"n":"Pine Eagle SD 61","e":219,"pp":19728,"ins":0.489,"adm":0.15,"admb":0.184},{"n":"Monroe SD 1J","e":382,"pp":16639,"ins":0.416,"adm":0.143,"admb":0.194},{"n":"Alsea SD 7J","e":281,"pp":19239,"ins":0.421,"adm":0.139,"admb":0.213},{"n":"Philomath SD 17J","e":1667,"pp":13965,"ins":0.611,"adm":0.095,"admb":0.136},{"n":"Corvallis SD 509J","e":6118,"pp":15150,"ins":0.523,"adm":0.07,"admb":0.159},{"n":"West Linn-Wilsonville SD 3J","e":9049,"pp":15864,"ins":0.62,"adm":0.073,"admb":0.115},{"n":"Lake Oswego SD 7J","e":6826,"pp":16350,"ins":0.634,"adm":0.064,"admb":0.101},{"n":"North Clackamas SD 12","e":16874,"pp":14493,"ins":0.568,"adm":0.088,"admb":0.152},{"n":"Molalla River SD 35","e":2536,"pp":14087,"ins":0.554,"adm":0.092,"admb":0.16},{"n":"Oregon Trail SD 46","e":4298,"pp":13223,"ins":0.552,"adm":0.082,"admb":0.145},{"n":"Colton SD 53","e":604,"pp":15114,"ins":0.533,"adm":0.128,"admb":0.17},{"n":"Oregon City SD 62","e":7263,"pp":13620,"ins":0.603,"adm":0.058,"admb":0.106},{"n":"Canby SD 86","e":4175,"pp":13551,"ins":0.578,"adm":0.076,"admb":0.133},{"n":"Estacada SD 108","e":3229,"pp":13047,"ins":0.596,"adm":0.069,"admb":0.145},{"n":"Gladstone SD 115","e":1594,"pp":14907,"ins":0.541,"adm":0.104,"admb":0.185},{"n":"Astoria SD 1","e":1773,"pp":13261,"ins":0.561,"adm":0.115,"admb":0.155},{"n":"Jewell SD 8","e":116,"pp":88059,"ins":0.257,"adm":0.092,"admb":0.14},{"n":"Warrenton-Hammond SD 30","e":974,"pp":13242,"ins":0.577,"adm":0.126,"admb":0.174},{"n":"Scappoose SD 1J","e":2251,"pp":13364,"ins":0.584,"adm":0.094,"admb":0.127},{"n":"Clatskanie SD 6J","e":662,"pp":15522,"ins":0.538,"adm":0.131,"admb":0.176},{"n":"Rainier SD 13","e":789,"pp":15198,"ins":0.511,"adm":0.104,"admb":0.137},{"n":"Vernonia SD 47J","e":563,"pp":16604,"ins":0.58,"adm":0.129,"admb":0.171},{"n":"St Helens SD 502","e":2806,"pp":13646,"ins":0.549,"adm":0.104,"admb":0.15},{"n":"Coquille SD 8","e":1221,"pp":15710,"ins":0.448,"adm":0.111,"admb":0.186},{"n":"Coos Bay SD 9","e":3024,"pp":13569,"ins":0.525,"adm":0.106,"admb":0.172},{"n":"North Bend SD 13","e":2979,"pp":13274,"ins":0.673,"adm":0.071,"admb":0.121},{"n":"Powers SD 31","e":117,"pp":21422,"ins":0.625,"adm":0.136,"admb":0.181},{"n":"Myrtle Point SD 41","e":566,"pp":14948,"ins":0.511,"adm":0.117,"admb":0.181},{"n":"Bandon SD 54","e":626,"pp":16692,"ins":0.502,"adm":0.127,"admb":0.18},{"n":"Crook County SD","e":3382,"pp":13063,"ins":0.52,"adm":0.102,"admb":0.172},{"n":"Central Curry SD 1","e":407,"pp":16716,"ins":0.503,"adm":0.137,"admb":0.22},{"n":"Brookings-Harbor SD 17C","e":1335,"pp":13934,"ins":0.472,"adm":0.118,"admb":0.179},{"n":"Bend-LaPine Administrative SD 1","e":17075,"pp":12227,"ins":0.569,"adm":0.091,"admb":0.17},{"n":"Redmond SD 2J","e":7065,"pp":12987,"ins":0.593,"adm":0.088,"admb":0.134},{"n":"Sisters SD 6","e":1173,"pp":14939,"ins":0.54,"adm":0.109,"admb":0.199},{"n":"Oakland SD 1","e":652,"pp":13016,"ins":0.503,"adm":0.124,"admb":0.163},{"n":"Douglas County SD 4","e":5653,"pp":12250,"ins":0.56,"adm":0.079,"admb":0.124},{"n":"Glide SD 12","e":724,"pp":15303,"ins":0.511,"adm":0.126,"admb":0.196},{"n":"Douglas County SD 15","e":229,"pp":17394,"ins":0.496,"adm":0.124,"admb":0.204},{"n":"South Umpqua SD 19","e":1450,"pp":12248,"ins":0.481,"adm":0.119,"admb":0.185},{"n":"Camas Valley SD 21J","e":226,"pp":17332,"ins":0.541,"adm":0.118,"admb":0.204},{"n":"North Douglas SD 22","e":343,"pp":15330,"ins":0.477,"adm":0.146,"admb":0.182},{"n":"Yoncalla SD 32","e":277,"pp":18474,"ins":0.49,"adm":0.137,"admb":0.194},{"n":"Elkton SD 34","e":214,"pp":23400,"ins":0.484,"adm":0.084,"admb":0.152},{"n":"Riddle SD 70","e":367,"pp":15600,"ins":0.586,"adm":0.147,"admb":0.193},{"n":"Glendale SD 77","e":289,"pp":17293,"ins":0.458,"adm":0.156,"admb":0.218},{"n":"Reedsport SD 105","e":588,"pp":16281,"ins":0.559,"adm":0.114,"admb":0.155},{"n":"Winston-Dillard SD 116","e":1314,"pp":13652,"ins":0.577,"adm":0.125,"admb":0.157},{"n":"Sutherlin SD 130","e":1362,"pp":12415,"ins":0.572,"adm":0.109,"admb":0.169},{"n":"Arlington SD 3","e":136,"pp":29309,"ins":0.402,"adm":0.087,"admb":0.116},{"n":"Condon SD 25J","e":136,"pp":22032,"ins":0.425,"adm":0.11,"admb":0.155},{"n":"John Day SD 3","e":471,"pp":18925,"ins":0.514,"adm":0.118,"admb":0.174},{"n":"Prairie City SD 4","e":1224,"pp":17176,"ins":0.85,"adm":0.024,"admb":0.03},{"n":"Monument SD 8","e":54,"pp":35277,"ins":0.358,"adm":0.123,"admb":0.141},{"n":"Dayville SD 16J","e":46,"pp":47587,"ins":0.33,"adm":0.13,"admb":0.184},{"n":"Long Creek SD 17","e":19,"pp":60723,"ins":0.338,"adm":0.243,"admb":0.281},{"n":"Harney County SD 3","e":700,"pp":14450,"ins":0.506,"adm":0.122,"admb":0.177},{"n":"Harney County SD 4","e":1064,"pp":11428,"ins":0.148,"adm":0.033,"admb":0.67},{"n":"Pine Creek SD 5","e":2,"pp":108222,"ins":0.287,"adm":0.205,"admb":0.418},{"n":"Diamond SD 7","e":13,"pp":33797,"ins":0.593,"adm":0.051,"admb":0.177},{"n":"Suntex SD 10","e":3,"pp":83015,"ins":0.202,"adm":0.053,"admb":0.348},{"n":"Drewsey SD 13","e":8,"pp":60287,"ins":0.537,"adm":0.138,"admb":0.216},{"n":"Frenchglen SD 16","e":4,"pp":74181,"ins":0.573,"adm":0.031,"admb":0.247},{"n":"Double O SD 28","e":3,"pp":59471,"ins":0.153,"adm":0.124,"admb":0.368},{"n":"South Harney SD 33","e":7,"pp":66402,"ins":0.563,"adm":0.052,"admb":0.177},{"n":"Harney County Union High SD 1J","e":1142,"pp":12384,"ins":0.121,"adm":0.024,"admb":0.701},{"n":"Hood River County SD","e":3799,"pp":15754,"ins":0.58,"adm":0.084,"admb":0.169},{"n":"Phoenix-Talent SD 4","e":2205,"pp":15026,"ins":0.549,"adm":0.099,"admb":0.176},{"n":"Ashland SD 5","e":2576,"pp":16146,"ins":0.592,"adm":0.102,"admb":0.186},{"n":"Central Point SD 6","e":4808,"pp":12361,"ins":0.634,"adm":0.095,"admb":0.138},{"n":"Eagle Point SD 9","e":4207,"pp":13268,"ins":0.56,"adm":0.087,"admb":0.144},{"n":"Rogue River SD 35","e":1104,"pp":13232,"ins":0.529,"adm":0.127,"admb":0.185},{"n":"Prospect SD 59","e":220,"pp":18649,"ins":0.506,"adm":0.143,"admb":0.213},{"n":"Butte Falls SD 91","e":159,"pp":23029,"ins":0.551,"adm":0.155,"admb":0.236},{"n":"Pinehurst SD 94","e":8,"pp":51289,"ins":0.44,"adm":0.027,"admb":0.336},{"n":"Medford SD 549C","e":13750,"pp":13516,"ins":0.576,"adm":0.084,"admb":0.152},{"n":"Culver SD 4","e":679,"pp":14434,"ins":0.572,"adm":0.122,"admb":0.199},{"n":"Black Butte SD 41","e":25,"pp":24429,"ins":0.547,"adm":0.182,"admb":0.272},{"n":"Jefferson County SD 509J","e":2739,"pp":16300,"ins":0.515,"adm":0.1,"admb":0.168},{"n":"Grants Pass SD 7","e":5675,"pp":13860,"ins":0.599,"adm":0.083,"admb":0.149},{"n":"Three Rivers/Josephine County SD","e":4462,"pp":13860,"ins":0.525,"adm":0.117,"admb":0.178},{"n":"Klamath Falls City Schools","e":2733,"pp":15442,"ins":0.369,"adm":0.089,"admb":0.142},{"n":"Klamath County SD","e":7076,"pp":15597,"ins":0.472,"adm":0.095,"admb":0.143},{"n":"Lake County SD 7","e":704,"pp":15708,"ins":0.462,"adm":0.146,"admb":0.218},{"n":"Paisley SD 11","e":192,"pp":18179,"ins":0.65,"adm":0.051,"admb":0.118},{"n":"North Lake SD 14","e":221,"pp":21593,"ins":0.538,"adm":0.098,"admb":0.164},{"n":"Plush SD 18","e":8,"pp":41236,"ins":0.46,"adm":0.061,"admb":0.27},{"n":"Adel SD 21","e":10,"pp":64431,"ins":0.363,"adm":0.054,"admb":0.127},{"n":"Pleasant Hill SD 1","e":986,"pp":12121,"ins":0.56,"adm":0.098,"admb":0.151},{"n":"Eugene SD 4J","e":16318,"pp":14630,"ins":0.59,"adm":0.083,"admb":0.163},{"n":"Springfield SD 19","e":9460,"pp":13086,"ins":0.533,"adm":0.081,"admb":0.148},{"n":"Fern Ridge SD 28J","e":1398,"pp":13846,"ins":0.501,"adm":0.099,"admb":0.17},{"n":"Mapleton SD 32","e":142,"pp":26393,"ins":0.494,"adm":0.162,"admb":0.214},{"n":"Creswell SD 40","e":1113,"pp":13389,"ins":0.526,"adm":0.11,"admb":0.171},{"n":"South Lane SD 45J3","e":2673,"pp":14028,"ins":0.564,"adm":0.095,"admb":0.148},{"n":"Bethel SD 52","e":4999,"pp":13732,"ins":0.559,"adm":0.099,"admb":0.165},{"n":"Crow-Applegate-Lorane SD 66","e":296,"pp":18558,"ins":0.51,"adm":0.106,"admb":0.169},{"n":"McKenzie SD 68","e":180,"pp":27057,"ins":0.431,"adm":0.134,"admb":0.197},{"n":"Junction City SD 69","e":1620,"pp":14219,"ins":0.567,"adm":0.092,"admb":0.146},{"n":"Lowell SD 71","e":1017,"pp":13161,"ins":0.573,"adm":0.074,"admb":0.115},{"n":"Oakridge SD 76","e":491,"pp":15703,"ins":0.434,"adm":0.149,"admb":0.14},{"n":"Marcola SD 79J","e":887,"pp":13633,"ins":0.774,"adm":0.075,"admb":0.12},{"n":"Blachly SD 90","e":399,"pp":13494,"ins":0.516,"adm":0.141,"admb":0.22},{"n":"Siuslaw SD 97J","e":1195,"pp":15151,"ins":0.477,"adm":0.071,"admb":0.117},{"n":"Lincoln County SD","e":4983,"pp":14487,"ins":0.533,"adm":0.086,"admb":0.137},{"n":"Harrisburg SD 7J","e":803,"pp":13112,"ins":0.547,"adm":0.088,"admb":0.158},{"n":"Lebanon Community SD 9","e":4057,"pp":11989,"ins":0.582,"adm":0.094,"admb":0.142},{"n":"Sweet Home SD 55","e":2297,"pp":13128,"ins":0.47,"adm":0.087,"admb":0.137},{"n":"Scio SD 95","e":1719,"pp":13003,"ins":0.724,"adm":0.062,"admb":0.094},{"n":"Santiam Canyon SD 129J","e":2678,"pp":13803,"ins":0.894,"adm":0.027,"admb":0.041},{"n":"Central Linn SD 552","e":546,"pp":16823,"ins":0.482,"adm":0.146,"admb":0.191},{"n":"Jordan Valley SD 3","e":71,"pp":33291,"ins":0.384,"adm":0.122,"admb":0.173},{"n":"Ontario SD 8C","e":2211,"pp":20918,"ins":0.475,"adm":0.084,"admb":0.129},{"n":"Juntura SD 12","e":7,"pp":36089,"ins":0.365,"adm":0.043,"admb":0.11},{"n":"Nyssa SD 26","e":1504,"pp":13106,"ins":0.633,"adm":0.084,"admb":0.12},{"n":"Annex SD 29","e":118,"pp":21038,"ins":0.583,"adm":0.104,"admb":0.223},{"n":"Malheur County SD 51","e":1,"pp":19649,"ins":0.547,"adm":0.112,"admb":0.394},{"n":"Adrian SD 61","e":279,"pp":18896,"ins":0.551,"adm":0.102,"admb":0.154},{"n":"Harper SD 66","e":250,"pp":20789,"ins":0.319,"adm":0.076,"admb":0.11},{"n":"Arock SD 81","e":11,"pp":43665,"ins":0.407,"adm":0.051,"admb":0.086},{"n":"Vale SD 84","e":935,"pp":14099,"ins":0.64,"adm":0.086,"admb":0.127},{"n":"Gervais SD 1","e":1269,"pp":13914,"ins":0.61,"adm":0.094,"admb":0.157},{"n":"Silver Falls SD 4J","e":3771,"pp":13921,"ins":0.597,"adm":0.074,"admb":0.124},{"n":"Cascade SD 5","e":2770,"pp":12815,"ins":0.55,"adm":0.096,"admb":0.149},{"n":"Jefferson SD 14J","e":715,"pp":14700,"ins":0.547,"adm":0.123,"admb":0.196},{"n":"North Marion SD 15","e":1622,"pp":14159,"ins":0.549,"adm":0.119,"admb":0.163},{"n":"Salem-Keizer SD 24J","e":38787,"pp":13982,"ins":0.61,"adm":0.084,"admb":0.139},{"n":"North Santiam SD 29J","e":2081,"pp":13211,"ins":0.561,"adm":0.105,"admb":0.179},{"n":"St Paul SD 45","e":294,"pp":15996,"ins":0.587,"adm":0.173,"admb":0.213},{"n":"Mt Angel SD 91","e":649,"pp":14769,"ins":0.578,"adm":0.145,"admb":0.226},{"n":"Woodburn SD 103","e":5242,"pp":15792,"ins":0.582,"adm":0.083,"admb":0.139},{"n":"Morrow SD 1","e":2222,"pp":15738,"ins":0.588,"adm":0.119,"admb":0.16},{"n":"Portland SD 1J","e":43979,"pp":17902,"ins":0.523,"adm":0.093,"admb":0.16},{"n":"Parkrose SD 3","e":2822,"pp":12525,"ins":0.597,"adm":0.071,"admb":0.111},{"n":"Reynolds SD 7","e":9613,"pp":15508,"ins":0.594,"adm":0.071,"admb":0.129},{"n":"Gresham-Barlow SD 10J","e":11371,"pp":13824,"ins":0.597,"adm":0.071,"admb":0.119},{"n":"Centennial SD 28J","e":5485,"pp":14037,"ins":0.611,"adm":0.079,"admb":0.133},{"n":"Corbett SD 39","e":1063,"pp":16001,"ins":0.542,"adm":0.13,"admb":0.205},{"n":"David Douglas SD 40","e":8660,"pp":14048,"ins":0.534,"adm":0.11,"admb":0.173},{"n":"Riverdale SD 51J","e":564,"pp":19519,"ins":0.585,"adm":0.134,"admb":0.203},{"n":"Dallas SD 2","e":3006,"pp":13905,"ins":0.629,"adm":0.083,"admb":0.151},{"n":"Central SD 13J","e":3066,"pp":14658,"ins":0.599,"adm":0.09,"admb":0.147},{"n":"Falls City SD 57","e":178,"pp":27107,"ins":0.442,"adm":0.156,"admb":0.25},{"n":"Sherman County SD","e":282,"pp":18372,"ins":0.422,"adm":0.126,"admb":0.168},{"n":"Tillamook SD 9","e":2061,"pp":13033,"ins":0.58,"adm":0.125,"admb":0.172},{"n":"Neah-Kah-Nie SD 56","e":696,"pp":22924,"ins":0.541,"adm":0.125,"admb":0.177},{"n":"Nestucca Valley SD 101J","e":520,"pp":18933,"ins":0.437,"adm":0.158,"admb":0.241},{"n":"Helix SD 1","e":186,"pp":20904,"ins":0.593,"adm":0.085,"admb":0.129},{"n":"Pilot Rock SD 2","e":294,"pp":19346,"ins":0.491,"adm":0.131,"admb":0.175},{"n":"Echo SD 5","e":316,"pp":13811,"ins":0.583,"adm":0.136,"admb":0.199},{"n":"Umatilla SD 6R","e":1428,"pp":13412,"ins":0.607,"adm":0.107,"admb":0.16},{"n":"Milton-Freewater Unified SD 7","e":1537,"pp":13000,"ins":0.594,"adm":0.129,"admb":0.195},{"n":"Hermiston SD 8","e":5419,"pp":13930,"ins":0.574,"adm":0.077,"admb":0.129},{"n":"Pendleton SD 16","e":2899,"pp":13588,"ins":0.601,"adm":0.105,"admb":0.156},{"n":"Athena-Weston SD 29RJ","e":530,"pp":16895,"ins":0.639,"adm":0.086,"admb":0.142},{"n":"Stanfield SD 61","e":485,"pp":14096,"ins":0.592,"adm":0.137,"admb":0.183},{"n":"Ukiah SD 80R","e":27,"pp":43376,"ins":0.478,"adm":0.107,"admb":0.2},{"n":"La Grande SD 1","e":2029,"pp":13343,"ins":0.495,"adm":0.084,"admb":0.131},{"n":"Union SD 5","e":370,"pp":14659,"ins":0.577,"adm":0.098,"admb":0.168},{"n":"North Powder SD 8J","e":256,"pp":19150,"ins":0.542,"adm":0.108,"admb":0.166},{"n":"Imbler SD 11","e":314,"pp":17421,"ins":0.477,"adm":0.071,"admb":0.117},{"n":"Cove SD 15","e":302,"pp":25831,"ins":0.355,"adm":0.068,"admb":0.11},{"n":"Elgin SD 23","e":396,"pp":17795,"ins":0.534,"adm":0.084,"admb":0.119},{"n":"Joseph SD 6","e":279,"pp":21550,"ins":0.447,"adm":0.075,"admb":0.084},{"n":"Wallowa SD 12","e":204,"pp":16995,"ins":0.524,"adm":0.188,"admb":0.188},{"n":"Enterprise SD 21","e":428,"pp":13597,"ins":0.637,"adm":0.119,"admb":0.128},{"n":"Troy SD 54","e":4,"pp":57575,"ins":0.517,"adm":0.099,"admb":0.153},{"n":"Dufur SD 29","e":343,"pp":17661,"ins":0.532,"adm":0.125,"admb":0.174},{"n":"Hillsboro SD 1J","e":18716,"pp":13820,"ins":0.597,"adm":0.09,"admb":0.147},{"n":"Banks SD 13","e":1091,"pp":12382,"ins":0.576,"adm":0.119,"admb":0.156},{"n":"Forest Grove SD 15","e":5809,"pp":13939,"ins":0.62,"adm":0.067,"admb":0.123},{"n":"Tigard-Tualatin SD 23J","e":11620,"pp":14621,"ins":0.617,"adm":0.083,"admb":0.138},{"n":"Beaverton SD 48J","e":37988,"pp":14322,"ins":0.615,"adm":0.082,"admb":0.135},{"n":"Sherwood SD 88J","e":4836,"pp":13491,"ins":0.594,"adm":0.074,"admb":0.134},{"n":"Gaston SD 511J","e":483,"pp":16403,"ins":0.498,"adm":0.101,"admb":0.204},{"n":"Spray SD 1","e":60,"pp":34651,"ins":0.376,"adm":0.101,"admb":0.153},{"n":"Fossil SD 21J","e":1929,"pp":9888,"ins":0.918,"adm":0.021,"admb":0.035},{"n":"Mitchell SD 55","e":1246,"pp":13203,"ins":0.92,"adm":0.016,"admb":0.025},{"n":"Yamhill Carlton SD 1","e":1097,"pp":12544,"ins":0.538,"adm":0.112,"admb":0.168},{"n":"Amity SD 4J","e":751,"pp":13685,"ins":0.569,"adm":0.104,"admb":0.157},{"n":"Dayton SD 8","e":874,"pp":13728,"ins":0.561,"adm":0.13,"admb":0.2},{"n":"Newberg SD 29J","e":4046,"pp":15355,"ins":0.59,"adm":0.102,"admb":0.147},{"n":"Willamina SD 30J","e":872,"pp":17522,"ins":0.45,"adm":0.106,"admb":0.178},{"n":"McMinnville SD 40","e":6419,"pp":13087,"ins":0.63,"adm":0.068,"admb":0.114},{"n":"Sheridan SD 48J","e":973,"pp":14292,"ins":0.688,"adm":0.123,"admb":0.154},{"n":"Knappa SD 4","e":445,"pp":16956,"ins":0.509,"adm":0.127,"admb":0.18},{"n":"Ione SD R2","e":127,"pp":24650,"ins":0.475,"adm":0.112,"admb":0.167},{"n":"North Wasco County SD 21","e":2848,"pp":13629,"ins":0.589,"adm":0.084,"admb":0.126}],"benefits":{"genfund_2019-20":{"sal":3357,"ben":2094,"pers":920,"tot":6925},"genfund_2023-24":{"sal":3913,"ben":2215,"pers":919,"tot":8129},"allfunds_2019-20":{"sal":3874,"ben":2468,"pers":1053,"tot":12237},"allfunds_2023-24":{"sal":5028,"ben":2899,"pers":1182,"tot":13793}}};
+const PAGES = ["verdict","money","context","pension","core","time","district","fixes","methods"];
+const ABBR = {"Alabama":"AL","Alaska":"AK","Arizona":"AZ","Arkansas":"AR","California":"CA","Colorado":"CO","Connecticut":"CT","Delaware":"DE","District of Columbia":"DC","Florida":"FL","Georgia":"GA","Hawaii":"HI","Idaho":"ID","Illinois":"IL","Indiana":"IN","Iowa":"IA","Kansas":"KS","Kentucky":"KY","Louisiana":"LA","Maine":"ME","Maryland":"MD","Massachusetts":"MA","Michigan":"MI","Minnesota":"MN","Mississippi":"MS","Missouri":"MO","Montana":"MT","Nebraska":"NE","Nevada":"NV","New Hampshire":"NH","New Jersey":"NJ","New Mexico":"NM","New York":"NY","North Carolina":"NC","North Dakota":"ND","Ohio":"OH","Oklahoma":"OK","Oregon":"OR","Pennsylvania":"PA","Rhode Island":"RI","South Carolina":"SC","South Dakota":"SD","Tennessee":"TN","Texas":"TX","Utah":"UT","Vermont":"VT","Virginia":"VA","Washington":"WA","West Virginia":"WV","Wisconsin":"WI","Wyoming":"WY","United States":"US"};
+
+let state = { page: (location.hash||"#verdict").slice(1), metric: "ins_share", dist: null };
+if (!PAGES.includes(state.page)) state.page = "verdict";
+function setState(p) { Object.assign(state, p); render(); }
+
+function css(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+function fmt$(n){ return "$" + Math.round(n).toLocaleString(); }
+function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); }
+
+/* ---------- navigation ---------- */
+function render() {
+  document.querySelectorAll(".page").forEach(function(el) {
+    var isActive = el.id === "page-"+state.page;
+    el.classList.toggle("active", isActive);
+    el.classList.remove("fade-in");
+  });
+  requestAnimationFrame(function() {
+    var p = document.getElementById("page-"+state.page);
+    if (p) p.classList.add("fade-in");
+  });
+  document.querySelectorAll(".nav-btn").forEach(function(b) { b.classList.toggle("active", b.dataset.page === state.page); });
+  var i = PAGES.indexOf(state.page);
+  document.getElementById("prevBtn").disabled = i === 0;
+  document.getElementById("nextBtn").disabled = i === PAGES.length-1;
+  document.getElementById("pageDots").textContent = (i+1) + " / " + PAGES.length;
+  try { history.replaceState(null,"","#"+state.page); } catch(e){}
+  drawCharts();
+  window.scrollTo(0, 0);
+}
+document.querySelectorAll(".nav-btn").forEach(b => b.addEventListener("click", () => setState({page:b.dataset.page})));
+document.getElementById("prevBtn").addEventListener("click", () => setState({page: PAGES[Math.max(0,PAGES.indexOf(state.page)-1)]}));
+document.getElementById("nextBtn").addEventListener("click", () => setState({page: PAGES[Math.min(PAGES.length-1,PAGES.indexOf(state.page)+1)]}));
+document.addEventListener("keydown", e => {
+  if (e.target.tagName === "INPUT") return;
+  if (e.key === "ArrowRight") setState({page: PAGES[Math.min(PAGES.length-1,PAGES.indexOf(state.page)+1)]});
+  if (e.key === "ArrowLeft") setState({page: PAGES[Math.max(0,PAGES.indexOf(state.page)-1)]});
+});
+document.getElementById("themeBtn").addEventListener("click", () => {
+  const t = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  document.documentElement.dataset.theme = t;
+  try { localStorage.setItem("orsb_theme", t); } catch(e){}
+  drawCharts();
+});
+try { const t = localStorage.getItem("orsb_theme"); if (t) document.documentElement.dataset.theme = t; } catch(e){}
+
+/* ---------- chart helpers (inline SVG) ---------- */
+function svgEl(w, h) { return `<svg viewBox="0 0 ${w} ${h}" width="100%" role="img" xmlns="http://www.w3.org/2000/svg">`; }
+
+/* Growth index line chart */
+function drawGrowth() {
+  const el = document.getElementById("chart-growth"); if (!el) return;
+  const yrs = Object.keys(DATA.gf_trend);
+  const series = [
+    {k:"central_services", label:"Central services +35%", hl:1},
+    {k:"business_services", label:"Business services +33%", hl:1},
+    {k:"general_admin", label:"General admin +33%", hl:1},
+    {k:"total", label:"Total +17%", hl:0},
+    {k:"instruction", label:"Instruction +11%", hl:2},
+  ];
+  const W=860,H=380,L=46,R=210,T=18,B=34;
+  const base = {}; series.forEach(s => base[s.k]=DATA.gf_trend[yrs[0]][s.k]);
+  const idx = (k,y) => 100*DATA.gf_trend[y][k]/base[k];
+  const ymin=95,ymax=142;
+  const x = i => L + (W-L-R)*(i/(yrs.length-1));
+  const y = v => T + (H-T-B)*(1-(v-ymin)/(ymax-ymin));
+  let s = svgEl(W,H);
+  for (let g=100; g<=140; g+=10) s += `<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${css('--gridline')}"/><text x="${L-8}" y="${y(g)+4}" text-anchor="end" font-size="11" fill="${css('--text-dim')}">${g}</text>`;
+  // CPI line
+  const cpi=[100,101.3,107.1,114.9,120.7];
+  s += `<path d="${yrs.map((yr,i)=>(i?"L":"M")+x(i)+","+y(cpi[i])).join("")}" fill="none" stroke="${css('--axis')}" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  s += `<text x="${W-R+8}" y="${y(cpi[4])+4}" font-size="11.5" fill="${css('--text-dim')}">CPI +20.7%</text>`;
+  series.forEach(sr => {
+    const col = sr.hl===1 ? css('--accent') : sr.hl===2 ? css('--fix') : css('--axis');
+    const wgt = sr.hl===0 ? 1.8 : 2.6;
+    s += `<path d="${yrs.map((yr,i)=>(i?"L":"M")+x(i)+","+y(idx(sr.k,yr))).join("")}" fill="none" stroke="${col}" stroke-width="${wgt}" ${sr.hl===0?'stroke-dasharray="2 3"':''}/>`;
+    s += `<text x="${W-R+8}" y="${y(idx(sr.k,yrs[4]))+4}" font-size="12" font-weight="${sr.hl?700:500}" fill="${col}">${sr.label}</text>`;
+  });
+  yrs.forEach((yr,i)=> s += `<text x="${x(i)}" y="${H-10}" text-anchor="middle" font-size="11" fill="${css('--text-dim')}">${yr}</text>`);
+  el.innerHTML = s + "</svg>";
+}
+
+/* GF shares horizontal bars */
+function drawShares() {
+  const el = document.getElementById("chart-shares"); if (!el) return;
+  const t = DATA.gf_trend["2023-24"], tot = t.total;
+  const items = [
+    ["Instruction (teachers, classrooms)", t.instruction, 2],
+    ["Plant operation & maintenance", t.plant_om, 0],
+    ["School admin (principals)", t.school_admin, 1],
+    ["Student support (counselors, nurses)", t.student_support, 0],
+    ["Transportation", t.transportation, 0],
+    ["Central services (HR, IT, planning)", t.central_services, 1],
+    ["Instructional staff support", t.instr_staff_support, 0],
+    ["Business services", t.business_services, 1],
+    ["General admin (boards, superintendents)", t.general_admin, 1],
+  ];
+  const W=860, rowH=34, L=300, R=120, H=items.length*rowH+16;
+  const max = items[0][1]/tot;
+  let s = svgEl(W,H);
+  items.forEach((it,i)=>{
+    const sh = it[1]/tot, w = (W-L-R)*(sh/max), yy = 8+i*rowH;
+    const col = it[2]===2 ? css('--fix') : it[2]===1 ? css('--accent') : css('--bar-neutral');
+    s += `<text x="${L-10}" y="${yy+17}" text-anchor="end" font-size="12.5" fill="${css('--text')}">${it[0]}</text>`;
+    s += `<rect x="${L}" y="${yy}" width="${Math.max(w,2)}" height="${rowH-10}" rx="3" fill="${col}"/>`;
+    s += `<text x="${L+w+8}" y="${yy+17}" font-size="12.5" font-weight="700" fill="${css('--text')}" class="tabular">${(100*sh).toFixed(1)}% · $${(it[1]/1000).toFixed(2)}B</text>`;
+  });
+  el.innerHTML = s + "</svg>";
+}
+
+/* 50-state ranking bars */
+const METRICS = {
+  ins_share: {label:"Instruction share of spending", fmt:v=>(100*v).toFixed(1)+"%", title:"Oregon ranks near the bottom on the share of spending that reaches instruction", asc:false},
+  other_sup_pp: {label:"Central/other support $ per student", fmt:v=>fmt$(v), title:"Oregon's central back office runs near double the national per-student rate", asc:true},
+  ben_sal: {label:"Benefits per $1 of salary", fmt:v=>v.toFixed(2), title:"Only a handful of states carry a heavier benefits load per salary dollar", asc:true},
+  gadm_pp: {label:"General admin $ per student", fmt:v=>fmt$(v), title:"Boards and superintendents: Oregon is leaner than the US average", asc:true},
+  sadm_pp: {label:"School admin $ per student", fmt:v=>fmt$(v), title:"Principals' offices: Oregon runs above the US average", asc:true},
+  cur_pp: {label:"Total current $ per student", fmt:v=>fmt$(v), title:"Oregon spends more per student than the US average", asc:true},
+};
+function drawStates() {
+  const el = document.getElementById("chart-states"); if (!el) return;
+  const m = METRICS[state.metric];
+  document.getElementById("rank-title").textContent = m.title;
+  const rows = DATA.states.filter(s=>s.state!=="United States").slice()
+    .sort((a,b)=> m.asc ? b[state.metric]-a[state.metric] : b[state.metric]-a[state.metric]);
+  if (!m.asc) rows.sort((a,b)=>b[state.metric]-a[state.metric]);
+  const us = DATA.states.find(s=>s.state==="United States");
+  const W=860, rowH=17, L=44, R=86, H=rows.length*rowH+30;
+  const max = Math.max(...rows.map(r=>r[state.metric]));
+  let s = svgEl(W,H);
+  // US average line
+  const usX = L+(W-L-R)*(us[state.metric]/max);
+  rows.forEach((r,i)=>{
+    const w=(W-L-R)*(r[state.metric]/max), yy=6+i*rowH, isOR=r.state==="Oregon";
+    s += `<text x="${L-6}" y="${yy+11}" text-anchor="end" font-size="10.5" font-weight="${isOR?800:400}" fill="${isOR?css('--accent'):css('--text-dim')}">${ABBR[r.state]}</text>`;
+    s += `<rect x="${L}" y="${yy}" width="${Math.max(w,1)}" height="${rowH-4}" rx="2" fill="${isOR?css('--accent'):css('--bar-neutral')}"/>`;
+    if (isOR) s += `<text x="${L+w+6}" y="${yy+11}" font-size="11" font-weight="800" fill="${css('--accent')}" class="tabular">OREGON ${m.fmt(r[state.metric])} (#${i+1} of ${rows.length})</text>`;
+  });
+  s += `<line x1="${usX}" y1="2" x2="${usX}" y2="${H-22}" stroke="${css('--axis')}" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  s += `<text x="${usX+5}" y="${H-8}" font-size="10.5" fill="${css('--text-dim')}">US avg ${m.fmt(us[state.metric])}</text>`;
+  el.innerHTML = s + "</svg>";
+}
+const tog = document.getElementById("metricToggle");
+Object.entries(METRICS).forEach(([k,m])=>{
+  const b=document.createElement("button"); b.className="mbtn"; b.textContent=m.label;
+  b.addEventListener("click",()=>{ setStateMetric(k); });
+  b.dataset.k=k; tog.appendChild(b);
+});
+function setStateMetric(k){ state.metric=k; document.querySelectorAll(".mbtn").forEach(b=>b.classList.toggle("active",b.dataset.k===k)); drawStates(); }
+
+/* benefits/salary ranking */
+function drawBenSal() {
+  const el = document.getElementById("chart-bensal"); if (!el) return;
+  const rows = DATA.states.filter(s=>s.state!=="United States").slice().sort((a,b)=>b.ben_sal-a.ben_sal);
+  const us = DATA.states.find(s=>s.state==="United States");
+  const W=860, rowH=17, L=44, R=90, H=rows.length*rowH+30;
+  const max = Math.max(...rows.map(r=>r.ben_sal));
+  let s = svgEl(W,H);
+  const usX = L+(W-L-R)*(us.ben_sal/max);
+  rows.forEach((r,i)=>{
+    const w=(W-L-R)*(r.ben_sal/max), yy=6+i*rowH, isOR=r.state==="Oregon";
+    s += `<text x="${L-6}" y="${yy+11}" text-anchor="end" font-size="10.5" font-weight="${isOR?800:400}" fill="${isOR?css('--accent'):css('--text-dim')}">${ABBR[r.state]}</text>`;
+    s += `<rect x="${L}" y="${yy}" width="${w}" height="${rowH-4}" rx="2" fill="${isOR?css('--accent'):css('--bar-neutral')}"/>`;
+    if (isOR) s += `<text x="${L+w+6}" y="${yy+11}" font-size="11" font-weight="800" fill="${css('--accent')}" class="tabular">OREGON $0.556 (#${i+1})</text>`;
+  });
+  s += `<line x1="${usX}" y1="2" x2="${usX}" y2="${H-22}" stroke="${css('--axis')}" stroke-width="1.5" stroke-dasharray="4 4"/>`;
+  s += `<text x="${usX+5}" y="${H-8}" font-size="10.5" fill="${css('--text-dim')}">US avg $0.442</text>`;
+  el.innerHTML = s + "</svg>";
+}
+
+/* revenue indexed lines */
+function drawRevenue() {
+  const el = document.getElementById("chart-revenue"); if (!el) return;
+  const yrs = Object.keys(DATA.revenue);
+  const r0 = DATA.revenue[yrs[0]];
+  const core = yrs.map(y => DATA.revenue[y].prop_tax + DATA.revenue[y].ssf);
+  const series = [
+    {vals: yrs.map(y=>100*DATA.revenue[y].state_other/r0.state_other), label:"State grants (SSA etc.) +124%", col: css('--accent'), w:2.6},
+    {vals: yrs.map(y=>100*DATA.revenue[y].federal/r0.federal), label:"Federal (ESSER) +106%", col: css('--accent'), w:2.6, dash:"6 3"},
+    {vals: core.map(v=>100*v/core[0]), label:"CORE: prop tax + SSF +14%", col: css('--fix'), w:3},
+  ];
+  const cpi=[100,101.3,107.1,114.9,120.7];
+  const W=860,H=380,L=46,R=230,T=16,B=34, ymin=90, ymax=240;
+  const x=i=>L+(W-L-R)*(i/(yrs.length-1)), y=v=>T+(H-T-B)*(1-(v-ymin)/(ymax-ymin));
+  let s=svgEl(W,H);
+  for(let g=100;g<=220;g+=40) s += `<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${css('--gridline')}"/><text x="${L-8}" y="${y(g)+4}" text-anchor="end" font-size="11" fill="${css('--text-dim')}">${g}</text>`;
+  s += `<path d="${yrs.map((yr,i)=>(i?"L":"M")+x(i)+","+y(cpi[i])).join("")}" fill="none" stroke="${css('--axis')}" stroke-width="1.5" stroke-dasharray="5 4"/>`;
+  s += `<text x="${W-R+8}" y="${y(cpi[4])+4}" font-size="11.5" fill="${css('--text-dim')}">CPI +20.7%</text>`;
+  series.forEach(sr=>{
+    s += `<path d="${sr.vals.map((v,i)=>(i?"L":"M")+x(i)+","+y(v)).join("")}" fill="none" stroke="${sr.col}" stroke-width="${sr.w}" ${sr.dash?`stroke-dasharray="${sr.dash}"`:""}/>`;
+    s += `<text x="${W-R+8}" y="${y(sr.vals[4])+4}" font-size="12" font-weight="700" fill="${sr.col}">${sr.label}</text>`;
+  });
+  yrs.forEach((yr,i)=> s += `<text x="${x(i)}" y="${H-10}" text-anchor="middle" font-size="11" fill="${css('--text-dim')}">${yr}</text>`);
+  el.innerHTML = s + "</svg>";
+}
+
+/* instructional time grouped bars */
+function drawTime() {
+  const el = document.getElementById("chart-time"); if (!el) return;
+  const groups = [
+    {g:"Grades K-8", bars:[["OR minimum",900],["OR actual avg",1111],["US actual avg",1227]]},
+    {g:"High school", bars:[["OR minimum",990],["OR actual avg",1177],["US actual avg",1227]]},
+  ];
+  const W=860,H=330,T=20,B=60,L=54;
+  const max=1300, bw=92, gap=18, ggap=120;
+  const y=v=>T+(H-T-B)*(1-v/max);
+  let s=svgEl(W,H);
+  for(let g=0;g<=1200;g+=300) s+=`<line x1="${L}" y1="${y(g)}" x2="${W-20}" y2="${y(g)}" stroke="${css('--gridline')}"/><text x="${L-8}" y="${y(g)+4}" text-anchor="end" font-size="11" fill="${css('--text-dim')}">${g}</text>`;
+  let xx=L+40;
+  groups.forEach(gr=>{
+    gr.bars.forEach((b,i)=>{
+      const col = i===2 ? css('--bar-neutral') : i===1 ? css('--accent') : css('--accent-mid').replace("rgba","rgba");
+      const fill = i===2 ? css('--bar-neutral') : css('--accent');
+      const op = i===0 ? 0.45 : 1;
+      s += `<rect x="${xx}" y="${y(b[1])}" width="${bw}" height="${y(0)-y(b[1])}" rx="4" fill="${fill}" opacity="${i===2?1:op}" ${i===2?`fill="${css('--bar-neutral')}"`:""}/>`;
+      s += `<text x="${xx+bw/2}" y="${y(b[1])-8}" text-anchor="middle" font-size="13" font-weight="800" fill="${css('--text')}" class="tabular">${b[1].toLocaleString()}</text>`;
+      s += `<text x="${xx+bw/2}" y="${H-38}" text-anchor="middle" font-size="10.5" fill="${css('--text-dim')}">${b[0]}</text>`;
+      xx += bw+gap;
+    });
+    s += `<text x="${xx-((bw+gap)*3)/2-gap/2}" y="${H-16}" text-anchor="middle" font-size="12" font-weight="700" fill="${css('--text')}">${gr.g}</text>`;
+    xx += ggap-gap;
+  });
+  el.innerHTML = s+"</svg>";
+  // year grid
+  const yg = document.getElementById("yearGrid");
+  if (yg && !yg.childElementCount) {
+    for (let i=1;i<=13;i++){
+      const d=document.createElement("div");
+      const lost = i===13;
+      d.className="yr"+(lost?" lost":"");
+      d.innerHTML = lost ? "×<span>NEVER<br>TAUGHT</span>" : (i===13?"":"Y"+i)+"<span>"+(["K","1","2","3","4","5","6","7","8","9","10","11","12"][i-1])+"</span>";
+      if(!lost) d.innerHTML = (["K","1","2","3","4","5","6","7","8","9","10","11","12"][i-1])+"<span>YEAR "+i+"</span>";
+      yg.appendChild(d);
+    }
+  }
+}
+
+/* district scatter */
+function drawScatter() {
+  const el = document.getElementById("chart-scatter"); if (!el) return;
+  const ds = DATA.districts.filter(d=>d.e>300 && d.pp && d.pp<40000);
+  const W=860,H=420,L=64,R=24,T=16,B=44;
+  const xmin=Math.log10(300), xmax=Math.log10(50000), ymin=8000, ymax=28000;
+  const x=e=>L+(W-L-R)*((Math.log10(e)-xmin)/(xmax-xmin));
+  const y=p=>T+(H-T-B)*(1-Math.min(Math.max((p-ymin)/(ymax-ymin),0),1));
+  let s=svgEl(W,H);
+  for(let g=10000;g<=25000;g+=5000) s+=`<line x1="${L}" y1="${y(g)}" x2="${W-R}" y2="${y(g)}" stroke="${css('--gridline')}"/><text x="${L-8}" y="${y(g)+4}" text-anchor="end" font-size="10.5" fill="${css('--text-dim')}" class="tabular">$${(g/1000)}k</text>`;
+  [500,1000,5000,10000,40000].forEach(e=> s+=`<text x="${x(e)}" y="${H-24}" text-anchor="middle" font-size="10.5" fill="${css('--text-dim')}" class="tabular">${e.toLocaleString()}</text>`);
+  s += `<text x="${(L+W-R)/2}" y="${H-6}" text-anchor="middle" font-size="11" fill="${css('--text-dim')}">Enrollment (log scale)</text>`;
+  ds.forEach((d,i)=>{
+    const sel = state.dist===d.n;
+    s += `<circle data-i="${i}" cx="${x(d.e)}" cy="${y(d.pp)}" r="${sel?8:4.5}" fill="${sel?css('--accent'):css('--bar-neutral')}" opacity="${sel?1:0.75}" stroke="${sel?css('--text'):'none'}" stroke-width="1.5" style="cursor:pointer"/>`;
+  });
+  if (state.dist) {
+    const d = ds.find(q=>q.n===state.dist);
+    if (d) s += `<text x="${Math.min(x(d.e)+10,W-220)}" y="${y(d.pp)-10}" font-size="12.5" font-weight="800" fill="${css('--accent')}">${esc(d.n)} · ${fmt$(d.pp)}/student</text>`;
+  }
+  el.innerHTML = s+"</svg>";
+  el.querySelectorAll("circle").forEach(c=>c.addEventListener("click",()=>selectDistrict(ds[+c.dataset.i].n)));
+}
+function selectDistrict(name){
+  state.dist=name;
+  const d = DATA.districts.find(q=>q.n===name); if (!d) return;
+  const card=document.getElementById("distCard"); card.style.display="block";
+  document.getElementById("dcName").textContent = d.n + " — " + d.e.toLocaleString() + " students";
+  // median for size class
+  const cls = DATA.districts.filter(q=>q.e>300 && q.pp && (d.e>10000 ? q.e>10000 : d.e>2000 ? (q.e>2000&&q.e<=10000) : d.e>500 ? (q.e>500&&q.e<=2000) : q.e<=500));
+  const med = a => { const v=a.slice().sort((x,y)=>x-y); return v[Math.floor(v.length/2)]; };
+  const rows=[
+    ["GF spending per student", d.pp, med(cls.map(q=>q.pp)), fmt$],
+    ["Instruction share", d.ins, med(cls.map(q=>q.ins)), v=>(100*v).toFixed(1)+"%"],
+    ["Admin share (narrow)", d.adm, med(cls.map(q=>q.adm)), v=>(100*v).toFixed(1)+"%"],
+    ["Admin share (broad)", d.admb, med(cls.map(q=>q.admb)), v=>(100*v).toFixed(1)+"%"],
+  ];
+  const W=760,rowH=56,L=230,R=90,H=rows.length*rowH+8;
+  let s=svgEl(W,H);
+  rows.forEach((r,i)=>{
+    const max=Math.max(r[1],r[2])*1.25, yy=6+i*rowH;
+    const w1=(W-L-R)*(r[1]/max), w2=(W-L-R)*(r[2]/max);
+    s+=`<text x="${L-10}" y="${yy+15}" text-anchor="end" font-size="12" fill="${css('--text')}">${r[0]}</text>`;
+    s+=`<rect x="${L}" y="${yy}" width="${Math.max(w1,2)}" height="16" rx="3" fill="${css('--accent')}"/>`;
+    s+=`<text x="${L+w1+6}" y="${yy+13}" font-size="12" font-weight="800" fill="${css('--accent')}" class="tabular">${r[3](r[1])}</text>`;
+    s+=`<rect x="${L}" y="${yy+20}" width="${Math.max(w2,2)}" height="10" rx="3" fill="${css('--bar-neutral')}"/>`;
+    s+=`<text x="${L+w2+6}" y="${yy+29}" font-size="10.5" fill="${css('--text-dim')}" class="tabular">peer median ${r[3](r[2])}</text>`;
+  });
+  document.getElementById("chart-distbars").innerHTML=s+"</svg>";
+  document.getElementById("dcNote").textContent = "Peer group: districts of similar enrollment size. General Fund, 2023-24. Virtual-charter sponsors and heavy local-option districts can deviate for structural reasons — use this as a starting question, not a verdict.";
+  drawScatter();
+}
+const inp=document.getElementById("distSearch"), box=document.getElementById("suggestBox");
+if (inp) inp.addEventListener("input", ()=>{
+  const q=inp.value.toLowerCase().trim();
+  if(q.length<2){ box.style.display="none"; return; }
+  const hits=DATA.districts.filter(d=>d.n.toLowerCase().includes(q)).slice(0,8);
+  box.innerHTML=hits.map(h=>`<button data-n="${esc(h.n)}">${esc(h.n)} <span class="dim">· ${h.e.toLocaleString()} students</span></button>`).join("");
+  box.style.display=hits.length?"block":"none";
+  box.style.top=(inp.offsetTop+inp.offsetHeight+4)+"px"; box.style.left=inp.offsetLeft+"px";
+  box.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{ inp.value=b.dataset.n; box.style.display="none"; selectDistrict(b.dataset.n); }));
+});
+document.addEventListener("click",e=>{ if(box && !box.contains(e.target) && e.target!==inp) box.style.display="none"; });
+
+function drawCharts(){
+  if (state.page==="money"){ drawGrowth(); drawShares(); }
+  if (state.page==="context"){ if(!document.querySelector(".mbtn.active")) setStateMetric("ins_share"); else drawStates(); }
+  if (state.page==="pension") drawBenSal();
+  if (state.page==="core") drawRevenue();
+  if (state.page==="time") drawTime();
+  if (state.page==="district") drawScatter();
+}
+render();
+</script>
+</body>
+</html>

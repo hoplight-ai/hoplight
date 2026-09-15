@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Persuasion - Hoplight</title>
+<meta name="description" content="Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a 3,000-person voter-file-matched RCT.">
+<style>
+:root {
+  --ink: #0A1628;
+  --gold: #E8A838;
+  --gold-deep: #B8851F;
+  --paper: #F7F5F0;
+  --stone: #8B8578;
+  --signal: #4A6FA5;
+  --flag: #B84A3E;
+  --green: #4CAF50;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--paper);
+  background: var(--ink);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(10, 22, 40, 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(232, 168, 56, 0.2);
+  padding: 0.8rem 2rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+nav .brand {
+  font-size: 0.85rem; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--paper);
+}
+nav a {
+  color: var(--stone); text-decoration: none; font-size: 0.85rem;
+  transition: color 0.2s;
+}
+nav a:hover { color: var(--gold); }
+
+/* SECTIONS */
+section {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  padding: 6rem 2rem;
+  position: relative;
+}
+section.half { min-height: 60vh; }
+section.auto { min-height: auto; padding: 4rem 2rem; }
+
+.container { max-width: 900px; width: 100%; }
+.container-wide { max-width: 1100px; width: 100%; }
+
+/* ANIMATION */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-4 { transition-delay: 0.6s; }
+
+/* TYPOGRAPHY */
+h1 {
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--paper);
+  margin-bottom: 1.5rem;
+}
+h2 {
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+h3 {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--paper);
+  margin-bottom: 0.6rem;
+}
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--stone);
+  line-height: 1.6;
+}
+.big-number {
+  font-size: clamp(3rem, 8vw, 5rem);
+  font-weight: 500;
+  color: var(--gold);
+  line-height: 1;
+}
+.label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+.gold-rule {
+  width: 60px; height: 2px;
+  background: var(--gold);
+  margin: 1.5rem 0;
+}
+.section-divider {
+  text-align: center;
+  padding: 5rem 2rem;
+}
+.section-divider h2 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  color: var(--gold);
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  padding-top: 4rem;
+}
+.hero .overline {
+  font-size: 0.8rem; font-weight: 500;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 1.5rem;
+}
+.hero h1 {
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  max-width: 800px;
+}
+.hero blockquote {
+  font-size: 1.2rem;
+  color: var(--gold);
+  font-style: italic;
+  margin-top: 2rem;
+  padding-left: 1.2rem;
+  border-left: 3px solid var(--gold);
+}
+
+/* STAT CARDS */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.stat-card {
+  background: rgba(232, 168, 56, 0.06);
+  border: 1px solid rgba(232, 168, 56, 0.15);
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.stat-card .number {
+  font-size: 2.5rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+.stat-card .number.negative { color: var(--flag); }
+.stat-card .number.positive { color: var(--green); }
+.stat-card .desc {
+  font-size: 0.9rem;
+  color: var(--stone);
+  margin-top: 0.5rem;
+}
+
+/* ECHO QUOTES */
+.echo-quotes {
+  display: flex; flex-direction: column;
+  gap: 1.2rem;
+  margin: 2rem 0;
+}
+.echo-quote {
+  font-size: 1.3rem;
+  color: rgba(247, 245, 240, 0.6);
+  font-style: italic;
+  padding-left: 1.5rem;
+  border-left: 2px solid rgba(139, 133, 120, 0.3);
+}
+
+/* FALSE CHOICE */
+.false-choice-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin: 2rem 0;
+}
+.false-choice-col { text-align: center; }
+.false-choice-col h3 {
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid var(--gold);
+  margin-bottom: 1.2rem;
+}
+.false-choice-col p {
+  color: var(--stone);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* COMPARISON TABLE */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+.compare-table th {
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 1rem;
+  border-bottom: 2px solid var(--gold);
+  text-align: center;
+}
+.compare-table th:first-child { text-align: left; }
+.compare-table td {
+  padding: 0.8rem 1rem;
+  border-bottom: 1px solid rgba(139, 133, 120, 0.15);
+  font-size: 0.95rem;
+  color: rgba(247, 245, 240, 0.85);
+  text-align: center;
+  vertical-align: top;
+}
+.compare-table td:first-child {
+  text-align: left;
+  color: var(--paper);
+  font-weight: 500;
+}
+.compare-table .col-demo { color: rgba(200, 180, 230, 0.9); }
+.compare-table .col-psycho { color: var(--gold); }
+
+/* MESSAGE CARDS */
+.message-cards {
+  display: flex; flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.message-card {
+  background: rgba(247, 245, 240, 0.03);
+  border: 1px solid rgba(139, 133, 120, 0.2);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+.message-card:hover { border-color: rgba(232, 168, 56, 0.4); }
+.message-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+.message-card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+.message-card-header .tag {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.55rem;
+  border-radius: 2px;
+  background: rgba(232, 168, 56, 0.1);
+  color: var(--gold-deep);
+}
+.message-card-header .arrow {
+  font-size: 1.2rem;
+  color: var(--stone);
+  transition: transform 0.3s;
+}
+.message-card.open .arrow { transform: rotate(180deg); }
+.message-card-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+.message-card.open .message-card-body {
+  max-height: 500px;
+}
+.message-card-content {
+  padding: 0 1.5rem 1.5rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(247, 245, 240, 0.8);
+  border-top: 1px solid rgba(139, 133, 120, 0.1);
+  padding-top: 1.2rem;
+}
+.message-card-content strong {
+  color: var(--paper);
+  font-weight: 500;
+}
+.message-card.placebo .message-card-header h3 { color: var(--stone); }
+.message-card.placebo .tag { background: rgba(139, 133, 120, 0.15); color: var(--stone); }
+
+/* BAR CHART */
+.chart-container {
+  width: 100%;
+  margin: 2rem 0;
+}
+.chart-title {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 0.5rem;
+}
+.chart-subtitle {
+  font-size: 0.9rem;
+  color: rgba(247, 245, 240, 0.6);
+  margin-bottom: 1.5rem;
+}
+.bar-chart {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 300px;
+  padding-bottom: 2.5rem;
+  position: relative;
+  border-bottom: 1px solid rgba(139, 133, 120, 0.2);
+}
+.bar-chart .zero-line {
+  position: absolute;
+  bottom: calc(2.5rem + 0px);
+  left: 0; right: 0;
+  height: 1px;
+  background: rgba(139, 133, 120, 0.3);
+}
+.bar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  height: 100%;
+  justify-content: flex-end;
+}
+.bar-group-bars {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+  justify-content: center;
+  height: calc(100% - 2.5rem);
+  position: relative;
+}
+.bar {
+  width: 28px;
+  border-radius: 2px 2px 0 0;
+  position: relative;
+  transition: height 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  min-height: 0;
+}
+.bar.progressive { background: rgba(200, 180, 230, 0.7); }
+.bar.safety { background: var(--gold); }
+.bar.valor { background: rgba(180, 180, 180, 0.7); }
+.bar.negative {
+  border-radius: 0 0 2px 2px;
+  align-self: flex-start;
+}
+.bar .bar-value {
+  position: absolute;
+  top: -22px;
+  left: 50%; transform: translateX(-50%);
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.bar.negative .bar-value {
+  top: auto;
+  bottom: -22px;
+}
+.bar-group-label {
+  position: absolute;
+  bottom: -2.2rem;
+  text-align: center;
+  font-size: 0.65rem;
+  color: var(--stone);
+  letter-spacing: 0.02em;
+  width: 120px;
+}
+.chart-legend {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+.legend-item {
+  display: flex; align-items: center; gap: 0.4rem;
+  font-size: 0.75rem; color: var(--stone);
+}
+.legend-dot {
+  width: 10px; height: 10px; border-radius: 2px;
+}
+.legend-dot.progressive { background: rgba(200, 180, 230, 0.7); }
+.legend-dot.safety { background: var(--gold); }
+.legend-dot.valor { background: rgba(180, 180, 180, 0.7); }
+
+/* INSIGHT CALLOUT */
+.callout {
+  border-left: 3px solid var(--gold);
+  background: rgba(10, 22, 40, 0.5);
+  padding: 1.2rem 1.5rem;
+  margin: 2rem 0;
+  font-size: 1rem;
+  color: rgba(247, 245, 240, 0.85);
+}
+.callout strong { color: var(--gold); font-weight: 500; }
+
+/* BACKLASH SECTION */
+.backlash-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.backlash-card {
+  text-align: center;
+  padding: 1.5rem;
+  border: 1px solid rgba(184, 74, 62, 0.3);
+  border-radius: 6px;
+  background: rgba(184, 74, 62, 0.05);
+}
+.backlash-card .number {
+  font-size: 2.2rem;
+  font-weight: 500;
+  color: var(--flag);
+}
+.backlash-card .segment {
+  font-size: 0.85rem;
+  color: var(--stone);
+  margin-top: 0.3rem;
+}
+.backlash-card .note {
+  font-size: 0.75rem;
+  color: rgba(139, 133, 120, 0.7);
+  margin-top: 0.3rem;
+}
+
+/* RECOVERY GRID */
+.recovery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.recovery-card {
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 6px;
+}
+.recovery-card .swing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+.recovery-card .old {
+  font-size: 1.4rem;
+  color: var(--flag);
+  font-weight: 500;
+}
+.recovery-card .arrow-right {
+  color: var(--stone);
+  font-size: 1rem;
+}
+.recovery-card .new {
+  font-size: 1.4rem;
+  color: var(--green);
+  font-weight: 500;
+}
+.recovery-card .segment {
+  font-size: 0.85rem;
+  color: var(--stone);
+}
+
+/* POSITIONING */
+.position-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+.position-card {
+  padding: 1.5rem;
+  border-radius: 6px;
+  border: 1px solid rgba(139, 133, 120, 0.2);
+  background: rgba(247, 245, 240, 0.03);
+}
+.position-card h3 { font-size: 1rem; margin-bottom: 0.5rem; }
+.position-card p { font-size: 0.9rem; color: var(--stone); }
+.position-card .verdict {
+  margin-top: 0.8rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.position-card .verdict.proven { color: var(--green); }
+.position-card .verdict.risky { color: var(--flag); }
+.position-card .verdict.engine { color: var(--gold); }
+.position-card.highlight {
+  border-color: var(--gold);
+  background: rgba(232, 168, 56, 0.06);
+}
+
+/* FOUR LAYERS */
+.layer-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 2rem 0;
+}
+.layer {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(139, 133, 120, 0.1);
+}
+.layer-num {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+  min-width: 24px;
+}
+.layer h3 { font-size: 1rem; margin-bottom: 0.3rem; }
+.layer p { font-size: 0.9rem; color: var(--stone); }
+
+/* CYCLE */
+.cycle-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  margin: 3rem 0;
+  flex-wrap: wrap;
+}
+.cycle-step {
+  text-align: center;
+  padding: 1.5rem;
+  min-width: 160px;
+}
+.cycle-step .step-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+.cycle-step p {
+  font-size: 0.9rem;
+  color: var(--stone);
+}
+.cycle-arrow {
+  font-size: 1.5rem;
+  color: rgba(139, 133, 120, 0.4);
+}
+
+/* OPERATIONALIZATION */
+.op-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(184, 74, 62, 0.05);
+  border: 1px solid rgba(184, 74, 62, 0.2);
+  border-radius: 6px;
+}
+.op-pill {
+  font-size: 0.7rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 3px;
+  background: rgba(184, 74, 62, 0.15);
+  color: rgba(247, 245, 240, 0.7);
+  white-space: nowrap;
+}
+.op-plus { color: var(--stone); font-size: 0.8rem; }
+
+.op-flow-clean {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  background: rgba(76, 175, 80, 0.05);
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  border-radius: 6px;
+}
+.op-input {
+  font-size: 0.8rem;
+  padding: 0.4rem 0.8rem;
+  border-radius: 3px;
+  background: rgba(232, 168, 56, 0.1);
+  color: var(--gold);
+  font-weight: 500;
+}
+.op-output {
+  font-size: 0.8rem;
+  color: var(--stone);
+}
+
+/* DEMO VS PSYCHO CALLOUT */
+.demo-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 0;
+  align-items: center;
+  margin: 2.5rem 0;
+}
+.demo-side {
+  padding: 2rem;
+  text-align: center;
+}
+.demo-side h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+.demo-side p {
+  font-size: 0.9rem;
+  color: var(--stone);
+  line-height: 1.6;
+}
+.demo-vs {
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--stone);
+  padding: 0 1rem;
+}
+.demo-highlight { color: var(--gold); }
+
+/* VALUES SEGMENTS */
+.segments-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.8rem;
+  margin: 2rem 0;
+}
+.segment-card {
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid rgba(139, 133, 120, 0.15);
+  background: rgba(247, 245, 240, 0.03);
+  text-align: center;
+}
+.segment-card h4 {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--gold);
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+.segment-card p {
+  font-size: 0.75rem;
+  color: var(--stone);
+  line-height: 1.5;
+}
+
+/* FRAMES TABLE */
+.frames-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 2rem 0;
+}
+.frames-table th {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.8rem;
+  border-bottom: 2px solid var(--gold);
+  text-align: center;
+  color: var(--paper);
+}
+.frames-table th:first-child { text-align: left; width: 120px; }
+.frames-table td {
+  padding: 0.8rem;
+  border-bottom: 1px solid rgba(139, 133, 120, 0.1);
+  font-size: 0.85rem;
+  color: rgba(247, 245, 240, 0.8);
+  text-align: center;
+  vertical-align: top;
+}
+.frames-table td:first-child {
+  text-align: left;
+  font-weight: 500;
+  color: var(--stone);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.frames-table .col-progressive { background: rgba(200, 180, 230, 0.06); }
+.frames-table .col-safety { background: rgba(232, 168, 56, 0.04); }
+.frames-table .col-valor { background: rgba(180, 180, 180, 0.04); }
+
+/* AUTHOR */
+.author-section {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin: 2rem 0;
+}
+.author-text p {
+  font-size: 0.95rem;
+  color: rgba(247, 245, 240, 0.8);
+  line-height: 1.7;
+}
+.author-text .email {
+  margin-top: 1rem;
+}
+.author-text .email a {
+  color: var(--gold);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.author-text .email a:hover { text-decoration: underline; }
+
+/* CTA */
+.cta-section {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+.cta-button {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background: var(--gold);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  transition: background 0.2s;
+}
+.cta-button:hover { background: var(--gold-deep); }
+
+/* FOOTER */
+footer {
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(139, 133, 120, 0.15);
+}
+footer .brand {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+footer p {
+  font-size: 0.8rem;
+  color: rgba(139, 133, 120, 0.5);
+  margin-top: 0.3rem;
+}
+
+/* DARK/LIGHT SECTION ALTERNATION */
+section.light {
+  background: var(--paper);
+  color: var(--ink);
+}
+section.light h2 { color: var(--ink); }
+section.light .subtitle { color: var(--stone); }
+section.light .callout {
+  background: rgba(10, 22, 40, 0.03);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  section { padding: 4rem 1.5rem; }
+  .false-choice-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .backlash-grid { grid-template-columns: 1fr; }
+  .recovery-grid { grid-template-columns: 1fr; }
+  .position-grid { grid-template-columns: 1fr; }
+  .segments-row { grid-template-columns: repeat(2, 1fr); }
+  .segments-row .segment-card:last-child { grid-column: span 2; }
+  .demo-grid { grid-template-columns: 1fr; }
+  .demo-vs { padding: 0.5rem 0; }
+  .bar { width: 18px; }
+  .bar-group-label { font-size: 0.55rem; width: 80px; }
+  .bar .bar-value { font-size: 0.65rem; }
+  .chart-legend { gap: 0.8rem; }
+  .author-section { flex-direction: column; }
+  .cycle-row { gap: 0.5rem; }
+  .op-flow { gap: 0.3rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="brand">Hoplight</span>
+  <a href="https://hoplight.ai/contact">Start a conversation</a>
+</nav>
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="container">
+    <div class="reveal">
+      <p class="overline">Hoplight Intelligence</p>
+      <h1>Progressive messaging works with the choir. We need to reach beyond it.</h1>
+      <blockquote>
+        "What happens if you message to someone's psychology instead of to their demographics?"
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PART 1: THE PROBLEM ========== -->
+
+<section class="section-divider">
+  <div class="reveal">
+    <h2>The Problem We're Solving</h2>
+    <div class="gold-rule" style="margin: 1.5rem auto;"></div>
+  </div>
+</section>
+
+<!-- SHRINKING MAP -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">The Progressive Map: Shrinking for 15 Years</h2>
+    <div class="stat-row">
+      <div class="stat-card reveal reveal-delay-1">
+        <div class="number" style="color: var(--signal);">365</div>
+        <div class="desc">Electoral votes, 2008</div>
+      </div>
+      <div class="stat-card reveal reveal-delay-2" style="display:flex; align-items:center; justify-content:center;">
+        <span style="font-size: 2rem; color: var(--flag);">&#8594;</span>
+      </div>
+      <div class="stat-card reveal reveal-delay-3">
+        <div class="number" style="color: var(--flag);">226</div>
+        <div class="desc">Electoral votes, 2024</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COALITION EXODUS -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">The Coalition Exodus</h2>
+    <p class="subtitle reveal reveal-delay-1">The groups progressives count on are leaving. The headlines say it all.</p>
+    <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 0.8rem;">
+      <div class="callout reveal reveal-delay-1" style="border-left-color: var(--stone);">
+        <strong style="color: var(--paper);">Reuters:</strong> Trump's return to power fueled by Hispanic, working-class voter support
+      </div>
+      <div class="callout reveal reveal-delay-2" style="border-left-color: var(--stone);">
+        <strong style="color: var(--paper);">CNN:</strong> Less engaged voters were key to Trump's 2024 victory
+      </div>
+      <div class="callout reveal reveal-delay-3" style="border-left-color: var(--stone);">
+        <strong style="color: var(--paper);">NPR:</strong> Biden won big with young voters. This year, they swung toward Trump in a big way
+      </div>
+      <div class="callout reveal reveal-delay-4" style="border-left-color: var(--stone);">
+        <strong style="color: var(--paper);">Axios:</strong> Trump came close to winning Latino vote in '24
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECHO CHAMBER -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">Trapped in an Echo Chamber</h2>
+    <div class="echo-quotes reveal reveal-delay-1">
+      <div class="echo-quote">"They're voting against their own interests"</div>
+      <div class="echo-quote">"If they could just see the facts..."</div>
+      <div class="echo-quote">"We need better education"</div>
+    </div>
+    <p class="subtitle reveal reveal-delay-2" style="margin-top: 1.5rem;">
+      The standard progressive diagnosis assumes the problem is information. It's identity.
+    </p>
+  </div>
+</section>
+
+<!-- FALSE CHOICE -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal" style="text-align: center;">The False Choice</h2>
+    <div class="false-choice-grid reveal reveal-delay-1">
+      <div class="false-choice-col">
+        <h3>Majoritarians</h3>
+        <p>Abandon your issues.<br>Talk like a 1990s centrist.<br>Hope the base shows up anyway.</p>
+      </div>
+      <div class="false-choice-col">
+        <h3>Base Maximalists</h3>
+        <p>Double down on values.<br>Educate voters.<br>Risk winnable races.</p>
+      </div>
+    </div>
+    <p class="subtitle reveal reveal-delay-2" style="text-align: center; margin-top: 1.5rem;">
+      Both sides assume you can only win with one message. We tested a third option.
+    </p>
+  </div>
+</section>
+
+<!-- ========== PART 2: THE APPROACH ========== -->
+
+<section class="section-divider">
+  <div class="reveal">
+    <h2>So We Tested a Different Approach</h2>
+    <div class="gold-rule" style="margin: 1.5rem auto;"></div>
+  </div>
+</section>
+
+<!-- DEMOGRAPHICS VS PSYCHOGRAPHICS -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">Demographics vs. Psychographics</h2>
+    <p class="subtitle reveal reveal-delay-1">Psychographics let us see within demographics, where the persuasion opportunity actually lives.</p>
+    <div class="demo-grid reveal reveal-delay-2">
+      <div class="demo-side">
+        <h3>Demographics</h3>
+        <p>Who someone <em>is</em>.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Age, race, income, education.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">What is this person's race?</p>
+      </div>
+      <div class="demo-vs">vs</div>
+      <div class="demo-side">
+        <h3 class="demo-highlight">Psychographics</h3>
+        <p>How someone <em class="demo-highlight">makes sense of the world</em>.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">Values, beliefs, perceived threats, emotional triggers.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.85rem;">What does this person <em>perceive</em> as a threat?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES SEGMENTS -->
+<section class="half">
+  <div class="container-wide" style="margin: 0 auto;">
+    <h2 class="reveal">Grow Progress Values Segments</h2>
+    <p class="subtitle reveal reveal-delay-1">Cut across race, class, and party: a Latino voter could be in any of these five groups.</p>
+    <div class="segments-row reveal reveal-delay-2">
+      <div class="segment-card">
+        <h4>Trusting Progressives</h4>
+        <p>Believe in institutions, collective action, solidarity.</p>
+      </div>
+      <div class="segment-card">
+        <h4>Anti-Authority Progressives</h4>
+        <p>Left-leaning but deeply skeptical of power. Anti-corporate, anti-establishment.</p>
+      </div>
+      <div class="segment-card">
+        <h4>Anxious Authoritarians</h4>
+        <p>Seeking safety, order, protection from chaos.</p>
+      </div>
+      <div class="segment-card">
+        <h4>Enterprising Conservatives</h4>
+        <p>Value self-reliance, opportunity, meritocracy.</p>
+      </div>
+      <div class="segment-card">
+        <h4>Religious Conservatives</h4>
+        <p>Grounded in faith, tradition, moral structure.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- THREE FRAMES TABLE -->
+<section>
+  <div class="container-wide" style="margin: 0 auto;">
+    <h2 class="reveal">Three Frames, Same Goal</h2>
+    <p class="subtitle reveal reveal-delay-1">We tested whether different psychological frames could activate different values segments.</p>
+    <p class="subtitle reveal reveal-delay-1" style="margin-top: 0.5rem;">Issue tested: <strong style="color: var(--paper);">"Many security officers are poorly paid and resourced."</strong></p>
+
+    <table class="frames-table reveal reveal-delay-2">
+      <thead>
+        <tr>
+          <th></th>
+          <th class="col-progressive">Progressive Frame*</th>
+          <th class="col-safety">Personal Safety</th>
+          <th class="col-valor">Pride / Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hero</td>
+          <td class="col-progressive">Officers as community caregivers</td>
+          <td class="col-safety">Officers as guardians of your family, office, school</td>
+          <td class="col-valor">Officers as frontline defenders, "the uniform"</td>
+        </tr>
+        <tr>
+          <td>Villain</td>
+          <td class="col-progressive">Management interference, low standards</td>
+          <td class="col-safety">Big companies cutting corners</td>
+          <td class="col-valor">CEOs profiting while officers are under-equipped</td>
+        </tr>
+        <tr>
+          <td>Emotional Anchors</td>
+          <td class="col-progressive">"Coming together across race to raise standards"</td>
+          <td class="col-safety">"Your safety depends on officers being properly equipped"</td>
+          <td class="col-valor">"Officers put their lives on the line. They deserve the same respect."</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="reveal reveal-delay-3" style="font-size: 0.8rem; color: var(--stone); margin-top: 0.5rem;">* Human-generated by progressive communicators. Safety and Valor frames generated by the engine.</p>
+  </div>
+</section>
+
+<!-- MESSAGE CARDS -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">The Messages</h2>
+    <p class="subtitle reveal">Click to read the exact text each group received.</p>
+    <div class="message-cards reveal reveal-delay-1">
+      <div class="message-card" onclick="toggleCard(this)">
+        <div class="message-card-header">
+          <h3>Progressive</h3>
+          <div style="display:flex;gap:0.8rem;align-items:center;">
+            <span class="tag">Human-written</span>
+            <span class="arrow">&#9660;</span>
+          </div>
+        </div>
+        <div class="message-card-body">
+          <div class="message-card-content">
+            <strong>As first responders, our nation's nearly one million private security officers provide an essential service to our country, a non-police solution to community safety.</strong> To protect and care for the millions of people we encounter everyday, we should be fairly compensated and fully equipped.<br><br>
+            That's why security officers from coast to coast are <strong>coming together across race to raise security industry standards.</strong> This means wages high enough to live on, more training and better equipment to make communities safer and the freedom to form unions, without management interference.
+          </div>
+        </div>
+      </div>
+
+      <div class="message-card" onclick="toggleCard(this)">
+        <div class="message-card-header">
+          <h3>Personal Safety</h3>
+          <div style="display:flex;gap:0.8rem;align-items:center;">
+            <span class="tag">Engine-generated</span>
+            <span class="arrow">&#9660;</span>
+          </div>
+        </div>
+        <div class="message-card-body">
+          <div class="message-card-content">
+            <strong>Every day, you trust a security officer with something you care about. The office you leave after dark. The hospital where your parents get care. The school where your child walks through the doors.</strong> But the truth is, the people standing watch over us are too often underpaid, undertrained, and ignored by their companies. And that puts our safety at risk.<br><br>
+            Meanwhile, <strong>big security companies rake in profits while cutting corners,</strong> leaving officers without the tools or backup they need.<br><br>
+            Now officers are <strong>joining together, across race and region, demanding pay to stay sharp, training to stay safe, and the freedom to speak out.</strong> Because when they're respected and prepared, we're all safer. Protect the protectors, protect us all.
+          </div>
+        </div>
+      </div>
+
+      <div class="message-card" onclick="toggleCard(this)">
+        <div class="message-card-header">
+          <h3>Pride / Valor</h3>
+          <div style="display:flex;gap:0.8rem;align-items:center;">
+            <span class="tag">Engine-generated</span>
+            <span class="arrow">&#9660;</span>
+          </div>
+        </div>
+        <div class="message-card-body">
+          <div class="message-card-content">
+            <strong>When danger strikes, when alarms sound, when something goes wrong, you don't call a CEO - you count on the security officer standing watch.</strong> Nearly a million men and women across America form a quiet line of defense, protecting our schools, hospitals, churches, stores, and workplaces.<br><br>
+            But too often, those officers are <strong>sent into the fight without the pay, training, or equipment they need, while big security companies pocket profits, cut corners and silence those who speak up.</strong><br><br>
+            That's why officers are <strong>locking arms, shoulder to shoulder, demanding respect, fair pay, training, and the freedom to stand together.</strong> If we want strong communities, we need strong officers. Back the uniform. Back the officers. Back the people who keep America safe.
+          </div>
+        </div>
+      </div>
+
+      <div class="message-card placebo" onclick="toggleCard(this)">
+        <div class="message-card-header">
+          <h3>Placebo (Control)</h3>
+          <div style="display:flex;gap:0.8rem;align-items:center;">
+            <span class="tag">Morton Salt</span>
+            <span class="arrow">&#9660;</span>
+          </div>
+        </div>
+        <div class="message-card-body">
+          <div class="message-card-content">
+            <strong>Morton Salt</strong> has over 20 production facilities across the U.S., Canada and the Bahamas, each devoted to bringing you the high quality products you expect.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ========== PART 3: THE RESULTS ========== -->
+
+<section class="section-divider">
+  <div class="reveal">
+    <h2>The Results</h2>
+    <div class="gold-rule" style="margin: 1.5rem auto;"></div>
+    <p class="label" style="margin-top: 1rem;">Security Officer Messaging Study &middot; n=3,006 &middot; voter-file matched &middot; August 2025</p>
+  </div>
+</section>
+
+<!-- BACKLASH FINDING -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">Finding: The Backlash</h2>
+    <p class="subtitle reveal reveal-delay-1">
+      Persuasion messaging from progressive human communicators <strong style="color: var(--paper);">underperformed the placebo message about Morton Salt.</strong>
+    </p>
+    <div class="backlash-grid reveal reveal-delay-2">
+      <div class="backlash-card">
+        <div class="number">-5 pts</div>
+        <div class="segment">Under 35</div>
+        <div class="note">Below placebo</div>
+      </div>
+      <div class="backlash-card">
+        <div class="number">-4 pts</div>
+        <div class="segment">Black Voters</div>
+        <div class="note">Below placebo</div>
+      </div>
+      <div class="backlash-card">
+        <div class="number">-2 pts</div>
+        <div class="segment">Religious Conservatives</div>
+        <div class="note">Below placebo</div>
+      </div>
+    </div>
+    <div class="callout reveal reveal-delay-3">
+      "It's better for them to hear about Morton Salt than to hear from us."
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESSIVE-ONLY CHART -->
+<section>
+  <div class="container-wide" style="margin: 0 auto;">
+    <h2 class="reveal">Progressive Frame Alone</h2>
+    <p class="subtitle reveal reveal-delay-1">The progressive frame performs well with the base. It fails outside of it.</p>
+    <div class="chart-container reveal reveal-delay-2" id="chart-progressive">
+      <div class="chart-legend">
+        <div class="legend-item"><span class="legend-dot progressive"></span> Progressive</div>
+      </div>
+      <div class="bar-chart">
+        <div class="zero-line" style="bottom: calc(2.5rem + 40px);"></div>
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive" data-height="36" style="height: 0;"><span class="bar-value">9</span></div>
+          </div>
+          <span class="bar-group-label">Anti-Authority Progressives</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive" data-height="72" style="height: 0;"><span class="bar-value">18</span></div>
+          </div>
+          <span class="bar-group-label">Trusting Progressives</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive" data-height="32" style="height: 0;"><span class="bar-value">8</span></div>
+          </div>
+          <span class="bar-group-label">Anxious Authoritarians</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive" data-height="28" style="height: 0;"><span class="bar-value">7</span></div>
+          </div>
+          <span class="bar-group-label">Enterprising Conservatives</span>
+        </div>
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive negative" data-height="8" style="height: 0;"><span class="bar-value" style="color: var(--flag);">-2</span></div>
+          </div>
+          <span class="bar-group-label">Religious Conservatives</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NO ONE MESSAGE -->
+<section class="half" style="min-height: 50vh;">
+  <div class="container" style="text-align: center;">
+    <h2 class="reveal" style="font-size: clamp(1.8rem, 4vw, 2.8rem);">There is no One Message to Rule Them All.</h2>
+    <p class="subtitle reveal reveal-delay-1" style="margin-top: 1rem;">
+      The progressive frame holds the base. It can't grow the tent.<br>
+      Different psychologies need different frames for the same goal.
+    </p>
+  </div>
+</section>
+
+<!-- FULL CHART: ALL THREE FRAMES -->
+<section>
+  <div class="container-wide" style="margin: 0 auto;">
+    <h2 class="reveal">Three Frames Recover the Map</h2>
+    <p class="subtitle reveal reveal-delay-1">When you match the frame to the listener's psychology, the backlash disappears.</p>
+    <div class="chart-container reveal reveal-delay-2" id="chart-full">
+      <div class="chart-legend">
+        <div class="legend-item"><span class="legend-dot progressive"></span> Progressive</div>
+        <div class="legend-item"><span class="legend-dot safety"></span> Personal Safety</div>
+        <div class="legend-item"><span class="legend-dot valor"></span> Valor / Pride</div>
+      </div>
+      <div class="bar-chart">
+        <div class="zero-line" style="bottom: calc(2.5rem + 20px);"></div>
+
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive" data-height="39" style="height: 0;"><span class="bar-value">9</span></div>
+            <div class="bar safety" data-height="65" style="height: 0;"><span class="bar-value">15</span></div>
+            <div class="bar valor" data-height="52" style="height: 0;"><span class="bar-value">12</span></div>
+          </div>
+          <span class="bar-group-label">Anti-Authority Progressives</span>
+        </div>
+
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive" data-height="78" style="height: 0;"><span class="bar-value">18</span></div>
+            <div class="bar safety" data-height="74" style="height: 0;"><span class="bar-value">17</span></div>
+            <div class="bar valor" data-height="61" style="height: 0;"><span class="bar-value">14</span></div>
+          </div>
+          <span class="bar-group-label">Trusting Progressives</span>
+        </div>
+
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive" data-height="35" style="height: 0;"><span class="bar-value">8</span></div>
+            <div class="bar safety" data-height="83" style="height: 0;"><span class="bar-value">19</span></div>
+            <div class="bar valor" data-height="78" style="height: 0;"><span class="bar-value">18</span></div>
+          </div>
+          <span class="bar-group-label">Anxious Authoritarians</span>
+        </div>
+
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive" data-height="30" style="height: 0;"><span class="bar-value">7</span></div>
+            <div class="bar safety" data-height="113" style="height: 0;"><span class="bar-value">26</span></div>
+            <div class="bar valor" data-height="96" style="height: 0;"><span class="bar-value">22</span></div>
+          </div>
+          <span class="bar-group-label">Enterprising Conservatives</span>
+        </div>
+
+        <div class="bar-group">
+          <div class="bar-group-bars" style="height: calc(100% - 2.5rem);">
+            <div class="bar progressive negative" data-height="9" style="height: 0;"><span class="bar-value" style="color: var(--flag);">-2</span></div>
+            <div class="bar safety" data-height="87" style="height: 0;"><span class="bar-value">20</span></div>
+            <div class="bar valor" data-height="91" style="height: 0;"><span class="bar-value">21</span></div>
+          </div>
+          <span class="bar-group-label">Religious Conservatives</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout reveal" style="margin-top: 3rem; text-align: center; border-left: none; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); padding: 2rem;">
+      <span style="font-size: 1.8rem; font-weight: 500; color: var(--gold);">+18 to +26 points</span><br>
+      <span style="color: var(--stone); font-size: 1rem;">Net lift across all conservative segments with psychographic messages</span>
+    </div>
+  </div>
+</section>
+
+<!-- RECOVERY BY DEMO GROUP -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">Hold the Base, Grow the Tent</h2>
+    <p class="subtitle reveal reveal-delay-1">The engine recovers every group the progressive frame lost.</p>
+    <div class="recovery-grid reveal reveal-delay-2">
+      <div class="recovery-card">
+        <div class="swing">
+          <span class="old">-5</span>
+          <span class="arrow-right">&#8594;</span>
+          <span class="new">+9</span>
+        </div>
+        <div class="segment">Under 35</div>
+      </div>
+      <div class="recovery-card">
+        <div class="swing">
+          <span class="old">-4</span>
+          <span class="arrow-right">&#8594;</span>
+          <span class="new">+5</span>
+        </div>
+        <div class="segment">Black Voters</div>
+      </div>
+      <div class="recovery-card">
+        <div class="swing">
+          <span class="old">-2</span>
+          <span class="arrow-right">&#8594;</span>
+          <span class="new">+21</span>
+        </div>
+        <div class="segment">Religious Conservatives</div>
+      </div>
+    </div>
+    <div class="stat-row reveal reveal-delay-3">
+      <div class="stat-card">
+        <div class="number positive">+22 pts</div>
+        <div class="desc">2024 Non-Voters</div>
+      </div>
+      <div class="stat-card">
+        <div class="number positive">+22 pts</div>
+        <div class="desc">Latino Voters</div>
+      </div>
+      <div class="stat-card">
+        <div class="number positive">+19 pts</div>
+        <div class="desc">Working Class (&lt;$50K)</div>
+      </div>
+    </div>
+    <p class="reveal reveal-delay-4" style="font-size: 0.8rem; color: var(--stone); text-align: center; margin-top: 0.5rem;">
+      Green = psychographic message lift vs. placebo &middot; Red = progressive frame vs. placebo
+    </p>
+  </div>
+</section>
+
+<!-- ========== PART 4: THE ENGINE ========== -->
+
+<section class="section-divider">
+  <div class="reveal">
+    <h2>The Engine</h2>
+    <div class="gold-rule" style="margin: 1.5rem auto;"></div>
+  </div>
+</section>
+
+<!-- MARKET POSITION -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">We Already Know This Works</h2>
+    <p class="subtitle reveal reveal-delay-1">
+      Deep canvassing proves that meeting people inside their worldview moves them. The problem is doing it at scale.
+    </p>
+    <div class="position-grid reveal reveal-delay-2">
+      <div class="position-card">
+        <h3>Relational Organizing / Deep Canvassing</h3>
+        <p>A canvasser who listens, adapts, speaks in the listener's values: that works. But these tactics are prohibitively expensive to scale.</p>
+        <div class="verdict proven">Proven but unscalable</div>
+      </div>
+      <div class="position-card">
+        <h3>Off-the-Shelf LLMs</h3>
+        <p>Research shows large language models can persuade. But if the model changes, the message changes. No audit trail. No replicability.</p>
+        <div class="verdict risky">Scalable but unaccountable</div>
+      </div>
+      <div class="position-card highlight">
+        <h3>The Engine</h3>
+        <p>Psychographic targeting with auditable infrastructure. The persuasion spec controls the output, the LLM writes to spec. Model-agnostic.</p>
+        <div class="verdict engine">Accountable + Scalable</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OPERATIONALIZATION GAP -->
+<section class="half">
+  <div class="container">
+    <h2 class="reveal">The Gap: Operationalization</h2>
+    <p class="subtitle reveal reveal-delay-1">
+      We invest millions in research and message development. But implementing those learnings at scale is riddled with drift.
+    </p>
+    <div class="reveal reveal-delay-2">
+      <p class="label" style="margin-bottom: 0.8rem;">The current process:</p>
+      <div class="op-flow">
+        <span class="op-pill">Original Message</span>
+        <span class="op-plus">+</span>
+        <span class="op-pill">Movement Frame</span>
+        <span class="op-plus">+</span>
+        <span class="op-pill">Pollster Best Practices</span>
+        <span class="op-plus">+</span>
+        <span class="op-pill">Toolkit Recs</span>
+        <span class="op-plus">+</span>
+        <span class="op-pill">Your Own Priors</span>
+        <span class="op-plus">=</span>
+        <span class="op-pill" style="background: rgba(184, 74, 62, 0.3);">Optimized?</span>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-3">
+      <p class="label" style="margin-top: 2rem; margin-bottom: 0.8rem;">With the engine:</p>
+      <div class="op-flow-clean">
+        <span class="op-input">Audience + Goal</span>
+        <span style="color: var(--stone); font-size: 1.2rem;">&#8594;</span>
+        <span class="op-input">Engine</span>
+        <span style="color: var(--stone); font-size: 1.2rem;">&#8594;</span>
+        <span class="op-output">37 platform-ready copy variants</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUR LAYERS -->
+<section>
+  <div class="container">
+    <h2 class="reveal">Four Auditable Layers</h2>
+    <p class="subtitle reveal reveal-delay-1">
+      Built on 22 psychometric measurement traditions and 110 subscales. The four layers are the public map. The proprietary pipeline spans eight stages.
+    </p>
+    <div class="layer-stack">
+      <div class="layer reveal">
+        <span class="layer-num">01</span>
+        <div>
+          <h3>Trait Profile</h3>
+          <p>Measures who the listener is psychologically. Takes signals in and outputs a factor vector.</p>
+        </div>
+      </div>
+      <div class="layer reveal reveal-delay-1">
+        <span class="layer-num">02</span>
+        <div>
+          <h3>Worldview</h3>
+          <p>Projects the profile into felt worldview: archetype, antagonists, fears, and internal story.</p>
+        </div>
+      </div>
+      <div class="layer reveal reveal-delay-2">
+        <span class="layer-num">03</span>
+        <div>
+          <h3>Message Spec</h3>
+          <p>Maps worldview directly to frame, narrative, metaphor, register, and appeal type.</p>
+        </div>
+      </div>
+      <div class="layer reveal reveal-delay-3">
+        <span class="layer-num">04</span>
+        <div>
+          <h3>Rendering</h3>
+          <p>LLM writes prose to spec. <strong style="color: var(--gold);">The moat is the spec it receives from Layers 1-3.</strong></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CYCLE -->
+<section class="half">
+  <div class="container" style="text-align: center;">
+    <h2 class="reveal">Recursive Message Refinement</h2>
+    <div class="cycle-row reveal reveal-delay-1">
+      <div class="cycle-step">
+        <div class="step-label">Develop</div>
+        <p>Build a message in the morning.</p>
+      </div>
+      <span class="cycle-arrow">&#8594;</span>
+      <div class="cycle-step">
+        <div class="step-label">Deploy</div>
+        <p>Field it in the afternoon.</p>
+      </div>
+      <span class="cycle-arrow">&#8594;</span>
+      <div class="cycle-step">
+        <div class="step-label">Decode</div>
+        <p>Read results, tune the tool, repeat tomorrow.</p>
+      </div>
+    </div>
+    <p class="subtitle reveal reveal-delay-2" style="margin-top: 1rem;">
+      Move the people other programs leave out.
+    </p>
+  </div>
+</section>
+
+<!-- AUTHOR + CTA -->
+<section class="auto" style="padding: 6rem 2rem;">
+  <div class="container">
+    <div class="gold-rule reveal"></div>
+    <h2 class="reveal">The Author</h2>
+    <div class="author-section reveal reveal-delay-1">
+      <div class="author-text">
+        <p>
+          Whit Pendergast has spent 20 years building the thing before the field knows it needs it. In 2008 he invented an inverse-knock program in New Hampshire that found, registered, and turned out 2,300 Latino voters the party had no infrastructure to reach. He co-founded the largest crowdfunded distillery in US history, then built AI marketing infrastructure for its outspoken progressive brand before the industry had a playbook. He shipped AGIS, a global-to-local AI-governance intelligence system, and built the persuasion engine now licensed by the second-largest union in North America.
+        </p>
+        <div class="email">
+          <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="reveal">
+    <a href="https://hoplight.ai/contact" class="cta-button">Start a conversation</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="brand">Hoplight</div>
+  <p>AI strategy for labor, advocacy, and mission-driven organizations.</p>
+</footer>
+
+<script>
+// SCROLL REVEAL
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// BAR CHART ANIMATION
+const chartObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const bars = entry.target.querySelectorAll('.bar');
+      bars.forEach((bar, i) => {
+        setTimeout(() => {
+          const h = bar.getAttribute('data-height');
+          bar.style.height = h + 'px';
+        }, i * 80);
+      });
+      chartObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+document.querySelectorAll('.chart-container').forEach(el => chartObserver.observe(el));
+
+// MESSAGE CARD TOGGLE
+function toggleCard(card) {
+  card.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

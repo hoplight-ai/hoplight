@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDI Trust Dilution Model</title>
+<style>
+  :root{--navy:#1B3A5C;--bg:#f8f7f5;--card:#fff;--text:#2D2D2D;--muted:#6b7280;--border:#e5e5e5;--red:#c4423c;--green:#2d7a4f;--amber:#b8860b;--blue-lt:#e8f0fe}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;padding:20px}
+  .hdr{max-width:1200px;margin:0 auto 16px;border-bottom:2px solid var(--navy);padding-bottom:12px}
+  .hdr h1{font-size:22px;font-weight:700;color:var(--navy)}
+  .hdr p{font-size:12px;color:var(--muted);margin-top:3px}
+  .wrap{max-width:1200px;margin:0 auto}
+  .tabs{display:flex;gap:4px;margin-bottom:16px}
+  .tab{padding:7px 16px;font-size:12px;font-weight:600;border:1px solid var(--border);border-radius:6px 6px 0 0;cursor:pointer;background:var(--card);color:var(--muted);user-select:none}
+  .tab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+  .sc{display:none}.sc.on{display:block}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:16px}
+  .card h2{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--navy);margin-bottom:8px;padding-bottom:5px;border-bottom:1px solid var(--border)}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+  .kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .kpi{text-align:center;padding:8px 4px;background:var(--blue-lt);border-radius:6px}
+  .kpi .v{font-size:20px;font-weight:700;color:var(--navy);line-height:1.2}
+  .kpi .l{font-size:9px;color:var(--muted);margin-top:2px;text-transform:uppercase;letter-spacing:.3px}
+  .controls{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+  .cg label{display:block;font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.4px;margin-bottom:2px}
+  .cg input[type=range]{width:100%}
+  .cg .rv{font-size:14px;font-weight:700;color:var(--navy)}
+  .cg select{width:100%;padding:3px;font-size:11px}
+  .finding{padding:9px 12px;border-left:3px solid var(--navy);margin-bottom:8px;background:var(--blue-lt);border-radius:0 5px 5px 0;font-size:11px;line-height:1.5}
+  .finding.w{border-left-color:var(--red);background:#fef2f2}
+  .finding.g{border-left-color:var(--green);background:#f0fdf4}
+  .finding.a{border-left-color:var(--amber);background:#fffbeb}
+  .finding b{color:var(--navy)}
+  svg text{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+  .chart-box{width:100%;overflow:hidden}
+  @media(max-width:900px){.row,.kpi-row,.controls{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <h1>Predistribution Initiative: Worker Trust Dilution Model</h1>
+  <p>Three-bucket trust structure. Bucket 1: transitional income. Bucket 2: equity acquisition (dilution-vulnerable). Bucket 3: portable individual accounts.</p>
+</div>
+<div class="wrap">
+  <div class="tabs" id="tabs"></div>
+  <div class="card">
+    <h2>Trust Parameters</h2>
+    <div class="controls">
+      <div class="cg"><label>Trust % of Revenue</label><input type="range" id="s_tp" min="5" max="25" value="15" step="1"><span class="rv" id="v_tp">15%</span></div>
+      <div class="cg"><label>B2 Hybrid Retain %</label><input type="range" id="s_hr" min="0" max="50" value="25" step="5"><span class="rv" id="v_hr">25%</span></div>
+      <div class="cg"><label>Return Rate</label><input type="range" id="s_rt" min="4" max="12" value="8" step="1"><span class="rv" id="v_rt">8%</span></div>
+      <div class="cg"><label>B1/B2/B3 Split</label><select id="s_sp"><option value="30,35,35">30/35/35 (default)</option><option value="20,40,40">20/40/40 (equity-heavy)</option><option value="40,20,40">40/20/40 (transition-heavy)</option><option value="20,30,50">20/30/50 (portable-heavy)</option></select></div>
+    </div>
+  </div>
+  <div class="sc on" id="p0"></div>
+  <div class="sc" id="p1"></div>
+  <div class="sc" id="p2"></div>
+  <div class="sc" id="p3"></div>
+</div>
+<script>
+var tabNames=["GE 80-Year Proxy","AV Cliff Displacement","Cohort Analysis","Findings"];
+var tabsEl=document.getElementById("tabs");
+tabNames.forEach(function(n,i){
+  var d=document.createElement("div");d.className="tab"+(i===0?" on":"");d.textContent=n;
+  d.onclick=function(){
+    document.querySelectorAll(".tab").forEach(function(t,j){t.className="tab"+(j===i?" on":"")});
+    document.querySelectorAll(".sc").forEach(function(s,j){s.className="sc"+(j===i?" on":"")});
+  };tabsEl.appendChild(d);
+});
+
+var GE={1940:[125000,1.5],1945:[170000,3],1950:[200000,3.5],1955:[240000,5],1960:[250000,5.5],1965:[280000,7],1970:[305000,9],1975:[340000,14],1980:[402000,25],1985:[304000,28],1990:[298000,58],1995:[222000,70],2000:[340000,130],2005:[316000,150],2010:[287000,150],2015:[333000,117],2020:[174000,80]};
+
+function interp(){
+  var ks=Object.keys(GE).map(Number).sort(function(a,b){return a-b}),o={};
+  for(var i=0;i<ks.length-1;i++){var y0=ks[i],y1=ks[i+1],d0=GE[y0],d1=GE[y1],sp=y1-y0;
+    for(var y=y0;y<y1;y++){var t=(y-y0)/sp;o[y]=[Math.round(d0[0]+(d1[0]-d0[0])*t),d0[1]+(d1[1]-d0[1])*t]}}
+  o[2020]=GE[2020];return o;
+}
+
+function tr(y){if(y<1950)return .12;if(y<1965)return .10;if(y<1980)return .15;if(y<1986)return .25;if(y<2000)return .18;if(y<2010)return .20;if(y<2018)return .22;return .28}
+
+function runS(tp,hr,rt,sp){
+  var yd=interp(),R={yr:[],emp:[],rev:[],trust:[],b2a_dp:[],b2a_va:[],b2c_dp:[],b2c_va:[],b3_20:[],comb:[]};
+  var aA=0,aD=0,aP=0,cA=0,cD=0,cP=0;
+  for(var y=1940;y<=2020;y++){
+    if(!yd[y])continue;
+    var e=yd[y][0],r=yd[y][1],t_=tr(y);
+    var trust=r*tp/100*1e9,b2=trust*sp[1],b3=trust*sp[2],dep=Math.round(e*t_),ns=e;
+    var sa=aA>0?aA/e:0,ad=sa*dep;aA=aA-ad+ns;aD+=ad;aP=aP*(1+rt/100)+b2;var aT=aA+aD;
+    var sc_=cA>0?cA/e:0,cr=sc_*dep*(hr/100),cf=sc_*dep*(1-hr/100);cA=cA-cr-cf+ns+cf;cD+=cr;cP=cP*(1+rt/100)+b2;var cT=cA+cD;
+    var b3pe=b3/e,b3_20=b3pe*(Math.pow(1+rt/100,20)-1)/(rt/100);
+    var avps=aT>0?aP/aT:0,cvps=cT>0?cP/cT:0;
+    var ava=e>0?avps*aA/e:0,cva=e>0?cvps*cA/e:0;
+    R.yr.push(y);R.emp.push(e);R.rev.push(r);R.trust.push(trust/1e9);
+    R.b2a_dp.push(aT>0?aD/aT*100:0);R.b2a_va.push(ava);
+    R.b2c_dp.push(cT>0?cD/cT*100:0);R.b2c_va.push(cva);
+    R.b3_20.push(b3_20);R.comb.push(cva+b3_20);
+  }
+  return R;
+}
+
+function runAV(tp,hr,rt,sp){
+  var D=400000,BR=25,RG=.05;
+  function dr(y){if(y<5)return .08;if(y<10)return .30;if(y<15)return .40;return .50}
+  var R={yr:[],act:[],dc:[],rev:[],b1p:[],b2a_dp:[],b2c_dp:[],ab2a:[],ab2c:[],ab3:[],acC:[],cyr:[],ccnt:[],cb3d:[],cb3f:[]};
+  var d=D,dc=0,aA=0,aD=0,aP=0,cA=0,cD=0,cP=0,ab3=0,cohs=[];
+  for(var y=0;y<=20;y++){
+    var rev=BR*Math.pow(1+RG,y),trust=rev*tp/100*1e9,b1=trust*sp[0],b2=trust*sp[1],b3=trust*sp[2];
+    var di=Math.min(Math.round(d*dr(y)),d),ns=d,b3pa=d>0?b3/d:0;
+    ab3=ab3*(1+rt/100)+b3pa;
+    var sa=aA>0?aA/d:0,ad=sa*di;aA=aA-ad+ns;aD+=ad;aP=aP*(1+rt/100)+b2;var aT=aA+aD;
+    var sc_=cA>0?cA/d:0,cr=sc_*di*(hr/100),cf=sc_*di*(1-hr/100);cA=cA-cr-cf+ns+cf;cD+=cr;cP=cP*(1+rt/100)+b2;var cT=cA+cD;
+    if(di>0)cohs.push({y:y,n:di,b:ab3});
+    var b1p=di>0?b1/di:0;d-=di;dc+=di;
+    var tb=0;for(var ci=0;ci<cohs.length;ci++){tb+=cohs[ci].n*cohs[ci].b*Math.pow(1+rt/100,y-cohs[ci].y)}
+    var avg3=dc>0?tb/dc:0;
+    var apd=aT>0&&dc>0?aP/aT*aD/dc:0,cpd=cT>0&&dc>0?cP/cT*cD/dc:0;
+    R.yr.push(y);R.act.push(d);R.dc.push(dc);R.rev.push(rev);R.b1p.push(b1p);
+    R.b2a_dp.push(aT>0?aD/aT*100:0);R.b2c_dp.push(cT>0?cD/cT*100:0);
+    R.ab2a.push(apd);R.ab2c.push(cpd);R.ab3.push(avg3);R.acC.push(cpd+avg3);
+  }
+  for(var ci=0;ci<cohs.length;ci++){var ys=20-cohs[ci].y;
+    R.cyr.push(cohs[ci].y);R.ccnt.push(cohs[ci].n);
+    R.cb3d.push(cohs[ci].b);R.cb3f.push(cohs[ci].b*Math.pow(1+rt/100,ys));}
+  return R;
+}
+
+function svgChart(el,opts){
+  var W=opts.w||560,H=opts.h||260,M={t:32,r:16,b:32,l:72};
+  var pw=W-M.l-M.r,ph=H-M.t-M.b;
+  var n=opts.labels.length;
+  var allD=[];opts.series.forEach(function(s){s.data.forEach(function(v){if(v!=null&&isFinite(v))allD.push(v)})});
+  if(allD.length===0)allD=[0,1];
+  var yMin=opts.yMin!=null?opts.yMin:Math.min.apply(null,allD);
+  var yMax=opts.yMax!=null?opts.yMax:Math.max.apply(null,allD);
+  if(yMax<=yMin)yMax=yMin+1;
+  var yR=yMax-yMin;
+  var yFmt=opts.yFmt||function(v){return v.toFixed(0)};
+  function xP(i){return M.l+(n>1?i/(n-1)*pw:pw/2)}
+  function yP(v){return M.t+ph-(v-yMin)/yR*ph}
+
+  var h='<svg viewBox="0 0 '+W+' '+H+'" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block">';
+
+  if(opts.type==='bar'){
+    var s=opts.series[0],bw=Math.max(4,pw/n*0.65);
+    for(var i=0;i<=4;i++){var yv=yMin+yR*i/4,yy=yP(yv);
+      h+='<line x1="'+M.l+'" y1="'+yy+'" x2="'+(W-M.r)+'" y2="'+yy+'" stroke="#eee" stroke-width="1"/>';
+      h+='<text x="'+(M.l-6)+'" y="'+(yy+3)+'" text-anchor="end" fill="#6b7280" font-size="9">'+yFmt(yv)+'</text>';}
+    for(var i=0;i<s.data.length;i++){
+      var bx=xP(i)-bw/2,by=yP(s.data[i]),bh=yP(yMin)-by;
+      h+='<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+Math.max(0,bh)+'" fill="'+s.color+'" opacity="0.65" rx="2"/>';}
+    var step=Math.max(1,Math.floor(n/10));
+    for(var i=0;i<n;i+=step)h+='<text x="'+xP(i)+'" y="'+(H-6)+'" text-anchor="middle" fill="#6b7280" font-size="9">'+opts.labels[i]+'</text>';
+    h+='<text x="'+M.l+'" y="14" fill="#2D2D2D" font-size="9" font-weight="600">'+s.label+'</text>';
+  } else {
+    for(var i=0;i<=4;i++){var yv=yMin+yR*i/4,yy=yP(yv);
+      h+='<line x1="'+M.l+'" y1="'+yy+'" x2="'+(W-M.r)+'" y2="'+yy+'" stroke="#eee" stroke-width="1"/>';
+      h+='<text x="'+(M.l-6)+'" y="'+(yy+3)+'" text-anchor="end" fill="#6b7280" font-size="9">'+yFmt(yv)+'</text>';}
+    var step=Math.max(1,Math.floor(n/8));
+    for(var i=0;i<n;i+=step)h+='<text x="'+xP(i)+'" y="'+(H-6)+'" text-anchor="middle" fill="#6b7280" font-size="9">'+opts.labels[i]+'</text>';
+
+    opts.series.forEach(function(s,si){
+      if(!s.data||s.data.length===0)return;
+      var pts=[];for(var i=0;i<s.data.length;i++){if(s.data[i]!=null&&isFinite(s.data[i]))pts.push(xP(i)+','+yP(s.data[i]))}
+      if(pts.length<2)return;
+      if(s.fill){h+='<polygon points="'+xP(0)+','+yP(yMin)+' '+pts.join(' ')+' '+xP(s.data.length-1)+','+yP(yMin)+'" fill="'+s.fill+'" opacity="0.15"/>';}
+      var da=s.dash?' stroke-dasharray="5,4"':'';
+      h+='<polyline points="'+pts.join(' ')+'" fill="none" stroke="'+s.color+'" stroke-width="2"'+da+'/>';
+      var lx=M.l+si*160;
+      h+='<line x1="'+lx+'" y1="14" x2="'+(lx+14)+'" y2="14" stroke="'+s.color+'" stroke-width="2"'+da+'/>';
+      h+='<text x="'+(lx+18)+'" y="17" fill="#2D2D2D" font-size="9">'+s.label+'</text>';
+    });
+  }
+  h+='</svg>';
+  el.innerHTML=h;
+}
+
+function fmt(n){if(Math.abs(n)>=1e6)return '$'+(n/1e6).toFixed(1)+'M';if(Math.abs(n)>=1e3)return '$'+(n/1e3).toFixed(1)+'K';return '$'+Math.round(n)}
+function fmtP(v){return v.toFixed(0)+'%'}
+
+function getP(){
+  var tp=+document.getElementById('s_tp').value,hr=+document.getElementById('s_hr').value,rt=+document.getElementById('s_rt').value;
+  var spv=document.getElementById('s_sp').value.split(',');
+  document.getElementById('v_tp').textContent=tp+'%';
+  document.getElementById('v_hr').textContent=hr+'%';
+  document.getElementById('v_rt').textContent=rt+'%';
+  return{tp:tp,hr:hr,rt:rt,sp:[+spv[0]/100,+spv[1]/100,+spv[2]/100]};
+}
+
+function render(){
+  var p=getP(),s1=runS(p.tp,p.hr,p.rt,p.sp),s2=runAV(p.tp,p.hr,p.rt,p.sp);
+  var L=s1.yr.length-1,L2=s2.yr.length-1;
+
+  // P0: GE
+  document.getElementById('p0').innerHTML=
+    '<div class="card"><h2>Year 80 Endpoints</h2><div class="kpi-row">'
+    +'<div class="kpi"><div class="v">$'+s1.trust[L].toFixed(1)+'B</div><div class="l">Trust $/Yr</div></div>'
+    +'<div class="kpi"><div class="v">'+s1.b2a_dp[L].toFixed(1)+'%</div><div class="l">B2 Dep% (Keep)</div></div>'
+    +'<div class="kpi"><div class="v">'+fmt(s1.b2c_va[L])+'</div><div class="l">B2/Active (Hybrid)</div></div>'
+    +'<div class="kpi"><div class="v">'+fmt(s1.b3_20[L])+'</div><div class="l">B3 Portable 20yr</div></div>'
+    +'<div class="kpi"><div class="v">'+fmt(s1.comb[L])+'</div><div class="l">Combined</div></div>'
+    +'</div></div>'
+    +'<div class="row"><div class="card"><h2>GE Workforce</h2><div class="chart-box" id="s1c1"></div></div>'
+    +'<div class="card"><h2>Bucket 2 Dilution Curve</h2><div class="chart-box" id="s1c2"></div></div></div>'
+    +'<div class="row"><div class="card"><h2>B2 Equity per Active Employee</h2><div class="chart-box" id="s1c3"></div></div>'
+    +'<div class="card"><h2>Combined Wealth (B2 Hybrid + B3 20yr)</h2><div class="chart-box" id="s1c4"></div></div></div>';
+
+  svgChart(document.getElementById('s1c1'),{labels:s1.yr,yFmt:function(v){return(v/1000).toFixed(0)+'K'},
+    series:[{data:s1.emp,color:'#1B3A5C',fill:'#1B3A5C',label:'Employees'}]});
+  svgChart(document.getElementById('s1c2'),{labels:s1.yr,yFmt:fmtP,yMin:0,yMax:100,
+    series:[{data:s1.b2a_dp,color:'#c4423c',label:'Keep Forever'},{data:s1.b2c_dp,color:'#2d7a4f',label:'Hybrid ('+p.hr+'%)'}]});
+  svgChart(document.getElementById('s1c3'),{labels:s1.yr,yFmt:fmt,
+    series:[{data:s1.b2a_va,color:'#c4423c',label:'Keep Forever'},{data:s1.b2c_va,color:'#2d7a4f',label:'Hybrid'}]});
+  svgChart(document.getElementById('s1c4'),{labels:s1.yr,yFmt:fmt,
+    series:[{data:s1.b2c_va,color:'#1B3A5C',fill:'#1B3A5C',label:'B2 Hybrid'},{data:s1.b3_20,color:'#2d7a4f',fill:'#2d7a4f',label:'B3 Portable'},{data:s1.comb,color:'#b8860b',label:'Combined'}]});
+
+  // P1: AV
+  document.getElementById('p1').innerHTML=
+    '<div class="card"><h2>AV Cliff: 400K Drivers, $25B Revenue, 5% Growth</h2><div class="kpi-row">'
+    +'<div class="kpi"><div class="v">'+s2.act[L2].toLocaleString()+'</div><div class="l">Drivers Left</div></div>'
+    +'<div class="kpi"><div class="v">'+fmt(s2.ab2c[L2])+'</div><div class="l">Avg B2 (Hybrid)</div></div>'
+    +'<div class="kpi"><div class="v">'+fmt(s2.ab3[L2])+'</div><div class="l">Avg B3</div></div>'
+    +'<div class="kpi"><div class="v">'+fmt(s2.acC[L2])+'</div><div class="l">Avg Combined</div></div>'
+    +'<div class="kpi"><div class="v">'+fmt(s2.b1p[10])+'</div><div class="l">B1/Disp (Yr 10)</div></div>'
+    +'</div></div>'
+    +'<div class="row"><div class="card"><h2>Driver Displacement</h2><div class="chart-box" id="s2c1"></div></div>'
+    +'<div class="card"><h2>Avg Displaced Wealth</h2><div class="chart-box" id="s2c2"></div></div></div>'
+    +'<div class="row"><div class="card"><h2>B2 Dilution (AV)</h2><div class="chart-box" id="s2c3"></div></div>'
+    +'<div class="card"><h2>B1 Transitional $/Displaced</h2><div class="chart-box" id="s2c4"></div></div></div>';
+
+  svgChart(document.getElementById('s2c1'),{labels:s2.yr,yFmt:function(v){return(v/1000).toFixed(0)+'K'},
+    series:[{data:s2.act,color:'#1B3A5C',fill:'#1B3A5C',label:'Active'},{data:s2.dc,color:'#c4423c',label:'Displaced (cum.)'}]});
+  svgChart(document.getElementById('s2c2'),{labels:s2.yr,yFmt:fmt,
+    series:[{data:s2.ab2c,color:'#1B3A5C',label:'B2 (Hybrid)'},{data:s2.ab3,color:'#2d7a4f',label:'B3 Portable'},{data:s2.acC,color:'#b8860b',label:'Combined'}]});
+  svgChart(document.getElementById('s2c3'),{labels:s2.yr,yFmt:fmtP,yMin:0,yMax:100,
+    series:[{data:s2.b2a_dp,color:'#c4423c',label:'Keep Forever'},{data:s2.b2c_dp,color:'#2d7a4f',label:'Hybrid'}]});
+  svgChart(document.getElementById('s2c4'),{labels:s2.yr,yFmt:fmt,type:'bar',
+    series:[{data:s2.b1p,color:'#1B3A5C',label:'B1 per Displaced Person'}]});
+
+  // P2: Cohort
+  document.getElementById('p2').innerHTML=
+    '<div class="card"><h2>Cohort: B3 Balance at Displacement vs. Year 20</h2>'
+    +'<p style="font-size:11px;color:#6b7280;margin-bottom:8px">Early-displaced get fewer B3 contributions but more compounding time. Late-displaced get larger contributions but less time. Neither fully compensates.</p>'
+    +'<div class="chart-box" id="s3c1"></div></div>'
+    +'<div class="card"><h2>Drivers Displaced per Cohort</h2><div class="chart-box" id="s3c2"></div></div>';
+
+  svgChart(document.getElementById('s3c1'),{labels:s2.cyr.map(function(y){return'Yr '+y}),yFmt:fmt,
+    series:[{data:s2.cb3d,color:'#1B3A5C',label:'B3 at Displacement'},{data:s2.cb3f,color:'#2d7a4f',label:'B3 at Year 20'}]});
+  svgChart(document.getElementById('s3c2'),{labels:s2.cyr.map(function(y){return'Yr '+y}),
+    yFmt:function(v){return(v/1000).toFixed(0)+'K'},type:'bar',
+    series:[{data:s2.ccnt,color:'#c4423c',label:'Drivers Displaced'}]});
+
+  // P3: Findings
+  document.getElementById('p3').innerHTML=
+    '<div class="card"><h2>Key Findings for PDI</h2>'
+    +'<div class="finding w"><b>Bucket 2 is dilution-vulnerable.</b> Under keep-forever, departed workers hold '+s1.b2a_dp[L].toFixed(1)+'% of equity by year 80. The pool becomes a pension obligation to former employees.</div>'
+    +'<div class="finding g"><b>Bucket 3 is the strongest wealth builder.</b> Avoids dilution entirely. At GE scale, 20-year accumulation: '+fmt(s1.b3_20[L])+'. AV scenario avg displaced B3: '+fmt(s2.ab3[L2])+'.</div>'
+    +'<div class="finding a"><b>$700K target requires $15,297/person/year at 8%.</b> At $25B/400K drivers, B3 delivers $3,281/yr (4.7x shortfall). Crosses threshold at year 8 with 63K drivers. 84% displaced before math works.</div>'
+    +'<div class="finding w"><b>Early-displaced cohort problem.</b> First 80K displaced (years 0-4) get $3-27K B3/yr. Last 3K displaced get millions. Trust needs floor mechanism or equalization.</div>'
+    +'<div class="finding g"><b>B2 is about governance, not wealth.</b> Hybrid cuts dilution from '+s1.b2a_dp[L].toFixed(0)+'% to '+s1.b2c_dp[L].toFixed(0)+'%. But B3 does 56% of wealth building. Frame B2 as board seats.</div>'
+    +'<div class="finding"><b>Recommendation:</b> Shift to 20/30/50 split. B3 handles wealth. B2 handles governance. B1 handles transition.</div>'
+    +'</div>';
+}
+
+render();
+document.getElementById('s_tp').addEventListener('input',render);
+document.getElementById('s_hr').addEventListener('input',render);
+document.getElementById('s_rt').addEventListener('input',render);
+document.getElementById('s_sp').addEventListener('change',render);
+</script>
+</body>
+</html>

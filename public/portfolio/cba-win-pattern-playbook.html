@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CBA Win Pattern Playbook | Hoplight</title>
+<style>
+:root {
+  --navy: #1a2744;
+  --accent: #1D9E75;
+  --bg: #fafaf8;
+  --surface: #fff;
+  --border: #e5e4e0;
+  --text: #1a2744;
+  --text-secondary: #6b6b68;
+  --accent-light: rgba(29, 158, 117, 0.08);
+  --accent-border: rgba(29, 158, 117, 0.5);
+  --callout-bg: rgba(29, 158, 117, 0.06);
+  --navy-light: rgba(26, 39, 68, 0.04);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Header */
+.header {
+  background: var(--navy);
+  color: #fff;
+  padding: clamp(32px, 6vw, 64px) 24px clamp(28px, 5vw, 56px);
+}
+.header-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.header-brand {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.header h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 10px;
+  text-wrap: balance;
+}
+.header .subtitle {
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+  opacity: 0.75;
+  font-weight: 400;
+  line-height: 1.45;
+}
+
+/* Layout */
+.page-wrap {
+  display: flex;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+  gap: 48px;
+}
+
+/* Sidebar TOC */
+.toc-sidebar {
+  position: sticky;
+  top: 24px;
+  align-self: flex-start;
+  width: 240px;
+  flex-shrink: 0;
+  padding-top: 40px;
+}
+.toc-sidebar nav {
+  border-left: 2px solid var(--border);
+  padding-left: 16px;
+}
+.toc-sidebar h2 {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.toc-sidebar a {
+  display: block;
+  padding: 6px 0;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  text-decoration: none;
+  line-height: 1.35;
+  transition: color 0.15s ease-out;
+}
+.toc-sidebar a:hover,
+.toc-sidebar a.active {
+  color: var(--accent);
+}
+.toc-sidebar a.active {
+  font-weight: 600;
+}
+
+/* Mobile TOC toggle */
+.toc-mobile-toggle {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  align-items: center;
+  justify-content: center;
+}
+
+.toc-mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: rgba(26, 39, 68, 0.5);
+}
+
+.toc-mobile-panel {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  background: var(--surface);
+  border-radius: 16px 16px 0 0;
+  padding: 24px 24px 32px;
+  max-height: 60vh;
+  overflow-y: auto;
+  box-shadow: 0 -4px 24px rgba(0,0,0,0.15);
+}
+.toc-mobile-panel h2 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+.toc-mobile-panel a {
+  display: block;
+  padding: 10px 0;
+  font-size: 1rem;
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+}
+.toc-mobile-panel a:last-child { border-bottom: none; }
+.toc-mobile-panel a:hover { color: var(--accent); }
+.toc-mobile-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+}
+
+/* Main content */
+.main-content {
+  flex: 1;
+  min-width: 0;
+  max-width: 800px;
+  padding: 40px 0 80px;
+}
+
+/* Intro */
+.intro {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--text);
+  margin-bottom: 48px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+.intro p {
+  margin-bottom: 16px;
+}
+.intro p:last-child { margin-bottom: 0; }
+
+/* Section headers */
+.sector-section {
+  margin-bottom: 56px;
+  scroll-margin-top: 24px;
+}
+.sector-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--navy);
+}
+.sector-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--navy);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.sector-header h2 {
+  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--navy);
+  text-wrap: balance;
+}
+
+/* Body content */
+.sector-section p {
+  margin-bottom: 16px;
+  max-width: 65ch;
+}
+
+/* Union name highlight */
+.union {
+  font-weight: 700;
+  color: var(--navy);
+}
+
+/* Contract reference */
+.contract-ref {
+  font-weight: 600;
+}
+
+/* Provision callout */
+.provision {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px 20px;
+  margin: 16px 0 20px;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.provision ul {
+  margin: 0;
+  padding-left: 20px;
+}
+.provision li {
+  margin-bottom: 6px;
+}
+.provision li:last-child { margin-bottom: 0; }
+
+/* Demand callout */
+.demand {
+  border-left: 4px solid var(--accent);
+  background: var(--callout-bg);
+  padding: 20px 24px;
+  margin: 24px 0 8px;
+  border-radius: 0 6px 6px 0;
+}
+.demand-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.demand p {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 0;
+}
+
+/* Key Sources */
+.sources {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 2px solid var(--navy);
+}
+.sources h2 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--navy);
+}
+.sources ul {
+  list-style: none;
+  padding: 0;
+}
+.sources li {
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.sources li:last-child { border-bottom: none; }
+
+/* Footer */
+.footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.5);
+  padding: 32px 24px;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+.footer strong {
+  color: rgba(255,255,255,0.8);
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .toc-sidebar { display: none; }
+  .toc-mobile-toggle { display: flex; }
+  .page-wrap {
+    padding: 0 16px;
+    gap: 0;
+  }
+  .main-content {
+    padding: 28px 0 80px;
+  }
+  .sector-section p {
+    max-width: 100%;
+  }
+  .header {
+    padding: 28px 16px 24px;
+  }
+  .demand {
+    padding: 16px 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .provision { padding: 14px 16px; }
+  .demand { padding: 14px 16px; }
+  .sector-icon { width: 32px; height: 32px; font-size: 0.9rem; }
+}
+
+/* Print */
+@media print {
+  .toc-sidebar, .toc-mobile-toggle, .toc-mobile-overlay, .toc-mobile-panel { display: none !important; }
+  .header { padding: 24px 0; }
+  .page-wrap { display: block; padding: 0; }
+  .main-content { padding: 0; }
+  .sector-section { break-inside: avoid; }
+  .demand { break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-brand">Hoplight</div>
+    <h1>CBA Win Pattern Playbook</h1>
+    <p class="subtitle">What unions have won on AI at the bargaining table</p>
+  </div>
+</header>
+
+<div class="page-wrap">
+  <aside class="toc-sidebar">
+    <nav>
+      <h2>Sections</h2>
+      <a href="#entertainment" data-section="entertainment">Entertainment &amp; Media</a>
+      <a href="#healthcare" data-section="healthcare">Healthcare</a>
+      <a href="#transportation" data-section="transportation">Transportation, Logistics &amp; Manufacturing</a>
+      <a href="#public-sector" data-section="public-sector">Public Sector &amp; Telecom</a>
+      <a href="#international" data-section="international">International Models</a>
+      <a href="#sources" data-section="sources">Key Sources</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+
+    <div class="intro">
+      <p>This is a field guide to what unions have actually won on AI in collective bargaining agreements. Not principles. Not frameworks. Enforceable contract language that an employer violates at the cost of arbitration, production shutdown, or port closure. The next time someone says "unions can't bargain over AI," hand them this document and ask which sector they want to start with.</p>
+      <p>Every win documented here traces to the same mechanism: bargaining leverage backed by credible economic disruption. No voluntary partnership, advisory committee, or research grant produced any of these provisions. The WGA got Article 72 by shutting down production for 148 days. The ILA got its automation ban by closing 36 ports. The pattern holds in every sector. Power produces protections. Partnership produces press releases.</p>
+    </div>
+
+    <!-- ======== ENTERTAINMENT ======== -->
+    <section class="sector-section" id="entertainment">
+      <div class="sector-header">
+        <div class="sector-icon">&#127916;</div>
+        <h2>Entertainment and Media: The Template for Every Sector</h2>
+      </div>
+
+      <p>The entertainment sector has the strongest AI contract language in the United States, and it is not close. Three unions, three different approaches to the same problem, all enforceable.</p>
+
+      <p><span class="union">The Writers Guild of America</span> struck for 148 days in 2023 and won <span class="contract-ref">Article 72 of the Minimum Basic Agreement</span>. Article 72 established four interlocking protections:</p>
+
+      <div class="provision">
+        <ul>
+          <li>AI is not a writer: no material produced by AI constitutes "literary material" under the contract.</li>
+          <li>No writer can be required to use AI.</li>
+          <li>AI-generated material given to a writer cannot be treated as "source material" for credit determination or "assigned material" for compensation, which means a studio cannot use AI to generate a draft and then pay the human writer at a lower rate for "polishing" it.</li>
+          <li>The WGA reserved the right to assert that using writers' work to train AI falls within writers' reserved rights.</li>
+        </ul>
+      </div>
+
+      <p>No legislation anywhere matches this specificity. Article 72 is enforceable through arbitration.</p>
+
+      <p><span class="union">SAG-AFTRA</span> followed in November 2023 with digital replica protections built around three categories. Employment-based digital replicas require informed consent with a 48-hour minimum notice period, with separate consent required for use in additional projects. Independently created replicas require consent and compensation for commercial use. Synthetic performers trigger mandatory notification and bargaining over compensation. The consent architecture prevents studios from scanning a performer once and using that scan indefinitely across projects.</p>
+
+      <p><span class="union">IATSE's</span> 2024 Basic Agreement permits AI as a tool while building walls around displacement. The core provision: "An employee shall not be required to provide prompts in any manner that results in the displacement of any covered employee." AI scanning requires separate written consent and cannot be a condition of employment. Workers can charge kit rental fees for their own AI tools. Employer liability attaches to AI-generated work. One critical difference: unlike WGA and SAG-AFTRA members, IATSE members cannot refuse to use AI if directed by an employer.</p>
+
+      <p>The <span class="union">CWA-Ziff Davis Content Group</span> agreement added a definitional innovation that every sector needs. It defines generative AI as systems creating content via machine learning (GPTs, GANs, VAEs) while explicitly excluding spell-check, autocorrect, and grammar tools. Without this boundary, management lawyers will argue that any AI provision covers everything from Microsoft Word to ChatGPT, making the provisions unenforceable by making them absurd.</p>
+
+      <p>What makes the entertainment pattern replicable is the architecture, not the specific provisions. Each agreement combines four elements: a clear definition of what counts as AI, prohibitions on specific harmful uses, affirmative rights for workers, and enforcement mechanisms with real consequences. Any sector can build on this architecture. The definitions and prohibited uses change. The four-element structure holds. The WGA did not win Article 72 by asking studios to be responsible. It won by making irresponsibility cost $500 million in lost revenue.</p>
+
+      <div class="demand">
+        <div class="demand-label">The Demand</div>
+        <p>No AI-generated output treated as source material for any purpose. Disclosure requirements when AI touches any material a worker handles. Consent requirements for any scanning, with consent specific to project and purpose. A definition of generative AI that is specific enough to trigger governance provisions and narrow enough to exclude routine tools. Enforceable through arbitration with production-level consequences.</p>
+      </div>
+    </section>
+
+    <!-- ======== HEALTHCARE ======== -->
+    <section class="sector-section" id="healthcare">
+      <div class="sector-header">
+        <div class="sector-icon">&#9764;</div>
+        <h2>Healthcare: Patient Safety as the Entry Point</h2>
+      </div>
+
+      <p>Healthcare unions have built their AI protections on a frame that is harder to argue against than any economic claim: patient safety. When a nurse says "this algorithm is scoring patient acuity wrong and that means fewer nurses get assigned to the floor," the argument is not about technology policy. It is about whether patients live or die.</p>
+
+      <p><span class="union">National Nurses United</span> negotiated language at Mission Hospital in 2024 that requires union approval before AI technology can be deployed in patient care settings. This is a full veto right. A 2024 NNU survey of over 2,300 registered nurses quantifies the problem: 48 percent reported automated assessments that did not match their clinical judgments, 29 percent reported inability to override AI recommendations, and 60 percent did not trust their employers to implement AI with patient safety as the priority.</p>
+
+      <p>The <span class="union">NNU-University of California</span> contract, ratified November 2025 and covering approximately 18,000 registered nurses, ensures nurses have a central role in evaluating and implementing AI systems across UC healthcare facilities. The <span class="union">California Nurses Association</span> won language entitling nurses to participate in the selection, design, building, and validation of new healthcare technology affecting nursing care delivery through their Professional Practice Committee. This goes beyond veto power. It gives nurses institutional seats in the decision-making process before an AI system is purchased, not after it is deployed.</p>
+
+      <p><span class="union">SEIU-UHW's</span> agreement with Kaiser Permanente includes:</p>
+
+      <div class="provision">
+        <ul>
+          <li>A no-displacement commitment</li>
+          <li>Up to 500 hours of paid retraining</li>
+          <li>Wage protection guaranteeing no reduction in pay or status</li>
+          <li>A joint education and training fund</li>
+        </ul>
+      </div>
+
+      <p>The companion Kaiser LMP employment and income security agreement defines redeployment standards: comparable hours, similar classification, reasonable distance, comparable pay, similar shift. These provisions address the realistic scenario. A hospital does not fire nurses when it deploys AI scheduling. It gradually reduces hours, reclassifies positions, and transfers workers to lower-paying roles. The Kaiser provisions close each pathway.</p>
+
+      <p>The <span class="union">NNU-VA Medical Centers</span> contract includes comprehensive surveillance protections covering computer monitoring, keystroke monitoring, email access, browser history, video and audio surveillance, proximity cards, and devices attached to uniforms. Data from patient call systems, bed monitoring, hand wash monitors, and nurse location systems must be used primarily for patient care. Disciplinary use requires data to be "reliable and/or used in conjunction with additional evidence analysis."</p>
+
+      <p>The <span class="contract-ref">Penn State and UC Berkeley Labor Center model healthcare AI bargaining language</span> provides a ready-to-use template with provisions for monitoring notification, bargaining triggers, job displacement with structured severance and early retirement, clinical decision support oversight, and training requirements. This template exists so that every healthcare union walking into bargaining has a starting point, not a blank page.</p>
+
+      <p>The healthcare pattern is distinct from entertainment in one critical respect. Entertainment unions won prohibitions: AI cannot do this. Healthcare unions are winning governance structures: nurses participate in deciding how AI is used. The governance approach has a longer shelf life because it attaches to the decision process, not to any particular system. The NNU veto right at Mission Hospital works regardless of what the next generation of clinical AI looks like.</p>
+
+      <div class="demand">
+        <div class="demand-label">The Demand</div>
+        <p>No AI deployment in patient care without union approval. Clinical override rights in every system that touches acuity scoring, staffing, or care decisions. Surveillance protections with purpose limitations and corroboration requirements. No displacement without retraining at up to 500 hours paid, wage protection, and redeployment at comparable conditions. Nurse participation in selection, design, and validation of any clinical technology before procurement.</p>
+      </div>
+    </section>
+
+    <!-- ======== TRANSPORTATION ======== -->
+    <section class="sector-section" id="transportation">
+      <div class="sector-header">
+        <div class="sector-icon">&#128666;</div>
+        <h2>Transportation, Logistics, and Manufacturing: Hard Lines and Chokepoints</h2>
+      </div>
+
+      <p><span class="union">The International Longshoremen's Association</span> went furthest. The six-year <span class="contract-ref">ILA-USMX Master Contract</span> reached in January 2025 bans fully automated terminal equipment at East and Gulf Coast ports outright. "Fully automated" means machinery devoid of human interaction. Semi-automated equipment cannot be implemented until both parties agree to workforce protections and staffing levels. If consensus fails, the matter goes to arbitration. This covers approximately 45,000 longshoremen at 36 ports. The ILA got this language after a work stoppage in October 2024 that closed every major East and Gulf Coast port. The mechanism was economic disruption at a national chokepoint, not a policy paper.</p>
+
+      <p>The <span class="union">Teamsters-UPS</span> 2023 National Master Agreement:</p>
+
+      <div class="provision">
+        <ul>
+          <li>Bans inward-facing cameras</li>
+          <li>Restricts forward-facing camera capability from being used for discipline</li>
+          <li>Prohibits in-cab audio recording and videotaping</li>
+          <li>Bans drones and driverless vehicles for deliveries and pickups during the agreement term</li>
+          <li>GPS and telematics data cannot be the sole basis for discharge or discipline unless the driver engages in dishonesty (intentional acts intended to defraud the company)</li>
+          <li>Driver-facing sensors permitted only for triggering audible alerts related to distracted driving and for coaching during the 30-day qualification period</li>
+          <li>Handheld device data cannot be used to discipline employees for exceeding personal time</li>
+          <li>Any new roles created by technology must be assigned to bargaining unit employees with training</li>
+        </ul>
+      </div>
+
+      <p>The <span class="union">UAW's</span> 2023 Big Three contracts with Ford, GM, and Stellantis established joint Advanced Manufacturing Committees with union involvement at the earliest stages of product development and manufacturing process planning. The contract language ensures the union has a role in identifying any AI technologies that may affect members' safety. The committee includes subject matter experts from advanced manufacturing, skilled trades, engineering, and health and safety. The Stand Up Strike strategy secured these provisions simultaneously across all three automakers, establishing a unified manufacturing standard.</p>
+
+      <p>The <span class="union">Amalgamated Transit Union</span> won AI-specific monitoring protections. Any AI systems designed to monitor or measure operator performance can be used for coaching and performance improvement only, not as the sole determining factor for discipline. No recording can be used against an employee for the purpose of finding misconduct. Review requires a "precipitating event" limited to complaints, accidents, investigations, law enforcement requests, or technology alerts. Real-time camera look-in capability is restricted to reviewing bus loads, traffic, passenger issues, or active incidents reported by the employee. It cannot be used "as a method of seeking out and implementing discipline."</p>
+
+      <p>The <span class="union">Culinary Workers Union Local 226</span> in Las Vegas negotiated technology provisions covering approximately 53,000 hospitality workers at MGM, Caesars, and Wynn in 2023. The contract guarantees advance notice before new technology, training for tech-created jobs, severance and healthcare for displaced workers, privacy from tracking, notice of third-party data sharing, and the right to bargain over location-tracking systems. Displaced workers retain recall rights. Like the ILA, the Culinary Workers controlled a chokepoint: Las Vegas casino revenue under threat of a Strip-wide strike vote.</p>
+
+      <div class="demand">
+        <div class="demand-label">The Demand</div>
+        <p>Automation bans or bargaining gates at operational chokepoints. Surveillance data limited to coaching with corroboration requirements for discipline. No drones, no driverless delivery, no inward-facing cameras. Joint technology committees with early-stage involvement, not after-the-fact notification. Displaced workers get severance, healthcare continuation, retraining, and recall rights.</p>
+      </div>
+    </section>
+
+    <!-- ======== PUBLIC SECTOR ======== -->
+    <section class="sector-section" id="public-sector">
+      <div class="sector-header">
+        <div class="sector-icon">&#127963;</div>
+        <h2>Public Sector and Telecom: Surveillance Protections and Governance Structures</h2>
+      </div>
+
+      <p>The <span class="union">SEIU Local 668</span> agreement with Pennsylvania Governor Shapiro, reached March 2025, is the most advanced AI governance structure in any US contract. It establishes a worker board (the Generative AI Labor and Management Collaboration Group) that oversees implementation of generative AI tools. AI is banned for disciplinary decisions. Human-in-the-loop protections apply at every step of the process, not just the end point. The agreement mandates monitoring for disparate impacts related to bias and discrimination. A public worker is defined as a person and generative AI is defined as a tool. The agreement has no end date, designed to outlast any single administration. This is governance, not just protection. SEIU members do not merely have the right to grieve after an AI system harms them. They have an institutional seat at the table where deployment decisions are made.</p>
+
+      <p><span class="union">Federal employee unions</span> have built the most comprehensive surveillance protections in US labor agreements:</p>
+
+      <div class="provision">
+        <ul>
+          <li><strong>AFGE</strong> contracts prohibit using computer login data and Teams presence for attendance tracking. Security cameras cannot monitor performance. PIV cards cannot function as timekeeping tools.</li>
+          <li><strong>NFFE</strong> contracts prohibit GPS and instant messaging data from monitoring travel and time except with reasonable suspicion of misconduct. SmartCards, cameras, surveys, and call monitoring cannot measure individual performance unless identified in the employee's performance plan. Union computers are protected from search without just cause.</li>
+          <li><strong>NATCA</strong> prohibits intercepting union network traffic and using PIV data to track employee location.</li>
+        </ul>
+      </div>
+
+      <p><span class="union">CWA's</span> contracts with AT&T establish that monitoring's primary intent is quality assurance and employee development. Results must be averaged across sessions to prevent a single bad call from triggering adverse action. Webcams cannot be used for surveillance during remote work. The CWA-AT&T technology change notification requires detailed advance information: nature of changes, impact on employees, affected locations, job titles, estimated staffing, and timeline. <span class="union">CWA-BellSouth</span> added a Reassignment Pay Protection Plan ensuring gradual transition rather than immediate wage cuts when technology displaces workers.</p>
+
+      <p>The breadth of federal surveillance protections matters because they establish a principle that applies directly to AI: data collected for one purpose cannot be repurposed for another. Security cameras exist for building security, not performance tracking. PIV cards exist for access control, not timekeeping. GPS exists for route optimization, not attendance monitoring. As AI systems aggregate multiple data streams into unified worker profiles, these purpose-limitation provisions become the primary contractual defense against algorithmic management. A single AI dashboard that combines login times, badge swipes, call metrics, and camera footage is exactly the kind of surveillance aggregation these provisions were designed to prevent.</p>
+
+      <div class="demand">
+        <div class="demand-label">The Demand</div>
+        <p>A governance structure with a permanent worker board and no end date. AI banned for discipline. Surveillance protections covering login data, presence indicators, access cards, GPS, cameras, and call monitoring, with purpose limitations and corroboration requirements for any disciplinary use. Advance notice of technology changes with full impact disclosure including affected locations, job titles, staffing estimates, and implementation timeline.</p>
+      </div>
+    </section>
+
+    <!-- ======== INTERNATIONAL ======== -->
+    <section class="sector-section" id="international">
+      <div class="sector-header">
+        <div class="sector-icon">&#127760;</div>
+        <h2>International Models: What Becomes Possible with Stronger Legal Floors</h2>
+      </div>
+
+      <p>International agreements show what US unions should be pushing toward.</p>
+
+      <p><span class="union">Deutsche Telekom's</span> works council agreement with ver.di gives the works council a veto right on AI deployments that do not meet agreed principles. All decisions continue to be made by humans, not machines. Employees must be informed when interacting with AI. AI cannot be used for employee surveillance or to collect information about political opinions, union membership, or sexual orientation. A risk-based participation system escalates works council involvement based on the criticality level of each AI system. This is the strongest single corporate AI agreement in the world, and it exists because German co-determination law gives works councils legal authority that US unions do not have.</p>
+
+      <p>The <span class="union">Hilfr/3F agreement</span> in Denmark is the most advanced platform work CBA globally:</p>
+
+      <div class="provision">
+        <ul>
+          <li>The platform must explain how it reached any algorithmic decision, including the assessment, facts, and weighting used</li>
+          <li>If Hilfr cannot justify a decision, it is deemed invalid</li>
+          <li>The employer bears liability for algorithmic harm, including any impairment of workers' ability to legally challenge bad decisions</li>
+          <li>All platform workers have employee status</li>
+          <li>Workers can override algorithmic decisions that put their health at risk</li>
+          <li>All algorithmic decisions can be contested through Denmark's labor dispute resolution system</li>
+        </ul>
+      </div>
+
+      <p><span class="union">Spain's banking sector CBA</span>, the first to include explicit algorithmic rights, establishes that workers have the right to not be subject to decisions made solely by algorithmic systems. The employer must inform worker representatives about data and algorithms used by digital models with no human intervention, including the logic of their functioning and an assessment of results. The cross-industry V AENC framework directs hundreds of sector and company agreements to address AI through their own bargaining.</p>
+
+      <p>The <span class="union">TUC's</span> proposed AI Bill provides a legislative template: mandatory Workplace AI Risk Assessments, a complete ban on emotion recognition technology, a statutory right to disconnect, automatic unfair dismissal for firing through reliance on AI, and mandatory union consultation at least one month before high-risk AI deployment. <span class="union">UNI Global Union's</span> ten key demands provide the international framework: notice, risk assessment, data access, human-in-command, and independent audits.</p>
+
+      <p><span class="union">Italy's</span> national commerce sector agreement, amended in April 2024, took a structural approach by creating two new AI-specific job classifications: "Senior AI management and coordination officers" and "AI ethics and responsibility experts," embedding union-aligned governance roles inside the corporate structure itself. <span class="union">Telenor's</span> Norwegian CBA includes a dedicated AI section addressing employee privacy, anti-discrimination, and retraining, operating within Norway's Working Environment Act which requires employer consultation before introducing any monitoring or control systems.</p>
+
+      <p>The pattern that scales: every strong international agreement was built on a legislative floor. Germany's co-determination law enabled the Deutsche Telekom veto. Spain's Ley Rider created the statutory basis for the Just Eat Algorithm Commission. Denmark's labor dispute system makes the Hilfr provisions enforceable. Norway's Working Environment Act gives Telenor's AI section legal backing independent of the contract. The lesson for US unions: push for legislative floors, modeled on the SEIU-PA governance structure, that create the legal basis for stronger bargaining. The contract language comes second. The statutory authority comes first.</p>
+
+      <div class="demand">
+        <div class="demand-label">The Demand</div>
+        <p>Push for state-level legislation establishing worker board governance structures with no end date. Use international models as evidence that veto rights, algorithmic explainability, and automation bans are not hypothetical. They exist in Germany, Denmark, Spain, Italy, and Norway. They work. The question is whether US labor will demand them.</p>
+      </div>
+    </section>
+
+    <!-- ======== KEY SOURCES ======== -->
+    <section class="sources" id="sources">
+      <h2>Key Sources</h2>
+      <ul>
+        <li>WGA-AMPTP 2023 MBA Article 72; SAG-AFTRA 2023 TV/Theatrical AI provisions; IATSE-AMPTP 2024 Basic Agreement AI provisions</li>
+        <li>CWA-Ziff Davis Content Group 2025 Generative AI Definition (UC Berkeley Labor Center)</li>
+        <li>NNU/CNA-Mission Hospital 2024; NNU-UC 2025; CNA Tech Selection Provision; NNU VA Surveillance Article</li>
+        <li>SEIU-UHW/Kaiser Health Connect Transition Agreement; Kaiser LMP Employment Security Agreement</li>
+        <li>Penn State/UC Berkeley Model Healthcare AI Bargaining Language (July 2025)</li>
+        <li>ILA-USMX 2025 Master Contract; Teamsters-UPS 2023 Article 6; UAW 2023 Big Three contracts</li>
+        <li>ATU AI Monitoring Restrictions (2024); Culinary Workers Local 226 Las Vegas (2023)</li>
+        <li>SEIU Local 668/Pennsylvania GenAI Agreement (March 2025)</li>
+        <li>AFGE, NFFE, NATCA, LIUNA Federal Surveillance Protections (UC Berkeley Labor Center)</li>
+        <li>CWA-AT&T Monitoring and Tech Change Provisions; CWA-BellSouth Transition Agreement</li>
+        <li>Deutsche Telekom AI Manifesto (ver.di, 2023); Hilfr/3F (Denmark, 2024); Just Eat Spain (2022)</li>
+        <li>Spain Banking Sector CBA XXIV (2021); Italy CCNL Commerce AI Amendment (2024); Telenor Norway (2024)</li>
+        <li>TUC AI Bill (April 2024); UNI Global Union Algorithmic Management Guide (2023)</li>
+      </ul>
+    </section>
+
+  </main>
+</div>
+
+<footer class="footer">
+  <strong>Hoplight AI</strong><br>
+  Compiled from public collective bargaining agreements and labor center research.
+</footer>
+
+<!-- Mobile TOC -->
+<button class="toc-mobile-toggle" id="tocToggle" aria-label="Table of contents">&#9776;</button>
+<div class="toc-mobile-overlay" id="tocOverlay"></div>
+<div class="toc-mobile-panel" id="tocPanel">
+  <button class="toc-mobile-close" id="tocClose" aria-label="Close">&times;</button>
+  <h2>Sections</h2>
+  <a href="#entertainment" class="toc-mobile-link">Entertainment &amp; Media</a>
+  <a href="#healthcare" class="toc-mobile-link">Healthcare</a>
+  <a href="#transportation" class="toc-mobile-link">Transportation, Logistics &amp; Manufacturing</a>
+  <a href="#public-sector" class="toc-mobile-link">Public Sector &amp; Telecom</a>
+  <a href="#international" class="toc-mobile-link">International Models</a>
+  <a href="#sources" class="toc-mobile-link">Key Sources</a>
+</div>
+
+<script>
+// Mobile TOC
+const toggle = document.getElementById('tocToggle');
+const overlay = document.getElementById('tocOverlay');
+const panel = document.getElementById('tocPanel');
+const closeBtn = document.getElementById('tocClose');
+
+function openToc() {
+  panel.style.display = 'block';
+  overlay.style.display = 'block';
+}
+function closeToc() {
+  panel.style.display = 'none';
+  overlay.style.display = 'none';
+}
+
+toggle.addEventListener('click', openToc);
+overlay.addEventListener('click', closeToc);
+closeBtn.addEventListener('click', closeToc);
+
+document.querySelectorAll('.toc-mobile-link').forEach(link => {
+  link.addEventListener('click', closeToc);
+});
+
+// Desktop TOC active state
+const sections = document.querySelectorAll('.sector-section, .sources');
+const tocLinks = document.querySelectorAll('.toc-sidebar a');
+
+function updateActiveLink() {
+  let current = '';
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= 80) {
+      current = section.id;
+    }
+  });
+  tocLinks.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('data-section') === current);
+  });
+}
+
+window.addEventListener('scroll', updateActiveLink, { passive: true });
+updateActiveLink();
+</script>
+
+</body>
+</html>

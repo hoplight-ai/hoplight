@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Every Political Dollar Buys Less | 2000–2024</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0c0f14;--sf:#151921;--sf2:#1a1f2b;--bd:#232a36;--tx:#d4d8e0;--tx2:#8b919d;--mt:#6b7280;--ac:#f59e0b;--ac-dim:rgba(245,158,11,0.15);--rd:#ef4444;--rd-dim:rgba(239,68,68,0.12);--gn:#22c55e;--mono:'JetBrains Mono',monospace;--sans:'DM Sans',sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--tx);font-family:var(--sans);padding:40px 24px 32px;max-width:1080px;margin:0 auto;line-height:1.5;}
+h1{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--ac);letter-spacing:-0.5px;line-height:1.2;margin-bottom:10px;}
+h2{font-family:var(--mono);font-size:15px;font-weight:700;color:var(--tx);letter-spacing:-0.3px;margin-bottom:5px;line-height:1.3;}
+.thesis{font-size:14px;color:var(--tx2);max-width:700px;margin-bottom:24px;line-height:1.6;}
+.sec{margin-bottom:52px;}
+
+/* HERO STAT */
+.hero-stat{display:inline-block;background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:20px 28px;margin:12px 0 0;}
+.hero-stat .big{font-family:var(--mono);font-size:52px;font-weight:700;color:var(--ac);line-height:1;}
+.hero-stat .lbl{font-size:12px;color:var(--mt);margin-top:6px;line-height:1.4;max-width:280px;}
+
+/* CHART */
+.chart-note{font-size:12px;color:var(--mt);margin-bottom:20px;max-width:620px;line-height:1.5;}
+.chart-wrap{padding-top:4px;}
+.cpi-marker{display:flex;align-items:flex-end;margin-bottom:6px;height:16px;}
+.cpi-marker .spacer{width:194px;flex-shrink:0;}
+.cpi-marker .track-ref{flex:1;position:relative;height:16px;}
+.cpi-marker .track-ref span{position:absolute;left:25.7%;bottom:0;transform:translateX(-50%);font-family:var(--mono);font-size:10px;color:var(--mt);white-space:nowrap;letter-spacing:0.3px;}
+.cpi-marker .val-spacer{min-width:54px;}
+.bar-row{display:flex;align-items:center;margin-bottom:7px;}
+.bar-label{width:194px;flex-shrink:0;text-align:right;padding-right:14px;font-size:12px;color:var(--tx2);white-space:nowrap;}
+.bar-track{flex:1;height:26px;position:relative;background:rgba(255,255,255,0.02);border-radius:3px;}
+.bar-track::after{content:'';position:absolute;left:25.7%;top:-3px;bottom:-3px;border-left:1.5px dashed rgba(107,114,128,0.22);z-index:2;pointer-events:none;}
+.bar-fill{height:100%;border-radius:3px;background:var(--ac);opacity:0.8;position:relative;z-index:1;}
+.bar-fill.trunc{background:linear-gradient(90deg,var(--rd) 0%,var(--rd) 94%,rgba(239,68,68,0.2) 100%);opacity:0.65;}
+.bar-fill.baseline{background:var(--mt);opacity:0.35;}
+.bar-row:hover .bar-fill{opacity:1;}
+.bar-val{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--tx);margin-left:8px;white-space:nowrap;min-width:54px;}
+.bar-val.trunc-val{color:var(--rd);font-weight:700;}
+.bar-val.base-val{color:var(--mt);}
+.bar-annotation{font-size:10px;color:var(--mt);font-style:italic;margin-left:4px;}
+
+/* CARDS */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px;}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:8px;padding:20px;}
+.card .stat{font-family:var(--mono);font-size:22px;font-weight:700;color:var(--ac);margin-bottom:6px;line-height:1.2;}
+.card .stat .dim{color:var(--mt);font-weight:400;font-size:15px;}
+.card .desc{font-size:12px;color:var(--tx2);line-height:1.5;}
+.card .src{font-size:10px;color:var(--mt);margin-top:10px;font-style:italic;}
+
+/* CORRECTIONS BOX */
+.corrections{background:var(--sf);border:1px solid var(--bd);border-left:3px solid var(--gn);border-radius:0 8px 8px 0;padding:18px 20px;margin-bottom:20px;}
+.corrections h3{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--gn);margin-bottom:10px;text-transform:uppercase;letter-spacing:0.5px;}
+.corrections p{font-size:12px;color:var(--tx2);margin-bottom:6px;line-height:1.5;}
+.was{color:var(--rd);text-decoration:line-through;}
+.now{color:var(--gn);font-weight:600;}
+
+/* TABLE */
+.table-wrap{overflow-x:auto;border:1px solid var(--bd);border-radius:8px;}
+table{width:100%;border-collapse:collapse;font-size:12px;min-width:920px;}
+thead th{background:var(--sf2);font-family:var(--mono);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;padding:10px 12px;text-align:right;border-bottom:2px solid var(--ac);color:var(--ac);position:sticky;top:0;white-space:nowrap;}
+thead th:first-child{text-align:left;color:var(--tx);min-width:210px;}
+tbody td{padding:8px 12px;text-align:right;border-bottom:1px solid var(--bd);font-family:var(--mono);font-size:11px;white-space:nowrap;}
+tbody td:first-child{text-align:left;font-family:var(--sans);font-weight:500;font-size:12px;color:var(--tx);}
+tbody tr:hover{background:rgba(245,158,11,0.03);}
+.sh td{background:var(--sf2);font-family:var(--mono);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--ac);padding:7px 12px;}
+.na{color:var(--mt);font-style:italic;}
+.mult{display:inline-block;background:var(--rd-dim);color:var(--rd);font-size:9px;font-weight:700;padding:2px 5px;border-radius:3px;margin-left:4px;font-family:var(--mono);}
+.nr td{font-family:var(--sans);font-size:10px;color:var(--mt);font-style:italic;padding:5px 12px;background:rgba(245,158,11,0.02);}
+.fixed{background:rgba(34,197,94,0.06);}
+
+/* SOURCES */
+.sources{font-size:10px;color:var(--mt);line-height:1.6;border-top:1px solid var(--bd);padding-top:16px;margin-top:8px;}
+.sources strong{color:var(--tx2);font-weight:500;}
+
+@media(max-width:768px){
+  .cards{grid-template-columns:1fr;}
+  .bar-label{width:130px;font-size:11px;}
+  .cpi-marker .spacer{width:130px;}
+  body{padding:20px 16px;}
+  h1{font-size:22px;}
+  .hero-stat .big{font-size:40px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<div class="sec">
+  <h1>Every Political Dollar Buys Less</h1>
+  <p class="thesis">Federal election spending grew 5.1x from 2000 to 2024. General inflation grew 1.8x. The difference is not more democracy. It is higher unit costs, collapsing contact rates, and a media environment that consumes budgets faster than it delivers reach. The implication for political investors: strategy matters more than scale.</p>
+  <div class="hero-stat">
+    <div class="big">$0.35</div>
+    <div class="lbl">What $1 of 2024 political spending buys in 2000 purchasing power, adjusted for inflation</div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CHART: GROWTH MULTIPLES ═══════════════════ -->
+<div class="sec">
+  <h2>Political Costs Outpaced Inflation by 2-50x</h2>
+  <p class="chart-note">Dashed line marks CPI inflation (1.8x). Every bar past it represents real cost escalation above what "everything costs more" explains. Data: 2024 vs. 2000 midpoints.</p>
+
+  <div class="chart-wrap">
+    <!-- CPI label row (mirrors bar layout for alignment) -->
+    <div class="cpi-marker">
+      <span class="spacer"></span>
+      <div class="track-ref"><span>↓ CPI 1.8x</span></div>
+      <span class="val-spacer"></span>
+    </div>
+
+    <div class="bar-row">
+      <span class="bar-label">Outside spending</span>
+      <div class="bar-track"><div class="bar-fill trunc" style="width:100%"></div></div>
+      <span class="bar-val trunc-val">90x →</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Total ad spending</span>
+      <div class="bar-track"><div class="bar-fill" style="width:99%"></div></div>
+      <span class="bar-val">6.9x</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Total election cost</span>
+      <div class="bar-track"><div class="bar-fill" style="width:73%"></div></div>
+      <span class="bar-val">5.1x</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Senate seat (avg. winner)</span>
+      <div class="bar-track"><div class="bar-fill" style="width:61%"></div></div>
+      <span class="bar-val">4.3x</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Broadcast TV CPM</span>
+      <div class="bar-track"><div class="bar-fill" style="width:57%"></div></div>
+      <span class="bar-val">~4x</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">House seat (avg. winner)</span>
+      <div class="bar-track"><div class="bar-fill" style="width:51%"></div></div>
+      <span class="bar-val">3.6x</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Canvasser wages</span>
+      <div class="bar-track"><div class="bar-fill" style="width:34%"></div></div>
+      <span class="bar-val">2.4x</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label">Cost per vote (knock)</span>
+      <div class="bar-track"><div class="bar-fill" style="width:30%"></div></div>
+      <span class="bar-val">2.1x</span>
+    </div>
+    <div class="bar-row">
+      <span class="bar-label" style="color:var(--mt)">CPI inflation (baseline)</span>
+      <div class="bar-track"><div class="bar-fill baseline" style="width:25.7%"></div></div>
+      <span class="bar-val base-val">1.8x</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ STAT CARDS ═══════════════════ -->
+<div class="sec">
+  <h2>Three Forces Compounding the Squeeze</h2>
+  <div class="cards">
+    <div class="card">
+      <div class="stat">60% <span class="dim">→</span> 18%</div>
+      <div class="desc">Phone answer rate for unknown numbers. Three out of four Americans now refuse all unknown calls. Effective cost per live phone conversation has roughly tripled since 2000.</div>
+      <div class="src">TNS/Kantar 2022 survey, Pew Research, industry data</div>
+    </div>
+    <div class="card">
+      <div class="stat">$19 <span class="dim">→</span> $40</div>
+      <div class="desc">Cost per incremental vote from door knocking. Based on Green and Gerber's foundational research: 1 vote per 14 contacts, 12 contacts per hour. Wage inflation drives the math upward every cycle.</div>
+      <div class="src">Green &amp; Gerber, Get Out the Vote; BLS wage data</div>
+    </div>
+    <div class="card">
+      <div class="stat">$50M <span class="dim">→</span> $4.5B</div>
+      <div class="desc">Outside/independent spending per cycle. Post-Citizens United, anonymous money flooded federal races. In 2024, the top 10 donors alone accounted for ~$600M, roughly 7% of total spending.</div>
+      <div class="src">OpenSecrets, FEC, Brennan Center for Justice</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CORRECTIONS ═══════════════════ -->
+<div class="sec">
+  <div class="corrections">
+    <h3>Corrections Applied to Reference Table</h3>
+    <p><strong>House avg. winner 2016:</strong> <span class="was">$1.0M</span> → <span class="now">$1.5M</span> (OpenSecrets). The original figure created a false 37% cost decline mid-trend.</p>
+    <p><strong>Dark money 2016:</strong> <span class="was">$0.07B</span> → <span class="now">$0.18B</span> (OpenSecrets). Original conflated PAC contributions with total dark money spending.</p>
+    <p><strong>Most expensive Senate, GA 2020:</strong> <span class="was">$470M</span> → <span class="now">$510M+</span> (AdImpact/Governing). Understated by ~9%.</p>
+    <p><strong>Most expensive Senate, OH 2024:</strong> <span class="was">$400M</span> → <span class="now">$483M+</span> (AdImpact). Ad spending alone, excluding non-media expenditures.</p>
+    <p><strong>Total ad spending 2024:</strong> <span class="was">~$10.2B</span> → <span class="now">~$11.1B</span> (AdImpact final). Original used pre-election projection, not final count.</p>
+  </div>
+
+<!-- ═══════════════════ REFERENCE TABLE ═══════════════════ -->
+  <h2>Full Reference Data (Corrected)</h2>
+  <p style="font-size:11px;color:var(--mt);margin-bottom:12px;">Presidential cycle years. All figures nominal USD. Green-highlighted cells reflect corrections from original. Sources: OpenSecrets, FEC, Wesleyan Media Project, Green/Gerber, AdImpact, Issue One, BLS.</p>
+
+  <div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>Metric</th><th>2000</th><th>2004</th><th>2008</th><th>2012</th><th>2016</th><th>2020</th><th>2024</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- TOTAL SPENDING -->
+      <tr class="sh"><td colspan="8">Total Election Spending</td></tr>
+      <tr>
+        <td>Total federal election cost</td>
+        <td>$3.1B</td><td>$4.1B</td><td>$5.3B</td><td>$6.3B</td><td>$6.5B</td><td>$15.1B</td>
+        <td>$15.9B <span class="mult">5.1x</span></td>
+      </tr>
+      <tr>
+        <td>Outside/independent spending</td>
+        <td>~$0.05B</td><td>$0.14B</td><td>$0.14B</td><td>$1.0B</td><td>$1.4B</td><td>$3.4B</td>
+        <td>$4.5B <span class="mult">90x</span></td>
+      </tr>
+      <tr>
+        <td>Dark money (anonymous donors)</td>
+        <td class="na">n/a</td><td class="na">minimal</td><td class="na">minimal</td><td>~$0.3B</td>
+        <td class="fixed">$0.18B</td><td>$1.0B</td><td>$1.9B</td>
+      </tr>
+
+      <!-- COST TO WIN -->
+      <tr class="sh"><td colspan="8">Cost to Win a Seat (Avg. Winner Spending)</td></tr>
+      <tr>
+        <td>House seat (avg. winner)</td>
+        <td>~$0.8M</td><td>~$1.0M</td><td>~$1.3M</td><td>$1.6M</td>
+        <td class="fixed">$1.5M</td><td>$2.4M</td>
+        <td>~$2.9M <span class="mult">3.6x</span></td>
+      </tr>
+      <tr>
+        <td>Senate seat (avg. winner)</td>
+        <td>~$7M</td><td>~$7.5M</td><td>~$7.5M</td><td>$10.3M</td><td>$10.4M</td><td>$27.2M</td>
+        <td>~$30M+ <span class="mult">4.3x</span></td>
+      </tr>
+      <tr>
+        <td>House toss-up (median raised)</td>
+        <td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td>
+        <td>$7.9M</td>
+      </tr>
+      <tr class="nr"><td colspan="8">2022 toss-up House median was ~$5.3M. 2024 = +50% in one cycle. Source: Issue One.</td></tr>
+      <tr>
+        <td>Most expensive Senate race (total)</td>
+        <td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td>
+        <td class="fixed">$510M+ (GA)</td>
+        <td class="fixed">$483M+ (OH)</td>
+      </tr>
+
+      <!-- FIELD -->
+      <tr class="sh"><td colspan="8">Field / Voter Contact</td></tr>
+      <tr>
+        <td>Paid canvasser hourly wage</td>
+        <td>~$8-10</td><td>~$10-12</td><td>$12-15</td><td>$13-16</td><td>$15-17</td><td>$17-19</td>
+        <td>$20-23 <span class="mult">~2.5x</span></td>
+      </tr>
+      <tr>
+        <td>Cost per door (vendor/paid)</td>
+        <td class="na">&mdash;</td><td class="na">~$1.50</td><td class="na">~$2.00</td><td class="na">~$2.00</td><td class="na">~$2.25</td><td class="na">~$2.50</td>
+        <td>$2.25-3.00</td>
+      </tr>
+      <tr>
+        <td>Cost per incremental vote (knock)</td>
+        <td class="na">&mdash;</td><td>$19</td><td>~$22</td><td>~$25</td><td>~$28</td><td>~$32</td>
+        <td>~$35-45</td>
+      </tr>
+      <tr class="nr"><td colspan="8">Green/Gerber baseline: 1 vote per 14 contacts, 12 contacts/hr. Wage increases drive cost up proportionally.</td></tr>
+      <tr>
+        <td>Cost per vote (phone)</td>
+        <td class="na">&mdash;</td><td>$35-200</td><td>$26-38</td><td>$26-40</td><td>$28-45</td><td>$30-50</td>
+        <td>$35-60+</td>
+      </tr>
+      <tr>
+        <td>Phone answer rate (unknown #)</td>
+        <td>~60%+</td><td>~50%</td><td>~40%</td><td>~30%</td><td>~25%</td><td>~20%</td>
+        <td>~15-25%</td>
+      </tr>
+      <tr class="nr"><td colspan="8">75% of Americans say they will "never" answer unknown calls (TNS/Kantar 2022). Effective cost per live conversation has roughly tripled.</td></tr>
+
+      <!-- MEDIA -->
+      <tr class="sh"><td colspan="8">Paid Media / Advertising</td></tr>
+      <tr>
+        <td>Total political ad spending (all media)</td>
+        <td>~$1.6B</td><td>~$2.2B</td><td>~$2.8B</td><td>~$3.7B</td><td>~$4.4B</td><td>~$8.5B</td>
+        <td class="fixed">~$11.1B <span class="mult">6.9x</span></td>
+      </tr>
+      <tr>
+        <td>Broadcast TV ad spending</td>
+        <td>~$1.0B</td><td>~$1.6B</td><td>~$2.0B</td><td>~$2.8B</td><td>~$3.0B</td><td>$5.3B</td>
+        <td>$5.1B</td>
+      </tr>
+      <tr>
+        <td>Digital ad spending</td>
+        <td class="na">negl.</td><td class="na">negl.</td><td>~$25M</td><td>~$160M</td><td>~$1.4B</td><td>~$2.8B</td>
+        <td>~$3.5B</td>
+      </tr>
+      <tr>
+        <td>CTV/streaming ad spending</td>
+        <td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">negl.</td><td>~$0.2B</td>
+        <td>$1.5B <span class="mult">new channel</span></td>
+      </tr>
+      <tr>
+        <td>Broadcast TV CPM (national avg.)</td>
+        <td>~$12-18</td><td>~$15-22</td><td>~$18-28</td><td>~$22-35</td><td>~$28-42</td><td>~$35-55</td>
+        <td>$40-100+</td>
+      </tr>
+      <tr>
+        <td>CTV/streaming CPM</td>
+        <td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td>~$30-45</td>
+        <td>$18-80</td>
+      </tr>
+      <tr>
+        <td>Digital share of ad spend</td>
+        <td>~0%</td><td>~1%</td><td>~1%</td><td>~2%</td><td>~14%</td><td>~24%</td>
+        <td>~28%</td>
+      </tr>
+
+      <!-- STRUCTURAL -->
+      <tr class="sh"><td colspan="8">Structural / Contextual</td></tr>
+      <tr>
+        <td>Citizens United</td>
+        <td colspan="3" style="text-align:center;color:var(--mt);">Pre-decision</td>
+        <td colspan="4" style="text-align:center;color:var(--rd);font-weight:700;">Post-decision (Jan. 2010)</td>
+      </tr>
+      <tr>
+        <td>Small donor share (% of total raised)</td>
+        <td>~15%</td><td>~16%</td><td>~22%</td><td>~28%</td><td>~22%</td><td>~22%</td><td>~20%</td>
+      </tr>
+      <tr>
+        <td>Top 10 donors' share of total</td>
+        <td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td><td class="na">&mdash;</td>
+        <td>~7% ($599M)</td>
+      </tr>
+      <tr>
+        <td>Federal minimum wage</td>
+        <td>$5.15</td><td>$5.15</td><td>$6.55</td><td>$7.25</td><td>$7.25</td><td>$7.25</td><td>$7.25</td>
+      </tr>
+      <tr class="nr"><td colspan="8">Canvasser wages rose ~2.5x since 2000 while federal minimum wage froze in 2009. Campaign labor costs outpace general wage growth.</td></tr>
+    </tbody>
+  </table>
+  </div>
+</div>
+
+<!-- ═══════════════════ SOURCES ═══════════════════ -->
+<div class="sources">
+  <strong>Sources:</strong> Total election cost, avg. winner spending, outside spending, dark money from OpenSecrets/FEC. Toss-up medians from Issue One. Most expensive races from AdImpact, Governing. Canvasser wages from BLS, Indeed, ZipRecruiter, Glassdoor, contemporary job postings. Cost per vote from Green &amp; Gerber (<em>Get Out the Vote</em>), extrapolated by wage growth. Phone answer rates from Pew Research, TNS/Kantar (2022). Ad spending from AdImpact (final 2024 tally), Wesleyan Media Project. CPM data from AdWave, Trade Desk, Statista. CTV share: eMarketer. Some early-cycle figures are estimates (~). "Cost per door" reflects vendor pricing for paid canvassing, not volunteer programs.
+  <br><br>
+  <strong>Design note:</strong> This artifact applies annotation-first chart design (Cox/NYT), the smallest effective difference (Tufte), one-chart-one-insight discipline (FT/McKinsey), and micro/macro reading structure. The chart carries the argument; the table provides the evidence base.
+</div>
+
+</body>
+</html>
