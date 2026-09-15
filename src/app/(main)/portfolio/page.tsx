@@ -54,6 +54,38 @@ export default function Portfolio() {
       <section>
         <div className="wrap">
           <div className="section-head">
+            <span className="label">Open source</span>
+            <h2>A tool other teams can run themselves.</h2>
+            <p>
+              Pandora&apos;s Router lets several AI coding agents work on one codebase at once. It
+              proves their file claims don&apos;t overlap before any agent starts, then checks what
+              each one says it finished. MIT licensed, live at router.hoplight.ai.
+            </p>
+          </div>
+          <div className="cta-row">
+            <a
+              className="btn btn-primary"
+              href="https://router.hoplight.ai"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open the router &rarr;
+            </a>
+            <a
+              className="btn btn-secondary"
+              href="https://github.com/hoplight-ai/pandoras-router"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div className="wrap">
+          <div className="section-head">
             <span className="label">Client engagements</span>
             <h2>And some of it, you can&apos;t.</h2>
             <p>
