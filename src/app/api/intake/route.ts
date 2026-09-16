@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { checkRateLimit, clientIp } from '@/lib/rate-limit';
 
 // The Make webhook address lives in the MAKE_INTAKE_WEBHOOK environment variable, set in the
 // Vercel project, never in this file. Until 2026-09-16 it was a string literal here, and this
@@ -12,6 +13,15 @@ type Payload = {
 };
 
 export async function POST(req: Request) {
+  // Soft per-instance rate limit: at most 5 submissions per 10 minutes per IP. See
+  // src/lib/rate-limit.ts for why this is a floor, not the real limit.
+  if (!checkRateLimit(clientIp(req))) {
+    return NextResponse.json(
+      { ok: false, error: 'Too many submissions. Email whit@hoplight.ai instead.' },
+      { status: 429 },
+    );
+  }
+
   let body: Payload;
   try {
     body = await req.json();

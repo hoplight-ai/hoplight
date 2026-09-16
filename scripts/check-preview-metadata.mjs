@@ -282,6 +282,52 @@ async function main() {
     : false;
   record(hasFooterResearchLink, 'footer: Research link present', hasFooterResearchLink ? 'found' : 'absent');
 
+  // --- 10. PORTFOLIO STATIC PAGES CARRY PREVIEW METADATA ------------------
+  // Added 2026-09-16 (review-squad fix lane, item 6 / expert-seo.md #8): the 12 static pages
+  // under public/portfolio/*.html had titles but no description, canonical, or preview image.
+  // scripts/add-portfolio-metadata.mjs is what adds these; this checks the deployed result.
+  const PORTFOLIO_PAGES = [
+    'ai-governance-checklist',
+    'ai-lobbyist-player-map',
+    'cba-win-pattern-playbook',
+    'dnc-autopsy-taken-apart',
+    'every-political-dollar-buys-less',
+    'federal-agency-ai-inventory',
+    'hoplight-persuasion-story-page',
+    'oregon-school-budget-report',
+    'pdi-trust-dilution-model',
+    'redistricting-seat-shifts',
+    'where-political-money-actually-works',
+    'worker-equity-dilution-at-ge',
+  ];
+  for (const slug of PORTFOLIO_PAGES) {
+    const path = `/portfolio/${slug}.html`;
+    let page2;
+    try {
+      page2 = await fetchText(BASE + path);
+    } catch (err) {
+      record(false, `portfolio metadata: ${slug}`, `fetch threw: ${err.message}`);
+      continue;
+    }
+    if (page2.res.status !== 200) {
+      record(false, `portfolio metadata: ${slug}`, `${BASE}${path} -> HTTP ${page2.res.status}`);
+      continue;
+    }
+    const body = page2.body;
+    record(Boolean(metaByName(body, 'description')), `portfolio ${slug}: meta description`, metaByName(body, 'description') ? 'present' : 'absent');
+    record(Boolean(linkHref(body, 'canonical')), `portfolio ${slug}: canonical link`, linkHref(body, 'canonical') || 'absent');
+    record(Boolean(metaByProperty(body, 'og:title')), `portfolio ${slug}: og:title`, metaByProperty(body, 'og:title') || 'absent');
+    record(Boolean(metaByProperty(body, 'og:description')), `portfolio ${slug}: og:description`, metaByProperty(body, 'og:description') ? 'present' : 'absent');
+    record(Boolean(metaByProperty(body, 'og:url')), `portfolio ${slug}: og:url`, metaByProperty(body, 'og:url') || 'absent');
+    const pOgImage = metaByProperty(body, 'og:image');
+    record(Boolean(pOgImage) && /^https:\/\//i.test(pOgImage || ''), `portfolio ${slug}: og:image is absolute`, pOgImage || 'absent');
+    record(metaByProperty(body, 'og:type') === 'website', `portfolio ${slug}: og:type`, metaByProperty(body, 'og:type') || 'absent');
+    record(metaByName(body, 'twitter:card') === 'summary_large_image', `portfolio ${slug}: twitter:card`, metaByName(body, 'twitter:card') || 'absent');
+    record(Boolean(metaByName(body, 'twitter:title')), `portfolio ${slug}: twitter:title`, metaByName(body, 'twitter:title') || 'absent');
+    record(Boolean(metaByName(body, 'twitter:description')), `portfolio ${slug}: twitter:description`, metaByName(body, 'twitter:description') ? 'present' : 'absent');
+    record(Boolean(metaByName(body, 'twitter:image')), `portfolio ${slug}: twitter:image`, metaByName(body, 'twitter:image') || 'absent');
+  }
+
   // --- report ------------------------------------------------------------
   console.log('');
   for (const r of results) {

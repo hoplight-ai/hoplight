@@ -171,6 +171,9 @@ export default function IntakeForm() {
             <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
+        <p className="form-note">
+          We use what you send here to reply to you and for nothing else. It is forwarded to our inbox through Make.com and is not shared or sold.
+        </p>
       </div>
     );
   }
@@ -304,6 +307,9 @@ export default function IntakeForm() {
         </button>
       </div>
       <p className="form-note">We read every submission. No spam, no list.</p>
+      <p className="form-note">
+        We use what you send here to reply to you and for nothing else. It is forwarded to our inbox through Make.com and is not shared or sold.
+      </p>
     </form>
   );
 }

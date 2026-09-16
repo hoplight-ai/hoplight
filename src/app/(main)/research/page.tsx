@@ -13,6 +13,13 @@ export const metadata: Metadata = pageMetadata({
   // ogTitle omitted: previously hardcoded with a " | Hoplight" pipe separator here while every
   // other route used an em dash (expert-social-meta.md #6). The helper now derives the em-dash
   // form used everywhere else.
+  // Per-route preview card (expert-social-meta.md #5): absolute URL, per the served-pages standard.
+  image: {
+    url: 'https://hoplight.ai/api/og?title=The+research&sub=A+3%2C006-person+randomized+controlled+trial',
+    width: 1200,
+    height: 630,
+    alt: 'The research — Hoplight',
+  },
 });
 
 const jsonLd = {

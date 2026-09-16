@@ -8,6 +8,15 @@ const orgSchema = {
   name: 'Hoplight',
   url: 'https://hoplight.ai',
   description: 'AI strategy for labor, advocacy, and mission-driven organizations.',
+  // logo/contactPoint added 2026-09-16 (review-squad fix lane, item 7 / expert-seo.md #9): these
+  // are what Google uses for entity/Knowledge Panel association, and there was no way to reach
+  // Hoplight from this schema block other than the bare founder Person entry.
+  logo: 'https://hoplight.ai/favicon-512.png',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'whit@hoplight.ai',
+    contactType: 'sales',
+  },
   sameAs: ['https://github.com/hoplight-ai', 'https://www.linkedin.com/in/whit-pendergast/'],
   founder: {
     '@type': 'Person',

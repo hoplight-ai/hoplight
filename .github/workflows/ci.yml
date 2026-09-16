@@ -69,6 +69,13 @@ jobs:
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run typecheck
 
+      # Node's built-in test runner against the intake rate limiter (L8, review-squad fix lane
+      # 2026-09-16: expert-security.md #2). No new dependency; scripts/intake-ratelimit.test.mjs
+      # imports src/lib/rate-limit.ts directly via Node's native TypeScript support.
+      - name: test
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run test
+
       - name: build
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run build

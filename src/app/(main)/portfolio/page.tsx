@@ -72,7 +72,19 @@ export default function Portfolio() {
                   >
                     <div className="wcard-img">
                       {thumb ? (
-                        <img src={thumb} alt="" width={1200} height={750} loading="lazy" decoding="async" />
+                        // Responsive WebP variants (scripts/optimize-portfolio-thumbs.mjs,
+                        // performance review 2026-09-16 #7): phones get the 600px file instead of
+                        // the same full-desktop JPG a 1440px screen downloads. The 1200w WebP source
+                        // covers everyone else on a WebP-capable browser; the plain .jpg stays as
+                        // the <img> fallback for anything that supports neither <picture> nor WebP.
+                        <picture>
+                          <source
+                            type="image/webp"
+                            srcSet={`${thumb.replace(/\.jpg$/, '-600.webp')} 600w, ${thumb.replace(/\.jpg$/, '-1200.webp')} 1200w`}
+                            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 380px"
+                          />
+                          <img src={thumb} alt="" width={1200} height={750} loading="lazy" decoding="async" />
+                        </picture>
                       ) : (
                         <span className="wcard-plate">{p.title}</span>
                       )}

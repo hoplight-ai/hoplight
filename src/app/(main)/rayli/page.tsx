@@ -20,6 +20,14 @@ export const metadata: Metadata = pageMetadata({
   path: '/rayli',
   ogDescription:
     'Psychographically targeted, voice-true, source-cited copy for every destination you publish to, plus the map nobody else has: who heard what, when, across which channels, by audience.',
+  // Per-route preview card (expert-social-meta.md #5): every route inherited the generic
+  // /og.png before this. Absolute URL, per the served-pages standard.
+  image: {
+    url: 'https://hoplight.ai/api/og?title=Rayli&sub=A+communications+intelligence+platform',
+    width: 1200,
+    height: 630,
+    alt: 'Rayli — Hoplight',
+  },
 });
 
 // Minimal and factual: name, category and description are the canon one-liner and nothing more.

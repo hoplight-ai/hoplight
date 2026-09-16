@@ -65,6 +65,12 @@ const EXPOSURE = {
 };
 
 // ===== STEP DATA =====
+// Lint pass, 2026-09-16 (review-squad fix lane, item 3): each step below has a different shape
+// (some carry `groups`, some `bullets`, some `alternatives`), so this stays loosely typed rather
+// than forcing a discriminated union across a wizard this lane is not restructuring. Each
+// `eslint-disable-next-line` below is that same call, made at the one line the rule flags instead
+// of once for the whole file.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const STEPS: Record<string, any> = {
   newspaper: {
     title: 'The Newspaper Test',
@@ -143,6 +149,7 @@ function getRecommendation(answers: Record<string, string>) {
   const sensitivity = answers.newspaper === 'yes' ? 'public' : (answers.sensitivity || 'professional');
   const usecase = answers.usecase;
   const ref = answers.writing_refine || answers.website_refine || answers.coding_refine;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let rec: any = {};
 
   switch (usecase) {
@@ -189,6 +196,7 @@ function getRecommendation(answers: Record<string, string>) {
 }
 
 function getSecurityInfo(sensitivity: string, toolName: string) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const tiers: Record<string, any> = {
     public: null,
     professional: {
@@ -275,6 +283,7 @@ const ProgressBar = ({ current, total }: { current: number; total: number }) => 
 };
 
 // Reusable exposure table renderer
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const ExposureTable = ({ platforms, compact }: { platforms: any[]; compact?: boolean }) => {
   const cols = EXPOSURE.columns;
   return (
@@ -297,12 +306,14 @@ const ExposureTable = ({ platforms, compact }: { platforms: any[]; compact?: boo
                 </tr>
               </thead>
               <tbody>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {p.tiers.map((t: any, j: number) => (
                   <tr key={j} style={{ borderBottom: j < p.tiers.length - 1 ? `1px solid ${C.stone}0d` : 'none' }}>
                     <th scope="row" style={{ padding: '10px 16px', textAlign: 'left', fontWeight: 400 }}>
                       <div style={{ fontWeight: 600, color: C.ink, fontSize: 13 }}>{t.name}</div>
                       <div style={{ fontSize: 11, color: C.stone, marginTop: 1 }}>{t.price}</div>
                     </th>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {t.cells.map((cell: any, k: number) => (
                       <td key={k} style={{ padding: '10px 10px' }}>
                         <span style={{
@@ -335,6 +346,10 @@ export default function WhichAiTool() {
   const topHeadingRef = useRef<HTMLHeadingElement>(null);
   const isFirstRender = useRef(true);
 
+  // Deliberate: animKey must land one commit after currentStep so the remount below (and the ref
+  // it attaches to) exists before the focus effect runs. See the accessibility-review comment
+  // above this block, 2026-09-16.
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setAnimKey(k => k + 1); }, [currentStep]);
 
   // Depends on animKey, not currentStep: each screen is wrapped in a <div key={animKey}> to
@@ -536,6 +551,7 @@ export default function WhichAiTool() {
           <div style={{ background: C.paper, border: `1px solid ${C.stone}25`, borderRadius: 8, padding: 28, marginTop: 24 }}>
             <h3 style={{ fontSize: 10, fontWeight: 700, color: C.stone, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 20, marginTop: 0 }}>Also consider</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {rec.alternatives.map((alt: any, idx: number) => (
                 <div key={idx}>
                   <div style={{ fontWeight: 600, color: C.ink, fontSize: 15 }}>{alt.name}</div>
@@ -596,7 +612,9 @@ export default function WhichAiTool() {
         {step.grouped ? (
           // Grouped layout: bold section headers, colored icons, gold dividers
           <div>
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {step.groups.map((grp: any, gi: number) => {
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               const groupOpts = step.options.filter((o: any) => o.group === grp.key);
               const groupHeadingId = `group-${grp.key}-label`;
               return (
@@ -612,6 +630,7 @@ export default function WhichAiTool() {
                     <h4 id={groupHeadingId} style={{ fontSize: 20, fontWeight: 600, color: C.ink, margin: 0, letterSpacing: '-0.01em' }}>{grp.label}</h4>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: groupOpts.length <= 2 ? '1fr 1fr' : 'repeat(auto-fill, minmax(210px, 1fr))', gap: 12 }}>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {groupOpts.map((opt: any) => {
                       const Icon = opt.icon;
                       return (
@@ -651,6 +670,7 @@ export default function WhichAiTool() {
         ) : (
           // Standard vertical list for all other steps
           <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
             {step.options.map((opt: any) => {
               const Icon = opt.icon;
               const cue = isNewspaper && opt.color ? optionCueColors[opt.color] : null;
