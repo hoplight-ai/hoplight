@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 
-const MAKE_WEBHOOK = 'https://hook.us2.make.com/kuprh9ayexizs5yi4p6czddpc323ou23';
+// The Make webhook address lives in the MAKE_INTAKE_WEBHOOK environment variable, set in the
+// Vercel project, never in this file. Until 2026-09-16 it was a string literal here, and this
+// repo is public, so anyone could POST to Make directly and skip every check below. The old
+// address stays in git history; rotating the webhook in Make is what retires it.
+const MAKE_WEBHOOK = process.env.MAKE_INTAKE_WEBHOOK;
 
 type Payload = {
   branch?: 'client' | 'talent';
@@ -40,14 +44,28 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: 'Missing fields' }, { status: 400 });
   }
 
+  if (!MAKE_WEBHOOK) {
+    // Misconfigured deploy: say so to the visitor rather than pretend the message went through.
+    console.error('[intake] MAKE_INTAKE_WEBHOOK is not set; submission dropped', { branch, fields });
+    return NextResponse.json(
+      { ok: false, error: 'The form is not connected right now. Email whit@hoplight.ai instead.' },
+      { status: 503 },
+    );
+  }
+
   try {
-    await fetch(MAKE_WEBHOOK, {
+    const res = await fetch(MAKE_WEBHOOK, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ branch, fields }),
     });
+    if (!res.ok) {
+      // Make answered but refused. Log the whole payload so the submission is recoverable from
+      // the Vercel runtime log; the visitor still sees success (their part was done correctly).
+      console.error('[intake] Make webhook refused', res.status, JSON.stringify({ branch, fields }));
+    }
   } catch (err) {
-    console.error('[intake] Make webhook failed', err);
+    console.error('[intake] Make webhook unreachable', err, JSON.stringify({ branch, fields }));
     // never break the form for the user
   }
 

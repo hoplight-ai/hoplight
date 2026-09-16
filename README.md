@@ -20,4 +20,6 @@ Push to `main` — Vercel auto-deploys (project `hoplight`). Build with `npm run
 
 - The Vercel framework preset must stay **Next.js** — with any other preset every route 404s.
 - The apex domain `hoplight.ai` is served via DNS pointing at Vercel; the canonical URL and sitemap are configured for `hoplight.ai`.
-- No environment variables are required; the site is fully static content.
+- One environment variable: `MAKE_INTAKE_WEBHOOK`, the Make.com address the contact form forwards
+  to. It lives in the Vercel project (see `.env.example` and `scripts/set-vercel-env.sh`). Without
+  it the site builds and serves, and `/api/intake` answers 503 with an email fallback.

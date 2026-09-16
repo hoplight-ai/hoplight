@@ -582,7 +582,7 @@ const pmeHTML = `
 
     <div class="gold-callout reveal">
       <div class="num-block">
-        <div class="num">+18–26</div>
+        <div class="num">+11–26</div>
         <div class="num-label">Points Net Lift</div>
       </div>
       <div class="txt">

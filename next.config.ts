@@ -36,6 +36,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // /engine retired 2026-09-16 (review squad: six reviewers found it as a live, unlinked,
+      // older copy of /persuasion with the wrong tab title and no preview image).
+      { source: '/engine', destination: '/persuasion', permanent: true },
       { source: '/pme', destination: '/persuasion', permanent: false },
       { source: '/pme.html', destination: '/persuasion', permanent: false },
       { source: '/index.html', destination: '/', permanent: true },

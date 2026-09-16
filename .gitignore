@@ -12,3 +12,4 @@ out/
 
 # Claude Code session state (per-machine; launch.json stays tracked where it already is)
 .claude/
+.vercel
