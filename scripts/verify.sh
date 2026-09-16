@@ -43,6 +43,19 @@ check_present "Organization schema" "Organization"
 check_present "stone-deep token used" "var\(--stone-deep\)"
 check_present "collapse aria-expanded" "aria-expanded"
 
+echo "== Intake form accessibility =="
+# Added 2026-09-16 (tier-one fix lane, bug-first per web-standards review): every field's
+# aria-describedby pointed at an id that did not exist in the DOM until an error fired, because
+# the Err component returned null when there was no message. Static source check since the bug is
+# in the component's own logic, not in anything that needs a live render to observe.
+IF="$SRC/components/IntakeForm.tsx"
+if grep -qE 'if \(!msg\) return null' "$IF" 2>/dev/null; then
+  echo "FAIL: IntakeForm's Err component still returns null with no message (aria-describedby would point at a missing id)"
+  fail=1
+else
+  echo "PASS: IntakeForm's Err component always renders its container (aria-describedby resolves)"
+fi
+
 echo "== Persuasion IP guardrails =="
 # CORRECTED 2026-08-28 (lane preview7). This pointed at "$SRC/app/persuasion/page.tsx",
 # a path that has not existed since the routes moved under the (main) route group. grep on a

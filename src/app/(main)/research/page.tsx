@@ -1,20 +1,19 @@
 import type { Metadata } from 'next';
 import ResearchStatBand from '@/components/ResearchStatBand';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   // The root layout's title template appends " — Hoplight"; a suffix here rendered the brand twice.
   title: 'Research: Psychographic Message Framing RCT',
+  // Trimmed from 176 to 143 characters (SEO review, 2026-09-16); keeps both load-bearing numbers,
+  // "11 to 26 points net" and "3,006-person", verbatim.
   description:
-    'AI-generated psychographic message frames beat the standard progressive baseline by 11 to 26 points net on conservative segments in a 3,006-person RCT. Read the research brief.',
-  alternates: { canonical: '/research' },
-  openGraph: {
-    title: 'Research: Psychographic Message Framing RCT | Hoplight',
-    description:
-      'AI-generated psychographic message frames beat the standard progressive baseline by 11 to 26 points net on conservative segments in a 3,006-person RCT. Read the research brief.',
-    url: 'https://hoplight.ai/research',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
-  },
-};
+    'AI-generated psychographic frames beat the standard progressive baseline by 11 to 26 points net on conservative segments in a 3,006-person RCT.',
+  path: '/research',
+  // ogTitle omitted: previously hardcoded with a " | Hoplight" pipe separator here while every
+  // other route used an em dash (expert-social-meta.md #6). The helper now derives the em-dash
+  // form used everywhere else.
+});
 
 const jsonLd = {
   '@context': 'https://schema.org',

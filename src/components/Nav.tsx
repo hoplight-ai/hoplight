@@ -1,11 +1,44 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const path = usePathname();
+  const navRef = useRef<HTMLElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  // Mobile menu review, 2026-09-16: the menu had no tap-outside-to-close, no Escape, and no
+  // scroll lock, so a visitor could scroll the page behind an open menu or leave it stuck open.
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    function onPointerDown(e: MouseEvent) {
+      const target = e.target as Node;
+      if (navRef.current?.contains(target) || toggleRef.current?.contains(target)) return;
+      setMenuOpen(false);
+    }
+
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') {
+        setMenuOpen(false);
+        toggleRef.current?.focus();
+      }
+    }
+
+    document.addEventListener('mousedown', onPointerDown);
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('mousedown', onPointerDown);
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [menuOpen]);
+
   const links = [
     // Rayli leads: SITE1 found the flagship product was not named anywhere a visitor could see it,
     // which read at first contact as a consulting shop with a side project.
@@ -31,16 +64,25 @@ export default function Nav() {
           Hoplight
         </Link>
         <button
+          ref={toggleRef}
+          type="button"
           className="nav-toggle"
           aria-label="Toggle navigation"
           aria-expanded={menuOpen}
+          aria-controls="primary-nav"
           onClick={() => setMenuOpen(!menuOpen)}
         >
           <span className={`hamburger ${menuOpen ? 'open' : ''}`} />
         </button>
-        <nav className={`nav-links ${menuOpen ? 'open' : ''}`}>
+        <nav id="primary-nav" ref={navRef} className={`nav-links ${menuOpen ? 'open' : ''}`}>
           {links.map(({ href, label }) => (
-            <Link key={href} href={href} className={path === href ? 'current' : ''} onClick={() => setMenuOpen(false)}>
+            <Link
+              key={href}
+              href={href}
+              className={path === href ? 'current' : ''}
+              aria-current={path === href ? 'page' : undefined}
+              onClick={() => setMenuOpen(false)}
+            >
               {label}
             </Link>
           ))}

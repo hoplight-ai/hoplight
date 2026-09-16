@@ -1,19 +1,15 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FACTS } from '@/lib/facts';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'About',
   description:
     'Hoplight is led by Whit Pendergast. Enterprise-grade AI strategy for organizations that can’t hire a Chief AI Officer.',
-  alternates: { canonical: '/about' },
-  openGraph: {
-    title: 'About — Hoplight',
-    description: 'Led by Whit Pendergast. Enterprise-grade AI strategy for mission-driven organizations.',
-    url: 'https://hoplight.ai/about',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
-  },
-};
+  path: '/about',
+  ogDescription: 'Led by Whit Pendergast. Enterprise-grade AI strategy for mission-driven organizations.',
+});
 
 export default function About() {
   return (

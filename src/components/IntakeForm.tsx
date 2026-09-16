@@ -8,13 +8,30 @@ type Branch = 'client' | 'talent';
 
 const FIT = ['Trainer', 'Facilitator', 'Builder', 'Other'] as const;
 
+// Always renders the container, even with no message. Web standards review, 2026-09-16: every
+// field wires aria-describedby to this id unconditionally, but the old version returned null
+// until an error existed, so the id it pointed at didn't exist in the DOM on first load.
 function Err({ id, msg }: { id: string; msg?: string }) {
-  if (!msg) return null;
   return (
-    <div className="err" id={id} role="alert">
+    <div className="err" id={id} role={msg ? 'alert' : undefined}>
       {msg}
     </div>
   );
+}
+
+const REQUIRED_MARK = <span aria-hidden="true"> *</span>;
+
+// Focuses the first field with an error, in visual/tab order. 'fit' has no single input id, so it
+// points at the checkbox group container (tabIndex={-1} + id="fit-group", set below).
+const FIELD_FOCUS_ORDER = ['firstName', 'lastName', 'email', 'org', 'fit'] as const;
+function focusFirstError(errors: Record<string, string>) {
+  for (const key of FIELD_FOCUS_ORDER) {
+    if (errors[key]) {
+      const id = key === 'fit' ? 'fit-group' : key;
+      document.getElementById(id)?.focus();
+      return;
+    }
+  }
 }
 
 export default function IntakeForm() {
@@ -68,7 +85,10 @@ export default function IntakeForm() {
     const eMap = validateIdentity();
     if (fit.length === 0) eMap.fit = 'Please select at least one.';
     setErrors(eMap);
-    if (Object.keys(eMap).length > 0) return;
+    if (Object.keys(eMap).length > 0) {
+      focusFirstError(eMap);
+      return;
+    }
 
     const fields: Record<string, string | string[]> = {
       'First name': firstName.trim(),
@@ -119,11 +139,11 @@ export default function IntakeForm() {
           Are you here to bring Hoplight into your organization, or to work with Hoplight?
         </p>
         <div className="gate" role="group" aria-label="What brings you here">
-          <button type="button" className="gate-btn" aria-pressed={false} onClick={() => setBranch('client')}>
+          <button type="button" className="gate-btn" onClick={() => setBranch('client')}>
             <span className="gt">Hire Hoplight</span>
             <span className="gd">Bring AI strategy, governance, or a build into your organization.</span>
           </button>
-          <button type="button" className="gate-btn" aria-pressed={false} onClick={() => setBranch('talent')}>
+          <button type="button" className="gate-btn" onClick={() => setBranch('talent')}>
             <span className="gt">Work with Hoplight</span>
             <span className="gd">Join the bench as a trainer, facilitator, or builder.</span>
           </button>
@@ -146,6 +166,7 @@ export default function IntakeForm() {
         <div className="cta-row">
           <a className="btn btn-primary" href={CALENDLY} target="_blank" rel="noopener noreferrer">
             Book a Free 30-Minute Strategy Call
+            <span className="sr-only"> (opens in a new tab)</span>
           </a>
         </div>
       </div>
@@ -171,41 +192,41 @@ export default function IntakeForm() {
       {/* Identity */}
       <div className="form-row">
         <div className="field">
-          <label htmlFor="firstName">First name</label>
+          <label htmlFor="firstName">First name{REQUIRED_MARK}</label>
           <input id="firstName" type="text" autoComplete="given-name" value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
-            aria-invalid={!!errors.firstName} aria-describedby="firstName-err" />
+            aria-invalid={!!errors.firstName} aria-describedby="firstName-err" aria-required="true" />
           <Err id="firstName-err" msg={errors.firstName} />
         </div>
         <div className="field">
-          <label htmlFor="lastName">Last name</label>
+          <label htmlFor="lastName">Last name{REQUIRED_MARK}</label>
           <input id="lastName" type="text" autoComplete="family-name" value={lastName}
             onChange={(e) => setLastName(e.target.value)}
-            aria-invalid={!!errors.lastName} aria-describedby="lastName-err" />
+            aria-invalid={!!errors.lastName} aria-describedby="lastName-err" aria-required="true" />
           <Err id="lastName-err" msg={errors.lastName} />
         </div>
       </div>
       <div className="form-row">
         <div className="field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">Email{REQUIRED_MARK}</label>
           <input id="email" type="email" autoComplete="email" value={email}
             onChange={(e) => setEmail(e.target.value)}
-            aria-invalid={!!errors.email} aria-describedby="email-err" />
+            aria-invalid={!!errors.email} aria-describedby="email-err" aria-required="true" />
           <Err id="email-err" msg={errors.email} />
         </div>
         <div className="field">
-          <label htmlFor="org">Organization</label>
+          <label htmlFor="org">Organization{REQUIRED_MARK}</label>
           <input id="org" type="text" autoComplete="organization" value={org}
             onChange={(e) => setOrg(e.target.value)}
-            aria-invalid={!!errors.org} aria-describedby="org-err" />
+            aria-invalid={!!errors.org} aria-describedby="org-err" aria-required="true" />
           <Err id="org-err" msg={errors.org} />
         </div>
       </div>
 
       {/* Fit */}
       <div className="field">
-        <span className="label" style={{ display: 'block', marginBottom: '10px', textTransform: 'none', letterSpacing: '0', fontFamily: 'var(--font-body)', fontSize: '0.95rem', fontWeight: 500, color: 'var(--ink)' }}>Which fits you? Select all that apply.</span>
-        <div className="checks" role="group" aria-label="Which fits you" aria-describedby="fit-err">
+        <span className="label" style={{ display: 'block', marginBottom: '10px', textTransform: 'none', letterSpacing: '0', fontFamily: 'var(--font-body)', fontSize: '0.95rem', fontWeight: 500, color: 'var(--ink)' }}>Which fits you? Select all that apply.{REQUIRED_MARK}</span>
+        <div id="fit-group" tabIndex={-1} className="checks" role="group" aria-label="Which fits you" aria-required="true" aria-describedby="fit-err">
           {FIT.map((f) => (
             <label key={f} className="check">
               <input type="checkbox" checked={fit.includes(f)} onChange={() => toggleFit(f)} />

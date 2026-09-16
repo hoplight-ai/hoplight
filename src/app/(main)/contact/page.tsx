@@ -1,19 +1,15 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
 import IntakeForm from '@/components/IntakeForm';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Contact',
   description:
     'Bring the thing your team hates doing. A short intake is the fastest way to see whether Hoplight is a fit. No deck required.',
-  alternates: { canonical: '/contact' },
-  openGraph: {
-    title: 'Contact — Hoplight',
-    description: 'A short intake is the fastest way to see whether Hoplight is a fit.',
-    url: 'https://hoplight.ai/contact',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
-  },
-};
+  path: '/contact',
+  ogDescription: 'A short intake is the fastest way to see whether Hoplight is a fit.',
+});
 
 export default function Contact() {
   return (

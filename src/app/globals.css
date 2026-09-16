@@ -65,6 +65,12 @@ strong { font-weight: 600; color: var(--ink); }
 .label { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-deep); }
 
 a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 160ms ease-out, color 160ms ease-out, background 160ms ease-out; }
+/* Inline prose links get a persistent cue instead of relying on hover/focus alone (accessibility
+   review, 2026-09-16, WCAG 1.4.1: same color and weight as surrounding text with zero static
+   affordance). Scoped to running body copy only — nav, buttons, cards and the footer already have
+   their own link treatment and are deliberately left alone. Same pattern as
+   .collapse-panel-inner a below. */
+main p a, main li a, main blockquote a { border-bottom: 1px solid var(--gold); }
 a:hover { border-bottom-color: var(--gold); }
 a:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(212,149,10,0.55); border-radius: 2px; }
 :where(button, [role="button"], input, textarea, select):focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: 3px; }
@@ -90,7 +96,9 @@ a:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(212,149,10,0.55); bo
 .slate .see-more { color: #fff; }
 
 /* Buttons */
-.btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; border-radius: 4px; border: 1px solid var(--ink); padding: 0.62rem 1.3rem; cursor: pointer; transition: background 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out; }
+/* Vertical padding bumped 0.62rem -> 0.7rem 2026-09-16 (mobile UX review): the hero "Start a
+   conversation" CTA measured 42.9px tall, 1.1px short of the 44px touch-target floor. */
+.btn { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; border-radius: 4px; border: 1px solid var(--ink); padding: 0.7rem 1.3rem; cursor: pointer; transition: background 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out; }
 .btn-primary { background: var(--gold); color: var(--ink); border-color: var(--gold); }
 .btn-primary:hover { background: var(--gold-hot); border-color: var(--gold-hot); }
 .btn-ghost { background: transparent; color: var(--ink); }
@@ -99,9 +107,9 @@ a:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(212,149,10,0.55); bo
 .slate .btn-primary:hover { background: var(--gold-hot); border-color: var(--gold-hot); }
 .slate .btn-ghost { color: rgba(255,255,255,0.6); border-color: rgba(255,255,255,0.22); }
 .slate .btn-ghost:hover { background: rgba(255,255,255,0.08); color: #fff; }
-.btn-gold { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; background: var(--gold); color: var(--ink); padding: 0.62rem 1.4rem; border-radius: 4px; border: none; cursor: pointer; transition: background 160ms; }
+.btn-gold { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 0.9rem; background: var(--gold); color: var(--ink); padding: 0.7rem 1.4rem; border-radius: 4px; border: none; cursor: pointer; transition: background 160ms; }
 .btn-gold:hover { background: var(--gold-hot); }
-.btn-outline { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 0.9rem; background: transparent; color: rgba(255,255,255,0.6); padding: 0.62rem 1.4rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.18); cursor: pointer; transition: border-color 160ms, color 160ms; }
+.btn-outline { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 0.9rem; background: transparent; color: rgba(255,255,255,0.6); padding: 0.7rem 1.4rem; border-radius: 4px; border: 1px solid rgba(255,255,255,0.18); cursor: pointer; transition: border-color 160ms, color 160ms; }
 .btn-outline:hover { border-color: rgba(255,255,255,0.4); color: #fff; }
 
 /* === NAV: dark, persistent, tight === */
@@ -117,10 +125,30 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0
 .nav-cta { font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; background: var(--gold); color: var(--ink); padding: 7px 16px; border-radius: 4px; border: none !important; }
 .nav-cta:hover { background: var(--gold-hot); color: var(--ink); border-bottom-color: transparent; }
 
-/* Hamburger toggle (mobile nav) */
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 12px; }
+/* Hamburger toggle (mobile nav). min-width/min-height added 2026-09-16 (mobile UX review): the
+   20x2px hamburger bar plus 12px padding gave a 44x26px hit target — wide enough, 18px short on
+   height. */
+.nav-toggle { display: none; align-items: center; justify-content: center; background: none; border: none; cursor: pointer; padding: 12px; min-width: 44px; min-height: 44px; }
 .skip-link { position: absolute; left: 8px; top: -100px; z-index: 1000; padding: 10px 14px; background: var(--ink); color: var(--white); border-radius: 4px; font-weight: 600; }
 .skip-link:focus { top: 8px; }
+
+/* Fade hint on the right edge of a horizontally scrollable table (Which AI tool exposure tables).
+   Mobile UX review, 2026-09-16: tables scroll with no visual sign there is more to the right, so
+   the Human review/Opt-out columns can go unnoticed. CSS-only affordance, no JS overflow check. */
+.exposure-scroll { position: relative; }
+.exposure-scroll::after {
+  content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 28px;
+  background: linear-gradient(to right, transparent, rgba(10, 22, 40, 0.10));
+  pointer-events: none;
+}
+
+/* Visually hidden but readable by assistive tech. Standard clip-based pattern (not display:none,
+   which screen readers skip). Added 2026-09-16 for "(opens in a new tab)" labels, table captions,
+   and hidden headings that give structure without adding visible chrome. */
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
 .hamburger { display: block; width: 20px; height: 2px; background: #fff; position: relative; transition: background 200ms; }
 .hamburger::before, .hamburger::after { content: ''; display: block; width: 20px; height: 2px; background: #fff; position: absolute; left: 0; transition: transform 200ms ease-out; }
 .hamburger::before { top: -6px; }
@@ -129,7 +157,7 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0
 .hamburger.open::before { transform: rotate(45deg); top: 0; }
 .hamburger.open::after { transform: rotate(-45deg); top: 0; }
 @media (max-width: 880px) {
-  .nav-toggle { display: block; }
+  .nav-toggle { display: flex; }
   .nav-links { display: none; }
   .nav-links.open {
     display: flex; flex-direction: column; width: 100%;
@@ -372,6 +400,7 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 .collapse-trigger .chev { flex: none; display: inline-flex; color: var(--gold-deep); transition: transform 220ms ease-out; }
 .collapse-trigger[aria-expanded="true"] .chev { transform: rotate(180deg); }
 .collapse-trigger .ctitle { flex: 0 1 auto; }
+.collapse-heading { margin: 0; font: inherit; }
 .collapse-panel-inner { padding: 0 clamp(12px, 2vw, 20px) 24px; max-width: var(--measure); color: var(--stone-deep); font-size: 0.98rem; }
 .collapse-panel-inner a { color: var(--ink); border-bottom: 1px solid var(--gold); }
 .slate .collapse-item { border-color: rgba(255,255,255,0.18); }
@@ -546,7 +575,9 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 .field input[aria-invalid="true"], .field textarea[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--flag, #B84A3E); }
 .field .err { color: #9c3327; font-size: 0.82rem; margin-top: 6px; }
 .checks { display: grid; gap: 10px; }
-.check { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: var(--ink); cursor: pointer; }
+/* padding added 2026-09-16 (mobile UX review): contact-form checkbox rows measured 335x27px,
+   under the 44px touch-target floor. */
+.check { display: flex; align-items: flex-start; gap: 10px; font-size: 0.95rem; color: var(--ink); cursor: pointer; padding: 8px 0; }
 .check input { margin-top: 4px; width: 16px; height: 16px; accent-color: var(--gold-deep); }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
 @media (max-width: 560px) { .form-row { grid-template-columns: 1fr; } }

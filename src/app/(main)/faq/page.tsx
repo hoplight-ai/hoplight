@@ -2,19 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Collapse from '@/components/Collapse';
 import JsonLd from '@/components/JsonLd';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'FAQ',
   description:
     'Straight answers to the questions mission-driven organizations actually ask before bringing AI into their work: data security, cost, policy, governance vs training, and adoption without layoffs.',
-  alternates: { canonical: '/faq' },
-  openGraph: {
-    title: 'FAQ — Hoplight',
-    description: 'What mission-driven leaders ask before they bring AI near their work.',
-    url: 'https://hoplight.ai/faq',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
-  },
-};
+  path: '/faq',
+  ogDescription: 'What mission-driven leaders ask before they bring AI near their work.',
+});
 
 const faqs: { q: string; a: string }[] = [
   {

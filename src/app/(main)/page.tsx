@@ -37,10 +37,10 @@ export default function Home() {
             </div>
             <div className="hero-stack" aria-hidden="true">
               <div className="hero-shot hs-1">
-                <img src="/screenshots/agis.png" alt="" width={1228} height={925} loading="eager" />
+                <img src="/screenshots/agis.webp" alt="" width={1200} height={904} loading="eager" />
               </div>
               <div className="hero-shot hs-2">
-                <img src="/screenshots/pme.png" alt="" width={1270} height={794} loading="eager" />
+                <img src="/screenshots/pme.webp" alt="" width={1200} height={750} loading="eager" />
               </div>
             </div>
           </div>
@@ -203,7 +203,7 @@ export default function Home() {
           <div className="work-cards">
             <Link className="wcard" href="/portfolio">
               <div className="wcard-img">
-                <img className="wcard-shot" src="/screenshots/agis.png" alt="AGIS search interface showing a world map and plain-English AI governance queries." width={1228} height={925} />
+                <img className="wcard-shot" src="/screenshots/agis.webp" alt="AGIS search interface showing a world map and plain-English AI governance queries." width={1200} height={904} loading="lazy" />
               </div>
               <div className="wcard-body">
                 <span className="wc-tag">Policy intelligence</span>
@@ -214,7 +214,7 @@ export default function Home() {
             </Link>
             <Link className="wcard" href="/persuasion">
               <div className="wcard-img">
-                <img className="wcard-shot" src="/screenshots/pme.png" alt="The Psychographic Message Engine one-pager showing its four auditable layers and recursive loop." width={1270} height={794} />
+                <img className="wcard-shot" src="/screenshots/pme.webp" alt="The Psychographic Message Engine one-pager showing its four auditable layers and recursive loop." width={1200} height={750} loading="lazy" />
               </div>
               <div className="wcard-body">
                 <span className="wc-tag">Persuasion</span>

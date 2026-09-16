@@ -2,19 +2,15 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import { FACTS } from '@/lib/facts';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Services',
   description:
     'Hoplight services: AI governance and readiness, workforce and AI threat assessment, capacity building, custom builds, and AI visibility. Scoped to the organization in front of us.',
-  alternates: { canonical: '/services' },
-  openGraph: {
-    title: 'Services — Hoplight',
-    description: 'AI governance, workforce threat assessment, capacity building, custom builds, and AI visibility.',
-    url: 'https://hoplight.ai/services',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
-  },
-};
+  path: '/services',
+  ogDescription: 'AI governance, workforce threat assessment, capacity building, custom builds, and AI visibility.',
+});
 
 const serviceSchema = {
   '@context': 'https://schema.org',
@@ -50,6 +46,9 @@ export default function Services() {
       {/* CAPABILITIES */}
       <section>
         <div className="wrap">
+          {/* Visually hidden: web-standards review, 2026-09-16, found the five capabilities jump
+              straight from the page h1 to h3 with no h2 between them. */}
+          <h2 className="sr-only">Capabilities</h2>
           <div className="svc">
             <div className="svc-row">
               <h3>Ethical AI governance and readiness</h3>

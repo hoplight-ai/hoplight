@@ -224,6 +224,64 @@ async function main() {
   const capable = metaByName(html, 'apple-mobile-web-app-capable');
   record(capable === 'yes', 'standalone: apple-mobile-web-app-capable = yes', capable || 'absent');
 
+  // --- 7. TWITTER CARD MATCHES OG ON EVERY SUBPAGE ------------------------
+  // Added 2026-09-16 (tier-one fix lane, bug-first per SEO/social-meta review): every subpage
+  // defined its own openGraph but never its own twitter block, so Next fell back to the root
+  // layout's twitter title/description on all nine subpages. Live check, not a source grep,
+  // because the bug only exists in what Next actually renders per route.
+  const SUBPAGES = ['/rayli', '/services', '/persuasion', '/research', '/about', '/faq', '/contact', '/portfolio', '/tools/which-ai'];
+  for (const path of SUBPAGES) {
+    let sub;
+    try {
+      sub = await fetchText(BASE + path);
+    } catch (err) {
+      record(false, `twitter matches og: ${path}`, `fetch threw: ${err.message}`);
+      continue;
+    }
+    if (sub.res.status !== 200) {
+      record(false, `twitter matches og: ${path}`, `${BASE}${path} -> HTTP ${sub.res.status}`);
+      continue;
+    }
+    const subOgTitle = metaByProperty(sub.body, 'og:title');
+    const subTwTitle = metaByName(sub.body, 'twitter:title');
+    record(
+      Boolean(subOgTitle) && subOgTitle === subTwTitle,
+      `twitter matches og: ${path} title`,
+      `og="${subOgTitle}" twitter="${subTwTitle}"`,
+    );
+    const subOgDesc = metaByProperty(sub.body, 'og:description');
+    const subTwDesc = metaByName(sub.body, 'twitter:description');
+    record(
+      Boolean(subOgDesc) && subOgDesc === subTwDesc,
+      `twitter matches og: ${path} description`,
+      `og="${(subOgDesc || '').slice(0, 50)}…" twitter="${(subTwDesc || '').slice(0, 50)}…"`,
+    );
+  }
+
+  // --- 8. SITEMAP HAS LASTMOD PER ROUTE -----------------------------------
+  // Added 2026-09-16: src/app/sitemap.ts set changeFrequency and priority but never lastModified.
+  try {
+    const smRes = await fetch(bust(BASE + '/sitemap.xml'), { headers: NO_CACHE, redirect: 'follow' });
+    const smBody = await smRes.text();
+    const urlCount = (smBody.match(/<url>/g) || []).length;
+    const lastmodCount = (smBody.match(/<lastmod>/g) || []).length;
+    record(
+      smRes.status === 200 && urlCount > 0 && lastmodCount === urlCount,
+      'sitemap: every route carries <lastmod>',
+      `${lastmodCount}/${urlCount} <url> entries have <lastmod> (HTTP ${smRes.status})`,
+    );
+  } catch (err) {
+    record(false, 'sitemap: every route carries <lastmod>', `fetch threw: ${err.message}`);
+  }
+
+  // --- 9. FOOTER HAS A RESEARCH LINK --------------------------------------
+  // Added 2026-09-16: /research carried sitemap priority 0.9 and ScholarlyArticle schema but was
+  // reachable only from a link at the bottom of /rayli — not the nav, not the footer.
+  const hasFooterResearchLink = /<footer[\s\S]*<\/footer>/i.test(html)
+    ? /href="\/research"/.test(html.match(/<footer[\s\S]*<\/footer>/i)[0])
+    : false;
+  record(hasFooterResearchLink, 'footer: Research link present', hasFooterResearchLink ? 'found' : 'absent');
+
   // --- report ------------------------------------------------------------
   console.log('');
   for (const r of results) {

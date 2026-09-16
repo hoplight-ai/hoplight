@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FACTS } from '@/lib/facts';
+import { pageMetadata } from '@/lib/metadata';
 
 // The gallery used to live on the vault app's vercel.app address. Whit, 2026-09-15: it belongs on
 // hoplight.ai. The interactive pieces are served from public/portfolio/ (npm run gallery:pull).
@@ -27,18 +28,13 @@ const PIECES: Piece[] = [
 
 const NO_THUMB = new Set(['hoplight-persuasion-story-page']);
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Portfolio',
   description:
     'A selection of AI systems Hoplight has shipped for labor, advocacy, and mission-driven organizations. Most of them open in your browser.',
-  alternates: { canonical: '/portfolio' },
-  openGraph: {
-    title: 'Portfolio — Hoplight',
-    description: 'Systems we’ve shipped. Most of them open in your browser.',
-    url: 'https://hoplight.ai/portfolio',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
-  },
-};
+  path: '/portfolio',
+  ogDescription: 'Systems we’ve shipped. Most of them open in your browser.',
+});
 
 export default function Portfolio() {
   return (
@@ -111,6 +107,7 @@ export default function Portfolio() {
               rel="noopener noreferrer"
             >
               Open the router &rarr;
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <a
               className="btn btn-secondary"
@@ -119,6 +116,7 @@ export default function Portfolio() {
               rel="noopener noreferrer"
             >
               View on GitHub
+              <span className="sr-only"> (opens in a new tab)</span>
             </a>
           </div>
         </div>

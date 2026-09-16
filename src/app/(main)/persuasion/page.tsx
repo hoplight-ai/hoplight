@@ -1,21 +1,19 @@
 import type { Metadata } from 'next';
 import PmeContent from './PmeContent';
 import { FACTS } from '@/lib/facts';
+import { pageMetadata } from '@/lib/metadata';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Persuasion',
   // Reads FACTS rather than carrying its own copy. This string previously said "3,000-person",
   // where every other surface says 3,006 — a round number in a metadata description is what search
   // results and link previews show, and it makes the reader wonder what else got rounded.
   description: `Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a ${FACTS.rct.n}-person ${FACTS.rct.method}, ${FACTS.rct.matchRate} matched to the voter file.`,
-  alternates: { canonical: '/persuasion' },
-  openGraph: {
-    title: 'Persuasion — Hoplight',
-    description: 'The human-generated progressive frame produces identity backlash with the voters who decide elections. We built the engine the other way around.',
-    url: 'https://hoplight.ai/persuasion',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
-  },
-};
+  path: '/persuasion',
+  // ogTitle omitted deliberately: the helper derives "Persuasion — Hoplight", an em dash, matching
+  // every other route. /research previously hardcoded a pipe separator here instead; same fix.
+  ogDescription: 'The human-generated progressive frame produces identity backlash with the voters who decide elections. We built the engine the other way around.',
+});
 
 export default function PersuasionPage() {
   return <PmeContent />;

@@ -743,7 +743,7 @@ const pmeHTML = `
       <div class="snake-title">The Current Message Optimization Process</div>
 
       <div class="snake-svg-wrap snake-desktop">
-        <svg viewBox="0 0 1180 360" width="100%" aria-hidden="true">
+        <svg viewBox="0 0 1180 360" width="100%" role="img" aria-label="Six-step process: Original Message, then Movement Frame, then Pollster Best Practices, then Toolkit Messaging Recs, then Your Own Priors, then Optimized Message, ready.">
           <defs>
             <linearGradient id="snakeGrad" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stop-color="#F2C14E"/>
@@ -793,7 +793,7 @@ const pmeHTML = `
 
       <!-- mobile variant -->
       <div class="snake-svg-wrap snake-mobile">
-        <svg viewBox="0 0 340 880" width="100%" aria-hidden="true">
+        <svg viewBox="0 0 340 880" width="100%" role="img" aria-label="Six-step process: Original Message, then Movement Frame, then Pollster Best Practices, then Toolkit Messaging Recs, then Your Own Priors, then Optimized Message, ready.">
           <defs>
             <linearGradient id="snakeGradM" x1="0%" y1="0%" x2="0%" y2="100%">
               <stop offset="0%" stop-color="#F2C14E"/>
@@ -924,7 +924,7 @@ const pmeHTML = `
         <div class="loop-headline">RECURSIVE MESSAGE REFINEMENT</div>
 
         <div class="ring-wrap">
-          <svg viewBox="0 0 500 460" width="100%" aria-hidden="true">
+          <svg viewBox="0 0 500 460" width="100%" role="img" aria-label="Recursive loop: Develop a message in the morning, deploy it and field it in the afternoon, decode the results and tune the tool, then repeat tomorrow.">
             <defs>
               <marker id="arrowGoldSolid" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                 <path d="M0 0 L10 5 L0 10 z" fill="var(--gold)"/>

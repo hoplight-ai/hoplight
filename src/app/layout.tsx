@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
@@ -61,6 +61,11 @@ export const metadata: Metadata = {
   // saves, it just opens with browser chrome around it.
   other: { 'apple-mobile-web-app-capable': 'yes' },
 };
+
+// manifest.ts already declares theme_color, but that only paints the home-screen/app-switcher
+// chrome. Without this export Next never emits <meta name="theme-color">, so the browser's own
+// address-bar/tab chrome stayed the default color (social/meta review, 2026-09-16, #8).
+export const viewport: Viewport = { themeColor: '#0F1B2D' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (

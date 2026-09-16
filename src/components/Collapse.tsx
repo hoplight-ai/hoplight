@@ -22,16 +22,20 @@ export default function Collapse({
   const panelId = useId();
   return (
     <div className="collapse-item">
-      <button
-        type="button"
-        className="collapse-trigger"
-        aria-expanded={open}
-        aria-controls={panelId}
-        onClick={() => setOpen((o) => !o)}
-      >
-        <span className="chev"><Chevron /></span>
-        <span className="ctitle">{title}</span>
-      </button>
+      {/* h3, no added margin: SEO review, 2026-09-16 — FAQ questions carried no heading markup at
+          all (a <span> inside the button), invisible to heading-based navigation and crawling. */}
+      <h3 className="collapse-heading">
+        <button
+          type="button"
+          className="collapse-trigger"
+          aria-expanded={open}
+          aria-controls={panelId}
+          onClick={() => setOpen((o) => !o)}
+        >
+          <span className="chev"><Chevron /></span>
+          <span className="ctitle">{title}</span>
+        </button>
+      </h3>
       <div id={panelId} className="collapse-panel" hidden={!open}>
         <div className="collapse-panel-inner">{children}</div>
       </div>

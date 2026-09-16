@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import { pageMetadata } from '@/lib/metadata';
 
 // SITE1, 2026-08-21. Every claim on this page is traceable to one of two places: the Rayli pitch
 // canon (quoted in the SITE1 brief) or copy already live elsewhere on this site. Nothing here is a
@@ -10,19 +11,16 @@ import JsonLd from '@/components/JsonLd';
 //
 // Two joins needed connective tissue and both are marked [stitch] at the line.
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: 'Rayli',
+  // Trimmed from 266 to 154 characters (SEO review, 2026-09-16: 1.7x the ~155-char SERP budget).
+  // Same four claims, shorter sentence: platform + audience, three traits, coverage accounting.
   description:
-    'Rayli is a communications intelligence platform for mission-driven organizations: psychographically targeted, voice-true, source-cited copy for every destination you publish to, plus the map nobody else has — who heard what, when, across which channels, by audience.',
-  alternates: { canonical: '/rayli' },
-  openGraph: {
-    title: 'Rayli — Hoplight',
-    description:
-      'Psychographically targeted, voice-true, source-cited copy for every destination you publish to, plus the map nobody else has: who heard what, when, across which channels, by audience.',
-    url: 'https://hoplight.ai/rayli',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
-  },
-};
+    'Rayli: communications intelligence for mission-driven organizations. Psychographically targeted, voice-true, source-cited copy, plus who heard what, when.',
+  path: '/rayli',
+  ogDescription:
+    'Psychographically targeted, voice-true, source-cited copy for every destination you publish to, plus the map nobody else has: who heard what, when, across which channels, by audience.',
+});
 
 // Minimal and factual: name, category and description are the canon one-liner and nothing more.
 // Deliberately NO `offers` block — pricing is unsettled and the canon bars any public number.

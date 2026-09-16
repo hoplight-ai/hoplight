@@ -19,8 +19,13 @@ const nextConfig: NextConfig = {
       },
       // Static images under public/ were revalidated on every visit; a day in the browser cache
       // plus a week of stale-while-revalidate keeps them fresh without the repeat downloads.
+      // Was scoped to three folders only (screenshots/portfolio/shots); performance review,
+      // 2026-09-16, found everything else in public/ — og.png, favicon.ico, apple-touch-icon.png,
+      // mit-logo.png, the research PDF, the fonts — still served with no cache-control at all
+      // (`public, max-age=0, must-revalidate`). Matched by extension instead of by folder so any
+      // static asset anywhere under public/ gets the same treatment, at any nesting depth.
       {
-        source: '/(screenshots|portfolio|shots)/(.*)',
+        source: '/:all*(png|jpg|jpeg|webp|svg|ico|pdf|woff2|json)',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
       },
     ]

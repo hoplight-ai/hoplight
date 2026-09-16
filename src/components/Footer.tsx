@@ -14,6 +14,7 @@ export default function Footer() {
         <span className="meta">AI strategy for labor, advocacy, and mission-driven organizations</span>
         <span className="meta">© {new Date().getFullYear()} Hoplight</span>
         <span className="foot-links">
+          <Link href="/research">Research</Link>
           <Link href="/contact">Contact us</Link>
           <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
         </span>

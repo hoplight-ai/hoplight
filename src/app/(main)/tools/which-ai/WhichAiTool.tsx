@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   CheckCircle2, XCircle, Briefcase, Lock, ShieldAlert,
   Search, PenLine, BrainCircuit, Target, BarChart3,
@@ -234,10 +234,13 @@ function getExposurePlatform(toolName: string) {
 }
 
 // ===== PILL COLORS (semantic, not brand) =====
+// Text colors for red/green darkened 2026-09-16 (accessibility review: at 11px, the previous
+// #B84A3E-on-tint and #2e7d32-on-tint pairs measured 4.13:1 and 4.25:1, both under the 4.5:1 floor
+// for small text). Matches securityColors.orange.heading / securityColors.green.heading below.
 const pillColors: Record<string, { bg: string; text: string; border: string }> = {
-  red: { bg: 'rgba(184, 74, 62, 0.1)', text: C.flag, border: 'rgba(184, 74, 62, 0.25)' },
+  red: { bg: 'rgba(184, 74, 62, 0.1)', text: '#6d2c24', border: 'rgba(184, 74, 62, 0.25)' },
   yellow: { bg: 'rgba(232, 168, 56, 0.12)', text: '#92600a', border: 'rgba(232, 168, 56, 0.3)' },
-  green: { bg: 'rgba(46, 125, 50, 0.08)', text: '#2e7d32', border: 'rgba(46, 125, 50, 0.2)' },
+  green: { bg: 'rgba(46, 125, 50, 0.08)', text: '#1b5e20', border: 'rgba(46, 125, 50, 0.2)' },
 };
 
 const securityColors: Record<string, { bg: string; border: string; text: string; heading: string }> = {
@@ -274,23 +277,24 @@ const ExposureTable = ({ platforms, compact }: { platforms: any[]; compact?: boo
             <h3 style={{ fontWeight: 600, color: C.ink, fontSize: compact ? 15 : 16, margin: 0 }}>{p.name}</h3>
             <span style={{ fontSize: 13, fontWeight: 500, color: C.stone }}>{p.company}</span>
           </div>
-          <div style={{ overflowX: 'auto' }}>
+          <div className="exposure-scroll" style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, textAlign: 'left' }}>
+              <caption className="sr-only">{p.name} data exposure by plan and tier</caption>
               <thead>
                 <tr style={{ borderBottom: `1px solid ${C.stone}15` }}>
-                  <th style={{ padding: '8px 16px', fontWeight: 600, color: C.stone, fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tier</th>
+                  <th scope="col" style={{ padding: '8px 16px', fontWeight: 600, color: C.stone, fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Tier</th>
                   {cols.map((c, j) => (
-                    <th key={j} style={{ padding: '8px 10px', fontWeight: 600, color: C.stone, fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{c}</th>
+                    <th key={j} scope="col" style={{ padding: '8px 10px', fontWeight: 600, color: C.stone, fontSize: 10, textTransform: 'uppercase', letterSpacing: '0.05em' }}>{c}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {p.tiers.map((t: any, j: number) => (
                   <tr key={j} style={{ borderBottom: j < p.tiers.length - 1 ? `1px solid ${C.stone}0d` : 'none' }}>
-                    <td style={{ padding: '10px 16px' }}>
+                    <th scope="row" style={{ padding: '10px 16px', textAlign: 'left', fontWeight: 400 }}>
                       <div style={{ fontWeight: 600, color: C.ink, fontSize: 13 }}>{t.name}</div>
                       <div style={{ fontSize: 11, color: C.stone, marginTop: 1 }}>{t.price}</div>
-                    </td>
+                    </th>
                     {t.cells.map((cell: any, k: number) => (
                       <td key={k} style={{ padding: '10px 10px' }}>
                         <span style={{
@@ -316,7 +320,26 @@ export default function WhichAiTool() {
   const [history, setHistory] = useState<{ step: string; answers: Record<string, string> }[]>([]);
   const [animKey, setAnimKey] = useState(0);
 
+  // Accessibility review, 2026-09-16: the tool swaps entire screens with no focus move and no
+  // live-region announcement, so screen-reader and keyboard users get no notice the page changed.
+  // topHeadingRef is attached (tabIndex={-1} + ref) to whichever screen's top heading is currently
+  // rendered; isFirstRender skips the initial mount so the page doesn't steal focus on first load.
+  const topHeadingRef = useRef<HTMLHeadingElement>(null);
+  const isFirstRender = useRef(true);
+
   useEffect(() => { setAnimKey(k => k + 1); }, [currentStep]);
+
+  // Depends on animKey, not currentStep: each screen is wrapped in a <div key={animKey}> to
+  // replay its enter animation, and changing that key unmounts/remounts the subtree — including
+  // the heading this focuses. Focusing on [currentStep] raced that remount and lost the focus the
+  // instant it landed; animKey changes one commit later, once the fresh DOM (and ref) exist.
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    topHeadingRef.current?.focus();
+  }, [animKey]);
 
   const handleSelect = (stepId: string, optionId: string, nextStep: string) => {
     setAnswers(prev => ({ ...prev, [stepId]: optionId }));
@@ -353,7 +376,7 @@ export default function WhichAiTool() {
   const renderLanding = () => (
     <div key={animKey} style={{ animation: 'fadeSlideIn 0.4s ease-out' }}>
       <div style={{ maxWidth: 640, marginBottom: 40 }}>
-        <h1 style={{ fontSize: 32, fontWeight: 600, color: C.ink, letterSpacing: '-0.02em', lineHeight: 1.2, marginBottom: 16 }}>
+        <h1 ref={topHeadingRef} tabIndex={-1} style={{ fontSize: 32, fontWeight: 600, color: C.ink, letterSpacing: '-0.02em', lineHeight: 1.2, marginBottom: 16, outline: 'none' }}>
           Pick the right AI tool for the job.
         </h1>
         <p style={{ fontSize: 17, color: C.ink, lineHeight: 1.7, marginBottom: 8 }}>
@@ -366,6 +389,7 @@ export default function WhichAiTool() {
         </p>
 
         <button
+          type="button"
           onClick={startAssessment}
           style={{
             background: C.ink, color: C.paper, border: 'none', fontWeight: 500,
@@ -402,14 +426,14 @@ export default function WhichAiTool() {
   // ===== RESTRICTED SCREEN =====
   const renderRestricted = () => (
     <div key={animKey} style={{ animation: 'fadeSlideIn 0.4s ease-out' }}>
-      <button onClick={goBack} style={backBtn} onMouseOver={e => e.currentTarget.style.color = C.ink} onMouseOut={e => e.currentTarget.style.color = C.stone}>
+      <button type="button" onClick={goBack} style={backBtn} onMouseOver={e => e.currentTarget.style.color = C.ink} onMouseOut={e => e.currentTarget.style.color = C.stone}>
         <ArrowLeft size={16} /> Back
       </button>
 
       <div style={{ background: 'rgba(184, 74, 62, 0.06)', border: `1px solid rgba(184, 74, 62, 0.2)`, borderRadius: 8, padding: '28px 32px', marginTop: 16 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, color: C.flag, marginBottom: 16 }}>
           <ShieldAlert size={28} />
-          <h2 style={{ fontSize: 24, fontWeight: 600, margin: 0, letterSpacing: '-0.01em' }}>Stop: unsafe data</h2>
+          <h2 ref={topHeadingRef} tabIndex={-1} style={{ fontSize: 24, fontWeight: 600, margin: 0, letterSpacing: '-0.01em', outline: 'none' }}>Stop: unsafe data</h2>
         </div>
         <p style={{ color: C.ink, fontSize: 17, lineHeight: 1.7, marginBottom: 24 }}>
           Personal identifiers, highly regulated data, and trade secrets should stay out of all commercial AI tools, regardless of enterprise tier. No terms of service fully protect this class of data.
@@ -433,7 +457,7 @@ export default function WhichAiTool() {
       </div>
 
       <div style={{ textAlign: 'center', marginTop: 32 }}>
-        <button onClick={restart} style={{ background: 'none', border: 'none', color: C.goldDeep, cursor: 'pointer', fontWeight: 500, fontSize: 15, fontFamily: font, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+        <button type="button" onClick={restart} style={{ background: 'none', border: 'none', color: C.goldDeep, cursor: 'pointer', fontWeight: 500, fontSize: 15, fontFamily: font, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
           <RotateCcw size={18} /> Start over
         </button>
       </div>
@@ -450,7 +474,7 @@ export default function WhichAiTool() {
 
     return (
       <div key={animKey} style={{ animation: 'fadeSlideIn 0.4s ease-out' }}>
-        <button onClick={goBack} style={backBtn} onMouseOver={e => e.currentTarget.style.color = C.ink} onMouseOut={e => e.currentTarget.style.color = C.stone}>
+        <button type="button" onClick={goBack} style={backBtn} onMouseOver={e => e.currentTarget.style.color = C.ink} onMouseOut={e => e.currentTarget.style.color = C.stone}>
           <ArrowLeft size={16} /> Back
         </button>
 
@@ -461,7 +485,7 @@ export default function WhichAiTool() {
           </div>
 
           <div style={{ padding: '32px 28px' }}>
-            <h1 style={{ fontSize: 32, fontWeight: 600, color: C.ink, letterSpacing: '-0.02em', margin: '0 0 6px 0', lineHeight: 1.1 }}>{rec.primary.name}</h1>
+            <h1 ref={topHeadingRef} tabIndex={-1} style={{ fontSize: 32, fontWeight: 600, color: C.ink, letterSpacing: '-0.02em', margin: '0 0 6px 0', lineHeight: 1.1, outline: 'none' }}>{rec.primary.name}</h1>
             <p style={{ fontSize: 16, color: C.stone, fontWeight: 500, margin: '0 0 24px 0' }}>{rec.primary.tagline}</p>
 
             <p style={{ fontSize: 17, color: C.ink, lineHeight: 1.7, marginBottom: hasSecurity ? 28 : 0 }}>{rec.primary.why}</p>
@@ -510,7 +534,7 @@ export default function WhichAiTool() {
         )}
 
         <div style={{ textAlign: 'center', marginTop: 40 }}>
-          <button onClick={restart} style={{
+          <button type="button" onClick={restart} style={{
             background: `${C.ink}08`, border: 'none', color: C.stone, cursor: 'pointer', fontWeight: 500, fontSize: 14, fontFamily: font,
             display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 24px', borderRadius: 20, transition: 'all 0.15s'
           }}
@@ -535,14 +559,14 @@ export default function WhichAiTool() {
     return (
       <div key={animKey} style={{ maxWidth: 680, margin: '0 auto', animation: 'fadeSlideIn 0.4s ease-out' }}>
         {history.length > 0 && (
-          <button onClick={goBack} style={backBtn} onMouseOver={e => e.currentTarget.style.color = C.ink} onMouseOut={e => e.currentTarget.style.color = C.stone}>
+          <button type="button" onClick={goBack} style={backBtn} onMouseOver={e => e.currentTarget.style.color = C.ink} onMouseOut={e => e.currentTarget.style.color = C.stone}>
             <ArrowLeft size={16} /> Back
           </button>
         )}
         <ProgressBar current={progressCurrent} total={estimatedTotal} />
 
         <div style={{ marginBottom: 36 }}>
-          <h2 style={{ fontSize: 28, fontWeight: 600, color: C.ink, marginBottom: 14, letterSpacing: '-0.01em', lineHeight: 1.2 }}>{step.title}</h2>
+          <h2 ref={topHeadingRef} tabIndex={-1} style={{ fontSize: 28, fontWeight: 600, color: C.ink, marginBottom: 14, letterSpacing: '-0.01em', lineHeight: 1.2, outline: 'none' }}>{step.title}</h2>
           <p style={{ fontSize: 17, color: C.ink, lineHeight: 1.7, marginBottom: 0, opacity: 0.7 }}>{step.subtitle}</p>
           {step.note && (
             <div style={{ marginTop: 14, display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: C.goldDeep, background: `${C.gold}14`, padding: '8px 16px', borderRadius: 4, border: `1px solid ${C.gold}30`, fontWeight: 500 }}>
@@ -556,12 +580,18 @@ export default function WhichAiTool() {
           <div>
             {step.groups.map((grp: any, gi: number) => {
               const groupOpts = step.options.filter((o: any) => o.group === grp.key);
+              const groupHeadingId = `group-${grp.key}-label`;
               return (
-                <div key={grp.key} style={{ marginBottom: gi < step.groups.length - 1 ? 0 : 0 }}>
+                <div
+                  key={grp.key}
+                  role="group"
+                  aria-labelledby={groupHeadingId}
+                  style={{ marginBottom: gi < step.groups.length - 1 ? 0 : 0 }}
+                >
                   {gi > 0 && <div style={{ height: 2, background: C.gold, margin: '32px 0', opacity: 0.5 }} />}
                   <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
                     <div style={{ width: 4, height: 24, borderRadius: 2, background: C.gold }} />
-                    <h4 style={{ fontSize: 20, fontWeight: 600, color: C.ink, margin: 0, letterSpacing: '-0.01em' }}>{grp.label}</h4>
+                    <h4 id={groupHeadingId} style={{ fontSize: 20, fontWeight: 600, color: C.ink, margin: 0, letterSpacing: '-0.01em' }}>{grp.label}</h4>
                   </div>
                   <div style={{ display: 'grid', gridTemplateColumns: groupOpts.length <= 2 ? '1fr 1fr' : 'repeat(auto-fill, minmax(210px, 1fr))', gap: 12 }}>
                     {groupOpts.map((opt: any) => {
@@ -569,6 +599,7 @@ export default function WhichAiTool() {
                       return (
                         <button
                           key={opt.id}
+                          type="button"
                           onClick={() => handleSelect(currentStep, opt.id, opt.next)}
                           style={{
                             display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px',
@@ -579,16 +610,18 @@ export default function WhichAiTool() {
                           onMouseOver={e => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.boxShadow = `0 3px 16px ${C.gold}20`; e.currentTarget.style.background = `${C.gold}08`; }}
                           onMouseOut={e => { e.currentTarget.style.borderColor = C.stone + '20'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = C.paper; }}
                         >
-                          <div style={{
+                          {/* span, not div/h3/p: <button> only permits phrasing content, and each of
+                              these labels was rendering as a spurious <h3> in the heading outline. */}
+                          <span style={{
                             flexShrink: 0, width: 48, height: 48, borderRadius: 8, background: C.ink,
                             display: 'flex', alignItems: 'center', justifyContent: 'center', color: C.gold
                           }}>
                             <Icon size={24} strokeWidth={1.8} />
-                          </div>
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <h3 style={{ fontSize: 15, fontWeight: 600, color: C.ink, margin: '0 0 2px 0' }}>{opt.label}</h3>
-                            <p style={{ color: C.ink, fontSize: 13, lineHeight: 1.4, margin: 0, opacity: 0.55 }}>{opt.desc}</p>
-                          </div>
+                          </span>
+                          <span style={{ display: 'block', flex: 1, minWidth: 0 }}>
+                            <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: C.ink, margin: '0 0 2px 0' }}>{opt.label}</span>
+                            <span style={{ display: 'block', color: C.ink, fontSize: 13, lineHeight: 1.4, margin: 0, opacity: 0.55 }}>{opt.desc}</span>
+                          </span>
                         </button>
                       );
                     })}
@@ -607,6 +640,7 @@ export default function WhichAiTool() {
               return (
                 <button
                   key={opt.id}
+                  type="button"
                   onClick={() => handleSelect(currentStep, opt.id, opt.next)}
                   style={{
                     display: 'flex', alignItems: 'flex-start', gap: 16, padding: '20px 22px',
@@ -628,7 +662,8 @@ export default function WhichAiTool() {
                     e.currentTarget.style.boxShadow = 'none';
                   }}
                 >
-                  <div style={{
+                  {/* span, not div/h3/p: <button> only permits phrasing content. */}
+                  <span style={{
                     flexShrink: 0, marginTop: 2, width: 44, height: 44, borderRadius: 6,
                     background: cue ? cue.iconBg : `${C.ink}06`,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -636,27 +671,27 @@ export default function WhichAiTool() {
                     transition: 'all 0.15s'
                   }}>
                     <Icon size={22} strokeWidth={2} />
-                  </div>
-                  <div style={{ flex: 1 }}>
-                    <h3 style={{ fontSize: 16, fontWeight: 600, color: C.ink, marginBottom: 4, marginTop: 0 }}>{opt.label}</h3>
+                  </span>
+                  <span style={{ display: 'block', flex: 1 }}>
+                    <span style={{ display: 'block', fontSize: 16, fontWeight: 600, color: C.ink, marginBottom: 4, marginTop: 0 }}>{opt.label}</span>
                     {isSensitivity && opt.bullets ? (
-                      <div>
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: opt.regulatory ? 6 : 0 }}>
+                      <span style={{ display: 'block' }}>
+                        <span style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: opt.regulatory ? 6 : 0 }}>
                           {opt.bullets.map((b: string, i: number) => (
                             <span key={i} style={{ color: C.ink, fontSize: 14, lineHeight: 1.5, opacity: 0.7 }}>{'• '}{b}</span>
                           ))}
-                        </div>
+                        </span>
                         {opt.footnote && (
-                          <span style={{ fontSize: 12, color: C.stone, fontStyle: 'italic' }}>{opt.footnote}</span>
+                          <span style={{ display: 'block', fontSize: 12, color: C.stone, fontStyle: 'italic' }}>{opt.footnote}</span>
                         )}
                         {opt.regulatory && (
                           <span style={{ fontSize: 12, color: C.flag, fontStyle: 'italic', fontWeight: 500, display: 'block', marginTop: 2 }}>{opt.regulatory}</span>
                         )}
-                      </div>
+                      </span>
                     ) : (
-                      <p style={{ color: C.ink, fontSize: 14, lineHeight: 1.5, margin: 0, opacity: 0.7 }}>{opt.desc}</p>
+                      <span style={{ display: 'block', color: C.ink, fontSize: 14, lineHeight: 1.5, margin: 0, opacity: 0.7 }}>{opt.desc}</span>
                     )}
-                  </div>
+                  </span>
                 </button>
               );
             })}
@@ -675,7 +710,7 @@ export default function WhichAiTool() {
         }
       `}</style>
 
-      <div style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px 0' }}>
+      <div role="status" aria-live="polite" style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px 0' }}>
         {currentStep === 'landing' ? renderLanding() :
          currentStep === 'result' ? renderResult() :
          currentStep === 'restricted' ? renderRestricted() :
