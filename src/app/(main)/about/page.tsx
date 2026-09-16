@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     title: 'About — Hoplight',
     description: 'Led by Whit Pendergast. Enterprise-grade AI strategy for mission-driven organizations.',
     url: 'https://hoplight.ai/about',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
   },
 };
 
@@ -21,7 +22,7 @@ export default function About() {
         <div className="wrap">
           <span className="label">About</span>
           <h1>Hoplight is led by Whit Pendergast.</h1>
-          <p>Enterprise-grade AI strategy, brought to the organizations that can&apos;t hire a Chief AI Officer.</p>
+          <p>Enterprise-grade AI strategy, brought to the organizations that can&rsquo;t hire a Chief AI Officer.</p>
         </div>
       </div>
 
@@ -30,7 +31,7 @@ export default function About() {
           <div className="prose" style={{ maxWidth: '65ch' }}>
             <p style={{ color: 'var(--ink-soft)', fontSize: '1.15rem' }}>Whit founded Hoplight to fill a gap in the AI ecosystem: values-aligned, pro-growth AI adoption that centers and empowers workers.</p>
             <p style={{ color: 'var(--stone-deep)' }}>Twenty years of building at the cutting edge. He started in the labor movement in 2010, where he built a network intelligence system for managing movement relationships and political capital during the campaign to defeat right-to-work legislation - one of the few bright spots for labor in that political era. He left in 2015 to co-found Republic Restoratives, the largest crowdfunded distillery in US history. He got the distillery registered with the FDA, pivoted it to become the second distillery in the country to produce hand sanitizer during the pandemic, and got the product listed on Amazon Prime.</p>
-            <p style={{ color: 'var(--stone-deep)' }}>From frontline congressional races to blind door-knock programs that drove turnout in New Hampshire to selling hand sanitizer in the depths of the pandemic, his career has been defined by building things other people said couldn&apos;t work. He spent the next years building AI: first to market a regulated product on a hostile ad platform at {FACTS.company.roas} return on ad spend, then to move voters in a {FACTS.rct.n}-person randomized controlled trial.</p>
+            <p style={{ color: 'var(--stone-deep)' }}>From frontline congressional races to blind door-knock programs that drove turnout in New Hampshire to selling hand sanitizer in the depths of the pandemic, his career has been defined by building things other people said couldn&rsquo;t work. He spent the next years building AI: first to market a regulated product on a hostile ad platform at {FACTS.company.roas} return on ad spend, then to move voters in a {FACTS.rct.n}-person randomized controlled trial.</p>
             <p style={{ color: 'var(--stone-deep)' }}>He has no engineering background. Everything he knows about AI he learned by asking questions in natural language until the tools gave up how they work. He holds a certificate from MIT in Agentic AI for Organizational Transformation.</p>
           </div>
 
@@ -45,7 +46,7 @@ export default function About() {
           </div>
 
           <div className="pull" style={{ marginTop: '40px' }}>
-            <p>We&apos;re always talking to exceptional trainers and builders. If that&apos;s you, reach out.</p>
+            <p>We&rsquo;re always talking to exceptional trainers and builders. If that&rsquo;s you, reach out.</p>
             <Link className="more" href="/contact?path=talent" style={{ marginTop: '14px' }}>Work with us &rarr;</Link>
           </div>
         </div>

@@ -15,7 +15,8 @@ export default function Nav() {
     { href: '/persuasion', label: 'Persuasion' },
     // { href: '/research', label: 'Research' }, // hidden from nav, page still accessible
     { href: '/about', label: 'About' },
-    { href: '/tools/which-ai', label: 'LLM Guide' },
+    // Label matches the page it opens ("Which AI Should I Use?"); "LLM Guide" promised a written guide.
+    { href: '/tools/which-ai', label: 'Which AI' },
     { href: '/faq', label: 'FAQ' },
     // { href: '/contact', label: 'Contact' }, // hidden from nav
   ];

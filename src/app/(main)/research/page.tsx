@@ -2,7 +2,8 @@ import type { Metadata } from 'next';
 import ResearchStatBand from '@/components/ResearchStatBand';
 
 export const metadata: Metadata = {
-  title: 'Research: Psychographic Message Framing RCT | Hoplight',
+  // The root layout's title template appends " — Hoplight"; a suffix here rendered the brand twice.
+  title: 'Research: Psychographic Message Framing RCT',
   description:
     'AI-generated psychographic message frames beat the standard progressive baseline by 11 to 26 points net on conservative segments in a 3,006-person RCT. Read the research brief.',
   alternates: { canonical: '/research' },
@@ -120,7 +121,7 @@ export default function Research() {
             <p>
               Psychographic segmentation groups audiences by values, worldview, and cognitive
               style rather than demographics. Rather than writing one message for a demographic
-              bucket, psychographic framing matches the message to the listener&apos;s operating
+              bucket, psychographic framing matches the message to the listener&rsquo;s operating
               system: what they value, what they trust, what they read as a threat. This study
               tested whether AI-generated psychographic frames could outperform the standard
               progressive approach on a real policy issue.
@@ -202,7 +203,7 @@ export default function Research() {
       <section className="slate">
         <div className="wrap">
           <h3 className="rct-finding-h3" style={{ color: '#fff' }}>
-            Standard progressive messaging produced backlash on 2024&apos;s decisive populations
+            Standard progressive messaging produced backlash on 2024&rsquo;s decisive populations
           </h3>
           <p className="rct-backlash-intro">
             On the union-support question, the standard progressive frame drove statistically
@@ -326,7 +327,7 @@ export default function Research() {
       {/* CTA */}
       <section className="rct-cta-paper">
         <div className="wrap">
-          <p className="rct-cta-line">The frame is the lever. Let&apos;s talk about yours.</p>
+          <p className="rct-cta-line">The frame is the lever. Let&rsquo;s talk about yours.</p>
           <a href="/contact" className="btn btn-primary" style={{ borderBottom: 'none' }}>
             Start a conversation
           </a>

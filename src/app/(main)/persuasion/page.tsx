@@ -10,9 +10,10 @@ export const metadata: Metadata = {
   description: `Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a ${FACTS.rct.n}-person ${FACTS.rct.method}, ${FACTS.rct.matchRate} matched to the voter file.`,
   alternates: { canonical: '/persuasion' },
   openGraph: {
-    title: 'Persuasion - Hoplight',
+    title: 'Persuasion — Hoplight',
     description: 'The human-generated progressive frame produces identity backlash with the voters who decide elections. We built the engine the other way around.',
     url: 'https://hoplight.ai/persuasion',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
   },
 };
 

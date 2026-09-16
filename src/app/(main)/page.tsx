@@ -29,11 +29,11 @@ export default function Home() {
           <div className="hero-grid">
             <div>
               <h1>Most organizations are bushwhacking their way through AI.</h1>
-              <p className="lede">{FACTS.company.pilotFailure} of enterprise AI pilots return nothing (MIT). Hoplight builds the ones that do: <strong>{FACTS.company.systems} production AI systems</strong> for the labor, advocacy, and mission-driven organizations that can&apos;t hire a Chief AI Officer.</p>
+              <p className="lede">{FACTS.company.pilotFailure} of enterprise AI pilots return nothing (MIT). Hoplight builds the ones that do: <strong>{FACTS.company.systems} production AI systems</strong> for the labor, advocacy, and mission-driven organizations that can&rsquo;t hire a Chief AI Officer.</p>
               <div className="hero-cta">
                 <Link className="btn-gold" href="/contact">Start a conversation</Link>
               </div>
-              <p className="lede" style={{ marginTop: 18, fontSize: '0.9rem' }}>Hoplight&apos;s founder {FACTS.founder}.</p>
+              <p className="lede" style={{ marginTop: 18, fontSize: '0.9rem' }}>Hoplight&rsquo;s founder {FACTS.founder}.</p>
             </div>
             <div className="hero-stack" aria-hidden="true">
               <div className="hero-shot hs-1">
@@ -74,7 +74,7 @@ export default function Home() {
             </div>
             <div className="problem-body">
               <p className="lead-line">of enterprise AI pilots deliver zero return.</p>
-              <p>The reason is rarely technology. It&apos;s a stale corporate playbook: buy the fancy tool, mandate its use, train people badly, and call the headcount you cut an innovation. <strong>We do the opposite.</strong></p>
+              <p>The reason is rarely technology. It&rsquo;s a stale corporate playbook: buy the fancy tool, mandate its use, train people badly, and call the headcount you cut an innovation. <strong>We do the opposite.</strong></p>
             </div>
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function Home() {
         <div className="wrap">
           <div className="choice-header">
             <h2>The Choice: Austerity or Abundance</h2>
-            <p>The most revolutionary technology in recent history just landed in our laps. The billionaire and CEO response has been austerity. <strong>There&apos;s another way.</strong></p>
+            <p>The most revolutionary technology in recent history just landed in our laps. The billionaire and CEO response has been austerity. <strong>There&rsquo;s another way.</strong></p>
           </div>
           <div className="choice-grid">
             <div className="ch-col bad">
@@ -189,7 +189,7 @@ export default function Home() {
       <section className="work-section">
         <div className="wrap">
           <div className="work-top">
-            <h2>What we&apos;ve shipped.</h2>
+            <h2>What we&rsquo;ve shipped.</h2>
             {/* SITE1 2026-08-21: names Rayli on the highest-traffic page. It is NOT a third work
                 card, because every card in this grid carries a screenshot and there is no Rayli
                 asset — reusing the PME one-pager here would caption an image as something it is

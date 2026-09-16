@@ -2,6 +2,29 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  async headers() {
+    // Added 2026-09-16 after the site review found no security headers at all: any origin could
+    // frame hoplight.ai, including the contact form. SAMEORIGIN rather than DENY so the site can
+    // still embed its own portfolio pieces. HSTS is left to Vercel, which already sets it.
+    return [
+      {
+        source: '/(.*)',
+        headers: [
+          { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
+          { key: 'Content-Security-Policy', value: "frame-ancestors 'self'" },
+          { key: 'X-Content-Type-Options', value: 'nosniff' },
+          { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
+          { key: 'Permissions-Policy', value: 'camera=(), microphone=(), geolocation=()' },
+        ],
+      },
+      // Static images under public/ were revalidated on every visit; a day in the browser cache
+      // plus a week of stale-while-revalidate keeps them fresh without the repeat downloads.
+      {
+        source: '/(screenshots|portfolio|shots)/(.*)',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' }],
+      },
+    ]
+  },
   async rewrites() {
     // Bet Appetit's demo copy (invented data, no database) runs as its own Vercel project with
     // basePath /bet-appetit, and hoplight.ai serves it under that path. Whit, 2026-09-15: portfolio

@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     title: 'FAQ — Hoplight',
     description: 'What mission-driven leaders ask before they bring AI near their work.',
     url: 'https://hoplight.ai/faq',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
   },
 };
 
@@ -79,7 +80,7 @@ export default function Faq() {
       <div className="page-hero">
         <div className="wrap">
           <span className="label">FAQ</span>
-          <h1>The questions you&apos;re actually asking.</h1>
+          <h1>The questions you&rsquo;re actually asking.</h1>
           <p>Plain answers to what mission-driven leaders raise before they bring AI anywhere near their work.</p>
         </div>
       </div>
@@ -99,7 +100,7 @@ export default function Faq() {
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
           <hr className="rule" style={{ marginBottom: '36px' }} />
-          <p className="lede">Got a question that&apos;s not here?</p>
+          <p className="lede">Got a question that&rsquo;s not here?</p>
           <div className="cta-row" style={{ marginTop: '24px' }}>
             <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>

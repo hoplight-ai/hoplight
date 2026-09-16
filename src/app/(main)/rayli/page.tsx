@@ -20,6 +20,7 @@ export const metadata: Metadata = {
     description:
       'Psychographically targeted, voice-true, source-cited copy for every destination you publish to, plus the map nobody else has: who heard what, when, across which channels, by audience.',
     url: 'https://hoplight.ai/rayli',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
   },
 };
 

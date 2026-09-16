@@ -27,6 +27,8 @@ export default function IntakeForm() {
 
   // identity
   const [firstName, setFirstName] = useState('');
+  // Honeypot: a field people never see. /api/intake drops any submission that fills it.
+  const [website, setWebsite] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [org, setOrg] = useState('');
@@ -75,6 +77,7 @@ export default function IntakeForm() {
       Organization: org.trim(),
       Fit: fitOther && fit.includes('Other') ? [...fit, `Other: ${fitOther.trim()}`] : fit,
       'Why this work, why values-aligned': tWhy.trim(),
+      website,
     };
     if (isTrainer) fields['What they teach now, and to whom'] = tTeach.trim();
     if (isBuilder) fields['What they have shipped'] = tShipped.trim();
@@ -159,6 +162,11 @@ export default function IntakeForm() {
       <p style={{ color: 'var(--ink-soft)', fontSize: '1.05rem', marginBottom: '28px' }}>
         Working with Hoplight. Show us what you can do, not just what you&apos;d rate yourself.
       </p>
+
+      <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+      </div>
 
       {/* Identity */}
       <div className="form-row">

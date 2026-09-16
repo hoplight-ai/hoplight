@@ -8,7 +8,7 @@ type Piece = { slug: string; title: string; blurb: string; href: string; live?: 
 
 const PIECES: Piece[] = [
   { slug: 'dnc-autopsy-taken-apart', title: 'DNC autopsy, taken apart', blurb: 'The party’s own 2024 after-action report, argued from its own numbers.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
-  { slug: 'agis-policy-search-aria', title: 'AGIS policy search (ARIA)', blurb: '32,000 documents, 2,191 jurisdictions, searchable in plain English.', href: 'https://ai-policy-tool.vercel.app', live: true },
+  { slug: 'agis-policy-search-aria', title: 'AGIS policy search (ARIA)', blurb: `${FACTS.agis.sources} sources, ${FACTS.agis.jurisdictions} jurisdictions, searchable in plain English.`, href: 'https://ai-policy-tool.vercel.app', live: true },
   { slug: 'ai-governance-checklist', title: 'AI Governance Checklist', blurb: 'Interactive checklist a mission-driven org can work through.', href: '/portfolio/ai-governance-checklist.html' },
   { slug: 'ai-lobbyist-player-map', title: 'AI Lobbyist Player Map', blurb: 'Who lobbies on AI, for whom, and where the money lands.', href: '/portfolio/ai-lobbyist-player-map.html' },
   { slug: 'bet-appetit', title: 'Bet Appetit', blurb: 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.', href: '/bet-appetit', live: true, thumb: '/portfolio/thumbs/bet-appetit-demo.jpg' },
@@ -36,6 +36,7 @@ export const metadata: Metadata = {
     title: 'Portfolio — Hoplight',
     description: 'Systems we’ve shipped. Most of them open in your browser.',
     url: 'https://hoplight.ai/portfolio',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' }],
   },
 };
 
@@ -45,7 +46,7 @@ export default function Portfolio() {
       <div className="page-hero">
         <div className="wrap">
           <span className="label">Portfolio</span>
-          <h1>Systems we&apos;ve shipped.</h1>
+          <h1>Systems we&rsquo;ve shipped.</h1>
           <p>National organizations are running these tools in production. Not proofs of concept.</p>
         </div>
       </div>
@@ -97,8 +98,8 @@ export default function Portfolio() {
             <span className="label">Open source</span>
             <h2>A tool other teams can run themselves.</h2>
             <p>
-              Pandora&apos;s Router lets several AI coding agents work on one codebase at once. It
-              proves their file claims don&apos;t overlap before any agent starts, then checks what
+              Pandora&rsquo;s Router lets several AI coding agents work on one codebase at once. It
+              proves their file claims don&rsquo;t overlap before any agent starts, then checks what
               each one says it finished. MIT licensed, live at router.hoplight.ai.
             </p>
           </div>
@@ -127,7 +128,7 @@ export default function Portfolio() {
         <div className="wrap">
           <div className="section-head">
             <span className="label">Client engagements</span>
-            <h2>And some of it, you can&apos;t.</h2>
+            <h2>And some of it, you can&rsquo;t.</h2>
             <p>
               These run inside client organizations, on their data, so there is no link to hand you.
               Here is what each one does and who it serves.
@@ -175,7 +176,7 @@ export default function Portfolio() {
               <h3 className="pfname">Labor AI intelligence product</h3>
               <div className="pfrow">
                 <span className="pflabel">What it does</span>
-                <span className="pfval">Reframes the week&apos;s AI developments for political and policy staff at one of the largest labor organizations in the US. Built for people who negotiate contracts, run campaigns, and advise elected officials.</span>
+                <span className="pfval">Reframes the week&rsquo;s AI developments for political and policy staff at one of the largest labor organizations in the US. Built for people who negotiate contracts, run campaigns, and advise elected officials.</span>
               </div>
               <div className="pfrow">
                 <span className="pflabel">Who it serves</span>

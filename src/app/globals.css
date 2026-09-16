@@ -16,7 +16,6 @@
   /* Gold */
   --gold: #D4950A;
   --gold-hot: #E8A820;
-  --gold-bright: #E8A820;      /* legacy alias (dark-section accent) */
   --gold-deep: #845810;        /* AA-safe gold for small text on light (~5.5:1) */
   --gold-bg: #F5E6C4;
   --gold-bg-light: #FBF4E4;
@@ -119,7 +118,9 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0
 .nav-cta:hover { background: var(--gold-hot); color: var(--ink); border-bottom-color: transparent; }
 
 /* Hamburger toggle (mobile nav) */
-.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 8px; }
+.nav-toggle { display: none; background: none; border: none; cursor: pointer; padding: 12px; }
+.skip-link { position: absolute; left: 8px; top: -100px; z-index: 1000; padding: 10px 14px; background: var(--ink); color: var(--white); border-radius: 4px; font-weight: 600; }
+.skip-link:focus { top: 8px; }
 .hamburger { display: block; width: 20px; height: 2px; background: #fff; position: relative; transition: background 200ms; }
 .hamburger::before, .hamburger::after { content: ''; display: block; width: 20px; height: 2px; background: #fff; position: absolute; left: 0; transition: transform 200ms ease-out; }
 .hamburger::before { top: -6px; }
@@ -536,7 +537,7 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 .field label { display: block; font-size: 0.92rem; font-weight: 600; color: var(--ink); margin-bottom: 7px; }
 .field .hint { font-weight: 400; color: var(--stone-deep); font-size: 0.86rem; }
 .field input[type="text"], .field input[type="email"], .field input[type="url"], .field textarea, .field select {
-  width: 100%; font-family: var(--font-body); font-size: 0.95rem; color: var(--ink);
+  width: 100%; font-family: var(--font-body); font-size: 1rem; color: var(--ink); /* 16px: below that iOS zooms the page on focus */
   background: var(--white); border: 1px solid rgba(0,0,0,0.22); border-radius: 6px;
   padding: 0.7rem 0.85rem; transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
 }

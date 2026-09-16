@@ -3,7 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { FACTS } from '@/lib/facts';
 
 function CountUp({ to, format }: { to: number; format?: (n: number) => string }) {
-  const [val, setVal] = useState(0);
+  // Starts at the real value so the server-rendered HTML (what crawlers, link previews and
+  // reduced-motion readers see) carries the number, not "0". The count-up runs only in a browser
+  // that allows motion, and only once the band scrolls into view.
+  const [val, setVal] = useState(to);
   const spanRef = useRef<HTMLSpanElement>(null);
   const started = useRef(false);
   const fmt = format ?? ((n: number) => String(n));
@@ -11,10 +14,12 @@ function CountUp({ to, format }: { to: number; format?: (n: number) => string })
   useEffect(() => {
     const el = spanRef.current;
     if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const obs = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting && !started.current) {
           started.current = true;
+          setVal(0);
           const dur = 1300;
           const t0 = performance.now();
           const tick = (now: number) => {

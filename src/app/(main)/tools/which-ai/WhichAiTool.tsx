@@ -675,12 +675,12 @@ export default function WhichAiTool() {
         }
       `}</style>
 
-      <main style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px 0' }}>
+      <div style={{ maxWidth: 800, margin: '0 auto', padding: '40px 24px 0' }}>
         {currentStep === 'landing' ? renderLanding() :
          currentStep === 'result' ? renderResult() :
          currentStep === 'restricted' ? renderRestricted() :
          renderStandardStep()}
-      </main>
+      </div>
     </div>
   );
 }
