@@ -5,7 +5,12 @@ import { FACTS } from '@/lib/facts';
 
 const pmeCSS = `
 .pme-page {
-  --ink:#0A1628; --gold:#E8A838; --gold-deep:#B8851F; --gold-light:#F4CE8A; --paper:#F7F5F0; --stone:#8B8578;
+  /* Pixel Cop review, 2026-09-16: this ran its own palette, off from the site's tokens under the
+     same names, worst on --gold-deep (same name, visibly different colour — a landmine for anyone
+     who greps for it and trusts the label). Values below now match src/app/globals.css :root
+     exactly for every token that shares a name there; --gold-light has no site equivalent and is
+     unchanged. */
+  --ink:#0F1B2D; --gold:#D4950A; --gold-deep:#845810; --gold-light:#F4CE8A; --surface:#F5F5F0; --stone:#70706A;
   --dark:#0F172A;
   --card:#1E293B;
   --card2:#111827;
@@ -34,7 +39,7 @@ const pmeCSS = `
 
 .pme-page h1,.pme-page h2,.pme-page h3{margin:0;letter-spacing:-0.01em}
 
-.pme-page .bg-paper{background:var(--paper)}
+.pme-page .bg-paper{background:var(--surface)}
 .pme-page .bg-white{background:#fff}
 .pme-page .bg-dark{background:var(--dark);color:#fff}
 
@@ -192,17 +197,20 @@ const pmeCSS = `
 /* ---------- S5/S7 shared stat cards ---------- */
 .pme-page .s-head{text-align:center}
 .pme-page .s-head h2{color:#fff}
+.pme-page .s-quote-wrap{margin:0}
 .pme-page .s-quote{
   font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;
   color:#fff;font-size:clamp(1.15rem,2.4vw,1.5rem);
   text-align:center;margin:18px auto 0;max-width:42rem;
 }
+.pme-page .s-quote-wrap footer{text-align:center;margin-top:10px;font-size:12px;color:rgba(255,255,255,.55)}
+.pme-page .s-quote-wrap footer cite{font-style:normal}
 .pme-page .study-chip{
   display:inline-block;margin:26px auto 0;border:1px solid rgba(232,168,56,.5);
   color:var(--gold);border-radius:999px;padding:8px 20px;font-size:.82rem;font-weight:500;
 }
 .pme-page .study-chip-wrap{text-align:center}
-.pme-page .s-sub{text-align:center;font-size:12px;color:rgba(255,255,255,.7);margin-top:14px}
+.pme-page .s-sub{text-align:center;font-size:12px;color:rgba(255,255,255,.7);margin-top:14px;max-width:60ch;margin-left:auto;margin-right:auto}
 
 .pme-page .stat-grid{display:grid;grid-template-columns:1fr;gap:18px;margin-top:44px}
 @media (min-width:640px){ .pme-page .stat-grid.g3{grid-template-columns:repeat(3,1fr)} }
@@ -313,7 +321,7 @@ const pmeCSS = `
 .pme-page .cards2{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
 @media (min-width:900px){ .pme-page .cards2{grid-template-columns:1fr 1fr} }
 .pme-page .card9{
-  background:var(--paper);border-radius:14px;padding:30px 26px;border:1px solid rgba(10,22,40,.08);
+  background:var(--surface);border-radius:14px;padding:30px 26px;border:1px solid rgba(10,22,40,.08);
   display:flex;flex-direction:column;height:100%;
 }
 .pme-page .card9 h3{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:0}
@@ -435,7 +443,7 @@ const pmeCSS = `
 }
 .pme-page .loop-kicker{
   font-family:'Outfit',sans-serif;font-weight:700;color:var(--gold);
-  font-size:clamp(1.1rem,2vw,1.3rem);margin-bottom:10px;
+  font-size:clamp(1.1rem,2vw,1.3rem);margin:0 0 10px;
 }
 .pme-page .loop-headline{
   font-family:'Outfit',sans-serif;font-weight:800;color:var(--gold);
@@ -454,11 +462,10 @@ const pmeCSS = `
 .pme-page .author-card{background:var(--card2);color:#fff;border-radius:16px;padding:32px 28px}
 .pme-page .author-card .eyebrow{display:block;margin-bottom:16px}
 .pme-page .author-card p{color:rgba(255,255,255,.85);font-size:.95rem;line-height:1.65;margin:0}
-.pme-page .mailto-btn{
-  display:inline-flex;align-items:center;gap:8px;margin-top:24px;
-  background:var(--gold);color:var(--ink);font-weight:700;font-size:.9rem;
-  padding:12px 22px;border-radius:999px;text-decoration:none;
-}
+.pme-page a.btn-gold{color:var(--ink);margin-top:24px}
+.pme-page a.btn-gold:hover{background:var(--gold-hot)}
+.pme-page .author-email{margin-top:12px;font-size:.85rem}
+.pme-page .author-email a{color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.25)}
 `;
 
 const pmeHTML = `
@@ -481,7 +488,7 @@ const pmeHTML = `
 
     <div class="chip-stack reveal">
       <div class="chip chip1">“They’re voting against their own interests”</div>
-      <div class="chip chip2">“If they could just see the facts...”</div>
+      <div class="chip chip2">“If they could just see the facts&hellip;”</div>
       <div class="chip chip3">“We need better education”</div>
     </div>
 
@@ -549,7 +556,10 @@ const pmeHTML = `
       <div class="study-chip-wrap">
         <span class="study-chip">The Security Officer Messaging Study · n=${FACTS.rct.n} · ${FACTS.rct.matchRate} voter-file match · ${FACTS.rct.date}</span>
       </div>
-      <p class="s-quote serif">Persuasion messaging from progressive human communicators underperformed the placebo message about Morton Salt.</p>
+      <blockquote class="s-quote-wrap">
+        <p class="s-quote serif">Persuasion messaging from progressive human communicators underperformed the placebo message about Morton Salt.</p>
+        <footer><cite>The Security Officer Messaging Study</cite></footer>
+      </blockquote>
       <p class="s-sub">Issue tested: “Many security officers are poorly paid and resourced.”</p>
     </div>
 
@@ -642,7 +652,7 @@ const pmeHTML = `
         <div class="bar-group-labels">
           <div class="bar-group-label">Under 35</div>
           <div class="bar-group-label">Black Voters</div>
-          <div class="bar-group-label">Religious<br>Conservatives</div>
+          <div class="bar-group-label">Religious Conservatives</div>
         </div>
 
         <p class="chart-legend">Green = psychographic message · Red = human-generated persuasion message · Baseline = the Morton Salt placebo</p>
@@ -847,7 +857,7 @@ const pmeHTML = `
     </div>
 
     <div class="engine-panel">
-      <div class="engine-eyebrow">With the Hoplight Engine</div>
+      <h3 class="engine-eyebrow">With the Hoplight Engine</h3>
       <div class="engine-flow">
         <div class="engine-box">AUDIENCE + GOAL</div>
         <span class="engine-arrow"><svg width="47" height="21" viewBox="0 0 36 16" aria-hidden="true"><path d="M0 8 H28 M22 2 L30 8 L22 14" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="3"/></svg></span>
@@ -920,8 +930,8 @@ const pmeHTML = `
   <div class="wrap reveal">
     <div class="loop-outer">
       <div class="loop-card">
-        <div class="loop-kicker">What This Unlocks:</div>
-        <div class="loop-headline">RECURSIVE MESSAGE REFINEMENT</div>
+        <p class="loop-kicker">What This Unlocks:</p>
+        <h3 class="loop-headline">RECURSIVE MESSAGE REFINEMENT</h3>
 
         <div class="ring-wrap">
           <svg viewBox="0 0 500 460" width="100%" role="img" aria-label="Recursive loop: Develop a message in the morning, deploy it and field it in the afternoon, decode the results and tune the tool, then repeat tomorrow.">
@@ -973,8 +983,9 @@ const pmeHTML = `
       </div>
       <div class="author-card">
         <span class="eyebrow">The Author</span>
-        <p><strong class="white">Whit Pendergast has spent 20 years building the thing before the field knows it needs it.</strong> In 2008 he invented an inverse-knock program in New Hampshire that found, registered, and turned out 2,300 Latino voters the party had no infrastructure to reach. He co-founded the largest crowdfunded distillery in US history, then built AI marketing infrastructure for its outspoken progressive brand before the industry had a playbook. He shipped AGIS, a global-to-local AI-governance intelligence system, and built the persuasion engine now licensed by the second-largest union in North America.</p>
-        <a class="mailto-btn" href="mailto:whit@hoplight.ai">✉ whit@hoplight.ai</a>
+        <p><strong class="white">Whit Pendergast has spent 20 years building the thing before the field knows it needs it.</strong> In 2008 he invented an inverse-knock program in New Hampshire that found, registered, and turned out 2,300 Latino voters the party had no infrastructure to reach. He co-founded the largest crowdfunded distillery in US history, and then built AI marketing infrastructure for its outspoken progressive brand before the industry had a playbook. He shipped AGIS, a global-to-local AI-governance intelligence system, and built the persuasion engine now licensed by one of North America&rsquo;s largest unions.</p>
+        <a class="btn btn-gold" href="/contact">Start a conversation &rarr;</a>
+        <p class="author-email"><a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a></p>
       </div>
     </div>
   </div>

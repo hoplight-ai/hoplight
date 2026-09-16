@@ -1,6 +1,6 @@
 # Security
 
-This repo belongs to the `hoplight-ai` GitHub org. It is not a public bug-bounty target — there is
+This repo belongs to the `hoplight-ai` GitHub account. It is not a public bug-bounty target — there is
 no reward program and no dedicated security inbox separate from the owner.
 
 ## Reporting a vulnerability

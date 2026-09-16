@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
 const faqs: { q: string; a: string }[] = [
   {
     q: 'How do you protect our data and our members’ information?',
-    a: 'We treat your data, and your members’ data, as the whole ballgame. We only build on platform tiers that give you contractual data protection, not just feature promises. Free and consumer-grade tiers can expose your inputs to model training and human review, so we never put member data, strategy documents, or internal communications on them. Before we deploy anything, you get a plain-English breakdown of exactly where your data goes, what the vendor retains, and for how long.',
+    a: 'We treat your data and your members’ data as the whole ballgame. We only build on platform tiers that give you contractual data protection, not just feature promises. Free and consumer-grade tiers can expose your inputs to model training and human review, so we never put member data, strategy documents, or internal communications on them. Before we deploy anything, you get a plain-English breakdown of exactly where your data goes, what the vendor retains, and for how long.',
   },
   {
     q: 'What if we choose the wrong tool, or the wrong direction?',
@@ -31,15 +31,15 @@ const faqs: { q: string; a: string }[] = [
   },
   {
     q: 'How much does an engagement cost?',
-    a: 'Pricing follows the engagement. We scope it after a short intake, so the number fits the work rather than a menu. We work with organizations that have budget allocated to this, on individual consulting through full organizational builds.',
+    a: 'Pricing follows the engagement. We scope it after a short intake, so the number fits the work rather than a menu. We work with organizations that have budget allocated to this, from individual consulting through full organizational builds.',
   },
   {
     q: 'What does AI strategy for a union or nonprofit actually involve?',
-    a: 'It’s four things working together: governance and policy, a workforce and threat read, hands-on capacity building, and custom builds for the work your team actually does. The point isn’t a tool, it’s adoption that sticks and a posture you can defend.',
+    a: 'It’s four things working together: governance and policy, a workforce and threat read, hands-on capacity building, and custom builds for the work your team actually does. The point isn’t a tool; it’s adoption that sticks and a posture you can defend.',
   },
   {
     q: 'How should a mission-driven organization start with AI?',
-    a: 'Start with the thing your team hates doing every week, and solve that first. The a-ha moment comes when someone asks, wait, if it can do this, can it do that? Everything else follows from there.',
+    a: 'Start with the thing your team hates doing every week, and solve that first. The a-ha moment comes when someone asks: wait, if it can do this, can it do that? Everything else follows from there.',
   },
   {
     q: 'Is it safe to use AI tools like ChatGPT with sensitive or member data?',
@@ -83,18 +83,21 @@ export default function Faq() {
 
       <section>
         <div className="wrap">
-          <div className="cgroup">
+          <ul className="cgroup">
             {faqs.map((f) => (
-              <Collapse key={f.q} title={f.q}>
-                {f.a}
-              </Collapse>
+              <li key={f.q}>
+                <Collapse title={f.q}>
+                  {f.a}
+                </Collapse>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
+          <h2 className="sr-only">Get in touch</h2>
           <hr className="rule" style={{ marginBottom: '36px' }} />
           <p className="lede">Got a question that&rsquo;s not here?</p>
           <div className="cta-row" style={{ marginTop: '24px' }}>

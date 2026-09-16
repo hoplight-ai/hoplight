@@ -8,10 +8,12 @@ const orgSchema = {
   name: 'Hoplight',
   url: 'https://hoplight.ai',
   description: 'AI strategy for labor, advocacy, and mission-driven organizations.',
+  sameAs: ['https://github.com/hoplight-ai', 'https://www.linkedin.com/in/whit-pendergast/'],
   founder: {
     '@type': 'Person',
     name: 'Whit Pendergast',
     jobTitle: 'Founder, Hoplight',
+    sameAs: ['https://www.linkedin.com/in/whit-pendergast/'],
     knowsAbout: ['AI strategy', 'AI governance', 'Labor technology', 'Psychographic message testing', 'AI adoption'],
   },
   areaServed: 'US',
@@ -52,14 +54,14 @@ export default function Home() {
         <div className="wrap">
           <div className="aud-inner">
             <span className="aud-label">Who we work with</span>
-            <div className="aud-list">
-              <span>Unions</span>
-              <span>Nonprofits</span>
-              <span>Advocacy groups</span>
-              <span>Foundations</span>
-              <span>Progressive agencies</span>
-              <span>Mission-driven campaigns</span>
-            </div>
+            <ul className="aud-list">
+              <li>Unions</li>
+              <li>Nonprofits</li>
+              <li>Advocacy groups</li>
+              <li>Foundations</li>
+              <li>Progressive agencies</li>
+              <li>Mission-driven campaigns</li>
+            </ul>
           </div>
         </div>
       </div>
@@ -69,8 +71,21 @@ export default function Home() {
         <div className="wrap">
           <div className="problem-row">
             <div>
-              <div className="problem-fig"><span className="pct">{FACTS.company.pilotFailure}</span></div>
-              <span className="src-line">MIT, State of AI in Business, 2025</span>
+              <div className="problem-fig">
+                <span className="pct">{FACTS.company.pilotFailure}</span>
+                {/* Typographer review, 2026-09-16: .src-line was a sibling of .problem-fig, not a
+                    descendant, so its CSS selector (.problem-fig .src-line) never matched and it
+                    rendered at full body size instead of the small-caps source-line style. */}
+                <span className="src-line">
+                  {/* HN review, 2026-09-16: the 95% stat cited MIT by name with no link anywhere on
+                      the page. The report's own PDF (mlq.ai) returned HTTP 403 to a build-time
+                      check, so this links MIT's own NANDA research initiative instead. */}
+                  <a href="https://nanda.media.mit.edu/" target="_blank" rel="noopener noreferrer">
+                    MIT, State of AI in Business, 2025
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </span>
+              </div>
             </div>
             <div className="problem-body">
               <p className="lead-line">of enterprise AI pilots deliver zero return.</p>
@@ -145,7 +160,7 @@ export default function Home() {
             <div className="ident-col">
               <span className="ic-num">01</span>
               <h3>Practitioners</h3>
-              <p>The front line, closest to the actual work. When left out, they run shadow AI, open security holes, or quietly sabotage the rollout.</p>
+              <p>The front line, closest to the actual work. When left out, they run shadow AI (staff using AI tools nobody approved), open security holes, or quietly sabotage the rollout.</p>
             </div>
             <div className="ident-col">
               <span className="ic-num">02</span>
@@ -167,11 +182,11 @@ export default function Home() {
           <div className="proof-grid">
             <div className="proof-item">
               <div className="proof-num">{FACTS.company.systems}</div>
-              <div className="proof-cap">Unique AI tools, systems, and workflows built and shipped.</div>
+              <div className="proof-cap">Production AI systems built and shipped.</div>
             </div>
             <div className="proof-item">
               <div className="proof-num">{FACTS.company.roas}</div>
-              <div className="proof-cap">Return on {FACTS.company.adSpend} in regulated, social-issue ad spend.</div>
+              <div className="proof-cap">Return on {FACTS.company.adSpend} in regulated-industry ad spend.</div>
             </div>
             <div className="proof-item">
               <div className="proof-num">Zero</div>
@@ -237,14 +252,14 @@ export default function Home() {
               <p>You need to understand your exposure, set an AI policy, vet the vendors layering AI into your stack, and secure against shadow AI.</p>
               <Link className="see-more" href="/services">See how we help &rarr;</Link>
             </div>
-            <div className="barn-items">
-              <div className="barn-item">Exposure assessment</div>
-              <div className="barn-item">AI policy framework</div>
-              <div className="barn-item">Vendor audit</div>
-              <div className="barn-item">Team talking points</div>
-              <div className="barn-item">Shadow AI security</div>
-              <div className="barn-item">Board-ready briefing</div>
-            </div>
+            <ul className="barn-items">
+              <li className="barn-item">Exposure assessment</li>
+              <li className="barn-item">AI policy framework</li>
+              <li className="barn-item">Vendor audit</li>
+              <li className="barn-item">Team talking points</li>
+              <li className="barn-item">Shadow AI security</li>
+              <li className="barn-item">Board-ready briefing</li>
+            </ul>
           </div>
         </div>
       </section>

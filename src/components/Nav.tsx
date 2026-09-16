@@ -75,18 +75,22 @@ export default function Nav() {
           <span className={`hamburger ${menuOpen ? 'open' : ''}`} />
         </button>
         <nav id="primary-nav" ref={navRef} className={`nav-links ${menuOpen ? 'open' : ''}`}>
-          {links.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={path === href ? 'current' : ''}
-              aria-current={path === href ? 'page' : undefined}
-              onClick={() => setMenuOpen(false)}
-            >
-              {label}
-            </Link>
-          ))}
-          <Link className="nav-cta" href="/contact" onClick={() => setMenuOpen(false)}>Start a conversation</Link>
+          <ul>
+            {links.map(({ href, label }) => (
+              <li key={href}>
+                <Link
+                  href={href}
+                  className={path === href ? 'current' : ''}
+                  aria-current={path === href ? 'page' : undefined}
+                  onClick={() => setMenuOpen(false)}
+                  prefetch={false}
+                >
+                  {label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <Link className="nav-cta" href="/contact" onClick={() => setMenuOpen(false)} prefetch={false}>Start a conversation</Link>
         </nav>
       </div>
     </header>

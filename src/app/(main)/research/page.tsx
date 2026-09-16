@@ -68,9 +68,9 @@ export default function Research() {
             Psychographic Message Framing Outperforms Progressive Baseline on Conservative
             Segments
           </h1>
-          <p>Evidence from a 3,006-person randomized controlled trial, August 2025.</p>
+          <p>Evidence from a 3,006-person randomized controlled trial, <time dateTime="2025-08">August 2025</time>.</p>
           <p className="rct-author">
-            Whit Pendergast, Founder, Hoplight | Published June 2026
+            Whit Pendergast, Founder, Hoplight | Published <time dateTime="2026-06">June 2026</time>
           </p>
           <div className="cta-row">
             <a
@@ -210,6 +210,7 @@ export default function Research() {
           </p>
           <div className="rct-table-wrap">
             <table className="rct-table">
+              <caption className="sr-only">Backlash by population: progressive frame vs. placebo, AI frames vs. progressive</caption>
               <thead>
                 <tr>
                   <th>Population</th>
@@ -276,32 +277,29 @@ export default function Research() {
         <div className="wrap">
           <h2 className="rct-section-h2">What This Means for Practitioners</h2>
           <div style={{ maxWidth: 'var(--measure)' }}>
-            <p className="rct-impl-para">
-              <strong>The progressive messaging playbook has a structural problem.</strong>{' '}
-              <span style={{ color: 'var(--stone-deep)' }}>
-                It is not a volume problem, a channel problem, or a courage problem. It is a
-                frame problem. The default approach writes messages for people who already
-                process the world through a progressive moral framework, then broadcasts those
-                messages to everyone.
-              </span>
+            {/* UX review, 2026-09-16: eleven unbroken paragraphs with one table gave a skimmer
+                nowhere to land. These three sentences were already bolded as the lead of each
+                point; promoting them to subheads costs no new copy. */}
+            <h3 className="rct-finding-h3">The progressive messaging playbook has a structural problem.</h3>
+            <p className="rct-impl-para" style={{ color: 'var(--stone-deep)' }}>
+              It is not a volume problem, a channel problem, or a courage problem. It is a
+              frame problem. The default approach writes messages for people who already
+              process the world through a progressive moral framework, then broadcasts those
+              messages to everyone.
             </p>
-            <p className="rct-impl-para">
-              <strong>Psychographic framing is not micro-targeting.</strong>{' '}
-              <span style={{ color: 'var(--stone-deep)' }}>
-                It does not require individual-level data or surveillance infrastructure. It
-                works by developing message variants matched to different cognitive styles, then
-                deploying the right variant to the right psychographic segment. The segments cut
-                across race, class, and party.
-              </span>
+            <h3 className="rct-finding-h3">Psychographic framing is not micro-targeting.</h3>
+            <p className="rct-impl-para" style={{ color: 'var(--stone-deep)' }}>
+              It does not require individual-level data or surveillance infrastructure. It
+              works by developing message variants matched to different cognitive styles, then
+              deploying the right variant to the right psychographic segment. The segments cut
+              across race, class, and party.
             </p>
-            <p className="rct-impl-para">
-              <strong>AI is the scalability mechanism.</strong>{' '}
-              <span style={{ color: 'var(--stone-deep)' }}>
-                Psychographic code-switching is what deep canvassing and relational organizing do
-                at the individual level. Their per-conversation cost confines them to small-scale
-                deployment. AI-generated psychographic framing is the path to that code-switching
-                at the volume and fidelity a national cycle requires.
-              </span>
+            <h3 className="rct-finding-h3">AI is the scalability mechanism.</h3>
+            <p className="rct-impl-para" style={{ color: 'var(--stone-deep)' }}>
+              Psychographic code-switching is what deep canvassing and relational organizing do
+              at the individual level. Their per-conversation cost confines them to small-scale
+              deployment. AI-generated psychographic framing is the path to that code-switching
+              at the volume and fidelity a national cycle requires.
             </p>
           </div>
         </div>
@@ -326,6 +324,7 @@ export default function Research() {
       {/* CTA */}
       <section className="rct-cta-paper">
         <div className="wrap">
+          <h2 className="sr-only">Get in touch</h2>
           <p className="rct-cta-line">The frame is the lever. Let&rsquo;s talk about yours.</p>
           <a href="/contact" className="btn btn-primary" style={{ borderBottom: 'none' }}>
             Start a conversation
@@ -336,9 +335,9 @@ export default function Research() {
       {/* CITATION */}
       <div className="wrap rct-citation">
         <p>
-          Citation: Pendergast, W. (2026). Psychographic Message Framing Outperforms
+          Citation: Pendergast, W. (2026). <cite>Psychographic Message Framing Outperforms
           Progressive Baseline on Conservative Segments: Evidence from a 3,006-Person
-          Randomized Controlled Trial. Hoplight Research Brief. https://hoplight.ai/research
+          Randomized Controlled Trial.</cite> Hoplight Research Brief. https://hoplight.ai/research
         </p>
       </div>
     </>

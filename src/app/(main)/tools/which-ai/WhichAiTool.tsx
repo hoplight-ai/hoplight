@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import {
   CheckCircle2, XCircle, Briefcase, Lock, ShieldAlert,
   Search, PenLine, BrainCircuit, Target, BarChart3,
@@ -260,8 +261,15 @@ const optionCueColors: Record<string, { border: string; iconBg: string; iconColo
 const ProgressBar = ({ current, total }: { current: number; total: number }) => {
   const pct = Math.min(100, Math.max(0, (current / total) * 100));
   return (
-    <div style={{ width: '100%', background: `${C.ink}08`, height: 3, borderRadius: 2, marginBottom: 32, overflow: 'hidden' }}>
-      <div style={{ width: `${pct}%`, height: '100%', background: C.gold, borderRadius: 2, transition: 'width 0.5s ease-out' }} />
+    <div style={{ marginBottom: 32 }}>
+      {/* UX review, 2026-09-16: the bar alone was the same colour and weight as a purely decorative
+          divider used elsewhere on the site, and got mistaken for one twice in testing. */}
+      <div style={{ fontSize: 12, fontWeight: 600, color: C.stone, textTransform: 'uppercase', letterSpacing: '0.06em', marginBottom: 8 }}>
+        Step {Math.min(current + 1, total)} of {total}
+      </div>
+      <div style={{ width: '100%', background: `${C.ink}08`, height: 3, borderRadius: 2, overflow: 'hidden' }}>
+        <div style={{ width: `${pct}%`, height: '100%', background: C.gold, borderRadius: 2, transition: 'width 0.5s ease-out' }} />
+      </div>
     </div>
   );
 };
@@ -380,9 +388,9 @@ export default function WhichAiTool() {
           Pick the right AI tool for the job.
         </h1>
         <p style={{ fontSize: 17, color: C.ink, lineHeight: 1.7, marginBottom: 8 }}>
-          When you open an AI tool, two questions determine whether you&apos;ve made a good choice or a mistake.
+          When you open an AI tool, two questions determine whether you&rsquo;ve made a good choice or a mistake.
           First: is your data safe with this platform at this pricing tier?
-          Second: is this the right model for what you&apos;re actually trying to do?
+          Second: is this the right model for what you&rsquo;re actually trying to do?
         </p>
         <p style={{ fontSize: 17, color: C.ink, lineHeight: 1.7, marginBottom: 32, fontWeight: 500 }}>
           This tool walks you through both.
@@ -443,7 +451,7 @@ export default function WhichAiTool() {
           <h3 style={{ fontWeight: 600, color: C.ink, fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', margin: '0 0 16px 0' }}>Alternatives</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             {[
-              ['Reframe the task:', 'Strip identifying details. Replace real names with placeholders, genericize the scenario before prompting.'],
+              ['Reframe the task:', 'Strip identifying details. Replace real names with placeholders, generalize the scenario before prompting.'],
               ['Local models:', 'Run Llama 3 or Mistral locally on your hardware. Data never leaves your machine.'],
               ['Enterprise ZDR APIs:', 'Use Anthropic/OpenAI APIs specifically provisioned with Zero Data Retention contracts.']
             ].map(([label, text], i) => (
@@ -457,6 +465,11 @@ export default function WhichAiTool() {
       </div>
 
       <div style={{ textAlign: 'center', marginTop: 32 }}>
+        <Link className="btn btn-primary" href="/contact">
+          Talk through what this means for your organization &rarr;
+        </Link>
+      </div>
+      <div style={{ textAlign: 'center', marginTop: 16 }}>
         <button type="button" onClick={restart} style={{ background: 'none', border: 'none', color: C.goldDeep, cursor: 'pointer', fontWeight: 500, fontSize: 15, fontFamily: font, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
           <RotateCcw size={18} /> Start over
         </button>
@@ -534,6 +547,11 @@ export default function WhichAiTool() {
         )}
 
         <div style={{ textAlign: 'center', marginTop: 40 }}>
+          <Link className="btn btn-primary" href="/contact">
+            Talk through what this means for your organization &rarr;
+          </Link>
+        </div>
+        <div style={{ textAlign: 'center', marginTop: 16 }}>
           <button type="button" onClick={restart} style={{
             background: `${C.ink}08`, border: 'none', color: C.stone, cursor: 'pointer', fontWeight: 500, fontSize: 14, fontFamily: font,
             display: 'inline-flex', alignItems: 'center', gap: 8, padding: '12px 24px', borderRadius: 20, transition: 'all 0.15s'

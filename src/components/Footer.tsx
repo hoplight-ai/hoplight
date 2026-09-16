@@ -13,11 +13,16 @@ export default function Footer() {
         </Link>
         <span className="meta">AI strategy for labor, advocacy, and mission-driven organizations</span>
         <span className="meta">© {new Date().getFullYear()} Hoplight</span>
-        <span className="foot-links">
-          <Link href="/research">Research</Link>
-          <Link href="/contact">Contact us</Link>
-          <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a>
-        </span>
+        <ul className="foot-links">
+          <li><Link href="/research">Research</Link></li>
+          <li><Link href="/contact">Contact us</Link></li>
+          <li><a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a></li>
+          <li>
+            <a href="https://www.linkedin.com/in/whit-pendergast/" target="_blank" rel="noopener noreferrer">
+              LinkedIn<span className="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

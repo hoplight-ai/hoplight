@@ -64,10 +64,10 @@ export default function Services() {
             </div>
             <div className="svc-row">
               <h3>Custom AI builds</h3>
-              <p>Systems built to your workflow and made to run after we leave. Brand-voice environments, RAG over your own documents, agents for the patterned work. AGIS, one such build, queries AI governance across {FACTS.agis.jurisdictions} jurisdictions and {FACTS.agis.sources} sources in plain English.</p>
+              <p>Systems built to your workflow and made to run after we leave. Brand-voice environments, <abbr title="Retrieval-Augmented Generation">RAG</abbr> (a system that answers from your own documents) over your own documents, agents for the patterned work. AGIS, one such build, queries AI governance across {FACTS.agis.jurisdictions} jurisdictions and {FACTS.agis.sources} sources in plain English.</p>
             </div>
             <div className="svc-row">
-              <h3>AI visibility, GEO, and AEO</h3>
+              <h3>AI visibility, <abbr title="Generative Engine Optimization">GEO</abbr>, and <abbr title="Answer Engine Optimization">AEO</abbr> <span className="gloss">(showing up in AI answers and search)</span></h3>
               <p>How you show up when the answer comes from a language model. Audit, schema, and structure so AI represents you accurately, before your competitors get there.</p>
             </div>
           </div>
@@ -130,6 +130,7 @@ export default function Services() {
       {/* CLOSE */}
       <section className="slate" style={{ paddingTop: 0 }}>
         <div className="wrap">
+          <h2 className="sr-only">Get in touch</h2>
           <hr className="rule" style={{ marginBottom: '36px' }} />
           <p className="lede">The fastest way to scope the right engagement is a short conversation.</p>
           <div className="cta-row" style={{ marginTop: '24px' }}>

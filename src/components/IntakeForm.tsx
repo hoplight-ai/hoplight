@@ -126,7 +126,7 @@ export default function IntakeForm() {
     return (
       <div className="success">
         <h2>Thanks for reaching out.</h2>
-        <p>We read every one of these. If there&apos;s a fit, you&apos;ll hear from us directly at {email}.</p>
+        <p>We read every one of these. If there&rsquo;s a fit, you&rsquo;ll hear from us directly at {email}.</p>
       </div>
     );
   }
@@ -135,19 +135,21 @@ export default function IntakeForm() {
   if (!branch) {
     return (
       <div className="formwrap">
-        <p style={{ color: 'var(--ink-soft)', fontSize: '1.1rem', marginBottom: '20px' }}>
-          Are you here to bring Hoplight into your organization, or to work with Hoplight?
-        </p>
-        <div className="gate" role="group" aria-label="What brings you here">
-          <button type="button" className="gate-btn" onClick={() => setBranch('client')}>
-            <span className="gt">Hire Hoplight</span>
-            <span className="gd">Bring AI strategy, governance, or a build into your organization.</span>
-          </button>
-          <button type="button" className="gate-btn" onClick={() => setBranch('talent')}>
-            <span className="gt">Work with Hoplight</span>
-            <span className="gd">Join the bench as a trainer, facilitator, or builder.</span>
-          </button>
-        </div>
+        <fieldset>
+          <legend style={{ color: 'var(--ink-soft)', fontSize: '1.1rem', marginBottom: '20px' }}>
+            Are you here to bring Hoplight into your organization, or to work with Hoplight?
+          </legend>
+          <div className="gate">
+            <button type="button" className="gate-btn" onClick={() => setBranch('client')}>
+              <span className="gt">Hire Hoplight</span>
+              <span className="gd">Bring AI strategy, governance, or a build into your organization.</span>
+            </button>
+            <button type="button" className="gate-btn" onClick={() => setBranch('talent')}>
+              <span className="gt">Work with Hoplight</span>
+              <span className="gd">Join the bench as a trainer, facilitator, or builder.</span>
+            </button>
+          </div>
+        </fieldset>
       </div>
     );
   }
@@ -159,9 +161,9 @@ export default function IntakeForm() {
         <button type="button" className="form-back" onClick={() => setBranch(null)}>
           &larr; Change answer
         </button>
-        <h2 style={{ marginTop: '8px', marginBottom: '16px' }}>Let&apos;s find a time.</h2>
+        <h2 style={{ marginTop: '8px', marginBottom: '16px' }}>Let&rsquo;s find a time.</h2>
         <p style={{ color: 'var(--ink-soft)', fontSize: '1.05rem', marginBottom: '32px' }}>
-          The fastest way to see whether Hoplight is a fit. Bring the thing your team hates doing — that&apos;s where we start.
+          The fastest way to see whether Hoplight is a fit. Bring the thing your team hates doing — that&rsquo;s where we start.
         </p>
         <div className="cta-row">
           <a className="btn btn-primary" href={CALENDLY} target="_blank" rel="noopener noreferrer">
@@ -181,7 +183,7 @@ export default function IntakeForm() {
       </button>
 
       <p style={{ color: 'var(--ink-soft)', fontSize: '1.05rem', marginBottom: '28px' }}>
-        Working with Hoplight. Show us what you can do, not just what you&apos;d rate yourself.
+        Working with Hoplight. Show us what you can do, not just how you&rsquo;d rate yourself.
       </p>
 
       <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
@@ -224,9 +226,9 @@ export default function IntakeForm() {
       </div>
 
       {/* Fit */}
-      <div className="field">
-        <span className="label" style={{ display: 'block', marginBottom: '10px', textTransform: 'none', letterSpacing: '0', fontFamily: 'var(--font-body)', fontSize: '0.95rem', fontWeight: 500, color: 'var(--ink)' }}>Which fits you? Select all that apply.{REQUIRED_MARK}</span>
-        <div id="fit-group" tabIndex={-1} className="checks" role="group" aria-label="Which fits you" aria-required="true" aria-describedby="fit-err">
+      <fieldset className="field">
+        <legend className="label" style={{ display: 'block', marginBottom: '10px', textTransform: 'none', letterSpacing: '0', fontFamily: 'var(--font-body)', fontSize: '0.95rem', fontWeight: 500, color: 'var(--ink)' }}>Which fits you? Select all that apply.{REQUIRED_MARK}</legend>
+        <div id="fit-group" tabIndex={-1} className="checks" aria-required="true" aria-describedby="fit-err">
           {FIT.map((f) => (
             <label key={f} className="check">
               <input type="checkbox" checked={fit.includes(f)} onChange={() => toggleFit(f)} />
@@ -241,7 +243,7 @@ export default function IntakeForm() {
             <input id="fitOther" type="text" value={fitOther} onChange={(e) => setFitOther(e.target.value)} />
           </div>
         )}
-      </div>
+      </fieldset>
 
       <div className="field">
         <label htmlFor="tWhy">Why this work, and why values-aligned?</label>
@@ -250,7 +252,7 @@ export default function IntakeForm() {
 
       {isTrainer && (
         <div className="field">
-          <label htmlFor="tTeach">What do you teach now, and to whom? <span className="hint">(it doesn&apos;t have to be AI-related)</span></label>
+          <label htmlFor="tTeach">What do you teach now, and to whom? <span className="hint">(it doesn&rsquo;t have to be AI-related)</span></label>
           <textarea id="tTeach" value={tTeach} onChange={(e) => setTTeach(e.target.value)} />
         </div>
       )}
@@ -263,16 +265,16 @@ export default function IntakeForm() {
 
       {(isBuilder || isTrainer) && (
         <div className="field">
-          <span className="label" style={{ display: 'block', marginBottom: '10px', textTransform: 'none', letterSpacing: '0', fontFamily: 'var(--font-body)', fontSize: '0.95rem', fontWeight: 500, color: 'var(--ink)' }}>Show us, don&apos;t tell us.</span>
+          <span className="label" style={{ display: 'block', marginBottom: '10px', textTransform: 'none', letterSpacing: '0', fontFamily: 'var(--font-body)', fontSize: '0.95rem', fontWeight: 500, color: 'var(--ink)' }}>Show us, don&rsquo;t tell us.</span>
           {isBuilder && (
             <div className="field">
-              <label htmlFor="tSkillB">Link the most capable thing you&apos;ve built with AI, and name the stack.</label>
+              <label htmlFor="tSkillB">Link the most capable thing you&rsquo;ve built with AI, and name the stack.</label>
               <textarea id="tSkillB" value={tSkillBuilder} onChange={(e) => setTSkillBuilder(e.target.value)} />
             </div>
           )}
           {isTrainer && (
             <div className="field">
-              <label htmlFor="tSkillT">Describe a session you&apos;ve run and what people could do afterward that they couldn&apos;t before.</label>
+              <label htmlFor="tSkillT">Describe a session you&rsquo;ve run and what people could do afterward that they couldn&rsquo;t before.</label>
               <textarea id="tSkillT" value={tSkillTrainer} onChange={(e) => setTSkillTrainer(e.target.value)} />
             </div>
           )}

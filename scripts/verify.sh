@@ -70,6 +70,49 @@ for term in "Change Agent" "Governed, not just powerful" "Built on tradition" "s
   fi
 done
 
+echo "== Tier-two structural fixes =="
+# Typographer #2, 2026-09-16: .src-line rendered as a sibling of .problem-fig, so the
+# ".problem-fig .src-line" descendant selector in globals.css never matched it. Confirms the
+# src-line span now lives inside the same .problem-fig wrapper as .pct, not after it closes.
+node -e '
+  const fs = require("fs");
+  const src = fs.readFileSync(process.argv[1], "utf8");
+  const figOpen = src.indexOf("<div className=\"problem-fig\">");
+  const srcLine = src.indexOf("<span className=\"src-line\">");
+  const figClose = src.indexOf("</div>", figOpen);
+  if (figOpen === -1 || srcLine === -1 || figClose === -1 || !(figOpen < srcLine && srcLine < figClose)) {
+    console.log("FAIL: homepage .src-line is not nested inside .problem-fig (citation selector will not match)");
+    process.exit(1);
+  }
+  console.log("PASS: homepage .src-line is a descendant of .problem-fig");
+' "$SRC/app/(main)/page.tsx" || fail=1
+
+# Standards Zealot #1, 2026-09-16: the primary nav was <Link> siblings with no list semantics.
+node -e '
+  const fs = require("fs");
+  const src = fs.readFileSync(process.argv[1], "utf8");
+  const navOpen = src.indexOf("<nav id=\"primary-nav\"");
+  const navClose = src.indexOf("</nav>", navOpen);
+  const ul = src.indexOf("<ul>", navOpen);
+  if (navOpen === -1 || navClose === -1 || ul === -1 || !(navOpen < ul && ul < navClose)) {
+    console.log("FAIL: primary nav has no <ul> (Standards Zealot #1)");
+    process.exit(1);
+  }
+  console.log("PASS: primary nav wraps its links in a <ul>");
+' "$SRC/components/Nav.tsx" || fail=1
+
+# Pixel Cop crime 1, 2026-09-16: ".nav { padding: 12px 0 }" is a shorthand that overwrote .wrap's
+# horizontal gutter on the same element, so the header logo sat flush left instead of aligned with
+# the hero text below it. (The src-line/.problem-fig nesting and the nav <ul> checks live in
+# check-preview-metadata.mjs, where multi-line JSX structure is easier to assert reliably than in
+# this grep's single-line matching.)
+if grep -qE '^\.nav \{[^}]*padding:\s*[0-9]' "$SRC/app/globals.css"; then
+  echo "FAIL: .nav still sets a padding shorthand (erases the .wrap gutter it shares the element with)"
+  fail=1
+else
+  echo "PASS: .nav does not use a padding shorthand"
+fi
+
 if [ "$fail" -eq 0 ]; then
   echo "ALL CHECKS PASSED"
 else
