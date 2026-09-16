@@ -20,11 +20,11 @@ export const FACTS = {
   agis: { jurisdictions: '2,100+', sources: '31,900+' },
   company: {
     systems: '130+',
-    roas: '4x',
+    roas: '4×',
     adSpend: '$1M+',
     pilotFailure: '95%', // MIT: enterprise AI pilots with zero return
     compliance: 'zero compliance incidents across $1M+ in regulated-industry ad spend',
   },
   map: { from: '365', to: '226' },
-  founder: 'leads AI strategy for one of North America\'s largest unions',
+  founder: 'leads AI strategy for one of North America’s largest unions',
 } as const;

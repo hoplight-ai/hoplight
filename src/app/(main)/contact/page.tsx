@@ -6,9 +6,9 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata: Metadata = pageMetadata({
   title: 'Contact',
   description:
-    'Bring the thing your team hates doing. A short intake is the fastest way to see whether Hoplight is a fit. No deck required.',
+    'Bring the thing your team hates doing. A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.',
   path: '/contact',
-  ogDescription: 'A short intake is the fastest way to see whether Hoplight is a fit.',
+  ogDescription: 'A short conversation is the fastest way to see whether Hoplight is a fit.',
 });
 
 export default function Contact() {
@@ -18,7 +18,11 @@ export default function Contact() {
         <div className="wrap">
           <span className="label">Contact</span>
           <h1>Bring the thing your team hates doing. We&rsquo;ll start there.</h1>
-          <p>A short intake is the fastest way to see whether Hoplight is a fit. No deck required.</p>
+          {/* UX review, 2026-09-16: this said "a short intake," but the Hire branch (the
+              business-critical one) skips the form entirely and goes straight to booking a
+              30-minute call; only the Work-with-us branch has an intake form. "Conversation"
+              covers both paths honestly. */}
+          <p>A short conversation is the fastest way to see whether Hoplight is a fit. No deck required.</p>
         </div>
       </div>
 

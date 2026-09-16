@@ -48,6 +48,36 @@ export default function Rayli() {
             publish to, plus the map nobody else has &mdash; who heard what, when, across which
             channels, by audience.
           </p>
+          <div className="rayli-shots">
+            <figure>
+              <div className="rayli-shot">
+                <img
+                  src="/screenshots/rayli-composer.webp"
+                  alt="The Rayli composer screen: audience, destination, and frame selectors above a draft in progress."
+                  width={1200}
+                  height={750}
+                  loading="eager"
+                />
+              </div>
+              <figcaption>
+                The composer: pick the audience, the destination and the frame, then write.
+              </figcaption>
+            </figure>
+            <figure>
+              <div className="rayli-shot">
+                <img
+                  src="/screenshots/rayli-reading.webp"
+                  alt="The Rayli reading screen: a finished draft next to the provenance and source checks that ran against it."
+                  width={1200}
+                  height={750}
+                  loading="lazy"
+                />
+              </div>
+              <figcaption>
+                The reading screen: the draft, and the checks that ran against it.
+              </figcaption>
+            </figure>
+          </div>
         </div>
       </div>
 
@@ -57,8 +87,9 @@ export default function Rayli() {
           <div className="section-head">
             <span className="label">The question</span>
             <h2>
-              The DNC autopsy ran 110 pages and not one page could tell you what a given voter
-              bucket actually heard across platforms in a given week.
+              The <Link href="/portfolio/dnc-autopsy-taken-apart.html">DNC autopsy</Link> ran 110
+              pages and not one page could tell you what a given voter bucket actually heard
+              across platforms in a given week.
             </h2>
             <p>
               Rayli is the tool that makes that question answerable inside your own organization.
@@ -71,17 +102,17 @@ export default function Rayli() {
       <section className="slate">
         <div className="wrap">
           <div className="statement">
-            <h2>What people need are not more toolkits and communications. They need more tools.</h2>
+            <h2>What people need is not more toolkits and communications. They need more tools.</h2>
           </div>
-          <div className="pull">
+          <blockquote className="pull">
             <p>
               Right now people are being handed bicycle parts. They&rsquo;re being handed tires and
               a chain and gears and a couple of brakes and a kickstand and being told that now they
               can go ride a bike to get to work faster instead of walking. What people need is to be
               handed a bike. And I have built the bike.
             </p>
-            <span className="attr">Whit Pendergast, founder</span>
-          </div>
+            <footer><cite className="attr">Whit Pendergast, founder</cite></footer>
+          </blockquote>
         </div>
       </section>
 
@@ -137,14 +168,15 @@ export default function Rayli() {
               material the whole way through.
             </p>
           </div>
-          <div className="pull">
+          <blockquote className="pull">
             {/* [stitch] canon reads "They help you write it faster"; "They" has no referent
                 outside the pitch deck, so the subject is named. One phrase, no claim added. */}
             <p>
               Other tools help you write it faster; Rayli helps you say the thing that actually
               moves the person you&rsquo;re aiming at.
             </p>
-          </div>
+            <footer><cite className="attr">Whit Pendergast, founder</cite></footer>
+          </blockquote>
         </div>
       </section>
 
@@ -170,15 +202,16 @@ export default function Rayli() {
         </div>
       </section>
 
-      {/* CLOSE — verbatim, his voice */}
+      {/* CLOSE */}
+      {/* UX review, 2026-09-16: the bicycle-parts quote above is the page's pull-quote; this
+          section's F1-engine line duplicated the same metaphor immediately before the CTA, so it
+          is cut. [stitch] neutral, factual headline in its place — not his voice, not a new claim,
+          same pattern as the other [stitch] joins on this page. */}
       <section className="close-cta">
         <div className="wrap">
-          <h2>We have an F1 between our ears and we shouldn&rsquo;t be using it to commute.</h2>
-          {/* [stitch] one sentence of connective tissue to turn a stump line into a page ending.
-              Factual and in the site's neutral register, not written in his voice. */}
+          <h2>Ready to see whether Rayli fits your organization?</h2>
           <p className="cl-sub">
-            If that sounds like your organization, the fastest way to find out whether Rayli fits is
-            a short conversation.
+            The fastest way to find out is a short conversation.
           </p>
           <div className="btn-row">
             <Link className="btn btn-gold" href="/contact">
