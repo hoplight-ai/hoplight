@@ -243,7 +243,7 @@ export default function Home() {
               <div className="wcard-body">
                 <span className="wc-tag">Persuasion</span>
                 <h3>The Psychographic Message Engine</h3>
-                <p>Validated in a {FACTS.rct.n}-person {FACTS.rct.method}, {FACTS.rct.matchRate} matched to the voter file: up to {FACTS.rct.liftVsBaseline} points over a no-message baseline. Persuasion you can audit, control, and improve.</p>
+                <p>Validated in a {FACTS.rct.n}-person {FACTS.rct.method}, {FACTS.rct.matchRate} matched to the voter file: up to {FACTS.rct.liftVsPlacebo} points over a placebo group who read an unrelated message. Persuasion you can audit, control, and improve.</p>
                 <span className="wc-go">View &rarr;</span>
               </div>
             </Link>

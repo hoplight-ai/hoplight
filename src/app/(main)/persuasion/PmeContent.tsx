@@ -557,27 +557,27 @@ const pmeHTML = `
         <span class="study-chip">The Security Officer Messaging Study · n=${FACTS.rct.n} · ${FACTS.rct.matchRate} voter-file match · ${FACTS.rct.date}</span>
       </div>
       <blockquote class="s-quote-wrap">
-        <p class="s-quote serif">Persuasion messaging from progressive human communicators underperformed the placebo message about Morton Salt.</p>
+        <p class="s-quote serif">The staff-written progressive frame was the only message that lost union support, and it lost the most ground with the people who decide elections.</p>
         <footer><cite>The Security Officer Messaging Study</cite></footer>
       </blockquote>
-      <p class="s-sub">Issue tested: “Many security officers are poorly paid and resourced.”</p>
+      <p class="s-sub">Question shown: “Do you support or oppose the right of security officers to join a labor union?”</p>
     </div>
 
     <div class="stat-grid g3 reveal">
       <div class="stat-card">
+        <span class="group-name">Everyone</span>
+        <div class="stat-num red">65 to 60</div>
+        <p class="cap">The staff-written frame was the only message that lost overall union support. Both AI frames held, at 65 and 64.</p>
+      </div>
+      <div class="stat-card">
         <span class="group-name">Under 35</span>
-        <div class="stat-num red">-5 pts</div>
-        <p class="cap">The progressive frame moved them 5 points below placebo.</p>
+        <div class="stat-num red">60 to 51</div>
+        <p class="cap">The staff-written frame moved them 9 points below the placebo group.</p>
       </div>
       <div class="stat-card">
-        <span class="group-name">Black Voters</span>
-        <div class="stat-num red">-4 pts</div>
-        <p class="cap">The progressive frame moved them 4 points below placebo.</p>
-      </div>
-      <div class="stat-card">
-        <span class="group-name">Religious Conservatives</span>
-        <div class="stat-num red">-2 pts</div>
-        <p class="cap serif">“It’s better for them to hear about Morton Salt than to hear from us.”</p>
+        <span class="group-name">Did not vote in 2024</span>
+        <div class="stat-num red">46 to 36</div>
+        <p class="cap">The staff-written frame moved them 10 points below the placebo group. The Personal Safety frame moved them to 57.</p>
       </div>
     </div>
 
@@ -592,12 +592,12 @@ const pmeHTML = `
 
     <div class="gold-callout reveal">
       <div class="num-block">
-        <div class="num">+11–26</div>
-        <div class="num-label">Points Net Lift</div>
+        <div class="num">+10–23</div>
+        <div class="num-label">Points on Officer Pay</div>
       </div>
       <div class="txt">
-        <p>across all conservative segments</p>
-        <p class="sub">when using AI-generated psychographic messages</p>
+        <p>over the staff-written frame, across the conservative values segments</p>
+        <p class="sub">With liberals and Democrats, the AI-generated frames performed about the same as the staff-written frame.</p>
       </div>
     </div>
 
@@ -614,36 +614,36 @@ const pmeHTML = `
           <div class="bar-cluster">
             <div class="bar-zero-region">
               <div class="bar-up-region">
-                <div class="bar-value green" id="upval-1" style="opacity:0">+9</div>
-                <div class="bar up" id="up-1" data-value="9"></div>
+                <div class="bar-value green" id="upval-1" style="opacity:0">+5</div>
+                <div class="bar up" id="up-1" data-value="5"></div>
               </div>
               <div class="bar-down-region">
-                <div class="bar down" id="down-1" data-value="5"></div>
-                <div class="bar-value red" id="downval-1">-5</div>
+                <div class="bar down" id="down-1" data-value="9"></div>
+                <div class="bar-value red" id="downval-1">-9</div>
               </div>
             </div>
           </div>
           <div class="bar-cluster">
             <div class="bar-zero-region">
               <div class="bar-up-region">
-                <div class="bar-value green" id="upval-2" style="opacity:0">+5</div>
-                <div class="bar up" id="up-2" data-value="5"></div>
+                <div class="bar-value green" id="upval-2" style="opacity:0">+11</div>
+                <div class="bar up" id="up-2" data-value="11"></div>
               </div>
               <div class="bar-down-region">
-                <div class="bar down" id="down-2" data-value="4"></div>
-                <div class="bar-value red" id="downval-2">-4</div>
+                <div class="bar down" id="down-2" data-value="10"></div>
+                <div class="bar-value red" id="downval-2">-10</div>
               </div>
             </div>
           </div>
           <div class="bar-cluster">
             <div class="bar-zero-region">
               <div class="bar-up-region">
-                <div class="bar-value green" id="upval-3" style="opacity:0">+21</div>
-                <div class="bar up" id="up-3" data-value="21"></div>
+                <div class="bar-value green" id="upval-3" style="opacity:0">+7</div>
+                <div class="bar up" id="up-3" data-value="7"></div>
               </div>
               <div class="bar-down-region">
-                <div class="bar down" id="down-3" data-value="2"></div>
-                <div class="bar-value red" id="downval-3">-2</div>
+                <div class="bar down" id="down-3" data-value="3"></div>
+                <div class="bar-value red" id="downval-3">-3</div>
               </div>
             </div>
           </div>
@@ -651,11 +651,11 @@ const pmeHTML = `
 
         <div class="bar-group-labels">
           <div class="bar-group-label">Under 35</div>
-          <div class="bar-group-label">Black Voters</div>
-          <div class="bar-group-label">Religious Conservatives</div>
+          <div class="bar-group-label">Did not vote in 2024</div>
+          <div class="bar-group-label">Working class (&lt;$50K)</div>
         </div>
 
-        <p class="chart-legend">Green = psychographic message · Red = human-generated persuasion message · Baseline = the Morton Salt placebo</p>
+        <p class="chart-legend">Union support. Green = best AI-generated psychographic frame · Red = staff-written progressive frame · Baseline = the placebo group who read an unrelated message. Significance as flagged by the vendor: 90% confidence versus the placebo. Respondents were general-population adults; the trial measured attitudes, not votes.</p>
       </div>
     </div>
 
@@ -663,14 +663,17 @@ const pmeHTML = `
       <div class="stat-card">
         <span class="group-name">2024 Non-Voters</span>
         <div class="stat-num green">+22 pts</div>
+        <p class="cap">Officer pay, 44 to 66, Personal Safety frame against the placebo group.</p>
       </div>
       <div class="stat-card">
-        <span class="group-name">Latino Voters</span>
+        <span class="group-name">Latino Respondents</span>
         <div class="stat-num green">+22 pts</div>
+        <p class="cap">Officer pay, 54 to 76, Personal Safety frame against the placebo group.</p>
       </div>
       <div class="stat-card">
-        <span class="group-name">Working Class (&lt;$50K)</span>
+        <span class="group-name">Lowest-Income Households</span>
         <div class="stat-num green">+19 pts</div>
+        <p class="cap">Officer pay, 54 to 73, Personal Safety frame against the placebo group.</p>
       </div>
     </div>
   </div>

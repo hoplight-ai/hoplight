@@ -12,7 +12,15 @@ export const FACTS = {
     // The match rate is a good fact. It is just a different sentence, so it lives in its own field.
     method: 'randomized controlled trial',
     matchRate: '60.9%', // share of the sample matched to a voter file — sample quality, NOT design
-    liftVsBaseline: '26', // points over a no-message baseline — the ONLY lift track for public copy
+    // CORRECTED 2026-09-19 under Whit's ruling. This said "points over a no-message baseline".
+    // The control group was NOT a no-message group: it read a placebo message (a paragraph about
+    // Morton Salt). Public copy says "a placebo group who read an unrelated message", or
+    // "placebo control" where space is tight. Source: the vendor's results report, p2 and p4.
+    liftVsPlacebo: '26', // officer pay, Enterprising Conservatives: placebo 56 to 82 (report p12)
+    // AI frames minus the staff-written Care Frame, officer pay, across the three conservative
+    // values segments (report p12). Descriptive frame-to-frame gaps: the vendor only tests each
+    // message against the placebo, so these are never called statistically significant.
+    liftVsStaffFrame: '10 to 23',
   },
   // REMOVED 2026-08-30 (lane site1). This held the measurement-tradition and subscale counts, which
   // the site's own wording rule in scripts/verify.sh forbids putting in public copy. Nothing in src/

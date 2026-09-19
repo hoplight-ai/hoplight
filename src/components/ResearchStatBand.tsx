@@ -45,23 +45,27 @@ export default function ResearchStatBand() {
     <section className="slate">
       <div className="wrap">
         <div className="rstat-grid">
+          {/* CORRECTED 2026-09-19 under Whit's ruling. Card 1 carried "26 pts net lift with
+              religious conservatives", which was the wrong segment: the 26 is enterprising
+              conservatives against the placebo. Card 2 carried "11-26", which was never the
+              frame-to-frame range. Card 3 carried "Base held / no erosion on the left", which
+              the union-support numbers do not support. */}
           <div className="rstat-card">
             <div className="rstat-num">
-              <CountUp to={26} />
-              <span className="rstat-unit"> pts</span>
+              55 to <CountUp to={71} />
             </div>
-            <p className="rstat-label">net lift with religious conservatives</p>
+            <p className="rstat-label">union support among religious conservatives, placebo to Personal Safety frame</p>
           </div>
           <div className="rstat-card">
             <div className="rstat-num">
-              11&ndash;<CountUp to={26} />
+              10&ndash;<CountUp to={23} />
               <span className="rstat-unit"> pts</span>
             </div>
-            <p className="rstat-label">net across conservative segments</p>
+            <p className="rstat-label">over the staff-written frame on officer pay, conservative segments</p>
           </div>
           <div className="rstat-card">
-            <div className="rstat-num rstat-text-stat">Base held</div>
-            <p className="rstat-label">no erosion on the left</p>
+            <div className="rstat-num rstat-text-stat">About even</div>
+            <p className="rstat-label">AI frames against the staff-written frame with liberals and Democrats</p>
           </div>
           <div className="rstat-card">
             <div className="rstat-num">

@@ -2,7 +2,7 @@
   "id": "/pme-lever",
   "name": "The Frame Is the Lever \u2014 Hoplight",
   "short_name": "The Lever",
-  "description": "Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a 3,000-person voter-file-matched RCT.",
+  "description": "Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a 3,006-person randomized controlled trial.",
   "start_url": "/pme-lever",
   "scope": "/",
   "display": "standalone",

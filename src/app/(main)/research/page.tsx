@@ -5,10 +5,12 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata: Metadata = pageMetadata({
   // The root layout's title template appends " — Hoplight"; a suffix here rendered the brand twice.
   title: 'Research: Psychographic Message Framing RCT',
-  // Trimmed from 176 to 143 characters (SEO review, 2026-09-16); keeps both load-bearing numbers,
-  // "11 to 26 points net" and "3,006-person", verbatim.
+  // CORRECTED 2026-09-19 under Whit's ruling. The old line said "beat the standard progressive
+  // baseline by 11 to 26 points net". The comparison meant was the staff-written frame, not the
+  // placebo, and the range was wrong. True range, officer pay, conservative values segments:
+  // 10 to 23 points (vendor report p12).
   description:
-    'AI-generated psychographic frames beat the standard progressive baseline by 11 to 26 points net on conservative segments in a 3,006-person RCT.',
+    'AI-generated frames outperformed the staff-written progressive frame by 10 to 23 points on officer pay across conservative segments. A 3,006-person randomized trial.',
   path: '/research',
   // ogTitle omitted: previously hardcoded with a " | Hoplight" pipe separator here while every
   // other route used an em dash (expert-social-meta.md #6). The helper now derives the em-dash
@@ -25,11 +27,11 @@ export const metadata: Metadata = pageMetadata({
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ScholarlyArticle',
-  name: 'Psychographic Message Framing Outperforms Progressive Baseline on Conservative Segments',
+  name: 'Psychographic Message Framing Outperforms the Staff-Written Progressive Frame on Conservative Segments',
   headline:
-    'Psychographic Message Framing Outperforms Progressive Baseline on Conservative Segments',
+    'Psychographic Message Framing Outperforms the Staff-Written Progressive Frame on Conservative Segments',
   description:
-    'A 3,006-person randomized controlled trial showing AI-generated psychographic message frames beat the standard progressive messaging approach by 11 to 26 points net on conservative psychographic segments.',
+    'A 3,006-person randomized controlled trial in which AI-generated psychographic message frames outperformed the staff-written progressive frame by 10 to 23 points on officer pay across the conservative values segments.',
   author: {
     '@type': 'Person',
     name: 'Whit Pendergast',
@@ -72,8 +74,8 @@ export default function Research() {
         <div className="wrap">
           <span className="label">Hoplight Research</span>
           <h1>
-            Psychographic Message Framing Outperforms Progressive Baseline on Conservative
-            Segments
+            Psychographic Message Framing Outperforms the Staff-Written Progressive Frame on
+            Conservative Segments
           </h1>
           <p>Evidence from a 3,006-person randomized controlled trial, <time dateTime="2025-08">August 2025</time>.</p>
           <p className="rct-author">
@@ -99,14 +101,14 @@ export default function Research() {
         <div className="wrap">
           <h2 className="rct-section-h2">Summary</h2>
           <p className="rct-body">
-            In August 2025, Hoplight tested AI-generated psychographic message frames against
-            the standard progressive messaging approach in a 3,006-person randomized controlled
-            trial. The AI-generated frames beat the human-written progressive frame by 11 to 26
-            points net on every conservative psychographic segment. The progressive base held. On
-            populations Democrats lost in 2024, the standard progressive frame produced
-            statistically significant backlash, driving union support down rather than up.
-            Psychographic cuts of the data produced large, patterned differences across frames.
-            Demographic cuts of the same data produced small, noisy ones.
+            In August 2025, Hoplight tested two AI-generated psychographic message frames against
+            a staff-written progressive frame and a placebo group who read an unrelated message,
+            in a 3,006-person randomized controlled trial. On the officer-pay question, the
+            AI-generated frames outperformed the staff-written frame by 10 to 23 points across the
+            conservative values segments. With liberals and Democrats, the AI-generated frames
+            performed about the same as the staff-written frame. On populations Democrats lost in
+            2024, the staff-written frame drove union support down rather than up. Values segments
+            separated the frames more cleanly than party or race did.
           </p>
         </div>
       </section>
@@ -144,7 +146,7 @@ export default function Research() {
             <dt>Design</dt>
             <dd>
               Randomized controlled trial with four conditions: three message treatments and a
-              neutral placebo.
+              placebo group who read an unrelated message about a salt company.
             </dd>
             <dt>Sample</dt>
             <dd>
@@ -164,13 +166,20 @@ export default function Research() {
               using familiar progressive messaging: community caregiving, racial solidarity,
               collective bargaining. (2) Two AI-generated psychographic alternatives, designed to
               resonate with listeners whose moral architecture prioritizes safety, loyalty,
-              authority, and earned respect. (3) A neutral placebo as the control baseline.
+              authority, and earned respect. (3) A placebo group who read an unrelated message.
             </dd>
             <dt>Outcomes</dt>
             <dd>
               Policy agreement (&ldquo;many security officers are poorly paid and resourced&rdquo;)
               and union-support intent (support or oppose the right of security officers to join a
               labor union).
+            </dd>
+            {/* Methods note added 2026-09-19 under Whit's ruling: one short note here, rather
+                than "at the 90% threshold" appended to every sentence on the page. */}
+            <dt>Significance</dt>
+            <dd>
+              Significance as flagged by the vendor: 90% confidence versus the placebo.
+              Respondents were general-population adults; the trial measured attitudes, not votes.
             </dd>
           </dl>
         </div>
@@ -180,15 +189,17 @@ export default function Research() {
       <section style={{ borderTop: '1px solid var(--line)' }}>
         <div className="wrap">
           <h3 className="rct-finding-h3">
-            AI-generated frames beat the progressive baseline by 11 to 26 points on conservative
-            segments
+            AI-generated frames outperformed the staff-written frame by 10 to 23 points on
+            officer pay across conservative segments
           </h3>
           <p className="rct-body">
-            On the policy-agreement question, the AI-generated psychographic frames outperformed
-            the human-written progressive frame by 11 to 26 points net across every conservative
-            psychographic segment. The largest gap: 26 points net with religious conservatives.
-            The standard progressive frame went negative against the placebo with religious
-            conservatives, meaning it performed worse than showing people a salt advertisement.
+            On the officer-pay question, the AI-generated psychographic frames outperformed the
+            staff-written progressive frame by 10 to 23 points across the three conservative
+            values segments. With religious conservatives the staff-written frame reached 56%
+            agreement and the AI frames reached 78% and 79%. With enterprising conservatives, the
+            Personal Safety frame reached 82% against 56% for the placebo group, a 26-point gap
+            and the largest in the study. Overall, agreement rose from 59% in the placebo group
+            to 75% under the Personal Safety frame.
           </p>
         </div>
       </section>
@@ -196,11 +207,13 @@ export default function Research() {
       {/* FINDING 2 */}
       <section style={{ borderTop: '1px solid var(--line)' }}>
         <div className="wrap">
-          <h3 className="rct-finding-h3">The progressive base held</h3>
+          <h3 className="rct-finding-h3">The AI frames held the progressive base</h3>
           <p className="rct-body">
-            Both AI-generated frames maintained support levels among progressive psychographic
-            segments. There was no erosion on the left. The psychographic approach did not
-            sacrifice the base to reach conservative audiences.
+            The AI-generated frames read like a departure from progressive values, because of
+            their pride and valor tone. With liberals and Democrats they performed about the same
+            as the message progressive human communicators were already using. On union support,
+            the staff-written frame was the only one to lose ground overall, from 65% to 60%,
+            while the AI frames held at 65% and 64%.
           </p>
         </div>
       </section>
@@ -209,20 +222,21 @@ export default function Research() {
       <section className="slate">
         <div className="wrap">
           <h3 className="rct-finding-h3" style={{ color: '#fff' }}>
-            Standard progressive messaging produced backlash on 2024&rsquo;s decisive populations
+            The staff-written frame produced backlash on 2024&rsquo;s decisive populations
           </h3>
           <p className="rct-backlash-intro">
-            On the union-support question, the standard progressive frame drove statistically
-            significant backlash among the populations Democrats lost in 2024:
+            On the union-support question, the staff-written progressive frame drove backlash
+            among the populations Democrats lost in 2024. The vendor flagged the first two moves
+            as significant against the placebo:
           </p>
           <div className="rct-table-wrap">
             <table className="rct-table">
-              <caption className="sr-only">Backlash by population: progressive frame vs. placebo, AI frames vs. progressive</caption>
+              <caption className="sr-only">Backlash by population: staff-written frame vs. placebo, AI frames vs. staff-written frame</caption>
               <thead>
                 <tr>
                   <th>Population</th>
-                  <th>Progressive frame vs placebo</th>
-                  <th>AI frames vs progressive</th>
+                  <th>Staff-written frame vs placebo</th>
+                  <th>AI frames vs staff-written frame</th>
                 </tr>
               </thead>
               <tbody>
@@ -236,7 +250,7 @@ export default function Research() {
                   </td>
                 </tr>
                 <tr>
-                  <td>Voters under 35</td>
+                  <td>Respondents under 35</td>
                   <td>
                     <span className="rct-neg">-9 pts (backlash)</span>
                   </td>
@@ -270,11 +284,11 @@ export default function Research() {
             Psychographic segmentation outperformed demographic segmentation as a predictor
           </h3>
           <p className="rct-body">
-            Demographic cuts of the same dataset (race, age, education, income, urbanicity,
-            party identification) produced small, noisy differences across the three message
-            frames. Psychographic cuts produced large, patterned differences. The frame is the
-            lever. Demographics are descriptive shorthand the field has been mistaking for an
-            explanation.
+            Values segments separated the frames more cleanly than party or race did. Across the
+            eight values segments the three frames moved in opposite directions, by as much as 23
+            points on officer pay. Cut the same data by party identification and the frames move
+            together. The frame is the lever. Demographics are descriptive shorthand the field has
+            been mistaking for an explanation.
           </p>
         </div>
       </section>
@@ -342,8 +356,8 @@ export default function Research() {
       {/* CITATION */}
       <div className="wrap rct-citation">
         <p>
-          Citation: Pendergast, W. (2026). <cite>Psychographic Message Framing Outperforms
-          Progressive Baseline on Conservative Segments: Evidence from a 3,006-Person
+          Citation: Pendergast, W. (2026). <cite>Psychographic Message Framing Outperforms the
+          Staff-Written Progressive Frame on Conservative Segments: Evidence from a 3,006-Person
           Randomized Controlled Trial.</cite> Hoplight Research Brief. https://hoplight.ai/research
         </p>
       </div>
