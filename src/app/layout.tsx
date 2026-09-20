@@ -18,9 +18,13 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hoplight.ai'),
+  // Separator is a hyphen, not an em dash (changed 2026-09-20, lane dispatch1). The em dash was on
+  // every <title> and every og:title on the site, which made the single most-seen string on the
+  // domain the standing exception to the brand's own tone rule: "No em dashes. Use hyphens,
+  // commas, colons, periods." src/lib/metadata.ts derives subpage og:titles and matches this.
   title: {
-    default: 'Hoplight — AI strategy for labor, advocacy, and mission-driven organizations',
-    template: '%s — Hoplight',
+    default: 'Hoplight - AI strategy for labor, advocacy, and mission-driven organizations',
+    template: '%s - Hoplight',
   },
   description:
     'Hoplight is a vertically integrated AI governance and strategy shop for unions, nonprofits, advocacy groups, and foundations.',
@@ -35,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'Hoplight',
-    title: 'Hoplight — AI strategy for labor, advocacy, and mission-driven organizations',
+    title: 'Hoplight - AI strategy for labor, advocacy, and mission-driven organizations',
     description:
       'AI strategy for labor, advocacy, and mission-driven organizations. Governance, adoption, custom builds, and message testing.',
     url: 'https://hoplight.ai',
@@ -43,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hoplight — AI strategy for labor, advocacy, and mission-driven organizations',
+    title: 'Hoplight - AI strategy for labor, advocacy, and mission-driven organizations',
     description: 'AI strategy for labor, advocacy, and mission-driven organizations.',
     images: ['/og.png'],
   },

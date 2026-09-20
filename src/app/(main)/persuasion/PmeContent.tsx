@@ -6,7 +6,7 @@ import { FACTS } from '@/lib/facts';
 const pmeCSS = `
 .pme-page {
   /* Pixel Cop review, 2026-09-16: this ran its own palette, off from the site's tokens under the
-     same names, worst on --gold-deep (same name, visibly different colour — a landmine for anyone
+     same names, worst on --gold-deep (same name, visibly different colour, a landmine for anyone
      who greps for it and trusts the label). Values below now match src/app/globals.css :root
      exactly for every token that shares a name there; --gold-light has no site equivalent and is
      unchanged. */
@@ -102,7 +102,7 @@ const pmeCSS = `
   background:#fff;border-radius:10px;padding:20px 22px;
   font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;
   font-size:1.02rem;line-height:1.4;color:var(--ink);
-  box-shadow:0 12px 32px rgba(10,22,40,.12);
+  box-shadow:0 12px 32px rgba(15,27,45,.12);
   margin-bottom:18px;
 }
 @media (min-width:640px){
@@ -127,7 +127,7 @@ const pmeCSS = `
 .pme-page .fork-card{
   background:#fff;border-radius:10px;padding:16px 22px;
   font-weight:500;font-size:.95rem;color:var(--ink);
-  box-shadow:0 8px 24px rgba(10,22,40,.1);
+  box-shadow:0 8px 24px rgba(15,27,45,.1);
   text-align:center;white-space:nowrap;
 }
 .pme-page .fork-diagram{width:100%;max-width:820px;position:relative}
@@ -206,7 +206,7 @@ const pmeCSS = `
 .pme-page .s-quote-wrap footer{text-align:center;margin-top:10px;font-size:12px;color:rgba(255,255,255,.55)}
 .pme-page .s-quote-wrap footer cite{font-style:normal}
 .pme-page .study-chip{
-  display:inline-block;margin:26px auto 0;border:1px solid rgba(232,168,56,.5);
+  display:inline-block;margin:26px auto 0;border:1px solid rgba(212,149,10,.5);
   color:var(--gold);border-radius:999px;padding:8px 20px;font-size:.82rem;font-weight:500;
 }
 .pme-page .study-chip-wrap{text-align:center}
@@ -321,7 +321,7 @@ const pmeCSS = `
 .pme-page .cards2{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
 @media (min-width:900px){ .pme-page .cards2{grid-template-columns:1fr 1fr} }
 .pme-page .card9{
-  background:var(--surface);border-radius:14px;padding:30px 26px;border:1px solid rgba(10,22,40,.08);
+  background:var(--surface);border-radius:14px;padding:30px 26px;border:1px solid rgba(15,27,45,.08);
   display:flex;flex-direction:column;height:100%;
 }
 .pme-page .card9 h3{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:0}
@@ -380,13 +380,13 @@ const pmeCSS = `
 }
 .pme-page .engine-box.gold{
   background:var(--gold);color:var(--ink);font-size:1.56rem;padding:29px 40px 22px;
-  position:relative;box-shadow:0 0 0 1px rgba(232,168,56,.4),0 0 40px 10px rgba(232,168,56,.35);
+  position:relative;box-shadow:0 0 0 1px rgba(212,149,10,.4),0 0 40px 10px rgba(212,149,10,.35);
 }
 .pme-page .engine-box.gold .engine-ticks{
   position:absolute;left:16px;right:16px;bottom:8px;display:flex;justify-content:space-between;gap:8px;
 }
 .pme-page .engine-box.gold .engine-ticks span{
-  flex:1;height:3px;background:rgba(10,22,40,.35);border-radius:2px;
+  flex:1;height:3px;background:rgba(15,27,45,.35);border-radius:2px;
 }
 .pme-page .engine-arrow svg{display:block}
 .pme-page .engine-bracket svg{display:block}
@@ -409,7 +409,7 @@ const pmeCSS = `
 .pme-page .s10-intro{max-width:56rem;font-size:1.05rem;color:var(--ink);opacity:.85;margin-bottom:8px}
 .pme-page .layers-wrap{position:relative;margin-top:48px}
 .pme-page .layers-connector{
-  position:absolute;top:40%;left:0;right:0;height:1px;background:rgba(10,22,40,.15);
+  position:absolute;top:40%;left:0;right:0;height:1px;background:rgba(15,27,45,.15);
   z-index:0;
 }
 .pme-page .layers-row{display:grid;grid-template-columns:1fr;gap:20px;position:relative;z-index:1}
@@ -417,7 +417,7 @@ const pmeCSS = `
 @media (min-width:1024px){ .pme-page .layers-row{grid-template-columns:repeat(4,1fr)} }
 .pme-page .layer-card{
   background:#fff;border-radius:14px;padding:26px 22px;position:relative;
-  box-shadow:0 4px 24px rgba(10,22,40,.06);overflow:hidden;
+  box-shadow:0 4px 24px rgba(15,27,45,.06);overflow:hidden;
 }
 .pme-page .layer-card.muted{background:#EFECE5}
 .pme-page .layer-num{
@@ -728,12 +728,12 @@ const pmeHTML = `
 
         <!-- deep canvassing: top-left -->
         <circle cx="100" cy="70" r="7" fill="var(--stone)"/>
-        <rect x="108" y="45" width="120" height="26" rx="13" fill="#fff" stroke="rgba(10,22,40,.1)"/>
+        <rect x="108" y="45" width="120" height="26" rx="13" fill="#fff" stroke="rgba(15,27,45,.1)"/>
         <text x="168" y="62" font-family="Outfit, sans-serif" font-size="12" fill="var(--ink)" font-weight="600" text-anchor="middle">Deep canvassing</text>
 
         <!-- off-the-shelf LLMs: bottom-right -->
         <circle cx="390" cy="235" r="7" fill="var(--stone)"/>
-        <rect x="258" y="240" width="150" height="26" rx="13" fill="#fff" stroke="rgba(10,22,40,.1)"/>
+        <rect x="258" y="240" width="150" height="26" rx="13" fill="#fff" stroke="rgba(15,27,45,.1)"/>
         <text x="333" y="257" font-family="Outfit, sans-serif" font-size="12" fill="var(--ink)" font-weight="600" text-anchor="middle">Off-the-shelf LLMs</text>
 
         <!-- the engine: top-right, gold glow -->

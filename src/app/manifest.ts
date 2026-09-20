@@ -28,7 +28,7 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     id: "/",
-    name: "Hoplight — AI strategy for labor, advocacy, and mission-driven organizations",
+    name: "Hoplight - AI strategy for labor, advocacy, and mission-driven organizations",
     short_name: "Hoplight",
     description:
       "AI strategy for labor, advocacy, and mission-driven organizations. Governance, adoption, custom builds, and message testing.",

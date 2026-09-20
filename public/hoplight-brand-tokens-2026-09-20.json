@@ -1,0 +1,267 @@
+{
+  "name": "Hoplight brand tokens",
+  "version": "2026-09-20",
+  "source": "hoplight-site/src/app/globals.css :root, parsed, never transcribed",
+  "authority": "This file is generated from the production stylesheet on every build and scripts/verify.sh fails if the served copy has drifted from it. It supersedes any hand-kept extraction, including the tokens section of the Hoplight brand file in the design reference, which was extracted on 2026-06-02 and still carries the palette retired by commit a0fe4b2.",
+  "retired": {
+    "note": "Present only so a session that finds these values in an old file knows they are dead, in either notation. The rgba forms are how this pair survived a fix aimed straight at it.",
+    "ink": "#0A1628",
+    "gold": "#E8A838",
+    "gold-deep": "#B8851F",
+    "ink-rgba": "rgba(10, 22, 40, a)",
+    "gold-rgba": "rgba(232, 168, 56, a)"
+  },
+  "color": {
+    "ink": {
+      "value": "#0F1B2D",
+      "var": "--ink",
+      "role": "Primary. Headlines, body text, dark section grounds."
+    },
+    "ink-mid": {
+      "value": "#162640",
+      "var": "--ink-mid",
+      "role": "Dark section step, one level up from ink."
+    },
+    "ink-soft": {
+      "value": "#2A3F5F",
+      "var": "--ink-soft",
+      "role": "Muted ink for supporting prose on light."
+    },
+    "gold": {
+      "value": "#D4950A",
+      "var": "--gold",
+      "role": "Accent. Rules, left borders, the one filled button, link underlines. Never dominant."
+    },
+    "gold-hot": {
+      "value": "#E8A820",
+      "var": "--gold-hot",
+      "role": "Brighter gold, for large figures on dark grounds only."
+    },
+    "gold-deep": {
+      "value": "#845810",
+      "var": "--gold-deep",
+      "role": "The gold for small text on light. 5.6:1 on --surface; --gold itself is 2.4:1 and fails."
+    },
+    "gold-bg": {
+      "value": "#F5E6C4",
+      "var": "--gold-bg",
+      "role": "Gold tint for a filled callout ground."
+    },
+    "gold-bg-light": {
+      "value": "#FBF4E4",
+      "var": "--gold-bg-light",
+      "role": "Lighter gold tint, table and row wash."
+    },
+    "surface": {
+      "value": "#F5F5F0",
+      "var": "--surface",
+      "role": "Default page ground. Warm off-white."
+    },
+    "surface-card": {
+      "value": "#EEEEE8",
+      "var": "--surface-card",
+      "role": "Card ground on --surface."
+    },
+    "white": {
+      "value": "#FFFFFF",
+      "var": "--white",
+      "role": "True white, for cards that must separate from --surface."
+    },
+    "stone": {
+      "value": "#70706A",
+      "var": "--stone",
+      "role": "Secondary text. Captions, metadata, timestamps."
+    },
+    "stone-deep": {
+      "value": "#555550",
+      "var": "--stone-deep",
+      "role": "Secondary text that has to pass AA on --surface."
+    },
+    "mute": {
+      "value": "#8C8475",
+      "var": "--mute",
+      "role": "Warm grey for de-emphasised chrome."
+    },
+    "danger": {
+      "value": "#9c3327",
+      "var": "--danger",
+      "role": "Error and destructive state. Semantic only."
+    }
+  },
+  "line": {
+    "note": "Hairlines. Black alphas on light grounds, white alphas on dark ones.",
+    "light": {
+      "value": "rgba(0,0,0,0.10)",
+      "var": "--line"
+    },
+    "light-soft": {
+      "value": "rgba(0,0,0,0.06)",
+      "var": "--line-soft"
+    },
+    "light-fill": {
+      "value": "rgba(0,0,0,0.05)",
+      "var": "--ink-05"
+    },
+    "dark": {
+      "value": "rgba(255,255,255,0.10)",
+      "var": "--line-dark"
+    },
+    "dark-strong": {
+      "value": "rgba(255,255,255,0.18)",
+      "var": "--line-dark-strong"
+    }
+  },
+  "type": {
+    "source": "globals.css :root and its element rules. Not the brand file, which names a font this repo does not load.",
+    "roles": {
+      "body": {
+        "role": "Everything that is read. One family at every size.",
+        "stack": "var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif",
+        "installed": "Inter, via next/font/google in src/app/layout.tsx",
+        "size": "15.5px",
+        "line-height": "1.6"
+      },
+      "mono": {
+        "role": "Labels, kickers, units, figures that sit in a column. The only second voice.",
+        "stack": "var(--font-jetbrains), 'SF Mono', 'Fira Code', ui-monospace, monospace",
+        "installed": "JetBrains Mono, via next/font/google in src/app/layout.tsx"
+      }
+    },
+    "scale": {
+      "note": "Fluid clamp() ramps, not a fixed modular scale. Weight 700 and letter-spacing -0.025em on every heading.",
+      "h1": {
+        "font-size": "clamp(2rem, 1.4rem + 2.6vw, 3.1rem)",
+        "line-height": "1.08"
+      },
+      "h2": {
+        "font-size": "clamp(1.5rem, 1.1rem + 1.6vw, 2.2rem)",
+        "line-height": "1.15"
+      },
+      "h3": {
+        "font-size": "clamp(1.05rem, 1rem + 0.4vw, 1.25rem)",
+        "line-height": "1.3"
+      },
+      "heading-shared": {
+        "font-weight": "700",
+        "letter-spacing": "-0.025em",
+        "text-wrap": "balance"
+      }
+    },
+    "numerals": {
+      "rule": "font-variant-numeric: tabular-nums lining-nums on every figure and every column of numbers.",
+      "source": "design reference foundation rules, applied throughout globals.css"
+    },
+    "alignment": {
+      "rules": [
+        "Left-aligned throughout. No centred body text. No justified text.",
+        "Ragged-right always.",
+        "More vertical space above a heading than below it."
+      ],
+      "source": "Hoplight brand file section 2, alignment rules. Not expressible in a stylesheet."
+    },
+    "measure": {
+      "value": "62ch",
+      "var": "--measure",
+      "role": "Prose column cap."
+    }
+  },
+  "space": {
+    "source": "globals.css :root",
+    "section": {
+      "value": "clamp(48px, 6vw, 88px)",
+      "var": "--space-section"
+    },
+    "section-sm": {
+      "value": "clamp(40px, 5vw, 64px)",
+      "var": "--space-section-sm"
+    },
+    "section-lg": {
+      "value": "clamp(48px, 6vw, 80px)",
+      "var": "--space-section-lg"
+    },
+    "page-max": {
+      "value": "1140px",
+      "var": "--maxw"
+    },
+    "page-gutter": {
+      "value": "0 clamp(20px, 4vw, 48px)",
+      "selector": ".wrap"
+    }
+  },
+  "geometry": {
+    "source": "globals.css :root",
+    "radius-sm": "4px",
+    "radius-md": "6px",
+    "radius-lg": "8px",
+    "radius-pill": "999px",
+    "button-height": "44px",
+    "shadow-elevated": "0 10px 34px rgba(0,0,0,.5)",
+    "shadow-hover": "0 4px 16px rgba(0,0,0,.08)"
+  },
+  "components": {
+    "source": "globals.css element and class rules, parsed. These are the live specs, not the brand file's.",
+    "accent rule": {
+      "spec": "height 2px, background var(--gold), width 56px",
+      "selector": ".rule",
+      "rule": "The primary separator. Gold is an accent and never dominant: one accent zone per viewport."
+    },
+    "callout": {
+      "spec": "border-left 3px solid var(--gold), padding 6px 0 6px 22px",
+      "selector": ".unlock",
+      "rule": "Left gold border, no box. Used for the one line that carries the section."
+    },
+    "label": {
+      "spec": "font-family var(--font-mono), font-size 0.75rem, text-transform uppercase, letter-spacing 0.14em, color var(--gold-deep)",
+      "selector": ".label",
+      "rule": "Mono, uppercase, wide-tracked, deep gold. Never at body size."
+    },
+    "button, primary": {
+      "spec": "background var(--gold), color var(--ink), height 44px, radius 4px",
+      "selector": ".btn .btn-primary",
+      "rule": "Exactly one filled button above the fold."
+    },
+    "focus ring": {
+      "spec": "2px solid var(--gold)",
+      "rule": "Visible keyboard focus on every interactive element. Never removed."
+    },
+    "prose link": {
+      "spec": "border-bottom 1px solid var(--gold)",
+      "rule": "Inline links carry a static gold underline, never hover-only."
+    },
+    "divider": {
+      "spec": "1px solid rgba(0,0,0,0.10) on light, 1px solid rgba(255,255,255,0.10) on dark",
+      "rule": "Bottom borders only on tables. No full grid."
+    }
+  },
+  "voice": {
+    "source": "Hoplight brand file section 4, carried verbatim. Nothing here is inferred.",
+    "rules": [
+      "Precise. Name the mechanism. Name the number.",
+      "Direct. Lead with the answer. Context follows.",
+      "Grounded. Write from inside the work, not above it. Practitioner voice.",
+      "Honest about limits. State what the thing does and what it does not do.",
+      "Tight. One idea per sentence."
+    ],
+    "tone markers": [
+      "No em dashes anywhere in rendered output. Hyphens, commas, colons, periods.",
+      "No tidy parallel constructions. Break into separate sentences.",
+      "No sycophancy openers.",
+      "Active verbs, not passive constructions.",
+      "State what is unknown rather than implying certainty."
+    ],
+    "avoid": [
+      "leverage",
+      "synergy",
+      "transform",
+      "unlock",
+      "seamless",
+      "revolutionary"
+    ]
+  },
+  "not carried": [
+    "Logo files. The brand file records none as existing.",
+    "A tagline. The brand file says none is formalised; the positioning line is \"AI strategy for labor, advocacy, and mission-driven organizations\".",
+    "The brand file's docx and pptx implementation sections. They are document specs, not web tokens, and nothing on this site consumes them.",
+    "The brand file's GT America type scale and its 17px / Perfect Fourth document scale. The stylesheet is authoritative on type and runs Inter at 15.5px with clamp() ramps."
+  ]
+}

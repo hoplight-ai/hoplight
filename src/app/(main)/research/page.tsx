@@ -20,7 +20,7 @@ export const metadata: Metadata = pageMetadata({
     url: 'https://hoplight.ai/api/og?title=The+research&sub=A+3%2C006-person+randomized+controlled+trial',
     width: 1200,
     height: 630,
-    alt: 'The research — Hoplight',
+    alt: 'The research - Hoplight',
   },
 });
 

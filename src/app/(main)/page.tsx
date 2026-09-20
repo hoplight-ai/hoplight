@@ -151,7 +151,7 @@ export default function Home() {
             <p>Most shops offer one layer: a policy, a training, a pile of tools. Real adoption needs all three in the same room.</p>
           </div>
           <div className="venn-wrap">
-            <svg className="venn" viewBox="0 0 600 500" role="img" aria-label="Three overlapping spheres — Governance, Builders, and Practitioners — meeting at real adoption.">
+            <svg className="venn" viewBox="0 0 600 500" role="img" aria-label="Three overlapping spheres: Governance, Builders, and Practitioners, meeting at real adoption.">
               <g>
                 <circle cx="300" cy="180" r="150" fill="rgba(255,255,255,0.04)" stroke="#E8A820" strokeOpacity="0.5" strokeWidth="1.5" />
                 <circle cx="215" cy="320" r="150" fill="rgba(255,255,255,0.04)" stroke="#E8A820" strokeOpacity="0.5" strokeWidth="1.5" />

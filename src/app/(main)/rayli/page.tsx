@@ -26,7 +26,7 @@ export const metadata: Metadata = pageMetadata({
     url: 'https://hoplight.ai/api/og?title=Rayli&sub=A+communications+intelligence+platform',
     width: 1200,
     height: 630,
-    alt: 'Rayli — Hoplight',
+    alt: 'Rayli - Hoplight',
   },
 });
 
@@ -53,7 +53,7 @@ export default function Rayli() {
           <h1>A communications intelligence platform for mission-driven organizations.</h1>
           <p>
             Psychographically targeted, voice-true, source-cited copy for every destination you
-            publish to, plus the map nobody else has &mdash; who heard what, when, across which
+            publish to, plus the map nobody else has: who heard what, when, across which
             channels, by audience.
           </p>
           <div className="rayli-shots">

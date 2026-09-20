@@ -42,7 +42,7 @@ const TITLES = {
 // line per page.
 const DESCRIPTIONS = {
   'ai-governance-checklist':
-    'For mission-driven organizations beginning AI adoption — an interactive checklist to work through with your team.',
+    'For mission-driven organizations beginning AI adoption, an interactive checklist to work through with your team.',
   'ai-lobbyist-player-map':
     "Who's lobbying on AI, how much they're spending, and what they want.",
   'cba-win-pattern-playbook':
@@ -77,7 +77,22 @@ function process_(file) {
   let html = readFileSync(path, 'utf8');
 
   if (html.includes(MARKER)) {
-    console.log(`skip (already has metadata): ${file}`);
+    // Migration, added 2026-09-20 (lane dispatch1). This script is write-once per file: it stamps a
+    // marker and skips anything already carrying it, so correcting the template above would never
+    // have reached the eleven pages it had already written. The separator in the tags THIS script
+    // owns is normalised in place instead, which leaves the pages' own editorial prose untouched.
+    const fixed = html
+      .replace(/(<meta (?:property="og:title"|name="twitter:title") content="[^"]*?) — (Hoplight">)/g, '$1 - $2')
+      .replace(
+        'For mission-driven organizations beginning AI adoption — an interactive checklist',
+        'For mission-driven organizations beginning AI adoption, an interactive checklist'
+      );
+    if (fixed !== html) {
+      writeFileSync(path, fixed);
+      console.log(`separator normalised: ${file}`);
+    } else {
+      console.log(`skip (already has metadata): ${file}`);
+    }
     return;
   }
 
@@ -97,13 +112,15 @@ function process_(file) {
   const candidateTags = [
     hasDescription ? null : `<meta name="description" content="${description}">`,
     `<link rel="canonical" href="${url}">`,
-    `<meta property="og:title" content="${title} — Hoplight">`,
+    // Hyphen, matching src/app/layout.tsx. Was an em dash until 2026-09-20 (lane dispatch1), which
+    // put one in the og:title of every static portfolio page, against the brand's own tone rule.
+    `<meta property="og:title" content="${title} - Hoplight">`,
     `<meta property="og:description" content="${description}">`,
     `<meta property="og:url" content="${url}">`,
     `<meta property="og:image" content="${image}">`,
     `<meta property="og:type" content="website">`,
     `<meta name="twitter:card" content="summary_large_image">`,
-    `<meta name="twitter:title" content="${title} — Hoplight">`,
+    `<meta name="twitter:title" content="${title} - Hoplight">`,
     `<meta name="twitter:description" content="${description}">`,
     `<meta name="twitter:image" content="${image}">`,
   ].filter(Boolean);

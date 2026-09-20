@@ -1,0 +1,21 @@
+{
+  "name": "Hoplight Brand Tokens",
+  "short_name": "Hoplight Tokens",
+  "description": "The live Hoplight navy and gold, every token, and the contrast verdict for each one. Generated 2026-09-20.",
+  "start_url": "/hoplight-brand-tokens-2026-09-20.html",
+  "display": "standalone",
+  "background_color": "#F5F5F0",
+  "theme_color": "#0F1B2D",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
