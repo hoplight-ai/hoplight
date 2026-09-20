@@ -159,7 +159,7 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0
 .exposure-scroll { position: relative; }
 .exposure-scroll::after {
   content: ''; position: absolute; top: 0; right: 0; bottom: 0; width: 28px;
-  background: linear-gradient(to right, transparent, rgba(10, 22, 40, 0.10));
+  background: linear-gradient(to right, transparent, rgba(15, 27, 45, 0.10));
   pointer-events: none;
 }
 

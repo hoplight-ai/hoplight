@@ -163,7 +163,7 @@ export default function IntakeForm() {
         </button>
         <h2 style={{ marginTop: '8px', marginBottom: '16px' }}>Let&rsquo;s find a time.</h2>
         <p style={{ color: 'var(--ink-soft)', fontSize: '1.05rem', marginBottom: '32px' }}>
-          The fastest way to see whether Hoplight is a fit. Bring the thing your team hates doing — that&rsquo;s where we start.
+          The fastest way to see whether Hoplight is a fit. Bring the thing your team hates doing. That&rsquo;s where we start.
         </p>
         <div className="cta-row">
           <a className="btn btn-primary" href={CALENDLY} target="_blank" rel="noopener noreferrer">

@@ -13,9 +13,9 @@ import {
 
 // ===== BRAND TOKENS =====
 const C = {
-  ink: '#0A1628',
-  gold: '#E8A838',
-  goldDeep: '#B8851F',
+  ink: '#0F1B2D',
+  gold: '#D4950A',
+  goldDeep: '#845810',
   paper: '#F7F5F0',
   stone: '#8B8578',
   signal: '#4A6FA5',
@@ -248,13 +248,13 @@ function getExposurePlatform(toolName: string) {
 // for small text). Matches securityColors.orange.heading / securityColors.green.heading below.
 const pillColors: Record<string, { bg: string; text: string; border: string }> = {
   red: { bg: 'rgba(184, 74, 62, 0.1)', text: '#6d2c24', border: 'rgba(184, 74, 62, 0.25)' },
-  yellow: { bg: 'rgba(232, 168, 56, 0.12)', text: '#92600a', border: 'rgba(232, 168, 56, 0.3)' },
+  yellow: { bg: 'rgba(212, 149, 10, 0.12)', text: '#92600a', border: 'rgba(212, 149, 10, 0.3)' },
   green: { bg: 'rgba(46, 125, 50, 0.08)', text: '#1b5e20', border: 'rgba(46, 125, 50, 0.2)' },
 };
 
 const securityColors: Record<string, { bg: string; border: string; text: string; heading: string }> = {
   green: { bg: 'rgba(46, 125, 50, 0.06)', border: 'rgba(46, 125, 50, 0.2)', text: '#2e7d32', heading: '#1b5e20' },
-  yellow: { bg: 'rgba(232, 168, 56, 0.08)', border: 'rgba(232, 168, 56, 0.25)', text: '#92600a', heading: '#6d4c0a' },
+  yellow: { bg: 'rgba(212, 149, 10, 0.08)', border: 'rgba(212, 149, 10, 0.25)', text: '#92600a', heading: '#6d4c0a' },
   orange: { bg: 'rgba(184, 74, 62, 0.06)', border: 'rgba(184, 74, 62, 0.2)', text: '#8b3a30', heading: '#6d2c24' },
 };
 

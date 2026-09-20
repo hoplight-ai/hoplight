@@ -12,13 +12,13 @@ const ORIGIN = 'https://hoplight.ai';
 const DEFAULT_IMAGE = { url: '/og.png', width: 1200, height: 630, alt: 'Hoplight' };
 
 export interface PageMetadataInput {
-  /** Page title. The root layout's template appends " — Hoplight". */
+  /** Page title. The root layout's template appends " - Hoplight". */
   title: string;
   /** SERP / plain <meta name="description">. Keep this under ~160 characters. */
   description: string;
   /** Route path, e.g. '/rayli'. Used for the canonical and for openGraph/twitter urls. */
   path: string;
-  /** Overrides the derived "<title> — Hoplight" used for openGraph.title / twitter.title. */
+  /** Overrides the derived "<title> - Hoplight" used for openGraph.title / twitter.title. */
   ogTitle?: string;
   /** Overrides `description` for openGraph.description / twitter.description. */
   ogDescription?: string;
@@ -33,7 +33,9 @@ export function pageMetadata({
   ogDescription,
   image,
 }: PageMetadataInput): Metadata {
-  const resolvedOgTitle = ogTitle ?? `${title} — Hoplight`;
+  // Hyphen, matching the root layout's title template. Was an em dash until 2026-09-20 (lane
+  // dispatch1), which put one on every subpage's og:title and twitter:title.
+  const resolvedOgTitle = ogTitle ?? `${title} - Hoplight`;
   const resolvedOgDescription = ogDescription ?? description;
   const resolvedImage = image ?? DEFAULT_IMAGE;
 

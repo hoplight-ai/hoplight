@@ -10,8 +10,9 @@ export const metadata: Metadata = pageMetadata({
   // results and link previews show, and it makes the reader wonder what else got rounded.
   description: `Message infrastructure that matches the frame to the listener's psychology, not their demographics. Validated in a ${FACTS.rct.n}-person ${FACTS.rct.method}, ${FACTS.rct.matchRate} matched to the voter file.`,
   path: '/persuasion',
-  // ogTitle omitted deliberately: the helper derives "Persuasion — Hoplight", an em dash, matching
-  // every other route. /research previously hardcoded a pipe separator here instead; same fix.
+  // ogTitle omitted deliberately: the helper derives "Persuasion - Hoplight", matching every other
+  // route. /research previously hardcoded a pipe separator here instead; same fix. The separator
+  // was an em dash until 2026-09-20 and is now a hyphen, per the brand's own tone rule.
   ogDescription: 'The human-generated progressive frame produces identity backlash with the voters who decide elections. We built the engine the other way around.',
 });
 

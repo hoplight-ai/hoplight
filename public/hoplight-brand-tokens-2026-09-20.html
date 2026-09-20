@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hoplight Brand Tokens</title>
+<meta name="description" content="The live Hoplight navy and gold, every token, and the contrast verdict for each one. Generated from the production stylesheet, 2026-09-20.">
+<meta name="apple-mobile-web-app-title" content="Hoplight Tokens">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hoplight Brand Tokens">
+<meta property="og:description" content="The live Hoplight navy and gold, every token, and the contrast verdict for each one. Generated from the production stylesheet, 2026-09-20.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta property="og:url" content="https://hoplight.ai/hoplight-brand-tokens-2026-09-20.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hoplight Brand Tokens">
+<meta name="twitter:description" content="The live Hoplight navy and gold, every token, and the contrast verdict for each one.">
+<meta name="twitter:image" content="https://hoplight.ai/og.png">
+<link rel="canonical" href="https://hoplight.ai/hoplight-brand-tokens-2026-09-20.html">
+<link rel="manifest" href="/hoplight-brand-tokens-2026-09-20-manifest.json">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<meta name="theme-color" content="#0F1B2D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* The generated stylesheet, inlined verbatim rather than linked. This page IS the reference, so it
+   has to render correctly with nothing else resolving: linked at /hoplight-brand-tokens-2026-09-20.css it came up unstyled
+   anywhere the absolute path did not resolve, which on a token reference is the one failure that
+   cannot be allowed. The copy served at that URL is byte-identical, generated in the same run. */
+/* Hoplight brand tokens. Generated from hoplight-site/src/app/globals.css.
+ * Version 2026-09-20. Canonical copy: https://hoplight.ai/hoplight-brand-tokens-2026-09-20.css
+ * Do not hand-edit: scripts/verify.sh fails if this file disagrees with the stylesheet.
+ * Retired and dead, in either notation: #0A1628, #E8A838, #B8851F,
+ * rgba(10, 22, 40, a), rgba(232, 168, 56, a). */
+:root {
+  --ink: #0F1B2D; /* Primary. Headlines, body text, dark section grounds. */
+  --ink-mid: #162640; /* Dark section step, one level up from ink. */
+  --ink-soft: #2A3F5F; /* Muted ink for supporting prose on light. */
+  --gold: #D4950A; /* Accent. Rules, left borders, the one filled button, link underlines. Never dominant. */
+  --gold-hot: #E8A820; /* Brighter gold, for large figures on dark grounds only. */
+  --gold-deep: #845810; /* The gold for small text on light. 5.6:1 on --surface; --gold itself is 2.4:1 and fails. */
+  --gold-bg: #F5E6C4; /* Gold tint for a filled callout ground. */
+  --gold-bg-light: #FBF4E4; /* Lighter gold tint, table and row wash. */
+  --surface: #F5F5F0; /* Default page ground. Warm off-white. */
+  --surface-card: #EEEEE8; /* Card ground on --surface. */
+  --white: #FFFFFF; /* True white, for cards that must separate from --surface. */
+  --stone: #70706A; /* Secondary text. Captions, metadata, timestamps. */
+  --stone-deep: #555550; /* Secondary text that has to pass AA on --surface. */
+  --mute: #8C8475; /* Warm grey for de-emphasised chrome. */
+  --danger: #9c3327; /* Error and destructive state. Semantic only. */
+
+  --line: rgba(0,0,0,0.10);
+  --line-soft: rgba(0,0,0,0.06);
+  --line-fill: rgba(0,0,0,0.05);
+  --line-dark: rgba(255,255,255,0.10);
+  --line-dark-strong: rgba(255,255,255,0.18);
+
+  /* next/font injects the two families on the site itself; named here so this file works standalone. */
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  --measure: 62ch;
+
+  --space-section: clamp(48px, 6vw, 88px);
+  --space-section-sm: clamp(40px, 5vw, 64px);
+  --space-section-lg: clamp(48px, 6vw, 80px);
+  --maxw: 1140px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-pill: 999px;
+  --btn-h: 44px;
+  --shadow-elevated: 0 10px 34px rgba(0,0,0,.5);
+  --shadow-hover: 0 4px 16px rgba(0,0,0,.08);
+}
+
+/* The four rules that carry the brand. Copy these, not a theme. */
+.rule { height: 2px; width: 56px; background: var(--gold); border: 0; }
+.callout { border-left: 3px solid var(--gold); padding: 6px 0 6px 22px; }
+.label { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-deep); }
+.btn-primary { background: var(--gold); color: var(--ink); height: var(--btn-h); border-radius: var(--radius-sm); border: 1px solid var(--gold); }
+
+/* Left-aligned throughout, ragged right, never centred and never justified.
+ * Tabular figures on every number. No em dashes in rendered output. */
+body { font-family: var(--font-body); font-size: 15.5px; line-height: 1.6; background: var(--surface); color: var(--ink); text-align: left; }
+[class*="num"], td, th { font-variant-numeric: tabular-nums lining-nums; }
+
+</style>
+<style>
+/* Page-specific layout. The tokens above are the payload; nothing below redefines one. */
+*{box-sizing:border-box}
+body{margin:0}
+code{font-family:var(--font-mono);font-size:0.86em}
+
+/* SIGNATURE ELEMENT. The live pair is not a chip beside a label: the two colours are full-height
+   fields and their own hex numbers are set inside them, so the first thing on the page is the
+   colours at real size. Everything below is quiet on purpose. */
+.pair{display:grid;grid-template-columns:1fr 1fr;min-height:60vh}
+.field{padding:clamp(28px,4vw,56px);display:flex;flex-direction:column;justify-content:flex-end}
+.field .hex{font-family:var(--font-mono);font-size:clamp(2.2rem,1.2rem+4.4vw,4.6rem);font-weight:500;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums lining-nums}
+.field .nm{font-family:var(--font-mono);font-size:0.75rem;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:auto}
+.field .rl{margin:14px 0 0;max-width:26ch;font-size:0.98rem;line-height:1.45}
+.f-ink{background:var(--ink);color:var(--gold)}
+.f-ink .rl{color:rgba(255,255,255,0.72)}
+.f-gold{background:var(--gold);color:var(--ink)}
+.f-gold .rl{color:rgba(15,27,45,0.78)}
+
+.mast{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:baseline;
+  padding:18px clamp(20px,4vw,48px);border-bottom:1px solid var(--line)}
+.mast .ttl{font-weight:800;letter-spacing:-0.02em;font-size:1.05rem}
+.mast .src{font-family:var(--font-mono);font-size:0.72rem;color:var(--stone-deep);letter-spacing:0.04em}
+
+.strip{display:flex;flex-wrap:wrap;gap:clamp(14px,3vw,32px);align-items:center;justify-content:space-between;
+  padding:20px clamp(20px,4vw,48px);border-bottom:1px solid var(--line)}
+.deadset{display:flex;flex-wrap:wrap;gap:16px;align-items:center}
+.deadset .lbl{font-family:var(--font-mono);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.14em;color:var(--stone-deep)}
+.dead{display:inline-flex;align-items:center;gap:7px;color:var(--stone-deep);text-decoration:line-through}
+.sw{width:15px;height:15px;border-radius:3px;border:1px solid var(--line);display:inline-block;vertical-align:-2px;flex:0 0 auto}
+/* Ink fill, not the gold .btn-primary the token set ships. The gold field above is already the
+   page's one accent zone, and a gold button beside it makes two contiguous gold regions, which the
+   Composition Gate caps at one. Still exactly one filled button above the fold. */
+a.cta{display:inline-flex;align-items:center;height:var(--btn-h);padding:0 1.3rem;background:var(--ink);
+  color:var(--surface);border:1px solid var(--ink);border-radius:var(--radius-sm);font-weight:600;
+  font-size:0.9rem;text-decoration:none;white-space:nowrap}
+a.cta:hover{background:var(--ink-mid);border-color:var(--ink-mid)}
+a.cta:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+main{padding:clamp(36px,5vw,64px) clamp(20px,4vw,48px);max-width:var(--maxw);margin:0 auto}
+section+section{margin-top:clamp(40px,5vw,72px)}
+h2{font-size:clamp(1.3rem,1rem+1.2vw,1.8rem);font-weight:700;letter-spacing:-0.025em;margin:0 0 6px;text-wrap:balance}
+.note{color:var(--stone-deep);max-width:var(--measure);margin:0 0 22px;font-size:0.96rem;line-height:1.55}
+table{width:100%;border-collapse:collapse;font-size:0.9rem}
+th{text-align:left;font-family:var(--font-mono);font-size:0.68rem;text-transform:uppercase;
+  letter-spacing:0.12em;color:var(--stone-deep);font-weight:500;padding:0 14px 9px 0;
+  border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 14px 11px 0;border-bottom:1px solid var(--line-soft);vertical-align:top}
+td.n{font-variant-numeric:tabular-nums lining-nums;white-space:nowrap}
+td.n .v{display:block;font-family:var(--font-mono);font-size:0.62rem;text-transform:uppercase;
+  letter-spacing:0.08em;color:var(--stone-deep);margin-top:2px}
+td.role{color:var(--stone-deep);line-height:1.45}
+code.spec{color:var(--ink-soft);word-break:break-word}
+ul{margin:0;padding-left:1.1rem;color:var(--stone-deep);line-height:1.6;max-width:var(--measure)}
+li{margin-bottom:5px}
+.cols{display:grid;gap:clamp(24px,4vw,48px);grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+footer{border-top:1px solid var(--line);padding:22px clamp(20px,4vw,48px);color:var(--stone-deep);
+  font-size:0.84rem;line-height:1.6}
+footer code{color:var(--ink-soft)}
+@media (max-width:760px){
+  .pair{grid-template-columns:1fr;min-height:0}
+  .field{min-height:44vh}
+  /* The five-column table overflowed the viewport at 390: the Role column sat off the right edge
+     behind a horizontal scrollbar and every row gapped open to the height of the prose hiding
+     there. Each row becomes a block instead, with the two ratio cells labelled in place. */
+  table, thead, tbody, tr, td{display:block;width:100%}
+  thead{display:none}
+  tr{padding:14px 0;border-bottom:1px solid var(--line)}
+  td{border:0;padding:0 0 4px}
+  td.n{display:inline-block;width:auto;margin-right:22px;padding-bottom:8px}
+  td.n::before{content:attr(data-on);display:block;font-family:var(--font-mono);font-size:0.62rem;
+    text-transform:uppercase;letter-spacing:0.08em;color:var(--stone-deep)}
+  td.n .v{display:inline;margin-left:6px}
+  td.role{padding-top:2px}
+  code.spec{display:block;padding:2px 0 6px}
+}
+</style>
+</head>
+<body>
+
+<div class="mast">
+  <span class="ttl">Hoplight brand tokens</span>
+  <span class="src">generated from src/app/globals.css, 2026-09-20</span>
+</div>
+
+<div class="pair">
+  <div class="field f-ink">
+    <span class="nm">ink</span>
+    <span class="hex">#0F1B2D</span>
+    <p class="rl">Primary. Headlines, body text, dark section grounds.</p>
+  </div>
+  <div class="field f-gold">
+    <span class="nm">gold</span>
+    <span class="hex">#D4950A</span>
+    <p class="rl">Accent. Rules, left borders, the one filled button, link underlines. Never dominant.</p>
+  </div>
+</div>
+
+<div class="strip">
+  <span class="deadset"><span class="lbl">Retired, do not use</span><span class="dead"><span class="sw" style="background:#0A1628"></span><code>#0A1628</code></span><span class="dead"><span class="sw" style="background:#E8A838"></span><code>#E8A838</code></span><span class="dead"><span class="sw" style="background:#B8851F"></span><code>#B8851F</code></span></span>
+  <a class="cta" href="/hoplight-brand-tokens-2026-09-20.css">Copy the stylesheet</a>
+</div>
+
+<main>
+  <section>
+    <h2>Every token, with its contrast verdict</h2>
+    <p class="note">Ratios are computed from the token values themselves each time this page is
+      built, so a value that moves takes its verdict with it. Gold is an accent: <code>--gold</code>
+      does not pass for text on the light ground, which is what <code>--gold-deep</code> is for.</p>
+    <table>
+      <thead><tr><th>Token</th><th>Value</th><th>On surface</th><th>On ink</th><th>Role</th></tr></thead>
+      <tbody>
+<tr>
+      <td><span class="sw" style="background:#0F1B2D"></span><code>--ink</code></td>
+      <td><code>#0F1B2D</code></td>
+      <td class="n" data-on="on surface">15.80<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">1.00<span class="v">not for text</span></td>
+      <td class="role">Primary. Headlines, body text, dark section grounds.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#162640"></span><code>--ink-mid</code></td>
+      <td><code>#162640</code></td>
+      <td class="n" data-on="on surface">13.86<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">1.14<span class="v">not for text</span></td>
+      <td class="role">Dark section step, one level up from ink.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#2A3F5F"></span><code>--ink-soft</code></td>
+      <td><code>#2A3F5F</code></td>
+      <td class="n" data-on="on surface">9.72<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">1.63<span class="v">not for text</span></td>
+      <td class="role">Muted ink for supporting prose on light.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#D4950A"></span><code>--gold</code></td>
+      <td><code>#D4950A</code></td>
+      <td class="n" data-on="on surface">2.37<span class="v">not for text</span></td>
+      <td class="n" data-on="on ink">6.67<span class="v">AA text</span></td>
+      <td class="role">Accent. Rules, left borders, the one filled button, link underlines. Never dominant.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#E8A820"></span><code>--gold-hot</code></td>
+      <td><code>#E8A820</code></td>
+      <td class="n" data-on="on surface">1.91<span class="v">not for text</span></td>
+      <td class="n" data-on="on ink">8.27<span class="v">AA text</span></td>
+      <td class="role">Brighter gold, for large figures on dark grounds only.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#845810"></span><code>--gold-deep</code></td>
+      <td><code>#845810</code></td>
+      <td class="n" data-on="on surface">5.67<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">2.79<span class="v">not for text</span></td>
+      <td class="role">The gold for small text on light. 5.6:1 on --surface; --gold itself is 2.4:1 and fails.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#F5E6C4"></span><code>--gold-bg</code></td>
+      <td><code>#F5E6C4</code></td>
+      <td class="n" data-on="on surface">1.13<span class="v">not for text</span></td>
+      <td class="n" data-on="on ink">13.99<span class="v">AA text</span></td>
+      <td class="role">Gold tint for a filled callout ground.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#FBF4E4"></span><code>--gold-bg-light</code></td>
+      <td><code>#FBF4E4</code></td>
+      <td class="n" data-on="on surface">1.00<span class="v">not for text</span></td>
+      <td class="n" data-on="on ink">15.77<span class="v">AA text</span></td>
+      <td class="role">Lighter gold tint, table and row wash.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#F5F5F0"></span><code>--surface</code></td>
+      <td><code>#F5F5F0</code></td>
+      <td class="n" data-on="on surface">1.00<span class="v">not for text</span></td>
+      <td class="n" data-on="on ink">15.80<span class="v">AA text</span></td>
+      <td class="role">Default page ground. Warm off-white.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#EEEEE8"></span><code>--surface-card</code></td>
+      <td><code>#EEEEE8</code></td>
+      <td class="n" data-on="on surface">1.06<span class="v">not for text</span></td>
+      <td class="n" data-on="on ink">14.84<span class="v">AA text</span></td>
+      <td class="role">Card ground on --surface.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#FFFFFF"></span><code>--white</code></td>
+      <td><code>#FFFFFF</code></td>
+      <td class="n" data-on="on surface">1.09<span class="v">not for text</span></td>
+      <td class="n" data-on="on ink">17.28<span class="v">AA text</span></td>
+      <td class="role">True white, for cards that must separate from --surface.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#70706A"></span><code>--stone</code></td>
+      <td><code>#70706A</code></td>
+      <td class="n" data-on="on surface">4.56<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">3.47<span class="v">large text only</span></td>
+      <td class="role">Secondary text. Captions, metadata, timestamps.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#555550"></span><code>--stone-deep</code></td>
+      <td><code>#555550</code></td>
+      <td class="n" data-on="on surface">6.85<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">2.31<span class="v">not for text</span></td>
+      <td class="role">Secondary text that has to pass AA on --surface.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#8C8475"></span><code>--mute</code></td>
+      <td><code>#8C8475</code></td>
+      <td class="n" data-on="on surface">3.39<span class="v">large text only</span></td>
+      <td class="n" data-on="on ink">4.67<span class="v">AA text</span></td>
+      <td class="role">Warm grey for de-emphasised chrome.</td>
+    </tr>
+<tr>
+      <td><span class="sw" style="background:#9c3327"></span><code>--danger</code></td>
+      <td><code>#9C3327</code></td>
+      <td class="n" data-on="on surface">6.58<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">2.40<span class="v">not for text</span></td>
+      <td class="role">Error and destructive state. Semantic only.</td>
+    </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>The rules that carry the brand</h2>
+    <p class="note">Read off the production stylesheet, not off any extraction. Copy these four
+      rather than reaching for a theme.</p>
+    <table>
+      <thead><tr><th>Element</th><th>Spec</th><th>Rule</th></tr></thead>
+      <tbody>
+<tr>
+      <td><strong>accent rule</strong> <code>.rule</code></td>
+      <td><code class="spec">height 2px, background var(--gold), width 56px</code></td>
+      <td class="role">The primary separator. Gold is an accent and never dominant: one accent zone per viewport.</td>
+    </tr>
+<tr>
+      <td><strong>callout</strong> <code>.unlock</code></td>
+      <td><code class="spec">border-left 3px solid var(--gold), padding 6px 0 6px 22px</code></td>
+      <td class="role">Left gold border, no box. Used for the one line that carries the section.</td>
+    </tr>
+<tr>
+      <td><strong>label</strong> <code>.label</code></td>
+      <td><code class="spec">font-family var(--font-mono), font-size 0.75rem, text-transform uppercase, letter-spacing 0.14em, color var(--gold-deep)</code></td>
+      <td class="role">Mono, uppercase, wide-tracked, deep gold. Never at body size.</td>
+    </tr>
+<tr>
+      <td><strong>button, primary</strong> <code>.btn .btn-primary</code></td>
+      <td><code class="spec">background var(--gold), color var(--ink), height 44px, radius 4px</code></td>
+      <td class="role">Exactly one filled button above the fold.</td>
+    </tr>
+<tr>
+      <td><strong>focus ring</strong></td>
+      <td><code class="spec">2px solid var(--gold)</code></td>
+      <td class="role">Visible keyboard focus on every interactive element. Never removed.</td>
+    </tr>
+<tr>
+      <td><strong>prose link</strong></td>
+      <td><code class="spec">border-bottom 1px solid var(--gold)</code></td>
+      <td class="role">Inline links carry a static gold underline, never hover-only.</td>
+    </tr>
+<tr>
+      <td><strong>divider</strong></td>
+      <td><code class="spec">1px solid rgba(0,0,0,0.10) on light, 1px solid rgba(255,255,255,0.10) on dark</code></td>
+      <td class="role">Bottom borders only on tables. No full grid.</td>
+    </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="cols">
+    <div>
+      <h2>Type</h2>
+      <p class="note">One family for everything, one mono voice for labels and figures.
+        <code>Inter, via next/font/google in src/app/layout.tsx</code> and
+        <code>JetBrains Mono, via next/font/google in src/app/layout.tsx</code>.
+        Body 15.5px at 1.6.
+        Prose caps at <code>62ch</code>.</p>
+      <ul><li>Left-aligned throughout. No centred body text. No justified text.</li><li>Ragged-right always.</li><li>More vertical space above a heading than below it.</li></ul>
+    </div>
+    <div>
+      <h2>Voice</h2>
+      <ul><li>No em dashes anywhere in rendered output. Hyphens, commas, colons, periods.</li><li>No tidy parallel constructions. Break into separate sentences.</li><li>No sycophancy openers.</li><li>Active verbs, not passive constructions.</li><li>State what is unknown rather than implying certainty.</li></ul>
+    </div>
+    <div>
+      <h2>Not carried here</h2>
+      <ul><li>Logo files. The brand file records none as existing.</li><li>A tagline. The brand file says none is formalised; the positioning line is &quot;AI strategy for labor, advocacy, and mission-driven organizations&quot;.</li><li>The brand file's docx and pptx implementation sections. They are document specs, not web tokens, and nothing on this site consumes them.</li><li>The brand file's GT America type scale and its 17px / Perfect Fourth document scale. The stylesheet is authoritative on type and runs Inter at 15.5px with clamp() ramps.</li></ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Machine-readable: <code>/hoplight-brand-tokens-2026-09-20.json</code>. Stylesheet: <code>/hoplight-brand-tokens-2026-09-20.css</code>.
+  Both are generated from <code>hoplight-site/src/app/globals.css</code> and
+  <code>scripts/verify.sh</code> fails if either has drifted from it.</p>
+  <p>This file is generated from the production stylesheet on every build and scripts/verify.sh fails if the served copy has drifted from it. It supersedes any hand-kept extraction, including the tokens section of the Hoplight brand file in the design reference, which was extracted on 2026-06-02 and still carries the palette retired by commit a0fe4b2.</p>
+</footer>
+
+</body>
+</html>

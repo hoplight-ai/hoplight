@@ -93,7 +93,7 @@ export default function EvMap() {
               strokeWidth={0.6}
               style={{ transition: 'fill 550ms ease' }}
             >
-              <title>{`${ab} — ${dem ? 'Democratic' : 'Republican'} (${cur.year})`}</title>
+              <title>{`${ab}, ${dem ? 'Democratic' : 'Republican'} (${cur.year})`}</title>
             </path>
           );
         })}

@@ -113,6 +113,21 @@ else
   echo "PASS: .nav does not use a padding shorthand"
 fi
 
+echo "== Trial claims and retired palette =="
+# Added 2026-09-20 (lane dispatch1). Three guards that could not be written with the check_absent
+# helper above, because that helper only ever reads $SRC and all three have to cover public/ too:
+# the banned "11 to 26 points" range, a rendered lift number with no baseline in its own sentence,
+# and the retired navy/gold pair in either hex or rgba() form. Observed red on the tree at d8aa7ba
+# (6 banned occurrences, 1 baseline-less number, 41 retired-colour sites across 6 files).
+node "$ROOT/scripts/check-claims-and-palette.mjs" || fail=1
+
+echo "== Served brand tokens =="
+# Added 2026-09-20 (lane dispatch1). The served token files under public/ are generated from
+# src/app/globals.css; this regenerates into memory and fails if what is served has drifted from the
+# stylesheet. Without it the served copy becomes one more hand-kept duplicate, which is the exact
+# failure the Hoplight brand file in the design canon has been sitting in since 2026-06-02.
+node "$ROOT/scripts/build-brand-tokens.mjs" --check || fail=1
+
 if [ "$fail" -eq 0 ]; then
   echo "ALL CHECKS PASSED"
 else
