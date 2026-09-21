@@ -1,0 +1,14 @@
+{
+  "name": "Hoplight home, night exterior",
+  "short_name": "Night exterior",
+  "description": "A draft Hoplight home page built out from a night exterior in the Roger Deakins register.",
+  "start_url": "/hoplight-home-night-exterior-2026-09-21.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#060C0F",
+  "theme_color": "#060C0F",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
