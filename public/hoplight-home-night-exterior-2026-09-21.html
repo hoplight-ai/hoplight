@@ -1,0 +1,408 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+
+<title>Hoplight home, night exterior</title>
+<meta name="description" content="A draft Hoplight home page built out from a night exterior in the Roger Deakins register: one warm light in a cold field, and that light is the only accent on the page.">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Hoplight">
+<meta property="og:title" content="Hoplight home, night exterior">
+<meta property="og:description" content="A draft Hoplight home page built out from a night exterior in the Roger Deakins register: one warm light in a cold field, and that light is the only accent on the page.">
+<meta property="og:url" content="https://hoplight.ai/hoplight-home-night-exterior-2026-09-21.html">
+<meta property="og:image" content="https://hoplight.ai/home-art/card-night-exterior-2026-09-21.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Hoplight home, night exterior">
+<meta name="twitter:description" content="A draft Hoplight home page built out from a night exterior in the Roger Deakins register.">
+<meta name="twitter:image" content="https://hoplight.ai/home-art/card-night-exterior-2026-09-21.png">
+
+<meta name="theme-color" content="#060C0F">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Night exterior">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/home-art/night-exterior-manifest.json">
+
+<style>
+/* GT America is the licensed Hoplight face; the four files already ship in public/fonts/ and are
+   served by public/pme-lever.html. Helvetica Neue is the documented fallback tier. */
+@font-face{font-family:'GT America';src:url('/fonts/GTAmerica-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'GT America';src:url('/fonts/GTAmerica-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'GT America';src:url('/fonts/GTAmerica-RegularItalic.woff2') format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'GT America Mono';src:url('/fonts/GTAmericaMono-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+
+/* Four colours are brand (globals.css :root). Two are sampled out of the picture this page is
+   built from and are labelled as proposals in the lane report, not as settled brand values. */
+:root{
+  --night:#060C0F;        /* sampled: the film's own ground, hue 195 */
+  --night-lift:#0E1A1F;   /* sampled: the second darkest field in the film */
+  --lamp:#F79E23;         /* sampled: the window light, hue 35 */
+  --ink:#0F1B2D;          /* brand */
+  --gold:#D4950A;         /* brand */
+  --paper:#F5F5F0;        /* brand */
+  --stone:#70706A;        /* brand */
+  --measure:60ch;
+  --edge:clamp(20px,5vw,72px);
+  --rule:rgba(245,245,240,.12);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--night);color:var(--paper);
+  font-family:'GT America','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size:17px;line-height:1.7;font-weight:400;
+  -webkit-font-smoothing:antialiased;
+}
+img,video{max-width:100%;display:block}
+a{color:inherit}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+:focus-visible{outline:none;box-shadow:0 0 0 3px var(--lamp);border-radius:2px}
+
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--edge)}
+/* An auto cross-axis margin cancels `stretch` inside a column flex container, so the two hero
+   blocks would shrink to their own content and the top bar would collapse into the middle. */
+.hero > .wrap{width:100%}
+.label{
+  font-family:'GT America Mono','SF Mono','Fira Code',ui-monospace,monospace;
+  font-weight:500;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(245,245,240,.55);
+}
+
+/* ---------------------------------------------------------------- the first screen */
+.hero{position:relative;min-height:100svh;display:flex;flex-direction:column;overflow:hidden}
+.hero-media{position:absolute;inset:0;z-index:0}
+.hero-media video,.hero-media img{width:100%;height:100%;object-fit:cover}
+/* White Desert's mechanism: a hairline grid laid over full-bleed imagery, so the picture reads as
+   edited rather than dumped in. Four columns, one hair thick, barely there. */
+.hero-grid{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:repeating-linear-gradient(to right,var(--rule) 0 1px,transparent 1px 25%);
+}
+.hero-scrim{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(to top,rgba(6,12,15,.94) 0%,rgba(6,12,15,.72) 34%,rgba(6,12,15,.16) 66%,rgba(6,12,15,.42) 100%);
+}
+.topbar{
+  position:relative;z-index:3;display:flex;align-items:baseline;justify-content:space-between;
+  gap:20px;padding-top:calc(22px + env(safe-area-inset-top,0px));flex-wrap:wrap;
+}
+.mark{font-weight:500;letter-spacing:.2em;font-size:13px;text-transform:uppercase}
+.topnav{display:flex;gap:22px}
+.topnav a{text-decoration:none;border-bottom:1px solid transparent;padding-bottom:2px;transition:border-color .2s ease-out}
+.topnav a:hover{border-bottom-color:var(--lamp)}
+
+.hero-body{position:relative;z-index:3;margin-top:auto;padding-bottom:clamp(40px,7vh,86px)}
+h1{
+  margin:0;font-weight:500;letter-spacing:-.022em;
+  font-size:clamp(2.35rem,6.1vw,5.1rem);line-height:1.02;text-wrap:balance;
+  max-width:16ch;
+}
+/* The one accent zone above the fold: this hairline and the button under it are one contiguous
+   region, and nothing else on the page is warm. */
+.lamp-rule{width:120px;height:2px;background:var(--lamp);margin:clamp(22px,3.4vh,34px) 0 0}
+.hero-foot{display:flex;flex-wrap:wrap;align-items:center;gap:22px 34px;margin-top:20px}
+.btn{
+  display:inline-block;background:var(--gold);color:var(--ink);text-decoration:none;
+  font-weight:500;font-size:16px;line-height:1;padding:15px 26px;border-radius:2px;
+  transition:background-color .18s ease-out,transform .18s ease-out;
+}
+.btn:hover{background:var(--lamp);transform:translateY(-1px)}
+.hero-fact{margin:0;font-size:clamp(15px,1.5vw,17px);color:rgba(245,245,240,.76);max-width:34ch}
+.hero-fact a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(245,245,240,.35)}
+.hero-fact a:hover{border-bottom-color:var(--lamp)}
+
+/* ---------------------------------------------------------------- the beats below */
+section{padding-block:clamp(64px,9vw,128px)}
+h2{
+  margin:0 0 20px;font-weight:500;letter-spacing:-.015em;
+  font-size:clamp(1.65rem,3.1vw,2.6rem);line-height:1.12;max-width:22ch;text-wrap:balance;
+}
+h3{margin:0 0 10px;font-weight:500;font-size:1.06rem;line-height:1.35}
+p{margin:0 0 18px;max-width:var(--measure)}
+.dim{color:rgba(245,245,240,.66)}
+
+.figure-row{display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);gap:clamp(24px,5vw,68px);align-items:start}
+.pct{
+  font-weight:500;font-size:clamp(4.2rem,13vw,10rem);line-height:.82;letter-spacing:-.04em;
+  font-variant-numeric:tabular-nums lining-nums;color:var(--paper);
+}
+.src{display:block;margin-top:14px}
+.src a{color:rgba(245,245,240,.6);text-decoration:none;border-bottom:1px solid rgba(245,245,240,.25)}
+.src a:hover{color:var(--paper);border-bottom-color:var(--lamp)}
+
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(288px,1fr));gap:clamp(24px,4vw,56px)}
+.col{border-top:1px solid var(--rule);padding-top:22px}
+.col ul{margin:0;padding-left:1.05em}
+.col li{margin-bottom:9px;color:rgba(245,245,240,.78)}
+.col.good{border-top-color:var(--lamp)}
+
+.rooms{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:clamp(22px,3.4vw,44px)}
+.room{border-top:1px solid var(--rule);padding-top:20px}
+
+/* the second beat of the same world: the still returns, full bleed, with the thesis on it */
+.plate{position:relative;isolation:isolate}
+.plate img{width:100%;height:clamp(300px,58vh,560px);object-fit:cover}
+.plate-scrim{position:absolute;inset:0;background:linear-gradient(to right,rgba(6,12,15,.9),rgba(6,12,15,.34) 70%,rgba(6,12,15,.66))}
+.plate-quote{
+  position:absolute;inset:0;display:flex;align-items:center;
+}
+.plate-quote blockquote{
+  margin:0;font-weight:500;font-size:clamp(1.25rem,2.7vw,2.1rem);line-height:1.22;
+  letter-spacing:-.012em;max-width:24ch;
+}
+.plate-quote .attr{display:block;margin-top:16px}
+
+.proof{display:grid;grid-template-columns:repeat(auto-fit,minmax(224px,1fr));gap:clamp(22px,3.4vw,48px)}
+.proof-n{
+  font-weight:500;font-size:clamp(2.6rem,5.4vw,4.1rem);line-height:1;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums lining-nums;color:var(--lamp);
+}
+.proof-c{margin-top:10px;color:rgba(245,245,240,.72);max-width:26ch}
+
+.ship{border-top:1px solid var(--rule)}
+.ship-row{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:clamp(16px,3vw,48px);
+  padding-block:clamp(26px,3.6vw,44px);border-bottom:1px solid var(--rule);
+}
+.ship-row h3{font-size:clamp(1.15rem,2vw,1.6rem);letter-spacing:-.01em}
+.ship-row p{margin:0;color:rgba(245,245,240,.74)}
+
+.barn ul{list-style:none;margin:0;padding:0;columns:2;column-gap:36px}
+.barn li{padding:11px 0;border-bottom:1px solid var(--rule);break-inside:avoid;color:rgba(245,245,240,.8)}
+
+.close{border-top:2px solid var(--lamp);background:var(--night-lift)}
+.close h2{max-width:18ch}
+footer{padding-block:34px calc(34px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--rule)}
+footer .wrap{display:flex;flex-wrap:wrap;gap:12px 28px;justify-content:space-between}
+
+/* one quiet arrival on scroll, opacity and transform only */
+.rise{opacity:0;transform:translateY(16px);transition:opacity .62s cubic-bezier(.16,1,.3,1),transform .62s cubic-bezier(.16,1,.3,1)}
+.rise.in{opacity:1;transform:none}
+
+@media (max-width:720px){
+  .figure-row{grid-template-columns:1fr}
+  .ship-row{grid-template-columns:1fr}
+  .barn ul{columns:1}
+  .hero-grid{background:repeating-linear-gradient(to right,var(--rule) 0 1px,transparent 1px 50%)}
+}
+@media (prefers-reduced-motion:reduce){
+  .rise{opacity:1;transform:none;transition:none}
+  .btn{transition:none}
+  #loop{display:none}
+}
+@media (prefers-reduced-motion:no-preference){
+  #loop-still{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-media">
+    <video id="loop" autoplay muted loop playsinline preload="metadata"
+           poster="/home-art/night-hall-poster-2026-09-21.jpg"
+           aria-hidden="true">
+      <source src="/home-art/night-hall-loop-2026-09-21.mp4" type="video/mp4">
+    </video>
+    <img id="loop-still" src="/home-art/night-hall-poster-2026-09-21.jpg" alt="" aria-hidden="true">
+  </div>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-scrim" aria-hidden="true"></div>
+
+  <div class="wrap topbar">
+    <span class="mark">Hoplight</span>
+    <nav class="topnav label" aria-label="Sections">
+      <a href="#choice">The choice</a>
+      <a href="#shipped">What we shipped</a>
+      <a href="#talk">Contact</a>
+    </nav>
+  </div>
+
+  <div class="wrap hero-body">
+    <h1>Most organizations are bushwhacking their way through AI.</h1>
+    <div class="lamp-rule" aria-hidden="true"></div>
+    <div class="hero-foot">
+      <a class="btn" href="#talk">Start a conversation</a>
+      <p class="hero-fact">95% of enterprise AI pilots return nothing.
+        <a href="https://nanda.media.mit.edu/" target="_blank" rel="noopener noreferrer">MIT, 2025<span class="sr-only"> (opens in a new tab)</span></a>
+      </p>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <section class="wrap rise">
+    <div class="figure-row">
+      <div>
+        <div class="pct">95%</div>
+        <span class="src label">
+          <a href="https://nanda.media.mit.edu/" target="_blank" rel="noopener noreferrer">MIT, State of AI in Business, 2025<span class="sr-only"> (opens in a new tab)</span></a>
+        </span>
+      </div>
+      <div>
+        <h2>of enterprise AI pilots deliver zero return.</h2>
+        <p class="dim">The reason is rarely technology. It is a stale corporate playbook: buy the fancy tool, mandate its use, train people badly, and call the headcount you cut an innovation. <strong>We do the opposite.</strong></p>
+        <p class="dim">Hoplight builds the ones that do work: 130+ production AI systems for the labor, advocacy, and mission-driven organizations that cannot hire a Chief AI Officer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap rise" id="choice">
+    <h2>The choice: austerity or abundance.</h2>
+    <p class="dim">The most revolutionary technology in recent history just landed in our laps. The billionaire and CEO response has been austerity. <strong>There is another way.</strong></p>
+    <div class="two" style="margin-top:38px">
+      <div class="col">
+        <span class="label">AI austerity</span>
+        <h3 style="margin-top:8px">The corporate playbook</h3>
+        <ul>
+          <li>Unilaterally determine AI use cases and governance.</li>
+          <li>Mandate tools from the top down.</li>
+          <li>Surveil and disempower the people using it.</li>
+          <li>Lay people off, cut headcount, double revenue.</li>
+          <li>Call the cut an innovation.</li>
+        </ul>
+      </div>
+      <div class="col good">
+        <span class="label">AI abundance</span>
+        <h3 style="margin-top:8px">Building with Hoplight</h3>
+        <ul>
+          <li>Your team identifies the highest ROI deployments for AI.</li>
+          <li>Build the tools and workflows around their priority use cases.</li>
+          <li>Train your team by meeting them where they are.</li>
+          <li>Keep your people. Unlock the institutional knowledge they carry.</li>
+          <li>Do more with the same headcount than you ever have before.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="plate rise">
+    <img src="/home-art/night-hall-2026-09-21.jpg" alt="A brick union hall on an empty street at night, one tall window lit warm amber, rain in the streetlight and the window reflected in wet asphalt." width="1800" height="1005" loading="lazy">
+    <div class="plate-scrim" aria-hidden="true"></div>
+    <div class="plate-quote">
+      <div class="wrap">
+        <blockquote>Using the greatest technological innovation in history as a Trojan horse for austerity is visionless.
+          <span class="attr label">The Hoplight thesis</span>
+        </blockquote>
+      </div>
+    </div>
+  </div>
+
+  <section class="wrap rise">
+    <h2>Built for organizations without a Chief AI Officer.</h2>
+    <p class="dim">Most shops offer one layer: a policy, a training, a pile of tools. Real adoption needs all three in the same room.</p>
+    <div class="rooms" style="margin-top:38px">
+      <div class="room">
+        <span class="label">Practitioners</span>
+        <h3 style="margin-top:8px">The front line</h3>
+        <p class="dim" style="margin:0">Closest to the actual work. When left out, they run shadow AI, open security holes, or quietly sabotage the rollout.</p>
+      </div>
+      <div class="room">
+        <span class="label">Builders</span>
+        <h3 style="margin-top:8px">The people who ship</h3>
+        <p class="dim" style="margin:0">They can build almost anything you need. When left out, they ship every idea they have and may build tools nobody asked for.</p>
+      </div>
+      <div class="room">
+        <span class="label">Governance</span>
+        <h3 style="margin-top:8px">Legal, HR, compliance, security</h3>
+        <p class="dim" style="margin:0">They own risk and operational exposure. When left out, they freeze the work.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap rise">
+    <div class="proof">
+      <div>
+        <div class="proof-n">130+</div>
+        <p class="proof-c">Production AI systems built and shipped.</p>
+      </div>
+      <div>
+        <div class="proof-n">4&times;</div>
+        <p class="proof-c">Return on $1M+ in regulated-industry ad spend.</p>
+      </div>
+      <div>
+        <div class="proof-n">Zero</div>
+        <p class="proof-c">Compliance incidents across $1M+ in regulated-industry ad spend.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap rise" id="shipped">
+    <h2>What we have shipped.</h2>
+    <p class="dim">Tools that national organizations are using. Our flagship is Rayli, a communications intelligence platform for mission-driven organizations.</p>
+    <div class="ship" style="margin-top:34px">
+      <div class="ship-row">
+        <div>
+          <span class="label">Policy intelligence</span>
+          <h3 style="margin-top:8px">AGIS, the AI Governance Intelligence System</h3>
+        </div>
+        <p>Query AI governance across 2,100+ jurisdictions in plain English. Cross-references what companies promise publicly against what they lobby for privately.</p>
+      </div>
+      <div class="ship-row">
+        <div>
+          <span class="label">Persuasion</span>
+          <h3 style="margin-top:8px">The Psychographic Message Engine</h3>
+        </div>
+        <p>Validated in a 3,006-person randomized controlled trial, 60.9% matched to the voter file: up to 26 points over a placebo group who read an unrelated message.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap rise barn">
+    <h2>Not adopting AI? Governance is still essential.</h2>
+    <p class="dim">You need to understand your exposure, set an AI policy, vet the vendors layering AI into your stack, and secure against shadow AI.</p>
+    <ul style="margin-top:28px">
+      <li>Exposure assessment</li>
+      <li>AI policy framework</li>
+      <li>Vendor audit</li>
+      <li>Team talking points</li>
+      <li>Shadow AI security</li>
+      <li>Board-ready briefing</li>
+    </ul>
+  </section>
+
+  <section class="close" id="talk">
+    <div class="wrap rise">
+      <h2>Hoplight's founder leads AI strategy for one of North America's largest unions.</h2>
+      <p class="dim">Unions, nonprofits, advocacy groups, foundations, progressive agencies, mission-driven campaigns.</p>
+      <p style="margin-top:26px"><a class="btn" href="mailto:whit@hoplight.ai">Start a conversation</a></p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span class="label">Hoplight, hoplight.ai</span>
+    <span class="label">Draft home page, night exterior, 2026-09-21</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var items = document.querySelectorAll('.rise');
+  if (reduce || !('IntersectionObserver' in window)) {
+    for (var i = 0; i < items.length; i++) items[i].classList.add('in');
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      io.unobserve(e.target);
+    });
+  }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+  for (var j = 0; j < items.length; j++) io.observe(items[j]);
+})();
+</script>
+</body>
+</html>
