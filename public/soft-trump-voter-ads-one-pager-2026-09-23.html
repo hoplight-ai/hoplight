@@ -29,176 +29,190 @@
 :root{
   --ink:#0F1B2D; --ink-soft:#2A3F5F;
   --surface:#F5F5F0; --white:#FFFFFF;
-  --gold:#D4950A; --gold-deep:#845810; --gold-bg-light:#FBF4E4;
-  --stone:#70706A; --stone-deep:#555550;
+  --gold:#D4950A; --gold-deep:#845810;
+  --stone-deep:#555550;
   --line:rgba(0,0,0,0.10); --line-soft:rgba(0,0,0,0.06);
   --font-body:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
   --font-mono:'JetBrains Mono','SF Mono','Fira Code',ui-monospace,monospace;
+  --z:34px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--surface);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.5;text-align:left;-webkit-font-smoothing:antialiased}
-.page{max-width:8.5in;margin:0 auto;background:var(--white);padding:0.62in 0.7in 0.5in}
-p{margin:0 0 8px}
-h1{font-size:26px;line-height:1.15;font-weight:600;letter-spacing:-0.01em;margin:0 0 6px;text-wrap:balance}
-h2{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-deep);font-weight:500;margin:0 0 8px}
-.rule{height:2px;width:56px;background:var(--gold);border:0;margin:10px 0 14px}
-.meta{color:var(--stone-deep);font-size:13px;margin:0}
-.lead{font-size:15.5px;max-width:64ch;margin:0 0 4px}
+.page{max-width:8.5in;margin:0 auto;background:var(--white);padding:0.7in 0.75in 0.55in}
+p{margin:0}
+h1{font-size:27px;line-height:1.15;font-weight:600;letter-spacing:-0.01em;margin:0 0 6px;text-wrap:balance}
+h2{font-family:var(--font-mono);font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;color:var(--gold-deep);font-weight:500;margin:0 0 12px}
+.rule{height:2px;width:56px;background:var(--gold);border:0;margin:12px 0 var(--z)}
+.meta{color:var(--stone-deep);font-size:13px}
+.lead{font-size:16px;line-height:1.5;max-width:60ch;margin-bottom:var(--z)}
 .lead b{font-weight:600}
-.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:16px 0 16px}
-.size{padding:14px 16px 12px 0}
-.size + .size{border-left:1px solid var(--line-soft);padding-left:16px}
-.size .amt{font-size:34px;font-weight:600;letter-spacing:-0.02em;line-height:1;font-variant-numeric:tabular-nums lining-nums;margin:0 0 2px}
-.size .name{font-weight:600;font-size:14px;margin:0 0 6px}
-.size p{font-size:13px;color:var(--ink-soft);margin:0 0 8px;line-height:1.45}
-.size table{width:100%;border-collapse:collapse;font-size:12px}
-.size td{padding:2px 0;border-top:1px solid var(--line-soft);vertical-align:top;font-variant-numeric:tabular-nums lining-nums}
+.num{font-variant-numeric:tabular-nums lining-nums}
+
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:var(--z)}
+.size .amt{font-size:40px;font-weight:600;letter-spacing:-0.025em;line-height:1;margin:0 0 4px}
+.size .name{font-weight:600;font-size:14.5px;margin:0 0 2px}
+.size .reach{font-size:13px;color:var(--stone-deep);margin:0 0 12px}
+.size table{width:100%;border-collapse:collapse;font-size:12.5px}
+.size td{padding:4px 0;border-top:1px solid var(--line-soft);vertical-align:top}
 .size td:last-child{text-align:right;white-space:nowrap;padding-left:8px}
 .size tr.tot td{font-weight:600;border-top:1px solid var(--line)}
-.cols{display:grid;grid-template-columns:1.05fr 1fr;gap:28px;margin:0 0 14px}
-.tl{list-style:none;padding:0;margin:0;font-size:13.5px}
-.tl li{display:grid;grid-template-columns:104px 1fr;gap:10px;padding:5px 0;border-top:1px solid var(--line-soft)}
-.tl li:first-child{border-top:0}
-.tl .when{font-family:var(--font-mono);font-size:11.5px;color:var(--gold-deep);padding-top:2px;white-space:nowrap}
-.choices{list-style:none;padding:0;margin:0;font-size:13.5px}
-.choices li{padding:5px 0 5px 14px;border-top:1px solid var(--line-soft);position:relative}
-.choices li:first-child{border-top:0}
-.choices li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;background:var(--gold)}
+
+.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-bottom:var(--z)}
+.strip .when{font-family:var(--font-mono);font-size:11.5px;color:var(--gold-deep);padding-bottom:6px;border-bottom:2px solid var(--gold);margin-bottom:8px}
+.strip .what{font-size:13.5px;line-height:1.45}
+.strip .what b{font-weight:600}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:36px;margin-bottom:var(--z)}
+.needs{font-size:14px;line-height:1.5;border-left:3px solid var(--gold);padding:2px 0 2px 16px}
+.choices{list-style:none;padding:0;margin:0;font-size:13.5px;line-height:1.45}
+.choices li{padding:6px 0;border-top:1px solid var(--line-soft)}
+.choices li:first-child{border-top:0;padding-top:0}
 .choices b{font-weight:600}
-.callout{border-left:3px solid var(--gold);padding:4px 0 4px 16px;margin:0 0 14px;font-size:13.5px;max-width:70ch}
-.evidence{background:var(--surface);padding:12px 16px 10px;margin:0 0 14px}
-.evidence ul{margin:0;padding-left:16px;font-size:13px;line-height:1.45}
-.evidence li{margin:0 0 4px}
-.evidence p{font-size:13px;margin:0 0 6px}
-.foot{display:flex;justify-content:space-between;gap:16px;font-size:12px;color:var(--stone-deep);border-top:1px solid var(--line);padding-top:10px;margin-top:4px}
+
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:14px}
+.tile{background:var(--surface);padding:14px 16px 12px}
+.tile .big{font-size:36px;font-weight:600;letter-spacing:-0.02em;line-height:1;margin:0 0 4px}
+.tile .big small{font-size:14px;font-weight:500;color:var(--stone-deep);letter-spacing:0;margin-left:6px}
+.tile .who{font-weight:600;font-size:13px;margin:0 0 2px}
+.tile .cap{font-size:12.5px;color:var(--stone-deep);line-height:1.4}
+.evnote{font-size:13px;color:var(--ink-soft);max-width:78ch;margin-bottom:var(--z)}
+
+.foot{display:flex;justify-content:space-between;gap:16px;font-size:12px;color:var(--stone-deep);border-top:1px solid var(--line);padding-top:10px}
 .foot a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--gold)}
 @media (max-width:700px){
+  :root{--z:26px}
   .page{padding:24px 18px}
-  .sizes{grid-template-columns:1fr}
-  .size + .size{border-left:0;border-top:1px solid var(--line-soft);padding-left:0}
-  .cols{grid-template-columns:1fr}
+  .sizes,.strip,.two,.tiles{grid-template-columns:1fr}
   .foot{flex-direction:column}
 }
 @media print{
   @page{size:letter;margin:0}
-  body{background:var(--white);font-size:10.8px;line-height:1.4}
-  .page{max-width:none;padding:0.38in 0.52in 0.3in}
-  h1{font-size:20px;margin-bottom:3px}
-  h2{font-size:8.2px;margin-bottom:4px}
-  .rule{margin:6px 0 8px}
+  :root{--z:13px}
+  body{background:var(--white);font-size:11px;line-height:1.38}
+  .page{max-width:none;padding:0.36in 0.6in 0.25in}
+  .rule{margin:9px 0 var(--z)}
+  .evnote{max-width:none;margin-bottom:12px}
+  h1{font-size:22px}
+  h2{font-size:8.5px;margin-bottom:8px}
   .meta{font-size:10px}
-  .lead{font-size:11.2px;margin-bottom:3px;max-width:none}
-  .sizes{margin:7px 0 8px}
-  .size{padding:7px 12px 6px 0}
-  .size + .size{padding-left:12px}
-  .size .amt{font-size:24px}
-  .size .name{font-size:11px;margin-bottom:3px}
-  .size p{font-size:9.8px;line-height:1.36;margin-bottom:4px}
-  .size table{font-size:9.5px}
-  .size td{padding:1.5px 0}
-  .cols{gap:18px;margin-bottom:6px}
-  .tl,.choices{font-size:10.1px}
-  .tl li{grid-template-columns:76px 1fr;padding:2.5px 0}
-  .tl .when{font-size:8.8px}
-  .choices li{padding:2.5px 0 2.5px 12px}
-  .choices li::before{top:8px;width:5px;height:5px}
-  .callout{font-size:10.1px;margin-bottom:6px;padding:2px 0 2px 12px}
-  h2.tight{margin-top:8px}
-  .evidence{padding:7px 12px 5px;margin-bottom:6px}
-  .evidence p,.evidence ul{font-size:9.8px;line-height:1.36}
-  .evidence ul{columns:2;column-gap:18px;padding-left:14px}
-  .evidence li{margin-bottom:2px;break-inside:avoid}
-  .foot{font-size:9px;padding-top:5px}
+  .lead{font-size:12px}
+  .sizes{gap:22px}
+  .size .amt{font-size:30px}
+  .size .name{font-size:11.5px}
+  .size .reach{font-size:10px;margin-bottom:8px}
+  .size table{font-size:9.8px}
+  .size td{padding:2.5px 0}
+  .strip .when{font-size:9px}
+  .strip .what{font-size:10.3px}
+  .two{gap:28px}
+  .needs{font-size:10.5px}
+  .choices{font-size:10.3px}
+  .choices li{padding:4px 0}
+  .tiles{gap:14px;margin-bottom:8px}
+  .tile{padding:8px 12px 7px}
+  .tile .big{font-size:25px}
+  .tile .big small{font-size:10.5px}
+  .tile .who{font-size:10.3px}
+  .tile .cap{font-size:9.6px}
+  .evnote{font-size:10px}
+  .foot{font-size:9px;padding-top:6px}
 }
 </style>
 </head>
 <body>
 <main class="page">
   <h1>Soft Trump voters: a fast ad program for the last five weeks</h1>
-  <p class="meta">Whit Pendergast, Hoplight. Prepared September 23, 2026 for donor and experiment advisers.</p>
+  <p class="meta">Whit Pendergast, Hoplight. September 23, 2026, for donor and experiment advisers.</p>
   <hr class="rule">
 
-  <p class="lead"><b>One in five 2024 Trump voters now regret their vote, and the Iran war and rising costs top their reasons</b> (Navigator Research, September 2026). Almost nobody is talking to them about it inside their own values, their own worldview, or a voice they would trust. This program does, with two betrayals they already feel: the Epstein files and the Iran war.</p>
-  <p class="lead">Low-cost static and motion ads on Meta, from a neutral or right-of-center name, to soft Trump voters, through November 3. A randomized message test first, then a random slice of the voter list held out so the effect on enthusiasm and turnout can be measured. Experiment advisers shape the measurement.</p>
+  <p class="lead"><b>One in five 2024 Trump voters now regret their vote.</b> The Iran war and rising costs top their reasons (Navigator Research, September 2026), and almost nobody is talking to them about it inside their own values or in a voice they would trust. Low-cost static and motion ads on Meta, from a neutral or right-of-center name, on the Epstein files and the Iran war, through November 3. A randomized message test first, then a held-out slice of the voter list so the effect on enthusiasm and turnout can be measured.</p>
 
-  <h2 class="tight" style="margin-top:14px">Three program sizes</h2>
+  <h2>Three program sizes</h2>
   <div class="sizes">
     <div class="size">
-      <p class="amt">$35K</p>
+      <p class="amt num">$35K</p>
       <p class="name">Message test only</p>
-      <p>A randomized survey test among 2024 Trump voters, oversampling those who express regret. Epstein and Iran, two frames each, against a placebo. Measures enthusiasm to vote, approval and regret. Needs no vehicle. Starts on a yes. Results in about ten days.</p>
-      <table>
+      <p class="reach">2024 Trump voters. Ten days. No vehicle needed.</p>
+      <table class="num">
         <tr><td>Survey test vendor</td><td>$24K</td></tr>
         <tr><td>Test creative</td><td>$3K</td></tr>
-        <tr><td>Hoplight: messages, copy, results memo</td><td>$8K</td></tr>
+        <tr><td>Hoplight</td><td>$8K</td></tr>
         <tr class="tot"><td>Total</td><td>$35K</td></tr>
       </table>
     </div>
     <div class="size">
-      <p class="amt">$180K</p>
+      <p class="amt num">$180K</p>
       <p class="name">Test, then one state</p>
-      <p>The test above, then four weeks of ads in one Senate state or a set of House districts, with matched areas held out. About 6 to 8 million views, reaching roughly 650,000 to a million people eight to ten times each.</p>
-      <table>
+      <p class="reach">Four weeks of ads. About 800,000 people reached.</p>
+      <table class="num">
         <tr><td>Ads on Meta</td><td>$95K</td></tr>
         <tr><td>Message test</td><td>$24K</td></tr>
         <tr><td>In-field measurement</td><td>$25K</td></tr>
         <tr><td>Creative, at cost</td><td>$9K</td></tr>
-        <tr><td>Hoplight: messages, copy, ad operations, results memo</td><td>$27K</td></tr>
+        <tr><td>Hoplight</td><td>$27K</td></tr>
         <tr class="tot"><td>Total</td><td>$180K</td></tr>
       </table>
     </div>
     <div class="size">
-      <p class="amt">$475K</p>
+      <p class="amt num">$475K</p>
       <p class="name">Test, then four states</p>
-      <p>The same run in four states or district sets, each with its own holdout, so the result replicates instead of resting on one place. About 2 to 3.5 million people reached.</p>
-      <table>
+      <p class="reach">Each with its own holdout. About 3 million people.</p>
+      <table class="num">
         <tr><td>Ads on Meta</td><td>$340K</td></tr>
         <tr><td>Message test</td><td>$24K</td></tr>
         <tr><td>In-field measurement</td><td>$50K</td></tr>
         <tr><td>Creative, at cost</td><td>$16K</td></tr>
-        <tr><td>Hoplight: messages, copy, ad operations, results memo</td><td>$45K</td></tr>
+        <tr><td>Hoplight</td><td>$45K</td></tr>
         <tr class="tot"><td>Total</td><td>$475K</td></tr>
       </table>
     </div>
   </div>
 
-  <div class="cols">
+  <h2>Timeline</h2>
+  <div class="strip">
+    <div><p class="when">On a yes</p><p class="what"><b>Message test goes to field.</b> Results in about ten days.</p></div>
+    <div><p class="when">By Oct 1</p><p class="what"><b>Funding and vehicle in place.</b> That buys four weeks of live ads.</p></div>
+    <div><p class="when">Oct 5 to 26</p><p class="what"><b>Ads live, three weekly rounds.</b> Money moves to what works. Every variant loaded before Meta's cutoff, about Oct 27.</p></div>
+    <div><p class="when">Oct 27 to Nov 3</p><p class="what"><b>Winners run.</b> Results memo by mid-November.</p></div>
+  </div>
+
+  <div class="two">
     <div>
-      <h2>Timeline</h2>
-      <ul class="tl">
-        <li><span class="when">On a yes</span><span>The message test goes to field. It needs no vehicle and no Meta approval. Results in about ten days.</span></li>
-        <li><span class="when">By Oct 1</span><span>Funding committed and a vehicle named. That buys four weeks of live ads.</span></li>
-        <li><span class="when">Oct 2 to 5</span><span>Winning messages built as statics and simple motion. First batch submitted to Meta review. Ads live October 5.</span></li>
-        <li><span class="when">Oct 5 to 26</span><span>Three weekly rounds. Cut what is not working, move money to what is. Every variant loaded and running before Meta's cutoff for new political ads, about October 27 in past cycles.</span></li>
-        <li><span class="when">Oct 27 to Nov 3</span><span>The money runs on the winners. Results memo by mid-November, once the turnout record is in.</span></li>
-      </ul>
-      <h2 class="tight" style="margin-top:14px">What it needs besides money</h2>
-      <p class="callout">A neutral or right-of-center vehicle: an existing C4 or PAC with a brand, Meta's political ad approval already in hand, and an ad account with spending history. Ideally one that codes right or MAGA-aligned. Its counsel clears each ad against the public record. Hoplight operates the campaign and does not own the vehicle.</p>
+      <h2>What it needs besides money</h2>
+      <p class="needs">An existing C4 or PAC with a neutral or right-of-center brand, Meta's political ad approval already in hand, and an ad account with spending history. Its counsel clears each ad. Hoplight runs the campaign and does not own the vehicle.</p>
     </div>
     <div>
-      <h2>The open choices</h2>
+      <h2>Open choices for advisers</h2>
       <ul class="choices">
-        <li><b>Where.</b> One Senate state, or a set of close House districts. The vehicle's owner may have a view. The budget fits either.</li>
-        <li><b>How it is measured.</b> Matched areas held out with a short survey in both, plus the turnout record afterward. If the vehicle already runs a texting program, person-level randomization against the voter file is cleaner and costs the same.</li>
-        <li><b>Which vehicle type.</b> A C4 works while the ads name only Trump, the Epstein files and the Iran war. An ad that names a 2026 candidate and urges their defeat moves the work to a PAC. Counsel decides.</li>
-        <li><b>A third issue.</b> Rising costs is the other top reason for regret. Adding it puts two more arms in the test, about $6K to $12K more, and a third creative set.</li>
-        <li><b>Added channels.</b> Volunteers sharing the same images, and text messages with images if the vehicle already texts. Both ride on the same creative at no added cost here.</li>
-        <li><b>Scale.</b> Money above the one-state size goes almost entirely to ads. The message test runs once at any size.</li>
+        <li><b>Where.</b> One Senate state, or a set of close House districts.</li>
+        <li><b>Measurement.</b> Held-out areas with a short survey, or person-level randomization if the vehicle already texts.</li>
+        <li><b>Vehicle type.</b> A C4 while ads name only Trump and the issues. Naming a 2026 candidate moves it to a PAC.</li>
+        <li><b>A third issue.</b> Rising costs adds two test arms, about $6K to $12K.</li>
+        <li><b>Added channels.</b> Volunteer sharing and image texts ride on the same creative.</li>
       </ul>
     </div>
   </div>
 
-  <div class="evidence">
-    <h2>Why Hoplight</h2>
-    <p>In a randomized trial of 3,006 US adults in August 2025, two messages produced by Hoplight's message generation tool were tested against a placebo and an existing campaign's persuasion message, on security officers' pay and their right to join a union.</p>
-    <ul>
-      <li><b>Republicans:</b> agreement that the officers are underpaid went from 56 to 81 with the Hoplight frame. The staff-written message reached 70.</li>
-      <li><b>Enterprising conservatives:</b> 56 to 82 on pay, a 26-point lift. The staff-written message reached 63. <b>Religious conservatives:</b> support for the right to join a union went from 55 to 71. The staff-written message took it down to 51.</li>
-      <li><b>2024 non-voters:</b> pay agreement went from 44 to 66, and union support from 46 to 57. The staff-written message dropped union support to 36.</li>
-    </ul>
-    <p style="margin-top:8px">Separately, Whit Pendergast has run close to $1 million of Meta ads for a commercial activist brand he co-founded, including ten months of Epstein-themed creative. Its 6.5 million views showed three things: Meta's review lets creative through when it implies, people stop for it as readily as anything else on the account, and the clicks cost 18 percent less.</p>
+  <h2>Why Hoplight</h2>
+  <div class="tiles num">
+    <div class="tile">
+      <p class="big">81<small>from 56</small></p>
+      <p class="who">Republicans, officer pay</p>
+      <p class="cap">The staff-written message reached 70.</p>
+    </div>
+    <div class="tile">
+      <p class="big">71<small>from 55</small></p>
+      <p class="who">Religious conservatives, union support</p>
+      <p class="cap">The staff-written message took it down to 51. Enterprising conservatives rose 26 points on pay.</p>
+    </div>
+    <div class="tile">
+      <p class="big">66<small>from 44</small></p>
+      <p class="who">2024 non-voters, officer pay</p>
+      <p class="cap">Union support 46 to 57. The staff-written message dropped it to 36.</p>
+    </div>
   </div>
+  <p class="evnote">Randomized trial of 3,006 US adults, August 2025: two messages from Hoplight's message generation tool against a placebo and an existing campaign's persuasion message. Separately, close to $1 million of Meta ads for a commercial activist brand Whit co-founded, including ten months of Epstein-themed creative: 6.5 million views, Meta's review let it through when it implied, people stopped for it like anything else on the account, and the clicks cost 18 percent less.</p>
 
   <div class="foot">
     <span>Whit Pendergast, <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a></span>
