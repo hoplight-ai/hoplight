@@ -1,0 +1,12 @@
+{
+  "name": "Soft Trump Voters: Funder Brief",
+  "short_name": "Funder Brief",
+  "start_url": "/soft-trump-voter-ads-funder-brief-2026-09-24.html",
+  "display": "standalone",
+  "theme_color": "#0F1B2D",
+  "background_color": "#F5F5F0",
+  "icons": [
+    { "src": "/favicon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
