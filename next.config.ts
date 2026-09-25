@@ -87,6 +87,25 @@ const nextConfig: NextConfig = {
       { source: '/faq.html', destination: '/faq', permanent: true },
       { source: '/contact.html', destination: '/contact', permanent: true },
       { source: '/portfolio.html', destination: '/portfolio', permanent: true },
+      // Draft home pages came off the public site 2026-09-25 (Portfolio AUDITPUB1): they were
+      // drafts for Whit's review served to anyone. They now live behind the visualizations
+      // password; anyone holding an old link lands on the password prompt, not a 404.
+      // Not permanent, so a browser does not cache the move if Whit ever brings one back.
+      ...[
+        'hoplight-home-picks-2026-09-21',
+        'hoplight-home-labor-print-2026-09-21',
+        'hoplight-home-night-exterior-2026-09-21',
+        'hoplight-home-high-altitude-2026-09-21',
+      ].map((page) => ({
+        source: `/${page}.html`,
+        destination: `https://visualizations-eta.vercel.app/private/hoplight/${page}`,
+        permanent: false,
+      })),
+      {
+        source: '/home-art/:path*',
+        destination: 'https://visualizations-eta.vercel.app/private/hoplight/home-art/:path*',
+        permanent: false,
+      },
     ]
   },
 }

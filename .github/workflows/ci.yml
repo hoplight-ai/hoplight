@@ -76,6 +76,14 @@ jobs:
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run test
 
+      # Portfolio AUDITPUB1, 2026-09-25. Everything under public/ is served on hoplight.ai to anyone.
+      # A file named like a dated draft (`-YYYY-MM-DD`) fails here unless the allow list at the top
+      # of the script says who it is public for. `npm run build` runs it again as prebuild; this
+      # step names it on its own so a red build says "draft" and not "build".
+      - name: 'gate: no drafts in public'
+        if: ${{ !cancelled() && steps.install.outcome == 'success' }}
+        run: npm run check:drafts
+
       - name: build
         if: ${{ !cancelled() && steps.install.outcome == 'success' }}
         run: npm run build
