@@ -101,6 +101,13 @@ const nextConfig: NextConfig = {
         destination: `https://visualizations-eta.vercel.app/private/hoplight/${page}`,
         permanent: false,
       })),
+      // 2026-10-06 (Portfolio MOCKGATE2): the 2026-09-09 services mockup was a draft for Whit's review
+      // served to anyone; its copy now lives behind the visualizations password.
+      {
+        source: '/productized-services-2026-09-09.html',
+        destination: 'https://visualizations-eta.vercel.app/private/hoplight/productized-services-2026-09-09',
+        permanent: false,
+      },
       {
         source: '/home-art/:path*',
         destination: 'https://visualizations-eta.vercel.app/private/hoplight/home-art/:path*',
