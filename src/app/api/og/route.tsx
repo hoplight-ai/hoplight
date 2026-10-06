@@ -28,10 +28,56 @@ async function loadInter(text: string, weight: 400 | 700): Promise<ArrayBuffer |
   }
 }
 
+// OG-CLAMP-START
+// Security clamp (GHSA-vcvr-r3jv-pc5j, 2026-10-06). ?title= and ?sub= are attacker-controlled and
+// end up in the SVG that ImageResponse renders. Drop <, >, double quotes, control and invisible
+// formatting characters and lone surrogates, collapse whitespace, then cap the length. Ordinary
+// text passes through unchanged. scripts/og-route.test.mjs evaluates this block as written, so keep
+// it plain TypeScript with no imports.
+const TITLE_MAX = 120;
+const SUB_MAX = 160;
+
+function clampText(value: string | null, fallback: string, max: number): string {
+  let out = '';
+  let lastWasSpace = false;
+  for (const ch of value ?? '') {
+    const c = ch.codePointAt(0) ?? 0;
+    if (ch === '<' || ch === '>' || ch === '"') continue;
+    const isSpace = c === 32 || c === 9 || c === 10 || c === 13;
+    if (isSpace) {
+      if (!lastWasSpace && out.length > 0) out += ' ';
+      lastWasSpace = true;
+      continue;
+    }
+    if (
+      c < 32 ||
+      (c >= 127 && c <= 159) ||
+      (c >= 0xd800 && c <= 0xdfff) ||
+      c === 0x2028 ||
+      c === 0x2029 ||
+      (c >= 0x200b && c <= 0x200f) ||
+      (c >= 0x202a && c <= 0x202e) ||
+      (c >= 0x2066 && c <= 0x2069) ||
+      c === 0xfeff
+    ) {
+      continue;
+    }
+    out += ch;
+    lastWasSpace = false;
+  }
+  const clamped = Array.from(out.trim()).slice(0, max).join('').trim();
+  return clamped || fallback;
+}
+// OG-CLAMP-END
+
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
-  const title = (searchParams.get('title') || 'Hoplight').slice(0, 80);
-  const sub = (searchParams.get('sub') || 'AI strategy for labor, advocacy, and mission-driven organizations').slice(0, 160);
+  const title = clampText(searchParams.get('title'), 'Hoplight', TITLE_MAX);
+  const sub = clampText(
+    searchParams.get('sub'),
+    'AI strategy for labor, advocacy, and mission-driven organizations',
+    SUB_MAX,
+  );
 
   const [bold, regular] = await Promise.all([
     loadInter(title, 700),
