@@ -77,6 +77,13 @@ test('run as a command against a clean tree, it exits zero', () => {
   } finally { rmSync(dir, { recursive: true, force: true }); }
 });
 
+// Portfolio MOCKGATE2 (2026-10-06): Whit said yes to moving the 2026-09-09 services mockup behind the
+// gallery password. Its gated copy is live in visualizations; the public copy must not be allowed back.
+test('the 2026-09-09 services mockup is not on the allow list', () => {
+  const entry = ALLOW.find((e) => e.match.includes('productized-services-2026-09-09'));
+  assert.equal(entry, undefined, 'productized-services-2026-09-09 must not be allowed on the public site');
+});
+
 test('every allow-list entry says who the file is public for', () => {
   assert.ok(ALLOW.length > 0);
   for (const e of ALLOW) {
