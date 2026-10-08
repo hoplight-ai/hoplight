@@ -10,7 +10,7 @@ const pmeCSS = `
      who greps for it and trusts the label). Values below now match src/app/globals.css :root
      exactly for every token that shares a name there; --gold-light has no site equivalent and is
      unchanged. */
-  --ink:#0F1B2D; --gold:#D4950A; --gold-deep:#845810; --gold-light:#F4CE8A; --surface:#FFFFFF; --stone:#575752;
+  --ink:#0F1B2D; --gold:#D4950A; --gold-deep:#785010; --gold-light:#F4CE8A; --surface:#FFFFFF; --stone:#575752;
   --dark:#0F172A;
   --card:#1E293B;
   --card2:#111827;

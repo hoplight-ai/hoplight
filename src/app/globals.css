@@ -19,7 +19,7 @@
   /* Gold */
   --gold: #D4950A;
   --gold-hot: #E8A820;
-  --gold-deep: #845810;        /* AA-safe gold for small text on light (~6.2:1 on white) */
+  --gold-deep: #785010;        /* gold for small text on light, 7.1:1 on white, darkened 2026-10-08 to reach the 7:1 bar */
 
   /* Grays */
   --stone: #575752;            /* 7.3:1 on white; was #70706A at 5.0:1 */
@@ -28,7 +28,7 @@
 
   /* Edges and rings that have to be seen, 3:1 or better on white (WCAG 1.4.11) */
   --field-edge: #7B828C;       /* text-field border, 3.9:1 */
-  --ring: var(--gold-deep);    /* keyboard focus on a light ground, 6.2:1; --gold is 2.6:1 and cannot mark focus on white */
+  --ring: var(--gold-deep);    /* keyboard focus on a light ground, 7.1:1; --gold is 2.6:1 and cannot mark focus on white */
 
   /* Lines */
   --line: rgba(0,0,0,0.10);
@@ -98,7 +98,7 @@ a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent;
    .collapse-panel-inner a below. */
 main p a, main li a, main blockquote a, main h2 a, main h3 a { border-bottom: 1px solid var(--gold); }
 a:hover { border-bottom-color: var(--gold); }
-/* Focus rings read --ring: deep gold on a light ground (6.2:1 on white), bright gold on navy. Plain
+/* Focus rings read --ring: deep gold on a light ground (7.1:1 on white), bright gold on navy. Plain
    --gold is 2.6:1 on white, which is not a visible ring (WCAG 1.4.11 asks for 3:1). */
 a:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); border-radius: var(--radius-sm); }
 :where(button, [role="button"], input, textarea, select):focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: var(--radius-sm); }
@@ -602,8 +602,10 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 .gate-btn { flex: 1 1 240px; text-align: left; background: var(--white); border: 1px solid var(--line-card); border-radius: var(--radius-lg); padding: 22px 24px; cursor: pointer; font-family: var(--font-body); color: var(--ink); transition: border-color 150ms ease-out, box-shadow 150ms ease-out; }
 .gate-btn:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
 .gate-btn[aria-pressed="true"] { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
-.gate-btn .gt { font-size: 1.1rem; font-weight: 700; }
-.gate-btn .gd { color: var(--stone-deep); font-size: 0.92rem; margin-top: 6px; }
+/* Both are <span>s inside a <button>, so they were inline: the title ran into the description
+   ("Hire HoplightBring AI strategy") and the 6px margin did nothing. Block puts each on its own line. */
+.gate-btn .gt { display: block; font-size: 1.1rem; font-weight: 700; }
+.gate-btn .gd { display: block; color: var(--stone-deep); font-size: 0.92rem; margin-top: 6px; }
 .field { margin-bottom: 20px; }
 .field label { display: block; font-size: 0.92rem; font-weight: 600; color: var(--ink); margin-bottom: 7px; }
 .field .hint { font-weight: 400; color: var(--stone-deep); font-size: 0.86rem; }

@@ -33,7 +33,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
-import { join, dirname, relative, extname } from 'node:path';
+import { join, dirname, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // fileURLToPath rather than `new URL(...).pathname`, which mangles the space in the folder name.
@@ -394,6 +394,20 @@ test('(a) every white card in the Which AI tool is told apart by a visible borde
   assert.ok(cards.length >= 5, `expected at least 5 white cards with a border, found ${cards.length}`);
   const weak = cards.filter((b) => !b.includes('C.line'));
   assert.deepEqual(weak, [], 'white cards whose border is not C.line');
+});
+
+test('(a) the security notices on the result page are white boxes with a border, not tinted boxes', () => {
+  // The yellow notice was a gold wash over white, which reads as a cream box inside a white card. The
+  // three status grounds are boxes, so they follow the same rule as every other card. (The red, yellow and
+  // green chips in the exposure table stay tinted: they are the data, the level of exposure, not a ground.)
+  const block = src.whichai.match(/const securityColors[^=]*=\s*\{([\s\S]*?)\n\};/);
+  assert.ok(block, 'no securityColors in WhichAiTool.tsx');
+  const C = whichAiTokens();
+  // bg is either a quoted colour or a name from the tool's own token object (`C.paper`)
+  const levels = [...block[1].matchAll(/(\w+):\s*\{\s*bg:\s*(?:'([^']+)'|C\.(\w+))/g)].map((m) => [m[1], m[2] ?? C[m[3]]]);
+  assert.ok(levels.length >= 3, `expected the three security levels, found ${levels.length}`);
+  const tinted = levels.filter(([, bg]) => hexOf(over(parseColor(bg, {}), WHITE)) !== '#FFFFFF').map(([k, bg]) => `${k}: ${bg}`);
+  assert.deepEqual(tinted, [], 'security notice grounds that are not white');
 });
 
 test('(a) secondary text in the Which AI tool is a solid colour, not ink dimmed with opacity', () => {

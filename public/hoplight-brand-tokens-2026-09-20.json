@@ -38,9 +38,9 @@
       "role": "Brighter gold, for large figures on dark grounds only."
     },
     "gold-deep": {
-      "value": "#845810",
+      "value": "#785010",
       "var": "--gold-deep",
-      "role": "The gold for small text on light. 6.2:1 on --surface; --gold itself is 2.6:1 and fails."
+      "role": "The gold for small text on light. 7.1:1 on --surface; --gold itself is 2.6:1 and fails."
     },
     "surface": {
       "value": "#FFFFFF",
@@ -80,7 +80,7 @@
     "ring": {
       "value": "var(--gold-deep)",
       "var": "--ring",
-      "role": "Keyboard focus ring on a light ground. 6.2:1 on --surface; use --gold-hot on navy."
+      "role": "Keyboard focus ring on a light ground. 7.1:1 on --surface; use --gold-hot on navy."
     },
     "danger": {
       "value": "#9c3327",

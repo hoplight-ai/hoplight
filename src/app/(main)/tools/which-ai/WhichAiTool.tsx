@@ -12,12 +12,19 @@ import {
 } from 'lucide-react';
 
 // ===== BRAND TOKENS =====
+// Read off src/app/globals.css; scripts/no-cream-test.mjs fails if any of these drifts from it. Lane
+// hopfix1, 2026-10-08, after Whit's "this fucking cream on cream bullshit has got to go": `paper` is white
+// (it was a warm off-white on every card and callout), `stone` is the stylesheet's 7.3:1 secondary text
+// (it was a warm grey at 3.7:1), `goldDeep` is the stylesheet's 7:1 small gold text, and `line` is the
+// stylesheet's --line-card, the border that tells a white card from the white page now that no tint does.
 const C = {
   ink: '#0F1B2D',
+  inkSoft: '#2A3F5F',
   gold: '#D4950A',
-  goldDeep: '#845810',
-  paper: '#F7F5F0',
-  stone: '#8B8578',
+  goldDeep: '#785010',
+  paper: '#FFFFFF',
+  stone: '#575752',
+  line: 'rgba(15, 27, 45, 0.18)',
   signal: '#4A6FA5',
   flag: '#B84A3E',
 };
@@ -252,10 +259,13 @@ const pillColors: Record<string, { bg: string; text: string; border: string }> =
   green: { bg: 'rgba(46, 125, 50, 0.08)', text: '#1b5e20', border: 'rgba(46, 125, 50, 0.2)' },
 };
 
+// Lane hopfix1, 2026-10-08: the three notices are white boxes told apart by a firm status-coloured
+// border. They were washes of the status colour over white, and the yellow one read as a cream box
+// inside a white card. The chips in the exposure table above keep their tint: they are the data.
 const securityColors: Record<string, { bg: string; border: string; text: string; heading: string }> = {
-  green: { bg: 'rgba(46, 125, 50, 0.06)', border: 'rgba(46, 125, 50, 0.2)', text: '#2e7d32', heading: '#1b5e20' },
-  yellow: { bg: 'rgba(212, 149, 10, 0.08)', border: 'rgba(212, 149, 10, 0.25)', text: '#92600a', heading: '#6d4c0a' },
-  orange: { bg: 'rgba(184, 74, 62, 0.06)', border: 'rgba(184, 74, 62, 0.2)', text: '#8b3a30', heading: '#6d2c24' },
+  green: { bg: C.paper, border: 'rgba(46, 125, 50, 0.55)', text: '#2e7d32', heading: '#1b5e20' },
+  yellow: { bg: C.paper, border: 'rgba(212, 149, 10, 0.65)', text: '#92600a', heading: '#6d4c0a' },
+  orange: { bg: C.paper, border: 'rgba(184, 74, 62, 0.55)', text: '#8b3a30', heading: '#6d2c24' },
 };
 
 // Visual cue colors for newspaper test
@@ -289,7 +299,7 @@ const ExposureTable = ({ platforms, compact }: { platforms: any[]; compact?: boo
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: compact ? 16 : 20 }}>
       {platforms.map((p, i) => (
-        <div key={i} style={{ background: C.paper, border: `1px solid ${C.stone}33`, borderRadius: 8, overflow: 'hidden' }}>
+        <div key={i} style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 8, overflow: 'hidden' }}>
           <div style={{ background: `${C.ink}05`, borderBottom: `1px solid ${C.stone}25`, padding: compact ? '10px 16px' : '12px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h3 style={{ fontWeight: 600, color: C.ink, fontSize: compact ? 15 : 16, margin: 0 }}>{p.name}</h3>
             <span style={{ fontSize: 13, fontWeight: 500, color: C.stone }}>{p.company}</span>
@@ -431,12 +441,12 @@ export default function WhichAiTool() {
       <div style={{ borderTop: `2px solid ${C.gold}`, paddingTop: 32, marginTop: 8 }}>
         <div style={{ marginBottom: 20 }}>
           <h2 style={{ fontSize: 11, fontWeight: 700, color: C.stone, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 8 }}>Data exposure by platform and tier</h2>
-          <p style={{ fontSize: 14, color: C.ink, lineHeight: 1.6, margin: 0, opacity: 0.7 }}>
+          <p style={{ fontSize: 14, color: C.inkSoft, lineHeight: 1.6, margin: 0 }}>
             What each major AI platform does with your data at every pricing level. Red and yellow mean your data is exposed. Green means contractual protection.
           </p>
         </div>
         <ExposureTable platforms={EXPOSURE.platforms} />
-        <div style={{ background: `${C.gold}14`, border: `1px solid ${C.gold}30`, borderRadius: 6, padding: '14px 18px', display: 'flex', alignItems: 'flex-start', gap: 12, marginTop: 20 }}>
+        <div style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 6, padding: '14px 18px', display: 'flex', alignItems: 'flex-start', gap: 12, marginTop: 20 }}>
           <Info size={18} style={{ color: C.goldDeep, flexShrink: 0, marginTop: 2 }} />
           <p style={{ fontSize: 14, color: C.ink, lineHeight: 1.6, margin: 0 }}>
             Paying for Plus/Pro/Advanced buys you <em>features</em>, not privacy. Real data protection (green rows) starts at Team or Enterprise tiers.
@@ -507,7 +517,7 @@ export default function WhichAiTool() {
         </button>
 
         {/* Primary recommendation */}
-        <div style={{ background: C.paper, border: `1px solid ${C.gold}40`, borderRadius: 8, overflow: 'hidden', boxShadow: `0 4px 24px ${C.ink}08`, marginTop: 16 }}>
+        <div style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 8, overflow: 'hidden', boxShadow: `0 4px 24px ${C.ink}08`, marginTop: 16 }}>
           <div style={{ background: C.ink, padding: '10px 28px' }}>
             <span style={{ color: C.gold, fontSize: 10, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em' }}>Recommendation</span>
           </div>
@@ -548,14 +558,14 @@ export default function WhichAiTool() {
 
         {/* Alternatives */}
         {rec.alternatives && rec.alternatives.length > 0 && (
-          <div style={{ background: C.paper, border: `1px solid ${C.stone}25`, borderRadius: 8, padding: 28, marginTop: 24 }}>
+          <div style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 8, padding: 28, marginTop: 24 }}>
             <h3 style={{ fontSize: 10, fontWeight: 700, color: C.stone, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 20, marginTop: 0 }}>Also consider</h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
               {rec.alternatives.map((alt: any, idx: number) => (
                 <div key={idx}>
                   <div style={{ fontWeight: 600, color: C.ink, fontSize: 15 }}>{alt.name}</div>
-                  <div style={{ fontSize: 14, color: C.ink, lineHeight: 1.5, marginTop: 2, opacity: 0.7 }}>{alt.note}</div>
+                  <div style={{ fontSize: 14, color: C.inkSoft, lineHeight: 1.5, marginTop: 2 }}>{alt.note}</div>
                 </div>
               ))}
             </div>
@@ -601,9 +611,9 @@ export default function WhichAiTool() {
 
         <div style={{ marginBottom: 36 }}>
           <h2 ref={topHeadingRef} tabIndex={-1} style={{ fontSize: 28, fontWeight: 600, color: C.ink, marginBottom: 14, letterSpacing: '-0.01em', lineHeight: 1.2, outline: 'none' }}>{step.title}</h2>
-          <p style={{ fontSize: 17, color: C.ink, lineHeight: 1.7, marginBottom: 0, opacity: 0.7 }}>{step.subtitle}</p>
+          <p style={{ fontSize: 17, color: C.inkSoft, lineHeight: 1.7, marginBottom: 0 }}>{step.subtitle}</p>
           {step.note && (
-            <div style={{ marginTop: 14, display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: C.goldDeep, background: `${C.gold}14`, padding: '8px 16px', borderRadius: 4, border: `1px solid ${C.gold}30`, fontWeight: 500 }}>
+            <div style={{ marginTop: 14, display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, color: C.goldDeep, background: C.paper, padding: '8px 16px', borderRadius: 4, border: `1px solid ${C.line}`, fontWeight: 500 }}>
               <Info size={15} /> {step.note}
             </div>
           )}
@@ -640,12 +650,12 @@ export default function WhichAiTool() {
                           onClick={() => handleSelect(currentStep, opt.id, opt.next)}
                           style={{
                             display: 'flex', alignItems: 'center', gap: 14, padding: '16px 18px',
-                            background: C.paper, border: `1.5px solid ${C.stone}20`, borderRadius: 8,
+                            background: C.paper, border: `1.5px solid ${C.line}`, borderRadius: 8,
                             cursor: 'pointer', textAlign: 'left', fontFamily: font, width: '100%',
                             transition: 'all 0.15s ease'
                           }}
-                          onMouseOver={e => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.boxShadow = `0 3px 16px ${C.gold}20`; e.currentTarget.style.background = `${C.gold}08`; }}
-                          onMouseOut={e => { e.currentTarget.style.borderColor = C.stone + '20'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = C.paper; }}
+                          onMouseOver={e => { e.currentTarget.style.borderColor = C.gold; e.currentTarget.style.boxShadow = `0 3px 16px ${C.gold}20`; e.currentTarget.style.background = `${C.ink}06`; }}
+                          onMouseOut={e => { e.currentTarget.style.borderColor = C.line; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = C.paper; }}
                         >
                           {/* span, not div/h3/p: <button> only permits phrasing content, and each of
                               these labels was rendering as a spurious <h3> in the heading outline. */}
@@ -657,7 +667,7 @@ export default function WhichAiTool() {
                           </span>
                           <span style={{ display: 'block', flex: 1, minWidth: 0 }}>
                             <span style={{ display: 'block', fontSize: 15, fontWeight: 600, color: C.ink, margin: '0 0 2px 0' }}>{opt.label}</span>
-                            <span style={{ display: 'block', color: C.ink, fontSize: 13, lineHeight: 1.4, margin: 0, opacity: 0.55 }}>{opt.desc}</span>
+                            <span style={{ display: 'block', color: C.inkSoft, fontSize: 13, lineHeight: 1.4, margin: 0 }}>{opt.desc}</span>
                           </span>
                         </button>
                       );
@@ -683,8 +693,8 @@ export default function WhichAiTool() {
                   style={{
                     display: 'flex', alignItems: 'flex-start', gap: 16, padding: '20px 22px',
                     background: C.paper,
-                    border: `1.5px solid ${cue ? cue.border + '40' : C.stone + '25'}`,
-                    borderLeft: cue ? `4px solid ${cue.border}` : `1.5px solid ${C.stone}25`,
+                    border: `1.5px solid ${cue ? cue.border + '40' : C.line}`,
+                    borderLeft: cue ? `4px solid ${cue.border}` : `1.5px solid ${C.line}`,
                     borderRadius: 8,
                     cursor: 'pointer', textAlign: 'left', fontFamily: font, fontSize: 15, width: '100%',
                     transition: 'all 0.15s ease'
@@ -695,7 +705,7 @@ export default function WhichAiTool() {
                     e.currentTarget.style.boxShadow = `0 2px 12px ${cue ? cue.border + '18' : C.gold + '18'}`;
                   }}
                   onMouseOut={e => {
-                    e.currentTarget.style.borderColor = cue ? cue.border + '40' : C.stone + '25';
+                    e.currentTarget.style.borderColor = cue ? cue.border + '40' : C.line;
                     if (cue) e.currentTarget.style.borderLeftColor = cue.border;
                     e.currentTarget.style.boxShadow = 'none';
                   }}
@@ -716,7 +726,7 @@ export default function WhichAiTool() {
                       <span style={{ display: 'block' }}>
                         <span style={{ display: 'flex', flexDirection: 'column', gap: 2, marginBottom: opt.regulatory ? 6 : 0 }}>
                           {opt.bullets.map((b: string, i: number) => (
-                            <span key={i} style={{ color: C.ink, fontSize: 14, lineHeight: 1.5, opacity: 0.7 }}>{'• '}{b}</span>
+                            <span key={i} style={{ color: C.inkSoft, fontSize: 14, lineHeight: 1.5 }}>{'• '}{b}</span>
                           ))}
                         </span>
                         {opt.footnote && (
@@ -727,7 +737,7 @@ export default function WhichAiTool() {
                         )}
                       </span>
                     ) : (
-                      <span style={{ display: 'block', color: C.ink, fontSize: 14, lineHeight: 1.5, margin: 0, opacity: 0.7 }}>{opt.desc}</span>
+                      <span style={{ display: 'block', color: C.inkSoft, fontSize: 14, lineHeight: 1.5, margin: 0 }}>{opt.desc}</span>
                     )}
                   </span>
                 </button>
