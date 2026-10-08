@@ -31,10 +31,18 @@
 //   (g) the gold figures on the political-money page reach 7:1 on white (they were 2.9:1);
 //   (h) scripts/retire-old-palette.mjs maps the old small-text gold to the 7:1 deep gold, not the old 6.2:1 one.
 //
+// ADDED 2026-10-08 (lane hopmock1 again, the three findings that lane filed at its own close, which the
+// dispatcher ruled in scope for the same mockup), tests (i) to (k) at the bottom of this file:
+//   (i) the "US Senate" and "US House" labels on the political-money page are white boxes with a thin
+//       deep-gold outline, not a gold wash that reads as a cream box (washes written as rgba() are read too);
+//   (j) the secondary gray of the dark page every-political-dollar-buys-less.html reaches 7:1 on both of
+//       its dark grounds (the page ground and the card ground) and is a cool neutral;
+//   (k) the headline of the political-money page has a gap above it, so it does not sit on the Hoplight bar.
+//
 // STILL NOT COVERED: the status tints in the Which AI tool's exposure table (red, yellow and green cells are
 // data, not a ground), the dark themes of the two static pages that have one (the Oregon report and the
-// DNC page), the ninth static page with a dark ground (every-political-dollar-buys-less.html), and every
-// image file (the portfolio thumbnails show other products' screens).
+// DNC page), the rest of the dark page every-political-dollar-buys-less.html (only its secondary gray is
+// held, by test (j)), and every image file (the portfolio thumbnails show other products' screens).
 //
 // Run: `node --test scripts/no-cream-test.mjs` (also part of `npm test`, which CI runs).
 
@@ -579,12 +587,7 @@ test('(g) the gold figures on the political-money page reach 7:1 on white', () =
     if (c < 7) failing.push(`${sel}: ${hexOf(colour)} is ${c.toFixed(2)}:1`);
   }
   assert.deepEqual(failing, [], 'gold figures under 7:1 on white');
-  // The two federal tags sit on a 12 percent gold wash, so their text is held to AA on that wash.
-  const tag = rules(style).find((x) => x.selector === '.tag-fed');
-  assert.ok(tag, 'no .tag-fed rule');
-  const wash = over(parseColor(decls(tag.body, 'background')[0], vars), WHITE);
-  const tc = contrast(parseColor(decls(tag.body, 'color')[0], vars).slice(0, 3), wash);
-  assert.ok(tc >= 4.5, `.tag-fed text is ${tc.toFixed(2)}:1 on its wash, needs 4.5:1`);
+  // The two federal labels (.tag-fed) are held by test (i) below: white box, deep-gold outline, 7:1 text.
 });
 
 // ---- (h) the old-palette retire script ---------------------------------------------------------------
@@ -598,4 +601,110 @@ test('(h) the old-palette retire script maps the old deep gold to the 7:1 deep g
   }
   assert.ok(!/#845810/i.test(src.retire), 'the script still names the old 6.2:1 gold #845810');
   assert.ok(!/6\.20:1/.test(src.retire), 'the script still says the deep gold is 6.20:1');
+});
+
+// =====================================================================================================
+// LANE hopmock1, second pass, 2026-10-08: the three findings that lane filed at its own close. Each test
+// below was written first and seen red on ed034af (see the lane's done-file for the observed failures).
+// =====================================================================================================
+
+const MONEY_PAGE = 'public/portfolio/where-political-money-actually-works.html';
+const DARK_PAGE = 'public/portfolio/every-political-dollar-buys-less.html';
+// The page's own stylesheet is the first <style> block; the Hoplight bar injects a second one after it.
+const ownStyle = (html) => html.match(/<style>([\s\S]*?)<\/style>/)[1];
+
+// Every background colour a page paints, in its stylesheet and in inline style="" attributes, as
+// [where, atom as written, rgb laid over `ground`]. Reads hex and rgb() / rgba() and resolves var() through
+// the page's own tokens. A wash written as rgba() is laid over the ground first, because a 12 percent gold
+// wash on white is a cream box even though the literal rgba(184,146,10,...) is a dark gold on its own.
+function backgroundsOver(html, ground) {
+  const style = ownStyle(html);
+  const vars = customProps(style);
+  const out = [];
+  const bodies = [
+    ...rules(style).map((r) => [r.selector, r.body]),
+    ...[...html.matchAll(/\sstyle="([^"]*)"/g)].map((m) => [`style="${m[1].slice(0, 40)}"`, m[1]]),
+  ];
+  for (const [where, body] of bodies) {
+    for (const prop of ['background', 'background-color']) {
+      for (const value of decls(body, prop)) {
+        for (const atom of value.match(ATOM) ?? []) {
+          let rgba;
+          try { rgba = parseColor(atom, vars); } catch { continue; }
+          out.push([where, atom, over(rgba, ground)]);
+        }
+      }
+    }
+  }
+  return out;
+}
+
+// A css length in pixels (px, rem and em at 16px); NaN for anything else.
+function px(v) {
+  const m = String(v).trim().match(/^(-?[\d.]+)(px|rem|em)?$/);
+  return m ? Number(m[1]) * (m[2] === 'rem' || m[2] === 'em' ? 16 : 1) : NaN;
+}
+
+// ---- (i) the "US Senate" and "US House" labels --------------------------------------------------------
+test('(i) the federal labels on the political-money page are white boxes with a thin deep-gold outline, no warm tint', () => {
+  const html = read(MONEY_PAGE);
+  const style = ownStyle(html);
+  const vars = customProps(style);
+  // No background on the page, laid over white, is a warm tint (the scan sees rgba() washes, not only hex).
+  const warm = backgroundsOver(html, WHITE)
+    .filter(([, , rgb]) => isCream(rgb))
+    .map(([where, atom, rgb]) => `${where}: ${atom} lays down ${hexOf(rgb)} on white`);
+  assert.deepEqual([...new Set(warm)], [], 'warm tinted backgrounds on the political-money page');
+  // The label itself: a white box, a 1px solid outline in the deep gold, text at 7:1 on that white.
+  const tag = rules(style).find((r) => r.selector === '.tag-fed');
+  assert.ok(tag, 'no .tag-fed rule');
+  const ground = over(parseColor(decls(tag.body, 'background')[0], vars), WHITE);
+  assert.equal(hexOf(ground), '#FFFFFF', `.tag-fed background is ${hexOf(ground)}, it has to be white`);
+  const border = decls(tag.body, 'border')[0];
+  assert.ok(border, '.tag-fed has no border, so a white box on a white page would have no edge');
+  assert.match(border, /^1px\s+solid\s+/i, `.tag-fed border is "${border}", expected a thin 1px solid outline`);
+  const edge = parseColor(border.match(ATOM).pop(), vars).slice(0, 3);
+  assert.equal(hexOf(edge), hexOf(parseColor('var(--gold-deep)', globalVars)), `.tag-fed outline is ${hexOf(edge)}, expected the deep gold ${globalVars['gold-deep']}`);
+  const text = parseColor(decls(tag.body, 'color')[0], vars).slice(0, 3);
+  const c = contrast(text, ground);
+  assert.ok(c >= 7, `.tag-fed text ${hexOf(text)} is ${c.toFixed(2)}:1 on its ground, needs 7:1`);
+  assert.ok(contrast(edge, ground) >= 3, '.tag-fed outline is under 3:1 against its ground');
+});
+
+// ---- (j) the dark page's secondary gray -----------------------------------------------------------------
+test('(j) the secondary gray of the dark political-dollar page reaches 7:1 on both dark grounds and is a cool neutral', () => {
+  const html = read(DARK_PAGE);
+  const vars = customProps(ownStyle(html));
+  for (const k of ['bg', 'sf', 'mt']) assert.ok(vars[k], `the dark page has no --${k}`);
+  const mt = parseColor('var(--mt)', vars).slice(0, 3);
+  const failing = [];
+  // --bg is the page ground; --sf is the ground of the stat box, the cards and the corrections box, which is
+  // where the captions and source notes sit. Every use of --mt as text sits on one of the two.
+  for (const g of ['bg', 'sf']) {
+    const c = contrast(mt, parseColor(`var(--${g})`, vars).slice(0, 3));
+    if (c < 7) failing.push(`--mt ${hexOf(mt)} is ${c.toFixed(2)}:1 on --${g} ${vars[g]}`);
+  }
+  assert.deepEqual(failing, [], 'dark page secondary gray under 7:1');
+  // Cool neutral: low saturation, and a hue on the blue side, never the yellow-orange side of cream.
+  const [h, s] = hsl(mt);
+  assert.ok(s <= 20, `--mt ${hexOf(mt)} is ${s.toFixed(0)} percent saturated, a neutral grey stays under 20`);
+  assert.ok(!(h >= 20 && h <= 70 && s > 4), `--mt ${hexOf(mt)} has a warm hue (${h.toFixed(0)} degrees)`);
+  // The old grey is not left behind as a text colour anywhere in the page.
+  assert.ok(!/#6b7280/i.test(ownStyle(html).replace(/rgba\(107,114,128,[0-9.]+\)/g, '')), 'the old grey #6b7280 is still in the page stylesheet');
+});
+
+// ---- (k) the political-money page headline clears the Hoplight bar -------------------------------------
+test('(k) the headline of the political-money page has a gap above it, on the page\'s own stylesheet', () => {
+  const style = ownStyle(read(MONEY_PAGE));
+  const h1 = rules(style).find((r) => r.selector === 'h1');
+  assert.ok(h1, 'no h1 rule on the page');
+  const gaps = [];
+  for (const p of ['margin', 'padding']) {
+    for (const v of decls(h1.body, `${p}-top`)) gaps.push(px(v));
+    for (const v of decls(h1.body, p)) gaps.push(px(v.split(/\s+/)[0]));
+  }
+  const top = Math.max(0, ...gaps.filter((n) => !Number.isNaN(n)));
+  assert.ok(top > 0, 'the h1 has no top margin or padding, so it sits against the Hoplight bar above it');
+  // About a line: the headline is 26px on a 1.2 line, so a gap between half a line and two lines.
+  assert.ok(top >= 16 && top <= 64, `the h1 top gap is ${top}px, expected roughly one line (16 to 64px)`);
 });
