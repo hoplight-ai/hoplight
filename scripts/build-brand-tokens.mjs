@@ -71,7 +71,7 @@ const COLOR_ORDER = [
   ['ink-soft', 'Muted ink for supporting prose on light.'],
   ['gold', 'Accent. Rules, left borders, the one filled button, link underlines. Never dominant.'],
   ['gold-hot', 'Brighter gold, for large figures on dark grounds only.'],
-  ['gold-deep', 'The gold for small text on light. 6.2:1 on --surface; --gold itself is 2.6:1 and fails.'],
+  ['gold-deep', 'The gold for small text on light. 7.1:1 on --surface; --gold itself is 2.6:1 and fails.'],
   ['surface', 'Default page ground. White. No cream or warm off-white grounds (Whit, 2026-10-06).'],
   ['surface-card', 'Card ground. White; a card is told apart by a --line border, never by a tint.'],
   ['white', 'True white. Same value as --surface; the name for cards and fields.'],
@@ -79,7 +79,7 @@ const COLOR_ORDER = [
   ['stone-deep', 'Secondary text, the darker step. 7.5:1 on --surface.'],
   ['mute', 'Warm grey for de-emphasised chrome. Never for text or for a ground.'],
   ['field-edge', 'Text-field border. 3.9:1 on --surface, over the 3:1 floor for a UI boundary.'],
-  ['ring', 'Keyboard focus ring on a light ground. 6.2:1 on --surface; use --gold-hot on navy.'],
+  ['ring', 'Keyboard focus ring on a light ground. 7.1:1 on --surface; use --gold-hot on navy.'],
   ['danger', 'Error and destructive state. Semantic only.'],
 ];
 
