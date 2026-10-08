@@ -19,6 +19,12 @@
 // one exception is public/pme-lever.html, whose :root is aligned in full to its own React twin
 // src/app/(main)/persuasion/PmeContent.tsx, because the two files render the same page and a reader
 // landing on one or the other is exactly the complaint this sweep exists to close.
+//
+// ADDED 2026-10-07 (lane hopwhite1). The cream paper #F7F5F0 is still outside the map, but for a
+// different reason now. Whit's 2026-10-06 ruling bans warm off-white grounds on anything he sees, so
+// "under a perceptual threshold" no longer excuses it. It stays out because it is used as a TEXT
+// colour on navy in public/portfolio/hoplight-persuasion-story-page.html and as a card ground in
+// src/app/(main)/tools/which-ai/WhichAiTool.tsx, and each use needs a judgment, not a blind swap.
 
 import { readdirSync, readFileSync, writeFileSync, statSync } from 'node:fs';
 import { join, relative, extname, dirname } from 'node:path';
@@ -44,10 +50,25 @@ const MAP = [
   ['rgba(232,168,56', 'rgba(212,149,10', 'gold, decimal'],
   // the deep gold that carries small text on light. Included because leaving it behind would pair a
   // new accent with the old accent's dark variant, and because it is the one swap in this map that
-  // changes a contrast verdict: #B8851F on #F5F5F0 is 2.99:1 and fails WCAG AA for normal text,
-  // #845810 on the same ground is 5.60:1 and passes.
+  // changes a contrast verdict: #B8851F on the white page is 3.27:1 and fails WCAG AA for normal text
+  // (2.99:1 on the old warm ground this was first measured against), #845810 on white is 6.20:1 and
+  // passes.
   ['#B8851F', '#845810', 'gold-deep'],
   ['#b8851f', '#845810', 'gold-deep'],
+  // The warm grounds, retired 2026-10-07 (lane hopwhite1). Whit, 2026-10-06: "this fucking cream on
+  // cream bullshit has got to go." The page, the cards and the gold-wash bands are white now and
+  // globals.css no longer defines any of these four. They survive in static pages and in files this
+  // lane did not own, so a dry run of this script is the count of what is left. Running it with
+  // --apply is a separate decision per file: a few of those pages use the value as a card ground
+  // and need a border added where the tint used to separate it, not only a swap.
+  ['#F5F5F0', '#FFFFFF', 'warm page ground'],
+  ['#f5f5f0', '#FFFFFF', 'warm page ground'],
+  ['#EEEEE8', '#FFFFFF', 'warm card ground'],
+  ['#eeeee8', '#FFFFFF', 'warm card ground'],
+  ['#F5E6C4', '#FFFFFF', 'gold-wash band'],
+  ['#f5e6c4', '#FFFFFF', 'gold-wash band'],
+  ['#FBF4E4', '#FFFFFF', 'gold-wash row'],
+  ['#fbf4e4', '#FFFFFF', 'gold-wash row'],
 ];
 
 const SCAN_DIRS = ['src', 'public'];

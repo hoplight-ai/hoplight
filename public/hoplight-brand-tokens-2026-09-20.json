@@ -40,47 +40,47 @@
     "gold-deep": {
       "value": "#845810",
       "var": "--gold-deep",
-      "role": "The gold for small text on light. 5.6:1 on --surface; --gold itself is 2.4:1 and fails."
-    },
-    "gold-bg": {
-      "value": "#F5E6C4",
-      "var": "--gold-bg",
-      "role": "Gold tint for a filled callout ground."
-    },
-    "gold-bg-light": {
-      "value": "#FBF4E4",
-      "var": "--gold-bg-light",
-      "role": "Lighter gold tint, table and row wash."
+      "role": "The gold for small text on light. 6.2:1 on --surface; --gold itself is 2.6:1 and fails."
     },
     "surface": {
-      "value": "#F5F5F0",
+      "value": "#FFFFFF",
       "var": "--surface",
-      "role": "Default page ground. Warm off-white."
+      "role": "Default page ground. White. No cream or warm off-white grounds (Whit, 2026-10-06)."
     },
     "surface-card": {
-      "value": "#EEEEE8",
+      "value": "#FFFFFF",
       "var": "--surface-card",
-      "role": "Card ground on --surface."
+      "role": "Card ground. White; a card is told apart by a --line border, never by a tint."
     },
     "white": {
       "value": "#FFFFFF",
       "var": "--white",
-      "role": "True white, for cards that must separate from --surface."
+      "role": "True white. Same value as --surface; the name for cards and fields."
     },
     "stone": {
-      "value": "#70706A",
+      "value": "#575752",
       "var": "--stone",
-      "role": "Secondary text. Captions, metadata, timestamps."
+      "role": "Secondary text. Captions, metadata, timestamps. 7.3:1 on --surface."
     },
     "stone-deep": {
       "value": "#555550",
       "var": "--stone-deep",
-      "role": "Secondary text that has to pass AA on --surface."
+      "role": "Secondary text, the darker step. 7.5:1 on --surface."
     },
     "mute": {
       "value": "#8C8475",
       "var": "--mute",
-      "role": "Warm grey for de-emphasised chrome."
+      "role": "Warm grey for de-emphasised chrome. Never for text or for a ground."
+    },
+    "field-edge": {
+      "value": "#7B828C",
+      "var": "--field-edge",
+      "role": "Text-field border. 3.9:1 on --surface, over the 3:1 floor for a UI boundary."
+    },
+    "ring": {
+      "value": "var(--gold-deep)",
+      "var": "--ring",
+      "role": "Keyboard focus ring on a light ground. 6.2:1 on --surface; use --gold-hot on navy."
     },
     "danger": {
       "value": "#9c3327",
@@ -97,6 +97,10 @@
     "light-soft": {
       "value": "rgba(0,0,0,0.06)",
       "var": "--line-soft"
+    },
+    "light-card": {
+      "value": "rgba(15,27,45,0.18)",
+      "var": "--line-card"
     },
     "light-fill": {
       "value": "rgba(0,0,0,0.05)",
@@ -221,7 +225,7 @@
       "rule": "Exactly one filled button above the fold."
     },
     "focus ring": {
-      "spec": "2px solid var(--gold)",
+      "spec": "2px solid var(--ring)",
       "rule": "Visible keyboard focus on every interactive element. Never removed."
     },
     "prose link": {
