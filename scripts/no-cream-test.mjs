@@ -35,8 +35,9 @@
 // dispatcher ruled in scope for the same mockup), tests (i) to (k) at the bottom of this file:
 //   (i) the "US Senate" and "US House" labels on the political-money page are white boxes with a thin
 //       deep-gold outline, not a gold wash that reads as a cream box (washes written as rgba() are read too);
-//   (j) the secondary gray of the dark page every-political-dollar-buys-less.html reaches 7:1 on both of
-//       its dark grounds (the page ground and the card ground) and is a cool neutral;
+//   (j) the two secondary grays of the dark page every-political-dollar-buys-less.html (--tx2 and --mt) reach
+//       7:1 on both of its dark grounds (the page ground and the card ground), keep their order below the main
+//       text, and are cool neutrals; its baseline row still fades back and reaches 4.5:1;
 //   (k) the headline of the political-money page has a gap above it, so it does not sit on the Hoplight bar.
 //
 // STILL NOT COVERED: the status tints in the Which AI tool's exposure table (red, yellow and green cells are
@@ -671,26 +672,63 @@ test('(i) the federal labels on the political-money page are white boxes with a 
   assert.ok(contrast(edge, ground) >= 3, '.tag-fed outline is under 3:1 against its ground');
 });
 
-// ---- (j) the dark page's secondary gray -----------------------------------------------------------------
-test('(j) the secondary gray of the dark political-dollar page reaches 7:1 on both dark grounds and is a cool neutral', () => {
+// ---- (j) the dark page's two secondary grays ------------------------------------------------------------
+// --tx2 (the thesis, the bar labels, the card descriptions, the "Sources:" label) and --mt (captions, source
+// lines, the baseline row) are the page's two greys below its main text --tx. Each reaches 7:1 on both dark
+// grounds, and they keep that order: main text brighter than --tx2, brighter than --mt. The second half of the
+// test was added the same day, after lightening --mt alone made the captions brighter than the descriptions
+// and the "Sources:" label that sit beside them (the order had flipped).
+test('(j) the two secondary grays of the dark political-dollar page reach 7:1 on both dark grounds, keep their order and are cool neutrals', () => {
   const html = read(DARK_PAGE);
   const vars = customProps(ownStyle(html));
-  for (const k of ['bg', 'sf', 'mt']) assert.ok(vars[k], `the dark page has no --${k}`);
-  const mt = parseColor('var(--mt)', vars).slice(0, 3);
+  for (const k of ['bg', 'sf', 'tx', 'tx2', 'mt']) assert.ok(vars[k], `the dark page has no --${k}`);
+  const colour = (k) => parseColor(`var(--${k})`, vars).slice(0, 3);
   const failing = [];
   // --bg is the page ground; --sf is the ground of the stat box, the cards and the corrections box, which is
-  // where the captions and source notes sit. Every use of --mt as text sits on one of the two.
-  for (const g of ['bg', 'sf']) {
-    const c = contrast(mt, parseColor(`var(--${g})`, vars).slice(0, 3));
-    if (c < 7) failing.push(`--mt ${hexOf(mt)} is ${c.toFixed(2)}:1 on --${g} ${vars[g]}`);
+  // where the captions and source notes sit. Every use of --mt and --tx2 as text sits on one of the two.
+  for (const k of ['tx2', 'mt']) {
+    for (const g of ['bg', 'sf']) {
+      const c = contrast(colour(k), colour(g));
+      if (c < 7) failing.push(`--${k} ${hexOf(colour(k))} is ${c.toFixed(2)}:1 on --${g} ${vars[g]}`);
+    }
   }
-  assert.deepEqual(failing, [], 'dark page secondary gray under 7:1');
-  // Cool neutral: low saturation, and a hue on the blue side, never the yellow-orange side of cream.
-  const [h, s] = hsl(mt);
-  assert.ok(s <= 20, `--mt ${hexOf(mt)} is ${s.toFixed(0)} percent saturated, a neutral grey stays under 20`);
-  assert.ok(!(h >= 20 && h <= 70 && s > 4), `--mt ${hexOf(mt)} has a warm hue (${h.toFixed(0)} degrees)`);
+  assert.deepEqual(failing, [], 'dark page secondary grays under 7:1');
+  // The order holds: main text, then --tx2, then --mt, each strictly brighter than the next.
+  assert.ok(
+    luminance(colour('tx')) > luminance(colour('tx2')) && luminance(colour('tx2')) > luminance(colour('mt')),
+    `the order is broken: --tx ${vars.tx}, --tx2 ${vars.tx2}, --mt ${vars.mt} (each must be brighter than the next)`,
+  );
+  // Cool neutrals: low saturation, and a hue on the blue side, never the yellow-orange side of cream.
+  for (const k of ['tx2', 'mt']) {
+    const [h, s] = hsl(colour(k));
+    assert.ok(s <= 20, `--${k} ${hexOf(colour(k))} is ${s.toFixed(0)} percent saturated, a neutral grey stays under 20`);
+    assert.ok(!(h >= 20 && h <= 70 && s > 4), `--${k} ${hexOf(colour(k))} has a warm hue (${h.toFixed(0)} degrees)`);
+  }
   // The old grey is not left behind as a text colour anywhere in the page.
   assert.ok(!/#6b7280/i.test(ownStyle(html).replace(/rgba\(107,114,128,[0-9.]+\)/g, '')), 'the old grey #6b7280 is still in the page stylesheet');
+  // The baseline row ("CPI inflation (baseline)") is meant to fade back: its label and its value are no
+  // brighter than the other rows' labels (--tx2) and still reach 4.5:1 on the page ground.
+  const label = html.match(/<span class="bar-label" style="color:([^"]+)">CPI inflation \(baseline\)/);
+  assert.ok(label, 'no baseline row label found');
+  const val = rules(ownStyle(html)).find((r) => r.selector === '.bar-val.base-val');
+  assert.ok(val, 'no .bar-val.base-val rule');
+  for (const [what, atom] of [['label', label[1].trim()], ['value', decls(val.body, 'color')[0]]]) {
+    const rgb = parseColor(atom, vars).slice(0, 3);
+    assert.ok(luminance(rgb) <= luminance(colour('tx2')), `the baseline ${what} ${hexOf(rgb)} is brighter than the other rows' labels ${vars.tx2}`);
+    const c = contrast(rgb, colour('bg'));
+    assert.ok(c >= 4.5, `the baseline ${what} ${hexOf(rgb)} is ${c.toFixed(2)}:1 on the page ground, needs 4.5:1`);
+  }
+  // Its bar is --mt at a low opacity over the track, and stays the dimmest mark in the chart: no more than
+  // 1.55:1 against the track. It was about 1.5:1 when --mt was #6b7280 at 0.35; lightening --mt to #a0a7b3 at
+  // the same 0.35 made it about 2.0:1, so the opacity came down to 0.22 with it.
+  const track = over(parseColor(decls(rules(ownStyle(html)).find((r) => r.selector === '.bar-track').body, 'background')[0], vars), colour('bg'));
+  const fillRule = rules(ownStyle(html)).find((r) => r.selector === '.bar-fill.baseline');
+  assert.ok(fillRule, 'no .bar-fill.baseline rule');
+  const [fr, fg, fb] = parseColor(decls(fillRule.body, 'background')[0], vars);
+  const alpha = Number(decls(fillRule.body, 'opacity')[0]);
+  const bar = over([fr, fg, fb, alpha], track);
+  const cb = contrast(bar, track);
+  assert.ok(cb <= 1.55, `the baseline bar ${hexOf(bar)} is ${cb.toFixed(2)}:1 against its track ${hexOf(track)}; it must stay under 1.55:1 so the row fades back`);
 });
 
 // ---- (k) the political-money page headline clears the Hoplight bar -------------------------------------
