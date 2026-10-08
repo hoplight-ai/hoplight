@@ -15,7 +15,7 @@
 // hex it expects to find: values are parsed out and resolved through var(), so a future warm token, or a
 // new warm background literal in any of those four files, goes red.
 //
-// ADDED 2026-10-08 (lane hopfix1, Whit's "4 yes" on the four findings of hopwhite1). The first lane could
+// ADDED 2026-10-08 (lane hopfix1, the four findings that lane hopwhite1 filed). The first lane could
 // not reach the files that carry their own palettes, so this lane pins them too:
 //   (a) src/app/(main)/tools/which-ai/WhichAiTool.tsx (white cards and callouts with borders, tokens that
 //       match the stylesheet) and src/app/manifest.ts (the phone splash colour is the page's white);
