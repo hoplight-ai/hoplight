@@ -12,7 +12,7 @@ import { ImageResponse } from 'next/og';
 
 const NAVY = '#0F1B2D';
 const GOLD = '#E8A820';
-const PAPER = '#F7F5F0';
+const PAPER = '#FFFFFF';
 
 async function loadInter(text: string, weight: 400 | 700): Promise<ArrayBuffer | null> {
   try {

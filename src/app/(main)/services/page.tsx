@@ -83,32 +83,32 @@ export default function Services() {
             <h2>Start with the thing people hate doing every week. Solve that first.</h2>
           </div>
           <div className="steps">
-            <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
+            <div className="step" style={{ borderTopColor: 'rgba(255,255,255,0.18)' }}>
               <div className="n" style={{ color: 'var(--gold-hot)' }}>01</div>
               <div>
                 <h3>Sentiment and stack audit</h3>
-                <p style={{ color: 'rgba(244,240,231,0.7)' }}>Anonymous, no wrong answers. What are people already using, what are they afraid of, and where is the shadow AI. You can&rsquo;t govern what you can&rsquo;t see.</p>
+                <p style={{ color: 'rgba(255,255,255,0.7)' }}>Anonymous, no wrong answers. What are people already using, what are they afraid of, and where is the shadow AI. You can&rsquo;t govern what you can&rsquo;t see.</p>
               </div>
             </div>
-            <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
+            <div className="step" style={{ borderTopColor: 'rgba(255,255,255,0.18)' }}>
               <div className="n" style={{ color: 'var(--gold-hot)' }}>02</div>
               <div>
                 <h3>Build for real pain points</h3>
-                <p style={{ color: 'rgba(244,240,231,0.7)' }}>A custom prompt that pulls the politically sensitive items into their own section. A brand-voice system. A RAG project over your own documents. Bespoke beats a generic training on Claude every time.</p>
+                <p style={{ color: 'rgba(255,255,255,0.7)' }}>A custom prompt that pulls the politically sensitive items into their own section. A brand-voice system. A RAG project over your own documents. Bespoke beats a generic training on Claude every time.</p>
               </div>
             </div>
-            <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)' }}>
+            <div className="step" style={{ borderTopColor: 'rgba(255,255,255,0.18)' }}>
               <div className="n" style={{ color: 'var(--gold-hot)' }}>03</div>
               <div>
                 <h3>Upskill, don&rsquo;t just train</h3>
-                <p style={{ color: 'rgba(244,240,231,0.7)' }}>You have an intern with access to everything ever written, who starts fresh every morning unless you build the infrastructure for them to step into. We teach people to hold a conversation with that intern, not to Google in a smarter way.</p>
+                <p style={{ color: 'rgba(255,255,255,0.7)' }}>You have an intern with access to everything ever written, who starts fresh every morning unless you build the infrastructure for them to step into. We teach people to hold a conversation with that intern, not to Google in a smarter way.</p>
               </div>
             </div>
-            <div className="step" style={{ borderTopColor: 'rgba(244,240,231,0.18)', borderBottomColor: 'rgba(244,240,231,0.18)' }}>
+            <div className="step" style={{ borderTopColor: 'rgba(255,255,255,0.18)', borderBottomColor: 'rgba(255,255,255,0.18)' }}>
               <div className="n" style={{ color: 'var(--gold-hot)' }}>04</div>
               <div>
                 <h3>Stand it up so it&rsquo;s yours.</h3>
-                <p style={{ color: 'rgba(244,240,231,0.7)' }}>We help you build the maintenance muscle in-house: your people, trained, owning what we built together. You&rsquo;re not locked into perpetual fees to us. If you want us to stay close, we can, but the goal is that you can run it without us.</p>
+                <p style={{ color: 'rgba(255,255,255,0.7)' }}>We help you build the maintenance muscle in-house: your people, trained, owning what we built together. You&rsquo;re not locked into perpetual fees to us. If you want us to stay close, we can, but the goal is that you can run it without us.</p>
               </div>
             </div>
           </div>

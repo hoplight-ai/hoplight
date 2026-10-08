@@ -23,10 +23,18 @@
 //   (c) the contact page's two choice buttons (title and description on separate lines);
 //   (d) the deep gold used for small gold text reaches 7:1 on white, in every file that defines it.
 //
+// ADDED 2026-10-08 (lane hopmock1, the three smaller findings lane hopfix1 filed), tests (e) to (h) at the
+// bottom of this file:
+//   (e) cream-tinted text and rules on the navy sections of src/app/(main)/services/page.tsx, and the cream
+//       text colour in the link-preview card src/app/api/og/route.tsx, are white at the same transparency;
+//   (f) the secondary gray of eight static pages under public/portfolio/ reaches 7:1 on their white ground;
+//   (g) the gold figures on the political-money page reach 7:1 on white (they were 2.9:1);
+//   (h) scripts/retire-old-palette.mjs maps the old small-text gold to the 7:1 deep gold, not the old 6.2:1 one.
+//
 // STILL NOT COVERED: the status tints in the Which AI tool's exposure table (red, yellow and green cells are
-// data, not a ground), cream-tinted text and rules on navy inside src/app/(main)/services/page.tsx and
-// src/app/api/og/route.tsx (named in the lane's done-file), and every image file (the portfolio thumbnails
-// show other products' screens).
+// data, not a ground), the dark themes of the two static pages that have one (the Oregon report and the
+// DNC page), the ninth static page with a dark ground (every-political-dollar-buys-less.html), and every
+// image file (the portfolio thumbnails show other products' screens).
 //
 // Run: `node --test scripts/no-cream-test.mjs` (also part of `npm test`, which CI runs).
 
@@ -48,6 +56,8 @@ const FILES = {
   whichai: 'src/app/(main)/tools/which-ai/WhichAiTool.tsx',
   manifest: 'src/app/manifest.ts',
   intake: 'src/components/IntakeForm.tsx',
+  ogroute: 'src/app/api/og/route.tsx',
+  retire: 'scripts/retire-old-palette.mjs',
 };
 const src = Object.fromEntries(Object.entries(FILES).map(([k, rel]) => [k, read(rel)]));
 
@@ -481,4 +491,111 @@ test('(d) the old 6.2:1 deep gold is gone from the source and the served files',
   assert.deepEqual(left, [], 'files that still carry #845810');
   const claim = files.filter((f) => /6\.2:1/.test(read(f)) && /gold-deep|--ring/.test(read(f)));
   assert.deepEqual(claim, [], 'files that still say the deep gold or the ring is 6.2:1');
+});
+
+// =====================================================================================================
+// LANE hopmock1, 2026-10-08: the three smaller findings lane hopfix1 filed, shown to Whit as before and
+// after pictures before anything is published. Each test below was written first and seen red on the tree
+// at 60c4c81 (see the lane's done-file for the observed failures).
+// =====================================================================================================
+
+const NAVY_GROUND = hexToRgb('#0F1B2D');
+
+// ---- (e) the navy sections and the link-preview card ---------------------------------------------
+test('(e) the services page navy sections use white text and rules at the same transparency, not cream', () => {
+  const text = withoutLineComments(src.services);
+  assert.deepEqual(creamLiterals(text), [], 'cream colour literals left in services/page.tsx');
+  const whites = [...text.matchAll(/rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*(0?\.\d+)\s*\)/g)].map((m) => m[1]).sort();
+  assert.deepEqual(
+    whites,
+    ['0.18', '0.18', '0.18', '0.18', '0.18', '0.7', '0.7', '0.7', '0.7'],
+    'expected the five rules at 0.18 and the four paragraphs at 0.7, all white',
+  );
+  // The paragraphs keep their 7:1 on the navy once laid over it.
+  const para = over([255, 255, 255, 0.7], NAVY_GROUND);
+  const c = contrast(para, NAVY_GROUND);
+  assert.ok(c >= 7, `white at 0.7 on the navy is ${c.toFixed(2)}:1, needs 7:1`);
+});
+
+test('(e) the link-preview card paints its headline and wordmark in white, not cream', () => {
+  const text = withoutLineComments(src.ogroute);
+  assert.deepEqual(creamLiterals(text), [], 'cream colour literals left in api/og/route.tsx');
+  const consts = Object.fromEntries([...text.matchAll(/const (\w+) = '(#[0-9a-fA-F]{6})'/g)].map((m) => [m[1], m[2]]));
+  const textColours = [...text.matchAll(/\bcolor:\s*(\w+)\s*,/g)].map((m) => consts[m[1]]).filter(Boolean);
+  assert.ok(textColours.length >= 3, `expected the headline, the subtitle and the wordmark colours, found ${textColours.length}`);
+  assert.ok(
+    textColours.some((h) => h.toUpperCase() === '#FFFFFF'),
+    `no text on the card is white (colours: ${[...new Set(textColours)].join(' ')})`,
+  );
+  for (const h of textColours) {
+    const c = contrast(hexToRgb(h), NAVY_GROUND);
+    assert.ok(c >= 7, `card text ${h} is ${c.toFixed(2)}:1 on the navy, needs 7:1`);
+  }
+});
+
+// ---- (f) the eight static pages: secondary gray -------------------------------------------------
+// [file, the page's own secondary-text token in its light theme, the value it carried at 60c4c81]
+const GRAY_PAGES = [
+  ['ai-governance-checklist.html', '--text-secondary', '#6b6b68'],
+  ['ai-lobbyist-player-map.html', '--text-secondary', '#6b6b68'],
+  ['cba-win-pattern-playbook.html', '--text-secondary', '#6b6b68'],
+  ['dnc-autopsy-taken-apart.html', '--text-dim', '#6b6b6b'],
+  ['oregon-school-budget-report.html', '--text-dim', '#6d6a60'],
+  ['pdi-trust-dilution-model.html', '--muted', '#6b7280'],
+  ['worker-equity-dilution-at-ge.html', '--text-muted', '#6b7280'],
+  ['where-political-money-actually-works.html', '--mt', '#7A756E'],
+];
+
+test('(f) the secondary gray on each of the eight static pages reaches 7:1 on white', () => {
+  assert.equal(GRAY_PAGES.length, 8);
+  const failing = [];
+  for (const [file, token, was] of GRAY_PAGES) {
+    const text = read(`public/portfolio/${file}`);
+    // The first declaration of the token is the light theme in every one of these pages.
+    const m = text.match(new RegExp(`${token}\\s*:\\s*(#[0-9a-fA-F]{3,6})`));
+    assert.ok(m, `${file}: no ${token} declaration`);
+    const c = contrast(hexToRgb(m[1]), WHITE);
+    if (c < 7) failing.push(`${file}: ${token} ${m[1]} is ${c.toFixed(2)}:1`);
+    // Copies of the same gray written out as a literal (the PDI chart axes, a caption) go with it.
+    if (text.toLowerCase().includes(was.toLowerCase())) failing.push(`${file}: still carries the old gray ${was}`);
+  }
+  assert.deepEqual(failing, [], 'secondary gray under 7:1 on white');
+});
+
+// ---- (g) the political-money page: gold figures ------------------------------------------------------
+test('(g) the gold figures on the political-money page reach 7:1 on white', () => {
+  const text = read('public/portfolio/where-political-money-actually-works.html');
+  const style = text.match(/<style>([\s\S]*?)<\/style>/)[1];
+  const vars = customProps(style);
+  assert.ok(!/#B8920A/i.test(text), 'the page still carries the 2.9:1 gold #B8920A');
+  const ac = contrast(parseColor('var(--ac)', vars).slice(0, 3), WHITE);
+  assert.ok(ac >= 7, `--ac is ${ac.toFixed(2)}:1 on white, needs 7:1`);
+  const failing = [];
+  for (const sel of ['h1', '.pair-ratio', '.card .stat', '.accent']) {
+    const r = rules(style).find((x) => x.selector === sel);
+    assert.ok(r, `no ${sel} rule on the page`);
+    const colour = parseColor(decls(r.body, 'color')[0], vars).slice(0, 3);
+    const c = contrast(colour, WHITE);
+    if (c < 7) failing.push(`${sel}: ${hexOf(colour)} is ${c.toFixed(2)}:1`);
+  }
+  assert.deepEqual(failing, [], 'gold figures under 7:1 on white');
+  // The two federal tags sit on a 12 percent gold wash, so their text is held to AA on that wash.
+  const tag = rules(style).find((x) => x.selector === '.tag-fed');
+  assert.ok(tag, 'no .tag-fed rule');
+  const wash = over(parseColor(decls(tag.body, 'background')[0], vars), WHITE);
+  const tc = contrast(parseColor(decls(tag.body, 'color')[0], vars).slice(0, 3), wash);
+  assert.ok(tc >= 4.5, `.tag-fed text is ${tc.toFixed(2)}:1 on its wash, needs 4.5:1`);
+});
+
+// ---- (h) the old-palette retire script ---------------------------------------------------------------
+test('(h) the old-palette retire script maps the old deep gold to the 7:1 deep gold, not the 6.2:1 one', () => {
+  const targets = [...src.retire.matchAll(/\['#b8851f',\s*'(#[0-9a-fA-F]{6})'/gi)].map((m) => m[1]);
+  assert.equal(targets.length, 2, `expected the upper and lower case map rows for #B8851F, found ${targets.length}`);
+  for (const t of targets) {
+    const c = contrast(hexToRgb(t), WHITE);
+    assert.ok(c >= 7, `the script maps the old deep gold to ${t}, which is ${c.toFixed(2)}:1 on white, needs 7:1`);
+    assert.equal(t.toUpperCase(), globalVars['gold-deep'].toUpperCase(), `${t} is not the stylesheet's --gold-deep`);
+  }
+  assert.ok(!/#845810/i.test(src.retire), 'the script still names the old 6.2:1 gold #845810');
+  assert.ok(!/6\.20:1/.test(src.retire), 'the script still says the deep gold is 6.20:1');
 });
