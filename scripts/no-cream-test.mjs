@@ -15,16 +15,25 @@
 // hex it expects to find: values are parsed out and resolved through var(), so a future warm token, or a
 // new warm background literal in any of those four files, goes red.
 //
-// NOT COVERED (outside this lane's files, listed in the lane's done-file): the static pages under public/
-// (pme-lever.html, shelf-options/, portfolio/), src/app/(main)/tools/which-ai/WhichAiTool.tsx and
-// src/app/manifest.ts. They carry their own palettes and need their own sweep.
+// ADDED 2026-10-08 (lane hopfix1, Whit's "4 yes" on the four findings of hopwhite1). The first lane could
+// not reach the files that carry their own palettes, so this lane pins them too:
+//   (a) src/app/(main)/tools/which-ai/WhichAiTool.tsx (white cards and callouts with borders, tokens that
+//       match the stylesheet) and src/app/manifest.ts (the phone splash colour is the page's white);
+//   (b) every static page, mockup, svg and token file under public/ (no cream colour literal at all);
+//   (c) the contact page's two choice buttons (title and description on separate lines);
+//   (d) the deep gold used for small gold text reaches 7:1 on white, in every file that defines it.
+//
+// STILL NOT COVERED: the status tints in the Which AI tool's exposure table (red, yellow and green cells are
+// data, not a ground), cream-tinted text and rules on navy inside src/app/(main)/services/page.tsx and
+// src/app/api/og/route.tsx (named in the lane's done-file), and every image file (the portfolio thumbnails
+// show other products' screens).
 //
 // Run: `node --test scripts/no-cream-test.mjs` (also part of `npm test`, which CI runs).
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { join, dirname, relative, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 // fileURLToPath rather than `new URL(...).pathname`, which mangles the space in the folder name.
@@ -36,6 +45,9 @@ const FILES = {
   served: 'public/hoplight-brand-tokens-2026-09-20.css',
   pme: 'src/app/(main)/persuasion/PmeContent.tsx',
   services: 'src/app/(main)/services/page.tsx',
+  whichai: 'src/app/(main)/tools/which-ai/WhichAiTool.tsx',
+  manifest: 'src/app/manifest.ts',
+  intake: 'src/components/IntakeForm.tsx',
 };
 const src = Object.fromEntries(Object.entries(FILES).map(([k, rel]) => [k, read(rel)]));
 
@@ -143,7 +155,8 @@ const PAGE_GROUND = [['globals.css', globalVars], ['served token file', servedVa
 
 // Tokens that are text, by the stylesheet's own roles (--ink: headlines and body; --ink-soft: supporting
 // prose; --stone-deep and --stone: secondary text, captions, metadata). --gold-deep is the accent text
-// for small labels and links; it is held to AA below, not AAA, and is named as open in the done-file.
+// for small labels and links. Held to AA (4.5:1) by the first lane, raised to the same 7:1 as the other
+// small text by lane hopfix1, 2026-10-08.
 const BODY_TEXT = [['ink', 12], ['ink-soft', 7]];
 const SECONDARY_TEXT = [['stone-deep', 7], ['stone', 7]];
 
@@ -219,7 +232,7 @@ test('body and secondary text clear their contrast floors on the page ground', (
       assert.ok(c >= floor, `${name}: --${tok} is ${c.toFixed(2)}:1 on the page, needs ${floor}:1`);
     }
     const accent = contrast(parseColor('var(--gold-deep)', vars).slice(0, 3), ground);
-    assert.ok(accent >= 4.5, `${name}: --gold-deep is ${accent.toFixed(2)}:1, needs AA 4.5:1`);
+    assert.ok(accent >= 7, `${name}: --gold-deep is ${accent.toFixed(2)}:1 on the page, needs 7:1`);
   }
 });
 
@@ -268,4 +281,190 @@ test('focus rings on the navy sections stay at least 3:1 on navy', () => {
   const ink = parseColor('var(--ink)', globalVars).slice(0, 3);
   const c = contrast(ring, ink);
   assert.ok(c >= 3, `dark-section ring is ${c.toFixed(2)}:1 on navy, needs 3:1`);
+});
+
+// =====================================================================================================
+// LANE hopfix1, 2026-10-08: the four findings the first lane filed. Each test below was written first and
+// seen red on the tree at c1c1c76 (see the lane's done-file for the observed failures).
+// =====================================================================================================
+
+// ---- helpers for the files outside the stylesheet ------------------------------------------------
+function walkFiles(dir, exts, skip = new Set(['fonts', 'node_modules', '.next'])) {
+  const out = [];
+  for (const e of readdirSync(join(ROOT, dir), { withFileTypes: true })) {
+    const rel = join(dir, e.name);
+    if (e.isDirectory()) {
+      if (!skip.has(e.name)) out.push(...walkFiles(rel, exts, skip));
+    } else if (exts.has(extname(e.name)) && statSync(join(ROOT, rel)).size < 4_000_000) {
+      out.push(rel);
+    }
+  }
+  return out;
+}
+
+// Every cream colour literal in a text, by the same rule as isCream: hex of 3, 6 or 8 digits, and rgb() or
+// rgba() written in decimal. Returned as written.
+function creamLiterals(text) {
+  const found = [];
+  for (const m of text.matchAll(/#([0-9a-fA-F]{8}|[0-9a-fA-F]{6}|[0-9a-fA-F]{3})(?![0-9a-zA-Z])/g)) {
+    if (isCream(hexToRgb(m[0]).slice(0, 3))) found.push(m[0]);
+  }
+  for (const m of text.matchAll(/rgba?\(\s*(\d+)\s*[\s,]\s*(\d+)\s*[\s,]\s*(\d+)/g)) {
+    if (isCream([Number(m[1]), Number(m[2]), Number(m[3])])) found.push(`${m[0]})`);
+  }
+  return found;
+}
+
+const withoutLineComments = (text) => text.replace(/^\s*\/\/.*$/gm, '');
+
+// The Which AI tool keeps its own brand tokens in one object, `const C = { ... }`.
+function whichAiTokens() {
+  const block = src.whichai.match(/const C = \{([\s\S]*?)\n\};/);
+  assert.ok(block, 'no brand token block (const C) in WhichAiTool.tsx');
+  return Object.fromEntries([...block[1].matchAll(/(\w+):\s*'([^']+)'/g)].map((m) => [m[1], m[2]]));
+}
+
+// The value of every `background:`, `backgroundColor:` and `.style.background =` in a jsx file, read as one
+// expression: a quoted string, a template literal or a dotted name. Anything after it (a border, a comma)
+// belongs to some other property and is not read.
+function jsxBackgrounds(text) {
+  const out = [];
+  for (const m of text.matchAll(/background(?:Color)?\s*[:=]\s*/g)) {
+    const rest = text.slice(m.index + m[0].length);
+    const q = rest[0];
+    if (q === '`' || q === "'" || q === '"') out.push(rest.slice(0, rest.indexOf(q, 1) + 1));
+    else out.push((rest.match(/^[\w.$]+/) ?? [''])[0]);
+  }
+  return out;
+}
+
+// The colours one jsx background value paints, as [r,g,b,a]: a bare `C.name`, a `${C.name}hh` wash, or a literal.
+function groundsOf(value, C) {
+  const out = [];
+  const bare = value.match(/^C\.(\w+)$/);
+  if (bare && C[bare[1]]) out.push(parseColor(C[bare[1]], {}));
+  for (const t of value.matchAll(/\$\{C\.(\w+)\}([0-9a-fA-F]{2})?/g)) {
+    if (!C[t[1]]) continue;
+    const [r, g, b] = parseColor(C[t[1]], {});
+    out.push([r, g, b, t[2] ? parseInt(t[2], 16) / 255 : 1]);
+  }
+  for (const t of value.matchAll(/#[0-9a-fA-F]{6}\b|rgba?\([^)]*\)/g)) out.push(parseColor(t[0], {}));
+  return out;
+}
+
+// ---- (a) the Which AI tool and the phone splash colour -------------------------------------------
+test('(a) the phone splash colour is the page white, not a cream', () => {
+  const bg = src.manifest.match(/background_color:\s*["'](#[0-9a-fA-F]{6})["']/);
+  assert.ok(bg, 'no background_color in manifest.ts');
+  assert.equal(bg[1].toUpperCase(), '#FFFFFF', `background_color is ${bg[1]}; the splash has to match the white page`);
+  assert.deepEqual(creamLiterals(withoutLineComments(src.manifest)), [], 'manifest.ts carries a cream colour');
+});
+
+test('(a) the Which AI tool takes its tokens from the stylesheet and its card ground is white', () => {
+  const C = whichAiTokens();
+  assert.equal(hexOf(parseColor(C.paper, {})), '#FFFFFF', `C.paper is ${C.paper}, the card ground must be white`);
+  const pairs = [['ink', 'ink'], ['inkSoft', 'ink-soft'], ['gold', 'gold'], ['goldDeep', 'gold-deep'], ['stone', 'stone']];
+  for (const [mine, theirs] of pairs) {
+    assert.ok(C[mine], `C.${mine} is missing from the Which AI tool's tokens`);
+    assert.equal(C[mine].toUpperCase(), globalVars[theirs].toUpperCase(), `C.${mine} has drifted from --${theirs} in globals.css`);
+  }
+  for (const [k, v] of Object.entries(C)) {
+    if (/^#[0-9a-f]{6}$/i.test(v)) assert.ok(!isCream(hexToRgb(v)), `C.${k} is a warm tint (${v})`);
+  }
+});
+
+test('(a) no card, callout, pill or hover wash in the Which AI tool paints a warm tint', () => {
+  const C = whichAiTokens();
+  const offenders = [];
+  for (const value of jsxBackgrounds(src.whichai)) {
+    for (const rgba of groundsOf(value, C)) {
+      const rgb = over(rgba, WHITE);
+      if (isCream(rgb)) offenders.push(`background ${value} lays down ${hexOf(rgb)} on the white page`);
+    }
+  }
+  assert.deepEqual([...new Set(offenders)], [], 'warm backgrounds in WhichAiTool.tsx');
+});
+
+test('(a) every white card in the Which AI tool is told apart by a visible border, not a whisper', () => {
+  const C = whichAiTokens();
+  assert.ok(C.line, 'C.line (the card border, the stylesheet\'s --line-card) is missing');
+  const [, , , alpha] = parseColor(C.line, {});
+  assert.ok(alpha >= 0.18, `C.line is ${alpha} opaque; the stylesheet's card border is 0.18`);
+  const cards = [...src.whichai.matchAll(/background:\s*C\.paper,\s*border:\s*(`[^`]*`)/g)].map((m) => m[1]);
+  assert.ok(cards.length >= 5, `expected at least 5 white cards with a border, found ${cards.length}`);
+  const weak = cards.filter((b) => !b.includes('C.line'));
+  assert.deepEqual(weak, [], 'white cards whose border is not C.line');
+});
+
+test('(a) secondary text in the Which AI tool is a solid colour, not ink dimmed with opacity', () => {
+  // Ink at 70 percent opacity is 6.4:1 on white and at 55 percent is 3.9:1; both are under the 7:1 floor.
+  const dimmed = [...src.whichai.matchAll(/color:\s*C\.ink\b[^{}]*?opacity:\s*[0-9.]+/g)].map((m) => m[0].replace(/\s+/g, ' '));
+  assert.deepEqual(dimmed, [], 'text dimmed with opacity');
+});
+
+// ---- (b) the static pages under public/ -----------------------------------------------------------
+test('(b) no static page, mockup, svg or token file under public/ carries a cream colour', () => {
+  const files = walkFiles('public', new Set(['.html', '.svg', '.css', '.json', '.js']));
+  assert.ok(files.length >= 20, `expected to scan at least 20 static files, scanned ${files.length}`);
+  const offenders = [];
+  for (const f of files) {
+    const hits = creamLiterals(read(f));
+    if (hits.length) offenders.push(`${f}: ${[...new Set(hits)].join(' ')}`);
+  }
+  assert.deepEqual(offenders, [], 'cream colour literals left under public/');
+});
+
+// ---- (c) the contact page's two choice buttons ----------------------------------------------------
+test('(c) the contact page choice buttons put the title and the description on separate lines', () => {
+  const buttons = src.intake.match(/<button[^>]*className="gate-btn"[\s\S]*?<\/button>/g) ?? [];
+  assert.equal(buttons.length, 2, 'expected the two gate buttons in IntakeForm.tsx');
+  const INLINE = new Set(['span', 'strong', 'em', 'b', 'i', 'a', 'small', 'code']);
+  for (const cls of ['gt', 'gd']) {
+    for (const b of buttons) {
+      const tag = b.match(new RegExp(`<(\\w+)[^>]*className="${cls}"`));
+      assert.ok(tag, `a gate button has no .${cls}`);
+      if (!INLINE.has(tag[1])) continue; // a block element already sits on its own line
+      const shown = rules(src.globals)
+        .filter((r) => r.selector.split(',').some((s) => s.trim() === `.gate-btn .${cls}`))
+        .flatMap((r) => decls(r.body, 'display'));
+      const last = shown[shown.length - 1];
+      assert.ok(
+        last && /^(block|flex|grid)$/.test(last),
+        `.gate-btn .${cls} is an inline <${tag[1]}> and the stylesheet does not make it a block (display: ${last ?? 'unset'}), so it runs into the next line`,
+      );
+    }
+  }
+});
+
+// ---- (d) the deep gold reaches 7:1 on white everywhere it is defined ------------------------------
+test('(d) every definition of the deep gold clears 7:1 on white', () => {
+  const files = [
+    ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])),
+    ...walkFiles('public', new Set(['.html', '.css', '.json', '.svg'])),
+  ];
+  // A css custom property, the Which AI tool's goldDeep constant, or an object in the token json.
+  const DEF = /--gold-deep\s*:\s*(#[0-9a-fA-F]{6})|goldDeep\s*:\s*'(#[0-9a-fA-F]{6})'|"gold-deep"\s*:\s*\{\s*"value"\s*:\s*"(#[0-9a-fA-F]{6})"/g;
+  const failing = [];
+  let seen = 0;
+  for (const f of files) {
+    for (const m of read(f).matchAll(DEF)) {
+      seen += 1;
+      const hex = m[1] ?? m[2] ?? m[3];
+      const c = contrast(hexToRgb(hex), WHITE);
+      if (c < 7) failing.push(`${f}: ${hex} is ${c.toFixed(2)}:1`);
+    }
+  }
+  assert.ok(seen >= 8, `expected at least 8 definitions of the deep gold, found ${seen}`);
+  assert.deepEqual(failing, [], 'deep gold under 7:1 on white');
+});
+
+test('(d) the old 6.2:1 deep gold is gone from the source and the served files', () => {
+  const files = [
+    ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])),
+    ...walkFiles('public', new Set(['.html', '.css', '.json', '.svg'])),
+  ];
+  const left = files.filter((f) => /#845810/i.test(read(f)));
+  assert.deepEqual(left, [], 'files that still carry #845810');
+  const claim = files.filter((f) => /6\.2:1/.test(read(f)) && /gold-deep|--ring/.test(read(f)));
+  assert.deepEqual(claim, [], 'files that still say the deep gold or the ring is 6.2:1');
 });
