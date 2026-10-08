@@ -2,26 +2,29 @@
  * Version 2026-09-20. Canonical copy: https://hoplight.ai/hoplight-brand-tokens-2026-09-20.css
  * Do not hand-edit: scripts/verify.sh fails if this file disagrees with the stylesheet.
  * Retired and dead, in either notation: #0A1628, #E8A838, #B8851F,
- * rgba(10, 22, 40, a), rgba(232, 168, 56, a). */
+ * rgba(10, 22, 40, a), rgba(232, 168, 56, a).
+ * Grounds are white. No cream, no warm off-white page, no tinted card (Whit, 2026-10-06);
+ * scripts/no-cream-test.mjs fails the build if one comes back. */
 :root {
   --ink: #0F1B2D; /* Primary. Headlines, body text, dark section grounds. */
   --ink-mid: #162640; /* Dark section step, one level up from ink. */
   --ink-soft: #2A3F5F; /* Muted ink for supporting prose on light. */
   --gold: #D4950A; /* Accent. Rules, left borders, the one filled button, link underlines. Never dominant. */
   --gold-hot: #E8A820; /* Brighter gold, for large figures on dark grounds only. */
-  --gold-deep: #845810; /* The gold for small text on light. 5.6:1 on --surface; --gold itself is 2.4:1 and fails. */
-  --gold-bg: #F5E6C4; /* Gold tint for a filled callout ground. */
-  --gold-bg-light: #FBF4E4; /* Lighter gold tint, table and row wash. */
-  --surface: #F5F5F0; /* Default page ground. Warm off-white. */
-  --surface-card: #EEEEE8; /* Card ground on --surface. */
-  --white: #FFFFFF; /* True white, for cards that must separate from --surface. */
-  --stone: #70706A; /* Secondary text. Captions, metadata, timestamps. */
-  --stone-deep: #555550; /* Secondary text that has to pass AA on --surface. */
-  --mute: #8C8475; /* Warm grey for de-emphasised chrome. */
+  --gold-deep: #845810; /* The gold for small text on light. 6.2:1 on --surface; --gold itself is 2.6:1 and fails. */
+  --surface: #FFFFFF; /* Default page ground. White. No cream or warm off-white grounds (Whit, 2026-10-06). */
+  --surface-card: #FFFFFF; /* Card ground. White; a card is told apart by a --line border, never by a tint. */
+  --white: #FFFFFF; /* True white. Same value as --surface; the name for cards and fields. */
+  --stone: #575752; /* Secondary text. Captions, metadata, timestamps. 7.3:1 on --surface. */
+  --stone-deep: #555550; /* Secondary text, the darker step. 7.5:1 on --surface. */
+  --mute: #8C8475; /* Warm grey for de-emphasised chrome. Never for text or for a ground. */
+  --field-edge: #7B828C; /* Text-field border. 3.9:1 on --surface, over the 3:1 floor for a UI boundary. */
+  --ring: var(--gold-deep); /* Keyboard focus ring on a light ground. 6.2:1 on --surface; use --gold-hot on navy. */
   --danger: #9c3327; /* Error and destructive state. Semantic only. */
 
   --line: rgba(0,0,0,0.10);
   --line-soft: rgba(0,0,0,0.06);
+  --line-card: rgba(15,27,45,0.18);
   --line-fill: rgba(0,0,0,0.05);
   --line-dark: rgba(255,255,255,0.10);
   --line-dark-strong: rgba(255,255,255,0.18);

@@ -6,28 +6,34 @@
   --ink-soft: #2A3F5F;
   --slate: #0F1B2D;            /* legacy alias: dark sections are deep navy */
 
-  /* Light surfaces */
-  --surface: #F5F5F0;
-  --surface-card: #EEEEE8;
+  /* Light surfaces. The page and every card are white; a card is told apart by a --line border and
+     never by a tint. Whit, 2026-10-06: "this fucking cream on cream bullshit has got to go." The
+     warm off-white page, the warm card tint and the two gold-wash band grounds are retired, and
+     scripts/no-cream-test.mjs goes red if any of them comes back. */
+  --surface: #FFFFFF;
+  --surface-card: #FFFFFF;
   --white: #FFFFFF;
-  --paper: #F5F5F0;            /* legacy alias */
-  --paper-deep: #EEEEE8;       /* legacy alias */
+  --paper: var(--surface);            /* legacy alias, now white */
+  --paper-deep: var(--surface-card);  /* legacy alias, now white */
 
   /* Gold */
   --gold: #D4950A;
   --gold-hot: #E8A820;
-  --gold-deep: #845810;        /* AA-safe gold for small text on light (~5.5:1) */
-  --gold-bg: #F5E6C4;
-  --gold-bg-light: #FBF4E4;
+  --gold-deep: #845810;        /* AA-safe gold for small text on light (~6.2:1 on white) */
 
   /* Grays */
-  --stone: #70706A;
+  --stone: #575752;            /* 7.3:1 on white; was #70706A at 5.0:1 */
   --stone-deep: #555550;
   --mute: #8C8475;
+
+  /* Edges and rings that have to be seen, 3:1 or better on white (WCAG 1.4.11) */
+  --field-edge: #7B828C;       /* text-field border, 3.9:1 */
+  --ring: var(--gold-deep);    /* keyboard focus on a light ground, 6.2:1; --gold is 2.6:1 and cannot mark focus on white */
 
   /* Lines */
   --line: rgba(0,0,0,0.10);
   --line-soft: rgba(0,0,0,0.06);
+  --line-card: rgba(15,27,45,0.18);   /* the edge of a white card on the white page; the tint it used to lean on is gone */
   --ink-05: rgba(0,0,0,0.05);
   --line-dark: rgba(255,255,255,0.10);
   --line-dark-strong: rgba(255,255,255,0.18);
@@ -92,9 +98,12 @@ a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent;
    .collapse-panel-inner a below. */
 main p a, main li a, main blockquote a, main h2 a, main h3 a { border-bottom: 1px solid var(--gold); }
 a:hover { border-bottom-color: var(--gold); }
-a:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(212,149,10,0.55); border-radius: var(--radius-sm); }
-:where(button, [role="button"], input, textarea, select):focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; border-radius: var(--radius-sm); }
-.stepper-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px rgba(212,149,10,0.6); border-radius: var(--radius-sm); }
+/* Focus rings read --ring: deep gold on a light ground (6.2:1 on white), bright gold on navy. Plain
+   --gold is 2.6:1 on white, which is not a visible ring (WCAG 1.4.11 asks for 3:1). */
+a:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); border-radius: var(--radius-sm); }
+:where(button, [role="button"], input, textarea, select):focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: var(--radius-sm); }
+.stepper-btn:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); border-radius: var(--radius-sm); }
+.slate, .hero, .ident, .close-cta, header.site { --ring: var(--gold-hot); }
 
 .rule { height: 2px; background: var(--gold); border: 0; width: 56px; margin: 0; }
 
@@ -220,8 +229,8 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0
   .hero-stack { height: 220px; margin-top: 8px; }
 }
 
-/* === AUDIENCE: gold-backed strip === */
-.aud-strip { background: var(--gold-bg); padding: 20px 0; border-bottom: 1px solid rgba(0,0,0,0.08); }
+/* === AUDIENCE: white strip, ruled below (was a gold wash; retired with the cream grounds) === */
+.aud-strip { background: var(--white); padding: 20px 0; border-bottom: 1px solid var(--line); }
 .aud-inner { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 .aud-label { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-deep); white-space: nowrap; }
 .aud-list { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 0; }
@@ -263,7 +272,7 @@ section { padding: var(--space-section) 0; }
 .choice-header p { color: var(--ink-soft); font-size: 0.95rem; max-width: 56ch; }
 .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
 .ch-col { padding: 28px clamp(20px, 3vw, 32px); }
-.ch-col.bad { background: var(--surface-card); border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
+.ch-col.bad { background: var(--surface-card); border: 1px solid var(--line-card); border-right: 0; border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
 .ch-col.good { background: var(--ink); color: #fff; border-radius: 0 var(--radius-lg) var(--radius-lg) 0; }
 .ch-col .ch-tag { display: inline-block; font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; padding: 4px 12px; border-radius: var(--radius-sm); margin-bottom: 14px; }
 .ch-col.bad .ch-tag { background: rgba(0,0,0,0.06); color: var(--stone-deep); }
@@ -281,7 +290,7 @@ section { padding: var(--space-section) 0; }
 .ch-col.good .ch-result { color: rgba(255,255,255,0.5); }
 @media (max-width: 640px) {
   .choice-grid { grid-template-columns: 1fr; }
-  .ch-col.bad { border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .ch-col.bad { border-right: 1px solid var(--line-card); border-bottom: 0; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
   .ch-col.good { border-radius: 0 0 var(--radius-lg) var(--radius-lg); }
 }
 
@@ -319,8 +328,8 @@ section { padding: var(--space-section) 0; }
 .venn .vlabel { font-size: 18px; font-weight: 500; letter-spacing: 0.06em; text-anchor: middle; fill: #fff; }
 .venn .vcenter { font-size: 12px; font-weight: 500; letter-spacing: 0.14em; text-anchor: middle; fill: var(--ink); }
 
-/* === PROOF TRIPTYCH: gold-backed band === */
-.proof-band { background: var(--gold-bg); padding: clamp(36px, 4vw, 56px) 0; border-top: 3px solid var(--gold); }
+/* === PROOF TRIPTYCH: white band under a gold rule (was a gold wash; retired with the cream grounds) === */
+.proof-band { background: var(--white); padding: clamp(36px, 4vw, 56px) 0; border-top: 3px solid var(--gold); }
 .proof-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
 .proof-item { padding: 0 clamp(12px, 2.5vw, 32px); }
 .proof-item + .proof-item { border-left: 1px solid rgba(0,0,0,0.1); }
@@ -337,7 +346,7 @@ section { padding: var(--space-section) 0; }
 .work-top h2 { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.2rem); margin-bottom: 8px; }
 .work-top p { color: var(--ink-soft); font-size: 0.95rem; max-width: 52ch; }
 .work-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.wcard { display: flex; flex-direction: column; border-radius: var(--radius-lg); overflow: hidden; background: var(--white); border: 1px solid var(--line); transition: border-color 160ms, box-shadow 160ms; }
+.wcard { display: flex; flex-direction: column; border-radius: var(--radius-lg); overflow: hidden; background: var(--white); border: 1px solid var(--line-card); transition: border-color 160ms, box-shadow 160ms; }
 .wcard:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
 .wcard-img { background: var(--ink); aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 .wcard-mock { width: 82%; height: 72%; background: var(--ink-mid); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.06); overflow: hidden; }
@@ -368,7 +377,7 @@ section { padding: var(--space-section) 0; }
 .barn p { color: var(--ink-soft); font-size: 0.92rem; max-width: 46ch; margin-bottom: 16px; }
 .slate .barn p { color: rgba(255,255,255,0.6); }
 .barn-items { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; list-style: none; padding: 0; margin: 0; }
-.barn-item { font-size: 0.82rem; font-weight: 500; padding: 10px 14px; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-sm); color: var(--ink-soft); border-left: 3px solid var(--gold); }
+.barn-item { font-size: 0.82rem; font-weight: 500; padding: 10px 14px; background: var(--white); border: 1px solid var(--line-card); border-radius: var(--radius-sm); color: var(--ink-soft); border-left: 3px solid var(--gold); }
 @media (max-width: 640px) {
   .barn-grid { grid-template-columns: 1fr; }
   .barn-items { grid-template-columns: 1fr; }
@@ -426,8 +435,8 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
   font-family: var(--font-body); font-size: 1.05rem; font-weight: 600; line-height: 1.3;
   transition: background 150ms ease-out;
 }
-.collapse-trigger:hover { background: var(--surface-card); }
-.collapse-trigger:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--gold); border-radius: var(--radius-sm); }
+.collapse-trigger:hover { background: var(--ink-05); }
+.collapse-trigger:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--ring); border-radius: var(--radius-sm); }
 .collapse-trigger .chev { flex: none; display: inline-flex; color: var(--gold-deep); transition: transform 220ms ease-out; }
 .collapse-trigger[aria-expanded="true"] .chev { transform: rotate(180deg); }
 .collapse-trigger .ctitle { flex: 0 1 auto; }
@@ -473,7 +482,7 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 
 /* === Work cards (work page wide rectangles) === */
 .workcards { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(16px, 2.4vw, 24px); max-width: var(--maxw); }
-.workcard { border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(22px, 2.6vw, 30px); min-height: 168px; display: flex; flex-direction: column; justify-content: space-between; background: var(--white); box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: border-color 160ms ease-out, transform 160ms ease-out, box-shadow 160ms ease-out; }
+.workcard { border: 1px solid var(--line-card); border-radius: var(--radius-lg); padding: clamp(22px, 2.6vw, 30px); min-height: 168px; display: flex; flex-direction: column; justify-content: space-between; background: var(--white); box-shadow: 0 1px 2px rgba(0,0,0,0.04); transition: border-color 160ms ease-out, transform 160ms ease-out, box-shadow 160ms ease-out; }
 .workcard:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
 .workcard .knum { font-family: var(--font-mono); font-size: 0.72rem; color: var(--gold-deep); letter-spacing: 0.08em; text-transform: uppercase; }
 .workcard h3 { margin: 10px 0 8px; }
@@ -491,7 +500,7 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 
 /* === Portfolio cards === */
 .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(16px, 2.4vw, 24px); max-width: var(--maxw); }
-.pfcard { border: 1px solid var(--line); border-radius: var(--radius-lg); background: var(--white); box-shadow: 0 1px 2px rgba(0,0,0,0.04); padding: clamp(22px, 2.8vw, 32px); display: flex; flex-direction: column; transition: border-color 160ms ease-out, box-shadow 160ms ease-out; }
+.pfcard { border: 1px solid var(--line-card); border-radius: var(--radius-lg); background: var(--white); box-shadow: 0 1px 2px rgba(0,0,0,0.04); padding: clamp(22px, 2.8vw, 32px); display: flex; flex-direction: column; transition: border-color 160ms ease-out, box-shadow 160ms ease-out; }
 .pfcard.link:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
 .pfcard .pfname { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin: 0 0 14px; }
 .pfcard dl { margin: 0; }
@@ -590,7 +599,7 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 /* === Contact / intake form === */
 .formwrap { max-width: 680px; }
 .gate { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 8px; }
-.gate-btn { flex: 1 1 240px; text-align: left; background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: 22px 24px; cursor: pointer; font-family: var(--font-body); color: var(--ink); transition: border-color 150ms ease-out, box-shadow 150ms ease-out; }
+.gate-btn { flex: 1 1 240px; text-align: left; background: var(--white); border: 1px solid var(--line-card); border-radius: var(--radius-lg); padding: 22px 24px; cursor: pointer; font-family: var(--font-body); color: var(--ink); transition: border-color 150ms ease-out, box-shadow 150ms ease-out; }
 .gate-btn:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
 .gate-btn[aria-pressed="true"] { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
 .gate-btn .gt { font-size: 1.1rem; font-weight: 700; }
@@ -600,11 +609,11 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 .field .hint { font-weight: 400; color: var(--stone-deep); font-size: 0.86rem; }
 .field input[type="text"], .field input[type="email"], .field input[type="url"], .field textarea, .field select {
   width: 100%; font-family: var(--font-body); font-size: 1rem; color: var(--ink); /* 16px: below that iOS zooms the page on focus */
-  background: var(--white); border: 1px solid rgba(0,0,0,0.22); border-radius: var(--radius-md);
+  background: var(--white); border: 1px solid var(--field-edge); border-radius: var(--radius-md);
   padding: 0.7rem 0.85rem; transition: border-color 150ms ease-out, box-shadow 150ms ease-out;
 }
 .field textarea { min-height: 96px; resize: vertical; line-height: 1.5; }
-.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,149,10,0.22); }
+.field input:focus, .field textarea:focus, .field select:focus { outline: none; border-color: var(--ring); box-shadow: 0 0 0 1px var(--ring), 0 0 0 4px rgba(212,149,10,0.22); }
 .field input[aria-invalid="true"], .field textarea[aria-invalid="true"], .field select[aria-invalid="true"] { border-color: var(--danger); }
 .field .err { color: var(--danger); font-size: 0.82rem; margin-top: 6px; }
 .checks { display: grid; gap: 10px; }
@@ -617,7 +626,7 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 .form-note { color: var(--stone-deep); font-size: 0.88rem; margin-top: 14px; }
 .form-back { background: transparent; border: 0; color: var(--gold-deep); font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; padding: 0; margin-bottom: 22px; }
 .form-back:hover { color: var(--ink); }
-.success { background: var(--white); border: 1px solid var(--line); border-radius: var(--radius-lg); padding: clamp(26px, 4vw, 40px); }
+.success { background: var(--white); border: 1px solid var(--line-card); border-radius: var(--radius-lg); padding: clamp(26px, 4vw, 40px); }
 .success h2 { margin-bottom: 14px; }
 .success p { color: var(--stone-deep); }
 
@@ -649,7 +658,7 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 }
 
 /* Methodology & Limitations */
-.rct-meth { background: var(--surface-card); }
+.rct-meth { background: var(--surface-card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .rct-dl { margin: 0; display: grid; grid-template-columns: 160px 1fr; gap: 0; max-width: 860px; }
 .rct-dl dt { font-weight: 700; font-size: 0.9rem; padding: 16px 20px 16px 0; border-top: 1px solid var(--line); color: var(--ink); align-self: start; }
 .rct-dl dd { padding: 16px 0; border-top: 1px solid var(--line); margin: 0; color: var(--stone-deep); font-size: 0.92rem; line-height: 1.6; }
@@ -714,7 +723,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 @media (max-width: 700px) { .rayli-shots { grid-template-columns: 1fr; } }
 
 /* === MVP: LLM picker promo callout === */
-.tool-promo { background: var(--gold-bg); padding: var(--space-section-sm) 0; border-top: 3px solid var(--gold); border-bottom: 1px solid rgba(0,0,0,0.08); }
+.tool-promo { background: var(--white); padding: var(--space-section-sm) 0; border-top: 3px solid var(--gold); border-bottom: 1px solid var(--line); }
 .tool-promo-inner { max-width: 60ch; }
 .tool-promo .label { display: block; margin-bottom: 12px; }
 .tool-promo h2 { font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.2rem); margin-bottom: 10px; }
@@ -726,7 +735,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .about-recruit a { color: var(--gold-deep); font-weight: 600; }
 
 /* === MVP: MIT credential badge (About) === */
-.mit-credential { display: inline-flex; align-items: center; gap: 16px; margin-top: 24px; padding: 16px 20px; background: var(--white); border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: var(--radius-md); }
+.mit-credential { display: inline-flex; align-items: center; gap: 16px; margin-top: 24px; padding: 16px 20px; background: var(--white); border: 1px solid var(--line-card); border-left: 3px solid var(--gold); border-radius: var(--radius-md); }
 .mit-credential img { height: 46px; width: auto; display: block; }
 .mit-credential .mc-text { font-size: 0.9rem; color: var(--stone-deep); max-width: 34ch; line-height: 1.4; }
 @media (max-width: 480px) { .mit-credential { flex-direction: column; align-items: flex-start; gap: 12px; } }

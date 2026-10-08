@@ -34,26 +34,29 @@
  * Version 2026-09-20. Canonical copy: https://hoplight.ai/hoplight-brand-tokens-2026-09-20.css
  * Do not hand-edit: scripts/verify.sh fails if this file disagrees with the stylesheet.
  * Retired and dead, in either notation: #0A1628, #E8A838, #B8851F,
- * rgba(10, 22, 40, a), rgba(232, 168, 56, a). */
+ * rgba(10, 22, 40, a), rgba(232, 168, 56, a).
+ * Grounds are white. No cream, no warm off-white page, no tinted card (Whit, 2026-10-06);
+ * scripts/no-cream-test.mjs fails the build if one comes back. */
 :root {
   --ink: #0F1B2D; /* Primary. Headlines, body text, dark section grounds. */
   --ink-mid: #162640; /* Dark section step, one level up from ink. */
   --ink-soft: #2A3F5F; /* Muted ink for supporting prose on light. */
   --gold: #D4950A; /* Accent. Rules, left borders, the one filled button, link underlines. Never dominant. */
   --gold-hot: #E8A820; /* Brighter gold, for large figures on dark grounds only. */
-  --gold-deep: #845810; /* The gold for small text on light. 5.6:1 on --surface; --gold itself is 2.4:1 and fails. */
-  --gold-bg: #F5E6C4; /* Gold tint for a filled callout ground. */
-  --gold-bg-light: #FBF4E4; /* Lighter gold tint, table and row wash. */
-  --surface: #F5F5F0; /* Default page ground. Warm off-white. */
-  --surface-card: #EEEEE8; /* Card ground on --surface. */
-  --white: #FFFFFF; /* True white, for cards that must separate from --surface. */
-  --stone: #70706A; /* Secondary text. Captions, metadata, timestamps. */
-  --stone-deep: #555550; /* Secondary text that has to pass AA on --surface. */
-  --mute: #8C8475; /* Warm grey for de-emphasised chrome. */
+  --gold-deep: #845810; /* The gold for small text on light. 6.2:1 on --surface; --gold itself is 2.6:1 and fails. */
+  --surface: #FFFFFF; /* Default page ground. White. No cream or warm off-white grounds (Whit, 2026-10-06). */
+  --surface-card: #FFFFFF; /* Card ground. White; a card is told apart by a --line border, never by a tint. */
+  --white: #FFFFFF; /* True white. Same value as --surface; the name for cards and fields. */
+  --stone: #575752; /* Secondary text. Captions, metadata, timestamps. 7.3:1 on --surface. */
+  --stone-deep: #555550; /* Secondary text, the darker step. 7.5:1 on --surface. */
+  --mute: #8C8475; /* Warm grey for de-emphasised chrome. Never for text or for a ground. */
+  --field-edge: #7B828C; /* Text-field border. 3.9:1 on --surface, over the 3:1 floor for a UI boundary. */
+  --ring: var(--gold-deep); /* Keyboard focus ring on a light ground. 6.2:1 on --surface; use --gold-hot on navy. */
   --danger: #9c3327; /* Error and destructive state. Semantic only. */
 
   --line: rgba(0,0,0,0.10);
   --line-soft: rgba(0,0,0,0.06);
+  --line-card: rgba(15,27,45,0.18);
   --line-fill: rgba(0,0,0,0.05);
   --line-dark: rgba(255,255,255,0.10);
   --line-dark-strong: rgba(255,255,255,0.18);
@@ -204,105 +207,99 @@ footer code{color:var(--ink-soft)}
 <tr>
       <td><span class="sw" style="background:#0F1B2D"></span><code>--ink</code></td>
       <td><code>#0F1B2D</code></td>
-      <td class="n" data-on="on surface">15.80<span class="v">AA text</span></td>
+      <td class="n" data-on="on surface">17.28<span class="v">AA text</span></td>
       <td class="n" data-on="on ink">1.00<span class="v">not for text</span></td>
       <td class="role">Primary. Headlines, body text, dark section grounds.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#162640"></span><code>--ink-mid</code></td>
       <td><code>#162640</code></td>
-      <td class="n" data-on="on surface">13.86<span class="v">AA text</span></td>
+      <td class="n" data-on="on surface">15.16<span class="v">AA text</span></td>
       <td class="n" data-on="on ink">1.14<span class="v">not for text</span></td>
       <td class="role">Dark section step, one level up from ink.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#2A3F5F"></span><code>--ink-soft</code></td>
       <td><code>#2A3F5F</code></td>
-      <td class="n" data-on="on surface">9.72<span class="v">AA text</span></td>
+      <td class="n" data-on="on surface">10.63<span class="v">AA text</span></td>
       <td class="n" data-on="on ink">1.63<span class="v">not for text</span></td>
       <td class="role">Muted ink for supporting prose on light.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#D4950A"></span><code>--gold</code></td>
       <td><code>#D4950A</code></td>
-      <td class="n" data-on="on surface">2.37<span class="v">not for text</span></td>
+      <td class="n" data-on="on surface">2.59<span class="v">not for text</span></td>
       <td class="n" data-on="on ink">6.67<span class="v">AA text</span></td>
       <td class="role">Accent. Rules, left borders, the one filled button, link underlines. Never dominant.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#E8A820"></span><code>--gold-hot</code></td>
       <td><code>#E8A820</code></td>
-      <td class="n" data-on="on surface">1.91<span class="v">not for text</span></td>
+      <td class="n" data-on="on surface">2.09<span class="v">not for text</span></td>
       <td class="n" data-on="on ink">8.27<span class="v">AA text</span></td>
       <td class="role">Brighter gold, for large figures on dark grounds only.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#845810"></span><code>--gold-deep</code></td>
       <td><code>#845810</code></td>
-      <td class="n" data-on="on surface">5.67<span class="v">AA text</span></td>
+      <td class="n" data-on="on surface">6.20<span class="v">AA text</span></td>
       <td class="n" data-on="on ink">2.79<span class="v">not for text</span></td>
-      <td class="role">The gold for small text on light. 5.6:1 on --surface; --gold itself is 2.4:1 and fails.</td>
+      <td class="role">The gold for small text on light. 6.2:1 on --surface; --gold itself is 2.6:1 and fails.</td>
     </tr>
 <tr>
-      <td><span class="sw" style="background:#F5E6C4"></span><code>--gold-bg</code></td>
-      <td><code>#F5E6C4</code></td>
-      <td class="n" data-on="on surface">1.13<span class="v">not for text</span></td>
-      <td class="n" data-on="on ink">13.99<span class="v">AA text</span></td>
-      <td class="role">Gold tint for a filled callout ground.</td>
-    </tr>
-<tr>
-      <td><span class="sw" style="background:#FBF4E4"></span><code>--gold-bg-light</code></td>
-      <td><code>#FBF4E4</code></td>
+      <td><span class="sw" style="background:#FFFFFF"></span><code>--surface</code></td>
+      <td><code>#FFFFFF</code></td>
       <td class="n" data-on="on surface">1.00<span class="v">not for text</span></td>
-      <td class="n" data-on="on ink">15.77<span class="v">AA text</span></td>
-      <td class="role">Lighter gold tint, table and row wash.</td>
+      <td class="n" data-on="on ink">17.28<span class="v">AA text</span></td>
+      <td class="role">Default page ground. White. No cream or warm off-white grounds (Whit, 2026-10-06).</td>
     </tr>
 <tr>
-      <td><span class="sw" style="background:#F5F5F0"></span><code>--surface</code></td>
-      <td><code>#F5F5F0</code></td>
+      <td><span class="sw" style="background:#FFFFFF"></span><code>--surface-card</code></td>
+      <td><code>#FFFFFF</code></td>
       <td class="n" data-on="on surface">1.00<span class="v">not for text</span></td>
-      <td class="n" data-on="on ink">15.80<span class="v">AA text</span></td>
-      <td class="role">Default page ground. Warm off-white.</td>
-    </tr>
-<tr>
-      <td><span class="sw" style="background:#EEEEE8"></span><code>--surface-card</code></td>
-      <td><code>#EEEEE8</code></td>
-      <td class="n" data-on="on surface">1.06<span class="v">not for text</span></td>
-      <td class="n" data-on="on ink">14.84<span class="v">AA text</span></td>
-      <td class="role">Card ground on --surface.</td>
+      <td class="n" data-on="on ink">17.28<span class="v">AA text</span></td>
+      <td class="role">Card ground. White; a card is told apart by a --line border, never by a tint.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#FFFFFF"></span><code>--white</code></td>
       <td><code>#FFFFFF</code></td>
-      <td class="n" data-on="on surface">1.09<span class="v">not for text</span></td>
+      <td class="n" data-on="on surface">1.00<span class="v">not for text</span></td>
       <td class="n" data-on="on ink">17.28<span class="v">AA text</span></td>
-      <td class="role">True white, for cards that must separate from --surface.</td>
+      <td class="role">True white. Same value as --surface; the name for cards and fields.</td>
     </tr>
 <tr>
-      <td><span class="sw" style="background:#70706A"></span><code>--stone</code></td>
-      <td><code>#70706A</code></td>
-      <td class="n" data-on="on surface">4.56<span class="v">AA text</span></td>
-      <td class="n" data-on="on ink">3.47<span class="v">large text only</span></td>
-      <td class="role">Secondary text. Captions, metadata, timestamps.</td>
+      <td><span class="sw" style="background:#575752"></span><code>--stone</code></td>
+      <td><code>#575752</code></td>
+      <td class="n" data-on="on surface">7.27<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">2.38<span class="v">not for text</span></td>
+      <td class="role">Secondary text. Captions, metadata, timestamps. 7.3:1 on --surface.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#555550"></span><code>--stone-deep</code></td>
       <td><code>#555550</code></td>
-      <td class="n" data-on="on surface">6.85<span class="v">AA text</span></td>
+      <td class="n" data-on="on surface">7.50<span class="v">AA text</span></td>
       <td class="n" data-on="on ink">2.31<span class="v">not for text</span></td>
-      <td class="role">Secondary text that has to pass AA on --surface.</td>
+      <td class="role">Secondary text, the darker step. 7.5:1 on --surface.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#8C8475"></span><code>--mute</code></td>
       <td><code>#8C8475</code></td>
-      <td class="n" data-on="on surface">3.39<span class="v">large text only</span></td>
+      <td class="n" data-on="on surface">3.70<span class="v">large text only</span></td>
       <td class="n" data-on="on ink">4.67<span class="v">AA text</span></td>
-      <td class="role">Warm grey for de-emphasised chrome.</td>
+      <td class="role">Warm grey for de-emphasised chrome. Never for text or for a ground.</td>
     </tr>
+<tr>
+      <td><span class="sw" style="background:#7B828C"></span><code>--field-edge</code></td>
+      <td><code>#7B828C</code></td>
+      <td class="n" data-on="on surface">3.88<span class="v">large text only</span></td>
+      <td class="n" data-on="on ink">4.46<span class="v">large text only</span></td>
+      <td class="role">Text-field border. 3.9:1 on --surface, over the 3:1 floor for a UI boundary.</td>
+    </tr>
+
 <tr>
       <td><span class="sw" style="background:#9c3327"></span><code>--danger</code></td>
       <td><code>#9C3327</code></td>
-      <td class="n" data-on="on surface">6.58<span class="v">AA text</span></td>
+      <td class="n" data-on="on surface">7.20<span class="v">AA text</span></td>
       <td class="n" data-on="on ink">2.40<span class="v">not for text</span></td>
       <td class="role">Error and destructive state. Semantic only.</td>
     </tr>
@@ -339,7 +336,7 @@ footer code{color:var(--ink-soft)}
     </tr>
 <tr>
       <td><strong>focus ring</strong></td>
-      <td><code class="spec">2px solid var(--gold)</code></td>
+      <td><code class="spec">2px solid var(--ring)</code></td>
       <td class="role">Visible keyboard focus on every interactive element. Never removed.</td>
     </tr>
 <tr>

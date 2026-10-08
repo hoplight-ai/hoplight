@@ -10,7 +10,7 @@ const pmeCSS = `
      who greps for it and trusts the label). Values below now match src/app/globals.css :root
      exactly for every token that shares a name there; --gold-light has no site equivalent and is
      unchanged. */
-  --ink:#0F1B2D; --gold:#D4950A; --gold-deep:#845810; --gold-light:#F4CE8A; --surface:#F5F5F0; --stone:#70706A;
+  --ink:#0F1B2D; --gold:#D4950A; --gold-deep:#845810; --gold-light:#F4CE8A; --surface:#FFFFFF; --stone:#575752;
   --dark:#0F172A;
   --card:#1E293B;
   --card2:#111827;
@@ -321,7 +321,7 @@ const pmeCSS = `
 .pme-page .cards2{display:grid;grid-template-columns:1fr;gap:24px;margin-top:40px}
 @media (min-width:900px){ .pme-page .cards2{grid-template-columns:1fr 1fr} }
 .pme-page .card9{
-  background:var(--surface);border-radius:14px;padding:30px 26px;border:1px solid rgba(15,27,45,.08);
+  background:var(--surface);border-radius:14px;padding:30px 26px;border:1px solid rgba(15,27,45,.16);
   display:flex;flex-direction:column;height:100%;
 }
 .pme-page .card9 h3{font-family:'Outfit',sans-serif;font-weight:700;font-size:1.2rem;margin-bottom:0}
@@ -417,9 +417,10 @@ const pmeCSS = `
 @media (min-width:1024px){ .pme-page .layers-row{grid-template-columns:repeat(4,1fr)} }
 .pme-page .layer-card{
   background:#fff;border-radius:14px;padding:26px 22px;position:relative;
+  border:1px solid rgba(15,27,45,.16);
   box-shadow:0 4px 24px rgba(15,27,45,.06);overflow:hidden;
 }
-.pme-page .layer-card.muted{background:#EFECE5}
+.pme-page .layer-card.muted{background:#fff;box-shadow:none;border:1px solid rgba(15,27,45,.22)}
 .pme-page .layer-num{
   position:absolute;top:8px;right:16px;font-family:'Outfit',sans-serif;font-weight:800;
   font-size:3rem;color:var(--stone);opacity:.18;line-height:1;

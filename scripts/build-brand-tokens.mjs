@@ -71,15 +71,15 @@ const COLOR_ORDER = [
   ['ink-soft', 'Muted ink for supporting prose on light.'],
   ['gold', 'Accent. Rules, left borders, the one filled button, link underlines. Never dominant.'],
   ['gold-hot', 'Brighter gold, for large figures on dark grounds only.'],
-  ['gold-deep', 'The gold for small text on light. 5.6:1 on --surface; --gold itself is 2.4:1 and fails.'],
-  ['gold-bg', 'Gold tint for a filled callout ground.'],
-  ['gold-bg-light', 'Lighter gold tint, table and row wash.'],
-  ['surface', 'Default page ground. Warm off-white.'],
-  ['surface-card', 'Card ground on --surface.'],
-  ['white', 'True white, for cards that must separate from --surface.'],
-  ['stone', 'Secondary text. Captions, metadata, timestamps.'],
-  ['stone-deep', 'Secondary text that has to pass AA on --surface.'],
-  ['mute', 'Warm grey for de-emphasised chrome.'],
+  ['gold-deep', 'The gold for small text on light. 6.2:1 on --surface; --gold itself is 2.6:1 and fails.'],
+  ['surface', 'Default page ground. White. No cream or warm off-white grounds (Whit, 2026-10-06).'],
+  ['surface-card', 'Card ground. White; a card is told apart by a --line border, never by a tint.'],
+  ['white', 'True white. Same value as --surface; the name for cards and fields.'],
+  ['stone', 'Secondary text. Captions, metadata, timestamps. 7.3:1 on --surface.'],
+  ['stone-deep', 'Secondary text, the darker step. 7.5:1 on --surface.'],
+  ['mute', 'Warm grey for de-emphasised chrome. Never for text or for a ground.'],
+  ['field-edge', 'Text-field border. 3.9:1 on --surface, over the 3:1 floor for a UI boundary.'],
+  ['ring', 'Keyboard focus ring on a light ground. 6.2:1 on --surface; use --gold-hot on navy.'],
   ['danger', 'Error and destructive state. Semantic only.'],
 ];
 
@@ -109,6 +109,7 @@ const payload = {
     note: 'Hairlines. Black alphas on light grounds, white alphas on dark ones.',
     light: { value: need('line'), var: '--line' },
     'light-soft': { value: need('line-soft'), var: '--line-soft' },
+    'light-card': { value: need('line-card'), var: '--line-card' },
     'light-fill': { value: need('ink-05'), var: '--ink-05' },
     dark: { value: need('line-dark'), var: '--line-dark' },
     'dark-strong': { value: need('line-dark-strong'), var: '--line-dark-strong' },
@@ -246,7 +247,9 @@ function buildCss() {
   L.push(` * Version ${DATE}. Canonical copy: https://hoplight.ai/${BASE}.css`);
   L.push(' * Do not hand-edit: scripts/verify.sh fails if this file disagrees with the stylesheet.');
   L.push(' * Retired and dead, in either notation: #0A1628, #E8A838, #B8851F,');
-  L.push(' * rgba(10, 22, 40, a), rgba(232, 168, 56, a). */');
+  L.push(' * rgba(10, 22, 40, a), rgba(232, 168, 56, a).');
+  L.push(' * Grounds are white. No cream, no warm off-white page, no tinted card (Whit, 2026-10-06);');
+  L.push(' * scripts/no-cream-test.mjs fails the build if one comes back. */');
   L.push(':root {');
   for (const [k, { value, role }] of Object.entries(payload.color)) {
     L.push(`  --${k}: ${value};${role ? ` /* ${role} */` : ''}`);
