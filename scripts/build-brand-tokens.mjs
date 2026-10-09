@@ -375,8 +375,12 @@ function buildHtml() {
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <meta name="theme-color" content="${C.ink.value}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Self-hosted 2026-10-09 (SIL Open Font License 1.1; the licences sit beside the files in /fonts). The
+   site's content security policy refuses Google's font server, so this page drew in a system face. */
+@font-face{font-family:'Inter';src:url('/fonts/inter-latin-wght-normal.woff2') format('woff2');font-weight:400 800;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');font-weight:400 500;font-style:normal;font-display:swap}
+</style>
 <style>
 /* The generated stylesheet, inlined verbatim rather than linked. This page IS the reference, so it
    has to render correctly with nothing else resolving: linked at /${BASE}.css it came up unstyled
