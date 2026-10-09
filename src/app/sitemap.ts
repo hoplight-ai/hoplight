@@ -6,7 +6,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // '/work' removed 2026-08-13: it now 308s to /portfolio, and a sitemap should not list a redirect.
   // '/rayli' added 2026-08-21 (SITE1): the flagship product had no page at all until then.
   // '/tools/which-ai' added 2026-09-16: live, linked from the nav and the portfolio, never listed.
-  const paths = ['', '/rayli', '/services', '/persuasion', '/research', '/about', '/faq', '/contact', '/portfolio', '/tools/which-ai'];
+  // '/undo' added 2026-10-09: The Undo List, live but deliberately unlinked from the nav.
+  const paths = ['', '/rayli', '/services', '/persuasion', '/research', '/about', '/faq', '/contact', '/portfolio', '/tools/which-ai', '/undo'];
   // The 12 static portfolio pieces under public/portfolio/*.html (review squad, 2026-09-16,
   // expert-seo.md #8: titled pages with no sitemap entry at all). Listed separately from `paths`
   // above because they live under a shared /portfolio/ prefix and carry their own, lower priority
@@ -34,7 +35,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${ORIGIN}${p}`,
     lastModified: LAST_MODIFIED,
     changeFrequency: 'monthly' as const,
-    priority: p === '' ? 1 : p === '/rayli' ? 0.9 : p === '/research' ? 0.9 : 0.7,
+    priority: p === '' ? 1 : p === '/rayli' ? 0.9 : p === '/research' ? 0.9 : p === '/undo' ? 0.8 : 0.7,
   }));
   const portfolio = portfolioPages.map((slug) => ({
     url: `${ORIGIN}/portfolio/${slug}.html`,

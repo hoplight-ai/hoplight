@@ -19,3 +19,25 @@
 - **Vercel project:** `hoplight`
 - **Live URL:** https://hoplight.ai — **CORRECTED 2026-08-25 by live probe. This row said `hoplight-rouge.vercel.app` and a project memory note (`hoplight-domain-not-on-vercel`, written 2026-06-13) said the apex domain was still served by Cloudflare. Both were false and had been for weeks.** `counted`, Vercel API `GET /v9/projects/hoplight`: the project's domain list is `hoplight.ai`, `www.hoplight.ai`, `hoplight-rouge.vercel.app`, plus the two generated hostnames. `counted`, live fetch of `https://hoplight.ai` on 2026-08-25: it serves the current Next.js site, canonical `https://hoplight.ai`, og:image `https://hoplight.ai/og.png`, and every nav route (`/rayli`, `/services`, `/portfolio`, `/persuasion`, `/about`, `/tools/which-ai`, `/faq`) resolves. **So: `hoplight.ai` is the canonical public URL and is what goes in any bio, profile, deck, email signature or link handed to a person.** `hoplight-rouge.vercel.app` is a still-attached alias, not the address. Never quote the vercel.app hostname to Whit or to an outside party again, and never repeat the Cloudflare claim without re-fetching the apex first.
 - **Notes:** Fonts are Inter and JetBrains Mono, loaded through `next/font/google` in `src/app/layout.tsx`. **Not GT America** (corrected 2026-09-16 under Whit's typed GOVERNANCE EDIT): the ten GT America, Outfit and Playfair files in `public/fonts/` are referenced only by the static `public/pme-lever.html` and by nothing under `src/`; they stay only because that file needs them. Standard Next.js app router. One environment variable, `MAKE_INTAKE_WEBHOOK` (see README); the intake form's Make listener is scenario 6294831, rebuilt 2026-09-16 after the old webhook was found with no scenario attached.
+## The Undo List, `/undo` (added 2026-10-09)
+
+- **What it is:** every action of the second Trump administration since 2025-01-20, one row each,
+  placed in one of five buckets by what it takes a president sworn in 2029-01-20 to undo it: a pen,
+  a pen then a process, a simple majority, sixty votes, or locked. Public, deliberately not in the
+  nav. Whit asked for it on 2026-10-09 ("a running list of everything that Trump has done that we
+  can step into the oval office in 2029 and undo"). Nothing public did this; three research agents
+  checked about sixty trackers first.
+- **Where the rows come from.** Executive orders, proclamations and memoranda are read LIVE from the
+  Federal Register API (no key) in `src/lib/undo/federal-register.ts`, revalidated hourly; a dead
+  feed costs the page its live rows and nothing else. Everything else (statutes, CRA repeals, judges,
+  final rules, withdrawals, tariffs, personnel, pardons, court rulings) is hand-curated in
+  `src/data/undo/curated.json`. `src/data/undo/rulings.json` overrides the automatic placement of
+  named Federal Register rows. The five buckets and the row shape live in `src/lib/undo/types.ts`;
+  placement logic in `src/lib/undo/classify.ts`. A row the feed supplies is placed by instrument
+  type alone until a ruling places it, and the page says "auto, unreviewed" on every such row.
+- **Rules that bind here:** no clock words on the page (no "days since", "overdue", "stale"; a plain
+  ISO date is fine), no em dashes in copy. Both are asserted by `scripts/undo-classify.test.mjs`,
+  which runs in `npm test` and in CI.
+- **This container cannot reach federalregister.gov** (the cloud session proxy blocks it), so a
+  local build here always takes the feed's failure path. The feed was proved from a Vercel sandbox
+  on 2026-10-09: 289 executive orders, 187 proclamations, 34 memoranda, one page each.
