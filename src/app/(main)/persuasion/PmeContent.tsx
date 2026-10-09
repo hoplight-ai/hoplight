@@ -10,7 +10,7 @@ const pmeCSS = `
      who greps for it and trusts the label). Values below now match src/app/globals.css :root
      exactly for every token that shares a name there; --gold-light has no site equivalent and is
      unchanged. */
-  --ink:#0F1B2D; --gold:#D4950A; --gold-deep:#785010; --gold-light:#F4CE8A; --surface:#FFFFFF; --stone:#575752;
+  --ink:#0F1B2D; --gold:#D4950A; --gold-deep:#996D00; --gold-light:#F4CE8A; --surface:#FFFFFF; --stone:#575752;
   --dark:#0F172A;
   --card:#1E293B;
   --card2:#111827;
@@ -57,6 +57,8 @@ const pmeCSS = `
 
 .pme-page strong{font-weight:700}
 .pme-page strong.gold{color:var(--gold);font-weight:700}
+/* Gold text on the white sections takes option C (Whit, 2026-10-09); the bright --gold stays on the dark ones. */
+.pme-page .bg-paper strong.gold,.pme-page .bg-white strong.gold{color:var(--gold-deep)}
 .pme-page strong.white{color:#fff;font-weight:700}
 
 /* ---------- reveal ---------- */
@@ -75,13 +77,13 @@ const pmeCSS = `
 
 /* ---------- S1 hero ---------- */
 .pme-page .hero{padding-top:88px;padding-bottom:72px}
-.pme-page .hero .eyebrow{display:block;margin-bottom:18px}
+.pme-page .hero .eyebrow{display:block;margin-bottom:18px;color:var(--gold-deep)}
 .pme-page .hero h1{
   font-family:'Outfit',sans-serif;font-weight:800;
   font-size:clamp(2.6rem,6vw,4.5rem);
   line-height:1.1;letter-spacing:-0.02em;
 }
-.pme-page .hero h1 .gold-line{color:var(--gold);display:block}
+.pme-page .hero h1 .gold-line{color:var(--gold-deep);display:block}
 .pme-page .hero h1 .ink-line{color:var(--ink);display:block}
 .pme-page .hero blockquote{
   margin:36px 0 0;padding-left:22px;

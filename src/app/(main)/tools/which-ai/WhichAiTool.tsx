@@ -15,13 +15,14 @@ import {
 // Read off src/app/globals.css; scripts/no-cream-test.mjs fails if any of these drifts from it. Lane
 // hopfix1, 2026-10-08, to retire the cream grounds the rest of the site dropped on 2026-10-07: `paper` is
 // white (it was a warm off-white on every card and callout), `stone` is the stylesheet's 7.3:1 secondary text
-// (it was a warm grey at 3.7:1), `goldDeep` is the stylesheet's 7:1 small gold text, and `line` is the
-// stylesheet's --line-card, the border that tells a white card from the white page now that no tint does.
+// (it was a warm grey at 3.7:1), `goldDeep` is the stylesheet's gold for text on white (option C, Whit's pick
+// of 2026-10-09, 4.6:1), and `line` is the stylesheet's --line-card, the border that tells a white card from
+// the white page now that no tint does.
 const C = {
   ink: '#0F1B2D',
   inkSoft: '#2A3F5F',
   gold: '#D4950A',
-  goldDeep: '#785010',
+  goldDeep: '#996D00',
   paper: '#FFFFFF',
   stone: '#575752',
   line: 'rgba(15, 27, 45, 0.18)',
