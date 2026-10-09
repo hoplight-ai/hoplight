@@ -4,7 +4,7 @@
 // data files must obey. Pure: no network, no server. Run: `node --test scripts/undo-classify.test.mjs`.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { isCeremonial } from '../src/lib/undo/sections.ts';
+import { isCeremonial, isJustIn } from '../src/lib/undo/sections.ts';
 import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -545,3 +545,13 @@ for (const f of headlineFiles) {
     assertCleanCopy(entries, `headlines/${f}`);
   });
 }
+
+test('a feed row with no headline yet waits in Just in and is out of the pen count', () => {
+  const fresh = R({ id: '2026-99999', reviewed: false });
+  const written = R({ id: '2026-99998', reviewed: false, title: 'National Manufacturing Day, 2026', instrument: 'proclamation' });
+  assert.equal(isJustIn(fresh), true);
+  assert.equal(isJustIn(written), false, 'a commemorative proclamation has its own group');
+  assert.equal(isJustIn(R({ reviewed: true })), false);
+  assert.equal(isJustIn(R({ reviewed: false, bucket: 'locked', instrument: 'judge' })), false);
+  assert.equal(countPenInForce([fresh, R({ id: 'ok' })]), 1);
+});

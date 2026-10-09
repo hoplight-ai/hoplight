@@ -13,6 +13,7 @@ import {
   isAlreadyDone,
   isCeremonial,
   isLeave,
+  isJustIn,
   isPenInForce,
   matchesQuery,
   tagOf,
@@ -231,6 +232,7 @@ export default function UndoList({
       done: hit.filter(isAlreadyDone),
       // A commemorative proclamation stays in its own group even if a ruling marks it leave.
       leave: hit.filter((r) => isLeave(r) && !isCeremonial(r)),
+      justIn: hit.filter(isJustIn),
       ceremonial: hit.filter(isCeremonial),
     };
   }, [rows, query]);
@@ -390,6 +392,28 @@ export default function UndoList({
               <p className="undo-intro">{COPY.done.intro}</p>
               <ul className="undo-items">
                 {view.done.map((r) => (
+                  <Item key={r.id} row={r} variant="done" />
+                ))}
+              </ul>
+            </details>
+          </div>
+        </section>
+      ) : null}
+
+      {/* JUST IN */}
+      {view.justIn.length > 0 ? (
+        <section className="undo-section undo-section-ruled" aria-labelledby="undo-justin-h">
+          <div className="wrap">
+            <details className="undo-done">
+              <summary className="undo-done-summary">
+                <h2 id="undo-justin-h" className="undo-h2">
+                  {COPY.justIn.title}
+                </h2>
+                <span className="undo-subcount">{view.justIn.length.toLocaleString('en-US')}</span>
+              </summary>
+              <p className="undo-intro">{COPY.justIn.intro}</p>
+              <ul className="undo-items">
+                {view.justIn.map((r) => (
                   <Item key={r.id} row={r} variant="done" />
                 ))}
               </ul>

@@ -55,6 +55,10 @@ export const COPY = {
     title: 'Already done for you',
     intro: 'Courts, or the administration itself, already undid these. They stay on the list so the count is honest.',
   },
+  justIn: {
+    title: 'Just in',
+    intro: 'Newly published and not yet written up in our words. The administration\'s own title shows until we write ours; nothing here counts toward the list above.',
+  },
   leave: {
     title: 'Leave these',
     intro: 'Orders a Democratic president would keep or that change nothing worth the ink. Listed so the count is honest.',

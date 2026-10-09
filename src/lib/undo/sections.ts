@@ -11,7 +11,7 @@ import { COPY } from './copy.ts';
  *  instrument), and nothing the page does not render (agency, topics, extra sources) ships. */
 export type SlimRow = Omit<UndoRow, 'how' | 'why' | 'agency' | 'topics'> & { how?: string; why?: string };
 
-type RowLike = Pick<UndoRow, 'instrument' | 'bucket' | 'status' | 'title'> & { verdict?: UndoRow['verdict'] };
+type RowLike = Pick<UndoRow, 'instrument' | 'bucket' | 'status' | 'title' | 'reviewed'> & { verdict?: UndoRow['verdict'] };
 
 // An enjoined order is still on the to-do list: an injunction can fall on appeal, and a pen still revokes it.
 const ACTIVE: Status[] = ['in-force', 'pending', 'enjoined'];
@@ -37,9 +37,16 @@ export function isLeave(r: Pick<UndoRow, 'verdict'>): boolean {
   return r.verdict === 'leave';
 }
 
+/** A feed row nobody has written up yet: it waits in "Just in" under the administration's own
+ *  title rather than landing on the to-do list in the government's words. Commemorative
+ *  proclamations have their own group and are not "just in". */
+export function isJustIn(r: Pick<UndoRow, 'reviewed' | 'instrument' | 'title' | 'bucket' | 'status'>): boolean {
+  return !r.reviewed && !isCeremonial(r) && (r.bucket === 'pen' || r.bucket === 'pen-process');
+}
+
 /** Rows a pen undoes and that are still standing: the section "Before lunch" and the hero number. */
 export function isPenInForce(r: RowLike): boolean {
-  return r.bucket === 'pen' && isActive(r) && !isCeremonial(r) && !isLeave(r);
+  return r.bucket === 'pen' && isActive(r) && !isCeremonial(r) && !isLeave(r) && !isJustIn(r);
 }
 
 export function countPenInForce(rows: RowLike[]): number {
@@ -54,7 +61,7 @@ export function countLocked(rows: RowLike[]): number {
 
 /** pen and pen-process rows already undone by a court or by the administration itself. */
 export function isAlreadyDone(r: RowLike): boolean {
-  return (r.bucket === 'pen' || r.bucket === 'pen-process') && !isActive(r) && !isCeremonial(r) && !isLeave(r);
+  return (r.bucket === 'pen' || r.bucket === 'pen-process') && !isActive(r) && !isCeremonial(r) && !isLeave(r) && !isJustIn(r);
 }
 
 export function slimRow(row: UndoRow): SlimRow {
