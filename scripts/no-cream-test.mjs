@@ -40,10 +40,23 @@
 //       text, and are cool neutrals; its baseline row still fades back and reaches 4.5:1;
 //   (k) the headline of the political-money page has a gap above it, so it does not sit on the Hoplight bar.
 //
-// STILL NOT COVERED: the status tints in the Which AI tool's exposure table (red, yellow and green cells are
-// data, not a ground), the dark themes of the two static pages that have one (the Oregon report and the
-// DNC page), the rest of the dark page every-political-dollar-buys-less.html (only its secondary gray is
-// held, by test (j)), and every image file (the portfolio thumbnails show other products' screens).
+// ADDED 2026-10-09 (lane hopgold1). Whit, 2026-10-09: "the hoplight gold isnt doing it for me yet- the old
+// was too bright the new is too muddy"; shown five golds the same day, he answered "option c". Option C is
+// #996D00, 4.62:1 on white. The 7:1 floor the gold carried above was set by a session, never by Whit, so
+// every gold floor in this file is now the 4.5:1 body-text bar; every grey keeps its own floor. Tests (l) to
+// (q) at the bottom of this file:
+//   (l) --gold-deep is #996D00 in every file that defines it, and the old deep gold #785010 is gone;
+//   (m) no gold used as text on a light ground measures under 4.5:1;
+//   (n) gold on navy and the other dark grounds reaches 4.5:1 (the story page above all);
+//   (o) no chip or table row uses a warm tint ground (the Which AI exposure chips, the political-money rows);
+//   (p) the agency inventory's "Uncertain" reaches 4.5:1;
+//   (q) no served page loads a font from fonts.googleapis.com or fonts.gstatic.com (the site's content
+//       security policy blocks both, so those pages drew in a fallback face); the faces are self-hosted.
+//
+// STILL NOT COVERED: the dark themes of the two static pages that have one (the Oregon report and the
+// DNC page), the rest of the dark page every-political-dollar-buys-less.html (its secondary grays are held
+// by test (j), its gold by test (n)), gold drawn as svg text, and every image file (the portfolio
+// thumbnails show other products' screens).
 //
 // Run: `node --test scripts/no-cream-test.mjs` (also part of `npm test`, which CI runs).
 
@@ -174,10 +187,12 @@ const PAGE_GROUND = [['globals.css', globalVars], ['served token file', servedVa
 
 // Tokens that are text, by the stylesheet's own roles (--ink: headlines and body; --ink-soft: supporting
 // prose; --stone-deep and --stone: secondary text, captions, metadata). --gold-deep is the accent text
-// for small labels and links. Held to AA (4.5:1) by the first lane, raised to the same 7:1 as the other
-// small text by lane hopfix1, 2026-10-08.
+// for small labels and links. Held to AA (4.5:1) by the first lane, raised to 7:1 by lane hopfix1 on
+// 2026-10-08, and back to 4.5:1 by lane hopgold1 on 2026-10-09, when Whit picked option C (#996D00).
 const BODY_TEXT = [['ink', 12], ['ink-soft', 7]];
 const SECONDARY_TEXT = [['stone-deep', 7], ['stone', 7]];
+const GOLD_FLOOR = 4.5;
+const GOLD_C = '#996D00';
 
 // ---- 1. the page is white -----------------------------------------------------------------------
 test('the page ground is pure white in the stylesheet and in the served token file', () => {
@@ -251,7 +266,7 @@ test('body and secondary text clear their contrast floors on the page ground', (
       assert.ok(c >= floor, `${name}: --${tok} is ${c.toFixed(2)}:1 on the page, needs ${floor}:1`);
     }
     const accent = contrast(parseColor('var(--gold-deep)', vars).slice(0, 3), ground);
-    assert.ok(accent >= 7, `${name}: --gold-deep is ${accent.toFixed(2)}:1 on the page, needs 7:1`);
+    assert.ok(accent >= GOLD_FLOOR, `${name}: --gold-deep is ${accent.toFixed(2)}:1 on the page, needs ${GOLD_FLOOR}:1`);
   }
 });
 
@@ -469,8 +484,9 @@ test('(c) the contact page choice buttons put the title and the description on s
   }
 });
 
-// ---- (d) the deep gold reaches 7:1 on white everywhere it is defined ------------------------------
-test('(d) every definition of the deep gold clears 7:1 on white', () => {
+// ---- (d) the deep gold reaches the gold floor on white everywhere it is defined ---------------------
+// Was 7:1 until lane hopgold1, 2026-10-09; the floor is now the 4.5:1 body-text bar (see the header).
+test('(d) every definition of the deep gold clears the 4.5:1 gold floor on white', () => {
   const files = [
     ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])),
     ...walkFiles('public', new Set(['.html', '.css', '.json', '.svg'])),
@@ -484,11 +500,11 @@ test('(d) every definition of the deep gold clears 7:1 on white', () => {
       seen += 1;
       const hex = m[1] ?? m[2] ?? m[3];
       const c = contrast(hexToRgb(hex), WHITE);
-      if (c < 7) failing.push(`${f}: ${hex} is ${c.toFixed(2)}:1`);
+      if (c < GOLD_FLOOR) failing.push(`${f}: ${hex} is ${c.toFixed(2)}:1`);
     }
   }
   assert.ok(seen >= 8, `expected at least 8 definitions of the deep gold, found ${seen}`);
-  assert.deepEqual(failing, [], 'deep gold under 7:1 on white');
+  assert.deepEqual(failing, [], `deep gold under ${GOLD_FLOOR}:1 on white`);
 });
 
 test('(d) the old 6.2:1 deep gold is gone from the source and the served files', () => {
@@ -572,32 +588,35 @@ test('(f) the secondary gray on each of the eight static pages reaches 7:1 on wh
 });
 
 // ---- (g) the political-money page: gold figures ------------------------------------------------------
-test('(g) the gold figures on the political-money page reach 7:1 on white', () => {
+// Was 7:1 until lane hopgold1, 2026-10-09; the floor is now the 4.5:1 gold floor (see the header).
+test('(g) the gold figures on the political-money page reach the 4.5:1 gold floor on white', () => {
   const text = read('public/portfolio/where-political-money-actually-works.html');
   const style = text.match(/<style>([\s\S]*?)<\/style>/)[1];
   const vars = customProps(style);
   assert.ok(!/#B8920A/i.test(text), 'the page still carries the 2.9:1 gold #B8920A');
   const ac = contrast(parseColor('var(--ac)', vars).slice(0, 3), WHITE);
-  assert.ok(ac >= 7, `--ac is ${ac.toFixed(2)}:1 on white, needs 7:1`);
+  assert.ok(ac >= GOLD_FLOOR, `--ac is ${ac.toFixed(2)}:1 on white, needs ${GOLD_FLOOR}:1`);
   const failing = [];
   for (const sel of ['h1', '.pair-ratio', '.card .stat', '.accent']) {
     const r = rules(style).find((x) => x.selector === sel);
     assert.ok(r, `no ${sel} rule on the page`);
     const colour = parseColor(decls(r.body, 'color')[0], vars).slice(0, 3);
     const c = contrast(colour, WHITE);
-    if (c < 7) failing.push(`${sel}: ${hexOf(colour)} is ${c.toFixed(2)}:1`);
+    if (c < GOLD_FLOOR) failing.push(`${sel}: ${hexOf(colour)} is ${c.toFixed(2)}:1`);
   }
-  assert.deepEqual(failing, [], 'gold figures under 7:1 on white');
+  assert.deepEqual(failing, [], `gold figures under ${GOLD_FLOOR}:1 on white`);
   // The two federal labels (.tag-fed) are held by test (i) below: white box, deep-gold outline, 7:1 text.
 });
 
 // ---- (h) the old-palette retire script ---------------------------------------------------------------
-test('(h) the old-palette retire script maps the old deep gold to the 7:1 deep gold, not the 6.2:1 one', () => {
+// The floor was 7:1 until lane hopgold1, 2026-10-09; it is the 4.5:1 gold floor now, and the target has to
+// be the stylesheet's own --gold-deep, which is option C.
+test('(h) the old-palette retire script maps the old deep gold to the stylesheet\'s deep gold, not the 6.2:1 one', () => {
   const targets = [...src.retire.matchAll(/\['#b8851f',\s*'(#[0-9a-fA-F]{6})'/gi)].map((m) => m[1]);
   assert.equal(targets.length, 2, `expected the upper and lower case map rows for #B8851F, found ${targets.length}`);
   for (const t of targets) {
     const c = contrast(hexToRgb(t), WHITE);
-    assert.ok(c >= 7, `the script maps the old deep gold to ${t}, which is ${c.toFixed(2)}:1 on white, needs 7:1`);
+    assert.ok(c >= GOLD_FLOOR, `the script maps the old deep gold to ${t}, which is ${c.toFixed(2)}:1 on white, needs ${GOLD_FLOOR}:1`);
     assert.equal(t.toUpperCase(), globalVars['gold-deep'].toUpperCase(), `${t} is not the stylesheet's --gold-deep`);
   }
   assert.ok(!/#845810/i.test(src.retire), 'the script still names the old 6.2:1 gold #845810');
@@ -656,7 +675,8 @@ test('(i) the federal labels on the political-money page are white boxes with a 
     .filter(([, , rgb]) => isCream(rgb))
     .map(([where, atom, rgb]) => `${where}: ${atom} lays down ${hexOf(rgb)} on white`);
   assert.deepEqual([...new Set(warm)], [], 'warm tinted backgrounds on the political-money page');
-  // The label itself: a white box, a 1px solid outline in the deep gold, text at 7:1 on that white.
+  // The label itself: a white box, a 1px solid outline in the deep gold, text at the gold floor on that
+  // white (7:1 until lane hopgold1, 2026-10-09; 4.5:1 since, see the header).
   const tag = rules(style).find((r) => r.selector === '.tag-fed');
   assert.ok(tag, 'no .tag-fed rule');
   const ground = over(parseColor(decls(tag.body, 'background')[0], vars), WHITE);
@@ -668,7 +688,7 @@ test('(i) the federal labels on the political-money page are white boxes with a 
   assert.equal(hexOf(edge), hexOf(parseColor('var(--gold-deep)', globalVars)), `.tag-fed outline is ${hexOf(edge)}, expected the deep gold ${globalVars['gold-deep']}`);
   const text = parseColor(decls(tag.body, 'color')[0], vars).slice(0, 3);
   const c = contrast(text, ground);
-  assert.ok(c >= 7, `.tag-fed text ${hexOf(text)} is ${c.toFixed(2)}:1 on its ground, needs 7:1`);
+  assert.ok(c >= GOLD_FLOOR, `.tag-fed text ${hexOf(text)} is ${c.toFixed(2)}:1 on its ground, needs ${GOLD_FLOOR}:1`);
   assert.ok(contrast(edge, ground) >= 3, '.tag-fed outline is under 3:1 against its ground');
 });
 
@@ -745,4 +765,422 @@ test('(k) the headline of the political-money page has a gap above it, on the pa
   assert.ok(top > 0, 'the h1 has no top margin or padding, so it sits against the Hoplight bar above it');
   // About a line: the headline is 26px on a 1.2 line, so a gap between half a line and two lines.
   assert.ok(top >= 16 && top <= 64, `the h1 top gap is ${top}px, expected roughly one line (16 to 64px)`);
+});
+
+// =====================================================================================================
+// LANE hopgold1, 2026-10-09: the gold becomes option C, #996D00. Each test below was written first and seen
+// red on 9251acb (see the lane's done-file for the observed failures).
+// =====================================================================================================
+
+// The gold family: the yellow-orange hues the brand golds and the ambers sit in, saturated, neither
+// near-white nor near-black. #D4950A, #E8A820, #785010, #996D00, #92600A, #F59E0B and #D97706 are in it;
+// the brown-orange #B45309 (26 degrees) and the DNC page's data orange #D35400 (24 degrees) are not.
+function isGold(rgb) {
+  const [h, s, l] = hsl(rgb);
+  return h >= 30 && h <= 55 && s >= 50 && l >= 15 && l <= 75;
+}
+
+// A warm tint: a near-white carrying any saturation on the red-to-yellow side of the wheel. Wider than
+// isCream (20 to 70 degrees) on purpose: a pink wash behind a table row is as warm a ground as a cream one.
+function isWarmTint(rgb) {
+  const [h, s, l] = hsl(rgb);
+  return l >= 85 && l < 100 && s > 4 && (h <= 70 || h >= 330);
+}
+
+// Every <style> block of a static page, as one stylesheet (the page's own, then the Hoplight bar's).
+const pageStyles = (html) => [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n');
+
+// Custom properties, FIRST declaration wins: on a page with a dark theme in a media query, the light theme
+// is the one written first, and the light theme is the one a reader on a white page sees.
+function firstProps(text) {
+  const out = {};
+  for (const m of stripComments(text).matchAll(/--([a-z0-9-]+)\s*:\s*([^;}\n]+)/gi)) {
+    if (!(m[1] in out)) out[m[1]] = m[2].trim();
+  }
+  return out;
+}
+
+// The ground a declaration block paints for itself, laid over `under`, or null if it paints none.
+function ownGround(body, vars, under) {
+  for (const prop of ['background', 'background-color']) {
+    for (const v of decls(body, prop)) {
+      const atom = (v.match(ATOM) ?? [])[0];
+      if (!atom) continue;
+      try { return over(parseColor(atom, vars), under); } catch { /* not a colour */ }
+    }
+  }
+  return null;
+}
+
+// Every text colour a static page declares, in its <style> blocks and in inline style="" attributes. The
+// ground of each is the block's own background if it paints one; else the ground of a dark section the
+// selector sits inside (a one-class rule such as `.hero { background: var(--ink) }` makes `.hero .btn` a
+// rule on navy); else the navy of the Hoplight bar for the bar's own rules; else the page ground.
+function textColours(html) {
+  const css = pageStyles(html);
+  const vars = firstProps(css);
+  const all = rules(css).filter((r) => !r.selector.startsWith('@'));
+  const bodyRule = all.find((r) => r.selector.split(',').map((s) => s.trim()).includes('body') && ownGround(r.body, vars, WHITE));
+  const page = bodyRule ? ownGround(bodyRule.body, vars, WHITE) : WHITE;
+  const darkSections = all.flatMap((r) => {
+    const g = ownGround(r.body, vars, page);
+    if (!g || isLight(g)) return [];
+    return r.selector.split(',').map((s) => s.trim()).filter((s) => /^\.[\w-]+$/.test(s))
+      .map((s) => [new RegExp(`\\${s}(?![\\w-])`, 'g'), g]);
+  });
+  // The nearest dark section among a selector's ancestors (its last compound, the element itself, is cut).
+  const sectionOf = (selector) => {
+    let best = null;
+    for (const part of selector.split(',')) {
+      const ancestors = part.trim().replace(/\s*[^\s>+~]+$/, '');
+      for (const [re, g] of darkSections) {
+        for (const m of ancestors.matchAll(re)) if (!best || m.index >= best[0]) best = [m.index, g];
+      }
+    }
+    return best && best[1];
+  };
+  const bodies = [
+    ...all.map((r) => [r.selector, r.body]),
+    ...[...html.matchAll(/\sstyle="([^"]*)"/g)].map((m) => [`style="${m[1].slice(0, 48)}"`, m[1]]),
+  ];
+  const out = [];
+  for (const [where, body] of bodies) {
+    for (const v of decls(body, 'color')) {
+      const atom = (v.match(ATOM) ?? [])[0];
+      if (!atom) continue;
+      let rgba;
+      try { rgba = parseColor(atom, vars); } catch { continue; }
+      const section = where.startsWith('style="') ? null : sectionOf(where);
+      const base = section ?? (/\.hoplight-phdr/.test(where) ? NAVY_GROUND : page);
+      const ground = ownGround(body, vars, base) ?? base;
+      out.push({ where, atom, rgb: over(rgba, ground), ground });
+    }
+  }
+  return { page, out };
+}
+
+const isLight = (rgb) => luminance(rgb) > 0.4;
+const STORY_PAGE = 'public/portfolio/hoplight-persuasion-story-page.html';
+const AGENCY_PAGE = 'public/portfolio/federal-agency-ai-inventory.html';
+const PME_STATIC = 'public/pme-lever.html';
+
+// ---- (l) --gold-deep is option C everywhere -----------------------------------------------------------
+test('(l) --gold-deep is option C, #996D00, in every file that defines it', () => {
+  const files = [
+    ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])),
+    ...walkFiles('public', new Set(['.html', '.css', '.json', '.svg'])),
+  ];
+  const DEF = /--gold-deep\s*:\s*(#[0-9a-fA-F]{6})|goldDeep\s*:\s*'(#[0-9a-fA-F]{6})'|"gold-deep"\s*:\s*\{\s*"value"\s*:\s*"(#[0-9a-fA-F]{6})"/g;
+  const wrong = [];
+  let seen = 0;
+  for (const f of files) {
+    for (const m of read(f).matchAll(DEF)) {
+      seen += 1;
+      const hex = (m[1] ?? m[2] ?? m[3]).toUpperCase();
+      if (hex !== GOLD_C) wrong.push(`${f}: ${hex}`);
+    }
+  }
+  assert.ok(seen >= 9, `expected at least 9 definitions of the deep gold, found ${seen}`);
+  assert.deepEqual(wrong, [], `definitions of the deep gold that are not ${GOLD_C}`);
+  const c = contrast(hexToRgb(GOLD_C), WHITE);
+  assert.ok(c >= GOLD_FLOOR, `${GOLD_C} is ${c.toFixed(2)}:1 on white, needs ${GOLD_FLOOR}:1`);
+});
+
+test('(l) the 7.1:1 deep gold #785010 is gone from the source and the served files', () => {
+  const files = [
+    ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])),
+    ...walkFiles('public', new Set(['.html', '.css', '.json', '.svg', '.js'])),
+  ];
+  const left = files.filter((f) => /#785010/i.test(read(f)));
+  assert.deepEqual(left, [], 'files that still carry #785010');
+});
+
+// ---- (m) no gold used as text on a light ground measures under 4.5:1 ------------------------------------
+// The stylesheet's selectors that sit on a navy section by construction. Gold text inside them is held on
+// that navy by test (n); every other gold text colour in the stylesheet sits on the white page.
+const DARK_SCOPES = [
+  /\.slate\b/, /\.hero(?![\w-])/, /\.ident\b/, /\.close-cta\b/, /(^|[\s>])header\b/, /\.ch-col\.good\b/,
+  /\.choice-col\b/, /\.map-stat\b/, /\.mcard\b/, /\.mbar-ai\b/, /\.mdiff/, /\.mirror-bottom\b/,
+  /\.proof-lead\b/, /\.rct-/, /\.rstat-/,
+];
+const onDark = (selector) => selector.split(',').every((part) => DARK_SCOPES.some((re) => re.test(part)));
+
+function stylesheetGoldText() {
+  const out = [];
+  for (const r of rules(src.globals)) {
+    for (const v of decls(r.body, 'color')) {
+      const atom = (v.match(ATOM) ?? [])[0];
+      if (!atom) continue;
+      let rgb;
+      try { rgb = parseColor(atom, globalVars).slice(0, 3); } catch { continue; }
+      if (isGold(rgb)) out.push({ selector: r.selector, atom, rgb, dark: onDark(r.selector) });
+    }
+  }
+  return out;
+}
+
+test('(m) no gold used as text on white in the stylesheet measures under 4.5:1 (the "95%" and the card-link hover included)', () => {
+  const light = stylesheetGoldText().filter((r) => !r.dark);
+  assert.ok(light.length >= 10, `expected at least 10 gold text rules on the white page, found ${light.length}`);
+  const failing = light
+    .map((r) => [r, contrast(r.rgb, WHITE)])
+    .filter(([, c]) => c < GOLD_FLOOR)
+    .map(([r, c]) => `${r.selector} { color: ${r.atom} } is ${hexOf(r.rgb)} at ${c.toFixed(2)}:1`);
+  assert.deepEqual(failing, [], `gold text under ${GOLD_FLOOR}:1 on white in globals.css`);
+});
+
+// The persuasion page and its static copy carry their own stylesheet. The rendered sweep of 2026-10-09
+// found gold text on its white sections in four places: the "HOPLIGHT" eyebrow, the gold line of the
+// headline, and the two gold phrases "millions" and "high fidelity at scale". Each is looked up from its
+// most specific selector to its least; the first rule that sets a colour is the colour a reader sees.
+const PME_SOURCES = [
+  ['src/app/(main)/persuasion/PmeContent.tsx', () => src.pme.match(/const pmeCSS = `([\s\S]*?)`;/)[1]],
+  [PME_STATIC, () => pageStyles(read(PME_STATIC))],
+];
+const PME_LIGHT = [
+  ['the "HOPLIGHT" eyebrow', ['.hero .eyebrow', '.eyebrow']],
+  ['the gold line of the headline', ['.hero h1 .gold-line']],
+  ['"millions" and "high fidelity at scale"', ['.bg-paper strong.gold', 'strong.gold']],
+];
+function pmeColour(css, vars, selectors) {
+  const all = rules(css);
+  for (const want of selectors) {
+    let found = null;
+    for (const r of all) {
+      const parts = r.selector.split(',').map((s) => s.trim().replace(/^\.pme-page\s+/, ''));
+      if (!parts.includes(want)) continue;
+      const c = decls(r.body, 'color');
+      if (c.length) found = c[c.length - 1];
+    }
+    if (found) return { selector: want, value: found, rgb: parseColor(found, vars).slice(0, 3) };
+  }
+  return null;
+}
+
+test('(m) no gold used as text on the persuasion page\'s white sections measures under 4.5:1 (both copies)', () => {
+  const failing = [];
+  for (const [file, cssOf] of PME_SOURCES) {
+    const css = cssOf();
+    const vars = customProps(css);
+    for (const [what, selectors] of PME_LIGHT) {
+      const hit = pmeColour(css, vars, selectors);
+      assert.ok(hit, `${file}: no colour found for ${what}`);
+      const c = contrast(hit.rgb, WHITE);
+      if (c < GOLD_FLOOR) failing.push(`${file}: ${what} (${hit.selector} { color: ${hit.value} }) is ${hexOf(hit.rgb)} at ${c.toFixed(2)}:1`);
+    }
+  }
+  assert.deepEqual(failing, [], `gold text under ${GOLD_FLOOR}:1 on the persuasion page's white sections`);
+});
+
+// The Which AI tool keeps its status colours in two objects; parse each into { level: { key: colour } }.
+function statusColours(name) {
+  const block = src.whichai.match(new RegExp(`const ${name}[^=]*=\\s*\\{([\\s\\S]*?)\\n\\};`));
+  assert.ok(block, `no ${name} in WhichAiTool.tsx`);
+  const C = whichAiTokens();
+  const val = (v) => (v.startsWith('C.') ? C[v.slice(2)] : v.slice(1, -1));
+  const out = {};
+  for (const [, level, body] of block[1].matchAll(/(\w+):\s*\{([^}]*)\}/g)) {
+    out[level] = Object.fromEntries([...body.matchAll(/(\w+):\s*('[^']*'|C\.\w+)/g)].map(([, k, v]) => [k, val(v)]));
+  }
+  return out;
+}
+
+test('(m) no gold used as text in the Which AI tool measures under 4.5:1 on its ground', () => {
+  const C = whichAiTokens();
+  const failing = [];
+  const deep = contrast(parseColor(C.goldDeep, {}).slice(0, 3), WHITE);
+  if (deep < GOLD_FLOOR) failing.push(`C.goldDeep ${C.goldDeep} is ${deep.toFixed(2)}:1 on white`);
+  for (const name of ['pillColors', 'securityColors']) {
+    for (const [level, s] of Object.entries(statusColours(name))) {
+      const ground = over(parseColor(s.bg, {}), WHITE);
+      for (const k of ['text', 'heading']) {
+        if (!s[k]) continue;
+        const rgb = parseColor(s[k], {}).slice(0, 3);
+        if (!isGold(rgb)) continue;
+        const c = contrast(rgb, ground);
+        if (c < GOLD_FLOOR) failing.push(`${name}.${level}.${k} ${s[k]} is ${c.toFixed(2)}:1 on ${hexOf(ground)}`);
+      }
+    }
+  }
+  assert.deepEqual(failing, [], `gold text under ${GOLD_FLOOR}:1 in WhichAiTool.tsx`);
+});
+
+test('(m) no gold used as text on a white static page measures under 4.5:1', () => {
+  // The static persuasion page mixes white and navy sections; the test above holds its white ones.
+  const files = walkFiles('public', new Set(['.html'])).filter((f) => f !== PME_STATIC);
+  const failing = [];
+  let pages = 0;
+  for (const f of files) {
+    const { page, out } = textColours(read(f));
+    if (!isLight(page)) continue; // dark pages: test (n)
+    pages += 1;
+    for (const t of out) {
+      if (!isGold(t.rgb)) continue;
+      const c = contrast(t.rgb, t.ground);
+      if (c < GOLD_FLOOR) failing.push(`${f}: ${t.where} color ${t.atom} is ${hexOf(t.rgb)} at ${c.toFixed(2)}:1 on ${hexOf(t.ground)}`);
+    }
+  }
+  assert.ok(pages >= 10, `expected at least 10 white static pages, found ${pages}`);
+  assert.deepEqual([...new Set(failing)], [], `gold text under ${GOLD_FLOOR}:1 on white static pages`);
+});
+
+// ---- (n) gold on navy and the other dark grounds reaches 4.5:1 ------------------------------------------
+test('(n) gold on navy reaches 4.5:1: the story page and every other dark static page', () => {
+  const files = walkFiles('public', new Set(['.html'])).filter((f) => f !== PME_STATIC);
+  const failing = [];
+  const dark = [];
+  for (const f of files) {
+    const { page, out } = textColours(read(f));
+    if (isLight(page)) continue;
+    dark.push(f);
+    for (const t of out) {
+      if (!isGold(t.rgb)) continue;
+      const c = contrast(t.rgb, t.ground);
+      if (c < GOLD_FLOOR) failing.push(`${f}: ${t.where} color ${t.atom} is ${hexOf(t.rgb)} at ${c.toFixed(2)}:1 on ${hexOf(t.ground)}`);
+    }
+  }
+  assert.ok(dark.includes(STORY_PAGE), `the story page is not read as a navy page (dark pages: ${dark.join(', ')})`);
+  assert.deepEqual([...new Set(failing)], [], `gold text under ${GOLD_FLOOR}:1 on a dark page`);
+});
+
+test('(n) gold on the navy sections of the stylesheet and the persuasion page reaches 4.5:1', () => {
+  const failing = [];
+  const navy = parseColor('var(--ink)', globalVars).slice(0, 3);
+  for (const r of stylesheetGoldText().filter((x) => x.dark)) {
+    const c = contrast(r.rgb, navy);
+    if (c < GOLD_FLOOR) failing.push(`globals.css ${r.selector} is ${hexOf(r.rgb)} at ${c.toFixed(2)}:1 on the navy`);
+  }
+  for (const [file, cssOf] of PME_SOURCES) {
+    const css = cssOf();
+    const vars = customProps(css);
+    const ground = parseColor('var(--dark)', vars).slice(0, 3);
+    // The bright gold is for the dark sections only; wherever it is the text colour, it sits on --dark.
+    const bright = parseColor('var(--gold)', vars).slice(0, 3);
+    const c = contrast(bright, ground);
+    if (c < GOLD_FLOOR) failing.push(`${file}: --gold is ${c.toFixed(2)}:1 on --dark`);
+  }
+  assert.deepEqual(failing, [], `gold under ${GOLD_FLOOR}:1 on a navy section`);
+});
+
+// ---- (o) no chip or table row uses a warm tint ground --------------------------------------------------
+test('(o) the Which AI exposure chips are white boxes with a thin outline, the gold one in C, no warm tint', () => {
+  const pills = statusColours('pillColors');
+  assert.deepEqual(Object.keys(pills).sort(), ['green', 'red', 'yellow'], 'expected the three exposure levels');
+  const failing = [];
+  for (const [level, p] of Object.entries(pills)) {
+    const ground = over(parseColor(p.bg, {}), WHITE);
+    if (isWarmTint(ground) || isCream(ground)) failing.push(`${level}: background ${p.bg} lays down a warm tint ${hexOf(ground)} on white`);
+    else if (hexOf(ground) !== '#FFFFFF') failing.push(`${level}: background ${p.bg} lays down ${hexOf(ground)}, not a white box`);
+    const edge = parseColor(p.border, {});
+    if (edge[3] < 1) failing.push(`${level}: outline ${p.border} is a wash, not a solid line`);
+    else if (contrast(edge.slice(0, 3), ground) < 3) failing.push(`${level}: outline ${p.border} is under 3:1 against its ground`);
+    const text = over(parseColor(p.text, {}), ground);
+    const c = contrast(text, ground);
+    if (c < GOLD_FLOOR) failing.push(`${level}: text ${p.text} is ${c.toFixed(2)}:1 on ${hexOf(ground)}`);
+  }
+  assert.deepEqual(failing, [], 'exposure chips that are not white boxes with a firm outline');
+  // The gold chip matches the "US Senate" label on the political-money page: C outline, C text.
+  assert.equal(hexOf(parseColor(pills.yellow.text, {})), GOLD_C, `the gold chip text is ${pills.yellow.text}, expected ${GOLD_C}`);
+  assert.equal(hexOf(parseColor(pills.yellow.border, {})), GOLD_C, `the gold chip outline is ${pills.yellow.border}, expected ${GOLD_C}`);
+  assert.match(src.whichai, /border:\s*`1px solid \$\{pillColors\[cell\.level\]\.border\}`/, 'the chip outline is no longer one thin 1px line');
+});
+
+test('(o) no table row on the political-money page lays a warm or dimming tint under the gold figures', () => {
+  const html = read(MONEY_PAGE);
+  const vars = customProps(ownStyle(html));
+  const ac = parseColor('var(--ac)', vars).slice(0, 3);
+  const rows = [...html.matchAll(/<tr(?:\s+style="([^"]*)")?\s*>/g)].map((m) => m[1] ?? '');
+  assert.ok(rows.length >= 6, `expected the head row and the five midterm rows, found ${rows.length}`);
+  const failing = [];
+  for (const style of rows) {
+    const ground = ownGround(style, vars, WHITE) ?? WHITE;
+    if (isWarmTint(ground) || isCream(ground)) failing.push(`row style="${style}" lays down a warm tint ${hexOf(ground)}`);
+    for (const [name, gold] of [['--ac', ac], ['option C', hexToRgb(GOLD_C)]]) {
+      const c = contrast(gold, ground);
+      if (c < GOLD_FLOOR) failing.push(`row style="${style}": ${name} ${hexOf(gold)} is ${c.toFixed(2)}:1 on ${hexOf(ground)}`);
+    }
+  }
+  assert.deepEqual([...new Set(failing)], [], 'table rows that tint the ground under the gold');
+});
+
+// ---- (p) the agency inventory's "Uncertain" ------------------------------------------------------------
+test('(p) the agency inventory\'s "Uncertain" reaches 4.5:1 on white and on the row hover', () => {
+  const html = read(AGENCY_PAGE);
+  const css = pageStyles(html);
+  const vars = firstProps(css);
+  assert.ok((html.match(/class="status-uncertain"/g) ?? []).length >= 10, 'expected the "Uncertain" cells');
+  const r = rules(css).find((x) => x.selector === '.status-uncertain');
+  assert.ok(r, 'no .status-uncertain rule');
+  const colour = parseColor(decls(r.body, 'color')[0], vars).slice(0, 3);
+  const hover = rules(css).find((x) => x.selector === 'tr:hover');
+  const grounds = [['white', WHITE]];
+  if (hover && ownGround(hover.body, vars, WHITE)) grounds.push(['the row hover', ownGround(hover.body, vars, WHITE)]);
+  const failing = [];
+  for (const [name, g] of grounds) {
+    const c = contrast(colour, g);
+    if (c < GOLD_FLOOR) failing.push(`"Uncertain" ${hexOf(colour)} is ${c.toFixed(2)}:1 on ${name} ${hexOf(g)}`);
+  }
+  assert.deepEqual(failing, [], `"Uncertain" under ${GOLD_FLOOR}:1`);
+  // The 3.19:1 amber is not left behind as a text colour anywhere on the page.
+  assert.ok(!/(?:^|[;{\s])color\s*:\s*#d97706/im.test(css), 'the page still writes text in the 3.19:1 amber #D97706');
+});
+
+// ---- (q) fonts are self-hosted --------------------------------------------------------------------------
+// The site's content security policy (next.config.ts: style-src 'self', font-src 'self' data:) refuses
+// Google's stylesheet and font files, so a page that links them draws in a fallback face. The one file left
+// out is the link-preview image route: it fetches Inter on the server to draw a PNG, which no browser loads.
+const GOOGLE_FONTS = /fonts\.googleapis\.com|fonts\.gstatic\.com/;
+const SELF_HOSTED = ['barlow-semi-condensed', 'dm-sans', 'dm-mono', 'inter', 'jetbrains-mono', 'archivo'];
+
+test('(q) no served page loads a font from fonts.googleapis.com or fonts.gstatic.com', () => {
+  const ogRoute = join('src', 'app', 'api', 'og', 'route.tsx');
+  const files = [
+    ...walkFiles('public', new Set(['.html', '.css', '.js', '.svg', '.json'])),
+    ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])).filter((f) => f !== ogRoute),
+    'scripts/build-brand-tokens.mjs', // writes public/hoplight-brand-tokens-2026-09-20.html
+  ];
+  const offenders = files.filter((f) => GOOGLE_FONTS.test(read(f)));
+  assert.deepEqual(offenders, [], 'files that load Google fonts, which the content security policy blocks');
+});
+
+test('(q) every face a static page declares is on disk under public/fonts, with its licence beside it', () => {
+  const failing = [];
+  let faces = 0;
+  for (const f of walkFiles('public', new Set(['.html', '.css']))) {
+    const css = f.endsWith('.css') ? read(f) : pageStyles(read(f));
+    for (const r of rules(css).filter((x) => x.selector === '@font-face')) {
+      faces += 1;
+      for (const m of r.body.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)) {
+        const url = m[1];
+        if (!url.startsWith('/fonts/')) { failing.push(`${f}: ${url} is not under /fonts/`); continue; }
+        try { statSync(join(ROOT, 'public', url)); } catch { failing.push(`${f}: ${url} is not on disk`); }
+      }
+    }
+  }
+  for (const family of SELF_HOSTED) {
+    try { statSync(join(ROOT, 'public', 'fonts', `OFL-${family}.txt`)); } catch { failing.push(`public/fonts/OFL-${family}.txt is missing`); }
+  }
+  assert.ok(faces >= 12, `expected at least 12 @font-face rules across the static pages, found ${faces}`);
+  assert.deepEqual(failing, [], 'faces that are not self-hosted or have no licence');
+});
+
+test('(q) the political-money page draws its headline, body and figures in its own faces, from /fonts', () => {
+  const style = ownStyle(read(MONEY_PAGE));
+  const vars = customProps(style);
+  const family = (stack) => stack.split(',')[0].replace(/['"]/g, '').trim();
+  const faces = rules(style).filter((r) => r.selector === '@font-face').map((r) => {
+    const w = (decls(r.body, 'font-weight')[0] ?? '400').split(/\s+/).map(Number);
+    return {
+      family: family(decls(r.body, 'font-family')[0] ?? ''),
+      lo: w[0],
+      hi: w[1] ?? w[0],
+      src: (r.body.match(/url\(\s*['"]?([^'")]+)/) ?? [])[1] ?? '',
+    };
+  });
+  const need = [[family(vars.headline), 900], [family(vars.sans), 400], [family(vars.sans), 700], [family(vars.mono), 500]];
+  assert.deepEqual(need.map(([f]) => f), ['Barlow Semi Condensed', 'DM Sans', 'DM Sans', 'DM Mono'], 'the page no longer names the faces it was designed in');
+  const missing = need
+    .filter(([f, w]) => !faces.some((x) => x.family === f && x.src.startsWith('/fonts/') && w >= x.lo && w <= x.hi))
+    .map(([f, w]) => `${f} ${w}`);
+  assert.deepEqual(missing, [], 'faces the political-money page names but does not self-host');
 });
