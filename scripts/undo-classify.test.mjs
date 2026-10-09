@@ -436,7 +436,7 @@ test('a row ruling can be re-worded by a later id ruling, wherever it sits in th
     const out = applyRulings([], order);
     assert.equal(out.length, 1);
     assert.equal(out[0].title, 'Let polluters off the hook');
-    assert.equal(out[0].official, 'CRA repeal: Test rule');
+    assert.equal(out[0].official, undefined, 'a curated row has no official title: its old title was ours');
     assert.equal(out[0].how, 'Only Congress restores it.');
     assert.equal(out[0].sources.length, 1, 'an empty sources list keeps the row sources');
   }
