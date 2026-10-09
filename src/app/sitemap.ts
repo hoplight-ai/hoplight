@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const LAST_MODIFIED = '2026-09-16';
   const topLevel = paths.map((p) => ({
     url: `${ORIGIN}${p}`,
-    lastModified: LAST_MODIFIED,
+    lastModified: p === '/undo' ? '2026-10-09' : LAST_MODIFIED,
     changeFrequency: 'monthly' as const,
     priority: p === '' ? 1 : p === '/rayli' ? 0.9 : p === '/research' ? 0.9 : p === '/undo' ? 0.8 : 0.7,
   }));
