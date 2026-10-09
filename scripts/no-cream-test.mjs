@@ -1282,11 +1282,35 @@ test('(s) the political-money page\'s "Citizens United" label hangs inside the c
   assert.ok(fills, `the Citizens United column does not fill the chart's height (chart align-items: ${gridAlign ?? 'unset'}, column align-self: ${selfAlign ?? 'unset'}, height: ${colHeight ?? 'unset'}), so its label starts at the chart's bottom edge and runs into the note`);
   assert.match(decls(text.body, 'top').pop() ?? '', /^-?\d+(\.\d+)?px$/, 'the label is no longer pinned to the top of its column');
   // It fits: the label (a monospace advance is about 0.6em, plus its letter-spacing) is shorter than the
-  // chart at its smallest height, the phone layout.
+  // chart's tallest bar, which the chart is at least as tall as (test (t)).
   const label = html.match(/<span class="cu-text">([^<]*)<\/span>/);
   assert.ok(label, 'no Citizens United label in the markup');
   const length = label[1].length * (0.6 * px(decls(text.body, 'font-size').pop()) + (px(decls(text.body, 'letter-spacing').pop() ?? '0') || 0));
-  const heights = [...style.matchAll(/\.bar-grid\{[^}]*?height:(\d+)px/g)].map((m) => Number(m[1]));
-  assert.ok(heights.length >= 2, `expected the chart height for wide and narrow screens, found ${heights.length}`);
-  assert.ok(length < Math.min(...heights), `the label is about ${length.toFixed(0)}px long, longer than the chart's smallest height ${Math.min(...heights)}px`);
+  const bars = [...html.matchAll(/class="bg-stack" style="height:(\d+)px/g)].map((m) => Number(m[1]));
+  assert.ok(bars.length >= 7, `expected the seven federal bars, found ${bars.length}`);
+  assert.ok(length < Math.max(...bars), `the label is about ${length.toFixed(0)}px long, longer than the chart's tallest bar ${Math.max(...bars)}px`);
+});
+
+// ---- (t) the political-money page's first chart holds its own bars --------------------------------------
+// Found while proving (s) at phone width, 2026-10-09. The bars are drawn at fixed heights (up to 260px) with
+// a total label above each, so the tallest column is about 278px; the chart box was fixed at 260px (200px on
+// a phone). The grid row grew to fit the column and spilled out of the box at the bottom: the bars covered
+// the year labels by about 18px at 1440 wide, and on a phone ran 25px into the note paragraph under the chart.
+test('(t) the political-money page\'s first chart is never shorter than its tallest column, so the bars stay above the year labels', () => {
+  const html = read(MONEY_PAGE);
+  const style = ownStyle(html);
+  const bars = [...html.matchAll(/class="bg-stack" style="height:(\d+)px/g)].map((m) => Number(m[1]));
+  assert.ok(bars.length >= 7, `expected the seven federal bars, found ${bars.length}`);
+  const total = rules(style).find((r) => r.selector === '.bg-total');
+  assert.ok(total, 'no .bg-total rule (the figure above each bar)');
+  // The figure above the bar: its font size on the page's 1.5 line, plus its bottom margin.
+  const labelHeight = 1.5 * px(decls(total.body, 'font-size').pop()) + (px(decls(total.body, 'margin-bottom').pop() ?? '0') || 0);
+  const tallest = Math.max(...bars) + labelHeight;
+  // Every fixed height the chart box is given, at any width, must hold the tallest column.
+  const fixed = [];
+  for (const r of rules(style).filter((x) => x.selector === '.bar-grid')) {
+    for (const v of decls(r.body, 'height')) fixed.push(px(v));
+  }
+  const short = fixed.filter((h) => !Number.isNaN(h) && h < tallest);
+  assert.deepEqual(short, [], `the chart box is fixed at ${short.join(' and ')}px, shorter than its tallest column (about ${tallest.toFixed(0)}px), so the bars spill out of it over the year labels and the note`);
 });
