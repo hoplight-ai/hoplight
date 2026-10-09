@@ -53,8 +53,15 @@
 //   (q) no served page loads a font from fonts.googleapis.com or fonts.gstatic.com (the site's content
 //       security policy blocks both, so those pages drew in a fallback face); the faces are self-hosted.
 //
-// STILL NOT COVERED: the dark themes of the two static pages that have one (the Oregon report and the
-// DNC page), the rest of the dark page every-political-dollar-buys-less.html (its secondary grays are held
+// ADDED 2026-10-09 (lane hopgold1, the two findings it filed, which the dispatcher ruled in scope), tests
+// (r) and (s) at the bottom of this file:
+//   (r) the DNC page's category badges are white outlined chips: no warm or cream wash, text at 4.5:1 on the
+//       chip in both of the page's themes, and the "strategy" and "candidate" orange still reads as orange;
+//   (s) the political-money page's "Citizens United" label hangs from the top of the chart, inside it, and
+//       not below the bars where it ran through the note paragraph.
+//
+// STILL NOT COVERED: the dark theme of the Oregon report and the rest of the DNC page's dark theme (its
+// badges are held by test (r)), the rest of the dark page every-political-dollar-buys-less.html (its secondary grays are held
 // by test (j), its gold by test (n)), gold drawn as svg text, and every image file (the portfolio
 // thumbnails show other products' screens).
 //
@@ -1183,4 +1190,103 @@ test('(q) the political-money page draws its headline, body and figures in its o
     .filter(([f, w]) => !faces.some((x) => x.family === f && x.src.startsWith('/fonts/') && w >= x.lo && w <= x.hi))
     .map(([f, w]) => `${f} ${w}`);
   assert.deepEqual(missing, [], 'faces the political-money page names but does not self-host');
+});
+
+// =====================================================================================================
+// LANE hopgold1, the two findings it filed, ruled in scope by the dispatcher the same day. Each test below
+// was written first and seen red on 69a40bd (see the lane's done-file for the observed failures).
+// =====================================================================================================
+
+const DNC_PAGE = 'public/portfolio/dnc-autopsy-taken-apart.html';
+
+// The DNC page's two families of category badge, the quote tags (.quote-tag and .quote-tag.<category>)
+// and the loss-type badges (.loss-type-badge and .type-<kind>). Each category is read on top of its
+// family's base rule, as the browser cascades it, in the light theme (the page's :root) and in the dark
+// theme (its [data-theme="dark"] block over the same names).
+function dncChips() {
+  const css = pageStyles(read(DNC_PAGE));
+  const all = rules(css);
+  const light = firstProps(css);
+  const darkRule = all.find((r) => r.selector === '[data-theme="dark"]');
+  assert.ok(darkRule, 'no dark theme block on the DNC page');
+  const dark = { ...light, ...customProps(darkRule.body) };
+  const chips = [];
+  for (const [baseSel, member] of [['.quote-tag', /^\.quote-tag(\.[\w-]+)?$/], ['.loss-type-badge', /^\.type-[\w-]+$/]]) {
+    const base = all.find((r) => r.selector === baseSel);
+    assert.ok(base, `no ${baseSel} rule on the DNC page`);
+    for (const r of all.filter((x) => member.test(x.selector))) {
+      const pick = (prop) => decls(r.body, prop).pop() ?? decls(base.body, prop).pop();
+      chips.push({ selector: r.selector, background: pick('background'), color: pick('color'), border: pick('border') });
+    }
+  }
+  return { chips, light, dark };
+}
+
+// ---- (r) the DNC page's category badges ---------------------------------------------------------------
+test('(r) the DNC page\'s category badges are white outlined chips, with text at 4.5:1 in both of its themes', () => {
+  const { chips, light, dark } = dncChips();
+  assert.ok(chips.length >= 9, `expected the quote tags and the loss-type badges, found ${chips.length} chip rules`);
+  const failing = [];
+  for (const [theme, vars] of [['light', light], ['dark', dark]]) {
+    const page = parseColor('var(--bg)', vars).slice(0, 3);
+    for (const c of chips) {
+      const bgAtom = (c.background?.match(ATOM) ?? [])[0];
+      const ground = bgAtom ? over(parseColor(bgAtom, vars), page) : page;
+      if (theme === 'light') {
+        if (isWarmTint(ground) || isCream(ground)) failing.push(`${c.selector}: background ${c.background} lays down a warm tint ${hexOf(ground)}`);
+        else if (hexOf(ground) !== '#FFFFFF') failing.push(`${c.selector}: background ${c.background} lays down ${hexOf(ground)}, not a white chip`);
+      }
+      const textAtom = (c.color?.match(ATOM) ?? [])[0];
+      assert.ok(textAtom, `${c.selector} has no text colour`);
+      const text = over(parseColor(textAtom, vars), ground);
+      const ct = contrast(text, ground);
+      if (ct < GOLD_FLOOR) failing.push(`${theme}: ${c.selector} text ${c.color} is ${hexOf(text)} at ${ct.toFixed(2)}:1 on ${hexOf(ground)}`);
+      if (!c.border || !/^1px\s+solid\s+/i.test(c.border)) {
+        if (theme === 'light') failing.push(`${c.selector}: no thin outline (border: ${c.border ?? 'none'}), so a white chip has no edge`);
+        continue;
+      }
+      const edgeAtom = /currentcolor/i.test(c.border) ? textAtom : (c.border.match(ATOM) ?? []).pop();
+      const edge = over(parseColor(edgeAtom, vars), ground);
+      const ce = contrast(edge, ground);
+      if (ce < 3) failing.push(`${theme}: ${c.selector} outline is ${ce.toFixed(2)}:1 against its chip, needs 3:1`);
+    }
+  }
+  assert.deepEqual([...new Set(failing)], [], 'DNC badges that are tinted, faint or edgeless');
+  // The "strategy" and "candidate" badges stay orange, not brown: a deeper orange, still saturated.
+  for (const sel of ['.quote-tag.strategy', '.type-candidate']) {
+    const c = chips.find((x) => x.selector === sel);
+    assert.ok(c, `no ${sel} rule on the DNC page`);
+    const rgb = parseColor((c.color.match(ATOM) ?? [])[0], light).slice(0, 3);
+    const [h, s, l] = hsl(rgb);
+    assert.ok(h >= 15 && h <= 35 && s >= 70 && l >= 30, `${sel} ${hexOf(rgb)} no longer reads as orange (hue ${h.toFixed(0)}, saturation ${s.toFixed(0)}, lightness ${l.toFixed(0)})`);
+  }
+});
+
+// ---- (s) the political-money page's "Citizens United" label ---------------------------------------------
+// The label is pinned to the top of its own narrow column between the 2008 and 2012 bars. The chart lines
+// its columns up at the bottom (align-items: end) and the column holds nothing with a height of its own,
+// so unless the column stretches to the chart's full height its top IS the chart's bottom edge, and the
+// label runs down out of the chart, past the year labels and through the note paragraph under it.
+test('(s) the political-money page\'s "Citizens United" label hangs inside the chart, not over the note below it', () => {
+  const html = read(MONEY_PAGE);
+  const style = ownStyle(html);
+  const all = rules(style);
+  const grid = all.find((r) => r.selector === '.bar-grid');
+  const col = all.find((r) => r.selector === '.cu-col');
+  const text = all.find((r) => r.selector === '.cu-text');
+  assert.ok(grid && col && text, 'the chart, its Citizens United column or its label rule is missing');
+  const gridAlign = decls(grid.body, 'align-items').pop();
+  const selfAlign = decls(col.body, 'align-self').pop();
+  const colHeight = decls(col.body, 'height').pop();
+  const fills = selfAlign === 'stretch' || colHeight === '100%' || (!selfAlign && gridAlign === 'stretch');
+  assert.ok(fills, `the Citizens United column does not fill the chart's height (chart align-items: ${gridAlign ?? 'unset'}, column align-self: ${selfAlign ?? 'unset'}, height: ${colHeight ?? 'unset'}), so its label starts at the chart's bottom edge and runs into the note`);
+  assert.match(decls(text.body, 'top').pop() ?? '', /^-?\d+(\.\d+)?px$/, 'the label is no longer pinned to the top of its column');
+  // It fits: the label (a monospace advance is about 0.6em, plus its letter-spacing) is shorter than the
+  // chart at its smallest height, the phone layout.
+  const label = html.match(/<span class="cu-text">([^<]*)<\/span>/);
+  assert.ok(label, 'no Citizens United label in the markup');
+  const length = label[1].length * (0.6 * px(decls(text.body, 'font-size').pop()) + (px(decls(text.body, 'letter-spacing').pop() ?? '0') || 0));
+  const heights = [...style.matchAll(/\.bar-grid\{[^}]*?height:(\d+)px/g)].map((m) => Number(m[1]));
+  assert.ok(heights.length >= 2, `expected the chart height for wide and narrow screens, found ${heights.length}`);
+  assert.ok(length < Math.min(...heights), `the label is about ${length.toFixed(0)}px long, longer than the chart's smallest height ${Math.min(...heights)}px`);
 });
