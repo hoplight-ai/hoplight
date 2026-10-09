@@ -4,6 +4,7 @@
 // data files must obey. Pure: no network, no server. Run: `node --test scripts/undo-classify.test.mjs`.
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { isCeremonial } from '../src/lib/undo/sections.ts';
 import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -328,4 +329,27 @@ test('the page copy carries no em dash, clock word or exclamation mark', () => {
   assertCleanCopy(entries, '');
   assert.equal(COPY.hero.lead.length, 2);
   assert.ok(COPY.cta.mailto.startsWith('mailto:whit@hoplight.ai'));
+});
+
+test('a commemorative proclamation is kept off the to-do list; a substantive one stays on it', () => {
+  const P = (title) => ({ instrument: 'proclamation', title });
+  for (const t of [
+    'National Manufacturing Day, 2026',
+    "Gold Star Mother's and Family's Day, 2026",
+    'Patriot Day 2026, the 25th Anniversary of the September 11 Terrorist Attacks',
+    'Honoring the Memory of Charlie Kirk',
+    'Martin Luther King, Jr., Federal Holiday, 2026',
+    'Days of Remembrance of Victims of the Holocaust, 2025',
+    'National Fallen Firefighters Memorial Weekend, 2025',
+    'Death of Senator Lindsey Graham',
+  ]) assert.equal(isCeremonial(P(t)), true, t);
+  for (const t of [
+    'Adjusting Imports of Copper Into the United States',
+    'Modifying the Bears Ears National Monument',
+    'Restricting the Entry of Foreign Nationals To Protect the United States From Foreign Terrorists and Other National Security and Public Safety Threats',
+    'Granting Pardons for Certain Offenses Related to the 2020 Presidential Election',
+    'Ratepayer Protection Pledge',
+    'Establishing Project Homecoming',
+  ]) assert.equal(isCeremonial(P(t)), false, t);
+  assert.equal(isCeremonial({ instrument: 'executive_order', title: 'National Manufacturing Day, 2026' }), false);
 });

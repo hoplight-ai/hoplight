@@ -10,7 +10,7 @@ import { howForInstrument, whyForInstrument } from './classify.ts';
  *  instrument), and nothing the page does not render (agency, topics, extra sources) ships. */
 export type SlimRow = Omit<UndoRow, 'how' | 'why' | 'agency' | 'topics'> & { how?: string; why?: string };
 
-type RowLike = Pick<UndoRow, 'instrument' | 'bucket' | 'status'>;
+type RowLike = Pick<UndoRow, 'instrument' | 'bucket' | 'status' | 'title'>;
 
 // An enjoined order is still on the to-do list: an injunction can fall on appeal, and a pen still revokes it.
 const ACTIVE: Status[] = ['in-force', 'pending', 'enjoined'];
@@ -19,9 +19,20 @@ export function isActive(r: Pick<UndoRow, 'status'>): boolean {
   return ACTIVE.includes(r.status);
 }
 
+// A commemorative proclamation (National Manufacturing Day, 2026; Honoring the Memory of ...) is
+// not a to-do. It is counted on its own and kept off the list and out of the hero number. Pattern
+// tested against the 191 proclamation titles the live page carried on 2026-10-09: 125 commemorative,
+// 66 substantive, every substantive title checked by eye.
+const CEREMONIAL =
+  /(\b(Day|Week|Weekend|Month|Year|Anniversary)\b.*,\s*20\d\d$)|^(National|World)\b.*\b(Day|Week|Weekend|Month)\b|Anniversary|Memorial Day|Mother's Day|Father's Day|Thanksgiving|Christmas|Flag Day|Columbus Day|Federal Holiday|Days of Remembrance|Honoring the Memory|Honoring the Victims|Death of|Birthday/i;
+
+export function isCeremonial(r: Pick<UndoRow, 'instrument' | 'title'>): boolean {
+  return r.instrument === 'proclamation' && CEREMONIAL.test(r.title);
+}
+
 /** Rows a pen undoes and that are still standing: the section "Before lunch" and the hero number. */
-export function isPenInForce(r: RowLike): boolean {
-  return r.bucket === 'pen' && isActive(r);
+export function isPenInForce(r: RowLike & Pick<UndoRow, 'title'>): boolean {
+  return r.bucket === 'pen' && isActive(r) && !isCeremonial(r);
 }
 
 export function countPenInForce(rows: RowLike[]): number {
@@ -33,8 +44,8 @@ export function countLocked(rows: RowLike[]): number {
 }
 
 /** pen and pen-process rows already undone by a court or by the administration itself. */
-export function isAlreadyDone(r: RowLike): boolean {
-  return (r.bucket === 'pen' || r.bucket === 'pen-process') && !isActive(r);
+export function isAlreadyDone(r: RowLike & Pick<UndoRow, 'title'>): boolean {
+  return (r.bucket === 'pen' || r.bucket === 'pen-process') && !isActive(r) && !isCeremonial(r);
 }
 
 export function slimRow(row: UndoRow): SlimRow {

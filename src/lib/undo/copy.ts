@@ -53,6 +53,10 @@ export const COPY = {
     title: 'Already done for you',
     intro: 'Courts, or the administration itself, already undid these. They stay on the list so the count is honest.',
   },
+  ceremonial: {
+    title: 'Commemorative proclamations',
+    intro: 'National days, weeks and months, and proclamations of mourning. Nothing here needs undoing. They are listed so the count is complete.',
+  },
   order: {
     show: 'Show the whole order',
     hide: 'Hide the order',

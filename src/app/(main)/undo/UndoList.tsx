@@ -10,6 +10,7 @@ import {
   groupPen,
   howOf,
   isAlreadyDone,
+  isCeremonial,
   isPenInForce,
   matchesQuery,
   whyOf,
@@ -213,6 +214,7 @@ export default function UndoList({
       ),
       lockedCount: hit.filter((r) => r.bucket === 'locked').length,
       done: hit.filter(isAlreadyDone),
+      ceremonial: hit.filter(isCeremonial),
     };
   }, [rows, query]);
 
@@ -371,6 +373,27 @@ export default function UndoList({
               <p className="undo-intro">{COPY.done.intro}</p>
               <ul className="undo-items">
                 {view.done.map((r) => (
+                  <Item key={r.id} row={r} variant="done" />
+                ))}
+              </ul>
+            </details>
+          </div>
+        </section>
+      ) : null}
+      {/* COMMEMORATIVE PROCLAMATIONS */}
+      {view.ceremonial.length > 0 ? (
+        <section className="undo-section undo-section-ruled" aria-labelledby="undo-ceremonial-h">
+          <div className="wrap">
+            <details className="undo-done">
+              <summary className="undo-done-summary">
+                <h2 id="undo-ceremonial-h" className="undo-h2">
+                  {COPY.ceremonial.title}
+                </h2>
+                <span className="undo-subcount">{view.ceremonial.length.toLocaleString('en-US')}</span>
+              </summary>
+              <p className="undo-intro">{COPY.ceremonial.intro}</p>
+              <ul className="undo-items">
+                {view.ceremonial.map((r) => (
                   <Item key={r.id} row={r} variant="done" />
                 ))}
               </ul>
