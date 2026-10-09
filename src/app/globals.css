@@ -776,7 +776,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 @media (min-width: 1000px) {
   .undo-band-grid { grid-template-columns: repeat(5, 1fr); }
   .undo-band-col {
-    display: block; padding: 28px 20px 32px; border-top: 3px solid transparent;
+    display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start; padding: 28px 20px 32px; border-top: 3px solid transparent;
     border-left: 1px solid var(--line-dark);
   }
   .undo-band-col:first-child { border-left: 0; border-top: 3px solid transparent; }
