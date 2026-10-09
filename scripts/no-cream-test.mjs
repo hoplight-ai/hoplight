@@ -1295,7 +1295,8 @@ test('(s) the political-money page\'s "Citizens United" label hangs inside the c
 // Found while proving (s) at phone width, 2026-10-09. The bars are drawn at fixed heights (up to 260px) with
 // a total label above each, so the tallest column is about 278px; the chart box was fixed at 260px (200px on
 // a phone). The grid row grew to fit the column and spilled out of the box at the bottom: the bars covered
-// the year labels by about 18px at 1440 wide, and on a phone ran 25px into the note paragraph under the chart.
+// the year labels by about 13px at 1440 wide (the box overflowed by 18px), and on a phone ran 25px into the
+// note paragraph under the chart.
 test('(t) the political-money page\'s first chart is never shorter than its tallest column, so the bars stay above the year labels', () => {
   const html = read(MONEY_PAGE);
   const style = ownStyle(html);
