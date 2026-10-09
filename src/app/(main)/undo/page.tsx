@@ -3,9 +3,12 @@ import { pageMetadata } from '@/lib/metadata';
 import { BUCKETS } from '@/lib/undo/types';
 import type { Bucket, Ruling } from '@/lib/undo/types';
 import { applyRulings } from '@/lib/undo/classify';
+import { COPY } from '@/lib/undo/copy';
+import { countLocked, countPenInForce, slimRow } from '@/lib/undo/sections';
 import { fetchFederalRegisterRows } from '@/lib/undo/federal-register';
 import rulingsJson from '@/data/undo/rulings.json';
 import curatedJson from '@/data/undo/curated.json';
+import CopyButton from './CopyButton';
 import UndoList from './UndoList';
 
 // Rebuilt at most once an hour. The Federal Register fetch inside carries the same interval.
@@ -37,30 +40,55 @@ export default async function UndoPage() {
   const reviewed = rows.filter((r) => r.reviewed).length;
   const auto = rows.length - reviewed;
   const newest = rows.length ? rows[0].date : null;
+  const penInForce = countPenInForce(rows);
+  const locked = countLocked(rows);
+  // Rows nobody reviewed ship without their boilerplate how/why (the client derives it from the
+  // instrument), and without fields the page does not draw. The text still renders on the server.
+  const slim = rows.map(slimRow);
 
   return (
     <>
       {/* HERO */}
-      <div className="page-hero">
+      <div className="page-hero" id="undo-hero">
         <div className="wrap">
-          <span className="label">Hoplight</span>
-          <h1>The Undo List</h1>
-          <p>
-            Every action of the second Trump administration since 2025-01-20, placed in one of five
-            buckets by what it would take a president sworn in on 2029-01-20 to undo it. The
-            first bucket takes a pen. The last cannot be undone by anyone. Each row
-            says what the next president or Congress would have to do and why the row sits in that
-            bucket and not the one beside it.
-          </p>
-          <p>
-            This is a public record compiled by Hoplight. Rows the Federal Register publishes are
-            placed by instrument type until a reviewer places them, and every row says which.
-          </p>
+          <span className="label">{COPY.hero.label}</span>
+          <h1>{COPY.hero.title}</h1>
+          {COPY.hero.lead.map((t) => (
+            <p key={t}>{t}</p>
+          ))}
+          <div className="undo-hero-nums">
+            <div className="undo-hero-stat">
+              <span className="undo-hero-num">{penInForce.toLocaleString('en-US')}</span>
+              <span className="undo-hero-label">{COPY.hero.penNumberLabel}</span>
+            </div>
+            <div className="undo-hero-stat">
+              <span className="undo-hero-num">{locked.toLocaleString('en-US')}</span>
+              <span className="undo-hero-label">{COPY.hero.lockedNumberLabel}</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* BUCKET BAND + FILTERS + LIST */}
-      <UndoList rows={rows} />
+      {/* STRIP + THE LIST */}
+      <UndoList rows={slim} penInForce={penInForce} />
+
+      {/* CLOSING CALL TO ACTION */}
+      <section className="close-cta slate undo-cta" aria-labelledby="undo-cta-h">
+        <div className="wrap">
+          <h2 id="undo-cta-h">{COPY.cta.title}</h2>
+          <p className="cl-sub">{COPY.cta.body}</p>
+          <div className="btn-row">
+            <CopyButton
+              label={COPY.cta.copyLink}
+              copiedLabel={COPY.cta.copied}
+              className="btn btn-primary"
+            />
+            <a className="btn btn-ghost" href={COPY.cta.mailto}>
+              {COPY.cta.correction}
+            </a>
+          </div>
+        </div>
+      </section>
 
       {/* HOW THE BUCKETS WORK */}
       <section className="undo-section" aria-labelledby="undo-buckets-h">
@@ -119,6 +147,10 @@ export default async function UndoPage() {
                 placed by a reviewer. {auto.toLocaleString('en-US')} {auto === 1 ? 'row is' : 'rows are'}{' '}
                 placed by instrument type and marked auto, unreviewed. No row is hidden for being unreviewed.
               </dd>
+            </div>
+            <div className="undo-dl-row">
+              <dt>{COPY.sources.ticksLabel}</dt>
+              <dd>{COPY.sources.ticks}</dd>
             </div>
             <div className="undo-dl-row">
               <dt>Feed status</dt>

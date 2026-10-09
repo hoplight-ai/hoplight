@@ -16,6 +16,19 @@ import {
   whyForInstrument,
 } from '../src/lib/undo/classify.ts';
 import { rowsFromFederalRegister } from '../src/lib/undo/federal-register.ts';
+import { COPY, copyStrings } from '../src/lib/undo/copy.ts';
+import { longDate, orderText } from '../src/lib/undo/order-text.ts';
+import {
+  countLocked,
+  countPenInForce,
+  groupByInstrument,
+  groupPen,
+  howOf,
+  isAlreadyDone,
+  matchesQuery,
+  slimRow,
+  whyOf,
+} from '../src/lib/undo/sections.ts';
 import { BUCKETS, INSTRUMENT_LABEL } from '../src/lib/undo/types.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -168,7 +181,14 @@ test('countByBucket sums to the number of rows', () => {
 
 // Copy rules: CLAUDE.md (no clock words on any surface that measures people against time) and the
 // house style (no em dashes). Walks every `how`, `why` and `line` string wherever it appears.
-const BANNED_WORDS = [/days since/i, /overdue/i, /\bstale\b/i];
+const BANNED_WORDS = [
+  /days since/i,
+  /overdue/i,
+  /\bstale\b/i,
+  /countdown/i,
+  /\bdays (until|to go|left|remaining)\b/i,
+  /!/,
+];
 const EM_DASH = '—';
 
 function collectCopy(node, path, out) {
@@ -216,3 +236,96 @@ for (const file of ['src/data/undo/rulings.json', 'src/data/undo/curated.json'])
     assertCleanCopy(entries, file);
   });
 }
+
+test('orderText writes the whole document for an order, a proclamation and a memorandum', () => {
+  assert.equal(
+    orderText({ instrument: 'executive_order', title: 'Initial Rescissions of Harmful Executive Orders and Actions', date: '2025-01-20', number: 'EO 14148' }),
+    'Executive Order 14148 of January 20, 2025 (Initial Rescissions of Harmful Executive Orders and Actions) is hereby revoked.',
+  );
+  assert.equal(
+    orderText({ instrument: 'proclamation', title: 'Adjusting Imports of Steel', date: '2025-02-10', number: 'Proclamation 10896' }),
+    'Proclamation 10896 of February 10, 2025 (Adjusting Imports of Steel) is hereby rescinded.',
+  );
+  assert.equal(
+    orderText({ instrument: 'memorandum', title: 'Restoring Merit', date: '2025-12-01' }),
+    'The Presidential Memorandum of December 1, 2025 (Restoring Merit) is hereby withdrawn.',
+  );
+});
+
+test('orderText returns null for anything a pen alone does not finish, and tolerates a missing number', () => {
+  for (const instrument of ['statute', 'rule', 'cra', 'judge', 'treaty', 'tariff', 'personnel', 'pardon', 'court', 'other']) {
+    assert.equal(orderText({ instrument, title: 'T', date: '2025-05-01', number: 'EO 1' }), null, instrument);
+  }
+  assert.equal(
+    orderText({ instrument: 'executive_order', title: 'T', date: '2025-05-01' }),
+    'Executive Order of May 1, 2025 (T) is hereby revoked.',
+  );
+  assert.equal(longDate('2025-09-30'), 'September 30, 2025');
+  assert.equal(longDate('not a date'), 'not a date');
+});
+
+const R = (over) => ({
+  id: 'x', title: 'T', instrument: 'executive_order', date: '2025-01-20', bucket: 'pen', how: 'h', why: 'w',
+  status: 'in-force', reviewed: true, sources: [{ label: 'a', url: 'https://example.com/a' }, { label: 'b', url: 'https://example.com/b' }], ...over,
+});
+
+test('the hero numbers: penInForce counts pen rows in force, pending or enjoined, locked counts every locked row', () => {
+  const rows = [
+    R({ id: '1' }),
+    R({ id: '2', status: 'pending' }),
+    R({ id: '3', status: 'revoked' }),
+    R({ id: '4', status: 'enjoined' }),
+    R({ id: '5', bucket: 'pen-process' }),
+    R({ id: '6', bucket: 'locked', instrument: 'judge' }),
+    R({ id: '7', bucket: 'locked', instrument: 'pardon', status: 'in-force' }),
+  ];
+  assert.equal(countPenInForce(rows), 3);
+  assert.equal(countLocked(rows), 2);
+  assert.deepEqual(rows.filter(isAlreadyDone).map((r) => r.id), ['3']);
+});
+
+test('groupPen follows the owner order, sends unnamed instruments to the last group, drops empty groups', () => {
+  const rows = ['personnel', 'executive_order', 'treaty', 'rule', 'tariff', 'other', 'memorandum', 'proclamation'].map((instrument) => R({ id: instrument, instrument }));
+  const groups = groupPen(rows);
+  assert.deepEqual(groups.map((g) => g.label), ['Executive orders', 'Proclamations', 'Memoranda', 'Tariffs', 'Withdrawals', 'Appointments and agency moves']);
+  assert.deepEqual(groups[5].rows.map((r) => r.id).sort(), ['other', 'personnel', 'rule']);
+  assert.equal(groups.reduce((n, g) => n + g.rows.length, 0), rows.length, 'no row falls out');
+  assert.deepEqual(groupPen([R({ instrument: 'tariff' })]).map((g) => g.key), ['tariff']);
+  const locked = groupByInstrument([R({ instrument: 'pardon' }), R({ instrument: 'judge' }), R({ instrument: 'judge' })], INSTRUMENT_LABEL);
+  assert.deepEqual(locked.map((g) => [g.key, g.rows.length]), [['judge', 2], ['pardon', 1]]);
+});
+
+test('matchesQuery reads title or number, ignoring case and space', () => {
+  assert.ok(matchesQuery({ title: 'Tariff on steel' }, ' TARIFF '));
+  assert.ok(matchesQuery({ title: 'x', number: 'EO 14148' }, 'eo 14148'));
+  assert.ok(!matchesQuery({ title: 'x' }, 'zzz'));
+  assert.ok(matchesQuery({ title: 'x' }, ''));
+});
+
+test('slimRow drops boilerplate from unreviewed rows and the client rebuilds it exactly', () => {
+  const auto = rowsFromFederalRegister(FIXTURE, 'executive_order')[0];
+  auto.agency = 'Agency';
+  auto.topics = ['t'];
+  const slim = slimRow(auto);
+  assert.equal(slim.how, undefined);
+  assert.equal(slim.why, undefined);
+  assert.equal(howOf(slim), auto.how);
+  assert.equal(whyOf(slim), auto.why);
+  assert.ok(!('agency' in slim) && !('topics' in slim));
+  assert.equal(slim.sources.length, 1);
+  // A reviewed row keeps its own words, even when they equal the default.
+  const kept = slimRow(R({ how: 'Sign an order revoking it.' }));
+  assert.equal(howOf(kept), 'Sign an order revoking it.');
+  assert.equal(whyOf(kept), 'w');
+  // An unreviewed row whose text was changed keeps it.
+  const edited = slimRow({ ...auto, how: 'Something else.' });
+  assert.equal(howOf(edited), 'Something else.');
+});
+
+test('the page copy carries no em dash, clock word or exclamation mark', () => {
+  const entries = copyStrings();
+  assert.ok(entries.length > 25, `only ${entries.length} strings found`);
+  assertCleanCopy(entries, '');
+  assert.equal(COPY.hero.lead.length, 2);
+  assert.ok(COPY.cta.mailto.startsWith('mailto:whit@hoplight.ai'));
+});
