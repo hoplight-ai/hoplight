@@ -251,21 +251,25 @@ function getExposurePlatform(toolName: string) {
 }
 
 // ===== PILL COLORS (semantic, not brand) =====
-// Text colors for red/green darkened 2026-09-16 (accessibility review: at 11px, the previous
-// #B84A3E-on-tint and #2e7d32-on-tint pairs measured 4.13:1 and 4.25:1, both under the 4.5:1 floor
-// for small text). Matches securityColors.orange.heading / securityColors.green.heading below.
+// Lane hopgold1, 2026-10-09: each chip is a white box with a thin outline and text in its status colour,
+// like the "US Senate" label on the political-money page. The gold chip takes option C (C.goldDeep, 4.6:1),
+// Whit's pick that day; its old ground, a 12 percent gold wash, laid a cream box (#FAF2E2) inside a white
+// card. Red and green went to white boxes with it so the three levels carry equal weight and differ by hue
+// and word only. On white their own status colours read at 5.1:1, so the darker text that 2026-09-16 used
+// to clear 4.5:1 on a tint (#B84A3E and #2e7d32 were 4.13 and 4.25 there) is no longer needed.
 const pillColors: Record<string, { bg: string; text: string; border: string }> = {
-  red: { bg: 'rgba(184, 74, 62, 0.1)', text: '#6d2c24', border: 'rgba(184, 74, 62, 0.25)' },
-  yellow: { bg: 'rgba(212, 149, 10, 0.12)', text: '#92600a', border: 'rgba(212, 149, 10, 0.3)' },
-  green: { bg: 'rgba(46, 125, 50, 0.08)', text: '#1b5e20', border: 'rgba(46, 125, 50, 0.2)' },
+  red: { bg: C.paper, text: C.flag, border: C.flag },
+  yellow: { bg: C.paper, text: C.goldDeep, border: C.goldDeep },
+  green: { bg: C.paper, text: '#2e7d32', border: '#2e7d32' },
 };
 
 // Lane hopfix1, 2026-10-08: the three notices are white boxes told apart by a firm status-coloured
 // border. They were washes of the status colour over white, and the yellow one read as a cream box
-// inside a white card. The chips in the exposure table above keep their tint: they are the data.
+// inside a white card. (The exposure chips above kept their tint until 2026-10-09; they are white boxes
+// now too.) The yellow notice's text is option C, the site's one gold for text on white.
 const securityColors: Record<string, { bg: string; border: string; text: string; heading: string }> = {
   green: { bg: C.paper, border: 'rgba(46, 125, 50, 0.55)', text: '#2e7d32', heading: '#1b5e20' },
-  yellow: { bg: C.paper, border: 'rgba(212, 149, 10, 0.65)', text: '#92600a', heading: '#6d4c0a' },
+  yellow: { bg: C.paper, border: 'rgba(212, 149, 10, 0.65)', text: C.goldDeep, heading: '#6d4c0a' },
   orange: { bg: C.paper, border: 'rgba(184, 74, 62, 0.55)', text: '#8b3a30', heading: '#6d2c24' },
 };
 
