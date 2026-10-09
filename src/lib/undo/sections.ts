@@ -1,7 +1,8 @@
-import type { Instrument, Status, UndoRow } from './types';
+import type { Bucket, Instrument, Status, UndoRow } from './types';
 // Explicit .ts extension: scripts/undo-classify.test.mjs loads this file with Node's native
 // TypeScript support, which does not resolve extensionless relative imports.
 import { howForInstrument, whyForInstrument } from './classify.ts';
+import { COPY } from './copy.ts';
 
 // How the /undo page cuts the list into sections. Pure, so the test can pin the counts the hero
 // prints. The page, the hero numbers and the progress strip all read the same two functions.
@@ -10,7 +11,7 @@ import { howForInstrument, whyForInstrument } from './classify.ts';
  *  instrument), and nothing the page does not render (agency, topics, extra sources) ships. */
 export type SlimRow = Omit<UndoRow, 'how' | 'why' | 'agency' | 'topics'> & { how?: string; why?: string };
 
-type RowLike = Pick<UndoRow, 'instrument' | 'bucket' | 'status' | 'title'>;
+type RowLike = Pick<UndoRow, 'instrument' | 'bucket' | 'status' | 'title'> & { verdict?: UndoRow['verdict'] };
 
 // An enjoined order is still on the to-do list: an injunction can fall on appeal, and a pen still revokes it.
 const ACTIVE: Status[] = ['in-force', 'pending', 'enjoined'];
@@ -30,22 +31,30 @@ export function isCeremonial(r: Pick<UndoRow, 'instrument' | 'title'>): boolean 
   return r.instrument === 'proclamation' && CEREMONIAL.test(r.title);
 }
 
+/** A row a Democratic president would keep, or one that changes nothing worth the ink. It leaves
+ *  the to-do list and every count and sits in "Leave these". Absent verdict means "undo". */
+export function isLeave(r: Pick<UndoRow, 'verdict'>): boolean {
+  return r.verdict === 'leave';
+}
+
 /** Rows a pen undoes and that are still standing: the section "Before lunch" and the hero number. */
-export function isPenInForce(r: RowLike & Pick<UndoRow, 'title'>): boolean {
-  return r.bucket === 'pen' && isActive(r) && !isCeremonial(r);
+export function isPenInForce(r: RowLike): boolean {
+  return r.bucket === 'pen' && isActive(r) && !isCeremonial(r) && !isLeave(r);
 }
 
 export function countPenInForce(rows: RowLike[]): number {
   return rows.filter(isPenInForce).length;
 }
 
+/** The hero's "nothing undoes" number. A locked row marked leave is listed under "Leave these",
+ *  so it is not counted here: the number and the list it points at must agree. */
 export function countLocked(rows: RowLike[]): number {
-  return rows.filter((r) => r.bucket === 'locked').length;
+  return rows.filter((r) => r.bucket === 'locked' && !isLeave(r)).length;
 }
 
 /** pen and pen-process rows already undone by a court or by the administration itself. */
-export function isAlreadyDone(r: RowLike & Pick<UndoRow, 'title'>): boolean {
-  return (r.bucket === 'pen' || r.bucket === 'pen-process') && !isActive(r) && !isCeremonial(r);
+export function isAlreadyDone(r: RowLike): boolean {
+  return (r.bucket === 'pen' || r.bucket === 'pen-process') && !isActive(r) && !isCeremonial(r) && !isLeave(r);
 }
 
 export function slimRow(row: UndoRow): SlimRow {
@@ -62,6 +71,9 @@ export function slimRow(row: UndoRow): SlimRow {
     status: row.status,
     reviewed: row.reviewed,
     sources: row.sources.slice(0, 1),
+    ...(row.official !== undefined ? { official: row.official } : {}),
+    ...(row.verdict !== undefined ? { verdict: row.verdict } : {}),
+    ...(row.unsure ? { unsure: true } : {}),
     ...(keepHow ? { how: row.how } : {}),
     ...(keepWhy ? { why: row.why } : {}),
   };
@@ -75,10 +87,29 @@ export function whyOf(row: SlimRow): string {
   return row.why ?? whyForInstrument(row.instrument);
 }
 
-export function matchesQuery(row: Pick<UndoRow, 'title' | 'number'>, query: string): boolean {
+/** Mechanism tag for the end of the task line, or null when nothing is worth saying (locked). */
+export function tagOf(bucket: Bucket): string | null {
+  return COPY.tags[bucket] ?? null;
+}
+
+/** The mono line under the task: number, ISO date, and the administration's own title when we
+ *  re-worded the row. Middle dots between the parts. */
+export function footnoteOf(row: Pick<UndoRow, 'number' | 'date' | 'official'>): string {
+  const parts = [row.number, row.date];
+  if (row.official) parts.push(`${COPY.officially} ${row.official}`);
+  return parts.filter((p): p is string => !!p).join(' · ');
+}
+
+// Searches our headline, the number, and the administration's own title, so a reader who types
+// the official name still finds the row we re-worded.
+export function matchesQuery(row: Pick<UndoRow, 'title' | 'number' | 'official'>, query: string): boolean {
   const q = query.trim().toLowerCase();
   if (!q) return true;
-  return row.title.toLowerCase().includes(q) || (row.number ?? '').toLowerCase().includes(q);
+  return (
+    row.title.toLowerCase().includes(q) ||
+    (row.number ?? '').toLowerCase().includes(q) ||
+    (row.official ?? '').toLowerCase().includes(q)
+  );
 }
 
 export interface Group<T> {

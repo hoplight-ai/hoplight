@@ -8,6 +8,7 @@ import { countLocked, countPenInForce, slimRow } from '@/lib/undo/sections';
 import { fetchFederalRegisterRows } from '@/lib/undo/federal-register';
 import rulingsJson from '@/data/undo/rulings.json';
 import curatedJson from '@/data/undo/curated.json';
+import { headlines } from '@/data/undo/headlines';
 import CopyButton from './CopyButton';
 import UndoList from './UndoList';
 
@@ -36,7 +37,7 @@ const BUCKET_ORDER = (Object.keys(BUCKETS) as Bucket[]).sort((a, b) => BUCKETS[a
 
 export default async function UndoPage() {
   const feed = await fetchFederalRegisterRows();
-  const rows = applyRulings(feed.rows, [...rulings, ...curated]);
+  const rows = applyRulings(feed.rows, [...rulings, ...curated, ...headlines]);
   const reviewed = rows.filter((r) => r.reviewed).length;
   const auto = rows.length - reviewed;
   const newest = rows.length ? rows[0].date : null;

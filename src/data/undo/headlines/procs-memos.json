@@ -1,0 +1,1867 @@
+[
+  {
+    "match": {
+      "proclamation": 11069
+    },
+    "headline": "Extended the $100,000 fee on new H-1B workers for another year",
+    "how": "End the H-1B fee.",
+    "why": "An entry restriction is a proclamation, so a later proclamation ends it; this one runs to September 2027 unless renewed.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/23/2026-19554/restriction-on-entry-of-certain-nonimmigrant-workers"
+      },
+      {
+        "label": "Proclamation 11069 text",
+        "url": "https://www.presidency.ucsb.edu/documents/proclamation-11069-restriction-entry-certain-nonimmigrant-workers"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11061
+    },
+    "headline": "Banned imports of listed Canadian beer, wine and spirits",
+    "how": "Reopen the border to Canadian alcohol.",
+    "why": "Section 338 duties and bans rest on a presidential finding of trade discrimination, which a later proclamation can withdraw without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18835/excluding-certain-canadian-products-from-importation-into-the-united-states-in-response-to-continued"
+      },
+      {
+        "label": "White House: Canada proclamations, September 2026",
+        "url": "https://www.troutman.com/insights/from-duties-to-import-bans-president-trump-escalates-section-338-actions-against-canadian-goods/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11062
+    },
+    "headline": "Banned imports of listed Canadian dairy products",
+    "how": "Reopen the border to Canadian dairy.",
+    "why": "Section 338 duties and bans rest on a presidential finding of trade discrimination, which a later proclamation can withdraw without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18836/excluding-certain-canadian-products-from-importation-into-the-united-states-in-response-to-continued"
+      },
+      {
+        "label": "White House: dairy proclamation",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/09/excluding-certain-canadian-products-from-importation-into-the-united-states-in-response-to-continued-discrimination-against-the-commerce-of-the-united-states-with-respect-to-dairy/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11063
+    },
+    "headline": "Banned imports of listed Canadian motor vehicle products",
+    "how": "Reopen the border to Canadian vehicle goods.",
+    "why": "Section 338 duties and bans rest on a presidential finding of trade discrimination, which a later proclamation can withdraw without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18837/excluding-certain-canadian-products-from-importation-into-the-united-states-in-response-to-continued"
+      },
+      {
+        "label": "White House: motor vehicle proclamation",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/09/excluding-certain-canadian-products-from-importation-into-the-united-states-in-response-to-continued-discrimination-against-the-commerce-of-the-united-states-with-respect-to-motor-vehicles/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11064
+    },
+    "headline": "Reshuffled which Canadian goods face the 50 percent alcohol-related duty",
+    "how": "End the Canadian duties.",
+    "why": "Section 338 duties and bans rest on a presidential finding of trade discrimination, which a later proclamation can withdraw without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18838/modifying-the-scope-of-products-of-canada-subject-to-the-additional-duties-imposed-to-offset"
+      },
+      {
+        "label": "Troutman: Section 338 actions against Canadian goods",
+        "url": "https://www.troutman.com/insights/from-duties-to-import-bans-president-trump-escalates-section-338-actions-against-canadian-goods/"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "proclamation": 11065
+    },
+    "headline": "Reshuffled which Canadian goods face the 50 percent vehicle-related duty",
+    "how": "End the Canadian duties.",
+    "why": "Section 338 duties and bans rest on a presidential finding of trade discrimination, which a later proclamation can withdraw without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/14/2026-18839/modifying-the-scope-of-products-of-canada-subject-to-the-additional-duties-imposed-to-offset"
+      },
+      {
+        "label": "White House: scope-change proclamation",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/09/modifying-the-scope-of-products-of-canada-subject-to-the-additional-duties-imposed-to-offset-canadian-discrimination-against-the-united-states-with-respect-to-motor-vehicles/"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "proclamation": 11059
+    },
+    "headline": "Let more imported lean beef trimmings in at the low tariff for 90 days",
+    "how": "Leave it.",
+    "why": "It lowers a tariff on ground-beef supply for 90 days and lapses on its own, so there is nothing a Democratic president needs to reverse.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/31/2026-17842/further-ensuring-affordable-beef-for-the-american-consumer"
+      },
+      {
+        "label": "White House fact sheet: affordable beef",
+        "url": "https://www.whitehouse.gov/briefings-statements/2026/08/fact-sheet-president-donald-j-trump-further-ensures-affordable-beef-for-the-american-consumer/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11056
+    },
+    "headline": "Paused the Canada duties for three days before they took effect",
+    "how": "Leave it.",
+    "why": "The pause lapsed on its own on August 22, 2026 and the duties took effect, so this row has nothing left to undo.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/24/2026-17294/temporary-suspension-of-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of"
+      },
+      {
+        "label": "Proclamation 11056 text",
+        "url": "https://www.presidency.ucsb.edu/node/396530"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11055
+    },
+    "headline": "Put 25 to 100 percent tariffs on imported drones and drone parts",
+    "how": "End the drone tariffs.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, so a proclamation and agency paperwork can end them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/19/2026-16979/adjusting-imports-of-unmanned-aircraft-systems-and-unmanned-aircraft-systems-components-into-the"
+      },
+      {
+        "label": "Thomson Reuters: Section 232 drone tariffs",
+        "url": "https://www.thomsonreuters.com/en-us/help/onesource-global-trade/regulatory-insights/2026/august-14th/us-section-232-tariffs-unmanned-aircraft"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11052
+    },
+    "headline": "Put tariffs and minimum prices on imported polysilicon and solar panels",
+    "how": "End the solar tariffs and price floors.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, so a proclamation and agency paperwork can end them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/11/2026-16400/adjusting-imports-of-polysilicon-and-its-derivatives-into-the-united-states"
+      },
+      {
+        "label": "White & Case: polysilicon Section 232 action",
+        "url": "https://www.whitecase.com/insight-alert/president-trump-orders-tariffs-and-price-floors-polysilicon-section-232-action"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11051
+    },
+    "headline": "Put up to 50 percent tariffs on imported quartz countertops",
+    "how": "End the countertop tariffs.",
+    "why": "A Section 201 safeguard is a presidential proclamation that a later one can modify or end, though the statute sets a procedure for doing so.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/05/2026-15975/to-facilitate-positive-adjustment-to-competition-from-imports-of-quartz-surface-products"
+      },
+      {
+        "label": "KPMG: quartz surface products safeguard",
+        "url": "https://kpmg.com/us/en/taxnewsflash/news/2026/08/united-states-quartz-surface-products-safeguard-trq.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11045
+    },
+    "headline": "Halved the aluminum tariff for importers who fund U.S. smelters",
+    "how": "Leave it.",
+    "why": "It cuts a tariff for companies that invest here instead of adding one; the aluminum tariff itself is a separate row.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/23/2026-14990/further-strengthening-actions-taken-to-adjust-imports-of-aluminum-into-the-united-states"
+      },
+      {
+        "label": "Proclamation 11045 summary",
+        "url": "https://regfollower.com/us-trump-signs-aluminium-tariff-adjustment-to-spur-smelter-investment/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11046
+    },
+    "headline": "Put a 50 percent tax on listed Canadian alcohol imports",
+    "how": "End the Canadian alcohol duty.",
+    "why": "Section 338 duties and bans rest on a presidential finding of trade discrimination, which a later proclamation can withdraw without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/23/2026-14991/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united"
+      },
+      {
+        "label": "Troutman: Section 338 actions",
+        "url": "https://www.troutman.com/insights/from-duties-to-import-bans-president-trump-escalates-section-338-actions-against-canadian-goods/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11047
+    },
+    "headline": "Put a 50 percent tax on listed Canadian dairy imports",
+    "how": "End the Canadian dairy duty.",
+    "why": "Section 338 duties and bans rest on a presidential finding of trade discrimination, which a later proclamation can withdraw without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/23/2026-14992/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united"
+      },
+      {
+        "label": "Troutman: Section 338 actions",
+        "url": "https://www.troutman.com/insights/from-duties-to-import-bans-president-trump-escalates-section-338-actions-against-canadian-goods/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11048
+    },
+    "headline": "Put a 50 percent tax on listed Canadian vehicle imports",
+    "how": "End the Canadian vehicle duty.",
+    "why": "Section 338 duties and bans rest on a presidential finding of trade discrimination, which a later proclamation can withdraw without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/23/2026-14997/imposing-additional-duties-to-offset-canadian-discrimination-against-the-commerce-of-the-united"
+      },
+      {
+        "label": "Proclamation 11056 text",
+        "url": "https://www.presidency.ucsb.edu/node/396530"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11043
+    },
+    "headline": "Cut Bears Ears National Monument by about 90 percent",
+    "how": "Restore Bears Ears.",
+    "why": "A president proclaims monument boundaries, so a later one can restore them; courts have not settled whether a president may shrink one.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/17/2026-14548/modifying-the-bears-ears-national-monument"
+      },
+      {
+        "label": "Grand Canyon Trust: maps of the 2026 cuts",
+        "url": "https://www.grandcanyontrust.org/resources/maps-2026-bears-ears-grand-staircase-cuts/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11044
+    },
+    "headline": "Cut Grand Staircase-Escalante National Monument by about 90 percent",
+    "how": "Restore Grand Staircase-Escalante.",
+    "why": "A president proclaims monument boundaries, so a later one can restore them; courts have not settled whether a president may shrink one.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/17/2026-14549/modifying-the-grand-staircase-escalante-national-monument"
+      },
+      {
+        "label": "Grand Canyon Trust: maps of the 2026 cuts",
+        "url": "https://www.grandcanyontrust.org/resources/maps-2026-bears-ears-grand-staircase-cuts/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11040
+    },
+    "headline": "Opened aircraft trade talks and held back tariffs for now",
+    "how": "Leave it.",
+    "why": "It sets no duty and only starts talks while keeping a tariff option open, so there is nothing to reverse yet.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/15/2026-14334/adjusting-imports-of-commercial-aircraft-jet-engines-and-aircraft-and-engine-parts-into-the-united"
+      },
+      {
+        "label": "GHY: Section 232 aerospace trade talks",
+        "url": "https://www.ghy.com/trade-compliance/section-232-aerospace-trade-talks/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11041
+    },
+    "headline": "Let more chemical plants skip toxic air limits for two years",
+    "how": "End the chemical plant exemptions.",
+    "why": "Clean Air Act exemptions are granted by the president, so a later proclamation can revoke them; they also lapse after two years.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/16/2026-14452/regulatory-relief-for-certain-stationary-sources-to-promote-american-chemical-manufacturing-security"
+      },
+      {
+        "label": "White House: July 2026 proclamation",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/07/regulatory-relief-for-certain-stationary-sources-to-promote-american-chemical-manufacturing-security-be40/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11038
+    },
+    "headline": "Waived duties on Moroccan phosphate fertilizer for eight months",
+    "how": "Leave it.",
+    "why": "It lowers farm costs and ends on its own within eight months, so a Democratic president would have no reason to reverse it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/02/2026-13588/declaration-of-emergency-and-authorization-for-temporary-duty-free-importation-of-phosphate"
+      },
+      {
+        "label": "Federal Register: phosphate fertilizer emergency",
+        "url": "https://www.federalregister.gov/documents/2026/07/02/2026-13588/declaration-of-emergency-and-authorization-for-temporary-duty-free-importation-of-phosphate"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11035
+    },
+    "headline": "Reopened Pacific marine monuments to commercial fishing",
+    "how": "Close the monuments to commercial fishing.",
+    "why": "Monument protections are set by proclamation, so a later proclamation can restore them; NOAA fishing rules then follow.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/17/2026-12283/restoring-american-commercial-fishing-in-the-pacific"
+      },
+      {
+        "label": "Mongabay: Pacific marine protected areas",
+        "url": "https://news.mongabay.com/short-article/2026/06/us-moves-to-allow-commercial-fishing-in-pacific-marine-protected-areas/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11033
+    },
+    "headline": "Pardoned former Indiana congressman Steve Buyer, convicted of insider trading",
+    "how": "Nothing can be done.",
+    "why": "A pardon is final once granted, so no later president and no Congress can take it back.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11741/granting-pardon-to-stephen-e-buyer"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11032
+    },
+    "headline": "Kept 50 percent metals tariffs and added more products to them",
+    "how": "End the metals tariffs.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, so a proclamation and agency paperwork can end them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/04/2026-11314/further-adjusting-the-tariff-regimes-for-imports-of-aluminum-steel-and-copper-into-the-united-states"
+      },
+      {
+        "label": "Plante Moran: Section 232 update",
+        "url": "https://www.plantemoran.com/explore-our-thinking/insight/2026/06/section-232-update"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11030
+    },
+    "headline": "Extended duty-free trade for African and Haitian goods through 2026",
+    "how": "Leave it.",
+    "why": "It carries out a trade law Congress passed, so only Congress could change the extension, and a president has no reason to.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/05/22/2026-10398/to-implement-certain-provisions-in-the-consolidated-appropriations-act-2026-and-for-other-purposes"
+      },
+      {
+        "label": "KPMG: trade provisions of the 2026 appropriations act",
+        "url": "https://kpmg.com/us/en/taxnewsflash/news/2026/05/trade-provisions-consolidated-appropriations-act-2026.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11020
+    },
+    "headline": "Put tariffs on imported drugs and drug ingredients",
+    "how": "End the drug import tariffs.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.bakerdonelson.com/trump-overhauls-section-232-tariffs-what-metals-and-pharmaceutical-importers-need-to-know"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11021
+    },
+    "headline": "Charged 50 percent on the full value of steel, aluminum and copper goods",
+    "how": "End the metals tariffs.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2026/04/09/2026-06960.html"
+      },
+      {
+        "label": "Plante Moran: Section 232 update",
+        "url": "https://www.plantemoran.com/explore-our-thinking/insight/2026/06/section-232-update"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11015
+    },
+    "headline": "Set a policy of dismantling cartels with partner militaries",
+    "how": "Withdraw the cartel war policy.",
+    "why": "It declares policy and creates no new power; the military actions it points to are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/12/2026-04924/commitment-to-countering-cartel-criminal-activity"
+      },
+      {
+        "label": "Proclamation 11015 text",
+        "url": "https://www.presidency.ucsb.edu/documents/proclamation-11015-commitment-countering-cartel-criminal-activity"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11014
+    },
+    "headline": "Made a voluntary pledge on data center power bills national policy",
+    "how": "Leave it.",
+    "why": "It is a voluntary pledge meant to keep household power bills down, so a Democratic president would keep it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/09/2026-04645/ratepayer-protection-pledge"
+      },
+      {
+        "label": "Proclamation 11014 text",
+        "url": "https://www.presidency.ucsb.edu/documents/proclamation-11014-ratepayer-protection-pledge"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11009
+    },
+    "headline": "Reopened the Northeast Canyons and Seamounts monument to commercial fishing",
+    "how": "Close the monument to commercial fishing.",
+    "why": "Restoring the ban takes a new proclamation plus a NOAA rule, because the agency already rewrote its fishing regulations to match.",
+    "bucket": "pen-process",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/11/2026-02812/unleashing-american-commercial-fishing-in-the-atlantic"
+      },
+      {
+        "label": "NOAA Fisheries: final rule conforming regulations",
+        "url": "https://www.fisheries.noaa.gov/action/final-rule-conform-us-fishery-regulations-presidential-proclamation-unleashing-commercial"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11010
+    },
+    "headline": "Raised the low-tariff quota for Argentine beef trimmings by 80,000 tons",
+    "how": "Leave it.",
+    "why": "It lowers a tariff on ground-beef supply, so a Democratic president would have no reason to reverse it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/13/2026-03050/ensuring-affordable-beef-for-the-american-consumer"
+      },
+      {
+        "label": "White House fact sheet: affordable beef",
+        "url": "https://www.whitehouse.gov/briefings-statements/2026/08/fact-sheet-president-donald-j-trump-further-ensures-affordable-beef-for-the-american-consumer/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11001
+    },
+    "headline": "Ordered talks on critical mineral imports and held off on tariffs",
+    "how": "Leave it.",
+    "why": "No tariff was set; it only starts talks and keeps tariffs as an option, so there is nothing to reverse.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/20/2026-01045/adjusting-imports-of-processed-critical-minerals-and-their-derivative-products-into-the-united"
+      },
+      {
+        "label": "Covington: critical minerals Section 232 results",
+        "url": "https://www.cov.com/en/news-and-insights/insights/2026/01/trump-administration-announces-results-of-critical-minerals-investigation-under-section-232-and-directs-us-officials-to-initiate-negotiations"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11002
+    },
+    "headline": "Put a 25 percent tariff on certain advanced AI chips",
+    "how": "End the AI chip tariff.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, so a proclamation and agency paperwork can end them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/20/2026-01052/adjusting-imports-of-semiconductors-semiconductor-manufacturing-equipment-and-their-derivative"
+      },
+      {
+        "label": "Federal Register: semiconductors proclamation",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2026-01-20/pdf/2026-01052.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11000
+    },
+    "headline": "Delayed tariff hikes on furniture and cabinets until 2027",
+    "how": "Leave it.",
+    "why": "It postpones increases rather than adding any; the lumber and furniture tariffs themselves are a separate row.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/09/2026-00327/amendments-to-adjusting-imports-of-timber-lumber-and-their-derivative-products-into-the-united"
+      },
+      {
+        "label": "International Trade Insights: wood product tariff delay",
+        "url": "https://www.internationaltradeinsights.com/2026/01/trump-administration-delays-higher-tariffs-on-wood-furniture-and-cabinet-imports-until-2027/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10999
+    },
+    "headline": "Kept duty-free quotas for Israeli farm goods through 2026",
+    "how": "Leave it.",
+    "why": "It carries out a trade agreement that keeps tariffs low and is routine housekeeping a Democratic president would keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/08/2026-00245/to-implement-the-united-states-israel-agreement-on-trade-in-agricultural-products-and-for-other"
+      },
+      {
+        "label": "Federal Register: Proclamation 10999",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2026/01/08/2026-00245.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10998
+    },
+    "headline": "Barred most entry from 39 countries, up from 19",
+    "how": "Lift the expanded entry ban.",
+    "why": "Entry suspensions rest on a power Congress gave the president, so a proclamation ends them; courts are deferential to them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/19/2025-23570/restricting-and-limiting-the-entry-of-foreign-nationals-to-protect-the-security-of-the-united-states"
+      },
+      {
+        "label": "NAFSA: December 2025 travel ban",
+        "url": "https://www.nafsa.org/regulatory-information/proclamation-december-16-2025-travel-ban-effective-january-1-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10993
+    },
+    "headline": "Let coke oven plants skip toxic air limits for two years",
+    "how": "End the coke oven exemptions.",
+    "why": "Clean Air Act exemptions are granted by the president, so a later proclamation can revoke them; they also lapse after two years.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/11/26/2025-21418/regulatory-relief-for-certain-stationary-sources-to-promote-american-coke-oven-processing-security"
+      },
+      {
+        "label": "Federal Register: Proclamation 10993",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/11/26/2025-21418.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10989
+    },
+    "headline": "Pardoned Giuliani, Meadows and 75 others over the 2020 election",
+    "how": "Nothing can be done.",
+    "why": "A pardon is final once granted. This covers federal offenses only, so state cases against these people are unaffected.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/11/14/2025-19928/granting-pardons-for-certain-offenses-related-to-the-2020-presidential-election"
+      },
+      {
+        "label": "NPR: pardons tied to 2020 election efforts",
+        "url": "https://www.npr.org/2025/11/10/nx-s1-5604174/trump-pardons-2020-election"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10987
+    },
+    "headline": "Let copper smelters skip new toxic air limits for two years",
+    "how": "End the smelter exemptions.",
+    "why": "Clean Air Act exemptions are granted by the president, so a later proclamation can revoke them; they also lapse after two years.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/11/03/2025-19775/regulatory-relief-for-certain-stationary-sources-to-promote-american-mineral-security"
+      },
+      {
+        "label": "Federal Register: Proclamation 10987",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/11/03/2025-19775.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10984
+    },
+    "headline": "Put a 25 percent tariff on heavy trucks and truck parts, 10 percent on buses",
+    "how": "End the truck and bus tariffs.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, so a proclamation and agency paperwork can end them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/10/22/2025-19639/adjusting-imports-of-medium--and-heavy-duty-vehicles-medium--and-heavy-duty-vehicle-parts-and-buses"
+      },
+      {
+        "label": "Thompson Hine: heavy truck Section 232 tariffs",
+        "url": "https://www.thompsonhinesmartrade.com/2025/10/president-trump-announces-new-section-232-tariffs-on-medium-and-heavy-duty-trucks-their-parts-and-buses-starting-november-1-2025/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10976
+    },
+    "headline": "Put tariffs on imported lumber, kitchen cabinets and upholstered furniture",
+    "how": "End the lumber and furniture tariffs.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.cov.com/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration"
+      },
+      {
+        "label": "International Trade Insights: wood product tariff delay",
+        "url": "https://www.internationaltradeinsights.com/2026/01/trump-administration-delays-higher-tariffs-on-wood-furniture-and-cabinet-imports-until-2027/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10973
+    },
+    "headline": "Charged employers $100,000 for each new H-1B worker brought from abroad",
+    "how": "End the $100,000 H-1B fee.",
+    "why": "The fee was set by proclamation, so a pen ends it; judges have called it a tax a president cannot impose.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://ogletree.com/insights-resources/blog-posts/trump-administration-appeals-ruling-striking-down-100000-h-1b-fee-requirement/"
+      },
+      {
+        "label": "Yale OISS: H-1B proclamation guidance",
+        "url": "https://oiss.yale.edu/node/7968"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10962
+    },
+    "headline": "Put a 50 percent tariff on semi-finished copper and copper goods",
+    "how": "End the copper tariffs.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.thompsoncoburn.com/insights/74-april-2-2026-new-proclamation-makes-major-revisions-to-section-232-tariffs-on-steel-aluminum-copper/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10956
+    },
+    "headline": "Let six coal units in three states skip mercury and air toxics limits",
+    "how": "End the coal plant exemptions.",
+    "why": "Clean Air Act exemptions are granted by the president, so a later proclamation can revoke them; this one runs from July 2027 to July 2029.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/07/23/2025-13883/regulatory-relief-for-certain-stationary-sources-to-further-promote-american-energy"
+      },
+      {
+        "label": "APPA: additional coal units receive MATS exemptions",
+        "url": "https://www.publicpower.org/periodical/article/additional-coal-units-receive-mats-presidential-exemptions"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10957
+    },
+    "headline": "Let about 50 chemical plants skip toxic air limits for two years",
+    "how": "End the chemical plant exemptions.",
+    "why": "Clean Air Act exemptions are granted by the president, so a later proclamation can revoke them; they also lapse after two years.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/07/23/2025-13890/regulatory-relief-for-certain-stationary-sources-to-promote-american-chemical-manufacturing-security"
+      },
+      {
+        "label": "Public Health Watch: HON rule exemptions",
+        "url": "https://publichealthwatch.org/2025/07/21/hon-rule-exemptions-granted/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10958
+    },
+    "headline": "Let taconite iron ore mines skip toxic air limits for two years",
+    "how": "End the iron ore mine exemptions.",
+    "why": "Clean Air Act exemptions are granted by the president, so a later proclamation can revoke them; they also lapse after two years.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/07/23/2025-13923/regulatory-relief-for-certain-stationary-sources-to-promote-american-iron-ore-processing-security"
+      },
+      {
+        "label": "Manufacturing Dive: two-year NESHAP exemptions",
+        "url": "https://www.manufacturingdive.com/news/trump-2-year-neshap-hon-eto-neoprene-dow-basf-us-steel-cleveland-cliffs/753494/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10959
+    },
+    "headline": "Let medical sterilizers skip ethylene oxide emission limits for two years",
+    "how": "End the sterilizer exemptions.",
+    "why": "Clean Air Act exemptions are granted by the president, so a later proclamation can revoke them; they also lapse after two years.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/07/23/2025-13924/regulatory-relief-for-certain-stationary-sources-to-promote-american-security-with-respect-to"
+      },
+      {
+        "label": "Federal Register: Proclamation 10959",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/07/23/2025-13924.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10949
+    },
+    "headline": "Barred most travelers from 12 countries and restricted seven more",
+    "how": "Lift the original entry ban.",
+    "why": "Entry suspensions rest on a power Congress gave the president, so a proclamation ends them; courts are deferential to them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://immpolicytracking.org/policies/presidential-proclamation-restricting-the-entry-of-foreign-nationals-to-protect-the-us-from-foreign-terrorists-and-other-national-security-and-public-safety-threats/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10947
+    },
+    "headline": "Doubled steel and aluminum tariffs to 50 percent",
+    "how": "End the metals tariffs.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, so a proclamation and agency paperwork can end them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/06/09/2025-10524/adjusting-imports-of-aluminum-and-steel-into-the-united-states"
+      },
+      {
+        "label": "Thomson Reuters: steel and aluminum raised to 50 percent",
+        "url": "https://www.thomsonreuters.com/en-us/help/onesource-global-trade/regulatory-insights/2025/june-4th/us-increases-steel-and-aluminum-tariffs-to-50-"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10935
+    },
+    "headline": "Offered undocumented immigrants free flights and a stipend to leave",
+    "how": "End Project Homecoming.",
+    "why": "It is a program ordered by proclamation, so a later proclamation ends it; the enforcement staffing it ordered is a separate step.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/05/14/2025-08673/establishing-project-homecoming"
+      },
+      {
+        "label": "EPI: Project Homecoming proclamation",
+        "url": "https://www.epi.org/policywatch/establishing-project-homecoming-proclamation-encouraging-self-deportation-and-increasing-staffing-for-deportations/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10925
+    },
+    "headline": "Gave U.S. carmakers an offset against the 25 percent car tariff",
+    "how": "Leave it.",
+    "why": "It softens the car tariff for U.S. assemblers; ending the car tariff itself, a separate row, makes it moot.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/05/02/2025-07833/amendments-to-adjusting-imports-of-automobiles-and-automobile-parts-into-the-united-states"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10918
+    },
+    "headline": "Opened the Pacific Islands Heritage monument to commercial fishing",
+    "how": "Close the monument to commercial fishing.",
+    "why": "Monument protections are set by proclamation, so a later proclamation can restore them; NOAA fishing rules then follow.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/22/2025-07060/unleashing-american-commercial-fishing-in-the-pacific"
+      },
+      {
+        "label": "Mongabay: Pacific marine protected areas",
+        "url": "https://news.mongabay.com/short-article/2026/06/us-moves-to-allow-commercial-fishing-in-pacific-marine-protected-areas/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10914
+    },
+    "headline": "Let about 70 coal plants skip mercury and air toxics limits for two years",
+    "how": "End the coal plant exemptions.",
+    "why": "Clean Air Act exemptions are granted by the president, so a later proclamation can revoke them; they also lapse after two years.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/21/2025-06936/regulatory-relief-for-certain-stationary-sources-to-promote-american-energy"
+      },
+      {
+        "label": "Columbia Climate Law: coal plant exemptions",
+        "url": "https://climate.law.columbia.edu/content/president-trump-exempts-coal-fired-power-plants-emission-standards"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10908
+    },
+    "headline": "Put a 25 percent tax on every imported car and part",
+    "how": "End the car tariff.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/04/03/2025-05930.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10903
+    },
+    "headline": "Used a 1798 wartime law to deport suspected Tren de Aragua members",
+    "how": "End the Alien Enemies Act order.",
+    "why": "The act lets a president declare the invasion and a later one can end it; the Supreme Court has not ruled on the invocation.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/03/20/2025-04865.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10895
+    },
+    "headline": "Put a 25 percent tariff on imported aluminum with no country exemptions",
+    "how": "End the aluminum tariff.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president; later proclamations rebuilt these duties and are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.thompsoncoburn.com/insights/74-april-2-2026-new-proclamation-makes-major-revisions-to-section-232-tariffs-on-steel-aluminum-copper/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10896
+    },
+    "headline": "Put a 25 percent tariff on imported steel with no country exemptions",
+    "how": "End the steel tariff.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president; later proclamations rebuilt these duties and are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.thompsoncoburn.com/insights/74-april-2-2026-new-proclamation-makes-major-revisions-to-section-232-tariffs-on-steel-aluminum-copper/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10885
+    },
+    "headline": "Raised flags to full staff for one day, Inauguration Day",
+    "how": "Leave it.",
+    "why": "It was a one-day flag order that has already run its course, so there is nothing to undo.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/28/2025-01899/flying-the-flag-of-the-united-states-at-full--staff-on-inauguration-day"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10886
+    },
+    "headline": "Declared a southern border emergency to unlock troops and military funds",
+    "how": "End the border emergency.",
+    "why": "A national emergency lasts only while the president keeps it; the troops and spending already used are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://immpolicytracking.org/analyses/border-enforcement-and-asylum-prohibitions"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2026-19336"
+    },
+    "headline": "Directed agencies to pull Canadian-made goods from federal buying",
+    "how": "Reopen federal buying to Canadian goods.",
+    "why": "A procurement directive to agencies is a presidential memorandum, so a later one withdraws it; no vote is needed.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/21/2026-19336/restoring-reciprocity-in-government-procurement"
+      },
+      {
+        "label": "Akin: removal of Canadian products from federal procurement",
+        "url": "https://www.akingump.com/en/insights/alerts/president-trump-directs-removal-of-canadian-products-from-federal-procurement"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2026-15274"
+    },
+    "headline": "Put 10 to 12.5 percent tariffs on 60 economies over forced-labor import bans",
+    "how": "End the 60-economy tariffs.",
+    "why": "Section 301 actions are taken by the trade representative at the president's direction, so a new direction ends them without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/28/2026-15274/actions-by-the-united-states-in-the-investigations-under-section-301-of-the-trade-act-of-1974-of-the"
+      },
+      {
+        "label": "USTR: action in the forced labor Section 301 investigations",
+        "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/july/ustr-takes-action-forced-labor-section-301-investigations"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2026-14654"
+    },
+    "headline": "Put a 25 percent tariff on imports from Brazil",
+    "how": "End the Brazil tariff.",
+    "why": "Section 301 actions are taken by the trade representative at the president's direction, so a new direction ends them without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/20/2026-14654/action-by-the-united-states-in-the-investigation-under-section-301-of-the-trade-act-of-1974-of"
+      },
+      {
+        "label": "USTR: Section 301 determination on Brazil",
+        "url": "https://ustr.gov/about/policy-offices/press-office/press-releases/2026/june/ustr-section-301-determination-brazils-unreasonable-acts-policies-and-practices"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2026-03380"
+    },
+    "headline": "Waived Defense Production Act limits for defense supply chain spending",
+    "how": "Leave it.",
+    "why": "It speeds Pentagon supply-chain funding that a Democratic president would also want, and rests on a waiver power the law gives presidents.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/19/2026-03380/presidential-waiver-of-statutory-requirements-pursuant-to-section-303-of-the-defense-production-act"
+      },
+      {
+        "label": "Federal Register: February 13, 2026 waiver",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2026/02/19/2026-03380.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "title": "Withdrawing the United States From International Organizations, Conventions, and Treaties That Are Contrary to the Interests of the United States"
+    },
+    "headline": "Withdrew the U.S. from 66 international bodies, including the UN climate treaty",
+    "how": "Rejoin the 66 bodies.",
+    "why": "Rejoining takes a signature plus formal notices and funding, and the route for some treaties is unsettled.",
+    "bucket": "pen-process",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2026/01/16/2026-00976.html"
+      },
+      {
+        "label": "Jurist: withdrawal from 66 international organizations",
+        "url": "https://www.jurist.org/news/2026/01/trump-orders-us-withdrawal-from-66-international-organizations-including-un-climate-bodies/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2026-00698"
+    },
+    "headline": "Delegated a Foreign Assistance Act power to a cabinet official",
+    "how": "Leave it.",
+    "why": "It moves an existing authority between officials and adds no new policy, so it is housekeeping.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/14/2026-00698/delegation-of-authority-under-section-614a2-of-the-foreign-assistance-act-of-1961"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "document_number": "2026-00697"
+    },
+    "headline": "Denied a tribe's permit for a border bridge at Eagle Pass, Texas",
+    "how": "Reopen the Kickapoo bridge permit.",
+    "why": "Border-crossing permits are the president's to give or withhold, so a later president can approve a new application with no vote.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/14/2026-00697/denial-of-presidential-permit-for-the-kickapoo-traditional-tribe-of-texas"
+      },
+      {
+        "label": "Proclamation record: Kickapoo permit denial",
+        "url": "https://www.presidency.ucsb.edu/node/385919"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-23568"
+    },
+    "headline": "Delegated a Compact of Free Association power to a cabinet official",
+    "how": "Leave it.",
+    "why": "It moves an existing authority between officials and adds no new policy, so it is housekeeping.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/19/2025-23568/delegation-of-authority-under-section-208d6-of-the-compact-of-free-association-amendments-act-of"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "document_number": "2025-16935"
+    },
+    "headline": "Ordered agencies to cut off grant money to groups that lobby",
+    "how": "End the grantee lobbying crackdown.",
+    "why": "It is a directive to agencies, so a later memorandum withdraws it; grant terms already issued would need to be reviewed.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/09/03/2025-16935/use-of-appropriated-funds-for-illegal-lobbying-and-partisan-political-activity-by-federal-grantees"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-15656"
+    },
+    "headline": "Delegated a Child Soldiers Prevention Act power to a cabinet official",
+    "how": "Leave it.",
+    "why": "It moves an existing authority between officials and adds no new policy, so it is housekeeping.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/08/15/2025-15656/delegation-of-authority-under-section-404-c-of-the-child-soldiers-prevention-act-of-2008"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-14587"
+    },
+    "headline": "Revoked Obama's directive on U.S. global development policy",
+    "how": "Restore the global development directive.",
+    "why": "It rescinds a 2010 policy document; the real changes to foreign aid are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/07/31/2025-14587/revoking-ppd-6-on-us-global-development-policy"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-15338"
+    },
+    "headline": "Tightened Cuba sanctions, restoring limits on travel and business",
+    "how": "Reopen travel and trade with Cuba.",
+    "why": "A president can withdraw the policy memo with a signature, but the Treasury and Commerce rules that carry it out must then be rewritten.",
+    "bucket": "pen-process",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/08/12/2025-15338/reissuance-of-and-amendments-to-national-security-presidential-memorandum-5-on-strengthening-the"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-10322"
+    },
+    "headline": "Waived Defense Production Act limits to speed munitions and mineral output",
+    "how": "Leave it.",
+    "why": "It speeds defense industrial funding that a Democratic president would also want, and rests on a waiver power the law gives presidents.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/06/04/2025-10322/presidential-waiver-of-statutory-requirements-pursuant-to-section-303-of-the-defense-production-act"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-10323"
+    },
+    "headline": "Changed the military's Unified Command Plan",
+    "how": "Leave it.",
+    "why": "It adjusts which military command covers which region and sets no policy a Democratic president would need to reverse.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/06/04/2025-10323/unified-command-plan-change"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "document_number": "2025-06840"
+    },
+    "headline": "Ordered agencies to crack down on noncitizens in Social Security Act programs",
+    "how": "End the benefits crackdown.",
+    "why": "It directs agencies to step up enforcement within existing law, so a later memorandum withdraws it without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/18/2025-06840/preventing-illegal-aliens-from-obtaining-social-security-act-benefits"
+      },
+      {
+        "label": "Federal Register: Memorandum of April 15, 2025",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/04/18/2025-06840.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-05217"
+    },
+    "headline": "Gave OPM power to order the firing of tenured federal employees",
+    "how": "Take back OPM's firing power.",
+    "why": "The delegation is a memorandum a later one can revoke; OPM's proposed rule would also have to be withdrawn.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/25/2025-05217/strengthening-the-suitability-and-fitness-of-the-federal-workforce"
+      },
+      {
+        "label": "MeriTalk: memo delegates firing authority to OPM",
+        "url": "https://www.meritalk.com/articles/trump-memo-delegates-firing-authority-to-opm/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-04869"
+    },
+    "headline": "Revised the military's Unified Command Plan",
+    "how": "Leave it.",
+    "why": "It adjusts which military command covers which region and sets no policy a Democratic president would need to reverse.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/20/2025-04869/revisions-to-the-2022-unified-command-plan"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "document_number": "2025-03188"
+    },
+    "headline": "Threatened tariffs on countries that tax or fine U.S. tech companies",
+    "how": "Drop the tech-tax retaliation.",
+    "why": "It directs trade officials to prepare retaliation, so a later memorandum withdraws it without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/26/2025-03188/defending-american-companies-and-innovators-from-overseas-extortion-and-unfair-fines-and-penalties"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02872"
+    },
+    "headline": "Ordered a plan for tariffs matching other countries' trade barriers",
+    "how": "End the reciprocal tariff plan.",
+    "why": "It only directs agencies to prepare a plan, so a pen withdraws it; the tariffs that followed under emergency law were struck by the Supreme Court.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/19/2025-02872/reciprocal-trade-and-tariffs"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02729"
+    },
+    "headline": "Barred approval of union contracts signed in the 30 days before inauguration",
+    "how": "Honor late-term union contracts.",
+    "why": "It tells agency heads to disapprove certain contracts, so a later memorandum withdraws the order with no vote.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/14/2025-02729/limiting-lame-duck-collective-bargaining-agreements-that-improperly-attempt-to-constrain-the-new"
+      },
+      {
+        "label": "Federal Register: Memorandum of January 31, 2025",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/02/14/2025-02729.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02176"
+    },
+    "headline": "Cut U.S. health aid to foreign groups that give abortion counseling or care",
+    "how": "Restore aid to women's health groups abroad.",
+    "why": "The policy is set by presidential memorandum and has been reversed by pen under each president since 1993.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/03/2025-02176/the-mexico-city-policy"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02124"
+    },
+    "headline": "Backed full federal recognition for the Lumbee Tribe of North Carolina",
+    "how": "Leave it.",
+    "why": "It states support for a tribe's recognition and orders a plan; a Democratic president would keep it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02124/federal-recognition-of-the-lumbee-tribe-of-north-carolina"
+      },
+      {
+        "label": "Proclamation record: Lumbee recognition memorandum",
+        "url": "https://www.presidency.ucsb.edu/documents/memorandum-federal-recognition-the-lumbee-tribe-north-carolina"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02099"
+    },
+    "headline": "Ordered the FAA to end diversity hiring and review its safety staff",
+    "how": "Rescind the FAA hiring order.",
+    "why": "It directs one department and one agency, so a later memorandum withdraws it with no vote.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02099/keeping-americans-safe-in-aviation"
+      },
+      {
+        "label": "Federal Register: Keeping Americans Safe in Aviation",
+        "url": "https://www.federalregister.gov/documents/full_text/text/2025/01/31/2025-02099.txt"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-01904"
+    },
+    "headline": "Told agencies to look for ways to lower prices",
+    "how": "Leave it.",
+    "why": "It sets a goal and orders no specific action, so there is nothing to reverse.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/28/2025-01904/delivering-emergency-price-relief-for-american-families-and-defeating-the-cost-of-living-crisis"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-01906"
+    },
+    "headline": "Froze every pending federal rule for review",
+    "how": "Leave it.",
+    "why": "It was a short pause for the new administration to review rules and has run its course.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/28/2025-01906/regulatory-freeze-pending-review"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-01907"
+    },
+    "headline": "Ordered federal employees back to the office full time",
+    "how": "End the return-to-office order.",
+    "why": "It directs agencies how to manage staff, so a later memorandum withdraws it with no vote.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/28/2025-01907/return-to-in-person-work"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02032"
+    },
+    "headline": "Ordered agencies to prepare tariffs and review every trade agreement",
+    "how": "End the trade-review order.",
+    "why": "It directs reviews and reports, so a later memorandum withdraws it; the tariffs it led to are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02032/america-first-trade-policy"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02033"
+    },
+    "headline": "Ordered the backlog of White House security clearances cleared",
+    "how": "Restore vetting before clearances.",
+    "why": "It speeds paperwork for the president's own staff and is housekeeping any White House would keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02033/memorandum-to-resolve-the-backlog-of-security-clearances-for-executive-office-of-the-president"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02037"
+    },
+    "headline": "Made classical architecture the preferred style for new federal buildings",
+    "how": "Drop the classical-style preference.",
+    "why": "It sets a design preference for new federal buildings and costs no one anything.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02037/promoting-beautiful-federal-civic-architecture"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02041"
+    },
+    "headline": "Ordered more California river water pumped south over fish protections",
+    "how": "Restore the delta fish protections.",
+    "why": "It directs Interior and other agencies, so a later memorandum withdraws it; species rules stay on the books.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02041/putting-people-over-fish-stopping-radical-environ-mentalism-to-provide-water-to-southern-california"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02042"
+    },
+    "headline": "Made career senior executives easier to remove for resisting policy",
+    "how": "Restore career executive protections.",
+    "why": "It directs OPM and agencies on performance plans, so a later memorandum withdraws it with no vote.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02042/restoring-accountability-for-career-senior-executives"
+      },
+      {
+        "label": "Memorandum record: career senior executives",
+        "url": "https://www.presidency.ucsb.edu/documents/memorandum-restoring-accountability-for-career-senior-executives"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-02043"
+    },
+    "headline": "Pulled the U.S. out of the OECD global minimum tax deal",
+    "how": "Rejoin the global minimum tax deal.",
+    "why": "The U.S. joined by executive action, so a later president can recommit without Congress.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02043/the-organization-for-economic-co-operation-and-development-oecd-global-tax-deal-global-tax-deal"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10887
+    },
+    "headline": "Pardoned about 1,500 people convicted over January 6",
+    "how": "Nothing can be done.",
+    "why": "The pardon power is unreviewable once exercised, so this is beyond both a pen and Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://en.wikipedia.org/wiki/List_of_proclamations_by_Donald_Trump_(2025)"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10948
+    },
+    "headline": "Barred new international students from entering to study at Harvard",
+    "how": "Leave it.",
+    "why": "The ban was limited to six months and ran out on its own, and a court had already blocked it.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/full_text/text/2025/06/10/2025-10668.txt"
+      }
+    ]
+  },
+  {
+    "match": {
+      "title": "Hiring Freeze"
+    },
+    "headline": "Froze federal hiring across the executive branch",
+    "how": "End the federal hiring freeze.",
+    "why": "It directs agencies, so a later memorandum withdraws it; a later order extended it with no end date.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/01/28/2025-01905.html"
+      },
+      {
+        "label": "Akin: Ensuring Continued Accountability in Federal Hiring",
+        "url": "https://www.akingump.com/en/insights/blogs/trump-executive-order-tracker/ensuring-continued-accountability-in-federal-hiring"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10888
+    },
+    "headline": "Closed the southern border to asylum claims",
+    "how": "Reopen asylum at the border.",
+    "why": "Entry suspensions are presidential proclamations, so a pen ends them; the D.C. Circuit held this one exceeded the president's authority.",
+    "bucket": "pen",
+    "status": "vacated",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.presidency.ucsb.edu/documents/proclamation-10888-guaranteeing-the-states-protection-against-invasion"
+      }
+    ]
+  },
+  {
+    "match": {
+      "title": "Temporary Withdrawal of All Areas on the Outer Continental Shelf From Offshore Wind Leasing and Review of the Federal Government's Leasing and Permitting Practices for Wind Projects"
+    },
+    "headline": "Halted new offshore wind leasing and paused wind project permits",
+    "how": "Restore wind leasing and permits.",
+    "why": "A judge vacated the permitting freeze in December 2025; the offshore leasing withdrawal still takes a signature to reverse.",
+    "bucket": "pen",
+    "status": "vacated",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/01/29/2025-01966.html"
+      },
+      {
+        "label": "OPB: judge throws out wind energy order",
+        "url": "https://www.opb.org/article/2025/12/08/federal-judge-throws-out-trump-order-blocking-development-of-wind-energy"
+      }
+    ]
+  }
+]

@@ -33,16 +33,20 @@ function digitsOf(number: string | undefined): string | null {
   return m ? m[0] : null;
 }
 
-export function orderText(row: Pick<UndoRow, 'instrument' | 'title' | 'date' | 'number'>): string | null {
+export function orderText(
+  row: Pick<UndoRow, 'instrument' | 'title' | 'date' | 'number' | 'official'>,
+): string | null {
   const when = longDate(row.date);
+  // The order's legal name is the administration's own title, not our headline.
+  const name = row.official ?? row.title;
   const n = digitsOf(row.number);
   switch (row.instrument) {
     case 'executive_order':
-      return `Executive Order${n ? ` ${n}` : ''} of ${when} (${row.title}) is hereby revoked.`;
+      return `Executive Order${n ? ` ${n}` : ''} of ${when} (${name}) is hereby revoked.`;
     case 'proclamation':
-      return `Proclamation${n ? ` ${n}` : ''} of ${when} (${row.title}) is hereby rescinded.`;
+      return `Proclamation${n ? ` ${n}` : ''} of ${when} (${name}) is hereby rescinded.`;
     case 'memorandum':
-      return `The Presidential Memorandum of ${when} (${row.title}) is hereby withdrawn.`;
+      return `The Presidential Memorandum of ${when} (${name}) is hereby withdrawn.`;
     default:
       return null;
   }

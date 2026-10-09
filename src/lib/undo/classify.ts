@@ -123,40 +123,73 @@ export function autoRow(input: {
   };
 }
 
-function rulingMatches(r: Ruling, row: UndoRow): boolean {
-  if (!r.match) return false;
-  if (r.match.document_number && row.id === r.match.document_number) return true;
-  if (r.match.eo !== undefined && row.instrument === 'executive_order' && row.number === `EO ${r.match.eo}`) return true;
-  if (
-    r.match.proclamation !== undefined &&
-    row.instrument === 'proclamation' &&
-    row.number === `Proclamation ${r.match.proclamation}`
-  ) {
+const sameText = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
+
+export function rulingMatches(r: Ruling, row: UndoRow): boolean {
+  const m = r.match;
+  if (!m) return false;
+  if (m.document_number && row.id === m.document_number) return true;
+  if (m.id && row.id === m.id) return true;
+  if (m.eo !== undefined && row.instrument === 'executive_order' && row.number === `EO ${m.eo}`) return true;
+  if (m.proclamation !== undefined && row.instrument === 'proclamation' && row.number === `Proclamation ${m.proclamation}`) {
+    return true;
+  }
+  // Exact official title, trimmed, any case. A row a headline ruling has already renamed still
+  // answers to its official title, so a second ruling written against the order's own name lands.
+  if (m.title && (sameText(m.title, row.title) || (row.official !== undefined && sameText(m.title, row.official)))) {
     return true;
   }
   return false;
 }
 
-// Applies the curated rulings: an override replaces the automatic placement of a matching Federal
-// Register row; a ruling with its own `row` becomes a row of its own. Every ruling-placed row is
-// `reviewed: true`. Returns the merged, sorted list, newest first (never by age: CLAUDE.md rule).
-export function applyRulings(autoRows: UndoRow[], rulings: Ruling[]): UndoRow[] {
-  const out: UndoRow[] = autoRows.map((row) => {
-    const r = rulings.find((x) => rulingMatches(x, row));
-    if (!r) return row;
+function mergeSources(first: UndoRow['sources'], rest: UndoRow['sources']): UndoRow['sources'] {
+  const seen = new Set<string>();
+  return [...first, ...rest].filter((s) => (seen.has(s.url) ? false : (seen.add(s.url), true)));
+}
+
+// The headline half of a ruling. A ruling with a `headline` is a complete editorial statement:
+// our line becomes the title, the administration's own title moves to `official` (kept if an
+// earlier ruling already moved it), and verdict and unsure are taken from the ruling as written,
+// so a later, surer ruling clears an earlier "unsure". A ruling without a headline leaves the
+// title alone and only sets verdict or unsure when it names them.
+function headlineFields(row: UndoRow, r: Ruling): Pick<UndoRow, 'title' | 'official' | 'verdict' | 'unsure'> {
+  if (r.headline === undefined) {
     return {
-      ...row,
-      bucket: r.bucket,
-      how: r.how,
-      why: r.why,
-      status: r.status ?? row.status,
-      reviewed: true,
-      sources: r.sources.length ? [...r.sources, ...row.sources] : row.sources,
+      title: row.title,
+      official: row.official,
+      verdict: r.verdict ?? row.verdict,
+      unsure: r.unsure ?? row.unsure,
     };
-  });
+  }
+  // Only a Federal Register row carries the administration's own title; a curated row's old title
+  // was ours, and showing it as "Officially:" would put our words in the government's mouth.
+  const fromFeed = /^\d{4}-\d+$/.test(row.id);
+  return {
+    title: r.headline,
+    official: row.official ?? (fromFeed ? row.title : undefined),
+    verdict: r.verdict,
+    unsure: r.unsure,
+  };
+}
+
+function stripUndefined<T extends object>(o: T): T {
+  return Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined)) as T;
+}
+
+// Applies the curated rulings in three steps, so the order rulings arrive in is the order they win:
+//  1. Every `row` ruling is added as a row of its own (it needs no feed).
+//  2. Every ruling with a `match` is applied to every row it matches, in array order. A LATER
+//     ruling overrides an EARLIER one on every field it sets, so a headline ruling written after a
+//     plain placement ruling wins, and a `{ match: { id } }` ruling can re-word a row that a `row`
+//     ruling added in step 1. (Before 2026-10-09 the first matching ruling won; no two rulings in
+//     the data matched the same row, so nothing moved.)
+//  3. Sort newest first, never by age (CLAUDE.md: nothing here measures him against a clock).
+// Every ruling-placed row is `reviewed: true`.
+export function applyRulings(autoRows: UndoRow[], rulings: Ruling[]): UndoRow[] {
+  let out: UndoRow[] = [...autoRows];
   for (const r of rulings) {
     if (!r.row) continue;
-    out.push({
+    const base: UndoRow = {
       ...r.row,
       bucket: r.bucket,
       how: r.how,
@@ -164,6 +197,23 @@ export function applyRulings(autoRows: UndoRow[], rulings: Ruling[]): UndoRow[] 
       status: r.status ?? r.row.status ?? 'in-force',
       reviewed: true,
       sources: r.sources,
+    };
+    out.push(stripUndefined({ ...base, ...headlineFields(base, r) }));
+  }
+  for (const r of rulings) {
+    if (!r.match || r.row) continue;
+    out = out.map((row) => {
+      if (!rulingMatches(r, row)) return row;
+      return stripUndefined({
+        ...row,
+        ...headlineFields(row, r),
+        bucket: r.bucket,
+        how: r.how,
+        why: r.why,
+        status: r.status ?? row.status,
+        reviewed: true,
+        sources: r.sources.length ? mergeSources(r.sources, row.sources) : row.sources,
+      });
     });
   }
   return out.sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id.localeCompare(b.id)));

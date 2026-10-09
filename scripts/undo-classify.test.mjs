@@ -5,11 +5,12 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { isCeremonial } from '../src/lib/undo/sections.ts';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   applyRulings,
+  rulingMatches,
   bucketForInstrument,
   countByBucket,
   howForInstrument,
@@ -24,9 +25,13 @@ import {
   countPenInForce,
   groupByInstrument,
   groupPen,
+  footnoteOf,
   howOf,
   isAlreadyDone,
+  isLeave,
+  isPenInForce,
   matchesQuery,
+  tagOf,
   slimRow,
   whyOf,
 } from '../src/lib/undo/sections.ts';
@@ -353,3 +358,190 @@ test('a commemorative proclamation is kept off the to-do list; a substantive one
   ]) assert.equal(isCeremonial(P(t)), false, t);
   assert.equal(isCeremonial({ instrument: 'executive_order', title: 'National Manufacturing Day, 2026' }), false);
 });
+
+// ---- Headlines: our own line for every row (2026-10-09) -------------------------------------------
+
+const HEADLINE_DIR = join(ROOT, 'src/data/undo/headlines');
+const STATUSES = ['in-force', 'enjoined', 'vacated', 'revoked', 'expired', 'struck', 'pending'];
+const VERDICTS = ['undo', 'leave'];
+const MATCH_KEYS = ['eo', 'proclamation', 'document_number', 'title', 'id'];
+const MIDDLE_DOT = '\u00b7';
+
+const HEADLINE_RULING = {
+  match: { eo: 14148 },
+  headline: 'Cancelled dozens of Biden-era protections in one stroke',
+  how: 'Restore the protections it cancelled.',
+  why: 'An order that cancels other orders is only an order.',
+  bucket: 'pen',
+  status: 'in-force',
+  verdict: 'undo',
+  sources: [{ label: 'Headline source', url: 'https://example.com/headline' }],
+};
+const OFFICIAL = 'Initial Rescissions of Harmful Executive Orders and Actions';
+
+test('rulingMatches reads an exact title, trimmed and case-blind, and a row id', () => {
+  const [row] = rowsFromFederalRegister(FIXTURE, 'executive_order');
+  assert.ok(rulingMatches({ match: { title: `  ${OFFICIAL.toUpperCase()} ` } }, row));
+  assert.ok(!rulingMatches({ match: { title: 'Initial Rescissions' } }, row), 'a partial title does not match');
+  assert.ok(rulingMatches({ match: { id: '2025-01234' } }, row));
+  assert.ok(!rulingMatches({ match: { id: '2025-0123' } }, row));
+  assert.ok(!rulingMatches({ bucket: 'pen' }, row), 'no match key, no match');
+});
+
+test('a headline ruling puts our line in title and the official title in official', () => {
+  const auto = rowsFromFederalRegister(FIXTURE, 'executive_order');
+  const out = applyRulings(auto, [HEADLINE_RULING]);
+  const row = out.find((r) => r.id === '2025-01234');
+  assert.equal(row.title, HEADLINE_RULING.headline);
+  assert.equal(row.official, OFFICIAL);
+  assert.equal(row.verdict, 'undo');
+  assert.equal(row.unsure, undefined);
+  assert.equal(row.reviewed, true);
+  assert.equal(row.how, HEADLINE_RULING.how);
+  assert.equal(row.sources[0].url, 'https://example.com/headline');
+  const untouched = out.find((r) => r.id === '2025-05678');
+  assert.equal(untouched.official, undefined);
+  assert.equal(untouched.title, 'Another Order With No Signing Date');
+});
+
+test('a later ruling overrides an earlier one, and official keeps the first title', () => {
+  const auto = rowsFromFederalRegister(FIXTURE, 'executive_order');
+  const plain = { match: { eo: 14148 }, bucket: 'locked', how: 'Nothing.', why: 'Plain ruling.', sources: [{ label: 'p', url: 'https://example.com/plain' }] };
+  const later = { ...HEADLINE_RULING, match: { title: OFFICIAL }, verdict: 'leave', unsure: true };
+  const evenLater = { ...HEADLINE_RULING, match: { eo: 14148 }, headline: 'A second, surer line', unsure: undefined };
+  let row = applyRulings(auto, [plain, later]).find((r) => r.id === '2025-01234');
+  assert.equal(row.bucket, 'pen', 'the headline ruling written after the plain one wins');
+  assert.equal(row.title, later.headline);
+  assert.equal(row.verdict, 'leave');
+  assert.equal(row.unsure, true);
+  assert.equal(row.sources.length, 3, 'headline source, plain source, Federal Register source');
+  row = applyRulings(auto, [later, plain]).find((r) => r.id === '2025-01234');
+  assert.equal(row.bucket, 'locked', 'the plain ruling written last wins on the fields it sets');
+  assert.equal(row.title, later.headline, 'and leaves the headline alone');
+  assert.equal(row.verdict, 'leave', 'a ruling that does not name a verdict keeps the earlier one');
+  row = applyRulings(auto, [later, evenLater]).find((r) => r.id === '2025-01234');
+  assert.equal(row.title, 'A second, surer line');
+  assert.equal(row.official, OFFICIAL, 'official is the administration title, not the first headline');
+  assert.equal(row.unsure, undefined, 'a later headline ruling clears unsure');
+  assert.equal(row.sources.filter((x) => x.url === 'https://example.com/headline').length, 1, 'sources are not doubled');
+});
+
+test('a row ruling can be re-worded by a later id ruling, wherever it sits in the array', () => {
+  const rowRuling = {
+    row: { id: 'cur-1', title: 'CRA repeal: Test rule', instrument: 'cra', date: '2025-03-14', number: 'Pub. L. 119-2' },
+    bucket: 'locked', how: 'Only Congress.', why: 'CRA.', sources: [{ label: 'c', url: 'https://example.com/c' }],
+  };
+  const idRuling = { match: { id: 'cur-1' }, headline: 'Let polluters off the hook', bucket: 'locked', how: 'Only Congress restores it.', why: 'CRA.', verdict: 'undo', sources: [] };
+  for (const order of [[rowRuling, idRuling], [idRuling, rowRuling]]) {
+    const out = applyRulings([], order);
+    assert.equal(out.length, 1);
+    assert.equal(out[0].title, 'Let polluters off the hook');
+    assert.equal(out[0].official, 'CRA repeal: Test rule');
+    assert.equal(out[0].how, 'Only Congress restores it.');
+    assert.equal(out[0].sources.length, 1, 'an empty sources list keeps the row sources');
+  }
+});
+
+test('isLeave pulls a row out of Before lunch, the hero number and the locked number', () => {
+  const rows = [
+    R({ id: 'a' }),
+    R({ id: 'b', verdict: 'leave' }),
+    R({ id: 'c', verdict: 'undo' }),
+    R({ id: 'd', bucket: 'locked', instrument: 'judge' }),
+    R({ id: 'e', bucket: 'locked', instrument: 'judge', verdict: 'leave' }),
+    R({ id: 'f', status: 'revoked', verdict: 'leave' }),
+  ];
+  assert.equal(isLeave(rows[1]), true);
+  assert.equal(isLeave(rows[0]), false);
+  assert.equal(isLeave({}), false);
+  assert.deepEqual(rows.filter(isPenInForce).map((r) => r.id), ['a', 'c']);
+  assert.equal(countPenInForce(rows), 2);
+  assert.equal(countLocked(rows), 1);
+  assert.deepEqual(rows.filter(isAlreadyDone).map((r) => r.id), [], 'a leave row is not also "already done"');
+});
+
+test('orderText names the order by its official title when we re-worded it', () => {
+  assert.equal(
+    orderText({ instrument: 'executive_order', title: 'Cancelled dozens of protections', official: OFFICIAL, date: '2025-01-20', number: 'EO 14148' }),
+    `Executive Order 14148 of January 20, 2025 (${OFFICIAL}) is hereby revoked.`,
+  );
+  assert.equal(
+    orderText({ instrument: 'memorandum', title: 'Our line', official: 'Their line', date: '2025-12-01' }),
+    'The Presidential Memorandum of December 1, 2025 (Their line) is hereby withdrawn.',
+  );
+});
+
+test('footnoteOf joins number, date and the official title with middle dots', () => {
+  assert.equal(footnoteOf({ number: 'EO 14148', date: '2025-01-20', official: OFFICIAL }), `EO 14148 ${MIDDLE_DOT} 2025-01-20 ${MIDDLE_DOT} Officially: ${OFFICIAL}`);
+  assert.equal(footnoteOf({ number: 'EO 14148', date: '2025-01-20' }), `EO 14148 ${MIDDLE_DOT} 2025-01-20`);
+  assert.equal(footnoteOf({ date: '2025-01-20', official: 'X' }), `2025-01-20 ${MIDDLE_DOT} Officially: X`);
+  assert.ok(!footnoteOf({ number: 'EO 1', date: '2025-01-20', official: 'X' }).includes('-- '));
+});
+
+test('mechanism tags: one signature, a new rule, 51 votes, 60 votes, nothing for locked', () => {
+  assert.equal(tagOf('pen'), 'one signature');
+  assert.equal(tagOf('pen-process'), 'a new rule');
+  assert.equal(tagOf('majority'), '51 votes');
+  assert.equal(tagOf('sixty'), '60 votes');
+  assert.equal(tagOf('locked'), null);
+});
+
+test('slimRow ships official, verdict and unsure, and search finds the official title', () => {
+  const slim = slimRow(R({ official: 'Their title', verdict: 'leave', unsure: true }));
+  assert.equal(slim.official, 'Their title');
+  assert.equal(slim.verdict, 'leave');
+  assert.equal(slim.unsure, true);
+  const plain = slimRow(R());
+  assert.ok(!('official' in plain) && !('verdict' in plain) && !('unsure' in plain));
+  assert.ok(matchesQuery({ title: 'Our line', official: 'Protecting The Meaning Of Citizenship' }, 'meaning of citizenship'));
+  assert.ok(!matchesQuery({ title: 'Our line' }, 'meaning'));
+});
+
+test('the "Leave these" and mechanism-tag copy follows the house rules', () => {
+  assert.equal(COPY.leave.title, 'Leave these');
+  assert.equal(
+    COPY.leave.intro,
+    'Orders a Democratic president would keep or that change nothing worth the ink. Listed so the count is honest.',
+  );
+  assert.deepEqual(Object.values(COPY.tags).sort(), ['51 votes', '60 votes', 'a new rule', 'one signature']);
+});
+
+// The headline files other lanes write. Whatever exists is walked; the folder may be empty.
+const headlineFiles = existsSync(HEADLINE_DIR) ? readdirSync(HEADLINE_DIR).filter((f) => f.endsWith('.json')).sort() : [];
+const curatedIds = new Set(readJson('src/data/undo/curated.json').map((r) => r.row?.id).filter(Boolean));
+
+test('every headline file is imported by headlines/index.ts, so a gap is a build error', () => {
+  const index = readFileSync(join(HEADLINE_DIR, 'index.ts'), 'utf8');
+  for (const f of headlineFiles) assert.ok(index.includes(`'./${f}'`), `${f} is not imported in src/data/undo/headlines/index.ts`);
+});
+
+for (const f of headlineFiles) {
+  test(`headlines/${f}: valid entries, plain copy, headline <= 80 chars, how <= 60 chars`, () => {
+    const data = readJson(`src/data/undo/headlines/${f}`);
+    assert.ok(Array.isArray(data), 'top level is an array');
+    for (const [i, e] of data.entries()) {
+      const at = `${f}[${i}]`;
+      assert.ok(e.match && typeof e.match === 'object', `${at} has a match`);
+      const keys = Object.keys(e.match);
+      assert.equal(keys.length, 1, `${at} match names exactly one key`);
+      assert.ok(MATCH_KEYS.includes(keys[0]), `${at} match key ${keys[0]} is known`);
+      if (keys[0] === 'id') assert.ok(curatedIds.has(e.match.id), `${at} id ${e.match.id} is not a curated row id`);
+      assert.equal(typeof e.headline, 'string', `${at} has a headline`);
+      assert.ok(e.headline.trim().length > 0 && e.headline.length <= 80, `${at} headline is ${e.headline.length} chars`);
+      assert.equal(typeof e.how, 'string', `${at} has a how`);
+      assert.ok(e.how.trim().length > 0 && e.how.length <= 60, `${at} how is ${e.how.length} chars`);
+      assert.equal(typeof e.why, 'string', `${at} has a why`);
+      assert.ok(Object.hasOwn(BUCKETS, e.bucket), `${at} bucket ${e.bucket}`);
+      assert.ok(STATUSES.includes(e.status), `${at} status ${e.status}`);
+      assert.ok(VERDICTS.includes(e.verdict), `${at} verdict ${e.verdict}`);
+      assert.ok(Array.isArray(e.sources), `${at} has a sources array`);
+      for (const src of e.sources) assert.ok(src.label && /^https?:\/\//.test(src.url), `${at} source has a label and a url`);
+      if (e.unsure !== undefined) assert.equal(e.unsure, true, `${at} unsure is true or absent`);
+    }
+    const entries = [];
+    for (const [i, e] of data.entries()) {
+      for (const k of ['headline', 'how', 'why']) entries.push([`${f}[${i}].${k}`, e[k] ?? '']);
+    }
+    assertCleanCopy(entries, `headlines/${f}`);
+  });
+}

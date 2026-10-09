@@ -809,11 +809,14 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 }
 .undo-item p { margin: 0; }
 .undo-item-body { flex: 1 1 auto; min-width: 0; }
-.undo-meta { display: flex; flex-wrap: wrap; gap: 2px 12px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--stone); }
+.undo-title { font-weight: 600; font-size: 1.08rem; line-height: 1.35; max-width: var(--measure); overflow-wrap: anywhere; }
+/* The footnote under the task: number, ISO date, the administration's own title. Quiet, mono. */
+.undo-foot { margin-top: 8px; max-width: var(--measure); font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.5; letter-spacing: 0.04em; color: var(--stone); overflow-wrap: anywhere; }
 .undo-status { color: var(--ink); }
-.undo-title { margin-top: 4px; font-weight: 600; font-size: 1.02rem; line-height: 1.35; max-width: var(--measure); overflow-wrap: anywhere; }
+/* What kind of act finishes the row, at the end of the task line. The tag never splits across lines. */
+.undo-tag { display: inline-block; margin-left: 10px; padding: 0 6px; border: 1px solid var(--line-card); border-radius: var(--radius-sm); font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6; letter-spacing: 0.04em; white-space: nowrap; vertical-align: 1px; color: var(--stone-deep); }
 .undo-title a { border-bottom: 1px solid var(--gold); }
-.undo-how { margin-top: 8px; max-width: var(--measure); font-size: 1rem; line-height: 1.5; color: var(--ink); }
+.undo-how { margin-top: 6px; max-width: var(--measure); font-size: 1rem; line-height: 1.5; color: var(--ink); }
 .undo-why { margin-top: 6px; max-width: var(--measure); font-size: 0.85rem; line-height: 1.5; color: var(--stone); }
 .undo-auto { margin-top: 6px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--stone); }
 
@@ -840,7 +843,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 }
 
 /* Hollow square for rows a pen cannot finish */
-.undo-glyph { flex: none; width: 14px; height: 14px; margin: 5px 14px 0 0; box-sizing: border-box; border: 1.5px solid var(--stone); border-radius: 2px; }
+.undo-glyph { flex: none; width: 14px; height: 14px; margin: 4px 14px 0 0; box-sizing: border-box; border: 1.5px solid var(--stone); border-radius: 2px; }
 
 /* Flat and done lists */
 .undo-item-flat .undo-title { font-weight: 500; }

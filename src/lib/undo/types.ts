@@ -74,10 +74,19 @@ export interface Source {
   url: string;
 }
 
+/** Whether a 2029 president should spend a signature on the row. "leave" rows are orders a
+ *  Democratic president would keep, or that change nothing worth the ink. Absent means "undo". */
+export type Verdict = 'undo' | 'leave';
+
 export interface UndoRow {
   /** Stable id. Federal Register rows use the FR document number; curated rows use a slug. */
   id: string;
+  /** What the page shows as the headline. Our own plain-English line once a headline ruling has
+   *  been applied; the administration's own title until then. */
   title: string;
+  /** The administration's own title, kept for the footnote and for the text of the order. Set only
+   *  when a headline ruling replaced `title`. */
+  official?: string;
   instrument: Instrument;
   /** ISO date, the signing or effective date. */
   date: string;
@@ -91,17 +100,29 @@ export interface UndoRow {
   status: Status;
   /** true when a person or a sourced pass placed the row; false when the instrument type alone did. */
   reviewed: boolean;
+  /** "leave" moves the row out of the to-do list and every count. Absent means "undo". */
+  verdict?: Verdict;
+  /** true when the headline or placement is our best reading and not yet confirmed against the text. */
+  unsure?: boolean;
   agency?: string;
   topics?: string[];
   sources: Source[];
 }
 
 // A curated ruling overrides the automatic placement of one Federal Register row (matched on
-// executive order number or FR document number) or adds a row the Federal Register does not carry.
+// executive order number, proclamation number, FR document number, exact official title, or the id
+// of a row a `row` ruling added) or adds a row the Federal Register does not carry.
+// A ruling that carries a `headline` also replaces the row's displayed title with our own line.
 export interface Ruling {
-  match?: { eo?: number; document_number?: string; proclamation?: number };
+  match?: { eo?: number; document_number?: string; proclamation?: number; title?: string; id?: string };
   /** Required when `match` is absent: the ruling IS the row. */
-  row?: Omit<UndoRow, 'bucket' | 'how' | 'why' | 'reviewed' | 'sources' | 'status'> & { status?: Status };
+  row?: Omit<UndoRow, 'bucket' | 'how' | 'why' | 'reviewed' | 'sources' | 'status' | 'official' | 'verdict' | 'unsure'> & {
+    status?: Status;
+  };
+  /** Our own plain-English headline. When present it becomes the row's `title`. */
+  headline?: string;
+  verdict?: Verdict;
+  unsure?: boolean;
   bucket: Bucket;
   how: string;
   why: string;

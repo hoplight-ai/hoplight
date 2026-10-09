@@ -3,6 +3,8 @@
 // Rules that bind here: plain English, no em dash, no exclamation mark, no marketing adjective, and
 // no clock word (no "days since", no count of days to the inauguration).
 
+import type { Bucket } from './types';
+
 export const COPY = {
   hero: {
     label: 'A to-do list for January 20, 2029',
@@ -53,6 +55,10 @@ export const COPY = {
     title: 'Already done for you',
     intro: 'Courts, or the administration itself, already undid these. They stay on the list so the count is honest.',
   },
+  leave: {
+    title: 'Leave these',
+    intro: 'Orders a Democratic president would keep or that change nothing worth the ink. Listed so the count is honest.',
+  },
   ceremonial: {
     title: 'Commemorative proclamations',
     intro: 'National days, weeks and months, and proclamations of mourning. Nothing here needs undoing. They are listed so the count is complete.',
@@ -65,6 +71,15 @@ export const COPY = {
     footnote: 'That is the entire document.',
   },
   auto: 'auto, unreviewed',
+  unconfirmed: 'unconfirmed',
+  officially: 'Officially:',
+  // The mono tag at the end of a task line: what kind of act finishes the row. Locked has none.
+  tags: {
+    pen: 'one signature',
+    'pen-process': 'a new rule',
+    majority: '51 votes',
+    sixty: '60 votes',
+  } as Partial<Record<Bucket, string>>,
   cta: {
     title: 'Pick one. Draft it.',
     body: 'Most of what happened in these four years can be reversed by one person on one afternoon, if the person and the afternoon are ready. This list is how you get ready.',

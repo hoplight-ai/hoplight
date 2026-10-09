@@ -1,0 +1,1511 @@
+[
+  {
+    "match": {
+      "eo": 14363
+    },
+    "headline": "Launched a national AI-for-science research program at the Energy Department",
+    "how": "Leave it.",
+    "why": "It organizes existing Energy Department AI research with no new statute or spending, and a successor would likely keep a science program.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Scientific American",
+        "url": "https://www.scientificamerican.com/article/trump-orders-genesis-mission-to-advance-ai-breakthroughs/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14364
+    },
+    "headline": "Set up food price-fixing task forces at the Justice Department and FTC",
+    "how": "Leave it.",
+    "why": "It directs antitrust investigations into food prices and burdens no one; a competition-minded successor would likely keep it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/10/2025-22537/addressing-security-risks-from-price-fixing-and-anti-competitive-behavior-in-the-food-supply-chain"
+      },
+      {
+        "label": "Mayer Brown analysis",
+        "url": "https://www.mayerbrown.com/ja/insights/publications/2025/12/trump-administration-issues-executive-order-calling-for-investigations-into-food-supply-chain-industries"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14365
+    },
+    "headline": "Set up a Justice Department task force to sue states over AI laws",
+    "how": "Disband the AI lawsuit task force.",
+    "why": "It cannot itself override state AI laws, since only Congress or the courts can, so it only directs federal agencies to challenge them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14365"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14366
+    },
+    "headline": "Moved the SEC to curb proxy advisers over diversity and climate votes",
+    "how": "Withdraw the proxy adviser crackdown.",
+    "why": "It directs the SEC to rewrite or rescind rules, so a new order stops the push; any finished rule changes need their own repeal.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/16/2025-23093/protecting-american-investors-from-foreign-owned-and-politically-motivated-proxy-advisors"
+      },
+      {
+        "label": "Harvard Law School Forum on Corporate Governance",
+        "url": "https://corpgov.law.harvard.edu/?p=178589"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14367
+    },
+    "headline": "Declared illicit fentanyl a weapon of mass destruction",
+    "how": "Leave it.",
+    "why": "The label adds no new legal power; it directs prosecutions and cartel-finance sanctions that a successor would likely keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/18/2025-23417/designating-fentanyl-as-a-weapon-of-mass-destruction"
+      },
+      {
+        "label": "Lawfare",
+        "url": "https://www.lawfaremedia.org/article/executive-order-designates-fentanyl-as-weapon-of-mass-destruction"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14368
+    },
+    "headline": "Gave federal workers a 1 percent raise for 2026",
+    "how": "Leave it.",
+    "why": "It is the routine annual pay order; revoking it would take money from federal workers and restore nothing.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/23/2025-23844/adjustments-of-certain-rates-of-pay"
+      },
+      {
+        "label": "American Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14368-adjustments-certain-rates-pay"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14369
+    },
+    "headline": "Set space goals: Moon return by 2028 and a lunar outpost by 2030",
+    "how": "Leave it.",
+    "why": "It mostly continues Artemis and commercial space policy; the space-based missile defense piece is the part to review separately.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/23/2025-23845/ensuring-american-space-superiority"
+      },
+      {
+        "label": "American Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14369-ensuring-american-space-superiority"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14370
+    },
+    "headline": "Ordered marijuana moved to Schedule III and more cannabis research",
+    "how": "Leave it.",
+    "why": "It pushes rescheduling and medical research that patients and advocates want, and the DEA has already acted on part of it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/23/2025-23846/increasing-medical-marijuana-and-cannabidiol-research"
+      },
+      {
+        "label": "Ropes & Gray",
+        "url": "https://www.ropesgray.com/en/insights/alerts/2026/01/blowing-smoke-white-house-orders-completion-of-marijuana-rescheduling-but-significant-hurdles-remain"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14371
+    },
+    "headline": "Closed federal agencies on December 24 and 26, 2025",
+    "how": "Leave it.",
+    "why": "A holiday closure order that gave federal workers two paid days off and has nothing left to restore.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/12/23/2025-23847/providing-for-the-closing-of-executive-departments-and-agencies-of-the-federal-government-on"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14372
+    },
+    "headline": "Barred underperforming defense contractors from buybacks and dividends",
+    "how": "Leave it.",
+    "why": "It ties contractor payouts to delivering on contracts, a populist limit a successor would likely keep; the Senate is weighing a stricter version.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/13/2026-00554/prioritizing-the-warfighter-in-defense-contracting"
+      },
+      {
+        "label": "Hendry Klein Associates",
+        "url": "https://www.hka.com/government-contracts/executive-order-14372-prioritizing-the-warfighter-in-defense-contracting/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14373
+    },
+    "headline": "Shielded Venezuelan oil revenue in U.S. custody from creditors and lawsuits",
+    "how": "End U.S. custody of Venezuelan oil money.",
+    "why": "An emergency order under IEEPA; revoking it and ending the emergency removes the shield and the Treasury arrangement.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/15/2026-00831/safeguarding-venezuelan-oil-revenue-for-the-good-of-the-american-and-venezuelan-people"
+      },
+      {
+        "label": "Mayer Brown analysis",
+        "url": "https://www.mayerbrown.com/en/insights/publications/2026/01/new-executive-order-shields-venezuelan-oil-revenue-in-us-government-custody"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14374
+    },
+    "headline": "Created a second emergency board in the Long Island Rail Road dispute",
+    "how": "Leave it.",
+    "why": "A routine Railway Labor Act step the president must take when a party asks; it protects the bargaining process and removes no rights.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/20/2026-01061/establishing-a-second-emergency-board-to-investigate-disputes-between-the-long-island-rail-road"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/establishing-a-second-emergency-board-to-investigate-disputes-between-the-long-island-rail-road-company"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14375
+    },
+    "headline": "Gave the Board of Peace immunity from most lawsuits and some taxes",
+    "how": "Strip the Board of Peace's immunities.",
+    "why": "Immunity under the International Organizations Immunities Act is a presidential designation, so a revoking order removes it; whether the president had that power is disputed.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/22/2026-01271/designating-the-board-of-peace-as-a-public-international-organization-entitled-to-enjoy-certain"
+      },
+      {
+        "label": "Just Security",
+        "url": "https://www.justsecurity.org/131113/some-questions-about-trumps-executive-order-granting-privileges-and-immunities-to-the-board-of-peace/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14376
+    },
+    "headline": "Moved to bar Wall Street firms from buying single-family homes",
+    "how": "Leave it.",
+    "why": "A successor would likely keep a limit on large investors buying family homes, and Congress passed a similar bill in June 2026.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/23/2026-01424/stopping-wall-street-from-competing-with-main-street-homebuyers"
+      },
+      {
+        "label": "Morgan Lewis",
+        "url": "https://www.morganlewis.com/zh-tw/pubs/2026/07/congress-limits-institutional-acquisition-of-single-family-homes"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14377
+    },
+    "headline": "Moved to override Los Angeles fire-rebuilding permits with federal control",
+    "how": "Return rebuild permitting to Los Angeles.",
+    "why": "A directive to agencies that blames state and local officials; revoking it ends the federal override. Operative sections not confirmed.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/29/2026-01871/addressing-state-and-local-failures-to-rebuild-los-angeles-after-wildfire-disasters"
+      },
+      {
+        "label": "Santa Monica Daily Press",
+        "url": "https://smdp.com/la-county-moves-to-challenge-trump-order-on-fire-rebuilding"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "eo": 14378
+    },
+    "headline": "Kept the FEMA Review Council alive through March 2026",
+    "how": "Leave it.",
+    "why": "Housekeeping that extended a review council; a later order extended it again and its term has since run out.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/01/29/2026-01872/continuance-of-the-federal-emergency-management-agency-review-council"
+      },
+      {
+        "label": "Federal Register, EO 14397",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06075.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14379
+    },
+    "headline": "Created a White House initiative on addiction treatment and recovery",
+    "how": "Leave it.",
+    "why": "It declares addiction a chronic, treatable disease and sets a national treatment priority, which a successor would likely keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/03/2026-02249/addressing-addiction-through-the-great-american-recovery-initiative"
+      },
+      {
+        "label": "Foley & Lardner",
+        "url": "https://www.foley.com/insights/publications/2026/02/the-great-american-recovery-initiative-what-president-trumps-new-executive-or/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14380
+    },
+    "headline": "Declared a Cuba emergency and threatened tariffs on its oil suppliers",
+    "how": "End the Cuba oil tariff emergency.",
+    "why": "An emergency order under IEEPA; the tariffs were ended by Executive Order 14389, but the emergency remains and carries the later Cuba sanctions.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/03/2026-02250/addressing-threats-to-the-united-states-by-the-government-of-cuba"
+      },
+      {
+        "label": "Baker McKenzie",
+        "url": "https://sanctionsnews.bakermckenzie.com/u-s-declares-national-emergency-with-respect-to-cuba-and-threatens-new-tariffs-on-countries-supplying-oil-to-the-country/"
+      },
+      {
+        "label": "EO 14389",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14389-ending-certain-tariff-actions"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14381
+    },
+    "headline": "Ordered a route and fast permits for an IndyCar race in Washington, D.C.",
+    "how": "Leave it.",
+    "why": "A one-time event order for the Freedom 250 Grand Prix; it takes nothing from anyone and has no lasting effect after the race.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/04/2026-02292/celebrating-american-greatness-with-american-motor-racing"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/celebrating-american-greatness-with-american-motor-racing/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14382
+    },
+    "headline": "Authorized tariffs on countries that trade with Iran, since ended",
+    "how": "Leave it.",
+    "why": "Executive Order 14389 ended the duties after the Supreme Court limited emergency tariffs, leaving nothing to undo.",
+    "bucket": "pen",
+    "status": "revoked",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/11/2026-02813/addressing-threats-to-the-united-states-by-the-government-of-iran"
+      },
+      {
+        "label": "Greenberg Traurig",
+        "url": "https://www.ghy.com/trade-compliance/trump-tariffs-countries-trading-with-iran/"
+      },
+      {
+        "label": "EO 14389",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14389-ending-certain-tariff-actions"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14383
+    },
+    "headline": "Put commercial arms sales ahead of strategic goals in weapons exports",
+    "how": "Restore the earlier arms transfer policy.",
+    "why": "It tells agencies how to rank goals in arms sales and supplements the 2018 policy rather than replacing it, so a signature reorders the priorities.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/11/2026-02814/establishing-an-america-first-arms-transfer-strategy"
+      },
+      {
+        "label": "Stimson Center",
+        "url": "https://stimson.org/2026/the-america-first-arms-transfer-strategy-reorders-us-arms-transfer-priorities/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14384
+    },
+    "headline": "Dropped the extra 25 percent tariff on India tied to Russian oil",
+    "how": "Leave it.",
+    "why": "It removed a tariff, so reversing it would raise prices; the underlying emergency tariffs were later ended by Executive Order 14389.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/11/2026-02818/modifying-duties-to-address-threats-to-the-united-states-by-the-government-of-the-russian-federation"
+      },
+      {
+        "label": "EY Tax News",
+        "url": "https://taxnews.ey.com/news/2026-0401-new-executive-orders-modify-india-tariffs-and-authorize-tariffs-on-countries-that-trade-with-iran"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14385
+    },
+    "headline": "Gave Homeland Security access to all Justice Department criminal records",
+    "how": "Close DHS's access to criminal records.",
+    "why": "A directive to the Attorney General and DHS; revoking it ends the access, though any foreign data-sharing agreements already signed need separate action.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/11/2026-02819/protecting-the-national-security-and-welfare-of-the-united-states-and-its-citizens-from-criminal"
+      },
+      {
+        "label": "AILA",
+        "url": "https://www.aila.org/library/executive-order-requiring-dhs-access-to-criminal-history-record-information"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14386
+    },
+    "headline": "Ordered the Pentagon to buy power from coal plants under long-term contracts",
+    "how": "End the Pentagon coal purchase order.",
+    "why": "It directs the War and Energy Departments to seek long-term contracts; revoking it stops new deals, but signed contracts would run their term.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/17/2026-03156/strengthening-united-states-national-defense-with-americas-beautiful-clean-coal-power-generation"
+      },
+      {
+        "label": "Columbia Sabin Center",
+        "url": "https://climate.law.columbia.edu/content/president-trump-issues-executive-order-directing-department-war-purchase-coal-power"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14387
+    },
+    "headline": "Used wartime powers to prioritize glyphosate (Roundup) supply",
+    "how": "Revoke the glyphosate priority order.",
+    "why": "A Defense Production Act directive to the Agriculture Department; revoking it ends the priority status, and a Senate bill to block it is only a proposal.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/23/2026-03628/promoting-the-national-defense-by-ensuring-an-adequate-supply-of-elemental-phosphorus-and"
+      },
+      {
+        "label": "Lathrop GPM",
+        "url": "https://www.lathropgpm.com/insights/executive-order-prioritizes-u-s-supply-of-elemental-phosphorus/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14388
+    },
+    "headline": "Ended duty-free treatment for small packages from every country",
+    "how": "Leave it.",
+    "why": "Congress's 2025 tax law already ends the small-package exemption in 2027, so reversing the order would only delay a change that is coming.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/25/2026-03829/continuing-the-suspension-of-duty-free-de-minimis-treatment-for-all-countries"
+      },
+      {
+        "label": "Thomson Reuters",
+        "url": "https://www.thomsonreuters.com/en-us/help/onesource-global-trade/regulatory-insights/2026/february-25th/de-min-suspension-means-global-trade-prof"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14389
+    },
+    "headline": "Ended the emergency tariffs after the Supreme Court limited them",
+    "how": "Leave it.",
+    "why": "It stops collection of duties the Supreme Court's ruling put in doubt; reversing it would only bring the tariffs back.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/02/25/2026-03832/ending-certain-tariff-actions"
+      },
+      {
+        "label": "American Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14389-ending-certain-tariff-actions"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14390
+    },
+    "headline": "Ordered a government-wide push against scam centers and online fraud rings",
+    "how": "Leave it.",
+    "why": "It directs reviews and an action plan against transnational scam networks and support for victims; nothing in it takes anything from Americans.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/11/2026-04826/combating-cybercrime-fraud-and-predatory-schemes-against-american-citizens"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/03/combating-cybercrime-fraud-and-predatory-schemes-against-american-citizens/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14391
+    },
+    "headline": "Let the Energy Secretary use wartime production powers on his own",
+    "how": "Leave it.",
+    "why": "Housekeeping that shifts who may use existing Defense Production Act powers; a later order changed it again and no one's rights are touched.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/18/2026-05382/adjusting-certain-delegations-under-the-defense-production-act"
+      },
+      {
+        "label": "American Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14391-adjusting-certain-delegations-under-the-defense-production-act"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14392
+    },
+    "headline": "Told the FTC to crack down on false Made in USA labels",
+    "how": "Leave it.",
+    "why": "It aims enforcement at deceptive labels under the FTC's existing rule, which protects shoppers and honest American manufacturers.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/18/2026-05383/ensuring-truthful-advertising-of-products-claiming-to-be-made-in-america"
+      },
+      {
+        "label": "Morrison Foerster",
+        "url": "https://www.mofo.com/resources/insights/260320-executive-order-targets-made-in-america-claims"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14393
+    },
+    "headline": "Told regulators to ease Dodd-Frank mortgage rules for smaller banks",
+    "how": "Withdraw the mortgage rule rollback order.",
+    "why": "It directs regulators to review and revise rules; revoking it stops the push, but any rules already rewritten need their own repeal.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/18/2026-05384/promoting-access-to-mortgage-credit"
+      },
+      {
+        "label": "Baker Donelson",
+        "url": "https://www.bakerdonelson.com/analysis-of-the-executive-order-on-mortgage-access"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14394
+    },
+    "headline": "Told the Army and EPA to loosen stormwater and wetlands rules for builders",
+    "how": "Restore the stormwater and wetlands rules.",
+    "why": "It directs agencies to revise permits and standards; revoking it stops new rollbacks, but rules already rewritten need their own rulemaking.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/18/2026-05388/removing-regulatory-barriers-to-affordable-home-construction"
+      },
+      {
+        "label": "Snell & Wilmer",
+        "url": "https://www.swlaw.com/publication/a-green-light-for-housing-what-executive-order-14394-means-for-your-next-project/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14395
+    },
+    "headline": "Created a Vance-led fraud task force aimed at state benefit programs",
+    "how": "Disband the fraud task force.",
+    "why": "A task force created by order, so a new order ends it; the fact sheet names Minnesota, California, Illinois, New York, Maine and Colorado.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/19/2026-05497/establishing-the-task-force-to-eliminate-fraud"
+      },
+      {
+        "label": "WJLA",
+        "url": "https://wjla.com/news/nation-world/vance-will-be-named-chairman-of-a-fraud-task-force-report-california-new-york-minnesota-federal-trade-commission"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14396
+    },
+    "headline": "Ordered an exclusive TV window for the Army-Navy football game",
+    "how": "Leave it.",
+    "why": "It sets a broadcast window for one game and takes nothing from anyone; the FCC license-review hint is worth a separate look.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/25/2026-05867/preserving-americas-game"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/03/preserving-americas-game/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14397
+    },
+    "headline": "Extended the FEMA Review Council through May 2026",
+    "how": "Leave it.",
+    "why": "Housekeeping that extended a review council; its term has ended, so there is nothing left to undo.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/27/2026-06075/further-continuance-of-the-federal-emergency-management-agency-review-council"
+      },
+      {
+        "label": "Federal Register",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2026-03-27/pdf/2026-06075.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14398
+    },
+    "headline": "Banned federal contractors from diversity programs on pain of losing contracts",
+    "how": "Lift the contractor diversity ban.",
+    "why": "A directive to agencies and the FAR Council to add contract clauses; revoking it stops new clauses, and clauses already written need their own removal.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/03/31/2026-06286/addressing-dei-discrimination-by-federal-contractors"
+      },
+      {
+        "label": "JD Supra",
+        "url": "https://www.jdsupra.com/legalnews/executive-order-targets-federal-6839466/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14399
+    },
+    "headline": "Ordered citizenship lists and new mail-ballot rules for federal elections",
+    "how": "Withdraw the voter-eligibility checks.",
+    "why": "A president cannot set election rules by order; a court held the key sections unlawful, but the Supreme Court paused that ruling as premature.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14399"
+      },
+      {
+        "label": "Brownstone Law",
+        "url": "https://www.brownstonelaw.com/news/supreme-court-stays-injunction-blocking-parts-of-trumps-mail-in-ballot-order-ahead-of-2026-midterms/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14400
+    },
+    "headline": "Threatened federal funding to limit college athletes' pay and transfers",
+    "how": "Withdraw the college sports order.",
+    "why": "It directs agencies and cannot bind the NCAA or schools; revoking it ends the funding threats and the push to override state laws.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/04/09/2026-06961/urgent-national-action-to-save-college-sports"
+      },
+      {
+        "label": "Schneider Downs",
+        "url": "https://schneiderdowns.com/our-thoughts-on/executive-order-14400-urgent-national-action-to-save-college-sports/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14401
+    },
+    "headline": "Fast-tracked psychedelic drug research for serious mental illness",
+    "how": "Leave it.",
+    "why": "It speeds research and approvals for patients who fail standard care, and it approves no drug itself.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/04/22/2026-07907/accelerating-medical-treatments-for-serious-mental-illness"
+      },
+      {
+        "label": "Foley & Lardner",
+        "url": "https://www.foley.com/insights/publications/2026/04/psychedelics-and-the-executive-order-from-schedule-i-to-treatment-priority/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14402
+    },
+    "headline": "Made fixed-price contracts the default for federal purchasing",
+    "how": "Leave it.",
+    "why": "A procurement reform aimed at cost overruns, with exceptions for research; a successor would likely keep it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/05/05/2026-08900/promoting-efficiency-accountability-and-performance-in-federal-contracting"
+      },
+      {
+        "label": "Greenberg Traurig",
+        "url": "https://www.gtlaw.com/en/insights/2026/5/executive-order-directs-agencies-to-default-to-fixed-price-and-performance-based-contracting"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14403
+    },
+    "headline": "Created a federal retirement-account marketplace branded TrumpIRA.gov",
+    "how": "Take the president's name off the retirement site.",
+    "why": "It helps workers without employer plans find low-cost IRAs and a savings match; keep the service and rename the site.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/05/05/2026-08908/promoting-retirement-savings-access-for-american-workers-by-establishing-trumpiragov"
+      },
+      {
+        "label": "Groom Law Group",
+        "url": "https://www.groom.com/resources/executive-order-directs-agencies-to-promote-access-to-individual-retirement-accounts/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14404
+    },
+    "headline": "Threatened sanctions on foreign banks and firms that do business with Cuba",
+    "how": "End the Cuba secondary sanctions.",
+    "why": "An emergency sanctions program under IEEPA, so revoking the order ends it; the older Cuba embargo rules stay in force regardless.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/05/07/2026-09173/imposing-sanctions-on-those-responsible-for-repression-in-cuba-and-for-threats-to-united-states"
+      },
+      {
+        "label": "Debevoise",
+        "url": "https://www.debevoise.com/insights/publications/2026/05/trump-administration-significantly-expands-cuba"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14405
+    },
+    "headline": "Told regulators to loosen rules for fintech and crypto firms",
+    "how": "Withdraw the fintech and crypto rule review.",
+    "why": "It directs financial regulators to review and revise rules; revoking it stops new loosening, though changes already adopted need their own repeal.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/05/22/2026-10399/integrating-financial-technology-innovation-into-regulatory-frameworks"
+      },
+      {
+        "label": "Carlton Fields",
+        "url": "https://www.carltonfields.com/insights/publications/2026/coming-back-to-fintech-innovation-another-executive-order"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14406
+    },
+    "headline": "Told banks to treat undocumented customers as a financial risk",
+    "how": "Withdraw the bank guidance on undocumented customers.",
+    "why": "It directs Treasury, the CFPB and bank regulators; the June 2026 FinCEN advisory and any rule changes need their own withdrawal.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/05/22/2026-10400/restoring-integrity-to-americas-financial-system"
+      },
+      {
+        "label": "Debevoise",
+        "url": "https://www.debevoise.com/insights/publications/2026/06/executive-order-targets-potential-risks-of-non"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14407
+    },
+    "headline": "Ordered fewer recommended childhood vaccines, citing peer countries",
+    "how": "Restore the childhood vaccine schedule.",
+    "why": "A presidential directive to health agencies; a court has already stayed the related HHS schedule changes, but the order stands until revoked.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/03/2026-11180/realigning-united-states-core-childhood-vaccine-recommendations-with-best-practices-from-peer"
+      },
+      {
+        "label": "History of Vaccines",
+        "url": "https://www.historyofvaccines.org/blog/when-judge-hits-pause-vaccine-policy-follow-aap-v-kennedy"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14408
+    },
+    "headline": "Scrapped the 1972 and 1977 limits on off-road vehicles on public lands",
+    "how": "Restore the off-road vehicle limits.",
+    "why": "It rescinded two older executive orders, so a new order can reissue them; the land laws it points to still apply.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/03/2026-11181/removing-unnecessary-and-counterproductive-restrictions-on-access-to-federal-lands"
+      },
+      {
+        "label": "White House fact sheet",
+        "url": "https://www.whitehouse.gov/fact-sheets/2026/05/fact-sheet-president-donald-j-trump-removes-unnecessary-and-counterproductive-restrictions-on-access-to-federal-lands/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14409
+    },
+    "headline": "Set up voluntary pre-release security testing for frontier AI models",
+    "how": "Leave it.",
+    "why": "It builds federal cyber defenses and a voluntary framework and expressly creates no licensing, so there is no burden to restore.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/05/2026-11415/promoting-advanced-artificial-intelligence-innovation-and-security"
+      },
+      {
+        "label": "Perkins Coie",
+        "url": "https://perkinscoie.com/insights/update/white-house-issues-executive-order-promoting-advanced-ai-innovation-and-security"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14410
+    },
+    "headline": "Moved roughly 8,000 career federal jobs into a fireable-at-will schedule",
+    "how": "Return the jobs to civil-service protection.",
+    "why": "The order moved about 8,000 positions under the rule; the move is a presidential act, but the schedule survives until that rule is replaced.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/wp-content/uploads/2026/06/eo-14410.pdf"
+      },
+      {
+        "label": "Protect Democracy",
+        "url": "https://protectdemocracy.org/work/nonprofit-groups-file-amended-complaint-in-suit-to-preserve-merit-based-civil-service/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14411
+    },
+    "headline": "Ordered stricter rules for importers to stop customs duty evasion",
+    "how": "Leave it.",
+    "why": "It targets importers who underpay or hide their identity, which protects honest businesses and revenue; a successor would likely keep it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/10/2026-11595/strengthening-customs-enforcement"
+      },
+      {
+        "label": "Morrison Foerster",
+        "url": "https://www.mofo.com/pdf/resources/insights/260617-new-executive-order-signals-broad-customs-enforcement-overhaul"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14412
+    },
+    "headline": "Ordered federal systems to move to quantum-resistant encryption",
+    "how": "Leave it.",
+    "why": "A security upgrade with deadlines in 2030 and 2031 that protects government data; there is nothing to restore.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/25/2026-12909/securing-the-nation-against-advanced-cryptographic-attacks"
+      },
+      {
+        "label": "White House fact sheet",
+        "url": "https://www.whitehouse.gov/fact-sheets/2026/06/fact-sheet-president-donald-j-trump-secures-the-nation-against-advanced-cryptographic-attacks/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14413
+    },
+    "headline": "Ordered a new national quantum strategy and a quantum computing program",
+    "how": "Leave it.",
+    "why": "It sets research and commercialization goals; no one loses anything and a successor would likely continue it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/25/2026-12910/ushering-in-the-next-frontier-of-quantum-innovation"
+      },
+      {
+        "label": "KPMG",
+        "url": "https://kpmg.com/us/en/articles/2026/executive-orders-quantum-innovation-and-protections-reg-alert.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14414
+    },
+    "headline": "Ordered support for regenerative farming and fewer chemical crop tools",
+    "how": "Leave it.",
+    "why": "It promotes soil health and research into alternatives to chemicals, goals shared across parties.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/30/2026-13254/advancing-regenerative-agriculture-and-strengthening-american-farm-resilience"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/06/advancing-regenerative-agriculture-and-strengthening-american-farm-resilience/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14415
+    },
+    "headline": "Barred waivers that let defense contractors use adversary-nation materials",
+    "how": "Leave it.",
+    "why": "It tightens sourcing rules for military equipment materials from China, Russia, Iran and North Korea, which a successor would likely keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/07/23/2026-15003/securing-americas-defense-supply-chains-and-ensuring-domestic-acquisition-of-critical-materials"
+      },
+      {
+        "label": "Holland & Knight",
+        "url": "https://www.hklaw.com/en/insights/publications/2026/07/president-trump-signs-executive-order-on-defense-supply-chains"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14416
+    },
+    "headline": "Moved to pressure the Smithsonian over how it tells American history",
+    "how": "Withdraw the Smithsonian review.",
+    "why": "It responds to a White House report on a museum, which is executive direction; the Smithsonian is governed by its own board.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "American Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14416-restoring-trust-the-smithsonian-institution"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/07/restoring-trust-in-the-smithsonian-institution/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14417
+    },
+    "headline": "Created a military spouse commission chaired by the War Secretary's wife",
+    "how": "Leave it.",
+    "why": "An advisory body to recommend help on housing, jobs and child care for military families; it takes nothing from anyone.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/06/2026-16125/establishing-the-presidents-military-spouse-commission"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/08/establishing-the-presidents-military-spouse-commission-af64/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14418
+    },
+    "headline": "Denied birthright citizenship to new groups after losing at the Supreme Court",
+    "how": "Restore birthright citizenship.",
+    "why": "A narrower order issued after the Supreme Court's June 2026 ruling against the first; agencies are implementing it, and plaintiffs have asked a court to block it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/11/2026-16403/continuing-to-protect-the-meaning-and-value-of-american-citizenship"
+      },
+      {
+        "label": "Immigration Policy Tracking Project",
+        "url": "https://immpolicytracking.org/policies/eo-continuing-to-protect-the-meaning-and-value-of-american-citizenship/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14419
+    },
+    "headline": "Ordered visa denials and revocations for travel to give birth in the U.S.",
+    "how": "End visa denials over childbirth.",
+    "why": "It targets visa misuse for birth tourism and leaves citizenship alone; the citizenship order is the part to undo.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/11/2026-16404/ending-birth-tourism"
+      },
+      {
+        "label": "Envoy Global",
+        "url": "https://www.envoyglobal.com/news-alert/new-executive-order-directs-agencies-to-strengthen-enforcement-against-birth-tourism/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14420
+    },
+    "headline": "Cut the vaccines recommended for every child and split the MMR shot",
+    "how": "Restore the full childhood vaccine schedule.",
+    "why": "A presidential directive with no statutory force; states keep school vaccine rules, and a court had already stayed the related HHS schedule changes.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/14/2026-16730/delivering-gold-standard-childhood-vaccine-recommendations-for-americans"
+      },
+      {
+        "label": "Groom Law Group",
+        "url": "https://groominbrief.groom.com/post/102nr6s/white-house-issues-executive-order-on-childhood-vaccine-recommendations"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14421
+    },
+    "headline": "Restricted new grid equipment from arms-embargoed countries",
+    "how": "Leave it.",
+    "why": "An emergency order on new transformers, inverters and batteries from embargoed nations, a security measure a successor would likely keep; rules are still being written.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/08/31/2026-17843/declaring-a-national-emergency-to-secure-the-united-states-bulk-power-system"
+      },
+      {
+        "label": "Steptoe",
+        "url": "https://www.steptoe.com/en/news-publications/executive-order-14421-national-emergency-declaration-imposes-new-restrictions-on-foreign-bulk-power-system-equipment.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14422
+    },
+    "headline": "Renamed Lake Ontario 'Lake America' in federal records",
+    "how": "Restore the name Lake Ontario.",
+    "why": "A renaming that binds only federal agencies, so a signature reverses it; it followed the collapse of trade talks with Canada.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/02/2026-18020/honoring-the-american-history-of-the-great-lakes-and-renaming-lake-ontario-as-lake-america"
+      },
+      {
+        "label": "Axios",
+        "url": "https://axios.com/2026/08/27/trump-lake-ontario-lake-america"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14423
+    },
+    "headline": "Created a commission to plan a NASA-led U.S. Space Academy",
+    "how": "Leave it.",
+    "why": "It only asks a commission to recommend a design; nothing is built or taken from anyone yet.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/03/2026-18141/establishing-the-united-states-space-academy"
+      },
+      {
+        "label": "ExecutiveGov",
+        "url": "https://executivegov.com/articles/executive-order-commission-us-space-academy"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14424
+    },
+    "headline": "Ordered tougher meatpacker antitrust enforcement and help for small processors",
+    "how": "Leave it.",
+    "why": "It directs USDA to enforce competition law against meat processors and funds small processors, which a successor would likely keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/10/2026-18567/promoting-fair-competition-in-livestock-markets-and-expanding-market-access-for-american-meat"
+      },
+      {
+        "label": "White House fact sheet",
+        "url": "https://www.whitehouse.gov/fact-sheets/2026/09/fact-sheet-president-donald-j-trump-promotes-fair-competition-in-livestock-markets-and-expands-market-access-for-american-meat-producers/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14425
+    },
+    "headline": "Ordered a review of weakening protections for gray and Mexican wolves",
+    "how": "Keep wolf protections in place.",
+    "why": "Mostly review directives; the wolf delisting review is the part to stop, while the beef origin-label review is one a successor might keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/10/2026-18571/supporting-americas-ranchers"
+      },
+      {
+        "label": "American Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14425-supporting-americas-ranchers"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14426
+    },
+    "headline": "Ordered faster Pentagon-to-VA records sharing for veterans' benefits",
+    "how": "Leave it.",
+    "why": "It modernizes records systems so veterans get benefits sooner; no one loses anything.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/11/2026-18738/accelerating-access-to-veterans-benefits-and-employment-opportunities"
+      },
+      {
+        "label": "American Legion",
+        "url": "https://www.legion.org/information-center/news/veterans-benefits/2026/september/executive-order-means-faster-access-to-va-healthcare-benefits"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14427
+    },
+    "headline": "Split wartime energy production powers between Interior and Energy",
+    "how": "Leave it.",
+    "why": "Housekeeping on who may use existing Defense Production Act powers over energy; it changes no one's rights.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/11/2026-18739/adjusting-certain-delegations-under-the-defense-production-act"
+      },
+      {
+        "label": "American Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/node/396523"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14428
+    },
+    "headline": "Revoked the 2009 order coordinating Chesapeake Bay cleanup",
+    "how": "Restore the Chesapeake Bay cleanup order.",
+    "why": "The 2009 order was an executive order, so a new one can reissue it; the Chesapeake Bay Watershed Agreement is a separate document.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/21/2026-19335/providing-meaningful-water-quality-improvements-through-collaboration-and-oversight-of-federal"
+      },
+      {
+        "label": "Akin Gump",
+        "url": "https://www.akingump.com/en/insights/blogs/trump-executive-order-tracker/providing-meaningful-water-quality-improvements-through-collaboration-and-oversight-of-federal-support"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14429
+    },
+    "headline": "Opened more federal land to hunting and protected lead ammunition",
+    "how": "Restore the lead ammunition limits on federal land.",
+    "why": "It sets a presumption that hunting is allowed on federal land, which a successor would likely keep; the lead ammunition piece merits separate review.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/22/2026-19416/reinvigorating-americas-hunting-heritage"
+      },
+      {
+        "label": "Outdoor Life",
+        "url": "https://outdoorlife.com/conservation/executive-order-hunting-hertiage"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14430
+    },
+    "headline": "Told fisheries managers to weigh recreational fishing equally",
+    "how": "Leave it.",
+    "why": "It expands access for anglers and charter businesses; whether it weakens fish stocks depends on rules not yet written.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/22/2026-19417/restoring-american-saltwater-angling-and-recreation"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/09/restoring-american-saltwater-angling-and-recreation/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14431
+    },
+    "headline": "Told agencies to weigh employer layoffs when approving H-1B visas",
+    "how": "Leave it.",
+    "why": "It directs scrutiny of sponsors who lay off U.S. workers; the separate $100,000 fee proclamation is the part to review.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/09/23/2026-19555/enhancing-program-integrity-and-interagency-coordination-in-the-administration-of-the-h-1b"
+      },
+      {
+        "label": "Littler",
+        "url": "https://www.littler.com/news-analysis/asap/executive-order-directs-agencies-consider-layoffs-h-1b-adjudication"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14432
+    },
+    "headline": "Launched America.gov as one AI-powered front door to federal services",
+    "how": "Leave it.",
+    "why": "A single sign-in for services is something a successor would keep; the AI vendors and data handling deserve their own review.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/10/02/2026-20319/streamlining-access-to-government-services-through-americagov"
+      },
+      {
+        "label": "White House fact sheet",
+        "url": "https://www.whitehouse.gov/fact-sheets/2026/09/fact-sheet-president-donald-j-trump-streamlines-access-to-government-services-through-america-gov/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14433
+    },
+    "headline": "Ordered a Washington, D.C., campaign to cut mosquitoes and ticks",
+    "how": "Leave it.",
+    "why": "A pest-control and disease-research campaign built on non-chemical methods; there is nothing to restore.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/10/02/2026-20320/eliminating-disease-carrying-pests-and-restoring-enjoyment-of-the-great-outdoors"
+      },
+      {
+        "label": "White House fact sheet",
+        "url": "https://www.whitehouse.gov/fact-sheets/2026/09/fact-sheet-president-donald-j-trump-eliminates-disease-carrying-pests-and-restores-enjoyment-of-the-great-outdoors/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14434
+    },
+    "headline": "Told federal agencies to say 'Super Intelligence' instead of 'AI'",
+    "how": "Call AI what it is.",
+    "why": "A wording change for federal documents that takes nothing from anyone and leaves statutes alone; a successor can drop it whenever.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/10/02/2026-20321/inaugurating-the-era-of-super-intelligence"
+      },
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/09/inaugurating-the-era-of-super-intelligence/"
+      }
+    ]
+  }
+]

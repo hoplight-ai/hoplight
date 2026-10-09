@@ -9,10 +9,13 @@ import {
   groupByInstrument,
   groupPen,
   howOf,
+  footnoteOf,
   isAlreadyDone,
   isCeremonial,
+  isLeave,
   isPenInForce,
   matchesQuery,
+  tagOf,
   whyOf,
 } from '@/lib/undo/sections';
 import type { SlimRow } from '@/lib/undo/sections';
@@ -96,6 +99,7 @@ function Item({
   const titleId = `undo-t-${safeId(row.id)}`;
   const showStatus = row.status !== 'in-force';
   const hasOrder = variant === 'check' && ORDER_INSTRUMENTS.includes(row.instrument);
+  const tag = variant === 'check' || variant === 'hollow' ? tagOf(row.bucket) : null;
 
   return (
     <li
@@ -117,23 +121,34 @@ function Item({
         <span className="undo-glyph" aria-hidden="true" />
       ) : null}
       <div className="undo-item-body">
-        <p className="undo-meta">
-          {row.number ? <span>{row.number}</span> : null}
-          <span>{row.date}</span>
-          {showStatus ? (
-            <span className="undo-status">
-              <span className="sr-only">Status: </span>
-              {row.status}
-            </span>
-          ) : null}
-        </p>
         <p className="undo-title" id={titleId}>
           {href ? <a href={href}>{row.title}</a> : row.title}
         </p>
-        {variant === 'check' || variant === 'hollow' ? <p className="undo-how">{howOf(row)}</p> : null}
+        {variant === 'check' || variant === 'hollow' ? (
+          <p className="undo-how">
+            {howOf(row)}
+            {tag ? <span className="undo-tag">{tag}</span> : null}
+          </p>
+        ) : null}
+        <p className="undo-foot">
+          {footnoteOf(row)}
+          {showStatus ? (
+            <>
+              {' · '}
+              <span className="undo-status">
+                <span className="sr-only">Status: </span>
+                {row.status}
+              </span>
+            </>
+          ) : null}
+        </p>
         {hasOrder ? <OrderDisclosure row={row} /> : null}
         <p className="undo-why">{whyOf(row)}</p>
-        {!row.reviewed ? <p className="undo-auto">{COPY.auto}</p> : null}
+        {row.unsure ? (
+          <p className="undo-auto">{COPY.unconfirmed}</p>
+        ) : !row.reviewed ? (
+          <p className="undo-auto">{COPY.auto}</p>
+        ) : null}
       </div>
     </li>
   );
@@ -205,15 +220,17 @@ export default function UndoList({
     return {
       shown: hit.length,
       lunch: groupPen(hit.filter(isPenInForce)),
-      year: hit.filter((r) => r.bucket === 'pen-process' && !isAlreadyDone(r)),
-      majority: hit.filter((r) => r.bucket === 'majority'),
-      sixty: hit.filter((r) => r.bucket === 'sixty'),
+      year: hit.filter((r) => r.bucket === 'pen-process' && !isAlreadyDone(r) && !isLeave(r)),
+      majority: hit.filter((r) => r.bucket === 'majority' && !isLeave(r)),
+      sixty: hit.filter((r) => r.bucket === 'sixty' && !isLeave(r)),
       locked: groupByInstrument(
-        hit.filter((r) => r.bucket === 'locked'),
+        hit.filter((r) => r.bucket === 'locked' && !isLeave(r)),
         INSTRUMENT_LABEL,
       ),
-      lockedCount: hit.filter((r) => r.bucket === 'locked').length,
+      lockedCount: hit.filter((r) => r.bucket === 'locked' && !isLeave(r)).length,
       done: hit.filter(isAlreadyDone),
+      // A commemorative proclamation stays in its own group even if a ruling marks it leave.
+      leave: hit.filter((r) => isLeave(r) && !isCeremonial(r)),
       ceremonial: hit.filter(isCeremonial),
     };
   }, [rows, query]);
@@ -380,6 +397,29 @@ export default function UndoList({
           </div>
         </section>
       ) : null}
+
+      {/* LEAVE THESE */}
+      {view.leave.length > 0 ? (
+        <section className="undo-section undo-section-ruled" aria-labelledby="undo-leave-h">
+          <div className="wrap">
+            <details className="undo-done">
+              <summary className="undo-done-summary">
+                <h2 id="undo-leave-h" className="undo-h2">
+                  {COPY.leave.title}
+                </h2>
+                <span className="undo-subcount">{view.leave.length.toLocaleString('en-US')}</span>
+              </summary>
+              <p className="undo-intro">{COPY.leave.intro}</p>
+              <ul className="undo-items">
+                {view.leave.map((r) => (
+                  <Item key={r.id} row={r} variant="done" />
+                ))}
+              </ul>
+            </details>
+          </div>
+        </section>
+      ) : null}
+
       {/* COMMEMORATIVE PROCLAMATIONS */}
       {view.ceremonial.length > 0 ? (
         <section className="undo-section undo-section-ruled" aria-labelledby="undo-ceremonial-h">
