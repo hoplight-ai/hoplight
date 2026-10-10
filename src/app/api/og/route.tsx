@@ -12,7 +12,7 @@ import { ImageResponse } from 'next/og';
 
 const NAVY = '#0F1B2D';
 const GOLD = '#E8A820';
-const PAPER = '#F7F5F0';
+const PAPER = '#FFFFFF';
 
 async function loadInter(text: string, weight: 400 | 700): Promise<ArrayBuffer | null> {
   try {
@@ -79,8 +79,10 @@ export async function GET(req: Request) {
     SUB_MAX,
   );
 
+  // The bold subset carries the footer wordmark's letters too (rendered uppercase), or the footer
+  // falls back to the default face whenever the title does not happen to contain them.
   const [bold, regular] = await Promise.all([
-    loadInter(title, 700),
+    loadInter(`${title}HOPLIGHT`, 700),
     loadInter(sub, 400),
   ]);
 
@@ -99,7 +101,9 @@ export async function GET(req: Request) {
           justifyContent: 'center',
           padding: '80px',
           backgroundColor: NAVY,
-          backgroundImage: `linear-gradient(135deg, ${NAVY} 0%, #16253d 100%)`,
+          // Navy (--ink) to --ink-mid. Every hex in this file has to be a globals.css token, or
+          // check:claims guard 5 fails the build.
+          backgroundImage: `linear-gradient(135deg, ${NAVY} 0%, #162640 100%)`,
         }}
       >
         <div
@@ -145,6 +149,7 @@ export async function GET(req: Request) {
             fontWeight: 700,
             color: PAPER,
             marginTop: 'auto',
+            fontFamily: fonts.length ? 'Inter' : 'sans-serif',
             letterSpacing: '0.08em',
             textTransform: 'uppercase',
             opacity: 0.85,

@@ -16,8 +16,16 @@
 //    2026-06-02; the stylesheet changed afterwards and the brand file did not, so by the brand
 //    file's own rule the stylesheet is authoritative and the old pair is dead in this repo.
 //
+// 5. THE LINK-PREVIEW CARDS ON RETIRED COLOURS (added 2026-10-09). public/og.svg, which renders to
+//    the og.png every page shares, still carried the June palette, and the /api/og route still
+//    painted its title in the cream retired on 2026-10-06. See the guard itself for the rule.
+//
 // A fourth guard, that the served brand-token files still agree with globals.css, lives in
 // scripts/check-brand-tokens.mjs because it needs the same generator this one would have to import.
+//
+// --only <name,...> runs just the named guards. `npm run build` runs `--only preview-palette` as part
+// of prebuild, so a preview card on a retired colour stops the deploy without the content guards
+// above (which read every page and every data row) also becoming deploy gates.
 
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative, extname, dirname, sep } from 'node:path';
@@ -30,6 +38,10 @@ const rootFlag = process.argv.indexOf('--root');
 const ROOT = rootFlag === -1
   ? join(dirname(fileURLToPath(import.meta.url)), '..')
   : process.argv[rootFlag + 1];
+
+const onlyFlag = process.argv.indexOf('--only');
+const only = onlyFlag === -1 ? null : process.argv[onlyFlag + 1].split(',');
+const want = (name) => !only || only.includes(name);
 
 const SCAN_DIRS = ['src', 'public'];
 const SCAN_EXT = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.css', '.html', '.json', '.svg']);
@@ -101,7 +113,7 @@ function stripComments(src) {
 
 // ---- 1. banned trial phrasing ------------------------------------------------------------------
 const BANNED = /\b11\s*(?:to|-|–|—)\s*26\b/i;
-{
+if (want('banned-phrasing')) {
   const hits = [];
   for (const f of files) {
     stripComments(readFileSync(f, 'utf8')).split('\n').forEach((line, i) => {
@@ -117,7 +129,7 @@ const BANNED = /\b11\s*(?:to|-|–|—)\s*26\b/i;
 // its baseline in the word "below the placebo group", which the baseline vocabulary below covers.
 const LIFT = /(?:\+?\d{1,2}\s*(?:to|-|–)\s*\+?\d{1,2}|\b\d{1,2})\s*points\b/i;
 const BASELINE = /(placebo|baseline|control|staff-written|staff written|human-written|no message|unrelated message|over the (?:staff|human)|no-message)/i;
-{
+if (want('lift-baseline')) {
   const hits = [];
   for (const f of files) {
     const lines = stripComments(readFileSync(f, 'utf8')).split('\n');
@@ -139,7 +151,7 @@ const BASELINE = /(placebo|baseline|control|staff-written|staff written|human-wr
 // passed that check while still painting eleven rgba() tints in the retired navy and the retired
 // gold. A guard that only reads hex is the reason this drift survived a fix aimed straight at it.
 const RETIRED = /#(?:0A1628|E8A838)\b|rgba?\(\s*10\s*,\s*22\s*,\s*40|rgba?\(\s*232\s*,\s*168\s*,\s*56/i;
-{
+if (want('retired-pair')) {
   // The generated brand-token files are the one place the retired values are meant to appear: they
   // carry them under a "retired" key and strike them through on the page, so that a session holding
   // an old value can look it up and find it marked dead. Exempted by name, and nowhere else.
@@ -170,7 +182,7 @@ const RETIRED = /#(?:0A1628|E8A838)\b|rgba?\(\s*10\s*,\s*22\s*,\s*40|rgba?\(\s*2
 // "no value" marker, and a machine sweep of those would mangle sentences to satisfy a grep. They
 // are counted on every run so the number is visible and can only go down.
 const EMDASH = /—|&mdash;|&#8212;|&#x2014;/i;
-{
+if (want('em-dash')) {
   const hits = [];
   let editorial = 0;
   const editorialFiles = new Set();
@@ -195,6 +207,47 @@ const EMDASH = /—|&mdash;|&#8212;|&#x2014;/i;
         'editorial pass, not a substitution.'
     );
   }
+}
+
+// ---- 5. the link-preview cards on retired colours ----------------------------------------------
+// The two images a pasted hoplight.ai link shows: public/og.svg (rendered to public/og.png by
+// scripts/gen-og-card.mjs, the og:image on every page) and the per-route cards drawn by
+// src/app/api/og/. Found 2026-10-09 still on the June palette (ground #151C26, gold #C8922A and
+// #E3AC42, Helvetica) and on the retired cream #F7F5F0. Three rules, comments included, because a
+// preview card has no comment a reader ever sees:
+//   a. none of those four colours, in hex or in rgb();
+//   b. every hex colour is the value of a token in globals.css :root, so the next palette change
+//      in the stylesheet turns this red instead of leaving the cards behind again;
+//   c. og.svg sets its text in Inter, the site's face.
+if (want('preview-palette')) {
+  const PREVIEW_RETIRED = /#(?:151C26|C8922A|E3AC42|F7F5F0)(?![0-9a-f])|rgba?\(\s*(?:21\s*,\s*28\s*,\s*38|200\s*,\s*146\s*,\s*42|227\s*,\s*172\s*,\s*66|247\s*,\s*245\s*,\s*240)\b/i;
+  const globals = readFileSync(join(ROOT, 'src/app/globals.css'), 'utf8');
+  const rootBlock = globals.slice(globals.indexOf(':root {'), globals.indexOf('\n}', globals.indexOf(':root {')));
+  const tokenHexes = new Set([...rootBlock.matchAll(/--[a-z0-9-]+\s*:\s*(#[0-9a-f]{6})\b/gi)].map((m) => m[1].toUpperCase()));
+  const surfaces = [join(ROOT, 'public', 'og.svg'), ...walk(join(ROOT, 'src', 'app', 'api', 'og'))];
+  const hits = [];
+  for (const f of surfaces) {
+    let text;
+    try {
+      text = readFileSync(f, 'utf8');
+    } catch {
+      hits.push(`${relative(ROOT, f)}: missing`);
+      continue;
+    }
+    text.split('\n').forEach((line, i) => {
+      const at = `${relative(ROOT, f)}:${i + 1}`;
+      if (PREVIEW_RETIRED.test(line)) hits.push(`${at}: retired colour: ${line.trim().slice(0, 120)}`);
+      for (const m of line.matchAll(/#[0-9a-f]{6}(?![0-9a-z])/gi)) {
+        if (!tokenHexes.has(m[0].toUpperCase())) hits.push(`${at}: ${m[0]} is not a colour token in globals.css`);
+      }
+      if (f.endsWith('og.svg')) {
+        for (const m of line.matchAll(/font-family="([^"]*)"/g)) {
+          if (!/^\s*'?Inter\b/.test(m[1])) hits.push(`${at}: font-family "${m[1]}" does not lead with Inter`);
+        }
+      }
+    });
+  }
+  report(hits.length === 0, 'the link-preview cards use only current colour tokens and Inter (og.svg, /api/og)', hits);
 }
 
 process.exit(fail);

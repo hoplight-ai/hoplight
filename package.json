@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/check-no-drafts-public.mjs",
+    "prebuild": "node scripts/check-no-drafts-public.mjs && node scripts/check-claims-and-palette.mjs --only preview-palette",
     "build": "next build",
     "check:drafts": "node scripts/check-no-drafts-public.mjs",
     "start": "next start",
@@ -17,6 +17,7 @@
     "verify": "bash scripts/verify.sh",
     "check:preview": "node scripts/check-preview-metadata.mjs",
     "check:claims": "node scripts/check-claims-and-palette.mjs",
+    "og:build": "node scripts/gen-og-card.mjs",
     "tokens:build": "node scripts/build-brand-tokens.mjs",
     "tokens:check": "node scripts/build-brand-tokens.mjs --check",
     "palette:retire": "node scripts/retire-old-palette.mjs",
