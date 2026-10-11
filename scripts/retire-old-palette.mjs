@@ -51,10 +51,12 @@ const MAP = [
   // the deep gold that carries small text on light. Included because leaving it behind would pair a
   // new accent with the old accent's dark variant, and because it is the one swap in this map that
   // changes a contrast verdict: #B8851F on the white page is 3.27:1 and fails WCAG AA for normal text
-  // (2.99:1 on the old warm ground this was first measured against), #845810 on white is 6.20:1 and
-  // passes.
-  ['#B8851F', '#845810', 'gold-deep'],
-  ['#b8851f', '#845810', 'gold-deep'],
+  // (2.99:1 on the old warm ground this was first measured against), #996D00 on white is 4.62:1 and
+  // passes the 4.5:1 bar. #996D00 is option C, the gold Whit picked on 2026-10-09 ("option c"), and it is
+  // globals.css's --gold-deep. This row followed the stylesheet twice before: first to a lighter gold
+  // under 7:1, then on 2026-10-08 (lane hopmock1) to a darker 7.11:1 one, which Whit found too muddy.
+  ['#B8851F', '#996D00', 'gold-deep'],
+  ['#b8851f', '#996D00', 'gold-deep'],
   // The warm grounds, retired 2026-10-07 (lane hopwhite1). Whit, 2026-10-06: "this fucking cream on
   // cream bullshit has got to go." The page, the cards and the gold-wash bands are white now and
   // globals.css no longer defines any of these four. They survive in static pages and in files this

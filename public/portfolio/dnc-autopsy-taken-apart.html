@@ -24,7 +24,7 @@ body {
   --surface2: #eef0f2;
   --border: #d8d6d0;
   --text: #1a1a1a;
-  --text-dim: #6b6b6b;
+  --text-dim: #575752;
   --accent: #c0392b;
   --accent-light: rgba(192,57,43,0.06);
   --accent-mid: rgba(192,57,43,0.15);
@@ -34,6 +34,13 @@ body {
   --gridline: rgba(0,0,0,0.08);
   --axis: rgba(0,0,0,0.35);
   --shadow: rgba(0,0,0,0.06);
+  /* Category badge colours, text and outline of a white chip, each 4.5:1 or more on white (2026-10-09).
+     The badges were washes of these hues, and three of them read under 4.5:1 on their own wash. */
+  --chip-media: #1f6fa8;
+  --chip-money: #c0392b;
+  --chip-organizing: #1e8449;
+  --chip-research: #8e44ad;
+  --chip-strategy: #c04d00;
 }
 [data-theme="dark"] {
   --bg: #111113;
@@ -51,6 +58,11 @@ body {
   --gridline: rgba(255,255,255,0.06);
   --axis: rgba(255,255,255,0.3);
   --shadow: rgba(0,0,0,0.3);
+  --chip-media: #5dade2;
+  --chip-money: #e06c61;
+  --chip-organizing: #2ecc71;
+  --chip-research: #bb8fce;
+  --chip-strategy: #e67e22;
 }
 
 /* === TYPOGRAPHY === */
@@ -159,13 +171,15 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child { margin-top: 0; 
 .quote-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 20px; margin-bottom: 16px; }
 .quote-card blockquote { font-size: 1rem; line-height: 1.55; color: var(--text); border-left: 3px solid var(--accent); padding-left: 16px; max-width: 65ch; }
 .quote-meta { font-size: 0.75rem; color: var(--text-dim); margin-top: 10px; }
-.quote-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 3px 8px; border-radius: 3px; background: var(--surface2); color: var(--text-dim); margin-bottom: 10px; }
-.quote-tag.media { background: rgba(52,152,219,0.12); color: #2980b9; }
-.quote-tag.money { background: var(--accent-light); color: var(--accent); }
-.quote-tag.organizing { background: var(--green-light); color: var(--green); }
-.quote-tag.research { background: rgba(155,89,182,0.1); color: #8e44ad; }
-.quote-tag.strategy { background: rgba(230,126,34,0.12); color: #d35400; }
-.quote-tag.demographics { background: rgba(52,73,94,0.1); color: var(--text-dim); }
+/* Badges are white chips with a thin outline in their own colour (2026-10-09). They were tinted washes,
+   the orange one a cream box; the padding is 1px less each way so the outline keeps the same size. */
+.quote-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 2px 7px; border-radius: 3px; background: var(--surface); border: 1px solid currentColor; color: var(--text-dim); margin-bottom: 10px; }
+.quote-tag.media { color: var(--chip-media); }
+.quote-tag.money { color: var(--chip-money); }
+.quote-tag.organizing { color: var(--chip-organizing); }
+.quote-tag.research { color: var(--chip-research); }
+.quote-tag.strategy { color: var(--chip-strategy); }
+.quote-tag.demographics { color: var(--text-dim); }
 
 /* === FILTER === */
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
@@ -179,10 +193,10 @@ h1:first-child, h2:first-child, h3:first-child, h4:first-child { margin-top: 0; 
 .loss-table th { text-align: left; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-dim); border-bottom: 2px solid var(--border); padding: 8px 12px; }
 .loss-table td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
 .loss-table tr:hover td { background: var(--surface2); }
-.loss-type-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 3px; display: inline-block; white-space: nowrap; }
-.type-structural { background: var(--accent-light); color: var(--accent); }
-.type-tactical { background: rgba(52,152,219,0.1); color: #2980b9; }
-.type-candidate { background: rgba(230,126,34,0.12); color: #d35400; }
+.loss-type-badge { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 1px 6px; border-radius: 3px; display: inline-block; white-space: nowrap; background: var(--surface); border: 1px solid currentColor; }
+.type-structural { color: var(--chip-money); }
+.type-tactical { color: var(--chip-media); }
+.type-candidate { color: var(--chip-strategy); }
 .icon-yes { color: var(--green); text-align: center; }
 .icon-no { color: var(--border); text-align: center; }
 

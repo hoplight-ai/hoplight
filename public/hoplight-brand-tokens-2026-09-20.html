@@ -23,8 +23,12 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <meta name="theme-color" content="#0F1B2D">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Self-hosted 2026-10-09 (SIL Open Font License 1.1; the licences sit beside the files in /fonts). The
+   site's content security policy refuses Google's font server, so this page drew in a system face. */
+@font-face{font-family:'Inter';src:url('/fonts/inter-latin-wght-normal.woff2') format('woff2');font-weight:400 800;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');font-weight:400 500;font-style:normal;font-display:swap}
+</style>
 <style>
 /* The generated stylesheet, inlined verbatim rather than linked. This page IS the reference, so it
    has to render correctly with nothing else resolving: linked at /hoplight-brand-tokens-2026-09-20.css it came up unstyled
@@ -43,7 +47,7 @@
   --ink-soft: #2A3F5F; /* Muted ink for supporting prose on light. */
   --gold: #D4950A; /* Accent. Rules, left borders, the one filled button, link underlines. Never dominant. */
   --gold-hot: #E8A820; /* Brighter gold, for large figures on dark grounds only. */
-  --gold-deep: #785010; /* The gold for small text on light. 7.1:1 on --surface; --gold itself is 2.6:1 and fails. */
+  --gold-deep: #996D00; /* The gold for text on light. 4.6:1 on --surface, over the 4.5:1 bar; --gold itself is 2.6:1 and fails. */
   --surface: #FFFFFF; /* Default page ground. White. No cream or warm off-white grounds (Whit, 2026-10-06). */
   --surface-card: #FFFFFF; /* Card ground. White; a card is told apart by a --line border, never by a tint. */
   --white: #FFFFFF; /* True white. Same value as --surface; the name for cards and fields. */
@@ -51,7 +55,7 @@
   --stone-deep: #555550; /* Secondary text, the darker step. 7.5:1 on --surface. */
   --mute: #8C8475; /* Warm grey for de-emphasised chrome. Never for text or for a ground. */
   --field-edge: #7B828C; /* Text-field border. 3.9:1 on --surface, over the 3:1 floor for a UI boundary. */
-  --ring: var(--gold-deep); /* Keyboard focus ring on a light ground. 7.1:1 on --surface; use --gold-hot on navy. */
+  --ring: var(--gold-deep); /* Keyboard focus ring on a light ground. 4.6:1 on --surface; use --gold-hot on navy. */
   --danger: #9c3327; /* Error and destructive state. Semantic only. */
 
   --line: rgba(0,0,0,0.10);
@@ -240,11 +244,11 @@ footer code{color:var(--ink-soft)}
       <td class="role">Brighter gold, for large figures on dark grounds only.</td>
     </tr>
 <tr>
-      <td><span class="sw" style="background:#785010"></span><code>--gold-deep</code></td>
-      <td><code>#785010</code></td>
-      <td class="n" data-on="on surface">7.11<span class="v">AA text</span></td>
-      <td class="n" data-on="on ink">2.43<span class="v">not for text</span></td>
-      <td class="role">The gold for small text on light. 7.1:1 on --surface; --gold itself is 2.6:1 and fails.</td>
+      <td><span class="sw" style="background:#996D00"></span><code>--gold-deep</code></td>
+      <td><code>#996D00</code></td>
+      <td class="n" data-on="on surface">4.62<span class="v">AA text</span></td>
+      <td class="n" data-on="on ink">3.74<span class="v">large text only</span></td>
+      <td class="role">The gold for text on light. 4.6:1 on --surface, over the 4.5:1 bar; --gold itself is 2.6:1 and fails.</td>
     </tr>
 <tr>
       <td><span class="sw" style="background:#FFFFFF"></span><code>--surface</code></td>

@@ -19,7 +19,8 @@
   /* Gold */
   --gold: #D4950A;
   --gold-hot: #E8A820;
-  --gold-deep: #785010;        /* gold for small text on light, 7.1:1 on white, darkened 2026-10-08 to reach the 7:1 bar */
+  --gold-deep: #996D00;        /* the gold for text on light: option C, Whit's pick 2026-10-09 ("option c"), 4.6:1 on white.
+                                  The 7.1:1 gold before it read as muddy, and --gold as text was too bright at 2.6:1. */
 
   /* Grays */
   --stone: #575752;            /* 7.3:1 on white; was #70706A at 5.0:1 */
@@ -28,7 +29,7 @@
 
   /* Edges and rings that have to be seen, 3:1 or better on white (WCAG 1.4.11) */
   --field-edge: #7B828C;       /* text-field border, 3.9:1 */
-  --ring: var(--gold-deep);    /* keyboard focus on a light ground, 7.1:1; --gold is 2.6:1 and cannot mark focus on white */
+  --ring: var(--gold-deep);    /* keyboard focus on a light ground, 4.6:1; --gold is 2.6:1 and cannot mark focus on white */
 
   /* Lines */
   --line: rgba(0,0,0,0.10);
@@ -241,7 +242,7 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0
 .problem { padding: var(--space-section-sm) 0; border-bottom: 1px solid var(--line); }
 .problem-row { display: grid; grid-template-columns: 260px 1fr; gap: clamp(24px, 4vw, 56px); align-items: start; }
 .problem-fig { font-size: clamp(4rem, 3rem + 4vw, 6.5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 0.85; color: var(--ink); }
-.problem-fig .pct { color: var(--gold); font-variant-numeric: lining-nums tabular-nums; }
+.problem-fig .pct { color: var(--gold-deep); font-variant-numeric: lining-nums tabular-nums; }
 .problem-fig .src-line { display: block; font-family: var(--font-mono); font-size: 0.62rem; font-weight: 400; text-transform: uppercase; letter-spacing: 0.08em; color: var(--stone); margin-top: 10px; }
 .problem-body { padding-top: 4px; }
 .problem-body .lead-line { font-size: clamp(1.15rem, 1rem + 0.5vw, 1.35rem); font-weight: 700; line-height: 1.25; margin-bottom: 12px; max-width: 36ch; }
@@ -364,7 +365,9 @@ section { padding: var(--space-section) 0; }
 .gallery-grid .wcard, .gallery-grid .wcard-body h3 { color: var(--ink); }
 .gallery-grid .wcard-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 .gallery-grid .wcard-plate { color: #fff; font-weight: 700; font-size: 1.05rem; padding: 0 24px; text-align: center; }
-.wcard:hover .wc-go { color: var(--gold); }
+/* The hover used to brighten the link to --gold, 2.6:1 on the white card. It keeps option C and gains an
+   underline instead, so the link still answers the pointer; the card's gold edge and shadow do the rest. */
+.wcard:hover .wc-go { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 640px) { .work-cards { grid-template-columns: 1fr; } }
 
 /* === BARN DOOR (home grid + subpage text block) === */

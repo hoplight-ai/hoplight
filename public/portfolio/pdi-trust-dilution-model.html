@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PDI Trust Dilution Model</title>
 <style>
-  :root{--navy:#1B3A5C;--bg:#fff;--card:#fff;--text:#2D2D2D;--muted:#6b7280;--border:#e5e5e5;--red:#c4423c;--green:#2d7a4f;--amber:#b8860b;--blue-lt:#e8f0fe}
+  :root{--navy:#1B3A5C;--bg:#fff;--card:#fff;--text:#2D2D2D;--muted:#575752;--border:#e5e5e5;--red:#c4423c;--green:#2d7a4f;--amber:#b8860b;--blue-lt:#e8f0fe}
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;padding:20px}
   .hdr{max-width:1200px;margin:0 auto 16px;border-bottom:2px solid var(--navy);padding-bottom:12px}
@@ -175,19 +175,19 @@ function svgChart(el,opts){
     var s=opts.series[0],bw=Math.max(4,pw/n*0.65);
     for(var i=0;i<=4;i++){var yv=yMin+yR*i/4,yy=yP(yv);
       h+='<line x1="'+M.l+'" y1="'+yy+'" x2="'+(W-M.r)+'" y2="'+yy+'" stroke="#eee" stroke-width="1"/>';
-      h+='<text x="'+(M.l-6)+'" y="'+(yy+3)+'" text-anchor="end" fill="#6b7280" font-size="9">'+yFmt(yv)+'</text>';}
+      h+='<text x="'+(M.l-6)+'" y="'+(yy+3)+'" text-anchor="end" fill="#575752" font-size="9">'+yFmt(yv)+'</text>';}
     for(var i=0;i<s.data.length;i++){
       var bx=xP(i)-bw/2,by=yP(s.data[i]),bh=yP(yMin)-by;
       h+='<rect x="'+bx+'" y="'+by+'" width="'+bw+'" height="'+Math.max(0,bh)+'" fill="'+s.color+'" opacity="0.65" rx="2"/>';}
     var step=Math.max(1,Math.floor(n/10));
-    for(var i=0;i<n;i+=step)h+='<text x="'+xP(i)+'" y="'+(H-6)+'" text-anchor="middle" fill="#6b7280" font-size="9">'+opts.labels[i]+'</text>';
+    for(var i=0;i<n;i+=step)h+='<text x="'+xP(i)+'" y="'+(H-6)+'" text-anchor="middle" fill="#575752" font-size="9">'+opts.labels[i]+'</text>';
     h+='<text x="'+M.l+'" y="14" fill="#2D2D2D" font-size="9" font-weight="600">'+s.label+'</text>';
   } else {
     for(var i=0;i<=4;i++){var yv=yMin+yR*i/4,yy=yP(yv);
       h+='<line x1="'+M.l+'" y1="'+yy+'" x2="'+(W-M.r)+'" y2="'+yy+'" stroke="#eee" stroke-width="1"/>';
-      h+='<text x="'+(M.l-6)+'" y="'+(yy+3)+'" text-anchor="end" fill="#6b7280" font-size="9">'+yFmt(yv)+'</text>';}
+      h+='<text x="'+(M.l-6)+'" y="'+(yy+3)+'" text-anchor="end" fill="#575752" font-size="9">'+yFmt(yv)+'</text>';}
     var step=Math.max(1,Math.floor(n/8));
-    for(var i=0;i<n;i+=step)h+='<text x="'+xP(i)+'" y="'+(H-6)+'" text-anchor="middle" fill="#6b7280" font-size="9">'+opts.labels[i]+'</text>';
+    for(var i=0;i<n;i+=step)h+='<text x="'+xP(i)+'" y="'+(H-6)+'" text-anchor="middle" fill="#575752" font-size="9">'+opts.labels[i]+'</text>';
 
     opts.series.forEach(function(s,si){
       if(!s.data||s.data.length===0)return;
@@ -270,7 +270,7 @@ function render(){
   // P2: Cohort
   document.getElementById('p2').innerHTML=
     '<div class="card"><h2>Cohort: B3 Balance at Displacement vs. Year 20</h2>'
-    +'<p style="font-size:11px;color:#6b7280;margin-bottom:8px">Early-displaced get fewer B3 contributions but more compounding time. Late-displaced get larger contributions but less time. Neither fully compensates.</p>'
+    +'<p style="font-size:11px;color:#575752;margin-bottom:8px">Early-displaced get fewer B3 contributions but more compounding time. Late-displaced get larger contributions but less time. Neither fully compensates.</p>'
     +'<div class="chart-box" id="s3c1"></div></div>'
     +'<div class="card"><h2>Drivers Displaced per Cohort</h2><div class="chart-box" id="s3c2"></div></div>';
 

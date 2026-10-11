@@ -71,7 +71,7 @@ const COLOR_ORDER = [
   ['ink-soft', 'Muted ink for supporting prose on light.'],
   ['gold', 'Accent. Rules, left borders, the one filled button, link underlines. Never dominant.'],
   ['gold-hot', 'Brighter gold, for large figures on dark grounds only.'],
-  ['gold-deep', 'The gold for small text on light. 7.1:1 on --surface; --gold itself is 2.6:1 and fails.'],
+  ['gold-deep', 'The gold for text on light. 4.6:1 on --surface, over the 4.5:1 bar; --gold itself is 2.6:1 and fails.'],
   ['surface', 'Default page ground. White. No cream or warm off-white grounds (Whit, 2026-10-06).'],
   ['surface-card', 'Card ground. White; a card is told apart by a --line border, never by a tint.'],
   ['white', 'True white. Same value as --surface; the name for cards and fields.'],
@@ -79,7 +79,7 @@ const COLOR_ORDER = [
   ['stone-deep', 'Secondary text, the darker step. 7.5:1 on --surface.'],
   ['mute', 'Warm grey for de-emphasised chrome. Never for text or for a ground.'],
   ['field-edge', 'Text-field border. 3.9:1 on --surface, over the 3:1 floor for a UI boundary.'],
-  ['ring', 'Keyboard focus ring on a light ground. 7.1:1 on --surface; use --gold-hot on navy.'],
+  ['ring', 'Keyboard focus ring on a light ground. 4.6:1 on --surface; use --gold-hot on navy.'],
   ['danger', 'Error and destructive state. Semantic only.'],
 ];
 
@@ -375,8 +375,12 @@ function buildHtml() {
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <meta name="theme-color" content="${C.ink.value}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Self-hosted 2026-10-09 (SIL Open Font License 1.1; the licences sit beside the files in /fonts). The
+   site's content security policy refuses Google's font server, so this page drew in a system face. */
+@font-face{font-family:'Inter';src:url('/fonts/inter-latin-wght-normal.woff2') format('woff2');font-weight:400 800;font-style:normal;font-display:swap}
+@font-face{font-family:'JetBrains Mono';src:url('/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');font-weight:400 500;font-style:normal;font-display:swap}
+</style>
 <style>
 /* The generated stylesheet, inlined verbatim rather than linked. This page IS the reference, so it
    has to render correctly with nothing else resolving: linked at /${BASE}.css it came up unstyled
