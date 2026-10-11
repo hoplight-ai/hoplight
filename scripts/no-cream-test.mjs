@@ -26,7 +26,7 @@
 // ADDED 2026-10-08 (lane hopmock1, the three smaller findings lane hopfix1 filed), tests (e) to (h) at the
 // bottom of this file:
 //   (e) cream-tinted text and rules on the navy sections of src/app/(main)/services/page.tsx, and the cream
-//       text colour in the link-preview card src/app/api/og/route.tsx, are white at the same transparency;
+//       text colour in the link-preview card (drawn in src/lib/brand/og-card.ts since 2026-10-11), are white;
 //   (f) the secondary gray of eight static pages under public/portfolio/ reaches 7:1 on their white ground;
 //   (g) the gold figures on the political-money page reach 7:1 on white (they were 2.9:1);
 //   (h) scripts/retire-old-palette.mjs maps the old small-text gold to the 7:1 deep gold, not the old 6.2:1 one.
@@ -85,7 +85,8 @@ const FILES = {
   whichai: 'src/app/(main)/tools/which-ai/WhichAiTool.tsx',
   manifest: 'src/app/manifest.ts',
   intake: 'src/components/IntakeForm.tsx',
-  ogroute: 'src/app/api/og/route.tsx',
+  // The /api/og card is drawn here since 2026-10-11 (the route only clamps its input and renders it).
+  ogcard: 'src/lib/brand/og-card.ts',
   retire: 'scripts/retire-old-palette.mjs',
 };
 const src = Object.fromEntries(Object.entries(FILES).map(([k, rel]) => [k, read(rel)]));
@@ -549,12 +550,14 @@ test('(e) the services page navy sections use white text and rules at the same t
   assert.ok(c >= 7, `white at 0.7 on the navy is ${c.toFixed(2)}:1, needs 7:1`);
 });
 
-test('(e) the link-preview card paints its headline and wordmark in white, not cream', () => {
-  const text = withoutLineComments(src.ogroute);
-  assert.deepEqual(creamLiterals(text), [], 'cream colour literals left in api/og/route.tsx');
+// Since 2026-10-11 the wordmark on the card is the design system's drawing, not text, so the card has two
+// text colours: the headline (on-band white) and its line (on-band-muted).
+test('(e) the link-preview card paints its headline in white and its line at 7:1, not cream', () => {
+  const text = withoutLineComments(src.ogcard);
+  assert.deepEqual(creamLiterals(text), [], 'cream colour literals left in src/lib/brand/og-card.ts');
   const consts = Object.fromEntries([...text.matchAll(/const (\w+) = '(#[0-9a-fA-F]{6})'/g)].map((m) => [m[1], m[2]]));
   const textColours = [...text.matchAll(/\bcolor:\s*(\w+)\s*,/g)].map((m) => consts[m[1]]).filter(Boolean);
-  assert.ok(textColours.length >= 3, `expected the headline, the subtitle and the wordmark colours, found ${textColours.length}`);
+  assert.ok(textColours.length >= 2, `expected the headline and the line colours, found ${textColours.length}`);
   assert.ok(
     textColours.some((h) => h.toUpperCase() === '#FFFFFF'),
     `no text on the card is white (colours: ${[...new Set(textColours)].join(' ')})`,

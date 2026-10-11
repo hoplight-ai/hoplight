@@ -1,20 +1,18 @@
 import { ImageResponse } from 'next/og';
+import { CARD_H, CARD_W, ogCard } from '@/lib/brand/og-card';
 
 // Per-route social preview cards. Site review, 2026-09-16 (expert-social-meta.md #5): every
 // route inherited the same generic /og.png, so a LinkedIn/X share of /rayli or /research showed
 // no mention of either. Usage: /api/og?title=Rayli&sub=A+communications+intelligence+platform
+// The card itself is drawn by src/lib/brand/og-card.ts, on the Hoplight Design System.
 //
-// Font: Inter, loaded at request time from Google Fonts (the same family next/font/google
+// Font: Inter 400 and 600, loaded at request time from Google Fonts (the same family next/font/google
 // self-hosts for the rest of the site, but ImageResponse/Satori needs a raw font buffer, not a
 // <link> tag). Text-subsetted to only the characters this request actually renders. If the fetch
 // fails for any reason (offline build, Google Fonts unreachable), the card still renders with the
-// system sans-serif fallback rather than 500ing — a card with the wrong font beats no card.
+// system sans-serif fallback rather than failing: a card with the wrong font beats no card.
 
-const NAVY = '#0F1B2D';
-const GOLD = '#E8A820';
-const PAPER = '#FFFFFF';
-
-async function loadInter(text: string, weight: 400 | 700): Promise<ArrayBuffer | null> {
+async function loadInter(text: string, weight: 400 | 600): Promise<ArrayBuffer | null> {
   try {
     const cssUrl = `https://fonts.googleapis.com/css2?family=Inter:wght@${weight}&text=${encodeURIComponent(text)}`;
     const css = await (await fetch(cssUrl, { headers: { 'User-Agent': 'Mozilla/5.0' } })).text();
@@ -79,90 +77,10 @@ export async function GET(req: Request) {
     SUB_MAX,
   );
 
-  // The bold subset carries the footer wordmark's letters too (rendered uppercase), or the footer
-  // falls back to the default face whenever the title does not happen to contain them.
-  const [bold, regular] = await Promise.all([
-    loadInter(`${title}HOPLIGHT`, 700),
-    loadInter(sub, 400),
-  ]);
-
-  const fonts: { name: string; data: ArrayBuffer; weight: 400 | 700; style: 'normal' }[] = [];
-  if (bold) fonts.push({ name: 'Inter', data: bold, weight: 700, style: 'normal' });
+  const [semibold, regular] = await Promise.all([loadInter(title, 600), loadInter(sub, 400)]);
+  const fonts: { name: string; data: ArrayBuffer; weight: 400 | 600; style: 'normal' }[] = [];
+  if (semibold) fonts.push({ name: 'Inter', data: semibold, weight: 600, style: 'normal' });
   if (regular) fonts.push({ name: 'Inter', data: regular, weight: 400, style: 'normal' });
 
-  return new ImageResponse(
-    (
-      <div
-        style={{
-          width: '1200px',
-          height: '630px',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          padding: '80px',
-          backgroundColor: NAVY,
-          // Navy (--ink) to --ink-mid. Every hex in this file has to be a globals.css token, or
-          // check:claims guard 5 fails the build.
-          backgroundImage: `linear-gradient(135deg, ${NAVY} 0%, #162640 100%)`,
-        }}
-      >
-        <div
-          style={{
-            display: 'flex',
-            width: '64px',
-            height: '6px',
-            backgroundColor: GOLD,
-            marginBottom: '40px',
-          }}
-        />
-        <div
-          style={{
-            display: 'flex',
-            fontSize: '72px',
-            fontWeight: 700,
-            color: PAPER,
-            lineHeight: 1.1,
-            fontFamily: fonts.length ? 'Inter' : 'sans-serif',
-            letterSpacing: '-0.02em',
-          }}
-        >
-          {title}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: '32px',
-            fontWeight: 400,
-            color: GOLD,
-            marginTop: '28px',
-            lineHeight: 1.4,
-            fontFamily: fonts.length ? 'Inter' : 'sans-serif',
-            maxWidth: '980px',
-          }}
-        >
-          {sub}
-        </div>
-        <div
-          style={{
-            display: 'flex',
-            fontSize: '28px',
-            fontWeight: 700,
-            color: PAPER,
-            marginTop: 'auto',
-            fontFamily: fonts.length ? 'Inter' : 'sans-serif',
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            opacity: 0.85,
-          }}
-        >
-          Hoplight
-        </div>
-      </div>
-    ),
-    {
-      width: 1200,
-      height: 630,
-      fonts,
-    },
-  );
+  return new ImageResponse(ogCard(title, sub, fonts.length > 0), { width: CARD_W, height: CARD_H, fonts });
 }

@@ -16,9 +16,11 @@
 //    2026-06-02; the stylesheet changed afterwards and the brand file did not, so by the brand
 //    file's own rule the stylesheet is authoritative and the old pair is dead in this repo.
 //
-// 5. THE LINK-PREVIEW CARDS ON RETIRED COLOURS (added 2026-10-09). public/og.svg, which renders to
-//    the og.png every page shares, still carried the June palette, and the /api/og route still
-//    painted its title in the cream retired on 2026-10-06. See the guard itself for the rule.
+// 5. THE LINK-PREVIEW CARDS OFF THE DESIGN SYSTEM (added 2026-10-09, widened 2026-10-11).
+//    public/og.svg, which renders to the og.png every page shares, still carried the June palette,
+//    and the /api/og route still painted its title in the cream retired on 2026-10-06. On 2026-10-11
+//    Whit asked for both cards to follow the Hoplight Design System (the claude.ai artifact of that
+//    name, built 2026-10-09 and 2026-10-10). See the guard itself for the rules.
 //
 // A fourth guard, that the served brand-token files still agree with globals.css, lives in
 // scripts/check-brand-tokens.mjs because it needs the same generator this one would have to import.
@@ -27,6 +29,7 @@
 // of prebuild, so a preview card on a retired colour stops the deploy without the content guards
 // above (which read every page and every data row) also becoming deploy gates.
 
+import { createHash } from 'node:crypto';
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative, extname, dirname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -209,22 +212,55 @@ if (want('em-dash')) {
   }
 }
 
-// ---- 5. the link-preview cards on retired colours ----------------------------------------------
-// The two images a pasted hoplight.ai link shows: public/og.svg (rendered to public/og.png by
-// scripts/gen-og-card.mjs, the og:image on every page) and the per-route cards drawn by
-// src/app/api/og/. Found 2026-10-09 still on the June palette (ground #151C26, gold #C8922A and
-// #E3AC42, Helvetica) and on the retired cream #F7F5F0. Three rules, comments included, because a
-// preview card has no comment a reader ever sees:
-//   a. none of those four colours, in hex or in rgb();
-//   b. every hex colour is the value of a token in globals.css :root, so the next palette change
-//      in the stylesheet turns this red instead of leaving the cards behind again;
-//   c. og.svg sets its text in Inter, the site's face.
+// ---- 5. the link-preview cards follow the design system -----------------------------------------
+// The two images a pasted hoplight.ai link shows: public/og.svg (written and rendered to
+// public/og.png by scripts/gen-og-card.mjs, the og:image on every page) and the per-route cards
+// drawn by src/app/api/og/ through src/lib/brand/. Found 2026-10-09 on the June palette (ground
+// #151C26, gold #C8922A and #E3AC42, Helvetica) and the retired cream #F7F5F0; found 2026-10-11 off
+// the Hoplight Design System (typed tracked-caps wordmark, the beacon it retires, weight 700, a
+// gradient ground, gold body text on navy). Rules, comments included, because a preview card has no
+// comment a reader ever sees:
+//   a. none of the four retired colours, in hex or in rgb();
+//   b. every hex colour is a globals.css :root token or one of the design system's brand colours
+//      listed below, so a new colour has to be added here on purpose;
+//   c. og.svg sets its text in Inter;
+//   d. Inter at 400 and 600 only ("Inter for everything, at 400 and 600 only");
+//   e. no typed or tracked-caps wordmark ("The wordmark is a drawing, never typed");
+//   f. no CSS gradient behind the text ("No gradients, grain or square grids behind content");
+//   g. the marks in src/lib/brand/marks.ts are byte-for-byte the design system's files, and og.svg
+//      carries the lockup's drawing ("Copy assets, never approximate them").
+// When the design system changes a mark, copy the new file into marks.ts, put its sha256 below, and
+// run `npm run og:build`.
+const DESIGN_SYSTEM_COLOURS = {
+  '#C9D3E0': 'on-band-muted',
+  '#E8C268': 'geometry',
+  '#F8E6A8': 'torch-light',
+  '#EDCB72': 'torch',
+  '#D4A748': 'torch-deep',
+  '#F6B700': 'glow',
+  '#C9A04A': 'the lockup metallic run, first stop (Logos README)',
+  '#E2BE68': 'the lockup metallic run, second stop (Logos README)',
+};
+const DESIGN_SYSTEM_MARKS = {
+  // asset 'hoplight-wordmark-torchband-clear.svg', blob e3d0fbdb6f6f22d11957d3cd334d02ab, read 2026-10-11
+  LOCKUP_CLEAR: '5ac10777dd7657dfe2a84a57171edb39ee23e4829c12c205d0739be016c09fe0',
+  // asset 'hoplight-wordmark-gold.svg', blob 6d4d9450f664f3644c8b36772c1ccb35, read 2026-10-11
+  WORDMARK_GOLD: 'b22b5285b05fd08894d2f3620c5e9a47206b6f4f58a727874b3b28f8177f2dac',
+};
 if (want('preview-palette')) {
   const PREVIEW_RETIRED = /#(?:151C26|C8922A|E3AC42|F7F5F0)(?![0-9a-f])|rgba?\(\s*(?:21\s*,\s*28\s*,\s*38|200\s*,\s*146\s*,\s*42|227\s*,\s*172\s*,\s*66|247\s*,\s*245\s*,\s*240)\b/i;
+  const HEAVY = /(?:font-weight|fontWeight|weight)\s*[=:]\s*["']?[7-9]00\b|loadInter\([^)]*,\s*[7-9]00\s*\)/;
+  const TYPED_WORDMARK = /HOPLIGHT|text-?[tT]ransform\s*[=:]\s*["']?uppercase/;
+  const CSS_GRADIENT = /(?:linear|radial|conic)-gradient\(/;
   const globals = readFileSync(join(ROOT, 'src/app/globals.css'), 'utf8');
   const rootBlock = globals.slice(globals.indexOf(':root {'), globals.indexOf('\n}', globals.indexOf(':root {')));
-  const tokenHexes = new Set([...rootBlock.matchAll(/--[a-z0-9-]+\s*:\s*(#[0-9a-f]{6})\b/gi)].map((m) => m[1].toUpperCase()));
-  const surfaces = [join(ROOT, 'public', 'og.svg'), ...walk(join(ROOT, 'src', 'app', 'api', 'og'))];
+  const allowed = new Set([
+    ...[...rootBlock.matchAll(/--[a-z0-9-]+\s*:\s*(#[0-9a-f]{6})\b/gi)].map((m) => m[1].toUpperCase()),
+    ...Object.keys(DESIGN_SYSTEM_COLOURS),
+  ]);
+  const ogSvg = join(ROOT, 'public', 'og.svg');
+  const marksFile = join(ROOT, 'src', 'lib', 'brand', 'marks.ts');
+  const surfaces = [ogSvg, ...walk(join(ROOT, 'src', 'app', 'api', 'og')), ...walk(join(ROOT, 'src', 'lib', 'brand'))];
   const hits = [];
   for (const f of surfaces) {
     let text;
@@ -238,16 +274,41 @@ if (want('preview-palette')) {
       const at = `${relative(ROOT, f)}:${i + 1}`;
       if (PREVIEW_RETIRED.test(line)) hits.push(`${at}: retired colour: ${line.trim().slice(0, 120)}`);
       for (const m of line.matchAll(/#[0-9a-f]{6}(?![0-9a-z])/gi)) {
-        if (!tokenHexes.has(m[0].toUpperCase())) hits.push(`${at}: ${m[0]} is not a colour token in globals.css`);
+        if (!allowed.has(m[0].toUpperCase())) hits.push(`${at}: ${m[0]} is neither a globals.css token nor a design-system colour`);
       }
-      if (f.endsWith('og.svg')) {
+      if (f === ogSvg) {
         for (const m of line.matchAll(/font-family="([^"]*)"/g)) {
           if (!/^\s*'?Inter\b/.test(m[1])) hits.push(`${at}: font-family "${m[1]}" does not lead with Inter`);
         }
       }
+      if (HEAVY.test(line)) hits.push(`${at}: weight above 600: ${line.trim().slice(0, 120)}`);
+      if (TYPED_WORDMARK.test(line)) hits.push(`${at}: typed or tracked-caps wordmark: ${line.trim().slice(0, 120)}`);
+      if (f !== ogSvg && CSS_GRADIENT.test(line)) hits.push(`${at}: CSS gradient behind the card: ${line.trim().slice(0, 120)}`);
     });
   }
-  report(hits.length === 0, 'the link-preview cards use only current colour tokens and Inter (og.svg, /api/og)', hits);
+  // g. the marks, byte for byte
+  let marks = '';
+  try {
+    marks = readFileSync(marksFile, 'utf8');
+  } catch {
+    hits.push(`${relative(ROOT, marksFile)}: missing (the design system's marks are not in the repo)`);
+  }
+  const markText = {};
+  for (const [name, want256] of Object.entries(DESIGN_SYSTEM_MARKS)) {
+    const m = marks.match(new RegExp(`export const ${name} = String\\.raw\`([^\`]*)\``));
+    if (!m) {
+      if (marks) hits.push(`${relative(ROOT, marksFile)}: no ${name} mark`);
+      continue;
+    }
+    markText[name] = m[1];
+    const got = createHash('sha256').update(m[1]).digest('hex');
+    if (got !== want256) hits.push(`${relative(ROOT, marksFile)}: ${name} is not the design system's file (sha256 ${got.slice(0, 12)}, expected ${want256.slice(0, 12)})`);
+  }
+  const lockupPath = markText.LOCKUP_CLEAR?.match(/<path d="([^"]+)"/)?.[1];
+  let og = '';
+  try { og = readFileSync(ogSvg, 'utf8'); } catch { /* reported above */ }
+  if (og && (!lockupPath || !og.includes(lockupPath))) hits.push(`${relative(ROOT, ogSvg)}: does not carry the design system's lockup drawing`);
+  report(hits.length === 0, 'the link-preview cards follow the Hoplight Design System (og.svg, /api/og, src/lib/brand)', hits);
 }
 
 process.exit(fail);
