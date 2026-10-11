@@ -1,0 +1,1632 @@
+[
+  {
+    "match": {
+      "eo": 14147
+    },
+    "bucket": "pen",
+    "how": "Sign an order revoking it.",
+    "why": "It only directs the Justice Department and other agencies how to use powers they already have, so the same kind of order reverses it.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14147 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14147-ending-the-weaponization-the-federal-government"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14148
+    },
+    "bucket": "pen",
+    "how": "Revoke it and reissue or replace the Biden orders it cancelled, each by a new order of its own.",
+    "why": "An order that cancels other orders is itself only an order, so a later order can restore or replace what it cancelled.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: Initial Rescissions",
+        "url": "https://www.federalregister.gov/documents/2025/01/28/2025-01901/initial-rescissions-of-harmful-executive-orders-and-actions"
+      },
+      {
+        "label": "List of executive orders in the second Trump presidency",
+        "url": "https://en.wikipedia.org/wiki/List_of_executive_orders_in_the_second_Trump_presidency"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14151
+    },
+    "bucket": "pen",
+    "how": "Revoke it and tell agencies to restore their diversity, equity and inclusion offices and programs.",
+    "why": "It ended programs the executive branch created by its own policy, not by statute, so a pen can bring them back.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14151",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14151"
+      },
+      {
+        "label": "Ropes & Gray: Fourth Circuit ruling on the DEI orders",
+        "url": "https://www.ropesgray.com/en/insights/alerts/2026/02/fourth-circuit-vacates-preliminary-injunction-against-executive-order-requiring-antidiscrimination"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14173
+    },
+    "bucket": "pen",
+    "how": "Revoke it and reinstate the federal contractor affirmative-action order it repealed, Executive Order 11246.",
+    "why": "Contractor affirmative-action rules rest on an executive order, not a statute, and civil rights laws stay in place either way.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      },
+      {
+        "label": "Ropes & Gray: Fourth Circuit ruling on the DEI orders",
+        "url": "https://www.ropesgray.com/en/insights/alerts/2026/02/fourth-circuit-vacates-preliminary-injunction-against-executive-order-requiring-antidiscrimination"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14154
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct agencies to restore the energy and climate reviews and programs it paused or ended.",
+    "why": "It directs agencies on how to use laws already on the books; the budget-law changes to energy credits are separate rows.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      },
+      {
+        "label": "List of executive orders in the second Trump presidency",
+        "url": "https://en.wikipedia.org/wiki/List_of_executive_orders_in_the_second_Trump_presidency"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14155
+    },
+    "bucket": "sixty",
+    "how": "Rejoin only through Senate consent or a joint resolution of Congress, since the United States joined the WHO by a joint resolution in 1948.",
+    "why": "Congress set the terms of membership, and a joint resolution with no budget effect needs sixty Senate votes.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14155",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14155"
+      },
+      {
+        "label": "HHS: United States completes WHO withdrawal",
+        "url": "https://www.hhs.gov/press-room/united-states-completes-who-withdrawal.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14156
+    },
+    "bucket": "pen",
+    "how": "End the national emergency by proclamation, which ends the emergency powers drawn from it.",
+    "why": "A national emergency lasts only as long as the president renews it, so ending it is a presidential act even with state lawsuits against it pending.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14156",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14156"
+      },
+      {
+        "label": "Federal Register: continuation of the energy emergency",
+        "url": "https://www.federalregister.gov/documents/2026/01/14/2026-00732/continuation-of-the-national-emergency-with-respect-to-energy"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14158
+    },
+    "bucket": "pen",
+    "how": "Revoke it to restore the old Digital Service name and duties; the DOGE team itself already ended on its own deadline.",
+    "why": "It only reshapes offices the president controls, while the staff and spending cuts it led to are separate, harder rows.",
+    "status": "expired",
+    "sources": [
+      {
+        "label": "Executive Order 14158 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14158-establishing-and-implementing-the-presidents-department-government"
+      },
+      {
+        "label": "Nextgov: DOGE formally sunsets",
+        "url": "https://www.nextgov.com/policy/2026/07/doge-formally-sunsets-its-public-record-still-evolving/414571/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14159
+    },
+    "bucket": "pen",
+    "how": "Revoke it and tell agencies to drop its enforcement priorities, registration rules and sanctuary-funding threats.",
+    "why": "It directs agencies to use existing immigration law harder; a pen redirects them while the statutes stay put.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14159",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14159"
+      },
+      {
+        "label": "CRS: sanctuary jurisdictions",
+        "url": "https://www.congress.gov/crs_external_products/LSB/HTML/LSB11321.web.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14160
+    },
+    "bucket": "pen",
+    "how": "Nothing is left to undo: the Supreme Court held the order unconstitutional in Trump v. Barbara.",
+    "why": "It stays in the pen bucket because it is an order, but the Court, not any president, ended it.",
+    "status": "struck",
+    "sources": [
+      {
+        "label": "CRS: Trump v. Barbara holds EO 14160 unconstitutional",
+        "url": "https://www.congress.gov/crs-product/LSB11468"
+      },
+      {
+        "label": "Trump v. Barbara",
+        "url": "https://en.wikipedia.org/wiki/Trump_v._Barbara"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14162
+    },
+    "bucket": "pen",
+    "how": "Send the United Nations notice of re-entry; it takes effect thirty days later, as in 2021.",
+    "why": "The agreement was joined by executive action without the Senate, so re-entry is a pen too.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14162",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14162"
+      },
+      {
+        "label": "CRS: U.S. withdrawal from the Paris Agreement",
+        "url": "https://www.congress.gov/crs-product/R48504"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14163
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct the State and Homeland Security departments to restart refugee processing and raise the admissions cap.",
+    "why": "Refugee admissions run on presidential determinations under existing law, and the Ninth Circuit largely upheld the pause.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Ninth Circuit opinion in Pacito v. Trump",
+        "url": "https://cdn.ca9.uscourts.gov/datastore/opinions/2026/03/05/25-1313.pdf"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14165
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct Homeland Security to reverse its border and asylum enforcement posture.",
+    "why": "It orders agencies to use border powers Congress already gave them, which a later president can order differently.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      },
+      {
+        "label": "List of executive orders in the second Trump presidency",
+        "url": "https://en.wikipedia.org/wiki/List_of_executive_orders_in_the_second_Trump_presidency"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14168
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct agencies to restore earlier passport, prison and records policies on sex and gender.",
+    "why": "No statute fixes the federal definition of sex; this order does, so a pen resets it, apart from any rules agencies wrote under it.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14168",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14168"
+      },
+      {
+        "label": "Just Security litigation tracker",
+        "url": "https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14169
+    },
+    "bucket": "pen",
+    "how": "Revoke it to end the aid pause; funds that lapsed under the 2025 pocket rescission cannot be restored by order.",
+    "why": "The directive is a pen; the lapsed money and the shuttered aid agency are separate, harder rows.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "State v. AIDS Vaccine Advocacy Coalition",
+        "url": "https://en.wikipedia.org/wiki/Department_of_State_v._AIDS_Vaccine_Advocacy_Coalition"
+      },
+      {
+        "label": "NPR: Supreme Court allows pocket rescission",
+        "url": "https://www.npr.org/2025/09/26/nx-s1-5554825/supreme-court-trump-foreign-aid-pocket-rescission"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14171
+    },
+    "bucket": "pen",
+    "how": "Revoke it, then undo the final Schedule Policy/Career rule through new rulemaking; revoking the order alone leaves the rule standing.",
+    "why": "The order told OPM to write that rule, which went final in 2026 and is its own row.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register text of EO 14171",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2025-01-31/html/2025-02095.htm"
+      },
+      {
+        "label": "CRS: Schedule Policy/Career final rule and challenges",
+        "url": "https://www.congress.gov/crs-product/LSB11412"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14179
+    },
+    "bucket": "pen",
+    "how": "Revoke it and issue a new AI policy order.",
+    "why": "It withdrew a Biden order and told agencies to write an AI plan, all by presidential direction, so the same instrument reverses it.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Akin: AI Action Plan and accompanying orders",
+        "url": "https://www.akingump.com/en/insights/alerts/white-house-issues-long-awaited-ai-action-plan-and-accompanying-executive-orders"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14183
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct the Defense Department to withdraw its implementing policy.",
+    "why": "Who may serve is set by Defense policy under presidential direction, not by statute; a court has also found the ban likely unconstitutional.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Executive Order 14183",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14183"
+      },
+      {
+        "label": "D.C. Circuit opinion in Talbott",
+        "url": "https://media.cadc.uscourts.gov/opinions/docs/2026/06/25-5087-2176040.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14187
+    },
+    "bucket": "pen",
+    "how": "Revoke it; any Health Department rules built on it are separate rows.",
+    "why": "It directs agencies on grants and enforcement without changing a statute, so a pen cancels the order itself.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Executive Order 14187",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14187"
+      },
+      {
+        "label": "Just Security litigation tracker",
+        "url": "https://www.justsecurity.org/107087/tracker-litigation-legal-challenges-trump-administration/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14192
+    },
+    "bucket": "pen",
+    "how": "Revoke it, which ends the rule that agencies repeal ten regulations for each new one.",
+    "why": "It is an internal management directive to agencies, which a later president can swap for a different one.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      },
+      {
+        "label": "List of executive orders in the second Trump presidency",
+        "url": "https://en.wikipedia.org/wiki/List_of_executive_orders_in_the_second_Trump_presidency"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14199
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct the State Department to restore memberships and funding for the bodies the review dropped.",
+    "why": "The order launched a review of memberships; the withdrawals that followed are their own rows, and treaty-based ones may need the Senate.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      },
+      {
+        "label": "Federal Register: memorandum of January 7, 2026",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2026/01/16/2026-00976.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14201
+    },
+    "bucket": "pen",
+    "how": "Revoke it and tell the Education Department to end Title IX enforcement built on the order.",
+    "why": "It sets enforcement priorities under an existing law; the Supreme Court upheld state sports bans in 2026 but did not rule on this order.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14201 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14201-keeping-men-out-womens-sports"
+      },
+      {
+        "label": "CRS: equal athletic opportunity",
+        "url": "https://www.congress.gov/crs_external_products/LSB/HTML/LSB11322.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14203
+    },
+    "bucket": "pen",
+    "how": "Revoke it and lift the sanctions on International Criminal Court officials.",
+    "why": "Sanctions under the emergency powers act are imposed by order and lifted by order; courts have blocked it only for some plaintiffs.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Executive Order 14203",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14203"
+      },
+      {
+        "label": "Just Security: ICC sanctions",
+        "url": "https://www.justsecurity.org/154666/icc-sanctions-threat-us-democracy/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14210
+    },
+    "bucket": "pen",
+    "how": "Revoke it and rebuild staff through new hiring; people already laid off do not return by repeal alone.",
+    "why": "It tells agencies to plan layoffs, which the Supreme Court allowed to proceed, so the order is a pen but the completed cuts stay.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Ninth Circuit opinion on the layoff order",
+        "url": "https://cdn.ca9.uscourts.gov/datastore/opinions/2026/01/05/25-4476.pdf"
+      },
+      {
+        "label": "Trump v. AFGE (Supreme Court)",
+        "url": "https://www.law.cornell.edu/supremecourt/text/24A1174"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14215
+    },
+    "bucket": "locked",
+    "how": "Nothing undoes the removal power the Supreme Court recognized in Trump v. Slaughter; a president can only stop sending agency rules to the White House for review.",
+    "why": "The 2026 holding that independent-agency heads can be fired at will is precedent, beyond any president and beyond Congress short of a constitutional change.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: Ensuring Accountability for All Agencies",
+        "url": "https://www.federalregister.gov/documents/2025/02/24/2025-03063/ensuring-accountability-for-all-agencies"
+      },
+      {
+        "label": "Sidley: Supreme Court overrules Humphrey's Executor",
+        "url": "https://www.sidley.com/en/insights/newsupdates/2026/06/the-end-of-the-independent-agency-supreme-court-overrules-humphreys-executor"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14218
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct agencies to restore benefit eligibility rules and verification practices the order tightened.",
+    "why": "It directs agencies on how to read existing benefit laws, so a new reading by order replaces it, though part of it is already blocked.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      },
+      {
+        "label": "CRS: sanctuary jurisdictions",
+        "url": "https://www.congress.gov/crs_external_products/LSB/HTML/LSB11321.web.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14230
+    },
+    "bucket": "pen",
+    "how": "Revoke it by order; courts have already permanently barred enforcement.",
+    "why": "Naming a firm in an order is a presidential act that a pen reverses; the D.C. Circuit appeal of the permanent injunction is pending.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "States United: Perkins Coie v. DOJ",
+        "url": "https://statesunited.org/resources/perkins-coie-v-doj/"
+      },
+      {
+        "label": "Washington Legal Foundation: D.C. Circuit argument",
+        "url": "https://www.wlf.org/2026/05/14/wlf-legal-pulse/perkins-coie-v-doj-oral-argument-there-are-certain-things-even-the-unitary-executive-cannot-do/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14235
+    },
+    "bucket": "pen",
+    "how": "Revoke it; the Education Department rule narrowing loan forgiveness is a separate row needing new rulemaking.",
+    "why": "The order only told Education to write that rule, and the forgiveness program itself is statute and untouched.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Presidential Documents: EO 14235 (PSLF)",
+        "url": "https://www.presidency.ucsb.edu/node/376651"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14236
+    },
+    "bucket": "pen",
+    "how": "Revoke it and reissue or replace the Biden orders it cancelled, one new order at a time.",
+    "why": "An order that cancels other orders is itself only an order, so a later order can restore or replace them.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: Additional Rescissions",
+        "url": "https://www.federalregister.gov/documents/2025/03/20/2025-04866/additional-rescissions-of-harmful-executive-orders-and-actions"
+      },
+      {
+        "label": "List of executive orders in the second Trump presidency",
+        "url": "https://en.wikipedia.org/wiki/List_of_executive_orders_in_the_second_Trump_presidency"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14238
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct the named agencies to rebuild the offices and staff it cut.",
+    "why": "It directs the executive branch to shrink its own agencies; rehiring is an executive choice, subject to Congress funding the jobs.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      },
+      {
+        "label": "List of executive orders in the second Trump presidency",
+        "url": "https://en.wikipedia.org/wiki/List_of_executive_orders_in_the_second_Trump_presidency"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14242
+    },
+    "bucket": "pen",
+    "how": "Revoke it and rebuild the Education Department through agency management; only Congress could close the department by statute.",
+    "why": "The department exists by law, so the order could not abolish it, and the Supreme Court let the layoffs and transfers proceed.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "McMahon v. New York (Supreme Court)",
+        "url": "https://www.supremecourt.gov/opinions/24pdf/24a1203_new_6j37.pdf"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14246
+    },
+    "bucket": "pen",
+    "how": "Revoke it by order; courts have already permanently barred enforcement.",
+    "why": "Targeting one firm by order is a presidential act that a pen reverses; the D.C. Circuit appeal of the permanent injunction is pending.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Executive Order 14246 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14246-addressing-risks-from-jenner-block"
+      },
+      {
+        "label": "Washington Legal Foundation: D.C. Circuit argument",
+        "url": "https://www.wlf.org/2026/05/14/wlf-legal-pulse/perkins-coie-v-doj-oral-argument-there-are-certain-things-even-the-unitary-executive-cannot-do/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14248
+    },
+    "bucket": "pen",
+    "how": "Revoke it; courts have already permanently blocked its proof-of-citizenship and ballot-handling provisions.",
+    "why": "Judges held a president cannot set election rules by order, and what remains is a directive to agencies that a pen cancels.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "ABC News: judge permanently blocks the elections order",
+        "url": "https://abcnews.com/Politics/judge-permanently-blocks-trump-eo-requiring-proof-citizenship/story?id=134175354"
+      },
+      {
+        "label": "Democracy Docket: election order challenge",
+        "url": "https://www.democracydocket.com/cases/washington-d-c-trump-election-integrity-executive-order-challenge/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14250
+    },
+    "bucket": "pen",
+    "how": "Revoke it by order; courts have already permanently barred enforcement.",
+    "why": "Targeting one firm by order is a presidential act that a pen reverses; the D.C. Circuit appeal of the permanent injunction is pending.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Executive Order 14250 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14250-addressing-risks-from-wilmerhale"
+      },
+      {
+        "label": "Washington Legal Foundation: D.C. Circuit argument",
+        "url": "https://www.wlf.org/2026/05/14/wlf-legal-pulse/perkins-coie-v-doj-oral-argument-there-are-certain-things-even-the-unitary-executive-cannot-do/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14251
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct agencies to recognize unions again and restore the contracts they ended.",
+    "why": "The exclusions rest on a national-security power exercised by order, though agencies already cancelled contracts and courts are split on the rest.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "CRS: Executive Order 14251",
+        "url": "https://www.congress.gov/crs_external_products/LSB/HTML/LSB11367.html"
+      },
+      {
+        "label": "FedSmith: appeals court and EO 14251",
+        "url": "https://www.fedsmith.com/2026/02/27/appeals-court-upholds-trump-eo-restricting-bargaining/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14253
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct the Interior Department and Smithsonian reviews to stand down.",
+    "why": "It directs agencies to review exhibits and monuments, which a pen ends; courts have already ordered some National Park Service signs restored.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14253",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14253"
+      },
+      {
+        "label": "Executive Order 14416 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14416-restoring-trust-the-smithsonian-institution"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14263
+    },
+    "bucket": "pen",
+    "how": "Revoke it by order; courts have already permanently barred enforcement.",
+    "why": "Targeting one firm by order is a presidential act that a pen reverses; the D.C. Circuit appeal of the permanent injunction is pending.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Executive Order 14263 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14263-addressing-risks-from-susman-godfrey"
+      },
+      {
+        "label": "Washington Legal Foundation: D.C. Circuit argument",
+        "url": "https://www.wlf.org/2026/05/14/wlf-legal-pulse/perkins-coie-v-doj-oral-argument-there-are-certain-things-even-the-unitary-executive-cannot-do/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14281
+    },
+    "bucket": "pen",
+    "how": "Revoke it and restore agency disparate-impact enforcement; the Justice Department rule changes are separate rows.",
+    "why": "Disparate-impact liability comes from statutes and court rulings that an order cannot repeal; it only tells agencies to deprioritize enforcement.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Taft: Executive Order 14281",
+        "url": "https://www.taftlaw.com/news-events/white-house-toolkit/executive-order-14281-restoring-equality-of-opportunity-and-meritocracy/"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14287
+    },
+    "bucket": "pen",
+    "how": "Revoke it and withdraw the sanctuary-jurisdiction list and funding reviews.",
+    "why": "It threatens grants by order; a federal judge has already barred cutting funds to sanctuary jurisdictions, with the Ninth Circuit appeal pending.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Immigration Policy Tracking: EO 14287",
+        "url": "https://immpolicytracking.org/policies/eo-protecting-american-communities-from-criminal-aliens/"
+      },
+      {
+        "label": "ILRC: San Francisco v. Trump",
+        "url": "https://www.ilrc.org/immigration-enforcement/federal-tracking/federal-litigation/san-francisco-and-others-sued-federal"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14290
+    },
+    "bucket": "pen",
+    "how": "Revoke it; a court has already held its funding cutoff unconstitutional, though Congress separately cancelled public broadcasting money.",
+    "why": "The order told agencies to stop funding NPR and PBS, which a pen reverses; the Congress-ordered cuts are a separate, harder row.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Executive Order 14290",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14290"
+      },
+      {
+        "label": "RCFP: order targeting NPR and PBS is unconstitutional",
+        "url": "https://www.rcfp.org/trump-executive-order-npr-pbs-ruling/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14297
+    },
+    "bucket": "pen",
+    "how": "Revoke it and let drug-pricing deals expire; those deals are separate rows.",
+    "why": "It sets pricing goals and threatens trade steps by order, so a later president can drop the policy the same way.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register link to EO 14297",
+        "url": "https://www.govinfo.gov/link/cpd/executiveorder/14297"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14303
+    },
+    "bucket": "pen",
+    "how": "Revoke it and rescind the science-policy guidance agencies wrote under it.",
+    "why": "It sets rules for how agencies use science by presidential direction, with no statute behind it.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14303 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14303-restoring-gold-standard-science"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14315
+    },
+    "bucket": "pen",
+    "how": "Revoke it; the wind and solar tax-credit repeals in the 2025 budget law are separate rows needing Congress.",
+    "why": "The order tells Treasury and Interior how to enforce existing law, while the credits themselves ended by statute.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register text of EO 14315",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2025-07-10/pdf/2025-12961.pdf"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14317
+    },
+    "bucket": "pen",
+    "how": "Revoke it to end Schedule G, the political-appointee category it created for policy-advocating staff.",
+    "why": "Schedule G was created by order alone, with no rule behind it, so the order that made it can end it.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14317 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14317-creating-schedule-g-the-excepted-service"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14318
+    },
+    "bucket": "pen",
+    "how": "Revoke it and restore the earlier permitting rules for data centers and their power sources.",
+    "why": "It tells agencies to speed approvals under existing laws, which the same kind of order can reverse.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Akin: AI Action Plan and accompanying orders",
+        "url": "https://www.akingump.com/en/insights/alerts/white-house-issues-long-awaited-ai-action-plan-and-accompanying-executive-orders"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14319
+    },
+    "bucket": "pen",
+    "how": "Revoke it and withdraw the federal buying rules for AI models that follow from it.",
+    "why": "It sets what AI the federal government will buy; procurement rules are executive policy, not law.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Akin: AI Action Plan and accompanying orders",
+        "url": "https://www.akingump.com/en/insights/alerts/white-house-issues-long-awaited-ai-action-plan-and-accompanying-executive-orders"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14320
+    },
+    "bucket": "pen",
+    "how": "Revoke it and end the Commerce Department program that promotes exports of American AI systems.",
+    "why": "It sets up an export-promotion program under existing trade authority, so a later president can end it by order.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Akin: AI Action Plan and accompanying orders",
+        "url": "https://www.akingump.com/en/insights/alerts/white-house-issues-long-awaited-ai-action-plan-and-accompanying-executive-orders"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14321
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct the housing, health and justice agencies to withdraw its grant conditions on homelessness policy.",
+    "why": "It directs agencies on grant priorities and enforcement and changes no statute, though some local anti-camping laws would stay.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      },
+      {
+        "label": "List of executive orders in the second Trump presidency",
+        "url": "https://en.wikipedia.org/wiki/List_of_executive_orders_in_the_second_Trump_presidency"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14332
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct the White House budget office to rewrite the grant rules it changed.",
+    "why": "It reroutes grant approvals and termination language through agencies, which the budget office can change on instruction.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "White House: Improving Oversight of Federal Grantmaking",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/08/improving-oversight-of-federal-grantmaking/"
+      },
+      {
+        "label": "Clearinghouse: EO 14332",
+        "url": "https://clearinghouse.net/resource/4697/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14333
+    },
+    "bucket": "pen",
+    "how": "Nothing to undo: the federal police takeover lapsed after thirty days; revoke the order to end its remaining directives.",
+    "why": "The Home Rule Act limits the takeover to thirty days unless Congress extends it, so the power ended without a pen.",
+    "status": "expired",
+    "sources": [
+      {
+        "label": "Executive Order 14333",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14333"
+      },
+      {
+        "label": "Federal Register public inspection: EO 14333",
+        "url": "https://public-inspection.federalregister.gov/2025-15550.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14341
+    },
+    "bucket": "pen",
+    "how": "Revoke it and tell the Justice Department to drop its flag-burning prosecution policy.",
+    "why": "It only directs prosecutors; flag burning remains protected speech under Supreme Court precedent.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "KWTX: flag burning order does not change the law",
+        "url": "https://www.kwtx.com/2025/08/26/trump-signs-executive-order-flag-burning-it-doesnt-change-law"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14343
+    },
+    "bucket": "pen",
+    "how": "Revoke it and direct agencies to recognize unions and restore contracts for the added organizations.",
+    "why": "It widens the national-security exclusions of Executive Order 14251 by the same kind of order.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "FedSmith: appeals ruling complicates the union order",
+        "url": "https://www.fedsmith.com/2026/05/20/court-ruling-complicates-executive-order-restricting-unions/"
+      },
+      {
+        "label": "CRS: Executive Order 14251",
+        "url": "https://www.congress.gov/crs_external_products/LSB/HTML/LSB11367.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14347
+    },
+    "bucket": "pen",
+    "how": "Revoke it to end the secondary name Department of War; the legal name never changed.",
+    "why": "The order only authorizes a nickname for the Defense Department, and Congress alone could rename it by statute.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register text of EO 14347",
+        "url": "https://www.federalregister.gov/documents/full_text/text/2025/09/10/2025-17508.txt"
+      },
+      {
+        "label": "Executive Order 14347",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14347"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14351
+    },
+    "bucket": "pen",
+    "how": "Revoke it and close the Gold Card visa program; cards already issued are a separate question.",
+    "why": "It runs on existing visa categories and fees through a Commerce Department program, not a new law.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14351 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14351-the-gold-card"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14363
+    },
+    "bucket": "pen",
+    "how": "Revoke it to end the Energy Department Genesis Mission; Congress controls any money for it.",
+    "why": "It directs the department to organize AI research with existing funds and no new statute.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Scientific American: Genesis Mission",
+        "url": "https://www.scientificamerican.com/article/trump-orders-genesis-mission-to-advance-ai-breakthroughs/"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14365
+    },
+    "bucket": "pen",
+    "how": "Revoke it and stand down the Justice Department AI litigation task force.",
+    "why": "It cannot itself override state AI laws, since only Congress or the courts can, so it only directs federal agencies to challenge them.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14365",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14365"
+      },
+      {
+        "label": "Ropes & Gray: state AI law preemption order",
+        "url": "https://www.ropesgray.com/en/insights/alerts/2025/12/trump-attempts-to-preempt-state-ai-regulation-through-executive-order"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14399
+    },
+    "bucket": "pen",
+    "how": "Revoke it and withdraw the voter-eligibility checks and funding conditions it ordered.",
+    "why": "It follows Executive Order 14248, where courts held a president cannot set election rules by order; this is again a directive to agencies.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14399",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14399"
+      },
+      {
+        "label": "Federal Register, 2026 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14410
+    },
+    "bucket": "pen",
+    "how": "Revoke it and issue an order moving the positions out of Schedule Policy/Career; the final rule that created the schedule is its own row.",
+    "why": "The order moved roughly 8,000 positions under that rule; the move is a presidential act, but the schedule survives until the rule is replaced.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "White House text of EO 14410",
+        "url": "https://www.whitehouse.gov/wp-content/uploads/2026/06/eo-14410.pdf"
+      },
+      {
+        "label": "Federal News Network: about 8,000 positions move",
+        "url": "https://federalnewsnetwork.com/workforce/2026/06/trump-moves-about-8000-federal-positions-to-schedule-policy-career/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14416
+    },
+    "bucket": "pen",
+    "how": "Revoke it and withdraw the White House review of the Smithsonian.",
+    "why": "It responds to a White House report on a museum, which is executive direction; the Smithsonian is governed by its own board.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Executive Order 14416 text",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14416-restoring-trust-the-smithsonian-institution"
+      },
+      {
+        "label": "Federal Register, 2026 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14193
+    },
+    "bucket": "pen",
+    "how": "Nothing is left to undo: the Supreme Court held that the emergency powers act does not allow tariffs and the duties were ended.",
+    "why": "It keeps the pen bucket because it is an order, but the Court's ruling ended it, and refunds are being sorted out in court.",
+    "status": "struck",
+    "sources": [
+      {
+        "label": "Supreme Court opinion, Learning Resources v. Trump",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Covington: IEEPA tariffs terminated",
+        "url": "https://www.cov.com/en/news-and-insights/insights/2026/02/ieepa-tariffs-terminated-replacement-section-122-tariffs-take-effect"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14194
+    },
+    "bucket": "pen",
+    "how": "Nothing is left to undo: the Supreme Court held that the emergency powers act does not allow tariffs and the duties were ended.",
+    "why": "It keeps the pen bucket because it is an order, but the Court's ruling ended it, and refunds are being sorted out in court.",
+    "status": "struck",
+    "sources": [
+      {
+        "label": "Supreme Court opinion, Learning Resources v. Trump",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Crane: end of IEEPA tariff collection",
+        "url": "https://www.craneww.com/knowledge-center/trade-advisory-notices/end-of-ieepa-tariff-collection-effective-february-24-2026/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14195
+    },
+    "bucket": "pen",
+    "how": "Nothing is left to undo: the Supreme Court held that the emergency powers act does not allow tariffs and the duties were ended.",
+    "why": "It keeps the pen bucket because it is an order, but the Court's ruling ended it, and refunds are being sorted out in court.",
+    "status": "struck",
+    "sources": [
+      {
+        "label": "Supreme Court opinion, Learning Resources v. Trump",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Crane: end of IEEPA tariff collection",
+        "url": "https://www.craneww.com/knowledge-center/trade-advisory-notices/end-of-ieepa-tariff-collection-effective-february-24-2026/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14245
+    },
+    "bucket": "pen",
+    "how": "Nothing is left to undo: the Supreme Court held that the emergency powers act does not allow tariffs and the duties were ended.",
+    "why": "It keeps the pen bucket because it is an order, but the Court's ruling ended it, and refunds are being sorted out in court.",
+    "status": "struck",
+    "sources": [
+      {
+        "label": "Supreme Court opinion, Learning Resources v. Trump",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Crane: end of IEEPA tariff collection",
+        "url": "https://www.craneww.com/knowledge-center/trade-advisory-notices/end-of-ieepa-tariff-collection-effective-february-24-2026/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14257
+    },
+    "bucket": "pen",
+    "how": "Nothing is left to undo: the Supreme Court held the emergency powers act does not allow tariffs, and the reciprocal duties ended.",
+    "why": "It keeps the pen bucket because it is an order, but the Court's ruling ended it, and refunds are being sorted out in court.",
+    "status": "struck",
+    "sources": [
+      {
+        "label": "Supreme Court opinion, Learning Resources v. Trump",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Covington: IEEPA tariffs terminated",
+        "url": "https://www.cov.com/en/news-and-insights/insights/2026/02/ieepa-tariffs-terminated-replacement-section-122-tariffs-take-effect"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14323
+    },
+    "bucket": "pen",
+    "how": "Nothing is left to undo: the Supreme Court held that the emergency powers act does not allow tariffs and the duties were ended.",
+    "why": "It keeps the pen bucket because it is an order, but the Court's ruling ended it, and refunds are being sorted out in court.",
+    "status": "struck",
+    "sources": [
+      {
+        "label": "Supreme Court opinion, Learning Resources v. Trump",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Crane: end of IEEPA tariff collection",
+        "url": "https://www.craneww.com/knowledge-center/trade-advisory-notices/end-of-ieepa-tariff-collection-effective-february-24-2026/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14329
+    },
+    "bucket": "pen",
+    "how": "Nothing is left to undo: the Supreme Court held that the emergency powers act does not allow tariffs and the duties were ended.",
+    "why": "It keeps the pen bucket because it is an order, but the Court's ruling ended it, and refunds are being sorted out in court.",
+    "status": "struck",
+    "sources": [
+      {
+        "label": "Supreme Court opinion, Learning Resources v. Trump",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Crane: end of IEEPA tariff collection",
+        "url": "https://www.craneww.com/knowledge-center/trade-advisory-notices/end-of-ieepa-tariff-collection-effective-february-24-2026/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10886
+    },
+    "bucket": "pen",
+    "how": "Terminate the border emergency by proclamation, which ends the military and funding steps drawn from it.",
+    "why": "A national emergency lasts only while the president keeps it; the order and spending already done are separate rows.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Immigration Policy Tracking: border enforcement",
+        "url": "https://immpolicytracking.org/analyses/border-enforcement-and-asylum-prohibitions"
+      },
+      {
+        "label": "List of proclamations by Donald Trump (2025)",
+        "url": "https://en.wikipedia.org/wiki/List_of_proclamations_by_Donald_Trump_(2025)"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10887
+    },
+    "bucket": "locked",
+    "how": "Nothing: a pardon is final once delivered, and a later president cannot take it back.",
+    "why": "The pardon power is unreviewable once exercised, so this is beyond both a pen and Congress.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "List of proclamations by Donald Trump (2025)",
+        "url": "https://en.wikipedia.org/wiki/List_of_proclamations_by_Donald_Trump_(2025)"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10888
+    },
+    "bucket": "pen",
+    "how": "Terminate it by proclamation; a federal court has already vacated its asylum suspension, and the Supreme Court is asked to review.",
+    "why": "Entry suspensions are presidential proclamations, so a pen ends them; the D.C. Circuit held this one exceeded the president's authority.",
+    "status": "vacated",
+    "sources": [
+      {
+        "label": "Proclamation 10888 text",
+        "url": "https://www.presidency.ucsb.edu/documents/proclamation-10888-guaranteeing-the-states-protection-against-invasion"
+      },
+      {
+        "label": "Immigration Policy Tracking: Proclamation 10888",
+        "url": "https://immpolicytracking.org/policies/potus-proclamation-on-guaranteeing-the-states-protection-against-invasion/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10903
+    },
+    "bucket": "pen",
+    "how": "Revoke it by proclamation, which ends use of the 1798 Alien Enemies Act against Tren de Aragua.",
+    "why": "The act lets a president declare the invasion and a later one can end it; the Supreme Court has not ruled on whether the invocation was lawful.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: Proclamation 10903",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/03/20/2025-04865.html"
+      },
+      {
+        "label": "Trump v. J.G.G. (Supreme Court)",
+        "url": "https://www.supremecourt.gov/opinions/24pdf/24a931_2c83.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10895
+    },
+    "bucket": "pen",
+    "how": "Revoke it, or have Commerce end the action; later proclamations rebuilt these metal duties and are separate rows.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Thompson Coburn: Section 232 revisions",
+        "url": "https://www.thompsoncoburn.com/insights/74-april-2-2026-new-proclamation-makes-major-revisions-to-section-232-tariffs-on-steel-aluminum-copper/"
+      },
+      {
+        "label": "Covington: current Section 232 actions",
+        "url": "https://www.cov.com/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10896
+    },
+    "bucket": "pen",
+    "how": "Revoke it, or have Commerce end the action; later proclamations rebuilt these metal duties and are separate rows.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Thompson Coburn: Section 232 revisions",
+        "url": "https://www.thompsoncoburn.com/insights/74-april-2-2026-new-proclamation-makes-major-revisions-to-section-232-tariffs-on-steel-aluminum-copper/"
+      },
+      {
+        "label": "Covington: current Section 232 actions",
+        "url": "https://www.cov.com/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10908
+    },
+    "bucket": "pen",
+    "how": "Revoke it, or have Commerce end the action, ending the auto and auto-parts duties.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: Proclamation 10908",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/04/03/2025-05930.html"
+      },
+      {
+        "label": "Covington: current Section 232 actions",
+        "url": "https://www.cov.com/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10962
+    },
+    "bucket": "pen",
+    "how": "Revoke it, or have Commerce end the action, ending the copper duties.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Thompson Coburn: Section 232 revisions",
+        "url": "https://www.thompsoncoburn.com/insights/74-april-2-2026-new-proclamation-makes-major-revisions-to-section-232-tariffs-on-steel-aluminum-copper/"
+      },
+      {
+        "label": "Covington: current Section 232 actions",
+        "url": "https://www.cov.com/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10976
+    },
+    "bucket": "pen",
+    "how": "Revoke it, or have Commerce end the action, ending the lumber and timber duties.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Covington: current Section 232 actions",
+        "url": "https://www.cov.com/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration"
+      },
+      {
+        "label": "Baker Donelson: Section 232 overhaul",
+        "url": "https://www.bakerdonelson.com/trump-overhauls-section-232-tariffs-what-metals-and-pharmaceutical-importers-need-to-know"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11020
+    },
+    "bucket": "pen",
+    "how": "Revoke it, or have Commerce end the action, ending the drug-import duties.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Baker Donelson: Section 232 overhaul",
+        "url": "https://www.bakerdonelson.com/trump-overhauls-section-232-tariffs-what-metals-and-pharmaceutical-importers-need-to-know"
+      },
+      {
+        "label": "Covington: current Section 232 actions",
+        "url": "https://www.cov.com/news-and-insights/insights/2026/04/current-and-forthcoming-section-232-actions-by-the-trump-administration"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11021
+    },
+    "bucket": "pen",
+    "how": "Revoke it, or have Commerce end the action, ending the full-value steel, aluminum and copper duties.",
+    "why": "Section 232 duties rest on authority Congress delegated to the president, which can be withdrawn with a proclamation and agency paperwork.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: Proclamation 11021",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2026/04/09/2026-06960.html"
+      },
+      {
+        "label": "Thompson Coburn: Section 232 revisions",
+        "url": "https://www.thompsoncoburn.com/insights/74-april-2-2026-new-proclamation-makes-major-revisions-to-section-232-tariffs-on-steel-aluminum-copper/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 11012
+    },
+    "bucket": "pen",
+    "how": "Nothing to undo: the 150-day surcharge ended on its statutory limit; refund claims are in court.",
+    "why": "Congress capped this emergency tariff at 150 days, and the trade court ruled it unlawful, with the Federal Circuit appeal pending.",
+    "status": "expired",
+    "sources": [
+      {
+        "label": "Skadden: Section 122 tariffs struck by trade court",
+        "url": "https://www.skadden.com/insights/publications/2026/05/us-trade-court-strikes-down-section-122-tariffs"
+      },
+      {
+        "label": "Cooley: trade court rejects Section 122 tariffs",
+        "url": "https://www.cooley.com/news/insight/2026/2026-05-21-trade-court-rejects-section-122-tariffs-appeal-pending"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10948
+    },
+    "bucket": "pen",
+    "how": "Nothing to undo: the entry ban on new Harvard international students ran out on its own terms.",
+    "why": "A proclamation limited to six months lapses without a pen, and a court had already blocked it.",
+    "status": "expired",
+    "sources": [
+      {
+        "label": "Federal Register: Proclamation 10948 (Harvard)",
+        "url": "https://www.federalregister.gov/documents/full_text/text/2025/06/10/2025-10668.txt"
+      },
+      {
+        "label": "Crimson: First Circuit hears Harvard visa ban appeal",
+        "url": "https://www.thecrimson.com/article/2026/10/7/harvard-international-student-ban-appeal/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10949
+    },
+    "bucket": "pen",
+    "how": "Revoke it by proclamation, which ends the entry restrictions on the twelve countries it named.",
+    "why": "Entry suspensions rest on a power Congress gave the president, so a proclamation ends them; courts are deferential to them.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Immigration Policy Tracking: Proclamation 10949",
+        "url": "https://immpolicytracking.org/policies/presidential-proclamation-restricting-the-entry-of-foreign-nationals-to-protect-the-us-from-foreign-terrorists-and-other-national-security-and-public-safety-threats/"
+      },
+      {
+        "label": "Federal Register: expanded entry restrictions",
+        "url": "https://www.federalregister.gov/documents/2025/12/19/2025-23570/restricting-and-limiting-the-entry-of-foreign-nationals-to-protect-the-security-of-the-united-states"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10998
+    },
+    "bucket": "pen",
+    "how": "Revoke it by proclamation, which ends the expanded entry restrictions on about twenty countries.",
+    "why": "Entry suspensions rest on a power Congress gave the president, so a proclamation ends them; courts are deferential to them.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: expanded entry restrictions",
+        "url": "https://www.federalregister.gov/documents/2025/12/19/2025-23570/restricting-and-limiting-the-entry-of-foreign-nationals-to-protect-the-security-of-the-united-states"
+      },
+      {
+        "label": "Immigration Policy Tracking: Proclamation 10949",
+        "url": "https://immpolicytracking.org/policies/presidential-proclamation-restricting-the-entry-of-foreign-nationals-to-protect-the-us-from-foreign-terrorists-and-other-national-security-and-public-safety-threats/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "proclamation": 10973
+    },
+    "bucket": "pen",
+    "how": "Revoke it by proclamation; two courts have already struck the agency policies that collect the $100,000 fee.",
+    "why": "The fee was set by presidential proclamation, and judges have called it a tax a president cannot impose; appeals are pending.",
+    "status": "enjoined",
+    "sources": [
+      {
+        "label": "Ogletree: appeal of H-1B fee ruling",
+        "url": "https://ogletree.com/insights-resources/blog-posts/trump-administration-appeals-ruling-striking-down-100000-h-1b-fee-requirement/"
+      },
+      {
+        "label": "Forbes: judge strikes latest $100,000 H-1B fee",
+        "url": "https://www.forbes.com/sites/stuartanderson/2026/10/01/judge-strikes-down-latest-version-of-100000-h-1b-immigration-fee/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-01905"
+    },
+    "bucket": "pen",
+    "how": "Nothing to undo: the freeze has lapsed and later hiring controls replaced it, so the next president only has to revoke those.",
+    "why": "A hiring freeze is an instruction to agencies from the president, so no statute or rule stands behind it.",
+    "status": "expired",
+    "sources": [
+      {
+        "label": "Federal Register: Hiring Freeze memorandum",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/01/28/2025-01905.html"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-01966"
+    },
+    "bucket": "pen",
+    "how": "Nothing to undo: a federal judge vacated the memorandum, the government dropped its appeal, and leasing and permitting continued.",
+    "why": "It paused wind leasing by memorandum, a pen action, but the court ruling ended it in 2025 and the appeal withdrawal made that final.",
+    "status": "vacated",
+    "sources": [
+      {
+        "label": "Federal Register: offshore wind memorandum",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2025/01/29/2025-01966.html"
+      },
+      {
+        "label": "Offshore Wind Biz: appeal withdrawn",
+        "url": "https://www.offshorewind.biz/2026/06/16/trump-administration-withdraws-appeal-leaving-wind-energy-leasing-and-permitting-freeze-vacated/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2026-00976"
+    },
+    "bucket": "pen",
+    "how": "Sign a memorandum rejoining the bodies; a few Senate-ratified treaties among them may need Senate consent to rejoin.",
+    "why": "Most of the 66 bodies were joined by executive action alone; the treaty-based ones are the exception and are separate rows.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: memorandum of January 7, 2026",
+        "url": "https://www.federalregister.gov/documents/full_text/html/2026/01/16/2026-00976.html"
+      },
+      {
+        "label": "Verfassungsblog: the announced U.S. withdrawals",
+        "url": "https://verfassungsblog.de/the-announced-u-s-withdrawal-from-many-international-entities/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "document_number": "2025-19141"
+    },
+    "bucket": "pen",
+    "how": "Rescind the memorandum and direct the Justice Department and Treasury to drop its domestic terrorism and funding-network investigations.",
+    "why": "It is a national security directive to agencies, so a later president can withdraw it the same way.",
+    "status": "in-force",
+    "sources": [
+      {
+        "label": "Federal Register: NSPM-7",
+        "url": "https://www.federalregister.gov/documents/2025/09/30/2025-19141/countering-domestic-terrorism-and-organized-political-violence"
+      },
+      {
+        "label": "Federal Register, 2025 executive orders",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  }
+]

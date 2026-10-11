@@ -1,0 +1,1329 @@
+[
+  {
+    "match": {
+      "eo": 14219
+    },
+    "headline": "Ordered agencies to repeal rules on their own, some without public comment",
+    "how": "Restore the normal rulemaking process.",
+    "why": "A pen cancels the direction, but any rule an agency has already repealed needs a new rule to bring back.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/25/2025-03138/ensuring-lawful-governance-and-implementing-the-presidents-department-of-government-efficiency"
+      },
+      {
+        "label": "White House memo applying the order",
+        "url": "https://www.whitehouse.gov/presidential-actions/2025/04/directing-the-repeal-of-unlawful-regulations"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14220
+    },
+    "headline": "Ordered a national-security trade probe of imported copper",
+    "how": "Leave it.",
+    "why": "It only opened an investigation; any copper tariff comes from a separate proclamation, which has its own row.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/28/2025-03439/addressing-the-threat-to-national-security-from-imports-of-copper"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14221
+    },
+    "headline": "Ordered hospitals and insurers to post clear prices for care",
+    "how": "Leave it.",
+    "why": "Price transparency for patients is housekeeping a Democratic president would keep; a pen could still end it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/28/2025-03440/making-america-healthy-again-by-empowering-patients-with-clear-accurate-and-actionable-healthcare"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14222
+    },
+    "headline": "Made DOGE staff review and sign off on federal contracts, grants and payments",
+    "how": "Restore normal contract and grant approval.",
+    "why": "Agencies reviewing their own spending is an internal directive; a pen ends it, though cancelled awards would need to be re-awarded.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/03/2025-03527/implementing-the-presidents-department-of-government-efficiency-cost-efficiency-initiative"
+      },
+      {
+        "label": "Order text on contract and grant review",
+        "url": "https://www.presidency.ucsb.edu/node/376456"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14223
+    },
+    "headline": "Ordered a national-security trade probe of imported timber and lumber",
+    "how": "Leave it.",
+    "why": "It only opened an investigation; any lumber tariff comes from a separate proclamation, which has its own row.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/06/2025-03693/addressing-the-threat-to-national-security-from-imports-of-timber-lumber-and-their-derivative"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14224
+    },
+    "headline": "Made English the official language and ended federal language-access rules",
+    "how": "Restore language access to federal services.",
+    "why": "An order cannot bind Congress, but it replaced the earlier language-access order, and a new order restores that policy.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/06/2025-03694/designating-english-as-the-official-language-of-the-united-states"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14225
+    },
+    "headline": "Ordered more logging on federal forests and faster timber approvals",
+    "how": "Restore federal forest protections.",
+    "why": "It directs agencies to speed timber sales and permits; a pen reverses the direction, and new rules would be needed for any weakened protections.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/06/2025-03695/immediate-expansion-of-american-timber-production"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14226
+    },
+    "headline": "Put the 25 percent tax on most Canadian imports into effect",
+    "how": "Nothing left to undo.",
+    "why": "Imposed under the emergency powers act, which the Supreme Court held in February 2026 allows no tariffs; the duties ended.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/06/2025-03728/amendment-to-duties-to-address-the-flow-of-illicit-drugs-across-our-northern-border"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "eo": 14227
+    },
+    "headline": "Put the 25 percent tax on most Mexican imports into effect",
+    "how": "Nothing left to undo.",
+    "why": "Imposed under the emergency powers act, which the Supreme Court held in February 2026 allows no tariffs; the duties ended.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/06/2025-03729/amendment-to-duties-to-address-the-situation-at-our-southern-border"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "eo": 14228
+    },
+    "headline": "Doubled the tax on Chinese imports to 20 percent",
+    "how": "Nothing left to undo.",
+    "why": "Imposed under the emergency powers act, which the Supreme Court held in February 2026 allows no tariffs; the duties ended.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/07/2025-03775/further-amendment-to-duties-addressing-the-synthetic-opioid-supply-chain-in-the-peoples-republic-of"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14229
+    },
+    "headline": "Renamed the Anahuac wildlife refuge in Texas for Jocelyn Nungaray",
+    "how": "Leave it.",
+    "why": "A memorial renaming with no policy effect; a Democratic president would have no reason to reverse it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/10/2025-03869/honoring-jocelyn-nungaray"
+      },
+      {
+        "label": "Order text and summary",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14229-honoring-jocelyn-nungaray"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14230
+    },
+    "headline": "Cut Perkins Coie's security clearances and barred it from federal buildings",
+    "how": "Revoke the order against Perkins Coie.",
+    "why": "Naming a firm in an order is a presidential act that a pen reverses; the D.C. Circuit appeal of the permanent injunction is pending.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://statesunited.org/resources/perkins-coie-v-doj/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14231
+    },
+    "headline": "Exempted trade-deal goods from the 25 percent tax on Canada",
+    "how": "Leave it.",
+    "why": "It only narrowed tariffs that the Supreme Court has since ended, so nothing remains to repeal.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/11/2025-03990/amendment-to-duties-to-address-the-flow-of-illicit-drugs-across-our-northern-border"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14232
+    },
+    "headline": "Exempted trade-deal goods from the 25 percent tax on Mexico",
+    "how": "Leave it.",
+    "why": "It only narrowed tariffs that the Supreme Court has since ended, so nothing remains to repeal.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/11/2025-03991/amendment-to-duties-to-address-the-flow-of-illicit-drugs-across-our-southern-border"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14233
+    },
+    "headline": "Created a federal bitcoin reserve from coins the government already seized",
+    "how": "Sell the seized bitcoin and close the reserve.",
+    "why": "The reserve is built from seized assets with no purchases; it is low stakes, and a pen could close it if wanted.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/11/2025-03992/establishment-of-the-strategic-bitcoin-reserve-and-united-states-digital-asset-stockpile"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14234
+    },
+    "headline": "Created a White House task force for the 2026 World Cup",
+    "how": "Leave it.",
+    "why": "Event coordination for a tournament already played; nothing here needs undoing.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/12/2025-04102/establishing-the-white-house-task-force-on-the-fifa-world-cup-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14235
+    },
+    "headline": "Cut loan forgiveness for workers at groups the administration calls unlawful",
+    "how": "Restore loan forgiveness for all qualifying employers.",
+    "why": "The order only told Education to write that rule, and the forgiveness program itself is statute and untouched.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.presidency.ucsb.edu/node/376651"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14236
+    },
+    "headline": "Cancelled 18 more Biden orders, including the federal contractor minimum wage",
+    "how": "Reissue the orders it cancelled.",
+    "why": "An order that cancels other orders is itself only an order, so a later order can restore or replace them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/20/2025-04866/additional-rescissions-of-harmful-executive-orders-and-actions"
+      },
+      {
+        "label": "Order text and rescission list",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14236-additional-rescissions-harmful-executive-orders-and-actions"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14238
+    },
+    "headline": "Cut small agencies to the legal minimum, from libraries to mediation",
+    "how": "Rebuild the agencies and staff it cut.",
+    "why": "It directs the executive branch to shrink its own agencies; rehiring is an executive choice, subject to Congress funding the jobs.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14237
+    },
+    "headline": "Cut Paul Weiss's security clearances and barred it from federal buildings",
+    "how": "Nothing left to undo.",
+    "why": "The administration revoked this order itself on March 21, 2025, after the firm made a deal, so there is nothing left to cancel.",
+    "bucket": "pen",
+    "status": "revoked",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/20/2025-04867/addressing-risks-from-paul-weiss"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14239
+    },
+    "headline": "Shifted disaster preparedness and response duties from FEMA to the states",
+    "how": "Restore FEMA's lead role in disasters.",
+    "why": "It directs agencies to hand duties to the states; a pen reverses the direction, though Congress controls FEMA's funding.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/21/2025-04973/achieving-efficiency-through-state-and-local-preparedness"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14240
+    },
+    "headline": "Moved federal purchasing of common goods and services into one agency",
+    "how": "Leave it.",
+    "why": "Central buying of common supplies is ordinary procurement management that a Democratic president could keep or change with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/25/2025-05197/eliminating-waste-and-saving-taxpayer-dollars-by-consolidating-procurement"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14241
+    },
+    "headline": "Ordered faster permits and federal support for domestic mining",
+    "how": "Leave it.",
+    "why": "Speeding critical-mineral supply is bipartisan in aim; a pen could still narrow any shortcuts that weaken review.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/25/2025-05212/immediate-measures-to-increase-american-mineral-production"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14242
+    },
+    "headline": "Ordered the Education Department to shut itself down as far as law allows",
+    "how": "Rebuild the Education Department.",
+    "why": "The department exists by law, so the order could not abolish it, and the Supreme Court let the layoffs and transfers proceed.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.supremecourt.gov/opinions/24pdf/24a1203_new_6j37.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14243
+    },
+    "headline": "Gave DOGE access to unclassified records across every federal agency",
+    "how": "Close DOGE's access to agency records.",
+    "why": "An order directing agencies to open their records; a pen reverses it, while courts have only paused access in some agencies, case by case.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/25/2025-05214/stopping-waste-fraud-and-abuse-by-eliminating-information-silos"
+      },
+      {
+        "label": "Reporting on court rulings over DOGE data access",
+        "url": "https://www.scotusblog.com/2025/06/supreme-court-sides-with-trump-in-two-doge-suits/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14244
+    },
+    "headline": "Dropped the Paul Weiss order after the firm pledged free legal work",
+    "how": "Leave it.",
+    "why": "It only withdrew the earlier order; the firm's pledge is a private agreement that no later order can cancel.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/26/2025-05291/addressing-remedial-action-by-paul-weiss"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14245
+    },
+    "headline": "Threatened a 25 percent tax on any country buying Venezuelan oil",
+    "how": "Nothing left to undo.",
+    "why": "The Supreme Court held the emergency powers act allows no tariffs, so the duties ended; refunds are being sorted out in court.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14246
+    },
+    "headline": "Cut Jenner & Block's security clearances and barred it from federal buildings",
+    "how": "Revoke the order against Jenner & Block.",
+    "why": "Targeting one firm by order is a presidential act that a pen reverses; the D.C. Circuit appeal of the permanent injunction is pending.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14246-addressing-risks-from-jenner-block"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14247
+    },
+    "headline": "Ended paper checks for federal payments in favor of electronic ones",
+    "how": "Leave it.",
+    "why": "Payment modernization with exemptions for those who need checks; a Democratic president could keep it and adjust the exemptions.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/28/2025-05522/modernizing-payments-to-and-from-americas-bank-account"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14248
+    },
+    "headline": "Ordered proof of citizenship to register and threatened states' election funds",
+    "how": "Revoke the election order.",
+    "why": "Judges held a president cannot set election rules by order, and what remains is a directive to agencies that a pen cancels.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://abcnews.com/Politics/judge-permanently-blocks-trump-eo-requiring-proof-citizenship/story?id=134175354"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14249
+    },
+    "headline": "Ordered Treasury to tighten checks on federal payments to stop improper ones",
+    "how": "Leave it.",
+    "why": "Payment-integrity checks are routine Treasury work that a Democratic president would keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/03/28/2025-05524/protecting-americas-bank-account-against-fraud-waste-and-abuse"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14251
+    },
+    "headline": "Ended union bargaining rights for most of the federal workforce",
+    "how": "Restore federal union bargaining rights.",
+    "why": "The exclusions rest on a national-security power exercised by order, though agencies already cancelled contracts and courts are split on the rest.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.congress.gov/crs_external_products/LSB/HTML/LSB11367.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14252
+    },
+    "headline": "Set up a federal task force over D.C. policing, homeless camps and monuments",
+    "how": "Disband the D.C. task force.",
+    "why": "A task force created by order; a pen disbands it, though D.C. home rule is statute and Congress controls the city's police powers.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/03/2025-05837/making-the-district-of-columbia-safe-and-beautiful"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14253
+    },
+    "headline": "Ordered Smithsonian and national park exhibits reviewed and rewritten",
+    "how": "Restore the exhibits and stop the reviews.",
+    "why": "It directs agencies to review exhibits and monuments, which a pen ends; courts have already ordered some National Park Service signs restored.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14253"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14250
+    },
+    "headline": "Cut WilmerHale's security clearances and barred it from federal buildings",
+    "how": "Revoke the order against WilmerHale.",
+    "why": "Targeting one firm by order is a presidential act that a pen reverses; the D.C. Circuit appeal of the permanent injunction is pending.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14250-addressing-risks-from-wilmerhale"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14254
+    },
+    "headline": "Ordered a crackdown on ticket scalping and hidden ticket fees",
+    "how": "Leave it.",
+    "why": "Consumer protection against scalpers and junk fees is something a Democratic president would keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/03/2025-05906/combating-unfair-practices-in-the-live-entertainment-market"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14255
+    },
+    "headline": "Created a Commerce office to speed up large foreign investment",
+    "how": "Leave it.",
+    "why": "An office inside Commerce to speed investment deals; routine agency organization with no one clearly harmed.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/03/2025-05908/establishing-the-united-states-investment-accelerator"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14256
+    },
+    "headline": "Ended duty-free entry for low-value packages from China",
+    "how": "Restore duty-free small packages.",
+    "why": "Congress has since written the end of duty-free small packages into law, effective July 2027, so reversing it takes a simple majority.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/07/2025-06027/further-amendment-to-duties-addressing-the-synthetic-opioid-supply-chain-in-the-peoples-republic-of"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ],
+    "unsure": true
+  },
+  {
+    "match": {
+      "eo": 14257
+    },
+    "headline": "Put a 10 percent tax on nearly all imports, and more on dozens of countries",
+    "how": "Nothing left to undo.",
+    "why": "The Supreme Court held the emergency powers act allows no tariffs, so the reciprocal duties ended; refunds are being sorted out in court.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14258
+    },
+    "headline": "Delayed the TikTok ban another 75 days",
+    "how": "Leave it.",
+    "why": "A temporary enforcement delay that has run its course; there is nothing to reverse.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/09/2025-06162/extending-the-tiktok-enforcement-delay"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14259
+    },
+    "headline": "Raised the tax on Chinese imports to 84 percent",
+    "how": "Nothing left to undo.",
+    "why": "Imposed under the emergency powers act, which the Supreme Court held in February 2026 allows no tariffs; the duties ended.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/14/2025-06378/amendment-to-reciprocal-tariffs-and-updated-duties-as-applied-to-low-value-imports-from-the-peoples"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14260
+    },
+    "headline": "Ordered the Justice Department to challenge state climate laws",
+    "how": "Withdraw the order and the suits it started.",
+    "why": "It directs federal lawyers to attack state laws; a pen ends the direction, though pending suits need to be dropped one by one.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/14/2025-06379/protecting-american-energy-from-state-overreach"
+      },
+      {
+        "label": "Reporting on the Justice Department's climate suits",
+        "url": "https://www.eenews.net/articles/doj-sues-to-block-state-climate-superfunds/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14261
+    },
+    "headline": "Ordered more coal leasing on federal land and federal support for coal plants",
+    "how": "Restore limits on coal leasing and subsidies.",
+    "why": "An order directing agencies to favor coal; a pen reverses the direction, though leases already signed would stay in place.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/14/2025-06380/reinvigorating-americas-beautiful-clean-coal-industry-and-amending-executive-order-14241"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14262
+    },
+    "headline": "Ordered the Energy Department to keep large power plants from closing",
+    "how": "Let power plants retire on their own schedule.",
+    "why": "It leans on an emergency power in the Federal Power Act; a pen ends the direction, and a court has already narrowed that power.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/14/2025-06381/strengthening-the-reliability-and-security-of-the-united-states-electric-grid"
+      },
+      {
+        "label": "Reporting on use of the emergency power to delay coal retirements",
+        "url": "https://www.utilitydive.com/news/trump-coal-power-plant-bailout-ferc-doe-peskoe/745052/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14263
+    },
+    "headline": "Cut Susman Godfrey's security clearances and barred it from federal buildings",
+    "how": "Revoke the order against Susman Godfrey.",
+    "why": "Targeting one firm by order is a presidential act that a pen reverses; the D.C. Circuit appeal of the permanent injunction is pending.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14263-addressing-risks-from-susman-godfrey"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14264
+    },
+    "headline": "Told the Energy Department to loosen showerhead water-flow rules",
+    "how": "Restore showerhead water-saving rules.",
+    "why": "An order directing the Energy Department to rescind a rule; a pen reverses the direction, but restoring the rule itself would need a new rulemaking.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/15/2025-06459/maintaining-acceptable-water-pressure-in-showerheads"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14265
+    },
+    "headline": "Ordered the Pentagon to speed up and simplify weapons buying",
+    "how": "Leave it.",
+    "why": "Acquisition reform has had support from both parties for years; a Democratic president would likely keep it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/15/2025-06461/modernizing-defense-acquisitions-and-spurring-innovation-in-the-defense-industrial-base"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14266
+    },
+    "headline": "Raised the tax on Chinese imports to 125 percent",
+    "how": "Nothing left to undo.",
+    "why": "Imposed under the emergency powers act, which the Supreme Court held in February 2026 allows no tariffs; the duties ended.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/15/2025-06462/modifying-reciprocal-tariff-rates-to-reflect-trading-partner-retaliation-and-alignment"
+      },
+      {
+        "label": "Supreme Court ruling on emergency-powers tariffs",
+        "url": "https://www.klgates.com/Summary-Supreme-Court-Decision-on-IEEPA-Tariffs-2-20-2026"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14267
+    },
+    "headline": "Ordered agencies to list rules that limit competition and propose repeals",
+    "how": "Leave it.",
+    "why": "It only starts a review; nothing changes unless an agency later repeals a rule, and each repeal has its own row.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/15/2025-06463/reducing-anti-competitive-regulatory-barriers"
+      },
+      {
+        "label": "Summary of the review process",
+        "url": "https://www.carltonfields.com/insights/publications/2025/implementing-executive-order-ftc-calls-on-public-and-regulated-community-to-identify-anticompetitiv"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14268
+    },
+    "headline": "Ordered faster approval of foreign arms sales",
+    "how": "Leave it.",
+    "why": "Speeding arms-sale paperwork is a management change; any sale still goes through Congress, and a pen could slow it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/15/2025-06464/reforming-foreign-defense-sales-to-improve-speed-and-accountability"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14269
+    },
+    "headline": "Ordered a plan to rebuild U.S. shipbuilding and the merchant fleet",
+    "how": "Leave it.",
+    "why": "Shipbuilding revival has support from both parties and the order is a planning directive.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/15/2025-06465/restoring-americas-maritime-dominance"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14270
+    },
+    "headline": "Set expiration dates on energy rules so they lapse unless renewed",
+    "how": "Remove the expiration dates on energy rules.",
+    "why": "An order telling agencies to add sunset dates to rules; a pen cancels the direction, but rules that already lapsed need new rulemaking.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/15/2025-06466/zero-based-regulatory-budgeting-to-unleash-american-energy"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14271
+    },
+    "headline": "Told agencies to buy commercial products instead of custom-built ones",
+    "how": "Leave it.",
+    "why": "Buying off-the-shelf where it fits is ordinary procurement policy that a Democratic president could keep.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/18/2025-06835/ensuring-commercial-cost-effective-solutions-in-federal-contracts"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14272
+    },
+    "headline": "Ordered a national-security trade probe of imported critical minerals",
+    "how": "Leave it.",
+    "why": "It only opened an investigation; any tariff comes from a separate proclamation, which has its own row.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/18/2025-06836/ensuring-national-security-and-economic-resilience-through-section-232-actions-on-processed-critical"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14273
+    },
+    "headline": "Ordered agencies to act on drug prices, from transparency to generic competition",
+    "how": "Leave it.",
+    "why": "Lowering drug prices is a goal a Democratic president would keep; the follow-on most-favored-nation order has its own row.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/18/2025-06837/lowering-drug-prices-by-once-again-putting-americans-first"
+      },
+      {
+        "label": "Summary of the order's sections",
+        "url": "https://www.nera.com/insights/publications/2025/_executive-order-14273-summary-.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14274
+    },
+    "headline": "Ordered agencies to sell off or give up federal office space",
+    "how": "Leave it.",
+    "why": "Disposing of unused office space is routine property management; a pen can reverse any specific sale plan.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/18/2025-06838/restoring-common-sense-to-federal-office-space-management"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14275
+    },
+    "headline": "Ordered a rewrite of the federal procurement rulebook",
+    "how": "Leave it.",
+    "why": "Rewriting the Federal Acquisition Regulation is housekeeping; specific changes that weaken worker or environmental protections would have their own rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/18/2025-06839/restoring-common-sense-to-federal-procurement"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14276
+    },
+    "headline": "Ordered a review to loosen rules on commercial fishing and fish farming",
+    "how": "Restore federal fishing limits.",
+    "why": "It tells Commerce to consider suspending or rewriting fishing rules; a pen ends the direction, and any rewritten rules need new rulemaking.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/22/2025-07062/restoring-american-seafood-competitiveness"
+      },
+      {
+        "label": "Summary of the order for fisheries",
+        "url": "https://www.everycrsreport.com/reports/IF13017.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14277
+    },
+    "headline": "Created an AI education task force and challenge for American youth",
+    "how": "Leave it.",
+    "why": "A task force and a school program with no one harmed; a Democratic president would likely keep it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/28/2025-07368/advancing-artificial-intelligence-education-for-american-youth"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14278
+    },
+    "headline": "Set a goal of one million new apprenticeships and skilled-trade training",
+    "how": "Leave it.",
+    "why": "Job training and apprenticeships are widely supported across parties.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/28/2025-07369/preparing-americans-for-high-paying-skilled-trade-jobs-of-the-future"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14279
+    },
+    "headline": "Pressed college accreditors to drop diversity standards or lose recognition",
+    "how": "Restore accreditation diversity standards.",
+    "why": "It directs the Education Department to act against accreditors; a pen ends that, though recognition decisions already made need to be revisited.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/28/2025-07376/reforming-accreditation-to-strengthen-higher-education"
+      },
+      {
+        "label": "Summary of the accreditation order",
+        "url": "https://policytracker.wiche.edu/executive-order/eo-14279-reforming-accreditation-strengthen-higher-education"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14280
+    },
+    "headline": "Ended federal pressure on schools to close racial gaps in discipline",
+    "how": "Restore school discipline fairness guidance.",
+    "why": "The earlier policy was guidance, and the order rescinded it by direction; a pen can reissue guidance, though court rulings on disparate impact are separate.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/28/2025-07377/reinstating-commonsense-school-discipline-policies"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14281
+    },
+    "headline": "Ordered agencies to drop disparate-impact discrimination enforcement",
+    "how": "Restore disparate-impact enforcement.",
+    "why": "Disparate-impact liability comes from statutes and court rulings that an order cannot repeal; it only tells agencies to deprioritize enforcement.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.taftlaw.com/news-events/white-house-toolkit/executive-order-14281-restoring-equality-of-opportunity-and-meritocracy/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14282
+    },
+    "headline": "Ordered tighter reporting of foreign money at universities",
+    "how": "Leave it.",
+    "why": "It tells the Education Department to enforce an existing law on foreign gifts; a Democratic president could keep that enforcement.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/28/2025-07379/transparency-regarding-foreign-influence-at-american-universities"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14283
+    },
+    "headline": "Renewed the White House initiative on historically Black colleges",
+    "how": "Leave it.",
+    "why": "It continues a program that presidents of both parties have kept; nothing here needs undoing.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/28/2025-07380/white-house-initiative-to-promote-excellence-and-innovation-at-historically-black-colleges-and"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14284
+    },
+    "headline": "Ended automatic permanent status for new federal hires",
+    "how": "Restore automatic status after probation.",
+    "why": "The change rests on an order plus an OPM rule; a pen cancels the order, but the rule also needs to be rewritten.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/29/2025-07469/strengthening-probationary-periods-in-the-federal-service"
+      },
+      {
+        "label": "Guidance on the probationary-period certification process",
+        "url": "https://www.fedsmith.com/2025/08/11/probationary-employees-guidance-from-opm/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14285
+    },
+    "headline": "Fast-tracked deep-sea mining in U.S. and international waters",
+    "how": "Restore limits on seabed mining.",
+    "why": "An order telling agencies to speed seabed mining permits; a pen reverses the direction, though licenses already issued would stay in place.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/04/29/2025-07470/unleashing-americas-offshore-critical-minerals-and-resources"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14286
+    },
+    "headline": "Ordered English-language checks for truck drivers at roadside inspections",
+    "how": "Leave it.",
+    "why": "It directs enforcement of an existing safety rule; a Democratic president could keep it, and a pen could change the inspection policy.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/05/02/2025-07786/enforcing-commonsense-rules-of-the-road-for-americas-truck-drivers"
+      },
+      {
+        "label": "Summary of the trucker English order",
+        "url": "https://www.littler.com/news-analysis/asap/got-commercial-drivers-new-executive-order-seeks-ensure-they-can-speak-and-read"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14287
+    },
+    "headline": "Ordered a sanctuary-jurisdiction list and threatened those places' federal funds",
+    "how": "Withdraw the sanctuary-city list and funding threats.",
+    "why": "It threatens grants by order; a federal judge has already barred cutting funds to sanctuary jurisdictions, with the Ninth Circuit appeal pending.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://immpolicytracking.org/policies/eo-protecting-american-communities-from-criminal-aliens/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14288
+    },
+    "headline": "Ordered review of police consent decrees and more military gear for local police",
+    "how": "Restore federal oversight of local police.",
+    "why": "It directs the Justice Department to wind down oversight deals; a pen ends the direction, but decrees already modified need new agreements.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/05/02/2025-07790/strengthening-and-unleashing-americas-law-enforcement-to-pursue-criminals-and-protect-innocent"
+      },
+      {
+        "label": "Analysis of the policing order",
+        "url": "https://www.lawfaremedia.org/article/trump-s-vision-for-policing-comes-into-focus"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14289
+    },
+    "headline": "Stopped stacking several tariffs on the same car, steel or aluminum product",
+    "how": "Leave it.",
+    "why": "It cut overlapping tariffs on a product, which is relief rather than harm; the tariffs themselves have their own rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/05/02/2025-07835/addressing-certain-tariffs-on-imported-articles"
+      },
+      {
+        "label": "CBP guidance on tariff stacking",
+        "url": "https://kpmg.com/us/en/taxnewsflash/news/2025/05/us-cbp-implements-tariff-modifications-address-stacking.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14290
+    },
+    "headline": "Cut federal funding to NPR and PBS",
+    "how": "Restore public media funding.",
+    "why": "The order told agencies to stop funding NPR and PBS, which a pen reverses; the Congress-ordered cuts are a separate, harder row.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14290"
+      }
+    ]
+  }
+]

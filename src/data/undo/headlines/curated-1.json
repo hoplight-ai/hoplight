@@ -1,0 +1,1651 @@
+[
+  {
+    "match": {
+      "id": "cra-epa-waste-emissions-charge"
+    },
+    "headline": "Killed the EPA charge on methane waste, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/bill/119th-congress/senate-joint-resolution/12/all-info"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-boem-marine-archaeological"
+    },
+    "headline": "Killed the Interior rule protecting marine archaeological sites, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/bill/119th-congress/senate-joint-resolution/11/all-info"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-irs-digital-asset-broker"
+    },
+    "headline": "Killed the IRS reporting rule for crypto brokers, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Ballotpedia",
+        "url": "https://ballotpedia.org/Federal_agency_rules_repealed_under_the_Congressional_Review_Act"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-doe-gas-water-heaters"
+    },
+    "headline": "Killed the efficiency standard for gas instant water heaters, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Columbia Climate Law",
+        "url": "https://climate.law.columbia.edu/content/president-trump-signs-joint-resolution-disapprove-doe-energy-standards-gas-burning-consumer"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-doe-walk-in-coolers"
+    },
+    "headline": "Killed the efficiency standard for walk-in coolers and freezers, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Columbia Climate Law",
+        "url": "https://climate.law.columbia.edu/content/president-trump-signs-joint-resolution-disapprove-doe-energy-standards-walk-coolers-and"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-doe-certification-enforcement"
+    },
+    "headline": "Killed the rule that certifies, labels and polices appliances, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Columbia Climate Law",
+        "url": "https://climate.law.columbia.edu/content/president-trump-signs-joint-resolution-disapprove-doe-energy-conservation-program"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-doe-commercial-refrigerators"
+    },
+    "headline": "Killed the efficiency standard for commercial refrigerators, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Columbia Climate Law",
+        "url": "https://climate.law.columbia.edu/content/president-trump-signs-joint-resolution-disapprove-doe-energy-standards-commercial"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-cfpb-overdraft"
+    },
+    "headline": "Killed the rule capping big-bank overdraft fees at 5 dollars, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congressional Research Service",
+        "url": "https://www.everycrsreport.com/reports/IN12513.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-cfpb-digital-payments"
+    },
+    "headline": "Killed CFPB oversight of big payment apps, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Steptoe",
+        "url": "https://www.steptoe.com/en/news-publications/congress-rolls-back-major-cfpb-rules.html"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-nps-glen-canyon-vehicles"
+    },
+    "headline": "Killed the Glen Canyon National Recreation Area vehicle rule, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Ballotpedia News",
+        "url": "https://news.ballotpedia.org/2025/12/19/trump-signs-more-congressional-review-act-resolutions-in-2025-than-in-every-previous-year-combined/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-epa-rubber-tire-emissions"
+    },
+    "headline": "Killed the air toxics standards for rubber tire plants, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Ballotpedia News",
+        "url": "https://news.ballotpedia.org/2025/12/19/trump-signs-more-congressional-review-act-resolutions-in-2025-than-in-every-previous-year-combined/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-epa-ca-advanced-clean-trucks"
+    },
+    "headline": "Killed California's Advanced Clean Trucks waiver, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars a similar waiver later; California and ten states sued, arguing it never applied to waivers.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/briefings-statements/2025/06/congressional-bills-h-j-res-87-h-j-res-88-h-j-res-89-signed-into-law/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-epa-ca-advanced-clean-cars-ii"
+    },
+    "headline": "Killed California's waiver to phase out gas cars by 2035, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars a similar waiver later; California and ten states sued, arguing it never applied to waivers.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/briefings-statements/2025/06/congressional-bills-h-j-res-87-h-j-res-88-h-j-res-89-signed-into-law/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-epa-ca-omnibus-low-nox"
+    },
+    "headline": "Killed California's low-NOx truck pollution waiver, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars a similar waiver later; California and ten states sued, arguing it never applied to waivers.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/briefings-statements/2025/06/congressional-bills-h-j-res-87-h-j-res-88-h-j-res-89-signed-into-law/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-occ-bank-merger-act"
+    },
+    "headline": "Killed the OCC rule on how bank mergers are reviewed, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "GovInfo",
+        "url": "https://www.govinfo.gov/app/details/PLAW-119publ19"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-epa-major-to-area-sources"
+    },
+    "headline": "Killed EPA's review of big polluters reclassed as smaller sources",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/bill/119th-congress/senate-joint-resolution/31"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-blm-npra-integrated-activity-plan"
+    },
+    "headline": "Killed the Alaska National Petroleum Reserve land-use plan, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Ballotpedia News",
+        "url": "https://news.ballotpedia.org/2025/12/12/trump-signs-resolution-disapproving-of-bureau-of-land-management-plan-for-the-national-petroleum-reserve/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-blm-miles-city-plan"
+    },
+    "headline": "Killed the Miles City, Montana land-use plan amendment, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "GovInfo",
+        "url": "https://www.govinfo.gov/app/details/PLAW-119publ48"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-blm-north-dakota-plan"
+    },
+    "headline": "Killed the North Dakota field office land-use plan, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "GovInfo",
+        "url": "https://www.govinfo.gov/app/details/PLAW-119publ49"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-blm-central-yukon-plan"
+    },
+    "headline": "Killed the Central Yukon, Alaska land-use plan, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/bill/119th-congress/house-joint-resolution/106/text"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-blm-buffalo-wyoming-plan"
+    },
+    "headline": "Killed the Buffalo, Wyoming land-use plan amendment, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2026/06/04/2026-11151/termination-of-the-resource-management-plan-amendment-for-the-buffalo-field-office-wyoming-and-an"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-blm-anwr-coastal-plain-leasing"
+    },
+    "headline": "Reopened Arctic refuge coastal plain drilling, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars any \"substantially the same\" rule later without new authority from Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wilderness Society",
+        "url": "https://www.wilderness.org/articles/press-release/president-signs-chaos-triggering-public-lands-resolutions-law"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "cra-blm-boundary-waters-plo-7917"
+    },
+    "headline": "Killed the 20-year mining ban around the Boundary Waters, for good",
+    "how": "Nothing. The rule cannot be reissued.",
+    "why": "The Congressional Review Act (the law letting Congress cancel a rule) bars a similar withdrawal later; critics dispute that a land order counts as a \"rule\".",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Save the Boundary Waters",
+        "url": "https://www.savetheboundarywaters.org/statement-trump-just-signed-hj-resolution-140-law-officially-overturning-public-land-order-7917"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-hermandorfer-6th-cir"
+    },
+    "headline": "Seated Whitney Hermandorfer on the Sixth Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Courthouse News",
+        "url": "https://www.courthousenews.com/senate-confirms-sixth-circuit-nominee-hermandorfer-first-federal-judge-of-trumps-second-term/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-bove-3rd-cir"
+    },
+    "headline": "Seated Emil Bove on the Third Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Scripps News",
+        "url": "https://www.scrippsnews.com/politics/the-president/senate-votes-to-confirm-trump-ally-and-current-doj-lawyer-emil-bove-to-3rd-u-s-circuit-court-of-appeals"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-mascott-3rd-cir"
+    },
+    "headline": "Seated Jennifer Mascott on the Third Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Balls & Strikes",
+        "url": "https://ballsandstrikes.org/nominations/trump-nominees-less-time-judges/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-taibleson-7th-cir"
+    },
+    "headline": "Seated Rebecca Taibleson on the Seventh Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Senate Periodical Press Gallery",
+        "url": "https://www.periodicalpress.senate.gov/?p=89233"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-dunlap-1st-cir"
+    },
+    "headline": "Seated Joshua Dunlap on the First Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Bloomberg Law",
+        "url": "https://news.bloomberglaw.com/us-law-week/senate-confirms-trump-tapped-judge-to-left-leaning-first-circuit"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-tung-9th-cir"
+    },
+    "headline": "Seated Eric Tung on the Ninth Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Metropolitan News-Enterprise",
+        "url": "http://www.metnews.com/articles/2025/tung_110625.htm"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-smith-8th-cir"
+    },
+    "headline": "Seated Justin Smith on the Eighth Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Sen. Schmitt",
+        "url": "https://www.schmitt.senate.gov/media/press-releases/senator-schmitt-celebrates-justin-smiths-confirmation-to-eighth-circuit-court-of-appeals/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-schwartz-2nd-cir"
+    },
+    "headline": "Seated Matthew Schwartz on the Second Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Legis1",
+        "url": "https://legis1.com/news/matthew-schwartz-second-circuit-senate-confirms"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-flowers-6th-cir"
+    },
+    "headline": "Seated Benjamin Flowers on the Sixth Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Demand Justice",
+        "url": "https://demandjustice.org/trump-nominees/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-traynor-8th-cir"
+    },
+    "headline": "Seated Daniel Traynor on the Eighth Circuit for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution, so a confirmation cannot be reversed by any president or Congress.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "U.S. Senate",
+        "url": "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1192/vote_119_2_00208.htm"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "judge-district-court-45"
+    },
+    "headline": "Seated 45 district judges and 1 trade court judge for life",
+    "how": "Nothing. The seat is for life.",
+    "why": "Federal judges serve for life under Article III of the Constitution; Ballotpedia counts 56 judges in all, including the 10 appeals judges, and no Supreme Court seat has opened.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Ballotpedia News",
+        "url": "https://news.ballotpedia.org/2026/10/06/president-trump-has-appointed-56-federal-judges-through-october-1-of-his-second-year-of-his-second-term/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-medicaid-work-requirements-cuts"
+    },
+    "headline": "Cut roughly $1 trillion from Medicaid and added work requirements",
+    "how": "Repeal the work rules and restore the funding.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "ASTHO",
+        "url": "https://www.astho.org/advocacy/federal-government-affairs/leg-alerts/2025/one-big-beautiful-bill-law-summary/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-medicaid-provider-taxes"
+    },
+    "headline": "Capped state Medicaid provider taxes and payments states send hospitals",
+    "how": "Lift the caps on provider taxes and hospital payments.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "ASTHO",
+        "url": "https://www.astho.org/advocacy/federal-government-affairs/leg-alerts/2025/one-big-beautiful-bill-law-summary/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-rural-health-fund"
+    },
+    "headline": "Created a $50 billion Rural Health Transformation Program",
+    "how": "Leave it.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Holland & Knight",
+        "url": "https://www.hklaw.com/en/insights/publications/2025/07/one-big-beautiful-bill-includes-50b-rural-health"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-snap-cost-shift"
+    },
+    "headline": "Made states pay part of SNAP food benefits and 75 percent of admin costs",
+    "how": "Restore the full federal share of SNAP costs.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/crs-product/R48552"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-snap-work-rules"
+    },
+    "headline": "Extended SNAP work requirements to adults 18 to 64, with fewer exemptions",
+    "how": "Repeal the work rules and restore the exemptions.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/crs-product/R48552"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-tax-individual-permanent"
+    },
+    "headline": "Made the 2017 individual tax cuts permanent and raised the SALT cap to $40,000",
+    "how": "Repeal or phase out the permanent tax cuts.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Tax Foundation",
+        "url": "https://taxfoundation.org/research/all/federal/one-big-beautiful-bill-act-tax-changes/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-tax-tips-overtime-seniors"
+    },
+    "headline": "Added temporary deductions for tips, overtime and seniors through 2028",
+    "how": "Leave it. They expire on their own.",
+    "why": "They expire on their own at the end of 2028, and ending one earlier is a tax change that reconciliation can make.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Tax Foundation",
+        "url": "https://taxfoundation.org/research/all/federal/one-big-beautiful-bill-act-tax-changes/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-trump-accounts"
+    },
+    "headline": "Created \"Trump Accounts\", savings accounts for children",
+    "how": "Repeal the accounts and the seed deposit.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Center for American Progress",
+        "url": "https://www.americanprogress.org/article/the-implementation-timeline-of-the-one-big-beautiful-bill-act/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-student-loans-grad-plus"
+    },
+    "headline": "Ended Grad PLUS loans, capped student borrowing and changed repayment",
+    "how": "Restore Grad PLUS and lift the borrowing caps.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Senate HELP Committee",
+        "url": "https://www.help.senate.gov/imo/media/doc/faq_docpdf1.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-clean-energy-credits-repeal"
+    },
+    "headline": "Ended or cut short the EV, wind and solar tax credits",
+    "how": "Bring the credits back.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Sidley Austin",
+        "url": "https://www.sidley.com/en/insights/newsupdates/2025/07/the-one-big-beautiful-bill-act-navigating-the-new-energy-landscape"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-immigration-enforcement-funding"
+    },
+    "headline": "Put about $170 billion into immigration enforcement, detention and the wall",
+    "how": "Rescind the unspent money.",
+    "why": "It is spending, so reconciliation reaches the unspent part; the share already paid out is gone.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "American Immigration Council",
+        "url": "https://www.americanimmigrationcouncil.org/fact-sheet/big-beautiful-bill-immigration-border-security/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-cfpb-funding-cap"
+    },
+    "headline": "Cut the CFPB's funding ceiling from 12 to 6.5 percent of Fed expenses",
+    "how": "Raise the cap back to 12 percent.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "National Law Review",
+        "url": "https://natlawreview.com/article/cfpb-funding-cut-nearly-50-one-big-beautiful-bill-act"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-defense-golden-dome"
+    },
+    "headline": "Gave defense $150 billion, with about $25 billion for Golden Dome",
+    "how": "Rescind the unspent defense money.",
+    "why": "It is spending, so reconciliation reaches the unspent part; the share already under contract is gone.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Global Policy Watch",
+        "url": "https://www.globalpolicywatch.com/2025/07/one-big-beautiful-bill-act-makes-150b-investment-in-defense/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-energy-leasing-mandates"
+    },
+    "headline": "Forced oil, gas and coal lease sales and cut the royalties companies pay",
+    "how": "Repeal the mandates and restore higher royalties.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Bureau of Land Management",
+        "url": "https://www.blm.gov/press-release/interior-advances-energy-dominance-through-one-big-beautiful-bill-act"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "obbba-remittance-tax"
+    },
+    "headline": "Put a 1 percent tax on cash remittances sent abroad",
+    "how": "Repeal the tax.",
+    "why": "The Senate allowed it only because it changes spending or taxes, so the same budget reconciliation route can reverse it with 51 votes.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "IRS",
+        "url": "https://www.irs.gov/newsroom/treasury-irs-issue-proposed-regulations-on-the-new-remittance-transfer-tax-established-under-the-one-big-beautiful-bill"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-laken-riley-act"
+    },
+    "headline": "Made detention mandatory for immigrants charged with theft",
+    "how": "End mandatory detention for people merely charged.",
+    "why": "It sets detention rules with no budget effect, so reconciliation cannot carry a repeal.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_acts_of_the_119th_United_States_Congress"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-take-it-down-act"
+    },
+    "headline": "Required platforms to remove intimate deepfakes",
+    "how": "Leave it.",
+    "why": "It is a regulation with no budget effect, so reconciliation cannot carry a change.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "GovInfo",
+        "url": "https://www.govinfo.gov/app/details/PLAW-119publ12"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-halt-fentanyl-act"
+    },
+    "headline": "Made fentanyl-related substances permanently Schedule I",
+    "how": "Amend the permanent Schedule I listing.",
+    "why": "It is a criminal-law change with no budget effect, so reconciliation cannot carry it.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/bill/119th-congress/senate-bill/331"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-genius-act"
+    },
+    "headline": "Set federal rules for payment stablecoins",
+    "how": "Amend the stablecoin rules.",
+    "why": "It sets financial regulation with no budget effect, so reconciliation cannot carry a change.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/List_of_acts_of_the_119th_United_States_Congress"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-rescissions-act-2025"
+    },
+    "headline": "Clawed back $9 billion from public broadcasting and foreign aid",
+    "how": "Re-appropriate the money.",
+    "why": "It cancelled $1.1 billion for public broadcasting and $7.9 billion of foreign aid, and restoring spending takes a new spending law.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Idaho Capital Sun",
+        "url": "https://idahocapitalsun.com/2025/07/24/repub/trump-signs-law-yanking-9b-from-npr-pbs-foreign-aid/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-full-year-cr-2025"
+    },
+    "headline": "Funded the government through September 2025 in one stopgap law",
+    "how": "Leave it. It expired on its own.",
+    "why": "It was a one-year spending law, so its terms ran out and the next spending bill sets new ones.",
+    "bucket": "sixty",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/119/plaws/publ4/PLAW-119publ4.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-cr-ends-shutdown-2025"
+    },
+    "headline": "Ended the 43-day shutdown and funded three bills",
+    "how": "Leave it. It expired on its own.",
+    "why": "It ended the autumn 2025 funding lapse; spending bills need 60 Senate votes, and its stopgap terms expired.",
+    "bucket": "sixty",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/crs_external_products/R/PDF/R48874/R48874.2.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-fy26-cjs-energy-interior"
+    },
+    "headline": "Funded Commerce-Justice-Science, Energy-Water and Interior for fiscal 2026",
+    "how": "Leave it. It expired on its own.",
+    "why": "Annual spending laws need 60 Senate votes to pass, and this one expired with the fiscal year.",
+    "bucket": "sixty",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "GovInfo",
+        "url": "https://www.govinfo.gov/app/details/PLAW-119publ74"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-fy26-omnibus-defense-labor-hhs"
+    },
+    "headline": "Funded Defense, Labor-HHS, Transportation-HUD and more for fiscal 2026",
+    "how": "Leave it. It expired on its own.",
+    "why": "Annual spending laws need 60 Senate votes to pass, and this one expired with the fiscal year.",
+    "bucket": "sixty",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/crs_external_products/R/PDF/R48874/R48874.2.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-fy26-dhs-appropriations"
+    },
+    "headline": "Funded Homeland Security for fiscal 2026 after a funding lapse",
+    "how": "Leave it. It expired on its own.",
+    "why": "Annual spending laws need 60 Senate votes to pass, and this one left out ICE and Border Patrol, which got reconciliation money instead.",
+    "bucket": "sixty",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/crs_external_products/R/PDF/R48874/R48874.2.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-secure-america-act-2026"
+    },
+    "headline": "Gave ICE and Border Patrol about $70 billion through 2029",
+    "how": "Rescind the unspent money.",
+    "why": "It passed as a reconciliation bill, 52-47 in the Senate, so the unspent part is reachable by a simple majority.",
+    "bucket": "majority",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "NewsNation",
+        "url": "https://www.newsnationnow.com/politics/trump-sign-ice-border-patrol-funding-law/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-ndaa-fy2026"
+    },
+    "headline": "Set the military's policy for fiscal 2026 in the NDAA",
+    "how": "Amend its policy provisions in the next defense bill.",
+    "why": "Defense policy bills have no budget hook for reconciliation and face a filibuster; each year also brings a fresh bill.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/briefings-statements/2025/12/congressional-bill-s-1071-signed-into-law"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-epstein-files-transparency-act"
+    },
+    "headline": "Ordered the Justice Department to release its Epstein records",
+    "how": "Leave it.",
+    "why": "It passed the House 427-1 and the Senate by unanimous consent, and it carries no budget hook.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "GovInfo",
+        "url": "https://www.govinfo.gov/app/details/PLAW-119publ38"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "statute-cr-fy2027-through-december"
+    },
+    "headline": "Funded the government to 2026-12-11 with a stopgap bill",
+    "how": "Leave it. It ends on its own date.",
+    "why": "Spending laws need 60 Senate votes, and this stopgap ends on its own date.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/briefings-statements/2026/09/congressional-bill-h-r-6500-signed-into-law/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-desa"
+    },
+    "headline": "Quit the UN Department of Economic and Social Affairs",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-ilc"
+    },
+    "headline": "Quit the International Law Commission, the UN panel that drafts law",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-irmct"
+    },
+    "headline": "Quit the International Residual Mechanism for Criminal Tribunals",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-itc"
+    },
+    "headline": "Quit the International Trade Centre, which helps small exporters",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-osaa"
+    },
+    "headline": "Quit the UN Office of the Special Adviser on Africa",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-srsg-caac"
+    },
+    "headline": "Quit the UN envoy on children and armed conflict",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-srsg-svc"
+    },
+    "headline": "Quit the UN envoy on sexual violence in conflict",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-srsg-vac"
+    },
+    "headline": "Quit the UN envoy on violence against children",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-pbc"
+    },
+    "headline": "Quit the UN Peacebuilding Commission, which advises war-torn countries",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-pbf"
+    },
+    "headline": "Quit the UN Peacebuilding Fund, which pays for peace projects",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-pfpad"
+    },
+    "headline": "Quit the UN Permanent Forum on People of African Descent",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-unaoc"
+    },
+    "headline": "Quit the UN Alliance of Civilizations, a cultural dialogue program",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-un-redd"
+    },
+    "headline": "Quit UN-REDD, the program that pays countries to protect forests",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-unctad"
+    },
+    "headline": "Quit the UN Conference on Trade and Development",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-undef"
+    },
+    "headline": "Quit the UN Democracy Fund, which gives grants to democracy groups",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-un-energy"
+    },
+    "headline": "Quit UN-Energy, which coordinates energy work across UN agencies",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-un-women"
+    },
+    "headline": "Quit UN Women, the UN gender equality agency",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-un-habitat"
+    },
+    "headline": "Quit UN-Habitat, the UN housing and cities agency",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-unitar"
+    },
+    "headline": "Quit the UN Institute for Training and Research",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-un-oceans"
+    },
+    "headline": "Quit UN-Oceans, which coordinates ocean work across UN agencies",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-unfpa"
+    },
+    "headline": "Quit the UN Population Fund, the reproductive health agency",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-unroca"
+    },
+    "headline": "Quit the UN Register of Conventional Arms, a record of arms transfers",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-un-ceb"
+    },
+    "headline": "Quit the UN Chief Executives Board, the forum of UN agency heads",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-unssc"
+    },
+    "headline": "Quit the UN System Staff College, the UN staff training school",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-un-water"
+    },
+    "headline": "Quit UN-Water, which coordinates water work across UN agencies",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-unu"
+    },
+    "headline": "Quit United Nations University, the UN research network",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-escap"
+    },
+    "headline": "Quit the UN Economic and Social Commission for Asia and the Pacific",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-escwa"
+    },
+    "headline": "Quit the UN Economic and Social Commission for Western Asia",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-eca"
+    },
+    "headline": "Quit the UN Economic Commission for Africa",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-un-eclac"
+    },
+    "headline": "Quit the UN Economic Commission for Latin America and the Caribbean",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-cfe-compact"
+    },
+    "headline": "Quit the 24/7 Carbon-Free Energy Compact, a clean power pledge",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-colombo-plan"
+    },
+    "headline": "Quit the Colombo Plan Council, an Asia-Pacific development group",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-cec"
+    },
+    "headline": "Quit the Commission for Environmental Cooperation",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "id": "withdraw-ecw"
+    },
+    "headline": "Quit Education Cannot Wait, the fund for schooling in crises",
+    "how": "Rejoin. Congress must still pay dues.",
+    "why": "Membership rests on an executive decision, not a Senate vote, so the next president can reverse it with a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "White House",
+        "url": "https://www.whitehouse.gov/presidential-actions/2026/01/withdrawing-the-united-states-from-international-organizations-conventions-and-treaties-that-are-contrary-to-the-interests-of-the-united-states/"
+      }
+    ]
+  }
+]

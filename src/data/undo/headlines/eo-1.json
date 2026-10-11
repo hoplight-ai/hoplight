@@ -1,0 +1,1266 @@
+[
+  {
+    "match": {
+      "eo": 14147
+    },
+    "headline": "Ordered investigations of the officials who prosecuted Trump",
+    "how": "End the retaliation reviews.",
+    "why": "It only directs the Justice Department how to use powers it already has, so the same kind of order reverses it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14147-ending-the-weaponization-the-federal-government"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14148
+    },
+    "headline": "Cancelled 78 Biden executive orders in one stroke",
+    "how": "Reissue the Biden orders it cancelled.",
+    "why": "An order that cancels other orders is itself only an order, so a later order can restore or replace what it cancelled.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/28/2025-01901/initial-rescissions-of-harmful-executive-orders-and-actions"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14149
+    },
+    "headline": "Shut down federal work to flag online misinformation",
+    "how": "Restore misinformation monitoring.",
+    "why": "It directs agencies to stop and review past practice under no statute, so a new order can reverse it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/28/2025-01902/restoring-freedom-of-speech-and-ending-federal-censorship"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14150
+    },
+    "headline": "Told the State Department to put U.S. interests first in diplomacy",
+    "how": "Rescind the loyalty directive to the Foreign Service.",
+    "why": "It is a general policy directive to one department that any president issues in some form, with no statute or court behind it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/29/2025-01952/america-first-policy-directive-to-the-secretary-of-state"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14151
+    },
+    "headline": "Shut down every federal diversity, equity and inclusion office",
+    "how": "Reopen the diversity, equity and inclusion offices.",
+    "why": "It ended programs the executive branch created by its own policy, not by statute, so a pen can bring them back.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14151"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14152
+    },
+    "headline": "Ordered criminal reviews of ex-officials Trump accused of election meddling",
+    "how": "End the reviews of former officials.",
+    "why": "It directs investigative priorities of agencies under presidential authority, so a new order can withdraw the direction.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/29/2025-01954/holding-former-government-officials-accountable-for-election-interference-and-improper-disclosure-of"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14153
+    },
+    "headline": "Opened Alaska lands and waters to drilling, mining and logging",
+    "how": "Restore Alaska's protected lands.",
+    "why": "It directs agencies to reverse land protections they set themselves; the leases and rules that follow are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/29/2025-01955/unleashing-alaskas-extraordinary-resource-potential"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14154
+    },
+    "headline": "Froze clean-energy funds and ended the push toward electric cars",
+    "how": "Restore clean-energy funding and EV goals.",
+    "why": "It directs agencies on how to use laws already on the books; the budget-law changes to energy credits are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14156
+    },
+    "headline": "Declared a national energy emergency to speed fossil fuel projects",
+    "how": "End the national energy emergency.",
+    "why": "A national emergency lasts only as long as the president renews it, so ending it is a presidential act even with lawsuits pending.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14156"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14157
+    },
+    "headline": "Labeled drug cartels and gangs foreign terrorist organizations",
+    "how": "Withdraw the terrorist designations.",
+    "why": "Designations are made by the Secretary of State and can be revoked the same way; the order only started that process.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/29/2025-02004/designating-cartels-and-other-organizations-as-foreign-terrorist-organizations-and-specially"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14159
+    },
+    "headline": "Ordered mass deportation enforcement and threatened sanctuary cities",
+    "how": "Reset immigration enforcement priorities.",
+    "why": "It directs agencies to use existing immigration law harder; a pen redirects them while the statutes stay put.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14159"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14161
+    },
+    "headline": "Ordered tougher visa vetting that set up the travel bans",
+    "how": "End the expanded vetting and travel bans.",
+    "why": "It orders security reviews and country lists under existing law; the travel bans themselves are separate proclamations, also a pen.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02009/protecting-the-united-states-from-foreign-terrorists-and-other-national-security-and-public-safety"
+      },
+      {
+        "label": "Wikipedia, second travel ban",
+        "url": "https://en.wikipedia.org/wiki/Second_Trump_travel_ban"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14162
+    },
+    "headline": "Pulled the United States out of the Paris climate agreement",
+    "how": "Rejoin Paris.",
+    "why": "The agreement was joined by executive action without the Senate, so re-entry is a pen too.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14162"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14163
+    },
+    "headline": "Shut down the refugee program and halted approved arrivals",
+    "how": "Restart refugee admissions.",
+    "why": "Refugee admissions run on presidential determinations under existing law, and the Ninth Circuit largely upheld the pause.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Ninth Circuit opinion",
+        "url": "https://cdn.ca9.uscourts.gov/datastore/opinions/2026/03/05/25-1313.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14164
+    },
+    "headline": "Ordered prosecutors to seek the death penalty wherever possible",
+    "how": "Restore the federal death penalty pause.",
+    "why": "It directs charging choices and drug supplies, which are executive discretion, so a pen stops new pursuits.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02012/restoring-the-death-penalty-and-protecting-public-safety"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14165
+    },
+    "headline": "Shut the border to asylum seekers and restarted Remain in Mexico",
+    "how": "Restore asylum access at the border.",
+    "why": "It orders agencies to use border powers Congress already gave them, which a later president can order differently.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14166
+    },
+    "headline": "Held off enforcing the TikTok law while a sale was arranged",
+    "how": "Leave it.",
+    "why": "It only paused enforcement of a law Congress passed; the sale closed in January 2026, so the pause is spent.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02087/application-of-protecting-americans-from-foreign-adversary-controlled-applications-act-to-tiktok"
+      },
+      {
+        "label": "Fox Business",
+        "url": "https://www.foxbusiness.com/technology/tiktok-agrees-sell-us-unit-american-led-investor-group-report"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14167
+    },
+    "headline": "Ordered the military to help seal the border and draft a defense plan",
+    "how": "Pull troops off border enforcement.",
+    "why": "It assigns military missions by presidential direction under existing law, so a new order reassigns them.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02089/clarifying-the-militarys-role-in-protecting-the-territorial-integrity-of-the-united-states"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14168
+    },
+    "headline": "Ended federal recognition of transgender people",
+    "how": "Restore transgender recognition on federal documents.",
+    "why": "No statute fixes the federal definition of sex; this order does, so a pen resets it, apart from any rules agencies wrote under it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14168"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14169
+    },
+    "headline": "Froze all U.S. foreign aid pending a review",
+    "how": "Restart foreign aid.",
+    "why": "The directive is a pen; the lapsed money and the shuttered aid agency are separate, harder rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia, AIDS Vaccine Advocacy Coalition case",
+        "url": "https://en.wikipedia.org/wiki/Department_of_State_v._AIDS_Vaccine_Advocacy_Coalition"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14170
+    },
+    "headline": "Rewrote federal hiring, adding essay questions on the president's agenda",
+    "how": "Restore career-based federal hiring.",
+    "why": "Hiring practice is set by presidential order and personnel-office guidance, not statute, so a new order and new guidance replace it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/30/2025-02094/reforming-the-federal-hiring-process-and-restoring-merit-to-government-service"
+      },
+      {
+        "label": "OPM Merit Hiring Plan",
+        "url": "https://www.opm.gov/policy-data-oversight/hiring-information/merit-hiring-plan-resources/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14171
+    },
+    "headline": "Made tens of thousands of career civil servants fireable at will",
+    "how": "Restore civil service job protections.",
+    "why": "The order told the personnel office to write a rule, now final, so repeal also needs new rulemaking.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.govinfo.gov/content/pkg/FR-2025-01-31/html/2025-02095.htm"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14172
+    },
+    "headline": "Renamed the Gulf of Mexico the Gulf of America and Denali Mount McKinley",
+    "how": "Put the Gulf of Mexico and Denali back on the map.",
+    "why": "A name change is housekeeping that costs nothing to keep and nothing is lost by it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02096/restoring-names-that-honor-american-greatness"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14155
+    },
+    "headline": "Pulled the United States out of the World Health Organization",
+    "how": "Rejoin the World Health Organization.",
+    "why": "Congress set the terms of membership in 1948, and a joint resolution with no budget effect needs sixty Senate votes.",
+    "bucket": "sixty",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14155"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14158
+    },
+    "headline": "Renamed the Digital Service as DOGE and gave it access to federal systems",
+    "how": "Restore the U.S. Digital Service.",
+    "why": "It only reshapes offices the president controls, while the staff and spending cuts it led to are separate, harder rows.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14158-establishing-and-implementing-the-presidents-department-government"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14160
+    },
+    "headline": "Stripped citizenship from babies born here to undocumented parents",
+    "how": "Nothing to undo: the Supreme Court struck it down.",
+    "why": "It stays in the pen bucket because it is an order, but the Court, not any president, ended it.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Congress.gov",
+        "url": "https://www.congress.gov/crs-product/LSB11468"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14173
+    },
+    "headline": "Ended federal contractor affirmative action and targeted diversity programs",
+    "how": "Reinstate contractor affirmative action.",
+    "why": "Contractor affirmative-action rules rest on an executive order, not a statute, and civil rights laws stay in place either way.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14174
+    },
+    "headline": "Revoked the federal COVID vaccine mandate and contractor safety rules",
+    "how": "Leave it.",
+    "why": "It cancelled two 2021 COVID orders that Biden's own administration had already wound down, so there is little to restore.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02098/revocation-of-certain-executive-orders"
+      },
+      {
+        "label": "GMU summary",
+        "url": "https://content.gmu.edu/news/2025-04/revocation-certain-executive-orders-executive-order-14174"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14175
+    },
+    "headline": "Labeled the Houthis a foreign terrorist organization",
+    "how": "Leave it.",
+    "why": "A Democratic president would likely keep a designation of a group that attacks shipping; it is made and lifted by the State Department.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02103/designation-of-ansar-allah-as-a-foreign-terrorist-organization"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14176
+    },
+    "headline": "Ordered release of the JFK, RFK and Martin Luther King assassination files",
+    "how": "Leave it.",
+    "why": "Releasing public records harms no one, and a pen cannot recall what is already out.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02116/declassification-of-records-concerning-the-assassinations-of-president-john-f-kennedy-senator-robert"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14177
+    },
+    "headline": "Re-established the president's science and technology advisory council",
+    "how": "Leave it.",
+    "why": "An advisory council is housekeeping that every president sets up in some form, and a new president can reshape it by order.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02121/presidents-council-of-advisors-on-science-and-technology"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14178
+    },
+    "headline": "Rolled back crypto oversight and banned a federal digital dollar",
+    "how": "Restore crypto oversight.",
+    "why": "It sets agency direction and a working group by presidential order; the stablecoin law that followed is a separate statute.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02123/strengthening-american-leadership-in-digital-financial-technology"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14179
+    },
+    "headline": "Revoked Biden's AI safety order and ordered a plan to speed up AI",
+    "how": "Reissue AI safety requirements.",
+    "why": "It withdrew a Biden order and told agencies to write an AI plan, all by presidential direction, so the same instrument reverses it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Akin Gump",
+        "url": "https://www.akingump.com/en/insights/alerts/white-house-issues-long-awaited-ai-action-plan-and-accompanying-executive-orders"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14180
+    },
+    "headline": "Set up a council to recommend shrinking or abolishing FEMA",
+    "how": "Disband the council; protect FEMA.",
+    "why": "A review council is created and dissolved by presidential order, though FEMA itself exists in statute and stays unless Congress acts.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02173/council-to-assess-the-federal-emergency-management-agency"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14181
+    },
+    "headline": "Ordered California dam water sent to farms, overriding fish protections",
+    "how": "Restore the river and fish protections.",
+    "why": "It directs federal water operations and agency reviews by presidential order, while laws like the Endangered Species Act still apply.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02174/emergency-measures-to-provide-water-resources-in-california-and-improve-disaster-response-in-certain"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14182
+    },
+    "headline": "Revoked Biden's orders protecting abortion access and travel for care",
+    "how": "Restore Biden's abortion-access orders.",
+    "why": "It revoked two Biden orders and tells the budget office how to apply the Hyde rider; both are presidential acts, and the rider is law.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/01/31/2025-02175/enforcing-the-hyde-amendment"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14183
+    },
+    "headline": "Banned transgender people from military service",
+    "how": "Lift the ban on transgender service.",
+    "why": "Who may serve is set by Defense policy under presidential direction, not statute; the ban is in effect while lawsuits continue.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14183"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14184
+    },
+    "headline": "Reinstated troops discharged for refusing the COVID vaccine, with back pay",
+    "how": "Leave it.",
+    "why": "Congress had already repealed the military vaccine mandate, and reinstating the discharged troops harms no one.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/03/2025-02180/reinstating-service-members-discharged-under-the-militarys-covid-19-vaccination-mandate"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14185
+    },
+    "headline": "Ended diversity programs across the military and service academies",
+    "how": "Restore military diversity programs.",
+    "why": "Those programs were set by Defense policy under presidential direction, not by statute, so a pen can bring them back.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/03/2025-02181/restoring-americas-fighting-force"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14186
+    },
+    "headline": "Ordered a missile defense shield over the whole country, Golden Dome",
+    "how": "Leave it.",
+    "why": "Missile defense has bipartisan roots, and the order mostly directs a plan; the spending is Congress's call, not this order's.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/03/2025-02182/the-iron-dome-for-america"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14187
+    },
+    "headline": "Cut federal funds for hospitals giving transgender youth care",
+    "how": "Restore funding for gender-affirming care.",
+    "why": "It directs agencies on grants and enforcement without changing a statute, so a pen cancels the order itself; a court has blocked it.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14187"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14188
+    },
+    "headline": "Targeted foreign students and universities over campus Gaza protests",
+    "how": "Stop the campus deportation and funding threats.",
+    "why": "It directs agencies to use existing civil-rights and immigration law; a pen redirects them, and one court rejected a challenge to the order.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/03/2025-02230/additional-measures-to-combat-anti-semitism"
+      },
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14188"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14189
+    },
+    "headline": "Created a task force for the 250th birthday and a statue garden",
+    "how": "Leave it.",
+    "why": "A commemoration task force is ceremonial, and a later president would run the anniversary on his own terms anyway.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/03/2025-02231/celebrating-americas-250th-birthday"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14190
+    },
+    "headline": "Threatened school funding over lessons on race and gender identity",
+    "how": "End the curriculum funding threats.",
+    "why": "It conditions federal school money by presidential direction, not statute, so a pen reverses it; a court partly blocked it in October 2025.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/03/2025-02232/ending-radical-indoctrination-in-k-12-schooling"
+      },
+      {
+        "label": "ACLU of Virginia filing",
+        "url": "https://www.acluva.org/app/uploads/2025/04/2025.10.20-Dkt-58-Mem-Op-re-Order-Gr-in-part-PI.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14191
+    },
+    "headline": "Pushed federal money toward private and religious school choice",
+    "how": "Redirect school funds to public schools.",
+    "why": "It orders agencies to issue guidance on existing education funds; Congress controls the money, so a pen reverses the guidance.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/03/2025-02233/expanding-educational-freedom-and-opportunity-for-families"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14192
+    },
+    "headline": "Required agencies to repeal ten rules for every new one",
+    "how": "End the ten-for-one rule.",
+    "why": "It is an internal management directive to agencies, which a later president can swap for a different one.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14193
+    },
+    "headline": "Put a 25 percent tax on most imports from Canada",
+    "how": "Nothing to undo: the Supreme Court ended it.",
+    "why": "It stays pen because it is an order, but the Court held emergency powers allow no tariffs; refunds are being sorted out in court.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Supreme Court opinion",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14194
+    },
+    "headline": "Put a 25 percent tax on most imports from Mexico",
+    "how": "Nothing to undo: the Supreme Court ended it.",
+    "why": "It stays pen because it is an order, but the Court held emergency powers allow no tariffs; refunds are being sorted out in court.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Supreme Court opinion",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14195
+    },
+    "headline": "Put a 10 percent tax on imports from China",
+    "how": "Nothing to undo: the Supreme Court ended it.",
+    "why": "It stays pen because it is an order, but the Court held emergency powers allow no tariffs; refunds are being sorted out in court.",
+    "bucket": "pen",
+    "status": "struck",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Supreme Court opinion",
+        "url": "https://www.supremecourt.gov/opinions/25pdf/24-1287_4gcj.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14196
+    },
+    "headline": "Ordered a plan for a U.S. sovereign wealth fund",
+    "how": "Leave it.",
+    "why": "It orders only a plan, with nothing yet created or spent, and Congress would have to approve any fund.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/10/2025-02477/a-plan-for-establishing-a-united-states-sovereign-wealth-fund"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14197
+    },
+    "headline": "Delayed the Canada tariffs after border pledges",
+    "how": "Leave it.",
+    "why": "It only postponed a tariff step, the pause is over, and the tariffs themselves are covered by their own rows.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/10/2025-02478/progress-on-the-situation-at-our-northern-border"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14198
+    },
+    "headline": "Delayed the Mexico tariffs after border pledges",
+    "how": "Leave it.",
+    "why": "It only postponed a tariff step, the pause is over, and the tariffs themselves are covered by their own rows.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/10/2025-02479/progress-on-the-situation-at-our-southern-border"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14199
+    },
+    "headline": "Quit the UN Human Rights Council and ordered cuts to UN agencies",
+    "how": "Restore UN memberships and funding.",
+    "why": "It launched a review of memberships; the withdrawals that followed are their own rows, and treaty-based ones may need the Senate.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14200
+    },
+    "headline": "Delayed the end of duty-free small packages from China",
+    "how": "Leave it.",
+    "why": "It only postponed a step; a later order ended duty-free treatment, and that later order carries the real change as its own row.",
+    "bucket": "pen",
+    "status": "expired",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/11/2025-02512/amendment-to-duties-addressing-the-synthetic-opioid-supply-chain-in-the-peoples-republic-of-china"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14201
+    },
+    "headline": "Barred transgender girls and women from girls' and women's school sports",
+    "how": "Restore transgender athletes' access to sports.",
+    "why": "It sets enforcement priorities under an existing law; the Supreme Court upheld state sports bans in 2026 but did not rule on this order.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Presidency Project",
+        "url": "https://www.presidency.ucsb.edu/documents/executive-order-14201-keeping-men-out-womens-sports"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14202
+    },
+    "headline": "Created a federal task force on anti-Christian bias",
+    "how": "Disband the anti-Christian-bias task force.",
+    "why": "A task force is created and disbanded by order, and its work is reports and recommendations rather than binding rules.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/12/2025-02611/eradicating-anti-christian-bias"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14203
+    },
+    "headline": "Sanctioned International Criminal Court officials",
+    "how": "Lift the court sanctions.",
+    "why": "Sanctions under the emergency powers act are imposed by order and lifted by order; courts have blocked it only for some plaintiffs.",
+    "bucket": "pen",
+    "status": "enjoined",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Wikipedia",
+        "url": "https://en.wikipedia.org/wiki/Executive_Order_14203"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14204
+    },
+    "headline": "Cut off aid to South Africa and fast-tracked refugee status for Afrikaners",
+    "how": "Restore South Africa aid and end the Afrikaner priority.",
+    "why": "Aid and refugee priorities are set by presidential direction under existing law, and no court has ruled on this order.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/12/2025-02630/addressing-egregious-actions-of-the-republic-of-south-africa"
+      },
+      {
+        "label": "Immigration Policy Tracking Project",
+        "url": "https://immpolicytracking.org/policies/eo-addressing-egregious-actions-of-the-republic-of-south-africa"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14205
+    },
+    "headline": "Created a White House Faith Office",
+    "how": "Restore the Office of Faith-Based Partnerships.",
+    "why": "A White House staff office is housekeeping that every president organizes as he likes, with no statute or court involved.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/12/2025-02635/establishment-of-the-white-house-faith-office"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14206
+    },
+    "headline": "Ordered a review of federal gun rules to loosen firearm limits",
+    "how": "Restore the gun-safety reviews.",
+    "why": "It directs the Justice Department to review Biden-era actions; gun statutes are untouched, so a new order restores the earlier approach.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/12/2025-02636/protecting-second-amendment-rights"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14207
+    },
+    "headline": "Closed the Federal Executive Institute, a school for senior civil servants",
+    "how": "Reopen the civil-service leadership school.",
+    "why": "It closed a small training center by order; reopening it would cost money for little gain, and no statute is involved.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/14/2025-02734/eliminating-the-federal-executive-institute"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14208
+    },
+    "headline": "Ordered federal offices to stop buying paper straws",
+    "how": "Restore the plastic-straw phase-out.",
+    "why": "It is a purchasing preference with no real stakes for anyone, and a pen can swap it whenever it matters.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/14/2025-02735/ending-procurement-and-forced-use-of-paper-straws"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14209
+    },
+    "headline": "Paused enforcement of the anti-bribery law for overseas deals",
+    "how": "Resume foreign bribery enforcement.",
+    "why": "It directs prosecutors' priorities; the bribery law itself is untouched, so a pen restores enforcement.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/14/2025-02736/pausing-foreign-corrupt-practices-act-enforcement-to-further-american-economic-and-national-security"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14210
+    },
+    "headline": "Ordered agencies to plan mass layoffs and shrink the federal workforce",
+    "how": "Rebuild staff through new hiring.",
+    "why": "It tells agencies to plan layoffs, which the Supreme Court allowed to proceed, so the order is a pen but completed cuts stay.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Ninth Circuit opinion",
+        "url": "https://cdn.ca9.uscourts.gov/datastore/opinions/2026/01/05/25-4476.pdf"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14211
+    },
+    "headline": "Made diplomats subject to firing for not carrying out presidential policy",
+    "how": "Restore Foreign Service protections.",
+    "why": "It orders State to reform personnel rules by presidential direction; the Foreign Service Act still governs, so a new order resets practice.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/18/2025-02841/one-voice-for-americas-foreign-relations"
+      },
+      {
+        "label": "NAFSA summary",
+        "url": "https://nafsa.org/regulatory-information/executive-order-one-voice-americas-foreign-relations"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14212
+    },
+    "headline": "Created a commission on childhood chronic disease run by the health secretary",
+    "how": "Dissolve the Kennedy health commission.",
+    "why": "A study commission makes reports, not binding rules; any rules that follow are separate rows.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/19/2025-02871/establishing-the-presidents-make-america-healthy-again-commission"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14213
+    },
+    "headline": "Created a council to speed up oil, gas and coal production",
+    "how": "Disband the energy dominance council.",
+    "why": "A White House council is created and dissolved by presidential order, with no statute behind it.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/20/2025-02928/establishing-the-national-energy-dominance-council"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14214
+    },
+    "headline": "Barred federal funds for schools that require COVID-19 vaccines",
+    "how": "Let schools set their own vaccine rules again.",
+    "why": "Almost no school requires the shot, so the order changes little in practice and reversing it gains little.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/20/2025-02931/keeping-education-accessible-and-ending-covid-19-vaccine-mandates-in-schools"
+      },
+      {
+        "label": "FactCheck.org",
+        "url": "https://www.factcheck.org/2025/02/trump-executive-order-targets-covid-19-vaccines-no-longer-required-for-most-u-s-students/"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14216
+    },
+    "headline": "Ordered proposals to make IVF fertility treatment easier to get",
+    "how": "Leave it.",
+    "why": "It asks for policy recommendations to expand access, which a Democratic president would welcome rather than reverse.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "leave",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/24/2025-03064/expanding-access-to-in-vitro-fertilization"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14215
+    },
+    "headline": "Put independent agencies like the FTC and SEC under White House control",
+    "how": "Stop White House review of agency rules.",
+    "why": "The Court's 2026 holding in Trump v. Slaughter lets presidents fire independent-agency heads; only a constitutional change reverses that.",
+    "bucket": "locked",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/24/2025-03063/ensuring-accountability-for-all-agencies"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14217
+    },
+    "headline": "Gutted four small agencies including the U.S. Institute of Peace",
+    "how": "Rebuild the four agencies.",
+    "why": "It orders agencies Congress created to shrink to the legal minimum, so a new president can restore their staff and grants.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/documents/2025/02/25/2025-03133/commencing-the-reduction-of-the-federal-bureaucracy"
+      },
+      {
+        "label": "GMU summary",
+        "url": "https://content.gmu.edu/news/2025-04/commencing-reduction-federal-bureaucracy-executive-order-14217"
+      }
+    ]
+  },
+  {
+    "match": {
+      "eo": 14218
+    },
+    "headline": "Cut federal benefits and grants that reach undocumented immigrants",
+    "how": "Restore benefit eligibility rules.",
+    "why": "It directs agencies on how to read existing benefit laws, so a new reading by order replaces it, though part is already blocked.",
+    "bucket": "pen",
+    "status": "in-force",
+    "verdict": "undo",
+    "sources": [
+      {
+        "label": "Federal Register",
+        "url": "https://www.federalregister.gov/presidential-documents/executive-orders/donald-trump/2025"
+      }
+    ]
+  }
+]
