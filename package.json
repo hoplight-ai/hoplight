@@ -25,6 +25,7 @@
     "screenshots:rayli": "node scripts/convert-rayli-shots.mjs",
     "portfolio:header": "node scripts/add-portfolio-header.mjs",
     "portfolio:metadata": "node scripts/add-portfolio-metadata.mjs",
+    "portfolio:capture": "node scripts/capture-portfolio-thumbs.mjs",
     "portfolio:thumbs": "node scripts/optimize-portfolio-thumbs.mjs",
     "prepare": "git config core.hooksPath .githooks"
   },
