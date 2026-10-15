@@ -57,9 +57,17 @@ const walk = (d) => {
 for (const d of SERVED) walk(join(ROOT, d));
 
 const hits = [];
-for (const f of files) readFileSync(f, 'utf8').split('\n').forEach((l, i) => {
-  if (offends(l)) hits.push(`${relative(ROOT, f)}:${i + 1}: ${l.trim().slice(0, 160)}`);
-});
+// Each line is also read joined to the next, comment markers stripped, so a phrase wrapped across a
+// line break in JSX ("actually aiming / at.") is caught on the first of the two lines.
+const bare = (l) => l.replace(/^\s*(?:\/\/+|\/\*+|\*+\/?|\{\/\*|#+|--)\s?/, '').trim();
+for (const f of files) {
+  const lines = readFileSync(f, 'utf8').split('\n');
+  lines.forEach((l, i) => {
+    if (offends(l)) { hits.push(`${relative(ROOT, f)}:${i + 1}: ${l.trim().slice(0, 160)}`); return; }
+    const next = lines[i + 1];
+    if (next !== undefined && !offends(next) && offends(`${bare(l)} ${bare(next)}`)) hits.push(`${relative(ROOT, f)}:${i + 1}: (across the line break) ${bare(l).slice(-80)} / ${bare(next).slice(0, 60)}`);
+  });
+}
 if (hits.length) {
   console.log(`FAIL ${hits.length} line(s) on hoplight.ai aim at someone. Rewrite each as writing for, speaking to or reaching people:`);
   for (const h of hits) console.log(`  ${h}`);
