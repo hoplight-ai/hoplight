@@ -4,7 +4,7 @@
   "source": "hoplight-site/src/app/globals.css :root, parsed, never transcribed",
   "authority": "This file is generated from the production stylesheet on every build and scripts/verify.sh fails if the served copy has drifted from it. It supersedes any hand-kept extraction, including the tokens section of the Hoplight brand file in the design reference, which was extracted on 2026-06-02 and still carries the palette retired by commit a0fe4b2.",
   "retired": {
-    "note": "Present only so a session that finds these values in an old file knows they are dead, in either notation. The rgba forms are how this pair survived a fix aimed straight at it.",
+    "note": "Present only so a session that finds these values in an old file knows they are dead, in either notation. The rgba forms are how this pair survived a fix pointed straight at it.",
     "ink": "#0A1628",
     "gold": "#E8A838",
     "gold-deep": "#B8851F",

@@ -136,7 +136,7 @@ export default function Rayli() {
               <h3>Psychographic audience models</h3>
               <p>
                 Frames tuned to values and identity rather than demographics, so the message is
-                built for the person you are actually aiming at.
+                built for the person you actually want to reach.
               </p>
             </div>
             <div className="svc-row">
@@ -181,7 +181,7 @@ export default function Rayli() {
                 outside the pitch deck, so the subject is named. One phrase, no claim added. */}
             <p>
               Other tools help you write it faster; Rayli helps you say the thing that actually
-              moves the person you&rsquo;re aiming at.
+              moves the person you want to reach.
             </p>
             <footer><cite className="attr">Whit Pendergast, founder</cite></footer>
           </blockquote>

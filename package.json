@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/check-no-drafts-public.mjs && node scripts/check-claims-and-palette.mjs --only preview-palette",
+    "prebuild": "node scripts/check-no-drafts-public.mjs && node scripts/check-claims-and-palette.mjs --only preview-palette && node scripts/check-no-aim-at-people.mjs && node scripts/check-no-aim-at-people.mjs --prove-red",
     "build": "next build",
     "check:drafts": "node scripts/check-no-drafts-public.mjs",
     "start": "next start",

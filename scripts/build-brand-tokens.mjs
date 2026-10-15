@@ -95,7 +95,7 @@ const payload = {
   retired: {
     note:
       'Present only so a session that finds these values in an old file knows they are dead, in ' +
-      'either notation. The rgba forms are how this pair survived a fix aimed straight at it.',
+      'either notation. The rgba forms are how this pair survived a fix pointed straight at it.',
     ink: '#0A1628',
     gold: '#E8A838',
     'gold-deep': '#B8851F',
