@@ -36,6 +36,10 @@ import {
   whyOf,
 } from '../src/lib/undo/sections.ts';
 import { BUCKETS, INSTRUMENT_LABEL } from '../src/lib/undo/types.ts';
+import { ISSUES, ISSUE_KEYS, ISSUE_BY_KEY } from '../src/lib/undo/issues.ts';
+import { applyIssues, groupByIssue, MAX_ISSUES_PER_ROW } from '../src/lib/undo/issues-merge.ts';
+import { forwardOrderText, forwardOrderView, resolveOrderItems } from '../src/lib/undo/forward-text.ts';
+import { issueBars } from '../src/lib/undo/progress.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (rel) => JSON.parse(readFileSync(join(ROOT, rel), 'utf8'));
@@ -554,4 +558,245 @@ test('a feed row with no headline yet waits in Just in and is out of the pen cou
   assert.equal(isJustIn(R({ reviewed: true })), false);
   assert.equal(isJustIn(R({ reviewed: false, bucket: 'locked', instrument: 'judge' })), false);
   assert.equal(countPenInForce([fresh, R({ id: 'ok' })]), 1);
+});
+
+// ---- Issues, progress by issue, Forward Orders (2026-10-15) ----------------------------------------
+
+const ISSUE_DIR = join(ROOT, 'src/data/undo/issues');
+const issueFiles = existsSync(ISSUE_DIR) ? readdirSync(ISSUE_DIR).filter((f) => f.endsWith('.json')).sort() : [];
+const FORWARD_FILE = 'src/data/undo/forward.json';
+const forwardData = existsSync(join(ROOT, FORWARD_FILE)) ? readJson(FORWARD_FILE) : [];
+const FR_NUMBER = /^\d{4}-\d+$/;
+const BANNED_IN_HEADINGS = /\b(reverse|reversal|roll(?:ing)? back|rollback|restor\w*)\b/i;
+
+test('every issue in ISSUES has a key, a label and a one-line description, and none repeats', () => {
+  assert.equal(ISSUES.length, 16);
+  assert.equal(new Set(ISSUE_KEYS).size, ISSUES.length, 'keys are unique');
+  assert.equal(new Set(ISSUES.map((i) => i.label)).size, ISSUES.length, 'labels are unique');
+  for (const i of ISSUES) {
+    assert.ok(i.key && typeof i.label === 'string' && i.label.trim().length > 0, `${i.key} has a label`);
+    assert.ok(typeof i.line === 'string' && i.line.trim().length > 0, `${i.key} has a line`);
+    assert.equal(ISSUE_BY_KEY[i.key], i);
+  }
+  assertCleanCopy(ISSUES.flatMap((i) => [[`${i.key}.label`, i.label], [`${i.key}.line`, i.line]]), 'ISSUES');
+});
+
+const ROWS = [
+  R({ id: '2025-00001', number: 'EO 14160', title: 'Protecting the Meaning and Value of American Citizenship' }),
+  R({ id: '2025-00002', instrument: 'proclamation', number: 'Proclamation 10888', title: 'Adjusting Imports of Steel', date: '2025-02-10' }),
+  R({ id: '2025-00003', instrument: 'memorandum', title: 'Restoring Merit in Hiring', official: 'Memorandum on Merit', date: '2025-06-07' }),
+  R({ id: 'tariff-canada', instrument: 'tariff', title: 'Tariffs on Canadian goods', date: '2025-03-04' }),
+  R({ id: 'other-row', title: 'Untouched' }),
+];
+
+test('applyIssues attaches by eo, proclamation, document_number, title and id, and leaves [] otherwise', () => {
+  const tags = [
+    { match: { eo: 14160 }, issues: ['immigrants'] },
+    { match: { proclamation: 10888 }, issues: ['prices', 'farms-rural'] },
+    { match: { document_number: '2025-00003' }, issues: ['government-works'] },
+    { match: { title: '  tariffs on canadian GOODS ' }, issues: ['prices'] },
+    { match: { id: 'tariff-canada' }, issues: ['allies', 'prices'] },
+  ];
+  const out = applyIssues(ROWS, tags);
+  assert.equal(out.length, ROWS.length);
+  assert.deepEqual(out[0].issues, ['immigrants']);
+  assert.deepEqual(out[1].issues, ['prices', 'farms-rural']);
+  assert.deepEqual(out[2].issues, ['government-works']);
+  assert.deepEqual(out[3].issues, ['prices', 'allies'], 'two entries hit one row: distinct keys, first entry first');
+  assert.deepEqual(out[4].issues, [], 'untagged is an empty list');
+  assert.ok(!('issues' in ROWS[0]), 'the input rows are not changed');
+  // The memorandum also answers to its official title.
+  assert.deepEqual(applyIssues(ROWS, [{ match: { title: 'Memorandum on Merit' }, issues: ['paycheck'] }])[2].issues, ['paycheck']);
+  // A row never carries more than three.
+  const crowded = applyIssues(ROWS.slice(0, 1), [
+    { match: { eo: 14160 }, issues: ['health', 'prices', 'women'] },
+    { match: { id: '2025-00001' }, issues: ['schools', 'science'] },
+  ]);
+  assert.deepEqual(crowded[0].issues, ['health', 'prices', 'women']);
+  assert.equal(MAX_ISSUES_PER_ROW, 3);
+});
+
+test('slimRow ships issues when a row has them and leaves them out when it has none', () => {
+  assert.deepEqual(slimRow(R({ issues: ['health', 'women'] })).issues, ['health', 'women']);
+  assert.ok(!('issues' in slimRow(R({ issues: [] }))));
+  assert.ok(!('issues' in slimRow(R())));
+});
+
+test('groupByIssue puts a row under its first issue only, in table order, untagged last', () => {
+  const rows = [
+    R({ id: 'a', issues: ['health', 'paycheck', 'women'] }),
+    R({ id: 'b', issues: ['paycheck'] }),
+    R({ id: 'c' }),
+    R({ id: 'd', issues: ['women', 'health'] }),
+  ];
+  const groups = groupByIssue(rows);
+  assert.deepEqual(groups.map((g) => [g.key, g.rows.map((r) => r.id)]), [
+    ['paycheck', ['b']],
+    ['health', ['a']],
+    ['women', ['d']],
+    ['none', ['c']],
+  ]);
+  assert.equal(groups.reduce((n, g) => n + g.rows.length, 0), rows.length, 'nothing doubles or drops');
+  assert.deepEqual(groupByIssue([]), []);
+});
+
+test('issueBars counts each issue by what it takes, drops leave, commemorative, done and just-in rows', () => {
+  const rows = [
+    R({ id: 'p1', issues: ['health'] }),
+    R({ id: 'p2', issues: ['health', 'women'] }),
+    R({ id: 'p3', issues: ['health'], status: 'enjoined' }),
+    R({ id: 'pp', issues: ['health'], bucket: 'pen-process', instrument: 'rule' }),
+    R({ id: 'm1', issues: ['health'], bucket: 'majority', instrument: 'statute' }),
+    R({ id: 's1', issues: ['health'], bucket: 'sixty', instrument: 'statute' }),
+    R({ id: 'l1', issues: ['health'], bucket: 'locked', instrument: 'judge' }),
+    R({ id: 'x-leave', issues: ['health'], verdict: 'leave' }),
+    R({ id: 'x-ceremonial', issues: ['health'], instrument: 'proclamation', title: 'National Health Day, 2026' }),
+    R({ id: 'x-done', issues: ['health'], status: 'revoked' }),
+    R({ id: 'x-done-rule', issues: ['health'], bucket: 'pen-process', instrument: 'rule', status: 'vacated' }),
+    R({ id: 'x-justin', issues: ['health'], reviewed: false }),
+    R({ id: 'x-untagged' }),
+    R({ id: 'w1', issues: ['women', 'women'] }),
+  ];
+  const bars = issueBars(rows, new Set(['p1', 'p3', 'x-done', 'not-a-row']));
+  assert.deepEqual(bars.map((b) => b.key), ['health', 'women'], 'biggest first, empty issues dropped');
+  const health = bars[0];
+  assert.deepEqual(
+    { total: health.total, pen: health.pen, process: health.process, congress: health.congress, locked: health.locked, signedPen: health.signedPen },
+    { total: 7, pen: 3, process: 1, congress: 2, locked: 1, signedPen: 2 },
+  );
+  assert.equal(health.pen + health.process + health.congress + health.locked, health.total, 'segments add up to the total');
+  assert.equal(health.label, 'Your health care');
+  assert.deepEqual(
+    { total: bars[1].total, pen: bars[1].pen, signedPen: bars[1].signedPen },
+    { total: 2, pen: 2, signedPen: 0 },
+    'a row listing an issue twice counts once, and women has p2 and w1',
+  );
+  assert.equal(bars[1].total, 2);
+  // Ties keep the order of the table; the hero's pen count agrees with the pen column when every pen row is tagged.
+  const tie = issueBars([R({ id: 't1', issues: ['women'] }), R({ id: 't2', issues: ['paycheck'] })]);
+  assert.deepEqual(tie.map((b) => b.key), ['paycheck', 'women']);
+  assert.deepEqual(issueBars([]), []);
+});
+
+const ORDER_ROWS = [
+  R({ id: '2025-00001', number: 'EO 14160', date: '2025-01-20', title: 'Protecting the Meaning and Value of American Citizenship' }),
+  R({ id: '2025-00002', instrument: 'proclamation', number: 'Proclamation 10888', title: 'Adjusting Imports of Steel', date: '2025-01-20' }),
+  R({ id: '2025-00003', instrument: 'memorandum', title: 'Our line', official: 'Restoring Merit in Hiring', date: '2025-06-07' }),
+  R({ id: 'tariff-canada', instrument: 'tariff', title: 'Tariffs on Canadian goods', date: '2025-03-04' }),
+  R({ id: 'tariff-mexico', instrument: 'tariff', title: 'Tariffs on Mexican goods', date: '2025-03-04' }),
+];
+const FIXTURE_ORDER = {
+  id: 'fx',
+  title: 'Fair prices for what families buy',
+  purpose: 'This order ends the taxes at the register.',
+  issues: ['prices'],
+  items: [{ eo: 14160 }, { proclamation: 10888 }, { document_number: '2025-00003' }, { id: 'tariff-canada' }, { id: 'tariff-mexico' }, { id: 'tariff-canada' }, { eo: 99999 }],
+};
+
+test('forwardOrderText writes the four sections and lists every item the way a president would name it', () => {
+  const text = forwardOrderText(FIXTURE_ORDER, ORDER_ROWS);
+  const parts = text.split('\n\n');
+  assert.equal(parts[0], 'EXECUTIVE ORDER');
+  assert.equal(parts[1], 'FAIR PRICES FOR WHAT FAMILIES BUY');
+  assert.equal(parts[2], 'By the authority vested in me as President by the Constitution and the laws of the United States of America, it is hereby ordered:');
+  assert.equal(parts[3], 'Section 1. Purpose. This order ends the taxes at the register.');
+  assert.equal(
+    parts[4],
+    'Sec. 2. Revocations. The following are revoked: Executive Order 14160 of January 20, 2025, Proclamation 10888 of January 20, 2025 and the Presidential Memorandum of June 7, 2025 (Restoring Merit in Hiring). ' +
+      'The heads of the relevant agencies shall, within 30 days, take all lawful steps to end the following actions: Tariffs on Canadian goods and Tariffs on Mexican goods.',
+  );
+  assert.ok(parts[5].startsWith('Sec. 3. Implementation. The heads of agencies shall promptly rescind any guidance, policy or rule issued to implement the actions revoked by this order'));
+  assert.ok(parts[6].startsWith('Sec. 4. General Provisions. Nothing in this order shall be construed to impair the authority granted by law'));
+  assert.ok(parts[6].endsWith('subject to the availability of appropriations.'));
+  assert.equal(parts.length, 7);
+  assert.ok(!text.includes('Tariffs on Canadian goods, Tariffs on Canadian goods'), 'an item named twice appears once');
+});
+
+test('forwardOrderText leaves out the sentence it has nothing for, and an unmatched item is skipped and counted', () => {
+  const onlyAgencies = forwardOrderText({ ...FIXTURE_ORDER, items: [{ id: 'tariff-canada' }] }, ORDER_ROWS);
+  assert.ok(!onlyAgencies.includes('The following are revoked'));
+  assert.ok(onlyAgencies.includes('The heads of the relevant agencies shall, within 30 days'));
+  const onlyOrders = forwardOrderText({ ...FIXTURE_ORDER, items: [{ eo: 14160 }] }, ORDER_ROWS);
+  assert.ok(onlyOrders.includes('The following are revoked: Executive Order 14160 of January 20, 2025.'));
+  assert.ok(!onlyOrders.includes('heads of the relevant agencies shall, within'));
+  const resolved = resolveOrderItems(FIXTURE_ORDER, ORDER_ROWS);
+  assert.equal(resolved.rows.length, 5);
+  assert.equal(resolved.missing, 1, 'eo 99999 matches no row');
+  assert.deepEqual(forwardOrderView(FIXTURE_ORDER, ORDER_ROWS).ids, ['2025-00001', '2025-00002', '2025-00003', 'tariff-canada', 'tariff-mexico']);
+  // The page hands the browser ids; the text from ids is the text from the original match keys.
+  const fromIds = forwardOrderText({ ...FIXTURE_ORDER, items: forwardOrderView(FIXTURE_ORDER, ORDER_ROWS).ids.map((id) => ({ id })) }, ORDER_ROWS);
+  assert.equal(fromIds, forwardOrderText(FIXTURE_ORDER, ORDER_ROWS));
+});
+
+for (const f of issueFiles) {
+  test(`issues/${f}: an array of tags with a known match, valid issue keys, one to three each`, () => {
+    const data = readJson(`src/data/undo/issues/${f}`);
+    assert.ok(Array.isArray(data), 'top level is an array');
+    for (const [i, t] of data.entries()) {
+      const at = `${f}[${i}]`;
+      assert.ok(t.match && typeof t.match === 'object', `${at} has a match`);
+      const keys = Object.keys(t.match);
+      assert.equal(keys.length, 1, `${at} match names exactly one key`);
+      assert.ok(MATCH_KEYS.includes(keys[0]), `${at} match key ${keys[0]} is known`);
+      if (keys[0] === 'id') {
+        assert.ok(curatedIds.has(t.match.id) || FR_NUMBER.test(t.match.id), `${at} id ${t.match.id} is neither a curated row id nor a Federal Register number`);
+      }
+      assert.ok(Array.isArray(t.issues), `${at} has an issues list`);
+      assert.ok(t.issues.length >= 1 && t.issues.length <= 3, `${at} has ${t.issues.length} issues`);
+      assert.equal(new Set(t.issues).size, t.issues.length, `${at} repeats an issue`);
+      for (const k of t.issues) assert.ok(ISSUE_KEYS.includes(k), `${at} issue ${k} is not in ISSUES`);
+    }
+  });
+}
+
+test('every issues file is imported by issues/index.ts, so a gap is a build error', () => {
+  const index = readFileSync(join(ISSUE_DIR, 'index.ts'), 'utf8');
+  for (const f of issueFiles) assert.ok(index.includes(`'./${f}'`), `${f} is not imported in src/data/undo/issues/index.ts`);
+});
+
+test('forward.json: every order has a title, a purpose, one to three issues, real items, and no item is in two orders', () => {
+  assert.ok(Array.isArray(forwardData), 'top level is an array');
+  const seenIds = new Set();
+  const seenItems = new Map();
+  for (const [i, o] of forwardData.entries()) {
+    const at = `forward.json[${i}]`;
+    assert.ok(typeof o.id === 'string' && o.id.length > 0 && !seenIds.has(o.id), `${at} has a unique id`);
+    seenIds.add(o.id);
+    assert.ok(typeof o.title === 'string' && o.title.trim().length > 0, `${at} has a title`);
+    assert.ok(typeof o.purpose === 'string' && o.purpose.trim().length > 0, `${at} has a purpose`);
+    assert.ok(Array.isArray(o.issues) && o.issues.length >= 1 && o.issues.length <= 3, `${at} has one to three issues`);
+    for (const k of o.issues) assert.ok(ISSUE_KEYS.includes(k), `${at} issue ${k} is not in ISSUES`);
+    assert.ok(Array.isArray(o.items) && o.items.length > 0, `${at} has items`);
+    for (const [j, m] of o.items.entries()) {
+      const keys = Object.keys(m);
+      assert.equal(keys.length, 1, `${at}.items[${j}] names exactly one key`);
+      assert.ok(MATCH_KEYS.includes(keys[0]), `${at}.items[${j}] key ${keys[0]} is known`);
+      if (keys[0] === 'id') assert.ok(curatedIds.has(m.id) || FR_NUMBER.test(m.id), `${at}.items[${j}] id ${m.id} is not a row id`);
+      const sig = `${keys[0]}:${String(m[keys[0]]).trim().toLowerCase()}`;
+      assert.ok(!seenItems.has(sig), `${at}.items[${j}] ${sig} is also in order ${seenItems.get(sig)}`);
+      seenItems.set(sig, o.id);
+    }
+    assert.ok(!BANNED_IN_HEADINGS.test(o.title), `${at} title says reverse, roll back or restore`);
+    assertCleanCopy([[`${at}.title`, o.title], [`${at}.purpose`, o.purpose]], FORWARD_FILE);
+  }
+});
+
+test('the new page copy follows the house rules: spelled heading, no reverse, roll back or restore in a heading', () => {
+  assert.equal(COPY.forward.title(12), 'Twelve orders, one afternoon');
+  assert.equal(COPY.forward.title(13), 'Thirteen orders, one afternoon');
+  assert.equal(COPY.forward.title(1), 'One order, one afternoon');
+  assert.equal(COPY.forward.title(21), '21 orders, one afternoon');
+  for (const [path, text] of [
+    ['land.title', COPY.land.title],
+    ['forward.title(12)', COPY.forward.title(12)],
+    ['forward.title(13)', COPY.forward.title(13)],
+    ['forward.draftShow', COPY.forward.draftShow],
+    ['forward.sign', COPY.forward.sign],
+  ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
+  assert.equal(COPY.land.intro, 'Every item, by who feels it. The gold is what one signature fixes.');
+  assert.equal(COPY.land.countLabel(22, 41), '22 of 41 by pen');
+  assert.equal(COPY.forward.undoes(41), 'undoes 41 items');
+  assert.equal(COPY.forward.undoes(1), 'undoes 1 item');
+  assert.equal(COPY.forward.footnote(41), '41 items, one signature.');
+  assert.ok(COPY.land.bar('Your health care', 7, 3, 1, 2, 1, 2).includes('3 by a pen, 1 by a pen then a process, 2 need Congress, 1 locked'));
 });

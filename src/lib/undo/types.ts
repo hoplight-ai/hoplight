@@ -5,6 +5,8 @@
 // are needed or the list lies: a final rule takes a pen AND a months-long process, and lifetime
 // judges, CRA-killed rules, pardons and spent money cannot be undone by anyone.
 
+import type { IssueKey } from './issues';
+
 export type Bucket = 'pen' | 'pen-process' | 'majority' | 'sixty' | 'locked';
 
 export const BUCKETS: Record<Bucket, { order: number; label: string; line: string }> = {
@@ -106,6 +108,9 @@ export interface UndoRow {
   unsure?: boolean;
   agency?: string;
   topics?: string[];
+  /** One to three issue keys, attached by applyIssues from src/data/undo/issues. Absent or empty
+   *  means nobody has tagged the row yet. */
+  issues?: IssueKey[];
   sources: Source[];
 }
 

@@ -5,6 +5,16 @@
 
 import type { Bucket } from './types';
 
+const COUNT_WORDS = [
+  'Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten',
+  'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty',
+];
+
+/** The heading spells small counts ("Twelve") and prints the rest as digits. */
+export function countWord(n: number): string {
+  return COUNT_WORDS[n] ?? String(n);
+}
+
 export const COPY = {
   hero: {
     label: 'A to-do list for January 20, 2029',
@@ -26,6 +36,42 @@ export const COPY = {
     empty: 'No row matches that search. Clear it to see the whole list.',
     noRows: 'There are no rows to show in this render. Check the feed status under Sources and method below.',
     count: (shown: number, total: number) => `${shown} of ${total} rows`,
+  },
+  issues: {
+    filterLabel: 'Filter by issue',
+    all: 'All issues',
+    sortLabel: 'Sort',
+    newest: 'Newest first',
+    byIssue: 'By issue',
+    noIssue: 'No issue tag yet',
+    chipsLabel: 'Issues: ',
+  },
+  land: {
+    title: 'Where it lands',
+    intro: 'Every item, by who feels it. The gold is what one signature fixes.',
+    countLabel: (pen: number, total: number) => `${pen} of ${total} by pen`,
+    legend: [
+      { key: 'pen', label: 'a pen' },
+      { key: 'process', label: 'a pen then a process' },
+      { key: 'congress', label: 'Congress' },
+      { key: 'locked', label: 'locked' },
+    ],
+    legendTicks: 'the line is how far your ticks have gone',
+    // Read out by a screen reader for each bar, so the numbers are in words and not only in widths.
+    bar: (label: string, total: number, pen: number, process: number, congress: number, locked: number, signed: number) =>
+      `${label}: ${total} ${total === 1 ? 'item' : 'items'}. ${pen} by a pen, ${process} by a pen then a process, ${congress} need Congress, ${locked} locked. You have signed ${signed} of the ${pen} pen items. Show these items.`,
+  },
+  forward: {
+    title: (n: number) => `${countWord(n)} ${n === 1 ? 'order' : 'orders'}, one afternoon`,
+    intro:
+      "The precedent is the other side's: one order on January 20, 2025 revoked sixty-seven at once. These do the same, in the other direction, and each one says where the country goes next.",
+    sign: 'Sign this order',
+    undoes: (n: number) => `undoes ${n} ${n === 1 ? 'item' : 'items'}`,
+    draftShow: 'Draft the order',
+    draftHide: 'Hide the draft',
+    copy: 'Copy',
+    copied: 'Copied',
+    footnote: (n: number) => `${n} ${n === 1 ? 'item' : 'items'}, one signature.`,
   },
   lunch: {
     title: 'Before lunch',

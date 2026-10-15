@@ -81,6 +81,7 @@ export function slimRow(row: UndoRow): SlimRow {
     ...(row.official !== undefined ? { official: row.official } : {}),
     ...(row.verdict !== undefined ? { verdict: row.verdict } : {}),
     ...(row.unsure ? { unsure: true } : {}),
+    ...(row.issues && row.issues.length > 0 ? { issues: row.issues } : {}),
     ...(keepHow ? { how: row.how } : {}),
     ...(keepWhy ? { why: row.why } : {}),
   };

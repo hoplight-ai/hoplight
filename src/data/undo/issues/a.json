@@ -1,0 +1,2521 @@
+[
+ {
+  "match": {
+   "id": "cra-epa-waste-emissions-charge"
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-boem-marine-archaeological"
+  },
+  "issues": [
+   "air-water",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-irs-digital-asset-broker"
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-doe-gas-water-heaters"
+  },
+  "issues": [
+   "prices",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-doe-walk-in-coolers"
+  },
+  "issues": [
+   "prices",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-doe-certification-enforcement"
+  },
+  "issues": [
+   "prices",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-doe-commercial-refrigerators"
+  },
+  "issues": [
+   "prices",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-cfpb-overdraft"
+  },
+  "issues": [
+   "paycheck",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-cfpb-digital-payments"
+  },
+  "issues": [
+   "prices",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-nps-glen-canyon-vehicles"
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-epa-rubber-tire-emissions"
+  },
+  "issues": [
+   "air-water",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-epa-ca-advanced-clean-trucks"
+  },
+  "issues": [
+   "air-water",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-epa-ca-advanced-clean-cars-ii"
+  },
+  "issues": [
+   "air-water",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-epa-ca-omnibus-low-nox"
+  },
+  "issues": [
+   "air-water",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-occ-bank-merger-act"
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-epa-major-to-area-sources"
+  },
+  "issues": [
+   "air-water",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-blm-npra-integrated-activity-plan"
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-blm-miles-city-plan"
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-blm-north-dakota-plan"
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-blm-central-yukon-plan"
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-blm-buffalo-wyoming-plan"
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-blm-anwr-coastal-plain-leasing"
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "cra-blm-boundary-waters-plo-7917"
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-hermandorfer-6th-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-bove-3rd-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-mascott-3rd-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-taibleson-7th-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-dunlap-1st-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-tung-9th-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-smith-8th-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-schwartz-2nd-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-flowers-6th-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-traynor-8th-cir"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "judge-district-court-45"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-medicaid-work-requirements-cuts"
+  },
+  "issues": [
+   "health",
+   "farms-rural",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-medicaid-provider-taxes"
+  },
+  "issues": [
+   "health",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-rural-health-fund"
+  },
+  "issues": [
+   "health",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-snap-cost-shift"
+  },
+  "issues": [
+   "paycheck",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-snap-work-rules"
+  },
+  "issues": [
+   "paycheck",
+   "veterans"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-tax-individual-permanent"
+  },
+  "issues": [
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-tax-tips-overtime-seniors"
+  },
+  "issues": [
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-trump-accounts"
+  },
+  "issues": [
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-student-loans-grad-plus"
+  },
+  "issues": [
+   "schools"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-clean-energy-credits-repeal"
+  },
+  "issues": [
+   "air-water",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-immigration-enforcement-funding"
+  },
+  "issues": [
+   "immigrants",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-cfpb-funding-cap"
+  },
+  "issues": [
+   "prices",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-defense-golden-dome"
+  },
+  "issues": [
+   "veterans"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-energy-leasing-mandates"
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "obbba-remittance-tax"
+  },
+  "issues": [
+   "immigrants",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-laken-riley-act"
+  },
+  "issues": [
+   "immigrants",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-take-it-down-act"
+  },
+  "issues": [
+   "women",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-halt-fentanyl-act"
+  },
+  "issues": [
+   "public-safety",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-genius-act"
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-rescissions-act-2025"
+  },
+  "issues": [
+   "allies",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-full-year-cr-2025"
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-cr-ends-shutdown-2025"
+  },
+  "issues": [
+   "government-works",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-fy26-cjs-energy-interior"
+  },
+  "issues": [
+   "science",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-fy26-omnibus-defense-labor-hhs"
+  },
+  "issues": [
+   "government-works",
+   "veterans",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-fy26-dhs-appropriations"
+  },
+  "issues": [
+   "public-safety",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-secure-america-act-2026"
+  },
+  "issues": [
+   "immigrants",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-ndaa-fy2026"
+  },
+  "issues": [
+   "veterans",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-epstein-files-transparency-act"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "statute-cr-fy2027-through-december"
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-desa"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-ilc"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-irmct"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-itc"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-osaa"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-srsg-caac"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-srsg-svc"
+  },
+  "issues": [
+   "allies",
+   "women"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-srsg-vac"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-pbc"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-pbf"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-pfpad"
+  },
+  "issues": [
+   "allies",
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-unaoc"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-un-redd"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-unctad"
+  },
+  "issues": [
+   "allies",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-undef"
+  },
+  "issues": [
+   "allies",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-un-energy"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-un-women"
+  },
+  "issues": [
+   "allies",
+   "women"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-un-habitat"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-unitar"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-un-oceans"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-unfpa"
+  },
+  "issues": [
+   "allies",
+   "women",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-unroca"
+  },
+  "issues": [
+   "allies",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-un-ceb"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-unssc"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-un-water"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-unu"
+  },
+  "issues": [
+   "allies",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-escap"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-escwa"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-eca"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-eclac"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-cfe-compact"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-colombo-plan"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-cec"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-ecw"
+  },
+  "issues": [
+   "allies",
+   "schools"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-hybrid-coe"
+  },
+  "issues": [
+   "allies",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-fehrl"
+  },
+  "issues": [
+   "allies",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-foc"
+  },
+  "issues": [
+   "allies",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-gcerf"
+  },
+  "issues": [
+   "allies",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-gctf"
+  },
+  "issues": [
+   "allies",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-gfce"
+  },
+  "issues": [
+   "allies",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-gfmd"
+  },
+  "issues": [
+   "allies",
+   "immigrants"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-igf-mining"
+  },
+  "issues": [
+   "allies",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-ipcc"
+  },
+  "issues": [
+   "allies",
+   "science",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-ipbes"
+  },
+  "issues": [
+   "allies",
+   "science",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-iccrom"
+  },
+  "issues": [
+   "allies",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-icac"
+  },
+  "issues": [
+   "allies",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-idlo"
+  },
+  "issues": [
+   "allies",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-ief"
+  },
+  "issues": [
+   "allies",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-ifacca"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-idea"
+  },
+  "issues": [
+   "allies",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-iijrl"
+  },
+  "issues": [
+   "allies",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-ilzsg"
+  },
+  "issues": [
+   "allies",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-irena"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-isa"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-itto"
+  },
+  "issues": [
+   "allies",
+   "farms-rural",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-iucn"
+  },
+  "issues": [
+   "allies",
+   "air-water",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-paigh"
+  },
+  "issues": [
+   "allies",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-pac"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-recaap"
+  },
+  "issues": [
+   "allies",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-rcc"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-ren21"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-stcu"
+  },
+  "issues": [
+   "allies",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-sprep"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-venice"
+  },
+  "issues": [
+   "allies",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-un-unfccc"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-who"
+  },
+  "issues": [
+   "allies",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-paris-agreement"
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-unesco"
+  },
+  "issues": [
+   "allies",
+   "schools",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-unhrc"
+  },
+  "issues": [
+   "allies",
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-unrwa"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-ieepa-reciprocal"
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-ieepa-fentanyl-border"
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-ieepa-brazil"
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-ieepa-india-russian-oil"
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-232-steel-aluminum"
+  },
+  "issues": [
+   "prices",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-232-metals-full-value"
+  },
+  "issues": [
+   "prices",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-232-autos-parts"
+  },
+  "issues": [
+   "prices",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-232-copper"
+  },
+  "issues": [
+   "prices",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-232-lumber-furniture"
+  },
+  "issues": [
+   "prices",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-232-trucks-buses"
+  },
+  "issues": [
+   "prices",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-232-pharmaceuticals"
+  },
+  "issues": [
+   "prices",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-232-semiconductors"
+  },
+  "issues": [
+   "prices",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-122-global-surcharge"
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-301-forced-labor"
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-301-excess-capacity-probe"
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "id": "tariff-338-canada"
+  },
+  "issues": [
+   "prices",
+   "allies",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-opm-schedule-policy-career"
+  },
+  "issues": [
+   "government-works",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-epa-endangerment-finding-repeal"
+  },
+  "issues": [
+   "air-water",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-epa-power-plant-carbon-repeal"
+  },
+  "issues": [
+   "air-water",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-epa-mats-2024-amendments-repeal"
+  },
+  "issues": [
+   "health",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-ceq-nepa-regulations-rescinded"
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-interior-nepa-procedures"
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-fws-esa-harm-definition-rescinded"
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-dhs-public-charge-2022-rescinded"
+  },
+  "issues": [
+   "immigrants",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-dhs-doj-asylum-security-bars"
+  },
+  "issues": [
+   "immigrants"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-uscis-asylum-referral-ifr"
+  },
+  "issues": [
+   "immigrants"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-dhs-duration-of-status"
+  },
+  "issues": [
+   "immigrants",
+   "schools"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-dhs-h1b-weighted-lottery"
+  },
+  "issues": [
+   "immigrants",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-state-immigrant-visa-pause-75-countries"
+  },
+  "issues": [
+   "immigrants"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-ed-title-ix-2024-repeal"
+  },
+  "issues": [
+   "women",
+   "schools",
+   "lgbtq"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-ed-pslf-employer-eligibility"
+  },
+  "issues": [
+   "schools",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-cms-medicaid-work-requirements-ifr"
+  },
+  "issues": [
+   "health",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-usda-snap-retailer-stocking"
+  },
+  "issues": [
+   "farms-rural",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-dol-independent-contractor-proposed"
+  },
+  "issues": [
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-fcc-national-tv-ownership-cap"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-fcc-delete-delete-delete"
+  },
+  "issues": [
+   "government-works",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "id": "rule-ftc-noncompete-ban-dropped"
+  },
+  "issues": [
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "personnel-usaid-awards-terminated"
+  },
+  "issues": [
+   "allies",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "personnel-usaid-absorbed-into-state"
+  },
+  "issues": [
+   "allies",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "personnel-education-dept-interagency-agreements"
+  },
+  "issues": [
+   "schools",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "personnel-federal-workforce-reductions-2025"
+  },
+  "issues": [
+   "government-works",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "personnel-probationary-firings-2025"
+  },
+  "issues": [
+   "government-works",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "id": "personnel-inspectors-general-fired"
+  },
+  "issues": [
+   "checks-on-power",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "id": "court-trump-v-slaughter-independent-agencies"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "memo-national-guard-los-angeles-2025-06-07"
+  },
+  "issues": [
+   "veterans",
+   "public-safety",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "memo-national-guard-washington-dc-2025-08-11"
+  },
+  "issues": [
+   "veterans",
+   "public-safety",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "memo-memphis-safe-task-force-2025-09-15"
+  },
+  "issues": [
+   "veterans",
+   "public-safety",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "other-omb-funding-freeze-m-25-13"
+  },
+  "issues": [
+   "government-works",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "id": "pardon-january-6-mass-clemency"
+  },
+  "issues": [
+   "checks-on-power",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "pardon-2020-election-allies-preemptive"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "pardon-ross-ulbricht"
+  },
+  "issues": [
+   "checks-on-power",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "pardon-george-santos-commutation"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "pardon-changpeng-zhao-binance"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "pardon-juan-orlando-hernandez"
+  },
+  "issues": [
+   "checks-on-power",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "id": "pardon-henry-cuellar"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "pardon-all-other-clemency-2025-2026"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "court-trump-v-casa-universal-injunctions"
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "court-learning-resources-v-trump-ieepa"
+  },
+  "issues": [
+   "prices",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "court-trump-v-barbara-birthright"
+  },
+  "issues": [
+   "immigrants",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "id": "court-trump-v-illinois-national-guard"
+  },
+  "issues": [
+   "checks-on-power",
+   "public-safety",
+   "veterans"
+  ]
+ },
+ {
+  "match": {
+   "id": "withdraw-memo-2026-01-07-remaining"
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14147
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14148
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14149
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14150
+  },
+  "issues": [
+   "allies",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14151
+  },
+  "issues": [
+   "equal-treatment",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14152
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14153
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14154
+  },
+  "issues": [
+   "air-water",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14156
+  },
+  "issues": [
+   "air-water",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14157
+  },
+  "issues": [
+   "public-safety",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14159
+  },
+  "issues": [
+   "immigrants",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14161
+  },
+  "issues": [
+   "immigrants",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14162
+  },
+  "issues": [
+   "allies",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14163
+  },
+  "issues": [
+   "immigrants",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14164
+  },
+  "issues": [
+   "public-safety",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14165
+  },
+  "issues": [
+   "immigrants"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14166
+  },
+  "issues": [
+   "checks-on-power",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14167
+  },
+  "issues": [
+   "veterans",
+   "immigrants"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14168
+  },
+  "issues": [
+   "lgbtq",
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14169
+  },
+  "issues": [
+   "allies",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14170
+  },
+  "issues": [
+   "government-works",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14171
+  },
+  "issues": [
+   "government-works",
+   "checks-on-power",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14172
+  },
+  "issues": [
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14155
+  },
+  "issues": [
+   "allies",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14158
+  },
+  "issues": [
+   "government-works",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14160
+  },
+  "issues": [
+   "immigrants",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14173
+  },
+  "issues": [
+   "equal-treatment",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14174
+  },
+  "issues": [
+   "health",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14175
+  },
+  "issues": [
+   "allies",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14176
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14177
+  },
+  "issues": [
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14178
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14179
+  },
+  "issues": [
+   "science",
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14180
+  },
+  "issues": [
+   "public-safety",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14181
+  },
+  "issues": [
+   "farms-rural",
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14182
+  },
+  "issues": [
+   "women",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14183
+  },
+  "issues": [
+   "lgbtq",
+   "veterans"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14184
+  },
+  "issues": [
+   "veterans",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14185
+  },
+  "issues": [
+   "veterans",
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14186
+  },
+  "issues": [
+   "veterans",
+   "science"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14187
+  },
+  "issues": [
+   "lgbtq",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14188
+  },
+  "issues": [
+   "schools",
+   "checks-on-power",
+   "immigrants"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14189
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14190
+  },
+  "issues": [
+   "schools",
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14191
+  },
+  "issues": [
+   "schools"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14192
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14193
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14194
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14195
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14196
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14197
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14198
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14199
+  },
+  "issues": [
+   "allies",
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14200
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14201
+  },
+  "issues": [
+   "lgbtq",
+   "women",
+   "schools"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14202
+  },
+  "issues": [
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14203
+  },
+  "issues": [
+   "allies",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14204
+  },
+  "issues": [
+   "allies",
+   "immigrants"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14205
+  },
+  "issues": [
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14206
+  },
+  "issues": [
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14207
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14208
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14209
+  },
+  "issues": [
+   "checks-on-power",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14210
+  },
+  "issues": [
+   "government-works",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14211
+  },
+  "issues": [
+   "government-works",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14212
+  },
+  "issues": [
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14213
+  },
+  "issues": [
+   "air-water",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14214
+  },
+  "issues": [
+   "schools",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14216
+  },
+  "issues": [
+   "women",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14215
+  },
+  "issues": [
+   "checks-on-power",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14217
+  },
+  "issues": [
+   "allies",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14218
+  },
+  "issues": [
+   "immigrants",
+   "health"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14219
+  },
+  "issues": [
+   "checks-on-power",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14220
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14221
+  },
+  "issues": [
+   "health",
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14222
+  },
+  "issues": [
+   "government-works",
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14223
+  },
+  "issues": [
+   "prices",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14224
+  },
+  "issues": [
+   "immigrants",
+   "equal-treatment"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14225
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14226
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14227
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14228
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14229
+  },
+  "issues": [
+   "air-water"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14230
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14231
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14232
+  },
+  "issues": [
+   "prices",
+   "allies"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14233
+  },
+  "issues": [
+   "prices"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14234
+  },
+  "issues": [
+   "public-safety"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14235
+  },
+  "issues": [
+   "schools",
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14236
+  },
+  "issues": [
+   "paycheck"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14238
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14237
+  },
+  "issues": [
+   "checks-on-power"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14239
+  },
+  "issues": [
+   "public-safety",
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14240
+  },
+  "issues": [
+   "government-works"
+  ]
+ },
+ {
+  "match": {
+   "eo": 14241
+  },
+  "issues": [
+   "air-water",
+   "farms-rural"
+  ]
+ }
+]
