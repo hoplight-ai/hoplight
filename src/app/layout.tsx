@@ -1,6 +1,14 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
+import { Albert_Sans, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+
+// The lockup word and the home headline (round four of the design system, 2026-10-15). One weight.
+const albert = Albert_Sans({
+  subsets: ['latin'],
+  weight: ['600'],
+  variable: '--font-albert',
+  display: 'swap',
+});
 
 const inter = Inter({
   subsets: ['latin'],
@@ -73,7 +81,7 @@ export const viewport: Viewport = { themeColor: '#0F1B2D' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="en" className={`${albert.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>{children}</body>
     </html>
   );

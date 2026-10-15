@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import SeedMark from '@/components/SeedMark';
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -57,10 +58,8 @@ export default function Nav() {
     <header className="site">
       <div className="wrap nav">
         <Link className="brand" href="/" aria-label="Hoplight home">
-          <svg className="beacon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle cx="12" cy="12" r="4" fill="#E8A820"/>
-            <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="#fff" strokeWidth="1.6" strokeLinecap="round"/>
-          </svg>
+          {/* 28: the mark's rendered width (1.25em of the 22px word), which sets its line weight. */}
+          <SeedMark className="seed" px={28} />
           Hoplight
         </Link>
         <button
@@ -90,7 +89,9 @@ export default function Nav() {
               </li>
             ))}
           </ul>
-          <Link className="nav-cta" href="/contact" onClick={() => setMenuOpen(false)} prefetch={false}>Start a conversation</Link>
+          {/* On the home page the hero carries the same button, so the header's is an outline there and
+              the first screen has one filled button. */}
+          <Link className={path === '/' ? 'nav-cta nav-cta-quiet' : 'nav-cta'} href="/contact" onClick={() => setMenuOpen(false)} prefetch={false}>Start a conversation</Link>
         </nav>
       </div>
     </header>

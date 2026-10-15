@@ -41,6 +41,9 @@
 
   --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
   --font-mono: var(--font-jetbrains), 'SF Mono', 'Fira Code', ui-monospace, monospace;
+  /* The lockup word and the home headline, Albert Sans 600: the face on screen when Whit approved the
+     round-four masthead (2026-10-15). Inter stays the body face everywhere else. */
+  --font-display: var(--font-albert), var(--font-body);
 
   --space-section: clamp(48px, 6vw, 88px);
   --space-section-sm: clamp(40px, 5vw, 64px);
@@ -145,9 +148,11 @@ a:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); border-radiu
 /* === NAV: dark, persistent, tight === */
 header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0.97); backdrop-filter: blur(12px); color: #fff; }
 .nav { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding-block: 12px; }
-.brand { font-family: var(--font-body); font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.88rem; border: 0; display: inline-flex; align-items: center; gap: 9px; color: #fff; }
+/* The lockup: the seed beside the word in Albert Sans 600, sized and spaced as the round-four mock's .lock
+   (the mark 1.25em square, a 0.42em gap). The word is real text, so it reads and selects. */
+.brand { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; line-height: 1; font-size: 1.375rem; border: 0; display: inline-flex; align-items: center; gap: 0.42em; color: #fff; }
 .brand:hover { border-bottom-color: transparent; }
-.brand .beacon { width: 15px; height: 15px; }
+.brand .seed { width: 1.25em; height: 1.25em; flex: none; }
 .nav-links { display: flex; gap: 22px; align-items: center; }
 .nav-links > ul { display: flex; gap: 22px; align-items: center; list-style: none; padding: 0; margin: 0; }
 .nav-links a { font-size: 0.82rem; font-weight: 500; color: rgba(255,255,255,0.55); border: 0; }
@@ -155,6 +160,10 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0
 .nav-links a.current { color: #fff; border-bottom: 1px solid var(--gold); }
 .nav-cta { display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-body); font-size: 0.8rem; font-weight: 600; background: var(--gold); color: var(--ink); height: var(--btn-h); padding: 0 16px; border-radius: var(--radius-sm); border: none !important; }
 .nav-cta:hover { background: var(--gold-hot); color: var(--ink); border-bottom-color: transparent; }
+@media (min-width: 881px) {
+  .nav-cta-quiet { background: transparent; color: #fff; box-shadow: inset 0 0 0 1px rgba(232,168,32,0.7); }
+  .nav-cta-quiet:hover { background: var(--gold-hot); color: var(--ink); box-shadow: none; }
+}
 
 /* Hamburger toggle (mobile nav). min-width/min-height added 2026-09-16 (mobile UX review): the
    20x2px hamburger bar plus 12px padding gave a 44x26px hit target — wide enough, 18px short on
@@ -202,32 +211,34 @@ header.site { position: sticky; top: 0; z-index: 50; background: rgba(15,27,45,0
   .nav-links.open .nav-cta { text-align: center; margin-top: 8px; color: var(--ink); }
 }
 
-/* === HERO (home): dark, dense, split === */
-.hero { background: var(--ink); color: #fff; padding: clamp(48px, 7vw, 88px) 0 clamp(40px, 6vw, 72px); position: relative; overflow: hidden; }
-.hero::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-.hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 5vw, 64px); align-items: center; position: relative; }
-.hero h1 { font-size: clamp(2rem, 1.3rem + 2.8vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; max-width: 20ch; margin-bottom: 18px; }
-.hero .lede { font-size: clamp(0.95rem, 0.88rem + 0.3vw, 1.08rem); color: rgba(255,255,255,0.6); max-width: 42ch; line-height: 1.55; margin-bottom: 28px; }
-.hero .lede strong { color: var(--gold-hot); font-weight: 600; }
+/* === HERO (home): the seed masthead, round four of the design system (Whit, 2026-10-15) ===
+   The canvas (src/lib/brand/masthead.ts) fills the section; a navy veil keeps the words on calm ground,
+   from the left on wide screens and from the top down on phones, where the lens rests in a band above
+   the headline. Values from the approved mock's .mast, .mhero and .veil rules. */
+.hero { background: var(--ink); color: #fff; position: relative; overflow: hidden; }
+.hero.masthead { display: flex; flex-direction: column; justify-content: center; min-height: max(560px, min(calc(100svh - 68px), 820px)); }
+.hero .mast-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+.hero .mast-veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(15,27,45,0.92) 0%, rgba(15,27,45,0.72) 34%, rgba(15,27,45,0) 62%); }
+.hero .mast-wrap { position: relative; z-index: 1; width: 100%; padding-top: clamp(56px, 8vh, 96px); padding-bottom: clamp(80px, 11vh, 120px); }
+.hero h1 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; font-size: clamp(2.375rem, 4.6vw, 4.125rem); line-height: 1.03; max-width: 15ch; margin-bottom: 22px; }
+.hero .lede { font-size: clamp(1rem, 0.92rem + 0.33vw, 1.1875rem); color: rgba(255,255,255,0.74); max-width: 46ch; line-height: 1.5; margin: 0 0 28px; }
+.hero .lede strong { color: #fff; font-weight: 600; }
+.hero .hero-founder { font-size: 0.9rem; margin: 18px 0 0; }
 .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
-
-/* Hero visual: stacked tool cards */
-.hero-stack { position: relative; height: clamp(260px, 30vw, 380px); }
-.tool-card { position: absolute; background: #162640; border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-elevated); }
-.tool-card .tc-bar { height: 28px; background: var(--ink-mid); border-bottom: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center; padding: 0 10px; gap: 5px; }
-.tool-card .tc-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--stone-deep); }
-.tool-card .tc-url { margin-left: 8px; font-family: var(--font-mono); font-size: 9px; color: rgba(255,255,255,0.3); letter-spacing: 0.02em; }
-.tool-card .tc-body { padding: 12px; }
-.tc-line { height: 5px; border-radius: var(--radius-sm); margin-bottom: 5px; }
-.tc-1 { width: 82%; right: 0; top: 8%; transform: rotate(2deg); z-index: 1; }
-.tc-2 { width: 88%; left: 0; top: 18%; transform: rotate(-1.5deg); z-index: 2; }
-@media (max-width: 768px) {
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero-stack { height: 220px; margin-top: 8px; }
+.hero .mast-controls { position: absolute; left: 0; right: 0; bottom: 20px; z-index: 2; display: flex; justify-content: flex-end; pointer-events: none; }
+.hero .mast-pause {
+  pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px;
+  border: 0; border-radius: var(--radius-pill); background: rgba(10,19,34,0.72); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.16);
+  color: rgba(255,255,255,0.86); font-family: var(--font-body); font-size: 0.8rem; font-weight: 500; cursor: pointer;
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); transition: box-shadow 160ms, color 160ms;
+}
+.hero .mast-pause:hover { color: #fff; box-shadow: inset 0 0 0 1px rgba(232,168,32,0.6); }
+@media (prefers-reduced-motion: reduce) { .hero .mast-controls { display: none; } }
+@media (max-width: 640px) {
+  .hero.masthead { min-height: 0; justify-content: flex-start; }
+  .hero .mast-veil { background: linear-gradient(180deg, rgba(15,27,45,0.1) 0, rgba(15,27,45,0.4) 150px, rgba(15,27,45,0.9) 240px, rgba(15,27,45,0.94) 100%); }
+  .hero .mast-wrap { padding-top: 236px; padding-bottom: 80px; }
+  .hero .mast-pause { height: 40px; }
 }
 
 /* === AUDIENCE: white strip, ruled below (was a gold wash; retired with the cream grounds) === */
@@ -698,7 +709,7 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 /* === Footer === */
 footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: var(--surface); font-size: 0.82rem; }
 .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; align-items: baseline; }
-.foot .brand { color: var(--ink); font-size: 0.78rem; }
+.foot .brand { color: var(--ink); font-size: 1.125rem; }
 .foot .brand:hover { border-bottom-color: transparent; }
 .foot .meta { color: var(--stone); font-size: 0.82rem; max-width: 42ch; }
 .foot .foot-links { display: inline-flex; gap: 18px; align-items: baseline; flex-wrap: wrap; list-style: none; padding: 0; margin: 0; }
@@ -706,20 +717,10 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .foot a:hover { color: var(--ink); }
 
 /* === MVP: real product screenshots === */
-/* Hero stacked shots (replace CSS placeholder cards) */
-.hero-shot { position: absolute; border-radius: var(--radius-lg); overflow: hidden; border: 1px solid rgba(255,255,255,0.12); box-shadow: var(--shadow-elevated); background: var(--ink-mid); }
-.hero-shot img { display: block; width: 100%; height: auto; }
-.hs-1 { width: 82%; right: 0; top: 2%; transform: rotate(2deg); z-index: 1; }
-.hs-2 { width: 84%; left: 0; top: 34%; transform: rotate(-1.5deg); z-index: 2; }
-@media (max-width: 768px) {
-  .hs-1 { top: 0; }
-  .hs-2 { top: 42%; }
-}
-
 /* Work-card screenshots (fill 16:9 image well) */
 .wcard-shot { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
 
-/* === /rayli: two-up product figure, same card language as .hero-shot === */
+/* === /rayli: two-up product figure, the card language of the old home hero's screenshots === */
 .rayli-shots { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(16px, 2.4vw, 24px); margin: 32px 0 8px; }
 .rayli-shots figure { margin: 0; }
 .rayli-shot { border-radius: var(--radius-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-hover); background: var(--ink-mid); }

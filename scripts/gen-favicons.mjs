@@ -1,22 +1,41 @@
+// The icon family, drawn from the Seed of Life (src/lib/brand/seed.ts) in gold #E8A820 on a navy
+// #0F1B2D tile (round four of the design system, 2026-10-15; it replaces the gold H of 2026-10-11).
+// Each size is drawn for itself, so the lines thin as the icon shrinks and the 16px icon is the
+// scalloped outline, as Whit asked ("the lines thin out as the icon shrinks"). favicon.svg is the
+// outline too: a browser tab shows it at 16px.
+//
+// Icons above 200px are drawn with the 200px geometry. They are device pixels shown at a third to a
+// half of their size on a phone (the 512 on an Android splash, the 180 on an iPhone home screen), so
+// the 3.4px ceiling meant for a large mark on a page would leave them a hairline.
+//
+// The home-screen icons (apple-touch-icon, 192, 512) fill the square edge to edge: iOS and Android
+// round the corners themselves, and a rounded tile inside their mask shows a dark ring.
 import sharp from "sharp";
-import { readFileSync, writeFileSync, statSync } from "node:fs";
+import { writeFileSync, statSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
+import { seedSvg } from "../src/lib/brand/seed.ts";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const pub = (name) => join(root, "public", name);
 
-const svg = readFileSync(pub("favicon.svg"));
+const drawn = (size) => Math.min(size, 200);
+const iconSvg = (size, tile) => Buffer.from(seedSvg(drawn(size), { tile, size: size * 4 }));
+// Drawn at four times the size and reduced, for clean edges on the hairlines.
+const render = (size, tile) => sharp(iconSvg(size, tile)).resize(size, size, { kernel: "lanczos3" }).png({ compressionLevel: 9 });
+
+writeFileSync(pub("favicon.svg"), seedSvg(16, { tile: "rounded" }) + "\n");
+
 const sizes = {
-  "favicon-16.png": 16,
-  "favicon-32.png": 32,
-  "favicon-48.png": 48,
-  "apple-touch-icon.png": 180,
-  "favicon-192.png": 192,
-  "favicon-512.png": 512,
+  "favicon-16.png": [16, "rounded"],
+  "favicon-32.png": [32, "rounded"],
+  "favicon-48.png": [48, "rounded"],
+  "apple-touch-icon.png": [180, "square"],
+  "favicon-192.png": [192, "square"],
+  "favicon-512.png": [512, "square"],
 };
-for (const [name, size] of Object.entries(sizes)) {
-  await sharp(svg, { density: 384 }).resize(size, size).png().toFile(pub(name));
+for (const [name, [size, tile]] of Object.entries(sizes)) {
+  await render(size, tile).toFile(pub(name));
 }
 
 // The social card (og.svg to og.png) moved to scripts/gen-og-card.mjs on 2026-10-09: it is set in
@@ -68,7 +87,7 @@ const icoBeforeBytes = (() => {
 const icoSizes = [16, 32, 48];
 const icoEntries = [];
 for (const size of icoSizes) {
-  const buffer = await sharp(svg, { density: 384 }).resize(size, size).png().toBuffer();
+  const buffer = await render(size, "rounded").toBuffer();
   icoEntries.push({ size, buffer });
 }
 const ico = buildIco(icoEntries);

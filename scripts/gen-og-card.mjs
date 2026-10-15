@@ -1,15 +1,16 @@
 // Writes public/og.svg and renders it to public/og.png (1200x630), the og:image every page on
 // hoplight.ai shares. Run: npm run og:build   (macOS, needs Google Chrome; CHROME= overrides the path)
 //
-// The card follows the Hoplight Design System (2026-10-11): a navy band, the band's Flower of Life field
-// seeded "Hoplight" and faded from the right (src/lib/brand/geometry.ts, ported from the system's
-// Geometry component), the full lockup copied byte for byte from the system (src/lib/brand/marks.ts;
-// its rule: "Decks, the site hero, social cards, at 320px wide or more"), and the line in Inter 400 in
-// on-band-muted. og.svg is written by this script from those sources; edit them, not og.svg.
+// The card follows round four of the design system (2026-10-15), the masthead Whit approved for the
+// home page: a navy band, the seed's lattice with the soft magnifier rising out of it at the upper right
+// (src/lib/brand/magnify.ts, the still twin of the home hero's canvas), a navy veil from the left, the
+// seed lockup at the top left (src/lib/brand/marks.ts: the seed beside "Hoplight" in Albert Sans 600,
+// outlined), and the line in Inter 600 in white at the bottom left. og.svg is written by this script
+// from those sources; edit them, not og.svg.
 //
 // Why Chrome and not sharp (measured 2026-10-09): on macOS sharp's SVG renderer finds fonts through
 // CoreText, ignores FONTCONFIG_FILE and swaps Inter for a system face without an error. So the card is
-// drawn by headless Chrome, as scripts/render-page.sh does, with Inter 400 fetched from Google Fonts
+// drawn by headless Chrome, as scripts/render-page.sh does, with Inter 600 fetched from Google Fonts
 // (the source src/app/api/og/route.tsx uses) and embedded as @font-face. Self-check: the card is drawn
 // a second time with no @font-face, and if the two are identical Inter never loaded, so the script
 // exits non-zero without touching og.png.
@@ -20,8 +21,8 @@ import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import sharp from 'sharp';
-import { fieldMarkup } from '../src/lib/brand/geometry.ts';
-import { LOCKUP_CLEAR } from '../src/lib/brand/marks.ts';
+import { leftVeil, magnifiedField } from '../src/lib/brand/magnify.ts';
+import { LOCKUP_H, LOCKUP_W, seedLockup } from '../src/lib/brand/marks.ts';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const pub = (name) => join(root, 'public', name);
@@ -29,36 +30,33 @@ const CHROME = process.env.CHROME || '/Applications/Google Chrome.app/Contents/M
 const W = 1200;
 const H = 630;
 
-// Design-system tokens, light theme.
+// Design-system tokens.
 const BAND = '#0F1B2D';
-const ON_BAND_MUTED = '#C9D3E0';
+const ON_BAND = '#FFFFFF';
 
 // ---- the card ---------------------------------------------------------------------------------------
-// The lockup's own viewBox; the word "Hoplight" starts at x 13.6 with its baseline at y 0.
-const vb = LOCKUP_CLEAR.match(/viewBox="([^"]+)"/)[1].split(/\s+/).map(Number);
-const [vx, vy, vw, vh] = vb;
-const LEFT = 72; // the card's left margin, space-8
-const LOCKUP_W = 720;
-const s = LOCKUP_W / vw;
-const lockupX = LEFT - (13.6 - vx) * s; // so the word, not the viewBox, sits on the margin
-const BASELINE = 262;
-const lockupY = BASELINE + vy * s;
-const lockup = LOCKUP_CLEAR.replace(
+const LEFT = 72; // the card's margin
+const LOCKUP_DRAWN_W = 420; // the seed is 96px square
+// A 1200px card is mostly seen at 500 to 600px, so the seed is drawn with the line of a ~40px seed.
+const lockup = seedLockup({ word: ON_BAND, seen: 40 }).replace(
   /^<svg [^>]*>/,
-  `<svg x="${lockupX.toFixed(1)}" y="${lockupY.toFixed(1)}" width="${LOCKUP_W}" height="${(vh * s).toFixed(1)}" viewBox="${vb.join(' ')}" role="img" aria-label="Hoplight">`,
+  `<svg x="${LEFT}" y="${LEFT}" width="${LOCKUP_DRAWN_W}" height="${((LOCKUP_DRAWN_W * LOCKUP_H) / LOCKUP_W).toFixed(1)}" viewBox="0 0 ${LOCKUP_W} ${LOCKUP_H}" role="img" aria-label="Hoplight">`,
 );
 
-const field = fieldMarkup({ width: W, height: H, seed: 'Hoplight', tone: 'band', fade: 'right', id: 'og-field' });
-const LINES = ['AI strategy for labor, advocacy, and', 'mission-driven organizations.'];
+// The lens sits up and to the right, clear of the words, as the home hero holds it right of the copy.
+const field = magnifiedField({ width: W, height: H, r: 44, focus: [952, 262], S: 150, id: 'og-mag' });
+const veil = leftVeil(W, H, 0.36, 0.62, 'og-veil');
+const LINES = ['AI strategy for labor, advocacy,', 'and mission-driven organizations.'];
 const text = LINES.map(
-  (line, i) => `<text x="${LEFT}" y="${520 + i * 46}" font-family="Inter, sans-serif" font-size="34" font-weight="400" fill="${ON_BAND_MUTED}">${line}</text>`,
+  (line, i) => `<text x="${LEFT}" y="${506 + i * 52}" font-family="Inter, sans-serif" font-size="40" font-weight="600" letter-spacing="-0.4" fill="${ON_BAND}">${line}</text>`,
 ).join('\n  ');
 
 const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Hoplight: ${LINES.join(' ')}">
   <!-- Written by scripts/gen-og-card.mjs from src/lib/brand/; do not edit by hand. -->
-  <defs>${field.defs}</defs>
+  <defs>${field.defs}${veil.defs}</defs>
   <rect width="${W}" height="${H}" fill="${BAND}"/>
   ${field.body}
+  ${veil.body}
   ${lockup}
   ${text}
 </svg>
@@ -101,8 +99,8 @@ function shoot(htmlPath, pngPath) {
 
 const work = mkdtempSync(join(tmpdir(), 'og-card-'));
 try {
-  const regular = await fetchInter(400);
-  const face = `@font-face { font-family: 'Inter'; font-weight: 400; font-display: block; src: url(data:font/ttf;base64,${regular}) format('truetype'); }`;
+  const semibold = await fetchInter(600);
+  const face = `@font-face { font-family: 'Inter'; font-weight: 600; font-display: block; src: url(data:font/ttf;base64,${semibold}) format('truetype'); }`;
 
   writeFileSync(join(work, 'inter.html'), page(ogSvg, face));
   writeFileSync(join(work, 'control.html'), page(ogSvg, ''));
@@ -117,7 +115,12 @@ try {
   const b = await sharp(join(work, 'control.png')).raw().toBuffer();
   if (a.equals(b)) throw new Error('the Inter render is identical to the no-font render: Inter did not load, og.png left as it was');
 
-  const info = await shot.png({ compressionLevel: 9 }).toFile(pub('og.png'));
+  // A palette PNG: the lattice's fine detail made a full-colour card 640 KB (2026-10-15), over the
+  // ~300 KB some messaging apps accept for a preview image. Navy and gold quantise without banding.
+  const { data, info } = await shot.png({ compressionLevel: 9, palette: true, colours: 96, dither: 0 }).toBuffer({ resolveWithObject: true });
+  if (data.length > 300 * 1024) throw new Error(`og.png would be ${data.length} bytes; previews in some apps drop images over 300 KB, og.png left as it was`);
+  writeFileSync(pub('og.png'), data);
+  info.size = data.length;
   console.log(`og.svg written; og.png written: ${info.width}x${info.height}, ${info.size} bytes, text in Inter (differs from the no-font control render)`);
 } finally {
   rmSync(work, { recursive: true, force: true });

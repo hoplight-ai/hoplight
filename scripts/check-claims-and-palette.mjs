@@ -218,8 +218,11 @@ if (want('em-dash')) {
 // drawn by src/app/api/og/ through src/lib/brand/. Found 2026-10-09 on the June palette (ground
 // #151C26, gold #C8922A and #E3AC42, Helvetica) and the retired cream #F7F5F0; found 2026-10-11 off
 // the Hoplight Design System (typed tracked-caps wordmark, the beacon it retires, weight 700, a
-// gradient ground, gold body text on navy). Rules, comments included, because a preview card has no
-// comment a reader ever sees:
+// gradient ground, gold body text on navy). On 2026-10-15 round four of the design system, which Whit
+// approved for the home page, replaced the torchband lockup and the metallic wordmark with the seed
+// lockup (the Seed of Life beside "Hoplight" in Albert Sans 600, outlined), and the og card took the
+// home hero's magnified lattice. Rules, comments included, because a preview card has no comment a
+// reader ever sees:
 //   a. none of the four retired colours, in hex or in rgb();
 //   b. every hex colour is a globals.css :root token or one of the design system's brand colours
 //      listed below, so a new colour has to be added here on purpose;
@@ -227,25 +230,18 @@ if (want('em-dash')) {
 //   d. Inter at 400 and 600 only ("Inter for everything, at 400 and 600 only");
 //   e. no typed or tracked-caps wordmark ("The wordmark is a drawing, never typed");
 //   f. no CSS gradient behind the text ("No gradients, grain or square grids behind content");
-//   g. the marks in src/lib/brand/marks.ts are byte-for-byte the design system's files, and og.svg
-//      carries the lockup's drawing ("Copy assets, never approximate them").
-// When the design system changes a mark, copy the new file into marks.ts, put its sha256 below, and
-// run `npm run og:build`.
+//   g. the wordmark outline in src/lib/brand/marks.ts is byte-for-byte the one read from Albert Sans
+//      600, and og.svg carries it ("Copy assets, never approximate them").
+// To redraw the wordmark, outline it again, paste it between the backticks unchanged, put its sha256
+// below, and run `npm run og:build`.
 const DESIGN_SYSTEM_COLOURS = {
   '#C9D3E0': 'on-band-muted',
-  '#E8C268': 'geometry',
-  '#F8E6A8': 'torch-light',
-  '#EDCB72': 'torch',
-  '#D4A748': 'torch-deep',
-  '#F6B700': 'glow',
-  '#C9A04A': 'the lockup metallic run, first stop (Logos README)',
-  '#E2BE68': 'the lockup metallic run, second stop (Logos README)',
+  '#03070E': "the magnifier's shadow (round four, 2026-10-15)",
 };
 const DESIGN_SYSTEM_MARKS = {
-  // asset 'hoplight-wordmark-torchband-clear.svg', blob e3d0fbdb6f6f22d11957d3cd334d02ab, read 2026-10-11
-  LOCKUP_CLEAR: '5ac10777dd7657dfe2a84a57171edb39ee23e4829c12c205d0739be016c09fe0',
-  // asset 'hoplight-wordmark-gold.svg', blob 6d4d9450f664f3644c8b36772c1ccb35, read 2026-10-11
-  WORDMARK_GOLD: 'b22b5285b05fd08894d2f3620c5e9a47206b6f4f58a727874b3b28f8177f2dac',
+  // "Hoplight" in Albert Sans 600 (Google Fonts albertsans v4) at font-size 100, letter-spacing -0.02em,
+  // kerned, outlined with opentype.js, 2026-10-15
+  WORDMARK_PATH: '06c19cd8d8b9cde601d1e03891a206f878cf1e65f9f0339508f4f9e954606f3e',
 };
 if (want('preview-palette')) {
   const PREVIEW_RETIRED = /#(?:151C26|C8922A|E3AC42|F7F5F0)(?![0-9a-f])|rgba?\(\s*(?:21\s*,\s*28\s*,\s*38|200\s*,\s*146\s*,\s*42|227\s*,\s*172\s*,\s*66|247\s*,\s*245\s*,\s*240)\b/i;
@@ -302,12 +298,12 @@ if (want('preview-palette')) {
     }
     markText[name] = m[1];
     const got = createHash('sha256').update(m[1]).digest('hex');
-    if (got !== want256) hits.push(`${relative(ROOT, marksFile)}: ${name} is not the design system's file (sha256 ${got.slice(0, 12)}, expected ${want256.slice(0, 12)})`);
+    if (got !== want256) hits.push(`${relative(ROOT, marksFile)}: ${name} is not the design system's drawing (sha256 ${got.slice(0, 12)}, expected ${want256.slice(0, 12)})`);
   }
-  const lockupPath = markText.LOCKUP_CLEAR?.match(/<path d="([^"]+)"/)?.[1];
+  const wordPath = markText.WORDMARK_PATH;
   let og = '';
   try { og = readFileSync(ogSvg, 'utf8'); } catch { /* reported above */ }
-  if (og && (!lockupPath || !og.includes(lockupPath))) hits.push(`${relative(ROOT, ogSvg)}: does not carry the design system's lockup drawing`);
+  if (og && (!wordPath || !og.includes(`d="${wordPath}"`))) hits.push(`${relative(ROOT, ogSvg)}: does not carry the design system's lockup drawing`);
   report(hits.length === 0, 'the link-preview cards follow the Hoplight Design System (og.svg, /api/og, src/lib/brand)', hits);
 }
 

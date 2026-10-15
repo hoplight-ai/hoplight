@@ -1,12 +1,13 @@
 // The per-route link-preview card that src/app/api/og/route.tsx renders, on the Hoplight Design System
-// (2026-10-11): a navy band with its seeded Flower of Life field, the gold wordmark drawing (never
-// typed), the route's title in Inter 600 in on-band white and its line in on-band-muted. No gradient
-// ground, no gold body text, no tracked caps, no weight above 600. Written with createElement rather
-// than JSX so a Node script can render it too.
+// (2026-10-11): a navy band with its seeded Flower of Life field, the seed lockup drawing (round four,
+// 2026-10-15: the seed beside "Hoplight" in Albert Sans 600, outlined, never typed), the route's title in
+// Inter 600 in on-band white and its line in on-band-muted. No gradient ground, no gold body text, no
+// tracked caps, no weight above 600. Written with createElement rather than JSX so a Node script can
+// render it too.
 
 import { createElement as h, type ReactElement } from 'react';
 import { fieldSvg } from './geometry.ts';
-import { WORDMARK_GOLD } from './marks.ts';
+import { LOCKUP_H, LOCKUP_W, seedLockup } from './marks.ts';
 
 export const CARD_W = 1200;
 export const CARD_H = 630;
@@ -16,9 +17,11 @@ const BAND = '#0F1B2D';
 const ON_BAND = '#FFFFFF';
 const ON_BAND_MUTED = '#C9D3E0';
 
-// The gold wordmark's own viewBox is 786.2 by 196.8.
-const MARK_H = 44;
-const MARK_W = Math.round((MARK_H * 786.2) / 196.8);
+// The lockup at 64px tall; its seed is drawn with the line of a 28px seed, the size it is seen at once
+// the card shows at 500 to 600px wide.
+const MARK_H = 64;
+const MARK_W = Math.round((MARK_H * LOCKUP_W) / LOCKUP_H);
+const LOCKUP = seedLockup({ word: ON_BAND, seen: 28 });
 
 const svgUri = (svg: string) => `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
 
@@ -51,7 +54,7 @@ export function ogCard(title: string, sub: string, hasInter: boolean): ReactElem
       height: CARD_H,
       style: { position: 'absolute', left: 0, top: 0 },
     }),
-    h('img', { src: svgUri(WORDMARK_GOLD), width: MARK_W, height: MARK_H, alt: 'Hoplight' }),
+    h('img', { src: svgUri(LOCKUP), width: MARK_W, height: MARK_H, alt: 'Hoplight' }),
     h('div', { style: { display: 'flex', flexGrow: 1 } }),
     h(
       'div',

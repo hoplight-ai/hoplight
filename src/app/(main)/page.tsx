@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
+import Masthead from '@/components/Masthead';
 import { FACTS } from '@/lib/facts';
 
 const orgSchema = {
@@ -34,29 +35,15 @@ export default function Home() {
     <>
       <JsonLd data={orgSchema} />
 
-      {/* HERO: dark, dense, tools visible */}
-      <section className="hero">
-        <div className="wrap">
-          <div className="hero-grid">
-            <div>
-              <h1>Most organizations are bushwhacking their way through AI.</h1>
-              <p className="lede">{FACTS.company.pilotFailure} of enterprise AI pilots return nothing (MIT). Hoplight builds the ones that do: <strong>{FACTS.company.systems} production AI systems</strong> for the labor, advocacy, and mission-driven organizations that can&rsquo;t hire a Chief AI Officer.</p>
-              <div className="hero-cta">
-                <Link className="btn-gold" href="/contact">Start a conversation</Link>
-              </div>
-              <p className="lede" style={{ marginTop: 18, fontSize: '0.9rem' }}>Hoplight&rsquo;s founder {FACTS.founder}.</p>
-            </div>
-            <div className="hero-stack" aria-hidden="true">
-              <div className="hero-shot hs-1">
-                <img src="/screenshots/agis.webp" alt="" width={1200} height={904} loading="eager" />
-              </div>
-              <div className="hero-shot hs-2">
-                <img src="/screenshots/pme.webp" alt="" width={1200} height={750} loading="eager" />
-              </div>
-            </div>
-          </div>
+      {/* HERO: the seed masthead, round four of the design system (Whit, 2026-10-15) */}
+      <Masthead labelledBy="hero-title">
+        <h1 id="hero-title">Most organizations are bushwhacking their way through AI.</h1>
+        <p className="lede">{FACTS.company.pilotFailure} of enterprise AI pilots return nothing (MIT). Hoplight builds the ones that do: <strong>{FACTS.company.systems} production AI systems</strong> for the labor, advocacy, and mission-driven organizations that can&rsquo;t hire a Chief AI Officer.</p>
+        <div className="hero-cta">
+          <Link className="btn-gold" href="/contact">Start a conversation</Link>
         </div>
-      </section>
+        <p className="lede hero-founder">Hoplight&rsquo;s founder {FACTS.founder}.</p>
+      </Masthead>
 
       {/* AUDIENCE: gold band */}
       <div className="aud-strip">

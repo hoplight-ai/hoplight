@@ -22,8 +22,10 @@
 // lane hopfix1: the page went from a warm off-white to white on 2026-10-07 (lane hopwhite1) and this
 // field still held the warm value, so the splash flashed cream before the white page arrived.
 //
-// Deliberately NOT declared maskable: the shipped mark fills its rounded-square canvas edge to
-// edge, so an Android maskable crop would cut into the glyph.
+// Maskable since 2026-10-15: the icons became the seed on a full-bleed navy square
+// (scripts/gen-favicons.mjs), and the seed reaches 34% of the width from the centre, inside the 40%
+// circle Android keeps when it crops a maskable icon. Before that the gold H ran to the edge of a
+// rounded tile and a crop would have cut it.
 
 import type { MetadataRoute } from "next";
 
@@ -42,6 +44,8 @@ export default function manifest(): MetadataRoute.Manifest {
     icons: [
       { src: "/favicon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
       { src: "/favicon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
+      { src: "/favicon-192.png", sizes: "192x192", type: "image/png", purpose: "maskable" },
+      { src: "/favicon-512.png", sizes: "512x512", type: "image/png", purpose: "maskable" },
     ],
   };
 }
