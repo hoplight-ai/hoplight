@@ -125,7 +125,12 @@ export function autoRow(input: {
 
 const sameText = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
 
-export function rulingMatches(r: Ruling, row: UndoRow): boolean {
+/** Anything with the same match keys a ruling carries: a ruling, an issue tag, a Forward Order item.
+ *  The row side needs only what the keys read, so the client's slimmed rows match too. */
+export type MatchLike = { match?: Ruling['match'] };
+export type MatchableRow = Pick<UndoRow, 'id' | 'instrument' | 'number' | 'title' | 'official'>;
+
+export function rulingMatches(r: MatchLike, row: MatchableRow): boolean {
   const m = r.match;
   if (!m) return false;
   if (m.document_number && row.id === m.document_number) return true;

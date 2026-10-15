@@ -3,12 +3,17 @@ import { pageMetadata } from '@/lib/metadata';
 import { BUCKETS } from '@/lib/undo/types';
 import type { Bucket, Ruling } from '@/lib/undo/types';
 import { applyRulings } from '@/lib/undo/classify';
+import { applyIssues } from '@/lib/undo/issues-merge';
+import { forwardOrderView } from '@/lib/undo/forward-text';
+import type { ForwardOrder } from '@/lib/undo/issues';
 import { COPY } from '@/lib/undo/copy';
 import { countLocked, countPenInForce, slimRow } from '@/lib/undo/sections';
 import { fetchFederalRegisterRows } from '@/lib/undo/federal-register';
 import rulingsJson from '@/data/undo/rulings.json';
 import curatedJson from '@/data/undo/curated.json';
 import { headlines } from '@/data/undo/headlines';
+import { issueTags } from '@/data/undo/issues';
+import forwardJson from '@/data/undo/forward.json';
 import CopyButton from './CopyButton';
 import UndoList from './UndoList';
 
@@ -32,12 +37,13 @@ export const metadata: Metadata = pageMetadata({
 // trusts their shape, and scripts/undo-classify.test.mjs reads the same files.
 const rulings = rulingsJson as unknown as Ruling[];
 const curated = curatedJson as unknown as Ruling[];
+const forwardOrders = forwardJson as unknown as ForwardOrder[];
 
 const BUCKET_ORDER = (Object.keys(BUCKETS) as Bucket[]).sort((a, b) => BUCKETS[a].order - BUCKETS[b].order);
 
 export default async function UndoPage() {
   const feed = await fetchFederalRegisterRows();
-  const rows = applyRulings(feed.rows, [...rulings, ...curated, ...headlines]);
+  const rows = applyIssues(applyRulings(feed.rows, [...rulings, ...curated, ...headlines]), issueTags);
   const reviewed = rows.filter((r) => r.reviewed).length;
   const auto = rows.length - reviewed;
   const newest = rows.length ? rows[0].date : null;
@@ -46,6 +52,10 @@ export default async function UndoPage() {
   // Rows nobody reviewed ship without their boilerplate how/why (the client derives it from the
   // instrument), and without fields the page does not draw. The text still renders on the server.
   const slim = rows.map(slimRow);
+  // Each Forward Order is matched against the merged rows here, once, so the browser gets ids. An
+  // order whose items are all missing (the feed is down and its items are feed rows) is left out
+  // rather than shown as "undoes 0 items".
+  const orders = forwardOrders.map((o) => forwardOrderView(o, rows)).filter((o) => o.ids.length > 0);
 
   return (
     <>
@@ -71,7 +81,7 @@ export default async function UndoPage() {
       </div>
 
       {/* STRIP + THE LIST */}
-      <UndoList rows={slim} penInForce={penInForce} />
+      <UndoList rows={slim} penInForce={penInForce} orders={orders} />
 
       {/* CLOSING CALL TO ACTION */}
       <section className="close-cta slate undo-cta" aria-labelledby="undo-cta-h">

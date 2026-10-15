@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FACTS } from '@/lib/facts';
 import { pageMetadata } from '@/lib/metadata';
-import { Bloom, EngravedField, QuietArcs } from '@/components/portfolio/Geometry';
+import { Bloom, EngravedField } from '@/components/portfolio/Geometry';
 import StillMagnifier from '@/components/portfolio/StillMagnifier';
 
 // The portfolio in round four of the design system (Whit, 2026-10-15: "the portfolio page needs an
@@ -58,29 +58,6 @@ const PIECES: Piece[] = [
   { slug: 'cba-win-pattern-playbook', title: 'CBA win pattern playbook', blurb: 'AI clauses unions actually won, ranked by strength.', href: '/portfolio/cba-win-pattern-playbook.html', span: 7 },
   { slug: 'pdi-trust-dilution-model', title: 'PDI trust dilution model', blurb: 'A small working model of trust dilution.', href: '/portfolio/pdi-trust-dilution-model.html', span: 7 },
   { slug: 'ai-governance-checklist', title: 'AI governance checklist', blurb: 'Interactive checklist a mission-driven org can work through.', href: '/portfolio/ai-governance-checklist.html', span: 5, drop: true },
-];
-
-const ENGAGEMENTS: Array<{ name: string; does: string; serves: string }> = [
-  {
-    name: 'Change Agent',
-    does: 'A persuasion assistant rebuilt with a values-aligned system prompt. Refuses anti-worker requests and redirects to worker power.',
-    serves: 'Unions and organizers.',
-  },
-  {
-    name: 'Agent-operated systems',
-    does: 'Systems that run operational workflows autonomously, then monitor their own outputs. Agents handle the patterned 80%, people keep the judgment calls.',
-    serves: 'Organizations with high-volume, repeating operational work.',
-  },
-  {
-    name: 'AI brand voice for regulated commerce',
-    does: `A brand-voice system for a women-owned, queer-led distillery selling a federally regulated product on a hostile ad platform. Compliant, converting, human-sounding copy at ${FACTS.company.roas} return on ad spend.`,
-    serves: 'Consumer brands navigating platform restrictions and compliance requirements.',
-  },
-  {
-    name: 'Labor AI intelligence product',
-    does: 'Reframes the week’s AI developments for political and policy staff at one of the largest labor organizations in the US. Built for people who negotiate contracts, run campaigns, and advise elected officials.',
-    serves: 'National labor organizations and their political and policy staff.',
-  },
 ];
 
 export const metadata: Metadata = pageMetadata({
@@ -210,37 +187,6 @@ export default function Portfolio() {
               <Shot name="pandoras-router" sizes="(max-width: 760px) 100vw, 660px" />
             </span>
           </a>
-        </div>
-      </section>
-
-      <section className="slate pf-clients" aria-labelledby="pf-clients-title">
-        <QuietArcs center={[1120, 300]} opacity={0.16} />
-        <div className="wrap">
-          <div className="pf-head">
-            <span className="pf-label">Client engagements</span>
-            <h2 id="pf-clients-title">And some of it, you can&rsquo;t.</h2>
-            <p>
-              These run inside client organizations, on their data, so there is no link to hand you.
-              Here is what each one does and who it serves.
-            </p>
-          </div>
-          <ul className="pf-engagements">
-            {ENGAGEMENTS.map((e) => (
-              <li key={e.name} className="pf-engagement">
-                <h3>{e.name}</h3>
-                <dl>
-                  <div>
-                    <dt>What it does</dt>
-                    <dd>{e.does}</dd>
-                  </div>
-                  <div>
-                    <dt>Who it serves</dt>
-                    <dd>{e.serves}</dd>
-                  </div>
-                </dl>
-              </li>
-            ))}
-          </ul>
         </div>
       </section>
 

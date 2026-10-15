@@ -1,0 +1,999 @@
+[
+  {
+    "id": "civil-service",
+    "title": "A civil service that serves the public",
+    "purpose": "This order puts career public servants back to work answering the phone, processing claims and inspecting what needs inspecting. It ends the fireable-at-will job categories, the political sign-off on routine hiring and grants, the hiring freeze and the mass layoffs that cut about 317,000 federal workers. A veteran waiting on a benefit, a farmer waiting on a loan and a small business waiting on a permit feel it first, because the people who know the work are back at their desks. It also reopens the small agencies, from libraries to mediation services, that were cut to the legal minimum.",
+    "issues": [
+      "government-works"
+    ],
+    "items": [
+      {
+        "id": "personnel-federal-workforce-reductions-2025"
+      },
+      {
+        "id": "personnel-probationary-firings-2025"
+      },
+      {
+        "eo": 14170
+      },
+      {
+        "eo": 14171
+      },
+      {
+        "eo": 14207
+      },
+      {
+        "eo": 14208
+      },
+      {
+        "eo": 14210
+      },
+      {
+        "eo": 14211
+      },
+      {
+        "eo": 14217
+      },
+      {
+        "eo": 14222
+      },
+      {
+        "eo": 14238
+      },
+      {
+        "eo": 14243
+      },
+      {
+        "eo": 14284
+      },
+      {
+        "eo": 14317
+      },
+      {
+        "eo": 14332
+      },
+      {
+        "eo": 14344
+      },
+      {
+        "eo": 14356
+      },
+      {
+        "eo": 14395
+      },
+      {
+        "eo": 14410
+      },
+      {
+        "document_number": "2025-05217"
+      },
+      {
+        "document_number": "2025-01907"
+      },
+      {
+        "document_number": "2025-02033"
+      },
+      {
+        "document_number": "2025-02037"
+      },
+      {
+        "document_number": "2025-02042"
+      },
+      {
+        "title": "Hiring Freeze"
+      }
+    ]
+  },
+  {
+    "id": "equal-treatment",
+    "title": "Equal treatment under the law",
+    "purpose": "This order sets one rule for federal agencies, contractors and schools: people are judged on what they do, and the same law protects everyone. It ends the shutdown of every federal diversity office, the rules that single out one group for federal recognition, and the dropping of disparate-impact enforcement, so civil-rights law is applied evenly again. A disabled worker, a tribal member, a Spanish speaker at a federal counter and a small contractor trying to win a bid feel it first. It also protects religious communities and offices that serve them on the same terms as everyone else.",
+    "issues": [
+      "equal-treatment",
+      "lgbtq"
+    ],
+    "items": [
+      {
+        "eo": 14151
+      },
+      {
+        "eo": 14173
+      },
+      {
+        "eo": 14398
+      },
+      {
+        "eo": 14168
+      },
+      {
+        "eo": 14201
+      },
+      {
+        "eo": 14185
+      },
+      {
+        "eo": 14224
+      },
+      {
+        "eo": 14281
+      },
+      {
+        "document_number": "2025-02099"
+      },
+      {
+        "document_number": "2026-00697"
+      },
+      {
+        "eo": 14202
+      },
+      {
+        "eo": 14205
+      },
+      {
+        "eo": 14291
+      }
+    ]
+  },
+  {
+    "id": "citizenship-and-borders",
+    "title": "Citizenship as the Constitution wrote it",
+    "purpose": "This order sets the border and the immigration system on written rules and a fair hearing. It ends the denial of birthright citizenship, the use of a 1798 wartime law for deportations, the shutdown of the refugee program and the blanket entry bans on dozens of countries. Families waiting on a visa, a crop grower short of workers and a hospital recruiting nurses from abroad feel it first. It also drops the $100,000 fee on each new skilled worker, which has kept small employers and universities out of the program.",
+    "issues": [
+      "immigrants"
+    ],
+    "items": [
+      {
+        "eo": 14159
+      },
+      {
+        "eo": 14161
+      },
+      {
+        "eo": 14163
+      },
+      {
+        "eo": 14165
+      },
+      {
+        "eo": 14218
+      },
+      {
+        "eo": 14287
+      },
+      {
+        "eo": 14351
+      },
+      {
+        "eo": 14406
+      },
+      {
+        "eo": 14418
+      },
+      {
+        "eo": 14419
+      },
+      {
+        "proclamation": 11069
+      },
+      {
+        "proclamation": 10998
+      },
+      {
+        "proclamation": 10973
+      },
+      {
+        "proclamation": 10949
+      },
+      {
+        "proclamation": 10935
+      },
+      {
+        "proclamation": 10903
+      },
+      {
+        "proclamation": 10886
+      },
+      {
+        "document_number": "2025-06840"
+      }
+    ]
+  },
+  {
+    "id": "fair-prices",
+    "title": "Fair prices for what families buy",
+    "purpose": "This order ends the tariff proclamations and wartime-style trade measures that raised prices on cars, lumber, furniture, drugs, steel and groceries. A family buying a truck, a builder pricing lumber and a family stocking up on groceries feel it first. It also lifts the bans on Canadian dairy, beer and vehicles and the order that pulled Canadian goods from federal purchasing. Future trade terms are then set through negotiated agreements with allies, in the open, with Congress at the table.",
+    "issues": [
+      "prices",
+      "farms-rural"
+    ],
+    "items": [
+      {
+        "id": "tariff-232-steel-aluminum"
+      },
+      {
+        "id": "tariff-232-metals-full-value"
+      },
+      {
+        "id": "tariff-232-autos-parts"
+      },
+      {
+        "id": "tariff-232-copper"
+      },
+      {
+        "id": "tariff-232-lumber-furniture"
+      },
+      {
+        "id": "tariff-232-trucks-buses"
+      },
+      {
+        "id": "tariff-232-pharmaceuticals"
+      },
+      {
+        "id": "tariff-232-semiconductors"
+      },
+      {
+        "id": "tariff-301-forced-labor"
+      },
+      {
+        "id": "tariff-301-excess-capacity-probe"
+      },
+      {
+        "id": "tariff-338-canada"
+      },
+      {
+        "proclamation": 11061
+      },
+      {
+        "proclamation": 11062
+      },
+      {
+        "proclamation": 11063
+      },
+      {
+        "proclamation": 11064
+      },
+      {
+        "proclamation": 11065
+      },
+      {
+        "proclamation": 11055
+      },
+      {
+        "proclamation": 11052
+      },
+      {
+        "proclamation": 11051
+      },
+      {
+        "proclamation": 11046
+      },
+      {
+        "proclamation": 11047
+      },
+      {
+        "proclamation": 11048
+      },
+      {
+        "proclamation": 11032
+      },
+      {
+        "proclamation": 11020
+      },
+      {
+        "proclamation": 11021
+      },
+      {
+        "proclamation": 11002
+      },
+      {
+        "proclamation": 10984
+      },
+      {
+        "proclamation": 10976
+      },
+      {
+        "proclamation": 10962
+      },
+      {
+        "proclamation": 10947
+      },
+      {
+        "proclamation": 10908
+      },
+      {
+        "proclamation": 10895
+      },
+      {
+        "proclamation": 10896
+      },
+      {
+        "document_number": "2026-15274"
+      },
+      {
+        "document_number": "2026-14654"
+      },
+      {
+        "document_number": "2026-19336"
+      },
+      {
+        "document_number": "2025-03188"
+      },
+      {
+        "document_number": "2025-02872"
+      },
+      {
+        "document_number": "2025-02032"
+      }
+    ]
+  },
+  {
+    "id": "clean-air-water-land",
+    "title": "Clean air and water for every county",
+    "purpose": "This order restores the pollution limits and the protected land that were lifted by presidential action. It ends the two-year exemptions that let coal plants, chemical plants, copper smelters, taconite mines and medical sterilizers skip toxic air limits, and it returns the cut Bears Ears and Grand Staircase-Escalante monuments to their original size. A family living beside a coke oven plant, a hunter on public land and a fisher working a protected ocean monument feel it first. It also brings wetlands, river, forest and wildlife rules back under steady, published standards.",
+    "issues": [
+      "air-water",
+      "farms-rural"
+    ],
+    "items": [
+      {
+        "eo": 14153
+      },
+      {
+        "eo": 14154
+      },
+      {
+        "eo": 14156
+      },
+      {
+        "eo": 14181
+      },
+      {
+        "eo": 14213
+      },
+      {
+        "eo": 14225
+      },
+      {
+        "eo": 14260
+      },
+      {
+        "eo": 14261
+      },
+      {
+        "eo": 14262
+      },
+      {
+        "eo": 14264
+      },
+      {
+        "eo": 14270
+      },
+      {
+        "eo": 14276
+      },
+      {
+        "eo": 14285
+      },
+      {
+        "eo": 14315
+      },
+      {
+        "eo": 14318
+      },
+      {
+        "eo": 14386
+      },
+      {
+        "eo": 14387
+      },
+      {
+        "eo": 14394
+      },
+      {
+        "eo": 14408
+      },
+      {
+        "eo": 14425
+      },
+      {
+        "eo": 14428
+      },
+      {
+        "eo": 14429
+      },
+      {
+        "proclamation": 11043
+      },
+      {
+        "proclamation": 11044
+      },
+      {
+        "proclamation": 11041
+      },
+      {
+        "proclamation": 11035
+      },
+      {
+        "proclamation": 10993
+      },
+      {
+        "proclamation": 10987
+      },
+      {
+        "proclamation": 10956
+      },
+      {
+        "proclamation": 10957
+      },
+      {
+        "proclamation": 10958
+      },
+      {
+        "proclamation": 10959
+      },
+      {
+        "proclamation": 10918
+      },
+      {
+        "proclamation": 10914
+      },
+      {
+        "document_number": "2025-02041"
+      }
+    ]
+  },
+  {
+    "id": "allies-and-aid",
+    "title": "Open for business with our allies",
+    "purpose": "This order puts the United States back at the table in the treaties, councils, science panels and aid programs it helped build, including dozens of bodies it quit in a few weeks. It ends the freeze on foreign aid and restores the policy that sets how development money is spent. Farmers selling abroad, scientists sharing data and a diplomat working a crisis feel it first, because partners can count on the American word again. Dues and treaty ratification still belong to Congress, and this order asks for them.",
+    "issues": [
+      "allies"
+    ],
+    "items": [
+      {
+        "id": "withdraw-un-desa"
+      },
+      {
+        "id": "withdraw-un-ilc"
+      },
+      {
+        "id": "withdraw-un-irmct"
+      },
+      {
+        "id": "withdraw-un-itc"
+      },
+      {
+        "id": "withdraw-un-osaa"
+      },
+      {
+        "id": "withdraw-un-srsg-caac"
+      },
+      {
+        "id": "withdraw-un-srsg-svc"
+      },
+      {
+        "id": "withdraw-un-srsg-vac"
+      },
+      {
+        "id": "withdraw-un-pbc"
+      },
+      {
+        "id": "withdraw-un-pbf"
+      },
+      {
+        "id": "withdraw-un-pfpad"
+      },
+      {
+        "id": "withdraw-un-unaoc"
+      },
+      {
+        "id": "withdraw-un-un-redd"
+      },
+      {
+        "id": "withdraw-un-unctad"
+      },
+      {
+        "id": "withdraw-un-undef"
+      },
+      {
+        "id": "withdraw-un-un-energy"
+      },
+      {
+        "id": "withdraw-un-un-women"
+      },
+      {
+        "id": "withdraw-un-un-habitat"
+      },
+      {
+        "id": "withdraw-un-unitar"
+      },
+      {
+        "id": "withdraw-un-un-oceans"
+      },
+      {
+        "id": "withdraw-un-unfpa"
+      },
+      {
+        "id": "withdraw-un-unroca"
+      },
+      {
+        "id": "withdraw-un-un-ceb"
+      },
+      {
+        "id": "withdraw-un-unssc"
+      },
+      {
+        "id": "withdraw-un-un-water"
+      },
+      {
+        "id": "withdraw-un-unu"
+      },
+      {
+        "id": "withdraw-un-escap"
+      },
+      {
+        "id": "withdraw-un-escwa"
+      },
+      {
+        "id": "withdraw-un-eca"
+      },
+      {
+        "id": "withdraw-un-eclac"
+      },
+      {
+        "id": "withdraw-cfe-compact"
+      },
+      {
+        "id": "withdraw-colombo-plan"
+      },
+      {
+        "id": "withdraw-cec"
+      },
+      {
+        "id": "withdraw-ecw"
+      },
+      {
+        "id": "withdraw-hybrid-coe"
+      },
+      {
+        "id": "withdraw-fehrl"
+      },
+      {
+        "id": "withdraw-foc"
+      },
+      {
+        "id": "withdraw-gcerf"
+      },
+      {
+        "id": "withdraw-gctf"
+      },
+      {
+        "id": "withdraw-gfce"
+      },
+      {
+        "id": "withdraw-gfmd"
+      },
+      {
+        "id": "withdraw-igf-mining"
+      },
+      {
+        "id": "withdraw-ipcc"
+      },
+      {
+        "id": "withdraw-ipbes"
+      },
+      {
+        "id": "withdraw-iccrom"
+      },
+      {
+        "id": "withdraw-icac"
+      },
+      {
+        "id": "withdraw-idlo"
+      },
+      {
+        "id": "withdraw-ief"
+      },
+      {
+        "id": "withdraw-ifacca"
+      },
+      {
+        "id": "withdraw-idea"
+      },
+      {
+        "id": "withdraw-iijrl"
+      },
+      {
+        "id": "withdraw-ilzsg"
+      },
+      {
+        "id": "withdraw-irena"
+      },
+      {
+        "id": "withdraw-isa"
+      },
+      {
+        "id": "withdraw-itto"
+      },
+      {
+        "id": "withdraw-iucn"
+      },
+      {
+        "id": "withdraw-pac"
+      },
+      {
+        "id": "withdraw-recaap"
+      },
+      {
+        "id": "withdraw-rcc"
+      },
+      {
+        "id": "withdraw-ren21"
+      },
+      {
+        "id": "withdraw-stcu"
+      },
+      {
+        "id": "withdraw-sprep"
+      },
+      {
+        "id": "withdraw-venice"
+      },
+      {
+        "id": "withdraw-paris-agreement"
+      },
+      {
+        "id": "withdraw-unesco"
+      },
+      {
+        "id": "withdraw-unhrc"
+      },
+      {
+        "id": "withdraw-memo-2026-01-07-remaining"
+      },
+      {
+        "eo": 14150
+      },
+      {
+        "eo": 14162
+      },
+      {
+        "eo": 14169
+      },
+      {
+        "eo": 14172
+      },
+      {
+        "eo": 14199
+      },
+      {
+        "eo": 14203
+      },
+      {
+        "eo": 14204
+      },
+      {
+        "eo": 14373
+      },
+      {
+        "eo": 14375
+      },
+      {
+        "eo": 14380
+      },
+      {
+        "eo": 14383
+      },
+      {
+        "eo": 14404
+      },
+      {
+        "eo": 14422
+      },
+      {
+        "document_number": "2025-14587"
+      },
+      {
+        "document_number": "2025-02176"
+      },
+      {
+        "document_number": "2025-02043"
+      }
+    ]
+  },
+  {
+    "id": "health-and-science",
+    "title": "Health care and research families can trust",
+    "purpose": "This order puts medical advice and research back in the hands of scientists who publish their work and answer for it. It ends the political sign-off on agency scientific integrity rules and the cuts to the childhood vaccine schedule, including the split of the MMR shot. A parent scheduling a pediatric visit, a nurse on a hospital floor and a researcher waiting on a grant feel it first. It also restores safety planning for artificial intelligence and the software security standards for companies that sell to the federal government.",
+    "issues": [
+      "health",
+      "science",
+      "women"
+    ],
+    "items": [
+      {
+        "eo": 14179
+      },
+      {
+        "eo": 14182
+      },
+      {
+        "eo": 14187
+      },
+      {
+        "eo": 14212
+      },
+      {
+        "eo": 14214
+      },
+      {
+        "eo": 14303
+      },
+      {
+        "eo": 14306
+      },
+      {
+        "eo": 14319
+      },
+      {
+        "eo": 14321
+      },
+      {
+        "eo": 14365
+      },
+      {
+        "eo": 14407
+      },
+      {
+        "eo": 14420
+      },
+      {
+        "eo": 14434
+      }
+    ]
+  },
+  {
+    "id": "service-members",
+    "title": "Service members led with care",
+    "purpose": "This order keeps the Guard and the armed forces to their proper missions and keeps every person who is willing to serve eligible to do so. It ends the open-ended Guard deployments in American cities, the new Guard unit built to police them, and the pledge to defend a foreign country with no treaty or Senate vote. A reservist pulled from a civilian job, a military family and a veteran who wants the next generation to serve feel it first. The Defense Department keeps its statutory name until Congress says otherwise.",
+    "issues": [
+      "veterans"
+    ],
+    "items": [
+      {
+        "id": "memo-national-guard-washington-dc-2025-08-11"
+      },
+      {
+        "id": "memo-memphis-safe-task-force-2025-09-15"
+      },
+      {
+        "eo": 14167
+      },
+      {
+        "eo": 14183
+      },
+      {
+        "eo": 14339
+      },
+      {
+        "eo": 14347
+      },
+      {
+        "eo": 14353
+      }
+    ]
+  },
+  {
+    "id": "schools-and-students",
+    "title": "Schools and colleges open to every student",
+    "purpose": "This order keeps the Education Department doing the jobs the law gives it: delivering aid, enforcing civil rights in schools and running loan relief. It ends the transfer of its programs to other agencies, the threats to school funds over lessons, and the cut to loan forgiveness for public service workers. A student filling out financial aid forms, a teacher in a Title I school and a foreign student with a visa feel it first. It also stops federal pressure that tells colleges how to run accreditation and athletics.",
+    "issues": [
+      "schools"
+    ],
+    "items": [
+      {
+        "id": "personnel-education-dept-interagency-agreements"
+      },
+      {
+        "eo": 14188
+      },
+      {
+        "eo": 14190
+      },
+      {
+        "eo": 14191
+      },
+      {
+        "eo": 14235
+      },
+      {
+        "eo": 14242
+      },
+      {
+        "eo": 14279
+      },
+      {
+        "eo": 14280
+      },
+      {
+        "eo": 14322
+      },
+      {
+        "eo": 14400
+      }
+    ]
+  },
+  {
+    "id": "checks-on-power",
+    "title": "Government that answers to the law",
+    "purpose": "This order keeps the Justice Department, the courts, the press and the ballot box outside the reach of any one president. It ends the use of security clearances to punish four law firms, the dismissal of seventeen inspectors general by email, and the orders directing investigations of named former officials. A voter registering, a reporter filing a request and a lawyer taking an unpopular case feel it first. It also returns the Smithsonian and national parks to the curators who run them, and it ends the grant cutoffs aimed at groups that speak to Congress.",
+    "issues": [
+      "checks-on-power"
+    ],
+    "items": [
+      {
+        "id": "personnel-inspectors-general-fired"
+      },
+      {
+        "eo": 14147
+      },
+      {
+        "eo": 14148
+      },
+      {
+        "eo": 14149
+      },
+      {
+        "eo": 14152
+      },
+      {
+        "eo": 14230
+      },
+      {
+        "eo": 14246
+      },
+      {
+        "eo": 14250
+      },
+      {
+        "eo": 14263
+      },
+      {
+        "eo": 14248
+      },
+      {
+        "eo": 14399
+      },
+      {
+        "eo": 14253
+      },
+      {
+        "eo": 14416
+      },
+      {
+        "eo": 14341
+      },
+      {
+        "eo": 14385
+      },
+      {
+        "document_number": "2025-16935"
+      }
+    ]
+  },
+  {
+    "id": "safe-communities",
+    "title": "Safe streets and ready disaster response",
+    "purpose": "This order keeps public safety local, accountable and funded for the next storm. It ends the plan to hand disaster response from the federal agency to the states, the council set up to shrink FEMA, and the override of local fire-rebuilding permits in Los Angeles. A town hit by a flood, a police chief working under a consent decree and a family in a high-crime neighborhood feel it first. It also replaces the federal directives on cartels, cash bail and city policing with plans worked out with state and local law enforcement.",
+    "issues": [
+      "public-safety"
+    ],
+    "items": [
+      {
+        "eo": 14157
+      },
+      {
+        "eo": 14164
+      },
+      {
+        "eo": 14180
+      },
+      {
+        "eo": 14206
+      },
+      {
+        "eo": 14239
+      },
+      {
+        "eo": 14252
+      },
+      {
+        "eo": 14288
+      },
+      {
+        "eo": 14340
+      },
+      {
+        "eo": 14342
+      },
+      {
+        "eo": 14377
+      },
+      {
+        "proclamation": 11015
+      }
+    ]
+  },
+  {
+    "id": "fair-pay-and-voice",
+    "title": "Fair pay and a voice at work",
+    "purpose": "This order protects what working people earn and the right to bargain over it. It ends the orders that stripped union contract rights from most of the federal workforce, voided agreements signed in the weeks before an inauguration, and cancelled the federal contractor minimum wage. A mechanic at a federal facility, a contractor paid at the federal wage and a retiree watching a 401(k) feel it first. It also pulls private equity and crypto back out of the default retirement plan menu.",
+    "issues": [
+      "paycheck"
+    ],
+    "items": [
+      {
+        "eo": 14236
+      },
+      {
+        "eo": 14251
+      },
+      {
+        "eo": 14343
+      },
+      {
+        "document_number": "2025-02729"
+      },
+      {
+        "eo": 14330
+      },
+      {
+        "eo": 14403
+      }
+    ]
+  },
+  {
+    "id": "honest-markets",
+    "title": "Honest rules for money and markets",
+    "purpose": "This order sets one clear standard for banks, brokers, crypto firms and companies that sell to government. It ends the blanket rule to repeal ten regulations for every new one, the pause on enforcing the law against foreign bribery, and the order scrapping antitrust coordination across agencies. A saver, a small bank and a business competing against a dominant supplier feel it first. Rules come back through notice and comment, with reasons published, so the next change is also open to challenge.",
+    "issues": [
+      "prices",
+      "checks-on-power"
+    ],
+    "items": [
+      {
+        "eo": 14178
+      },
+      {
+        "eo": 14192
+      },
+      {
+        "eo": 14209
+      },
+      {
+        "eo": 14219
+      },
+      {
+        "eo": 14233
+      },
+      {
+        "eo": 14294
+      },
+      {
+        "eo": 14331
+      },
+      {
+        "eo": 14337
+      },
+      {
+        "eo": 14366
+      },
+      {
+        "eo": 14393
+      },
+      {
+        "eo": 14405
+      }
+    ]
+  }
+]

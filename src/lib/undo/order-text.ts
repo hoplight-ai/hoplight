@@ -28,7 +28,7 @@ export function longDate(iso: string): string {
   return `${month} ${Number(m[3])}, ${m[1]}`;
 }
 
-function digitsOf(number: string | undefined): string | null {
+export function digitsOf(number: string | undefined): string | null {
   const m = /\d[\d-]*/.exec(number ?? '');
   return m ? m[0] : null;
 }

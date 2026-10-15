@@ -41,3 +41,11 @@
 - **This container cannot reach federalregister.gov** (the cloud session proxy blocks it), so a
   local build here always takes the feed's failure path. The feed was proved from a Vercel sandbox
   on 2026-10-09: 289 executive orders, 187 proclamations, 34 memoranda, one page each.
+- **Issues and Forward Orders (2026-10-15).** Every written-up row carries one to three issue tags
+  from `src/lib/undo/issues.ts` (sixteen keys named for who is affected, never for a side; Whit:
+  "veterans should be pissed and want these things signed, too"), stored in
+  `src/data/undo/issues/*.json`. "Where it lands" draws one bar per issue (pen, process, Congress,
+  locked) with the reader's ticks as a hairline. `src/data/undo/forward.json` holds the Forward
+  Orders: thirteen omnibus orders that together revoke every standing pen item exactly once;
+  "Sign this order" ticks the whole bundle and "Draft the order" renders the full text
+  (`src/lib/undo/forward-text.ts`). Whit: "its not roll back, we must go forward."
