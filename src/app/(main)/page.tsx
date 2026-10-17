@@ -42,7 +42,6 @@ export default function Home() {
         <div className="hero-cta">
           <Link className="btn-gold" href="/contact">Start a conversation</Link>
         </div>
-        <p className="lede hero-founder">Hoplight&rsquo;s founder {FACTS.founder}.</p>
       </Masthead>
 
       {/* AUDIENCE: gold band */}

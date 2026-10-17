@@ -34,5 +34,4 @@ export const FACTS = {
     compliance: 'zero compliance incidents across $1M+ in regulated-industry ad spend',
   },
   map: { from: '365', to: '226' },
-  founder: 'leads AI strategy for one of North America’s largest unions',
 } as const;
