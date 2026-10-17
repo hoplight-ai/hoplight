@@ -2,10 +2,11 @@ import type { Metadata, Viewport } from 'next';
 import { Albert_Sans, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 
-// The lockup word and the home headline (round four of the design system, 2026-10-15). One weight.
+// The lockup word and the headlines (round four of the design system, 2026-10-15) at 600; 400 for the
+// product name in a product lockup ("Hoplight | AGIS policy search" on the portfolio cards).
 const albert = Albert_Sans({
   subsets: ['latin'],
-  weight: ['600'],
+  weight: ['400', '600'],
   variable: '--font-albert',
   display: 'swap',
 });

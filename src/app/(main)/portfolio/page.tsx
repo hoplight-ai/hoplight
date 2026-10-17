@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FACTS } from '@/lib/facts';
 import { pageMetadata } from '@/lib/metadata';
+import SeedMark from '@/components/SeedMark';
+import QuietLattice from '@/components/portfolio/QuietLattice';
 
 // The gallery used to live on the vault app's vercel.app address. Whit, 2026-09-15: it belongs on
 // hoplight.ai. The interactive pieces are served from public/portfolio/ (npm run gallery:pull).
@@ -28,7 +30,19 @@ const PIECES: Piece[] = [
   { slug: 'worker-equity-dilution-at-ge', title: 'Worker equity dilution at GE', blurb: '80 years of worker equity draining out of one company.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
 ];
 
-const NO_THUMB = new Set(['hoplight-persuasion-story-page']);
+// Each card is headed by the product lockup from round four of the design system: the seed, "Hoplight",
+// a thin rule, then the piece (Whit, 2026-10-16, of the lockup: "clean, strong, feels like a brand").
+// The heading's accessible name is the piece alone; the brand half is decoration.
+function Lockup({ title }: { title: string }) {
+  return (
+    <h3 className="pf-lockup">
+      <SeedMark className="pf-lockup-seed" px={20} />
+      <span className="pf-lockup-wm" aria-hidden="true">Hoplight</span>
+      <span className="pf-lockup-bar" aria-hidden="true" />
+      <span className="pf-lockup-pn">{title}</span>
+    </h3>
+  );
+}
 
 export const metadata: Metadata = pageMetadata({
   title: 'Portfolio',
@@ -43,17 +57,18 @@ export default function Portfolio() {
     <>
       <div className="page-hero">
         <div className="wrap">
-          <span className="label">Portfolio</span>
-          <h1>Systems we&rsquo;ve shipped.</h1>
+          <span className="pf-label">Portfolio</span>
+          <h1 className="pf-display">Systems we&rsquo;ve shipped.</h1>
           <p>National organizations are running these tools in production. Not proofs of concept.</p>
         </div>
       </div>
 
-      <section className="slate">
+      <section className="slate pf-gallery">
+        <QuietLattice id="pf-gallery-field" />
         <div className="wrap">
           <div className="section-head">
-            <span className="label">The gallery</span>
-            <h2>Most of it, you can just open.</h2>
+            <span className="pf-label">The gallery</span>
+            <h2 className="pf-display">Most of it, you can just open.</h2>
             <p>
               Live applications and interactive analyses, running in a browser, with no sales call in
               between.
@@ -62,7 +77,7 @@ export default function Portfolio() {
           <ul className="gallery-grid">
             {PIECES.map((p) => {
               const external = p.href.startsWith('http');
-              const thumb = p.thumb ?? (NO_THUMB.has(p.slug) ? null : `/portfolio/thumbs/${p.slug}.jpg`);
+              const thumb = p.thumb ?? `/portfolio/thumbs/${p.slug}.jpg`;
               return (
                 <li key={p.slug}>
                   <a
@@ -71,33 +86,26 @@ export default function Portfolio() {
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     <div className="wcard-img">
-                      {thumb ? (
-                        // Responsive WebP variants (scripts/optimize-portfolio-thumbs.mjs,
-                        // performance review 2026-09-16 #7): phones get the 600px file instead of
-                        // the same full-desktop JPG a 1440px screen downloads. The 1200w WebP source
-                        // covers everyone else on a WebP-capable browser; the plain .jpg stays as
-                        // the <img> fallback for anything that supports neither <picture> nor WebP.
-                        <picture>
-                          <source
-                            type="image/webp"
-                            srcSet={`${thumb.replace(/\.jpg$/, '-600.webp')} 600w, ${thumb.replace(/\.jpg$/, '-1200.webp')} 1200w`}
-                            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 380px"
-                          />
-                          <img src={thumb} alt="" width={1200} height={750} loading="lazy" decoding="async" />
-                        </picture>
-                      ) : (
-                        <span className="wcard-plate">{p.title}</span>
-                      )}
+                      {/* Responsive WebP variants (scripts/optimize-portfolio-thumbs.mjs,
+                          performance review 2026-09-16 #7): phones get the 600px file instead of
+                          the same full-desktop JPG a 1440px screen downloads. The 1200w WebP source
+                          covers everyone else on a WebP-capable browser; the plain .jpg stays as
+                          the <img> fallback for anything that supports neither <picture> nor WebP.
+                          Every piece has a screenshot since 2026-10-16 (npm run portfolio:capture). */}
+                      <picture>
+                        <source
+                          type="image/webp"
+                          srcSet={`${thumb.replace(/\.jpg$/, '-600.webp')} 600w, ${thumb.replace(/\.jpg$/, '-1200.webp')} 1200w`}
+                          sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 380px"
+                        />
+                        <img src={thumb} alt="" width={1200} height={750} loading="lazy" decoding="async" />
+                      </picture>
                     </div>
                     <div className="wcard-body">
-                      <span className="wc-tag">{p.live ? 'Live app' : 'Interactive'}</span>
-                      <h3>{p.title}</h3>
+                      <span className="pf-kind">{p.live ? 'Live app' : 'Interactive'}</span>
+                      <Lockup title={p.title} />
                       <p>{p.blurb}</p>
-                      <span className="wc-go">
-                        {p.live ? 'Open the live app' : 'Open it'}{' '}&rarr;
-                        {external && <span aria-hidden="true"> ↗</span>}
-                        {external && <span className="sr-only"> (opens in a new tab)</span>}
-                      </span>
+                      {external && <span className="sr-only"> (opens in a new tab)</span>}
                     </div>
                   </a>
                 </li>
@@ -110,8 +118,8 @@ export default function Portfolio() {
       <section>
         <div className="wrap">
           <div className="section-head">
-            <span className="label">Open source</span>
-            <h2>A tool other teams can run themselves.</h2>
+            <span className="pf-label">Open source</span>
+            <h2 className="pf-display">A tool other teams can run themselves.</h2>
             <p>
               Pandora&rsquo;s Router lets several AI coding agents work on one codebase at once. It
               proves their file claims don&rsquo;t overlap before any agent starts, then checks what
@@ -125,7 +133,7 @@ export default function Portfolio() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Open the router &rarr;
+              Open the router
               <span className="sr-only"> (opens in a new tab)</span>
             </a>
             <a

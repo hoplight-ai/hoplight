@@ -374,7 +374,9 @@ section { padding: var(--space-section) 0; }
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 16px; margin-top: 32px; list-style: none; padding: 0; }
 .gallery-grid .wcard, .gallery-grid .wcard-body h3 { color: var(--ink); }
 .gallery-grid .wcard-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
-.gallery-grid .wcard-plate { color: #fff; font-weight: 700; font-size: 1.05rem; padding: 0 24px; text-align: center; }
+/* The <picture> fills the well, so the image's top edge, not its middle, sits at the top (2026-10-16:
+   inline, it centred and clipped each piece's own header to a sliver). */
+.gallery-grid .wcard-img picture { display: block; width: 100%; height: 100%; }
 /* The hover used to brighten the link to --gold, 2.6:1 on the white card. It keeps option C and gains an
    underline instead, so the link still answers the pointer; the card's gold edge and shadow do the rest. */
 .wcard:hover .wc-go { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 3px; }
@@ -511,17 +513,24 @@ section > .wrap > .barn { padding: 0; max-width: var(--measure); }
 .faq details[open] summary .chev { transform: rotate(45deg); }
 .faq .a { color: var(--stone); padding: 0 0 24px; max-width: var(--measure); }
 
-/* === Portfolio cards === */
-.portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(16px, 2.4vw, 24px); max-width: var(--maxw); }
-.pfcard { border: 1px solid var(--line-card); border-radius: var(--radius-lg); background: var(--white); box-shadow: 0 1px 2px rgba(0,0,0,0.04); padding: clamp(22px, 2.8vw, 32px); display: flex; flex-direction: column; transition: border-color 160ms ease-out, box-shadow 160ms ease-out; }
-.pfcard.link:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
-.pfcard .pfname { font-size: 1.15rem; font-weight: 700; color: var(--ink); margin: 0 0 14px; }
-.pfcard dl { margin: 0; }
-.pfcard dd.pfval { margin: 0; }
-.pfcard .pfrow { margin-bottom: 12px; }
-.pfcard .pflabel { font-family: var(--font-mono); font-size: 0.69rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--gold-deep); display: block; margin-bottom: 4px; }
-.pfcard .pfval { color: var(--stone-deep); font-size: 0.92rem; line-height: 1.45; }
-.pfcard .go { margin-top: auto; padding-top: 14px; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold-deep); border: 0; }
+/* === Portfolio, restyled in round four of the design system inside the compact gallery (2026-10-16) ===
+   Whit kept the grid ("the current layout is way easier to read ... this needs to be easy to grok"), so
+   the page keeps its structure and height and changes its type: sentence-case Inter labels (gold-deep on
+   white, gold-hot on navy), Albert Sans 600 headings, each card headed by the product lockup, no
+   trailing arrows, and a quiet lattice in the navy band's background only. */
+.pf-label { display: block; font-size: 0.875rem; font-weight: 500; color: var(--gold-deep); margin-bottom: 14px; }
+.slate .pf-label { color: var(--gold-hot); }
+h1.pf-display, h2.pf-display { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+.pf-gallery { position: relative; overflow: hidden; }
+.pf-gallery > .wrap { position: relative; z-index: 1; }
+.pf-field { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+.gallery-grid .pf-kind { display: block; font-size: 0.78rem; font-weight: 500; color: var(--gold-deep); margin-bottom: 8px; }
+.gallery-grid .pf-lockup { display: flex; align-items: flex-start; gap: 0.45em; font-size: 1.0625rem; line-height: 1.2; margin: 0 0 8px; color: var(--ink); }
+.pf-lockup-seed { width: 1.2em; height: 1.2em; flex: none; }
+.pf-lockup-wm { flex: none; font-family: var(--font-display); font-weight: 600; letter-spacing: -0.02em; }
+.pf-lockup-bar { flex: none; width: 1px; height: 1.1em; margin-top: 0.05em; background: currentColor; opacity: 0.35; }
+.pf-lockup-pn { min-width: 0; font-family: var(--font-display); font-weight: 400; letter-spacing: -0.01em; opacity: 0.82; }
+.wcard:hover .pf-lockup-pn { opacity: 1; }
 
 /* === Persuasion: statement divider === */
 .statement { text-align: left; max-width: 24ch; }
