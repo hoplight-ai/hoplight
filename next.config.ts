@@ -28,7 +28,10 @@ const nextConfig: NextConfig = {
         // rewrites below). That app sends its own security headers, and its policy must allow what
         // this one forbids: Supabase calls (connect-src) and Google Fonts. Stacking this CSP on its
         // responses would block every query. Added 2026-10-19 with the /agis rewrites.
-        source: '/((?!agis/|agis$).*)',
+        // /ai-election-errors is excluded for the same reason (same day): its form uploads
+        // screenshots straight to Vercel Blob storage (connect-src) and loads Google Fonts, and the
+        // project sends its own nosniff, referrer and frame headers.
+        source: '/((?!agis/|agis$|ai-election-errors/|ai-election-errors$).*)',
         headers: [
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'Content-Security-Policy', value: csp },
@@ -67,6 +70,12 @@ const nextConfig: NextConfig = {
       { source: '/agis/_vercel/:path*', destination: 'https://ai-policy-tool-3www.vercel.app/_vercel/:path*' },
       { source: '/agis', destination: 'https://ai-policy-tool-3www.vercel.app/agis' },
       { source: '/agis/:path*', destination: 'https://ai-policy-tool-3www.vercel.app/agis/:path*' },
+      // AI Election Errors (the public report form), same pattern: the ai-election-errors project
+      // answers under /ai-election-errors itself (its vercel.json maps that prefix to its files and
+      // functions), so the prefix passes through unchanged. Whit, 2026-10-19: "this should be a
+      // webpage that goes off of Hoplight.ai".
+      { source: '/ai-election-errors', destination: 'https://ai-election-errors.vercel.app/ai-election-errors' },
+      { source: '/ai-election-errors/:path*', destination: 'https://ai-election-errors.vercel.app/ai-election-errors/:path*' },
     ]
   },
   async redirects() {
