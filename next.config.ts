@@ -24,7 +24,11 @@ const nextConfig: NextConfig = {
       "object-src 'none'; base-uri 'self'; form-action 'self'";
     return [
       {
-        source: '/(.*)',
+        // Everything except /agis, which is the AGIS app proxied from its own Vercel project (see
+        // rewrites below). That app sends its own security headers, and its policy must allow what
+        // this one forbids: Supabase calls (connect-src) and Google Fonts. Stacking this CSP on its
+        // responses would block every query. Added 2026-10-19 with the /agis rewrites.
+        source: '/((?!agis/|agis$).*)',
         headers: [
           { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
           { key: 'Content-Security-Policy', value: csp },
@@ -56,6 +60,13 @@ const nextConfig: NextConfig = {
     return [
       { source: '/bet-appetit', destination: 'https://bet-appetit-demo.vercel.app/bet-appetit' },
       { source: '/bet-appetit/:path*', destination: 'https://bet-appetit-demo.vercel.app/bet-appetit/:path*' },
+      // The Hoplight AGIS, same pattern: the Vercel project ai-policy-tool-3www builds the
+      // ai-policy-tool repo with VITE_BRAND=hoplight and VITE_BASE_PATH=/agis/, so it answers under
+      // /agis itself. Whit, 2026-10-19: "can we just make ti hoplight.ai/agis". The analytics
+      // path goes first, to that project's own /_vercel route, which only answers at its root.
+      { source: '/agis/_vercel/:path*', destination: 'https://ai-policy-tool-3www.vercel.app/_vercel/:path*' },
+      { source: '/agis', destination: 'https://ai-policy-tool-3www.vercel.app/agis' },
+      { source: '/agis/:path*', destination: 'https://ai-policy-tool-3www.vercel.app/agis/:path*' },
     ]
   },
   async redirects() {
