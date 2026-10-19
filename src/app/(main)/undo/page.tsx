@@ -59,29 +59,9 @@ export default async function UndoPage() {
 
   return (
     <>
-      {/* HERO */}
-      <div className="page-hero" id="undo-hero">
-        <div className="wrap">
-          <span className="label">{COPY.hero.label}</span>
-          <h1>{COPY.hero.title}</h1>
-          {COPY.hero.lead.map((t) => (
-            <p key={t}>{t}</p>
-          ))}
-          <div className="undo-hero-nums">
-            <div className="undo-hero-stat">
-              <span className="undo-hero-num">{penInForce.toLocaleString('en-US')}</span>
-              <span className="undo-hero-label">{COPY.hero.penNumberLabel}</span>
-            </div>
-            <div className="undo-hero-stat">
-              <span className="undo-hero-num">{locked.toLocaleString('en-US')}</span>
-              <span className="undo-hero-label">{COPY.hero.lockedNumberLabel}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* STRIP + THE LIST */}
-      <UndoList rows={slim} penInForce={penInForce} orders={orders} />
+      {/* HERO, STRIP, THE ORDERS AND THE LIST: one client tree, because the field, the strip and
+          the ticks share one set of signed ids */}
+      <UndoList rows={slim} penInForce={penInForce} locked={locked} orders={orders} />
 
       {/* CLOSING CALL TO ACTION */}
       <section className="close-cta slate undo-cta" aria-labelledby="undo-cta-h">

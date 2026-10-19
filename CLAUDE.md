@@ -49,3 +49,16 @@
   Orders: thirteen omnibus orders that together revoke every standing pen item exactly once;
   "Sign this order" ticks the whole bundle and "Draft the order" renders the full text
   (`src/lib/undo/forward-text.ts`). Whit: "its not roll back, we must go forward."
+- **Reshaped 2026-10-19 (Whit: "it doesn't feel intelligent... a lot of cognitive effort... no way to
+  filter... no way to combine multiple executive orders into one thing... a progress bar or like a
+  visual interactive representation... especially on a phone... trying to do everything through
+  text").** The first screen is now the signature field (`SignatureField.tsx`, packing in
+  `src/lib/undo/field.ts`): one square per standing pen item, one block per Forward Order, gold when
+  signed; the headline is "Thirteen signatures undo 287 things." with one button. The Forward Orders
+  are one row each (title, count, a meter, Sign) and open to their items and the draft; the issue
+  filter ("Who feels it") sits above them and reaches the field, the orders, the bars and the list;
+  the sticky strip carries one segment per order; a list row is one line until its Details open. The
+  hero moved into `UndoList.tsx` because the field, the strip and the ticks share one signed set.
+  The field's packing and the new copy are pinned in `scripts/undo-classify.test.mjs`. The
+  Browser pane's `preview_start` could not launch the dev server from this folder (getcwd EPERM);
+  the page was proved on a local `next start` of the production build instead.

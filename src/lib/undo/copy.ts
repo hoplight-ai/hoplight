@@ -23,8 +23,23 @@ export const COPY = {
       'Everything the second Trump administration did, sorted by what it takes to undo it. Most of it takes a signature.',
       'Each item below says exactly what the next president, or Congress, has to do. For the first group, it is one sentence. We wrote the sentence.',
     ],
+    /** The first line on the page: the job, as a count of signatures and a count of things. */
+    headline: (orders: number, pen: number) => `${countWord(orders)} signatures undo ${pen} things.`,
+    /** What the field is, in one breath, for the line under the headline. */
+    read: 'Each square is one action a pen reaches, each block one order. Sign an order and its block turns gold.',
+    /** The rest of the list, in one sentence under the field. */
+    rest: (locked: number, rule: number, congress: number) =>
+      `Another ${locked} nothing undoes. ${rule} take a new rule, and ${congress} take a vote in Congress.`,
+    cta: 'Sign the first order',
+    count: (signed: number, total: number) => `${signed} of ${total} signed`,
     penNumberLabel: 'things a pen undoes',
     lockedNumberLabel: 'things nothing undoes',
+  },
+  field: {
+    label: 'The signature field: one square for each item a pen undoes, one block for each order',
+    block: (n: number, title: string, total: number, done: number) =>
+      `${n > 0 ? `Order ${n}, ` : ''}${title}: ${total} ${total === 1 ? 'item' : 'items'}, ${done} signed. Open the order.`,
+    unbundled: 'Not yet in an order',
   },
   strip: {
     signedOf: (signed: number, total: number) => `${signed} of ${total} signed`,
@@ -40,6 +55,9 @@ export const COPY = {
   issues: {
     filterLabel: 'Filter by issue',
     all: 'All issues',
+    who: 'Who feels it',
+    filteredTo: (label: string) => `Showing ${label}.`,
+    clear: 'Show all',
     sortLabel: 'Sort',
     newest: 'Newest first',
     byIssue: 'By issue',
@@ -64,14 +82,28 @@ export const COPY = {
   forward: {
     title: (n: number) => `${countWord(n)} ${n === 1 ? 'order' : 'orders'}, one afternoon`,
     intro:
-      "The precedent is the other side's: one order on January 20, 2025 revoked sixty-seven at once. These do the same, in the other direction, and each one says where the country goes next.",
+      "The precedent is the other side's: one order on January 20, 2025 revoked sixty-seven at once. These do the same, in the other direction. Open one to read what it bundles and where the country goes next.",
     sign: 'Sign this order',
+    signed: 'Signed',
+    open: 'Read the order',
+    close: 'Close the order',
+    items: (n: number) => `${n} ${n === 1 ? 'item' : 'items'}`,
+    itemsFor: (hit: number, n: number, label: string) => `${hit} of ${n} for ${label}`,
+    noneFor: (label: string) => `No order touches ${label}.`,
     undoes: (n: number) => `undoes ${n} ${n === 1 ? 'item' : 'items'}`,
     draftShow: 'Draft the order',
     draftHide: 'Hide the draft',
     copy: 'Copy',
     copied: 'Copied',
     footnote: (n: number) => `${n} ${n === 1 ? 'item' : 'items'}, one signature.`,
+  },
+  list: {
+    title: 'Every item, one by one',
+    intro: 'The orders above bundle the pen items. Here is each item on its own, with the exact sentence that undoes it.',
+  },
+  row: {
+    more: 'Details',
+    source: 'Read the source',
   },
   lunch: {
     title: 'Before lunch',

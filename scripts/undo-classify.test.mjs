@@ -40,6 +40,7 @@ import { ISSUES, ISSUE_KEYS, ISSUE_BY_KEY } from '../src/lib/undo/issues.ts';
 import { applyIssues, groupByIssue, MAX_ISSUES_PER_ROW } from '../src/lib/undo/issues-merge.ts';
 import { forwardOrderText, forwardOrderView, resolveOrderItems } from '../src/lib/undo/forward-text.ts';
 import { issueBars } from '../src/lib/undo/progress.ts';
+import { colsFor, fieldBlocks, MAX_COLS } from '../src/lib/undo/field.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (rel) => JSON.parse(readFileSync(join(ROOT, rel), 'utf8'));
@@ -799,4 +800,49 @@ test('the new page copy follows the house rules: spelled heading, no reverse, ro
   assert.equal(COPY.forward.undoes(1), 'undoes 1 item');
   assert.equal(COPY.forward.footnote(41), '41 items, one signature.');
   assert.ok(COPY.land.bar('Your health care', 7, 3, 1, 2, 1, 2).includes('3 by a pen, 1 by a pen then a process, 2 need Congress, 1 locked'));
+});
+
+test('the signature field: every pen item sits in exactly one block, orders first, strays last', () => {
+  const orders = [
+    { id: 'o1', title: 'One', issues: ['health'], ids: ['a', 'b', 'c'] },
+    { id: 'o2', title: 'Two', issues: ['prices'], ids: ['d', 'x', 'b'] },
+    { id: 'o3', title: 'Three', issues: ['allies'], ids: ['x'] },
+  ];
+  // 'x' is not a pen item (revoked already); 'e' is a pen item no order names; 'b' is named twice.
+  const blocks = fieldBlocks(orders, ['a', 'b', 'c', 'd', 'e'], 'Not yet in an order');
+  assert.deepEqual(blocks.map((b) => [b.id, b.n, b.ids]), [
+    ['o1', 1, ['a', 'b', 'c']],
+    ['o2', 2, ['d']],
+    ['unbundled', 0, ['e']],
+  ]);
+  const all = blocks.flatMap((b) => b.ids);
+  assert.equal(all.length, new Set(all).size, 'no id twice');
+  assert.equal(all.length, 5, 'every pen item drawn');
+  assert.deepEqual(fieldBlocks(orders, ['a'], 'x').map((b) => b.id), ['o1'], 'an order with nothing standing draws no block');
+});
+
+test('colsFor packs a block about 1.7 wide for 1 tall, between 2 and MAX_COLS columns', () => {
+  assert.equal(colsFor(0), 1);
+  assert.equal(colsFor(1), 2);
+  assert.equal(colsFor(6), 4);
+  assert.equal(colsFor(25), 7);
+  assert.equal(colsFor(83), MAX_COLS);
+  assert.equal(colsFor(1000), MAX_COLS);
+});
+
+test('the reshaped hero and order copy follows the house rules and spells the count', () => {
+  assert.equal(COPY.hero.headline(13, 287), 'Thirteen signatures undo 287 things.');
+  assert.equal(COPY.hero.headline(21, 5), '21 signatures undo 5 things.');
+  assert.equal(COPY.hero.count(3, 287), '3 of 287 signed');
+  assert.equal(COPY.forward.items(1), '1 item');
+  assert.equal(COPY.forward.items(25), '25 items');
+  assert.equal(COPY.forward.itemsFor(4, 25, 'Veterans and troops'), '4 of 25 for Veterans and troops');
+  assert.ok(COPY.field.block(3, 'Citizenship as the Constitution wrote it', 18, 2).startsWith('Order 3, Citizenship'));
+  assert.ok(COPY.field.block(0, 'Not yet in an order', 2, 0).startsWith('Not yet in an order'));
+  for (const [path, text] of [
+    ['hero.headline(13, 287)', COPY.hero.headline(13, 287)],
+    ['hero.cta', COPY.hero.cta],
+    ['list.title', COPY.list.title],
+    ['issues.who', COPY.issues.who],
+  ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
 });

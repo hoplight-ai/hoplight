@@ -753,19 +753,6 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-h2 { margin-bottom: 8px; }
 .undo-intro { margin: 0 0 24px; max-width: var(--measure); font-size: 1rem; line-height: 1.55; color: var(--stone-deep); }
 
-/* Hero numbers: stacked on a phone, side by side from 700px */
-.undo-hero-nums { display: grid; grid-template-columns: 1fr; gap: 28px; margin-top: 36px; }
-.undo-hero-stat { display: block; }
-.undo-hero-num {
-  display: block; font-family: var(--font-body); font-weight: 700; font-size: clamp(3.4rem, 2.2rem + 5.6vw, 5.6rem);
-  line-height: 0.95; letter-spacing: -0.04em; color: var(--ink); font-variant-numeric: tabular-nums lining-nums;
-}
-.undo-hero-num::after { content: ''; display: block; width: 56px; height: 3px; margin-top: 16px; background: var(--gold); }
-.undo-hero-label { display: block; margin-top: 12px; font-size: 1.05rem; font-weight: 600; color: var(--ink); }
-@media (min-width: 700px) {
-  .undo-hero-nums { grid-template-columns: 1fr 1fr; gap: 48px; max-width: 760px; }
-}
-
 /* Sticky progress strip: fixed under the site header, hidden until the hero has scrolled away */
 .undo-strip {
   position: fixed; left: 0; right: 0; top: var(--undo-top, 68px); z-index: 40;
@@ -777,8 +764,9 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-strip.is-on { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
 .undo-strip-inner { display: flex; align-items: center; gap: 14px; min-height: 44px; }
 .undo-strip-text { margin: 0; flex: none; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; white-space: nowrap; color: #fff; }
-.undo-strip-track { flex: 1 1 auto; min-width: 24px; height: 3px; background: rgba(255,255,255,0.18); }
-.undo-strip-fill { height: 100%; background: var(--gold); transition: width 200ms ease-out; }
+.undo-strip-track { flex: 1 1 auto; min-width: 24px; height: 6px; display: flex; gap: 2px; }
+.undo-strip-seg { position: relative; display: block; flex-basis: 0; min-width: 3px; height: 100%; background: rgba(255,255,255,0.18); overflow: hidden; }
+.undo-strip-fill { display: block; height: 100%; background: var(--gold); transition: width 200ms ease-out; }
 .undo-strip-reset {
   flex: none; min-height: 44px; padding: 0 2px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em;
   color: rgba(255,255,255,0.8); background: none; border: 0; text-decoration: underline; text-underline-offset: 3px; cursor: pointer;
@@ -970,38 +958,113 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
   .undo-bar-count { text-align: right; }
 }
 
-/* The Forward Orders: bordered cards, a big mono numeral, one signature each */
-.undo-forward-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr; gap: 20px; align-items: start; }
-.undo-forward {
-  display: grid; grid-template-columns: 1fr; gap: 6px; padding: 22px 20px 12px; border: 1px solid var(--line-card);
-  border-radius: var(--radius-md); background: var(--white); min-width: 0;
+@media (prefers-reduced-motion: reduce) {
+  .undo-strip, .undo-strip-fill, .undo-box, .undo-bar-fill, .undo-bar-mark, .undo-cell, .undo-forward-meter-fill { transition: none; }
 }
-.undo-forward-num {
-  display: block; font-family: var(--font-mono); font-weight: 500; font-size: 2.6rem; line-height: 1; letter-spacing: -0.02em;
-  color: var(--ink); font-variant-numeric: tabular-nums lining-nums;
+
+/* ----- Reshaped 2026-10-19 (Whit: "it doesn't feel intelligent... a lot of cognitive effort... no way to
+   filter... combine multiple executive orders into one thing... a progress bar or visual interactive
+   representation... especially on a phone"). The hero is now the signature field, the orders are compact
+   rows, the filter sits above everything, and a list row is one line until opened. ----- */
+
+/* Hero: headline, one line of reading, the field, one button with the live count beside it */
+.undo-hero { padding-bottom: clamp(32px, 5vw, 56px); }
+.undo-hero h1 { max-width: 16ch; font-variant-numeric: lining-nums; }
+.undo-hero-read { margin-top: 14px; max-width: 46ch; font-size: 1rem; line-height: 1.5; }
+.undo-hero-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 22px; }
+.undo-hero-count { margin: 0; font-family: var(--font-mono); font-size: 0.82rem; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.undo-hero-rest { margin: 18px 0 0; max-width: 52ch; font-size: 0.92rem; line-height: 1.5; color: var(--stone); }
+
+/* The signature field: one square per pen item, one block per order. The blocks wrap like words. */
+.undo-field { --cell: 9px; --gap: 2px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px 18px; margin-top: 26px; }
+.undo-block { display: flex; flex-direction: column; gap: 4px; padding: 0; background: none; border: 0; cursor: pointer; text-align: left; color: var(--ink); }
+.undo-block:focus-visible { outline: 2px solid var(--ring); outline-offset: 6px; border-radius: 2px; }
+.undo-cells { display: grid; grid-template-columns: repeat(var(--cols), var(--cell)); gap: var(--gap); }
+.undo-cell {
+  display: block; width: var(--cell); height: var(--cell); box-sizing: border-box; border: 1.5px solid var(--ink); border-radius: 2px;
+  background: var(--white); transition: background 160ms ease-out, border-color 160ms ease-out, opacity 160ms ease-out;
 }
-.undo-forward-num::after { content: ''; display: block; width: 40px; height: 3px; margin-top: 12px; background: var(--gold); }
-.undo-forward-body { min-width: 0; margin-top: 8px; }
-.undo-forward-title { font-weight: 700; font-size: 1.25rem; line-height: 1.25; letter-spacing: -0.02em; overflow-wrap: anywhere; }
-.undo-forward-purpose { margin: 10px 0 0; font-size: 0.98rem; line-height: 1.55; color: var(--stone-deep); }
-.undo-forward-count { margin: 14px 0 0; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.04em; color: var(--ink); }
-.undo-forward-sign { display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; cursor: pointer; }
-.undo-forward-sign .undo-checkwrap { margin: 0 0 0 -10px; }
-.undo-forward-sign-text { font-weight: 600; font-size: 1rem; color: var(--ink); }
-.undo-check:indeterminate + .undo-box { background: var(--white); border-color: var(--gold-deep); }
-.undo-check:indeterminate + .undo-box::after { content: ''; position: absolute; left: 4px; top: 9px; width: 12px; height: 2px; background: var(--ink); }
+.undo-cell.is-on { background: var(--gold); border-color: var(--gold); }
+.undo-cell.is-off { opacity: 0.16; transition-delay: 0ms !important; }
+.undo-block.is-off { opacity: 0.4; }
+@media (hover: hover) { .undo-block:hover .undo-cell:not(.is-on):not(.is-off) { border-color: var(--gold-deep); } }
+.undo-block-n { display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.undo-block-count { color: var(--stone); }
+.undo-block.is-signed .undo-block-n { color: var(--gold-deep); }
+@media (min-width: 700px) { .undo-field { --cell: 13px; --gap: 3px; gap: 22px 26px; } }
+@media (min-width: 1100px) { .undo-field { --cell: 14px; --gap: 3px; } }
+
+/* Who feels it: the one filter, a chip row that scrolls sideways on a phone and wraps on a desk */
+.undo-who { padding: 20px 0 8px; }
+.undo-who .undo-filter-legend { margin-bottom: 10px; font-size: 0.75rem; }
+.undo-who .undo-fchips { flex-wrap: nowrap; overflow-x: auto; padding: 4px 0 8px; margin: 0 calc(-1 * clamp(20px, 4vw, 48px)); padding-left: clamp(20px, 4vw, 48px); padding-right: clamp(20px, 4vw, 48px); scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.undo-who .undo-fchips::-webkit-scrollbar { display: none; }
+.undo-who .undo-fchip { flex: none; white-space: nowrap; }
+@media (min-width: 900px) { .undo-who .undo-fchips { flex-wrap: wrap; overflow: visible; margin: 0; padding: 4px 0; } }
+
+/* The orders: one row each, the body on request */
+.undo-forward-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.undo-forward { border-bottom: 1px solid var(--line); }
+.undo-forward-head {
+  display: grid; grid-template-columns: 40px 1fr auto; grid-template-areas: 'num open sign' 'num meter meter'; align-items: center;
+  column-gap: 12px; row-gap: 8px; padding: 14px 0;
+}
+.undo-forward-num { grid-area: num; align-self: start; font-family: var(--font-mono); font-weight: 500; font-size: 1.15rem; line-height: 1.5; letter-spacing: -0.02em; color: var(--ink); font-variant-numeric: tabular-nums lining-nums; }
+.undo-forward-open {
+  grid-area: open; display: flex; flex-direction: column; align-items: flex-start; gap: 3px; min-height: 44px; padding: 0; font: inherit; text-align: left;
+  color: var(--ink); background: none; border: 0; cursor: pointer; min-width: 0;
+}
+.undo-forward-title { font-weight: 700; font-size: 1.15rem; line-height: 1.25; letter-spacing: -0.02em; overflow-wrap: anywhere; border-bottom: 1px solid transparent; }
+@media (hover: hover) { .undo-forward-open:hover .undo-forward-title { border-bottom-color: var(--gold); } }
+.undo-forward.is-open .undo-forward-title { border-bottom-color: var(--gold); }
+.undo-forward-count { font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; color: var(--stone); font-variant-numeric: tabular-nums; }
+.undo-forward-meter { grid-area: meter; display: block; height: 4px; background: var(--ink-05); border-radius: 2px; overflow: hidden; }
+.undo-forward-meter-fill { display: block; height: 100%; background: var(--gold); transition: width 200ms ease-out; }
+.undo-sign {
+  grid-area: sign; align-self: start; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 16px;
+  font: inherit; font-size: 0.88rem; font-weight: 600; color: var(--ink); background: var(--white); border: 1px solid var(--ink); border-radius: var(--radius-sm); cursor: pointer;
+  transition: background 160ms ease-out, border-color 160ms ease-out, color 160ms ease-out; white-space: nowrap;
+}
+@media (hover: hover) { .undo-sign:hover { background: var(--ink-05); } }
+.undo-sign.is-signed { background: var(--gold); border-color: var(--gold); }
 .undo-forward.is-signed .undo-forward-title { text-decoration: line-through; text-decoration-color: var(--gold); text-decoration-thickness: 1px; }
+.undo-forward-body { padding: 4px 0 20px 52px; }
+.undo-forward-purpose { margin: 0; max-width: var(--measure); font-size: 0.98rem; line-height: 1.55; color: var(--stone-deep); }
+.undo-forward-items { list-style: none; margin: 16px 0 0; padding: 0; border-top: 1px solid var(--line); }
+.undo-forward-item { display: flex; align-items: flex-start; gap: 4px; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.undo-forward-item-body { display: block; flex: 1 1 auto; min-width: 0; cursor: pointer; }
+.undo-forward-item-title { display: block; font-weight: 600; font-size: 1rem; line-height: 1.35; max-width: var(--measure); overflow-wrap: anywhere; }
+.undo-forward-item-how { display: block; margin-top: 4px; max-width: var(--measure); font-size: 0.92rem; line-height: 1.45; color: var(--stone-deep); }
+.undo-forward-item-foot { display: block; margin-top: 4px; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.04em; color: var(--stone); overflow-wrap: anywhere; }
+.undo-forward-item.is-signed .undo-forward-item-body { opacity: 0.6; }
+.undo-forward-item.is-signed .undo-forward-item-title { text-decoration: line-through; text-decoration-color: var(--gold); text-decoration-thickness: 1px; }
+.undo-forward-body .undo-order { margin-top: 14px; }
 .undo-draft {
   margin: 0; max-height: 26rem; overflow: auto; font-family: var(--font-body); font-size: 0.95rem; line-height: 1.55; color: var(--ink);
   white-space: pre-wrap; overflow-wrap: anywhere;
 }
 .undo-draft:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-@media (min-width: 900px) {
-  .undo-forward-list { grid-template-columns: 1fr 1fr; gap: 24px; }
-  .undo-forward { grid-template-columns: 84px 1fr; column-gap: 16px; padding: 24px 24px 14px; }
-  .undo-forward-body { margin-top: 0; }
-  .undo-forward-num { font-size: 2.2rem; }
+@media (max-width: 640px) {
+  .undo-forward-head { grid-template-columns: 32px 1fr; grid-template-areas: 'num open' 'num meter' 'num sign'; }
+  .undo-forward-num { font-size: 1rem; }
+  .undo-sign { justify-self: start; }
+  .undo-forward-body { padding-left: 0; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .undo-strip, .undo-strip-fill, .undo-box, .undo-bar-fill, .undo-bar-mark { transition: none; }
-}
+
+/* The whole list: search and sort side by side, each row one line until opened */
+.undo-tools { display: grid; gap: 20px; margin-top: 8px; }
+@media (min-width: 760px) { .undo-tools { grid-template-columns: minmax(0, 480px) auto; align-items: end; gap: 32px; } }
+.undo-clear { padding: 0; font: inherit; font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--gold); cursor: pointer; }
+.undo-row { flex: 1 1 auto; min-width: 0; }
+.undo-row-sum { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; min-height: 24px; cursor: pointer; list-style: none; }
+.undo-row-sum::-webkit-details-marker { display: none; }
+.undo-row-sum .undo-title { flex: 1 1 24ch; }
+.undo-row-sum .undo-tag { margin-left: 0; }
+.undo-row-more { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.04em; color: var(--stone); border-bottom: 1px solid var(--line-card); }
+.undo-row[open] > .undo-row-sum .undo-row-more { border-bottom-color: var(--gold); color: var(--ink); }
+.undo-row-sum:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-radius: 2px; }
+.undo-row > .undo-item-body { padding-top: 4px; }
+.undo-source { color: var(--ink); border-bottom: 1px solid var(--gold); }
+#undo-list-h { scroll-margin-top: 150px; }
+#undo-list-h:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
+.undo-forward { scroll-margin-top: 140px; }

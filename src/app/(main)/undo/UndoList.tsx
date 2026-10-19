@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { INSTRUMENT_LABEL } from '@/lib/undo/types';
 import type { Instrument } from '@/lib/undo/types';
 import { COPY } from '@/lib/undo/copy';
+import { fieldBlocks } from '@/lib/undo/field';
 import { orderText } from '@/lib/undo/order-text';
 import { ISSUES, ISSUE_BY_KEY } from '@/lib/undo/issues';
 import type { IssueKey } from '@/lib/undo/issues';
@@ -27,8 +28,10 @@ import {
 import type { Group, SlimRow } from '@/lib/undo/sections';
 import CopyButton from './CopyButton';
 import ForwardOrders from './ForwardOrders';
+import type { OrderPick } from './ForwardOrders';
 import IssueBars from './IssueBars';
 import IssueChips from './IssueChips';
+import SignatureField from './SignatureField';
 
 const STORAGE_KEY = 'undo-signed-v1';
 const ORDER_INSTRUMENTS: Instrument[] = ['executive_order', 'proclamation', 'memorandum'];
@@ -93,6 +96,8 @@ function OrderDisclosure({ row }: { row: SlimRow }) {
   );
 }
 
+// One row of the full list: a single line (the box, our headline, the mechanism tag) and the
+// rest behind a native disclosure, so a screen of rows reads as a list and not as an essay.
 function Item({
   row,
   variant,
@@ -129,37 +134,48 @@ function Item({
       ) : variant === 'hollow' ? (
         <span className="undo-glyph" aria-hidden="true" />
       ) : null}
-      <div className="undo-item-body">
-        <p className="undo-title" id={titleId}>
-          {href ? <a href={href}>{row.title}</a> : row.title}
-        </p>
-        {variant === 'check' || variant === 'hollow' ? (
-          <p className="undo-how">
-            {howOf(row)}
-            {tag ? <span className="undo-tag">{tag}</span> : null}
+      <details className="undo-row">
+        <summary className="undo-row-sum">
+          <span className="undo-title" id={titleId}>
+            {row.title}
+          </span>
+          {tag ? <span className="undo-tag">{tag}</span> : null}
+          <span className="undo-row-more" aria-hidden="true">
+            {COPY.row.more}
+          </span>
+        </summary>
+        <div className="undo-item-body">
+          {variant === 'check' || variant === 'hollow' ? <p className="undo-how">{howOf(row)}</p> : null}
+          <p className="undo-foot">
+            {footnoteOf(row)}
+            {showStatus ? (
+              <>
+                {' · '}
+                <span className="undo-status">
+                  <span className="sr-only">Status: </span>
+                  {row.status}
+                </span>
+              </>
+            ) : null}
+            {href ? (
+              <>
+                {' · '}
+                <a href={href} className="undo-source">
+                  {COPY.row.source}
+                </a>
+              </>
+            ) : null}
           </p>
-        ) : null}
-        <p className="undo-foot">
-          {footnoteOf(row)}
-          {showStatus ? (
-            <>
-              {' · '}
-              <span className="undo-status">
-                <span className="sr-only">Status: </span>
-                {row.status}
-              </span>
-            </>
+          <IssueChips keys={row.issues} />
+          {hasOrder ? <OrderDisclosure row={row} /> : null}
+          <p className="undo-why">{whyOf(row)}</p>
+          {row.unsure ? (
+            <p className="undo-auto">{COPY.unconfirmed}</p>
+          ) : !row.reviewed ? (
+            <p className="undo-auto">{COPY.auto}</p>
           ) : null}
-        </p>
-        <IssueChips keys={row.issues} />
-        {hasOrder ? <OrderDisclosure row={row} /> : null}
-        <p className="undo-why">{whyOf(row)}</p>
-        {row.unsure ? (
-          <p className="undo-auto">{COPY.unconfirmed}</p>
-        ) : !row.reviewed ? (
-          <p className="undo-auto">{COPY.auto}</p>
-        ) : null}
-      </div>
+        </div>
+      </details>
     </li>
   );
 }
@@ -230,10 +246,12 @@ function Rows({
 export default function UndoList({
   rows,
   penInForce,
+  locked,
   orders,
 }: {
   rows: SlimRow[];
   penInForce: number;
+  locked: number;
   orders: ForwardOrderView[];
 }) {
   const [query, setQuery] = useState('');
@@ -242,6 +260,7 @@ export default function UndoList({
   const [sort, setSort] = useState<SortMode>('newest');
   const [signed, setSigned] = useState<Set<string>>(() => new Set());
   const [stripOn, setStripOn] = useState(false);
+  const [pick, setPick] = useState<OrderPick | null>(null);
   const stripRef = useRef<HTMLDivElement>(null);
 
   // Ticks: the server renders everything unticked; the browser fills them in after hydration.
@@ -297,11 +316,16 @@ export default function UndoList({
   function pickIssue(key: IssueKey) {
     setIssue(key);
     window.requestAnimationFrame(() => {
-      const h = document.getElementById('undo-lunch-h');
+      const h = document.getElementById('undo-list-h');
       if (!h) return;
       h.scrollIntoView({ block: 'start' });
       h.focus({ preventScroll: true });
     });
+  }
+
+  // A block in the field, or the hero button, opens one order.
+  function pickOrder(id: string) {
+    setPick({ id, at: Date.now() });
   }
 
   function reset() {
@@ -309,17 +333,16 @@ export default function UndoList({
     writeSigned(null);
   }
 
-  // Chip counts are taken over the rows the search leaves, so a chip's number is what its click shows.
+  const rowById = useMemo(() => new Map(rows.map((r) => [r.id, r])), [rows]);
+  const penIds = useMemo(() => rows.filter(isPenInForce).map((r) => r.id), [rows]);
+  const blocks = useMemo(() => fieldBlocks(orders, penIds, COPY.field.unbundled), [orders, penIds]);
+
+  // Chip counts are taken over the whole list, so a chip's number is what its click shows.
   const issueCounts = useMemo(() => {
     const counts: Record<string, number> = {};
-    let all = 0;
-    for (const r of rows) {
-      if (!matchesQuery(r, query)) continue;
-      all += 1;
-      for (const k of new Set(r.issues ?? [])) counts[k] = (counts[k] ?? 0) + 1;
-    }
-    return { all, counts };
-  }, [rows, query]);
+    for (const r of rows) for (const k of new Set(r.issues ?? [])) counts[k] = (counts[k] ?? 0) + 1;
+    return counts;
+  }, [rows]);
 
   const view = useMemo(() => {
     const hit = rows.filter((r) => matchesQuery(r, query) && (issue === null || !!r.issues?.includes(issue)));
@@ -343,26 +366,60 @@ export default function UndoList({
     };
   }, [rows, query, issue]);
 
+  // The two counts the hero's last line needs, over the whole list, never the filtered one.
+  const whole = useMemo(
+    () => ({
+      rule: rows.filter((r) => r.bucket === 'pen-process' && !isAlreadyDone(r) && !isLeave(r) && !isJustIn(r)).length,
+      congress: rows.filter((r) => (r.bucket === 'majority' || r.bucket === 'sixty') && !isLeave(r)).length,
+    }),
+    [rows],
+  );
+
   const bars = useMemo(() => issueBars(rows, signed), [rows, signed]);
   const byIssue = sort === 'issue';
 
-  const activeIds = useMemo(() => new Set(rows.filter(isPenInForce).map((r) => r.id)), [rows]);
+  const activeIds = useMemo(() => new Set(penIds), [penIds]);
   let signedCount = 0;
   for (const id of signed) if (activeIds.has(id)) signedCount += 1;
-  const pct = penInForce > 0 ? Math.min(100, (signedCount / penInForce) * 100) : 0;
 
   const congressCount = view.majority.length + view.sixty.length;
 
   return (
     <>
-      {/* STICKY PROGRESS STRIP */}
+      {/* HERO: the headline, the field, one button */}
+      <div className="page-hero undo-hero" id="undo-hero">
+        <div className="wrap">
+          <span className="label">{COPY.hero.label}</span>
+          <h1>{COPY.hero.headline(orders.length, penInForce)}</h1>
+          <p className="undo-hero-read">{COPY.hero.read}</p>
+          <div className="undo-hero-row">
+            <button type="button" className="btn btn-primary" onClick={() => orders[0] && pickOrder(orders[0].id)}>
+              {COPY.hero.cta}
+            </button>
+            <p className="undo-hero-count" role="status">
+              {COPY.hero.count(signedCount, penInForce)}
+            </p>
+          </div>
+          <SignatureField blocks={blocks} rowById={rowById} signed={signed} issue={issue} onPick={pickOrder} />
+          <p className="undo-hero-rest">{COPY.hero.rest(locked, whole.rule, whole.congress)}</p>
+        </div>
+      </div>
+
+      {/* STICKY PROGRESS STRIP: one segment per order */}
       <div ref={stripRef} className={`undo-strip${stripOn ? ' is-on' : ''}`}>
         <div className="wrap undo-strip-inner">
           <p className="undo-strip-text" role="status">
             {COPY.strip.signedOf(signedCount, penInForce)}
           </p>
           <div className="undo-strip-track" aria-hidden="true">
-            <div className="undo-strip-fill" style={{ width: `${pct}%` }} />
+            {blocks.map((b) => {
+              const done = b.ids.filter((id) => signed.has(id)).length;
+              return (
+                <span key={b.id} className="undo-strip-seg" style={{ flexGrow: b.ids.length }}>
+                  <span className="undo-strip-fill" style={{ width: `${(done / b.ids.length) * 100}%` }} />
+                </span>
+              );
+            })}
           </div>
           <button type="button" className="undo-strip-reset" onClick={reset}>
             {COPY.strip.reset}
@@ -370,66 +427,73 @@ export default function UndoList({
         </div>
       </div>
 
+      {/* WHO FEELS IT: the one filter, over everything below */}
+      <section className="undo-section undo-who" aria-labelledby="undo-who-h">
+        <div className="wrap">
+          <h2 id="undo-who-h" className="undo-filter-legend">
+            {COPY.issues.who}
+          </h2>
+          <div className="undo-fchips">
+            <button type="button" className="undo-fchip" aria-pressed={issue === null} onClick={() => setIssue(null)}>
+              {COPY.issues.all}
+            </button>
+            {ISSUES.map((i) => {
+              const n = issueCounts[i.key] ?? 0;
+              if (n === 0) return null;
+              return (
+                <button
+                  key={i.key}
+                  type="button"
+                  className="undo-fchip"
+                  aria-pressed={issue === i.key}
+                  onClick={() => setIssue(issue === i.key ? null : i.key)}
+                >
+                  {i.label}
+                  <span className="undo-fchip-n">{n.toLocaleString('en-US')}</span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* THE ORDERS */}
+      <ForwardOrders
+        orders={orders}
+        rows={rows}
+        rowById={rowById}
+        signed={signed}
+        issue={issue}
+        pick={pick}
+        onToggle={toggleMany}
+        onToggleOne={toggle}
+      />
+
       {/* WHERE IT LANDS */}
       <IssueBars bars={bars} active={issue} onPick={pickIssue} />
 
-      {/* FORWARD ORDERS */}
-      <ForwardOrders orders={orders} rows={rows} signed={signed} onToggle={toggleMany} />
-
-      {/* BEFORE LUNCH */}
-      <section className="undo-section undo-section-ruled" aria-labelledby="undo-lunch-h" id="undo-lunch">
+      {/* THE WHOLE LIST */}
+      <section className="undo-section undo-section-ruled" aria-labelledby="undo-list-h" id="undo-list">
         <div className="wrap">
-          <h2 id="undo-lunch-h" className="undo-h2" tabIndex={-1}>
-            {COPY.lunch.title}
+          <h2 id="undo-list-h" className="undo-h2" tabIndex={-1}>
+            {COPY.list.title}
           </h2>
-          <p className="undo-intro">{COPY.lunch.intro}</p>
+          <p className="undo-intro">{COPY.list.intro}</p>
 
-          <div className="undo-search">
-            <label htmlFor="undo-search-input" className="undo-filter-legend">
-              {COPY.search.label}
-            </label>
-            <input
-              id="undo-search-input"
-              type="search"
-              className="undo-input"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder={COPY.search.placeholder}
-              autoComplete="off"
-            />
-          </div>
-          <div className="undo-filters">
-            <div role="group" aria-labelledby="undo-issue-legend">
-              <span id="undo-issue-legend" className="undo-filter-legend">
-                {COPY.issues.filterLabel}
-              </span>
-              <div className="undo-fchips">
-                <button
-                  type="button"
-                  className="undo-fchip"
-                  aria-pressed={issue === null}
-                  onClick={() => setIssue(null)}
-                >
-                  {COPY.issues.all}
-                  <span className="undo-fchip-n">{issueCounts.all.toLocaleString('en-US')}</span>
-                </button>
-                {ISSUES.map((i) => {
-                  const n = issueCounts.counts[i.key] ?? 0;
-                  return (
-                    <button
-                      key={i.key}
-                      type="button"
-                      className="undo-fchip"
-                      aria-pressed={issue === i.key}
-                      disabled={n === 0 && issue !== i.key}
-                      onClick={() => setIssue(issue === i.key ? null : i.key)}
-                    >
-                      {i.label}
-                      <span className="undo-fchip-n">{n.toLocaleString('en-US')}</span>
-                    </button>
-                  );
-                })}
-              </div>
+          <div className="undo-tools">
+            <div className="undo-search">
+              <label htmlFor="undo-search-input" className="undo-filter-legend">
+                {COPY.search.label}
+              </label>
+              <input
+                id="undo-search-input"
+                type="search"
+                className="undo-input"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder={COPY.search.placeholder}
+                autoComplete="off"
+              />
             </div>
             <fieldset className="undo-sort">
               <legend className="undo-filter-legend">{COPY.issues.sortLabel}</legend>
@@ -456,6 +520,15 @@ export default function UndoList({
           </div>
           <p className="undo-count" role="status" aria-live="polite">
             {COPY.search.count(view.shown, rows.length)}
+            {issue !== null ? (
+              <>
+                {' '}
+                {COPY.issues.filteredTo(ISSUE_BY_KEY[issue].label)}{' '}
+                <button type="button" className="undo-clear" onClick={() => setIssue(null)}>
+                  {COPY.issues.clear}
+                </button>
+              </>
+            ) : null}
           </p>
 
           {rows.length === 0 ? (
@@ -463,17 +536,28 @@ export default function UndoList({
           ) : view.shown === 0 ? (
             <p className="undo-empty">{COPY.search.empty}</p>
           ) : null}
-
-          <Rows
-            rows={view.lunchRows}
-            groups={view.lunch}
-            variant="check"
-            byIssue={byIssue}
-            signed={signed}
-            onToggle={toggle}
-          />
         </div>
       </section>
+
+      {/* BEFORE LUNCH */}
+      {view.lunchRows.length > 0 ? (
+        <section className="undo-section undo-section-ruled" aria-labelledby="undo-lunch-h" id="undo-lunch">
+          <div className="wrap">
+            <h2 id="undo-lunch-h" className="undo-h2" tabIndex={-1}>
+              {COPY.lunch.title}
+            </h2>
+            <p className="undo-intro">{COPY.lunch.intro}</p>
+            <Rows
+              rows={view.lunchRows}
+              groups={view.lunch}
+              variant="check"
+              byIssue={byIssue}
+              signed={signed}
+              onToggle={toggle}
+            />
+          </div>
+        </section>
+      ) : null}
 
       {/* THIS YEAR */}
       {view.year.length > 0 ? (
