@@ -26,7 +26,7 @@
     "portfolio:header": "node scripts/add-portfolio-header.mjs",
     "portfolio:metadata": "node scripts/add-portfolio-metadata.mjs",
     "portfolio:thumbs": "node scripts/optimize-portfolio-thumbs.mjs",
-    "prepare": "git config core.hooksPath .githooks"
+    "prepare": "git config core.hooksPath .githooks 2>/dev/null || true"
   },
   "dependencies": {
     "lucide-react": "^1.22.0",
