@@ -1,28 +1,11 @@
 import type { NextConfig } from 'next'
 
-// The seven tools that lived on vercel.app addresses and now answer under hoplight.ai paths.
-// Whit, 2026-10-19: "4 yes" (route the tools that live on vercel.app addresses under hoplight.ai
-// paths, the way /agis and /bet-appetit already are). Each target is a separate Vercel project
-// serving from its own root, so the path prefix is stripped on the way through.
-//
-// REWRITE OR REDIRECT, decided by a trial rewrite on a local production build, 2026-10-19: every
-// page came back 200 through the rewrite, and then the asset each page names came back 404 on
-// hoplight.ai for all seven (tools-hub /manifests/home-manifest.json, visualizations /icon-32.png,
-// whatshuman and pme and research-books /assets/..., daily /_next/static/..., board ./styles.css,
-// which resolves to /styles.css because Next strips the trailing slash). The targets name their
-// files from the root, so a prefix breaks them. All seven are therefore 307 redirects to the
-// vercel.app address, the fallback the owner named. Nothing is proxied, so the CSP carve-outs
-// that /agis needs in headers() below are not needed here.
-// The gate (src/proxy.ts) still covers every one of these paths.
-const MOVED_TOOLS = [
-  { name: 'tools-hub', target: 'https://quick-tools-pi.vercel.app' }, // quick-tools
-  { name: 'visualizations', target: 'https://visualizations-eta.vercel.app' },
-  { name: 'whatshuman', target: 'https://whatshuman.vercel.app' },
-  { name: 'pme', target: 'https://pme-mvp-clean.vercel.app' }, // pme-mvp
-  { name: 'research-books', target: 'https://research-books-strategist.vercel.app' },
-  { name: 'board', target: 'https://the-board-red-seven.vercel.app' }, // the-board
-  { name: 'daily', target: 'https://podcast-knowledge-engine.vercel.app' }, // podcast-knowledge-engine
-]
+// The seven moved tools (/tools-hub /visualizations /whatshuman /pme /research-books /board /daily,
+// Whit 2026-10-19: "4 yes") are NOT listed here. They are 307 redirects to their vercel.app
+// addresses, issued by src/proxy.ts behind the sign-in (list: MOVED_TOOLS in src/lib/gate.ts),
+// because a redirect in this file runs before the proxy and would skip the gate. They are
+// redirects and not rewrites because a trial rewrite on a local build served each page (200) and
+// then 404'd the asset each page names, for all seven: the targets name their files from the root.
 
 const nextConfig: NextConfig = {
   output: 'standalone',
@@ -118,14 +101,9 @@ const nextConfig: NextConfig = {
       // /engine retired 2026-09-16 (review squad: six reviewers found it as a live, unlinked,
       // older copy of /persuasion with the wrong tab title and no preview image).
       { source: '/engine', destination: '/persuasion', permanent: true },
-      // '/pme' used to land on /persuasion; it is the Message Engine's address now (MOVED_TOOLS
-      // below, Whit 2026-10-19 "4 yes"), so only the .html spelling keeps the old move.
+      // '/pme' used to land on /persuasion; it is the Message Engine's address now (src/proxy.ts,
+      // Whit 2026-10-19 "4 yes"), so only the .html spelling keeps the old move.
       { source: '/pme.html', destination: '/persuasion', permanent: false },
-      // The seven moved tools, each a 307 to its vercel.app address (see MOVED_TOOLS at the top).
-      ...MOVED_TOOLS.flatMap(({ name, target }) => [
-        { source: `/${name}`, destination: target, permanent: false },
-        { source: `/${name}/:path*`, destination: `${target}/:path*`, permanent: false },
-      ]),
       { source: '/index.html', destination: '/', permanent: true },
       { source: '/services.html', destination: '/services', permanent: true },
       // /work retired 2026-08-13 — it near-duplicated /portfolio. Both the route and the
