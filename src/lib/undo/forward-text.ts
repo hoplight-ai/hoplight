@@ -16,6 +16,7 @@ type OrderLike = Pick<ForwardOrder, 'title' | 'purpose' | 'items'>;
 export interface ForwardOrderView {
   id: string;
   title: string;
+  line: string;
   purpose: string;
   issues: IssueKey[];
   /** Ids of the rows the order revokes, in the order the order lists them, each row once. */
@@ -45,6 +46,7 @@ export function forwardOrderView<R extends OrderRow>(order: ForwardOrder, rows: 
   return {
     id: order.id,
     title: order.title,
+    line: order.line,
     purpose: order.purpose,
     issues: order.issues,
     ids: resolveOrderItems(order, rows).rows.map((r) => r.id),

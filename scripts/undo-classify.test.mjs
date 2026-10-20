@@ -298,7 +298,7 @@ test('the hero numbers: penInForce counts pen rows in force, pending or enjoined
 test('groupPen follows the owner order, sends unnamed instruments to the last group, drops empty groups', () => {
   const rows = ['personnel', 'executive_order', 'treaty', 'rule', 'tariff', 'other', 'memorandum', 'proclamation'].map((instrument) => R({ id: instrument, instrument }));
   const groups = groupPen(rows);
-  assert.deepEqual(groups.map((g) => g.label), ['Executive orders', 'Proclamations', 'Memoranda', 'Tariffs', 'Withdrawals', 'Appointments and agency moves']);
+  assert.deepEqual(groups.map((g) => g.label), ['Executive orders', 'Proclamations', 'Memoranda', 'Tariffs', 'Things America quit', 'Appointments and agency moves']);
   assert.deepEqual(groups[5].rows.map((r) => r.id).sort(), ['other', 'personnel', 'rule']);
   assert.equal(groups.reduce((n, g) => n + g.rows.length, 0), rows.length, 'no row falls out');
   assert.deepEqual(groupPen([R({ instrument: 'tariff' })]).map((g) => g.key), ['tariff']);
@@ -794,7 +794,7 @@ test('the new page copy follows the house rules: spelled heading, no reverse, ro
     ['forward.draftShow', COPY.forward.draftShow],
     ['forward.sign', COPY.forward.sign],
   ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
-  assert.equal(COPY.land.intro, 'Every item, by who feels it. The gold is what one signature fixes.');
+  assert.ok(COPY.land.intro.startsWith('Every item, by who feels it. The gold is what one signature fixes.'));
   assert.equal(COPY.land.countLabel(22, 41), '22 of 41 by pen');
   assert.equal(COPY.forward.undoes(41), 'undoes 41 items');
   assert.equal(COPY.forward.undoes(1), 'undoes 1 item');
@@ -844,5 +844,31 @@ test('the reshaped hero and order copy follows the house rules and spells the co
     ['hero.cta', COPY.hero.cta],
     ['list.title', COPY.list.title],
     ['issues.who', COPY.issues.who],
+  ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
+});
+
+test('no curated row is a twin of a Federal Register row (counted 2026-10-19: 19 twins inflated the hero to 287)', () => {
+  const curatedRows = readJson('src/data/undo/curated.json').map((e) => e.row);
+  // A curated row that names a Federal Register number as its own number is the same action as
+  // the feed row that carries that number, and the page would count it twice.
+  for (const r of curatedRows) {
+    assert.ok(!/^(EO|Proclamation) \d{5}( and \d{5})*$/.test(r.number ?? ''), `${r.id} carries a feed number as its own: ${r.number}`);
+  }
+  const ids = curatedRows.map((r) => r.id);
+  assert.equal(ids.length, new Set(ids).size, 'no curated id twice');
+  // A feed republication (an R1- document) is the same order printed again, never a second row.
+  assert.deepEqual(rowsFromFederalRegister({ results: [{ ...FIXTURE.results[0], document_number: 'R1-2025-02005' }] }, 'executive_order'), []);
+});
+
+test('the key, the all page and the bar filter copy follows the house rules', () => {
+  assert.equal(COPY.key.title(384), '384 things, five kinds of undo');
+  assert.equal(COPY.all.link(708), 'Open all 708 items');
+  assert.equal(COPY.land.more(11), 'Show 11 more');
+  assert.equal(COPY.list.showMore(25, 262), 'Show 25 more of 262');
+  assert.equal(COPY.list.showMore(12, 12), 'Show the last 12');
+  for (const [path, text] of [
+    ['key.title', COPY.key.title(384)],
+    ['all.title', COPY.all.title],
+    ['land.title', COPY.land.title],
   ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
 });

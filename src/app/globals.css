@@ -976,7 +976,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-hero-rest { margin: 18px 0 0; max-width: 52ch; font-size: 0.92rem; line-height: 1.5; color: var(--stone); }
 
 /* The signature field: one square per pen item, one block per order. The blocks wrap like words. */
-.undo-field { --cell: 9px; --gap: 2px; display: flex; flex-wrap: wrap; align-items: flex-end; gap: 14px 18px; margin-top: 26px; }
+.undo-field { --cell: 9px; --gap: 2px; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 16px 18px; margin-top: 26px; }
 .undo-block { display: flex; flex-direction: column; gap: 4px; padding: 0; background: none; border: 0; cursor: pointer; text-align: left; color: var(--ink); }
 .undo-block:focus-visible { outline: 2px solid var(--ring); outline-offset: 6px; border-radius: 2px; }
 .undo-cells { display: grid; grid-template-columns: repeat(var(--cols), var(--cell)); gap: var(--gap); }
@@ -1068,3 +1068,58 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 #undo-list-h { scroll-margin-top: 150px; }
 #undo-list-h:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
 .undo-forward { scroll-margin-top: 140px; }
+
+/* ----- Second pass, 2026-10-19 evening, after the adversarial review (97 phone screens; the key at
+   screen 94; two counts for one label). The list is its own page, the key is a bar under the hero,
+   the issue bars are the one filter. ----- */
+
+/* The key: one bar of everything, then five lines with swatch, name, count, one sentence */
+.undo-key { padding-top: 20px; }
+.undo-keybar { display: flex; gap: 2px; height: 14px; margin: 18px 0 16px; max-width: 760px; }
+.undo-keyseg { display: block; flex-basis: 0; min-width: 4px; height: 100%; border-radius: 2px; }
+.undo-keyseg-pen { background: var(--gold); }
+.undo-keyseg-pen-process { background: var(--gold-deep); }
+.undo-keyseg-majority { background: var(--ink-soft); }
+.undo-keyseg-sixty { background: var(--ink); }
+.undo-keyseg-locked { background: var(--stone); }
+.undo-keylist { margin: 0; max-width: 760px; }
+.undo-keyrow { display: grid; grid-template-columns: 1fr; gap: 2px 20px; padding: 10px 0; border-top: 1px solid var(--line); }
+.undo-keyrow dt { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
+.undo-keyswatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; flex: none; }
+.undo-keycount { margin-left: auto; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
+.undo-keyrow dd { margin: 0 0 0 22px; font-size: 0.9rem; line-height: 1.5; color: var(--stone-deep); }
+.undo-keymore { margin-top: 14px; }
+.undo-keymore > summary { list-style: none; width: fit-content; }
+.undo-keymore > summary::-webkit-details-marker { display: none; }
+.undo-keymore .undo-prose { margin-top: 12px; }
+@media (min-width: 760px) {
+  .undo-keyrow { grid-template-columns: 300px 1fr; align-items: baseline; }
+  .undo-keyrow dd { margin-left: 0; }
+}
+
+/* The field names its wide blocks, so the biggest shape on the page carries its name */
+.undo-block-name { display: block; max-width: calc(var(--cols) * (var(--cell) + var(--gap))); font-size: 0.74rem; line-height: 1.25; font-weight: 600; color: var(--ink); text-wrap: balance; }
+
+/* The bar filter: first five bars, the rest on a tap, clear beside it */
+.undo-who { padding-top: 24px; }
+.undo-land-foot { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; margin-top: 10px; }
+.undo-more { min-height: 44px; padding: 0 2px; font: inherit; font-size: 0.9rem; font-weight: 600; color: var(--ink); background: none; border: 0; border-bottom: 2px solid var(--gold); cursor: pointer; }
+.undo-bar[aria-pressed='true'] .undo-bar-name { border-bottom: 2px solid var(--gold); }
+
+/* Folds: a closed section is one line, its heading and its count */
+.undo-fold-summary { display: flex; align-items: baseline; gap: 12px; min-height: 44px; cursor: pointer; list-style: none; }
+.undo-fold-summary::-webkit-details-marker { display: none; }
+.undo-fold-summary::after { content: '+'; margin-left: auto; font-family: var(--font-mono); font-size: 1.2rem; color: var(--ink); }
+.undo-fold[open] > .undo-fold-summary::after { content: '\2212'; }
+.undo-fold-summary .undo-h2 { margin: 0; }
+.undo-fold[open] > .undo-fold-summary { margin-bottom: 12px; }
+.undo-fold-summary:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.undo-fold-line { display: block; flex-basis: 100%; font-size: 0.95rem; color: var(--stone-deep); }
+
+/* The order row's plain line: what the order ends, before it opens */
+.undo-forward-line { font-size: 0.95rem; line-height: 1.45; color: var(--stone-deep); max-width: var(--measure); }
+
+/* The link to every item, and the all page's way back */
+.undo-all-link .btn { margin-top: 4px; }
+.undo-back { display: inline-block; margin-bottom: 20px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold-deep); border-bottom: 1px solid var(--gold); }
+.undo-hero-all { padding-bottom: 8px; border-bottom: 0; }

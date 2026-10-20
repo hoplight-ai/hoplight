@@ -90,6 +90,7 @@ function OrderRow({
           <span className="undo-forward-title" id={titleId}>
             {order.title}
           </span>
+          <span className="undo-forward-line">{order.line}</span>
           <span className="undo-forward-count">{countLine}</span>
           <span className="sr-only">{open ? COPY.forward.close : COPY.forward.open}</span>
         </button>

@@ -26,7 +26,7 @@ export const COPY = {
     /** The first line on the page: the job, as a count of signatures and a count of things. */
     headline: (orders: number, pen: number) => `${countWord(orders)} signatures undo ${pen} things.`,
     /** What the field is, in one breath, for the line under the headline. */
-    read: 'Each square is one action a pen reaches, each block one order. Sign an order and its block turns gold.',
+    read: 'Each square is one thing the next president undoes with a signature. Each block is one order that undoes its whole bundle. Sign an order and its block turns gold.',
     /** The rest of the list, in one sentence under the field. */
     rest: (locked: number, rule: number, congress: number) =>
       `Another ${locked} nothing undoes. ${rule} take a new rule, and ${congress} take a vote in Congress.`,
@@ -55,7 +55,8 @@ export const COPY = {
   issues: {
     filterLabel: 'Filter by issue',
     all: 'All issues',
-    who: 'Who feels it',
+    who: 'Filter by who feels it',
+    hint: 'Tap one. The field, the orders and the list narrow to it.',
     filteredTo: (label: string) => `Showing ${label}.`,
     clear: 'Show all',
     sortLabel: 'Sort',
@@ -65,8 +66,10 @@ export const COPY = {
     chipsLabel: 'Issues: ',
   },
   land: {
-    title: 'Where it lands',
-    intro: 'Every item, by who feels it. The gold is what one signature fixes.',
+    title: 'Who feels it',
+    intro: 'Every item, by who feels it. The gold is what one signature fixes. Tap a bar and the field and the orders narrow to it.',
+    more: (n: number) => `Show ${n} more`,
+    fewer: 'Show fewer',
     countLabel: (pen: number, total: number) => `${pen} of ${total} by pen`,
     legend: [
       { key: 'pen', label: 'a pen' },
@@ -82,7 +85,7 @@ export const COPY = {
   forward: {
     title: (n: number) => `${countWord(n)} ${n === 1 ? 'order' : 'orders'}, one afternoon`,
     intro:
-      "The precedent is the other side's: one order on January 20, 2025 revoked sixty-seven at once. These do the same, in the other direction. Open one to read what it bundles and where the country goes next.",
+      "The precedent is the other side's: one order on January 20, 2025 cancelled 78 orders and memoranda at once. These do the same, in the other direction. Open one to read what it bundles and where the country goes next.",
     sign: 'Sign this order',
     signed: 'Signed',
     open: 'Read the order',
@@ -97,9 +100,25 @@ export const COPY = {
     copied: 'Copied',
     footnote: (n: number) => `${n} ${n === 1 ? 'item' : 'items'}, one signature.`,
   },
+  key: {
+    title: (n: number) => `${n} things, five kinds of undo`,
+    intro: 'The gold is the job of the thirteen orders. The rest takes a rule, a vote, or stays.',
+    more: 'How Congress undoes a thing',
+    reconciliation:
+      'Budget reconciliation is a yearly budget process that passes the Senate with a simple majority instead of sixty votes. It only reaches provisions that change federal spending or revenue, which is why a law with a price tag can be undone by a majority and a pure policy statute cannot.',
+    cra:
+      'The Congressional Review Act lets Congress overturn a federal rule by simple majority inside a window after the rule is finished. Rules finished after roughly late July 2028 land in the window that opens in early 2029, so the new Congress can kill them without sixty votes.',
+  },
   list: {
     title: 'Every item, one by one',
-    intro: 'The orders above bundle the pen items. Here is each item on its own, with the exact sentence that undoes it.',
+    intro: 'The orders above bundle the pen items. Here is each item on its own, with the exact sentence that undoes it. Each group opens on a tap.',
+    showMore: (n: number, rest: number) => (rest > n ? `Show ${n} more of ${rest}` : `Show the last ${n}`),
+  },
+  all: {
+    title: 'Every item, one by one',
+    intro: (n: number) => `All ${n} rows on their own page: search by title or number, sort by who feels it, open any row for the exact sentence that undoes it.`,
+    link: (n: number) => `Open all ${n} items`,
+    back: 'Back to the orders',
   },
   row: {
     more: 'Details',

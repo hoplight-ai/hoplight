@@ -59,6 +59,11 @@ export default function SignatureField({
                 {done > 0 ? `${done}/${b.ids.length}` : b.ids.length}
               </span>
             </span>
+            {b.cols >= 8 ? (
+              <span className="undo-block-name" aria-hidden="true">
+                {b.title}
+              </span>
+            ) : null}
           </button>
         );
       })}

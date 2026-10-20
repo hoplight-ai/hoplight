@@ -82,7 +82,8 @@
       {
         "title": "Hiring Freeze"
       }
-    ]
+    ],
+    "line": "Ends the fireable-at-will job categories, the hiring freeze and the mass layoffs."
   },
   {
     "id": "equal-treatment",
@@ -132,7 +133,8 @@
       {
         "eo": 14291
       }
-    ]
+    ],
+    "line": "Ends the orders that stripped civil-rights enforcement from agencies, contractors and schools."
   },
   {
     "id": "citizenship-and-borders",
@@ -196,7 +198,8 @@
       {
         "document_number": "2025-06840"
       }
-    ]
+    ],
+    "line": "Ends the denial of birthright citizenship, the wartime deportation law and the refugee shutdown."
   },
   {
     "id": "fair-prices",
@@ -208,37 +211,7 @@
     ],
     "items": [
       {
-        "id": "tariff-232-steel-aluminum"
-      },
-      {
-        "id": "tariff-232-metals-full-value"
-      },
-      {
-        "id": "tariff-232-autos-parts"
-      },
-      {
-        "id": "tariff-232-copper"
-      },
-      {
-        "id": "tariff-232-lumber-furniture"
-      },
-      {
-        "id": "tariff-232-trucks-buses"
-      },
-      {
-        "id": "tariff-232-pharmaceuticals"
-      },
-      {
-        "id": "tariff-232-semiconductors"
-      },
-      {
-        "id": "tariff-301-forced-labor"
-      },
-      {
         "id": "tariff-301-excess-capacity-probe"
-      },
-      {
-        "id": "tariff-338-canada"
       },
       {
         "proclamation": 11061
@@ -324,7 +297,8 @@
       {
         "document_number": "2025-02032"
       }
-    ]
+    ],
+    "line": "Ends the tariffs on cars, lumber, furniture, drugs, steel and groceries."
   },
   {
     "id": "clean-air-water-land",
@@ -440,12 +414,13 @@
       {
         "document_number": "2025-02041"
       }
-    ]
+    ],
+    "line": "Ends the pollution exemptions and puts the cut monuments and protected land back."
   },
   {
     "id": "allies-and-aid",
-    "title": "Open for business with our allies",
-    "purpose": "This order puts the United States back at the table in the treaties, councils, science panels and aid programs it helped build, including dozens of bodies it quit in a few weeks. It ends the freeze on foreign aid and restores the policy that sets how development money is spent. Farmers selling abroad, scientists sharing data and a diplomat working a crisis feel it first, because partners can count on the American word again. Dues and treaty ratification still belong to Congress, and this order asks for them.",
+    "title": "America isn't a quitter",
+    "purpose": "America isn't a quitter. This order puts the United States back at the table in the treaties, councils, science panels and aid programs it helped build, including the dozens of bodies it quit in a few weeks. It ends the freeze on foreign aid and restores the policy that sets how development money is spent. Farmers selling abroad, scientists sharing data and a diplomat working a crisis feel it first, because partners can count on the American word again. Dues and treaty ratification still belong to Congress, and this order asks for them.",
     "issues": [
       "allies"
     ],
@@ -640,13 +615,7 @@
         "id": "withdraw-venice"
       },
       {
-        "id": "withdraw-paris-agreement"
-      },
-      {
         "id": "withdraw-unesco"
-      },
-      {
-        "id": "withdraw-unhrc"
       },
       {
         "id": "withdraw-memo-2026-01-07-remaining"
@@ -699,7 +668,8 @@
       {
         "document_number": "2025-02043"
       }
-    ]
+    ],
+    "line": "Rejoins the treaties, councils, science panels and aid programs America quit."
   },
   {
     "id": "health-and-science",
@@ -750,7 +720,8 @@
       {
         "eo": 14434
       }
-    ]
+    ],
+    "line": "Ends the political sign-off on medical advice, research grants and vaccine guidance."
   },
   {
     "id": "service-members",
@@ -781,7 +752,8 @@
       {
         "eo": 14353
       }
-    ]
+    ],
+    "line": "Ends the Guard deployments to cities and the ban on who may serve."
   },
   {
     "id": "schools-and-students",
@@ -821,7 +793,8 @@
       {
         "eo": 14400
       }
-    ]
+    ],
+    "line": "Keeps the Education Department delivering aid and enforcing civil rights in schools."
   },
   {
     "id": "checks-on-power",
@@ -879,7 +852,8 @@
       {
         "document_number": "2025-16935"
       }
-    ]
+    ],
+    "line": "Ends the orders used against the courts, the press, law firms, inspectors general and elections."
   },
   {
     "id": "safe-communities",
@@ -922,7 +896,8 @@
       {
         "proclamation": 11015
       }
-    ]
+    ],
+    "line": "Ends the plan to hand disasters to the states and the pullback from police oversight."
   },
   {
     "id": "fair-pay-and-voice",
@@ -950,7 +925,8 @@
       {
         "eo": 14403
       }
-    ]
+    ],
+    "line": "Ends the orders that stripped union contracts from federal workers and cut pay rules."
   },
   {
     "id": "honest-markets",
@@ -994,6 +970,7 @@
       {
         "eo": 14405
       }
-    ]
+    ],
+    "line": "Ends the blanket rule to repeal financial safeguards and the carve-outs for crypto firms."
   }
 ]

@@ -66,6 +66,8 @@ export interface ForwardOrder {
   id: string;
   /** Short, forward-looking, no "restore" or "reverse" in the title. */
   title: string;
+  /** One line, plain, what the order ends or rejoins: the words on its row before it opens. */
+  line: string;
   /** One paragraph, plain, what the country gets. */
   purpose: string;
   issues: IssueKey[];

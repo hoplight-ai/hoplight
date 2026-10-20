@@ -67,6 +67,9 @@ export function rowsFromFederalRegister(json: unknown, instrument: Instrument): 
     const title = str(item.title);
     const date = str(item.signing_date) ?? str(item.publication_date);
     if (!id || !title || !date) continue;
+    // An R1- document is the Federal Register printing an order again (a correction or a
+    // republication), not a second order: it would put the same action on the list twice.
+    if (/^R\d-/.test(id)) continue;
 
     let number: string | undefined;
     if (instrument === 'executive_order') {

@@ -62,3 +62,21 @@
   The field's packing and the new copy are pinned in `scripts/undo-classify.test.mjs`. The
   Browser pane's `preview_start` could not launch the dev server from this folder (getcwd EPERM);
   the page was proved on a local `next start` of the production build instead.
+- **Second pass the same evening, after Whit's second ruling ("a scroll bar that small means you put
+  way too fuciing much in an unusable wall... we need adversarial review... wtf is the key 'how the
+  buckets work' doin on the bottom?" and "the quitting stuff- that shoud be brannded- America isn't a
+  Quitter").** Three fresh-context critics read the live page (a hostile design director measured
+  it at 78,966px, 97 phone screens, the key at screen 94; a ninety-second phone reader; an
+  information-integrity auditor who rebuilt the pipeline against the live feed). What changed:
+  the full list is its own page, `/undo/all` (`UndoAll.tsx`, sections closed until tapped, lists
+  paged by 25); `/undo` is hero, key, filter, orders, close, one link; the key is a stacked bar of
+  everything with the five kinds and their counts, right under the field; the issue bars ARE the
+  filter (first five, the rest on a tap), the chip row is gone so one label carries one count; each
+  order row carries a plain line of what it ends (`line` in forward.json); the withdrawals order is
+  "America isn't a quitter" and the group is "Things America quit"; the hero's "0 of N signed"
+  counter went (the strip has it). Data: 19 hand-curated rows were twins of Federal Register rows
+  (the same tariff proclamation or order counted twice), so the hero fell from 287 to 275, the list
+  from 708 to 688; an `R1-` republication is skipped in the feed mapper; a test now refuses a
+  curated row that carries a feed number as its own. Both pages read one loader,
+  `src/lib/undo/load.ts`. The five-model Design Murder Board webhook was refused by the session's
+  auto-mode classifier (outbound POST), so the review was the three in-house critics.

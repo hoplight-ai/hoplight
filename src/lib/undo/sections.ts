@@ -131,7 +131,7 @@ const PEN_GROUPS: { key: string; label: string; instruments: Instrument[] }[] = 
   { key: 'proc', label: 'Proclamations', instruments: ['proclamation'] },
   { key: 'memo', label: 'Memoranda', instruments: ['memorandum'] },
   { key: 'tariff', label: 'Tariffs', instruments: ['tariff'] },
-  { key: 'treaty', label: 'Withdrawals', instruments: ['treaty'] },
+  { key: 'treaty', label: 'Things America quit', instruments: ['treaty'] },
   // Everything else a pen reaches lands here, so no row can fall out of the list.
   { key: 'other', label: 'Appointments and agency moves', instruments: ['personnel', 'other'] },
 ];
