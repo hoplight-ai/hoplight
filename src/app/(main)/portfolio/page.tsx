@@ -12,6 +12,9 @@ const PIECES: Piece[] = [
   // "(ARIA)" dropped (copy review, 2026-09-16): the card's own blurb never explains what ARIA
   // stands for, and AGIS is already the load-bearing name here.
   { slug: 'agis-policy-search-aria', title: 'AGIS policy search', blurb: `${FACTS.agis.sources} sources, ${FACTS.agis.jurisdictions} jurisdictions, searchable in plain English.`, href: '/agis', live: true },
+  // Whit, 2026-10-20: "add AI Election Errors to the hoplight.ai portfolio page." Served at
+  // /ai-election-errors from its own Vercel project (see next.config.ts rewrites).
+  { slug: 'ai-election-errors', title: 'AI Election Errors', blurb: 'Did a chatbot give someone wrong election information? A public form that builds the shared record.', href: '/ai-election-errors', live: true },
   { slug: 'ai-governance-checklist', title: 'AI governance checklist', blurb: 'Interactive checklist a mission-driven org can work through.', href: '/portfolio/ai-governance-checklist.html' },
   { slug: 'ai-lobbyist-player-map', title: 'AI lobbyist player map', blurb: 'Who lobbies on AI, for whom, and where the money lands.', href: '/portfolio/ai-lobbyist-player-map.html' },
   { slug: 'bet-appetit', title: 'Bet Appetit', blurb: 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.', href: '/bet-appetit', live: true, thumb: '/portfolio/thumbs/bet-appetit-demo.jpg' },
