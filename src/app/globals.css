@@ -1123,3 +1123,101 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-all-link .btn { margin-top: 4px; }
 .undo-back { display: inline-block; margin-bottom: 20px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold-deep); border-bottom: 1px solid var(--gold); }
 .undo-hero-all { padding-bottom: 8px; border-bottom: 0; }
+
+/* ===== The restructured site, 2026-10-20 =====
+   Whit, 2026-10-19 and 2026-10-20: the site says less ("overexplaining" is what he named as the fault) and
+   keeps the high-end look ("that sacred geometry"). Every page opens on the masthead's lattice and lens
+   (src/components/Masthead.tsx, src/lib/brand/masthead.ts); the home is the full masthead, the others are a
+   short band of the same. Tiles are white on the navy band (the site's card edge, no tint), or navy glass
+   on the home. Tokens only; no warm tint, no italics, no left rule. */
+
+/* Home: the long question and the four places to go */
+.hero h1.long { font-size: clamp(1.875rem, 1.05rem + 2.4vw, 3rem); line-height: 1.08; max-width: 24ch; margin-bottom: 22px; }
+.hero .lede.wide { max-width: 48ch; margin-bottom: clamp(28px, 4vh, 44px); }
+.hero .lede a { color: #fff; }
+
+.hero-tiles, .ptiles { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.hero-tiles > li, .ptiles > li { min-width: 0; }
+.hero-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) { .hero-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.hero-tile {
+  position: relative; display: flex; flex-direction: column; gap: 6px; height: 100%; min-height: 44px;
+  padding: 18px 18px 40px; background: rgba(22,38,64,0.92); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-lg); color: #fff; transition: border-color 160ms ease-out;
+}
+.hero-tile:hover { border-color: var(--gold-hot); }
+.hero-tile:focus-visible, .ptile:focus-visible { border-radius: var(--radius-lg); box-shadow: 0 0 0 3px var(--ring); }
+.hero-tile h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: #fff; }
+.hero-tile p { margin: 0; font-size: 0.92rem; line-height: 1.4; color: rgba(255,255,255,0.78); }
+.tile-arrow { position: absolute; right: 16px; bottom: 16px; transition: transform 160ms ease-out; }
+.hero .tile-arrow { color: var(--gold-hot); }
+.hero-tile:hover .tile-arrow, a.ptile:hover .tile-arrow { transform: translateX(3px); }
+
+.mailband { padding: clamp(22px, 3vw, 32px) 0; border-bottom: 1px solid var(--line-card); }
+.mailband p { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.625rem); letter-spacing: -0.015em; color: var(--stone-deep); }
+.mailband a { color: var(--ink); }
+
+/* The short band at the head of every other page: the same lattice and lens, a smaller room */
+.hero.masthead.masthead-page { min-height: 0; justify-content: flex-start; padding: 0; }
+.masthead-page .mast-wrap { padding-top: clamp(44px, 7vh, 72px); padding-bottom: 76px; }
+.masthead-page h1 { max-width: none; margin-bottom: 0; }
+.masthead-page .lede { margin: 14px 0 0; max-width: 46ch; }
+@media (max-width: 640px) { .masthead-page .mast-wrap { padding-top: 150px; padding-bottom: 76px; } }
+
+/* White tiles on the band */
+.ptiles { grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 16px; margin-top: 30px; }
+.ptiles-lead { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .ptiles-lead { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } }
+.ptile {
+  position: relative; display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px;
+  padding: 22px 22px 46px; background: var(--white); border: 1px solid var(--line-card);
+  border-radius: var(--radius-lg); color: var(--ink); transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+a.ptile:hover { border-color: var(--gold-hot); box-shadow: 0 6px 22px rgba(0,0,0,0.28); }
+.ptile-tag { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-deep); }
+.ptile h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+.ptile p { margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--stone-deep); max-width: 52ch; }
+.ptile .tile-arrow { color: var(--gold-deep); }
+.ptile-still { padding-bottom: 26px; }
+
+/* Insights: the reports as ruled rows under the band */
+.reports { padding: clamp(24px, 4vw, 48px) 0 clamp(40px, 6vw, 80px); }
+.rep-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.rep {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 16px; align-items: baseline; column-gap: 24px;
+  min-height: 56px; padding: 16px 0; border: 0; border-bottom: 1px solid var(--line-card); color: var(--ink);
+}
+.rep-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); letter-spacing: -0.015em; line-height: 1.25; }
+.rep-line { font-size: 0.95rem; color: var(--stone-deep); }
+.rep-arrow { align-self: center; color: var(--gold-deep); transition: transform 160ms ease-out; }
+.rep:hover .rep-title { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.rep:hover .rep-arrow { transform: translateX(3px); }
+@media (max-width: 640px) {
+  .rep { grid-template-columns: minmax(0, 1fr) 16px; row-gap: 2px; }
+  .rep-line { grid-column: 1; }
+  .rep-arrow { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+/* Services: four numbered lines and a close */
+.svc-lines { padding: clamp(32px, 5vw, 64px) 0 clamp(40px, 6vw, 80px); }
+.sl { list-style: none; margin: 0; padding: 0; max-width: 1040px; }
+.sl li {
+  display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(20px, 3vw, 40px); row-gap: 8px; align-items: baseline;
+  padding: clamp(24px, 3.4vw, 40px) 0; border-top: 1px solid var(--line-card);
+}
+.sl li:last-child { border-bottom: 1px solid var(--line-card); }
+.sl-num { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem); line-height: 1.1; color: var(--gold-deep); font-variant-numeric: lining-nums tabular-nums; }
+.sl-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink); }
+.sl-text { margin: 0; max-width: 46ch; font-size: 1.02rem; line-height: 1.55; color: var(--stone-deep); }
+@media (max-width: 760px) {
+  .sl li { grid-template-columns: 44px minmax(0, 1fr); }
+  .sl-text { grid-column: 2; }
+}
+section.sl-close { padding: clamp(40px, 5vw, 64px) 0; }
+.sl-close .lede { margin: 0; max-width: 46ch; color: rgba(255,255,255,0.84); }
+
+/* 44px targets on the restructured pages: the lockup, the footer links, the email and the Pause control */
+header.site .brand, footer.site .brand { min-height: 44px; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; }
+.mailband a { display: inline-block; padding: 10px 0; }
+@media (max-width: 640px) { .hero .mast-pause { height: 44px; } }

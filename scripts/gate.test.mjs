@@ -54,7 +54,7 @@ const req = (path, headers = {}, init = {}) => new NextRequest(`${ORIGIN}${path}
 const passedThrough = (res) => res.headers.get('x-middleware-next') === '1';
 
 const OPEN = [
-  '/', '/services', '/about', '/faq', '/contact', '/undo', '/undo/all', '/agis', '/agis/x',
+  '/', '/products', '/insights', '/services', '/about', '/faq', '/contact', '/undo', '/undo/all', '/agis', '/agis/x',
   '/bet-appetit', '/tools/which-ai', '/api/intake', '/api/og', '/robots.txt', '/sitemap.xml',
 ];
 

@@ -535,19 +535,21 @@ test('(d) the old 6.2:1 deep gold is gone from the source and the served files',
 const NAVY_GROUND = hexToRgb('#0F1B2D');
 
 // ---- (e) the navy sections and the link-preview card ---------------------------------------------
-test('(e) the services page navy sections use white text and rules at the same transparency, not cream', () => {
+test('(e) the services page carries no cream and paints only white where it paints a transparent colour', () => {
+  // Restructured 2026-10-20 (Whit: "i like the products page, the services page"): the page is a navy band,
+  // four numbered lines on white and a navy close, all coloured by the stylesheet's tokens. The five rules
+  // and four paragraphs this test once counted were inline styles in a block that no longer exists, so the
+  // test now pins what it was for: no cream literal, and every rgba() left in the file is white.
   const text = withoutLineComments(src.services);
   assert.deepEqual(creamLiterals(text), [], 'cream colour literals left in services/page.tsx');
-  const whites = [...text.matchAll(/rgba\(\s*255\s*,\s*255\s*,\s*255\s*,\s*(0?\.\d+)\s*\)/g)].map((m) => m[1]).sort();
-  assert.deepEqual(
-    whites,
-    ['0.18', '0.18', '0.18', '0.18', '0.18', '0.7', '0.7', '0.7', '0.7'],
-    'expected the five rules at 0.18 and the four paragraphs at 0.7, all white',
-  );
-  // The paragraphs keep their 7:1 on the navy once laid over it.
-  const para = over([255, 255, 255, 0.7], NAVY_GROUND);
+  const notWhite = [...text.matchAll(/rgba\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/g)]
+    .filter((m) => !(m[1] === '255' && m[2] === '255' && m[3] === '255'))
+    .map((m) => m[0]);
+  assert.deepEqual(notWhite, [], 'a transparent colour in services/page.tsx that is not white');
+  // The close paragraph is white at 0.84 over the navy (globals.css, .sl-close .lede) and keeps its 7:1.
+  const para = over([255, 255, 255, 0.84], NAVY_GROUND);
   const c = contrast(para, NAVY_GROUND);
-  assert.ok(c >= 7, `white at 0.7 on the navy is ${c.toFixed(2)}:1, needs 7:1`);
+  assert.ok(c >= 7, `white at 0.84 on the navy is ${c.toFixed(2)}:1, needs 7:1`);
 });
 
 // Since 2026-10-11 the wordmark on the card is the design system's drawing, not text, so the card has two

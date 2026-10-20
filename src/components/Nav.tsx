@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import SeedMark from '@/components/SeedMark';
+import { CONTACT_LINK, NAV_LINKS } from '@/lib/nav-links';
 
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,20 +41,8 @@ export default function Nav() {
     };
   }, [menuOpen]);
 
-  const links = [
-    // Rayli leads: SITE1 found the flagship product was not named anywhere a visitor could see it,
-    // which read at first contact as a consulting shop with a side project.
-    { href: '/rayli', label: 'Rayli' },
-    { href: '/services', label: 'Services' },
-    { href: '/portfolio', label: 'Portfolio' },
-    { href: '/persuasion', label: 'Persuasion' },
-    // { href: '/research', label: 'Research' }, // hidden from nav, page still accessible
-    { href: '/about', label: 'About' },
-    // Label matches the page it opens ("Which AI Should I Use?"); "LLM Guide" promised a written guide.
-    { href: '/tools/which-ai', label: 'Which AI' },
-    { href: '/faq', label: 'FAQ' },
-    // { href: '/contact', label: 'Contact' }, // hidden from nav
-  ];
+  // The links live in src/lib/nav-links.ts so scripts/nav.test.mjs can prove none of them is gated.
+  const links = NAV_LINKS;
   return (
     <header className="site">
       <div className="wrap nav">
@@ -89,9 +78,8 @@ export default function Nav() {
               </li>
             ))}
           </ul>
-          {/* On the home page the hero carries the same button, so the header's is an outline there and
-              the first screen has one filled button. */}
-          <Link className={path === '/' ? 'nav-cta nav-cta-quiet' : 'nav-cta'} href="/contact" onClick={() => setMenuOpen(false)} prefetch={false}>Start a conversation</Link>
+          {/* The one filled button on every first screen: the pages carry no button of their own above the fold. */}
+          <Link className="nav-cta" href={CONTACT_LINK.href} onClick={() => setMenuOpen(false)} prefetch={false}>{CONTACT_LINK.label}</Link>
         </nav>
       </div>
     </header>
