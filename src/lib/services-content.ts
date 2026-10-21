@@ -40,7 +40,7 @@ export const CAPABILITIES = [
   },
   {
     title: 'Custom systems',
-    text: 'Systems built to your workflow, made to run after we leave.',
+    text: 'Systems built to your workflow.',
   },
   {
     title: 'AI visibility',
