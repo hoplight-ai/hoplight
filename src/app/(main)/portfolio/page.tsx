@@ -15,23 +15,18 @@ const PIECES: Piece[] = [
   // Whit, 2026-10-20: "add AI Election Errors to the hoplight.ai portfolio page." Served at
   // /ai-election-errors from its own Vercel project (see next.config.ts rewrites).
   { slug: 'ai-election-errors', title: 'AI Election Errors', blurb: 'Did a chatbot give someone wrong election information? A public form that builds the shared record.', href: '/ai-election-errors', live: true },
-  { slug: 'ai-governance-checklist', title: 'AI governance checklist', blurb: 'Interactive checklist a mission-driven org can work through.', href: '/portfolio/ai-governance-checklist.html' },
-  { slug: 'ai-lobbyist-player-map', title: 'AI lobbyist player map', blurb: 'Who lobbies on AI, for whom, and where the money lands.', href: '/portfolio/ai-lobbyist-player-map.html' },
   { slug: 'bet-appetit', title: 'Bet Appetit', blurb: 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.', href: '/bet-appetit', live: true, thumb: '/portfolio/thumbs/bet-appetit-demo.jpg' },
-  { slug: 'cba-win-pattern-playbook', title: 'CBA win pattern playbook', blurb: 'AI clauses unions actually won, ranked by strength.', href: '/portfolio/cba-win-pattern-playbook.html' },
-  { slug: 'every-political-dollar-buys-less', title: 'Every political dollar buys less', blurb: 'Cost per vote, 2000 to 2024, climbing.', href: '/portfolio/every-political-dollar-buys-less.html' },
-  { slug: 'federal-agency-ai-inventory', title: 'Federal agency AI inventory', blurb: 'What every federal agency is doing on AI, browsable.', href: '/portfolio/federal-agency-ai-inventory.html' },
-  { slug: 'hoplight-persuasion-story-page', title: 'Hoplight persuasion story page', blurb: 'Scroll-driven story explaining the persuasion offer.', href: '/portfolio/hoplight-persuasion-story-page.html' },
   { slug: 'oregon-school-budget-report', title: 'Oregon school budget report', blurb: 'Where Oregon K-12 money actually goes.', href: '/portfolio/oregon-school-budget-report.html' },
-  { slug: 'pdi-trust-dilution-model', title: 'PDI trust dilution model', blurb: 'A small working model of trust dilution.', href: '/portfolio/pdi-trust-dilution-model.html' },
-  { slug: 'redistricting-seat-shifts', title: 'Redistricting seat shifts', blurb: 'Likely flips and battleground districts.', href: '/portfolio/redistricting-seat-shifts.html' },
   { slug: 'what-s-human', title: 'What’s Human?', blurb: 'Guess whether a person or a machine wrote the text. Live vote tally.', href: 'https://whatshuman.vercel.app', live: true },
-  { slug: 'where-political-money-actually-works', title: 'Where political money actually works', blurb: '24 years of political spending sorted by what moved votes.', href: '/portfolio/where-political-money-actually-works.html' },
   { slug: 'which-ai-should-i-use', title: 'Which AI should I use?', blurb: 'Answer a few questions, get told which model fits the job.', href: '/tools/which-ai', live: true },
   { slug: 'worker-equity-dilution-at-ge', title: 'Worker equity dilution at GE', blurb: '80 years of worker equity draining out of one company.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
 ];
 
-const NO_THUMB = new Set(['hoplight-persuasion-story-page']);
+// Nine pieces left the gallery on 2026-10-21 (Whit: "i want these removed from my hoplight.ai portfolio"):
+// the PDI trust dilution model, Where political money actually works, Redistricting seat shifts, the
+// Hoplight persuasion story page, Every political dollar buys less, the CBA win pattern playbook, the
+// Federal agency AI inventory, the AI lobbyist player map and the AI governance checklist. Their files
+// stay under public/portfolio/ (the design tests read them); nothing links to them.
 
 export const metadata: Metadata = pageMetadata({
   title: 'Portfolio',
@@ -65,7 +60,7 @@ export default function Portfolio() {
           <ul className="gallery-grid">
             {PIECES.map((p) => {
               const external = p.href.startsWith('http');
-              const thumb = p.thumb ?? (NO_THUMB.has(p.slug) ? null : `/portfolio/thumbs/${p.slug}.jpg`);
+              const thumb = p.thumb ?? `/portfolio/thumbs/${p.slug}.jpg`;
               return (
                 <li key={p.slug}>
                   <a
