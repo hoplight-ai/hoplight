@@ -31,13 +31,15 @@ const orgSchema = {
   knowsAbout: ['AI governance', 'AI adoption', 'Workforce AI strategy', 'Psychographic messaging', 'Generative engine optimization'],
 };
 
-// Whit, 2026-10-19 and 2026-10-20: the page says the question and points at four places, and stops. The
-// structure is mockup C (public/mockups/c-hybrid/index.html); the look is the live site's masthead.
+// Whit, 2026-10-19 and 2026-10-21: the page says its vetted headline and points at four places, and stops.
+// The tiles carry their one word and nothing under it ("just cut all the sub headers"). The headline and
+// the sentence under it are the live site's own, kept as main has them ("was never vetted by me" is what he
+// said of the longer question that stood here). The structure is mockup C (public/mockups/c-hybrid/index.html).
 const TILES = [
-  { href: '/products', name: 'Products', line: 'Six products, most open in a browser.' },
-  { href: '/insights', name: 'Insights', line: 'One trial, ten reports.' },
-  { href: '/services', name: 'Services', line: 'Four lines of work.' },
-  { href: '/faq', name: 'FAQ', line: 'Plain answers.' },
+  { href: '/products', name: 'Products' },
+  { href: '/insights', name: 'Insights' },
+  { href: '/services', name: 'Services' },
+  { href: '/faq', name: 'FAQ' },
 ];
 
 export default function Home() {
@@ -48,20 +50,13 @@ export default function Home() {
       {/* The seed masthead, round four of the design system (Whit, 2026-10-15): the lattice and lens
           behind the question, the four places to go laid over it. */}
       <Masthead labelledBy="hero-title">
-        <h1 id="hero-title" className="long">You have valuable data. You face real challenges. You keep hearing AI has value to offer. How do you unlock it in a way that advances your mission?</h1>
-        <p className="lede wide">
-          {FACTS.company.pilotFailure} of enterprise AI pilots return nothing (
-          <a href="https://nanda.media.mit.edu/" target="_blank" rel="noopener noreferrer">
-            MIT<span className="sr-only"> (opens in a new tab)</span>
-          </a>
-          ). Hoplight delivers the ones that work, for labor, advocacy, and mission-driven organizations.
-        </p>
+        <h1 id="hero-title">Most organizations are bushwhacking their way through AI.</h1>
+        <p className="lede wide">{FACTS.company.pilotFailure} of enterprise AI pilots return nothing (MIT). Hoplight builds the ones that do: <strong>{FACTS.company.systems} production AI systems</strong> for the labor, advocacy, and mission-driven organizations that can&rsquo;t hire a Chief AI Officer.</p>
         <ul className="hero-tiles">
           {TILES.map((t) => (
             <li key={t.href}>
               <Link className="hero-tile" href={t.href} prefetch={false}>
                 <h2>{t.name}</h2>
-                <p>{t.line}</p>
                 <Arrow className="arrow tile-arrow" />
               </Link>
             </li>

@@ -6,7 +6,7 @@ import { pageMetadata } from '@/lib/metadata';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Products',
-  description: 'Six Hoplight products and the state each one is in. Most open in a browser.',
+  description: 'Six Hoplight products and the state each one is in.',
   path: '/products',
   ogDescription: 'Six products, and the state each one is in.',
 });

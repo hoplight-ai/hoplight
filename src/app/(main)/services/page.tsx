@@ -8,7 +8,7 @@ import { pageMetadata } from '@/lib/metadata';
 export const metadata: Metadata = pageMetadata({
   title: 'Services',
   description:
-    'Hoplight services: governance and threat assessment, capacity building, custom systems, and AI visibility. Scoped to the organization in front of us. Pricing follows the engagement.',
+    'Hoplight services: governance and threat assessment, capacity building, custom systems, and AI visibility. Scoped to the organization in front of us.',
   path: '/services',
   ogDescription: 'Governance and threat assessment, capacity building, custom systems, and AI visibility.',
 });
@@ -71,10 +71,9 @@ export default function Services() {
         </div>
       </section>
 
-      <section className="slate sl-close" aria-label="What this costs">
+      <section className="slate sl-close" aria-label="Contact">
         <div className="wrap">
-          <p className="lede">Pricing follows the engagement. The goal is that you can run it without us.</p>
-          <div className="cta-row" style={{ marginTop: '24px' }}>
+          <div className="cta-row">
             <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
           </div>
         </div>
