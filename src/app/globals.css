@@ -1178,7 +1178,6 @@ a.ptile:hover { border-color: var(--gold-hot); box-shadow: 0 6px 22px rgba(0,0,0
 .ptile h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 .ptile p { margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--stone-deep); max-width: 52ch; }
 .ptile .tile-arrow { color: var(--gold-deep); }
-.ptile-still { padding-bottom: 26px; }
 
 /* Insights: the reports as ruled rows under the band */
 .reports { padding: clamp(24px, 4vw, 48px) 0 clamp(40px, 6vw, 80px); }
@@ -1225,7 +1224,7 @@ header.site .brand, footer.site .brand { min-height: 44px; }
 /* ===== Round two, 2026-10-21 =====
    Whit: "the subheading on the landing page arent necessary... just cut all the sub headers". The home tiles
    are a title and an arrow now, so they sit as one line each. About and FAQ take the page masthead. The
-   Insights page is under review in three layouts (A at /insights, B at /insights-b, C at /insights-c). */
+   Insights page is the two-column layout (Whit, 2026-10-21: option three, the blue box). */
 .hero-tile { justify-content: center; min-height: 72px; padding: 18px 40px 18px 18px; }
 .hero-tile .tile-arrow { right: 14px; bottom: auto; top: calc(50% - 8px); }
 
@@ -1235,31 +1234,9 @@ header.site .brand, footer.site .brand { min-height: 44px; }
 
 /* Insights, shared: a heading over a ruled list, and the card title (an h3 under the band's h2) */
 .ptile h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
-.iband h2, .ic-reports h2, .ic-field h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
-.rep-when { font-weight: 600; color: var(--ink); }
-.rep-still { cursor: default; }
+.ic-reports h2, .ic-field h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 
-/* Insights A: three bands, the name on the left and the ruled list on the right */
-.ibands { padding: 8px 0 clamp(40px, 6vw, 80px); }
-.iband { padding-top: clamp(28px, 4vw, 48px); }
-.iband-in { display: grid; grid-template-columns: minmax(140px, 220px) minmax(0, 1fr); column-gap: clamp(24px, 4vw, 56px); align-items: start; }
-.iband-in h2 { padding-top: 14px; }
-@media (max-width: 760px) { .iband-in { grid-template-columns: minmax(0, 1fr); row-gap: 14px; } .iband-in h2 { padding-top: 0; } }
-
-/* Insights B: one list, a small label and the date in the first column */
-.ib-list { padding-top: clamp(24px, 4vw, 48px); }
-.rep-lead-row { grid-template-columns: 9.5rem minmax(0, 1.4fr) minmax(0, 1fr) 16px; }
-.rep-lead { display: flex; flex-direction: column; gap: 2px; }
-.rep-kind { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-deep); }
-.rep-date { font-size: 0.9rem; color: var(--stone-deep); }
-@media (max-width: 640px) {
-  .rep-lead-row { grid-template-columns: minmax(0, 1fr) 16px; }
-  .rep-lead { grid-column: 1; flex-direction: row; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
-  .rep-lead-row .rep-title { grid-column: 1; }
-  .rep-lead-row .rep-arrow { grid-column: 2; grid-row: 1 / span 3; }
-}
-
-/* Insights C: Writing and Research as cards on a navy field band, Reports as the ruled list beside it */
+/* Insights: Writing and Research as cards on a navy field band, Reports as the ruled list beside it */
 .ic-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: clamp(28px, 4vw, 56px); row-gap: 40px; align-items: start; padding-block: clamp(28px, 4vw, 48px) clamp(40px, 6vw, 80px); }
 .ic-field { --ring: var(--gold-hot); display: grid; gap: 30px; padding: clamp(20px, 3vw, 32px); background: var(--ink); border-radius: var(--radius-lg); }
 .ic-field h2 { color: #fff; }
@@ -1273,17 +1250,32 @@ header.site .brand, footer.site .brand { min-height: 44px; }
 
 .band-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .ic-field .band-link { color: #fff; text-decoration-color: var(--gold-hot); }
-.iband-in h2 { padding-top: 0; }
-.iband-in > div { padding-top: 14px; }
-@media (max-width: 760px) { .iband-in > div { padding-top: 0; } }
 
 /* The global section padding is too much inside these layouts; the bands carry their own */
-section.iband { padding: clamp(24px, 3vw, 36px) 0 0; }
 .ic-grid section { padding: 0; }
-.ib-list { padding: clamp(24px, 4vw, 48px) 0 clamp(40px, 6vw, 80px); }
 /* Home: a calmer veil under the sentence, so the lattice lines do not cross the words */
 .hero .mast-veil { background: linear-gradient(90deg, rgba(15,27,45,0.92) 0%, rgba(15,27,45,0.82) 38%, rgba(15,27,45,0.4) 54%, rgba(15,27,45,0) 66%); }
 @media (max-width: 640px) { .hero .mast-veil { background: linear-gradient(180deg, rgba(15,27,45,0.1) 0, rgba(15,27,45,0.4) 150px, rgba(15,27,45,0.9) 240px, rgba(15,27,45,0.94) 100%); } }
 /* About: the long name wraps to two lines so it stays clear of the lens; Services: the lone button sits level in its band */
 .masthead-page h1.two-line { max-width: 17ch; }
+.masthead-page h1.method { max-width: 17ch; font-size: clamp(2rem, 1.2rem + 2.6vw, 3.25rem); }
 .sl-close .cta-row { margin: 0; }
+
+/* Services, shape 2 (Why, What, How): a one-word heading in the left column, the words in the right */
+.wwh { padding-block: clamp(8px, 2vw, 24px) clamp(40px, 6vw, 80px); }
+.wwh .wwh-row { display: grid; grid-template-columns: minmax(96px, 220px) minmax(0, 1fr); column-gap: clamp(20px, 4vw, 56px); padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--line-card); }
+.wwh .wwh-row:first-child { border-top: 0; }
+.wwh h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem); line-height: 1.12; letter-spacing: -0.02em; color: var(--gold-deep); }
+.wwh-text { display: grid; gap: 16px; max-width: 60ch; }
+.wwh-text p { margin: 0; font-size: 1.02rem; line-height: 1.55; color: var(--stone-deep); }
+.wwh-big p { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.625rem); line-height: 1.3; letter-spacing: -0.015em; color: var(--ink); }
+@media (max-width: 640px) { .wwh .wwh-row { grid-template-columns: minmax(0, 1fr); row-gap: 12px; } }
+
+/* Services, shape 3 (four capabilities): the site's own line, then a two-by-two ruled grid */
+.caps { padding-block: clamp(28px, 4vw, 56px) clamp(40px, 6vw, 80px); }
+.caps-line { margin: 0 0 clamp(24px, 3.4vw, 44px); max-width: 28ch; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem); line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); }
+.caps-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(28px, 4vw, 56px); }
+.caps-grid li { padding: clamp(20px, 2.6vw, 32px) 0 clamp(24px, 3vw, 36px); border-top: 1px solid var(--line-card); min-width: 0; }
+.caps-grid h2 { margin-bottom: 10px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink); }
+.caps-grid p { margin: 0; max-width: 46ch; font-size: 1.02rem; line-height: 1.55; color: var(--stone-deep); }
+@media (max-width: 760px) { .caps-grid { grid-template-columns: minmax(0, 1fr); } }

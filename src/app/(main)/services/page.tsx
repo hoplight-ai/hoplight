@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import Masthead from '@/components/Masthead';
-import { FACTS } from '@/lib/facts';
 import { pageMetadata } from '@/lib/metadata';
+import { CAPABILITIES, METHOD_H1, STEPS } from '@/lib/services-content';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Services',
@@ -13,27 +13,9 @@ export const metadata: Metadata = pageMetadata({
   ogDescription: 'Governance and threat assessment, capacity building, custom systems, and AI visibility.',
 });
 
-// Whit, 2026-10-19 and 2026-10-20: four numbered lines and a close. Text and structure are mockup C
-// (public/mockups/c-hybrid/services.html), minus the one word the owner struck from the site.
-const LINES = [
-  {
-    title: 'Governance and threat assessment',
-    text: `Where AI fits, the guardrails that keep trust, and who already touches your data. Zero compliance incidents across ${FACTS.company.adSpend} in regulated-industry ad spend.`,
-  },
-  {
-    title: 'Capacity building',
-    text: 'Conversation-first training. A 10-module AI curriculum, built and delivered.',
-  },
-  {
-    title: 'Custom systems',
-    text: 'Systems built to your workflow, made to run after we leave.',
-  },
-  {
-    title: 'AI visibility',
-    text: 'How you show up when a language model writes the answer.',
-  },
-];
-
+// Shape 1 of three under review (Whit, 2026-10-21: "mock up 15- i need to see what you mean"): the method.
+// Four numbered lines, one sentence each, under the owner's approved headline. Shape 2 is /services-b and
+// shape 3 is /services-c; both are review routes. Copy lives in src/lib/services-content.ts.
 const serviceSchema = {
   '@context': 'https://schema.org',
   '@type': 'Service',
@@ -43,7 +25,7 @@ const serviceSchema = {
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
     name: 'Hoplight services',
-    itemListElement: LINES.map((l) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: l.title } })),
+    itemListElement: CAPABILITIES.map((c) => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: c.title } })),
   },
 };
 
@@ -54,13 +36,13 @@ export default function Services() {
 
       {/* The same lattice and lens as the front page, as a short band: the field stays on every page. */}
       <Masthead labelledBy="services-title" variant="page">
-        <h1 id="services-title">Services</h1>
+        <h1 id="services-title" className="method">{METHOD_H1}</h1>
       </Masthead>
 
       <section className="svc-lines" aria-label="Services">
         <div className="wrap">
           <ol className="sl">
-            {LINES.map((l, i) => (
+            {STEPS.map((l, i) => (
               <li key={l.title}>
                 <span className="sl-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <h2 className="sl-title">{l.title}</h2>

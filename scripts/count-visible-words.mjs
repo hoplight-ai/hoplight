@@ -3,9 +3,9 @@
 //   node scripts/count-visible-words.mjs [origin]      default origin http://localhost:8793
 //
 // Whit, 2026-10-20: the restructured pages have word budgets (home 60 to 90, products 70 to 100,
-// insights 90 to 120, services 80 to 110). 2026-10-21: the three Insights layouts under review (/insights,
-// /insights-b, /insights-c) each take 110 to 170, and /about and /faq are counted and printed with no
-// budget, since the owner asked for no copy change on them. This reads the HTML the server sends and drops what no one
+// insights 90 to 120, services 80 to 110). 2026-10-21: /insights (the two-column layout) is back to its 90 to 120,
+// the three shapes of Services (/services, /services-b, /services-c) each take 70 to 130, and /about and
+// /faq are counted and printed with no budget, since the owner asked for no copy change on them. This reads the HTML the server sends and drops what no one
 // sees: the head, scripts and styles, drawings (svg, canvas), text hidden with .sr-only, and the
 // skip link that shows only on focus. Everything else counts, including the Pause control and the
 // numerals marked aria-hidden. A word is a run of characters between spaces that holds a letter or digit.
@@ -14,10 +14,10 @@ const ORIGIN = process.argv[2] || 'http://localhost:8793';
 const BUDGETS = {
   '/': [60, 90],
   '/products': [70, 100],
-  '/insights': [110, 170],
-  '/insights-b': [110, 170],
-  '/insights-c': [110, 170],
-  '/services': [80, 110],
+  '/insights': [90, 120],
+  '/services': [70, 130],
+  '/services-b': [70, 130],
+  '/services-c': [70, 130],
   '/about': null,
   '/faq': null,
 };

@@ -1,11 +1,11 @@
-// What the Insights page lists, in one place so the three layouts under review (/insights, /insights-b,
-// /insights-c) show the same things. Whit, 2026-10-21: "i think the insights page could actually also
-// highlight my substack writings and other writings- like im about the be published in CPR etc."
+// What the Insights page lists, in one place. Whit, 2026-10-21: "i think the insights page could actually
+// also highlight my substack writings and other writings".
 //
 // Sources: the Substack archive (https://whitpendergast.substack.com/archive, read 2026-10-21) lists two
-// essays, with the titles and dates below. The CPR Hub Insight is not published, so it carries no link and
-// no date. The trial was fielded in August 2025 (FACTS.rct.date). The three report rows are the ones still
-// on the Insights page; the seven whose portfolio cards left on 2026-10-21 stay off it.
+// essays, with the titles and dates below. The CPR Hub Insight is not published yet, so it is not listed;
+// it returns when it has a URL (Whit, 2026-10-21: "the CPR piece isnt live yet"). The trial was fielded in
+// August 2025 (FACTS.rct.date). The three report rows are the ones still on the Insights page; the seven
+// whose portfolio cards left on 2026-10-21 stay off it.
 
 import { FACTS } from '@/lib/facts';
 
@@ -16,23 +16,15 @@ export type InsightItem = {
   title: string;
   /** One short line under the title, only where the page already had one. */
   line?: string;
-  /** Absent on a piece that is not published. */
   href?: string;
   /** Opens on another site, in a new tab. */
   external?: boolean;
   /** ISO date and the words shown for it, only where a date exists. */
   iso?: string;
   shown?: string;
-  forthcoming?: boolean;
 };
 
 export const WRITING: InsightItem[] = [
-  {
-    kind: 'Essay',
-    title: 'Pacing is political',
-    line: 'A CPR Hub Insight for the Erb Institute’s Corporate Political Responsibility taskforce, University of Michigan.',
-    forthcoming: true,
-  },
   {
     kind: 'Essay',
     title: 'Are We Engineering Groupthink at Civilization Scale?',
