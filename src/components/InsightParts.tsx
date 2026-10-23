@@ -16,7 +16,10 @@ function OpensNewTab({ item }: { item: InsightItem }) {
 export function RuledRow({ item }: { item: InsightItem }) {
   const body = (
     <>
-      <span className="rep-title">{item.title}</span>
+      <span className="rep-title">
+        {item.label && <span className="rep-label">{item.label}</span>}
+        {item.title}
+      </span>
       <span className="rep-line">{item.line}</span>
       <Arrow className="arrow rep-arrow" />
       <OpensNewTab item={item} />

@@ -6,23 +6,22 @@ import { pageMetadata } from '@/lib/metadata';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Products',
-  description: 'Six Hoplight products and the state each one is in.',
+  description: 'Five Hoplight products and the state each one is in.',
   path: '/products',
-  ogDescription: 'Six products, and the state each one is in.',
+  ogDescription: 'Five products, and the state each one is in.',
 });
 
 // Whit, 2026-10-19 and 2026-10-20: "i like the products page". Text and order are mockup C
-// (public/mockups/c-hybrid/products.html). Rayli has no link: it sits behind the sign-in. Pandora's
-// Router links where the portfolio page links it. External links open in a new tab.
-type Product = { name: string; state: string; line: string; href?: string; external?: boolean };
+// (public/mockups/c-hybrid/products.html). Rayli has no link: it sits behind the sign-in.
+// Two products left this page on 2026-10-23 (owner: mock up these changes). External links open in a new tab.
+type Product = { name: string; state: string; line: string; ask?: string; href?: string; external?: boolean };
 
 const PRODUCTS: Product[] = [
   { name: 'Rayli', state: 'Platform', line: 'Writes voice-true, source-cited copy and maps who heard what.' },
-  { name: 'AGIS', state: 'Live app', line: `AI governance search across ${FACTS.agis.jurisdictions} jurisdictions and ${FACTS.agis.sources} sources.`, href: '/agis' },
-  { name: 'Which AI', state: 'Free tool', line: 'Which model fits the job, and what it does with data.', href: '/tools/which-ai' },
+  { name: 'AGIS', state: 'Live app', line: `AI governance search across ${FACTS.agis.jurisdictions} jurisdictions and ${FACTS.agis.sources} sources.`, ask: 'Which states have enacted algorithmic management protections for workers?', href: '/agis' },
+  { name: 'Which AI', state: 'Free tool', line: 'Which model fits the job, and what it does with your organization’s data.', href: '/tools/which-ai' },
+  { name: 'AI Election Errors', state: 'Public form', line: 'A public report form, run by Hoplight, for AI tools that give wrong election information.', href: '/ai-election-errors' },
   { name: 'The Undo List', state: 'Public list', line: 'Second-term Trump actions, sorted by effort to undo.', href: '/undo' },
-  { name: 'Pandora’s Router', state: 'Open source, MIT', line: 'Several AI coding agents, one codebase, no overlapping files.', href: 'https://router.hoplight.ai', external: true },
-  { name: 'Bet Appetit', state: 'Demo, invented data', line: 'Bets paid in dinners, skinned as the Michelin Guide.', href: '/bet-appetit' },
 ];
 
 export default function Products() {
@@ -36,6 +35,7 @@ export default function Products() {
               <span className="ptile-tag">{p.state}</span>
               <h2>{p.name}</h2>
               <p>{p.line}</p>
+              {p.ask && <p className="ptile-ask">Ask it: “{p.ask}”</p>}
               {p.href && <Arrow className="arrow tile-arrow" />}
               {p.external && <span className="sr-only"> (opens in a new tab)</span>}
             </>

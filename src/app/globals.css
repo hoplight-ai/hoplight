@@ -1178,6 +1178,7 @@ a.ptile:hover { border-color: var(--gold-hot); box-shadow: 0 6px 22px rgba(0,0,0
 .ptile h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
 .ptile p { margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--stone-deep); max-width: 52ch; }
 .ptile .tile-arrow { color: var(--gold-deep); }
+.ptile p.ptile-ask { color: var(--ink); font-weight: 500; border-left: 2px solid var(--gold-hot); padding-left: 12px; }
 
 /* Insights: the reports as ruled rows under the band */
 .reports { padding: clamp(24px, 4vw, 48px) 0 clamp(40px, 6vw, 80px); }
@@ -1188,6 +1189,7 @@ a.ptile:hover { border-color: var(--gold-hot); box-shadow: 0 6px 22px rgba(0,0,0
 }
 .rep-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); letter-spacing: -0.015em; line-height: 1.25; }
 .rep-line { font-size: 0.95rem; color: var(--stone-deep); }
+.rep-label { display: block; margin-bottom: 2px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-deep); }
 .rep-arrow { align-self: center; color: var(--gold-deep); transition: transform 160ms ease-out; }
 .rep:hover .rep-title { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .rep:hover .rep-arrow { transform: translateX(3px); }

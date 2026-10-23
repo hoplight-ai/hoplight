@@ -4,8 +4,8 @@
 // Sources: the Substack archive (https://whitpendergast.substack.com/archive, read 2026-10-21) lists two
 // essays, with the titles and dates below. The CPR Hub Insight is not published yet, so it is not listed;
 // it returns when it has a URL (Whit, 2026-10-21: "the CPR piece isnt live yet"). The trial was fielded in
-// August 2025 (FACTS.rct.date). The three report rows are the ones still on the Insights page; the seven
-// whose portfolio cards left on 2026-10-21 stay off it.
+// August 2025 (FACTS.rct.date). The Reports list (2026-10-23, owner: "mock up these changes"): the Undo List, the CBA playbook and the
+// governance checklist, then the three analyses with a label and one line on what each draws on.
 
 import { FACTS } from '@/lib/facts';
 
@@ -16,6 +16,8 @@ export type InsightItem = {
   title: string;
   /** One short line under the title, only where the page already had one. */
   line?: string;
+  /** A small mono label above the title, on the reports that are analyses. */
+  label?: string;
   href?: string;
   /** Opens on another site, in a new tab. */
   external?: boolean;
@@ -63,7 +65,10 @@ export const RESEARCH: InsightItem[] = [
 ];
 
 export const REPORTS: InsightItem[] = [
-  { kind: 'Report', title: 'DNC autopsy, taken apart', line: 'Its own numbers.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
-  { kind: 'Report', title: 'Oregon school budget report', line: 'Where it goes.', href: '/portfolio/oregon-school-budget-report.html' },
-  { kind: 'Report', title: 'Worker equity dilution at GE', line: '80 years.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
+  { kind: 'Report', title: 'The Undo List', line: 'Live Federal Register feed, by what undoes each.', href: '/undo' },
+  { kind: 'Report', title: 'CBA win pattern playbook', line: 'Contract language for a local at the table.', href: '/portfolio/cba-win-pattern-playbook.html' },
+  { kind: 'Report', title: 'AI governance checklist', line: 'For teams beginning with AI.', href: '/portfolio/ai-governance-checklist.html' },
+  { kind: 'Report', label: 'Analysis', title: 'DNC autopsy, taken apart', line: 'From its own report, cited by page.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
+  { kind: 'Report', label: 'Analysis', title: 'Oregon school budget report', line: 'From state actuals and Census data.', href: '/portfolio/oregon-school-budget-report.html' },
+  { kind: 'Report', label: 'Analysis', title: 'Worker equity dilution at GE', line: 'From public headcount and filings.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
 ];

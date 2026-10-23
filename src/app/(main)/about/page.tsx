@@ -52,6 +52,16 @@ export default function About() {
             <span className="mc-text">Certificate in Agentic AI for Organizational Transformation, MIT.</span>
           </div>
 
+          <div className="prose" style={{ maxWidth: '65ch', marginTop: '28px' }}>
+            <p style={{ color: 'var(--stone-deep)' }}>
+              Hoplight runs its own work on{' '}
+              <a href="https://router.hoplight.ai" target="_blank" rel="noopener noreferrer">
+                Pandora&rsquo;s Router<span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              , an open-source tool that keeps several AI coding agents from overlapping.
+            </p>
+          </div>
+
           <h2 style={{ margin: '52px 0 18px' }}>Not a solo shop.</h2>
           <div className="prose" style={{ maxWidth: '65ch' }}>
             <p style={{ color: 'var(--stone-deep)' }}>Whit leads a team: a project manager, a bench of builders, and trusted subcontractors.</p>

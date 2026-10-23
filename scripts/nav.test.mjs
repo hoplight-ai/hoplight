@@ -190,3 +190,44 @@ test('the restructured pages, the nav and the footer carry no banned word and no
     assert.ok(!text.includes('—'), `${rel} carries an em dash`);
   }
 });
+
+// 2026-10-23, the owner's "mock up these changes for me to review" (scored assessment of each asset).
+test('Products no longer lists the router or the demo, and lists AI Election Errors', () => {
+  const products = read('src/app/(main)/products/page.tsx');
+  assert.ok(!/Pandora/i.test(products), 'Products still lists Pandora’s Router');
+  assert.ok(!/Bet Appetit/i.test(products), 'Products still lists Bet Appetit');
+  assert.ok(!products.includes('router.hoplight.ai'), 'Products still links the router');
+  assert.ok(products.includes('AI Election Errors') && products.includes('/ai-election-errors'), 'the AI Election Errors tile is missing');
+  assert.ok(products.includes('ask:'), 'the AGIS tile carries no worked question');
+  assert.ok(products.includes('your organization'), 'the Which AI line does not name the organization’s data');
+});
+
+test('Insights lists the Undo List and the two restored reports, and labels the three analyses', () => {
+  const content = read('src/lib/insights-content.ts');
+  for (const href of ['/undo', '/portfolio/cba-win-pattern-playbook.html', '/portfolio/ai-governance-checklist.html']) {
+    assert.ok(content.includes(`href: '${href}'`), `${href} is not listed under Reports`);
+  }
+  for (const title of ['CBA win pattern playbook', 'AI governance checklist', 'The Undo List']) assert.ok(content.includes(title), `${title} is missing`);
+  assert.equal((content.match(/label: 'Analysis'/g) || []).length, 3, 'the three analyses do not each carry the Analysis label');
+});
+
+test('the governance checklist opens on the owner’s laundry and dishes line, not on adoption', () => {
+  const html = read('public/portfolio/ai-governance-checklist.html');
+  const intro = html.slice(html.indexOf('<div class="intro">'), html.indexOf('<div class="sequencing">'));
+  assert.ok(intro.includes('I want AI to do my laundry and dishes so that I can do art and writing.'), 'the quote is missing');
+  assert.ok(intro.includes('Whit Pendergast'), 'the quote is not attributed');
+  assert.ok(!/adoption/i.test(intro), 'the intro still says adoption');
+  assert.ok(html.includes('<title>AI Governance Checklist for Mission-Driven Organizations</title>'), 'the page title changed');
+});
+
+test('the research page names Rayli once under the findings, and the persuasion page carries the before and after', () => {
+  const research = read('src/app/(main)/research/page.tsx');
+  assert.ok(research.includes('Built from this trial:') && research.includes('href="/rayli"'), 'the Rayli line is missing');
+  const pme = read('src/app/(main)/persuasion/PmeContent.tsx');
+  assert.ok(pme.includes('ba-grid') && pme.includes('Personal Safety frame') && pme.includes('+26 points'), 'the before and after block is missing');
+});
+
+test('the About page names Pandora’s Router with its link', () => {
+  const about = read('src/app/(main)/about/page.tsx');
+  assert.ok(about.includes('https://router.hoplight.ai') && about.includes('Pandora&rsquo;s Router'), 'the router sentence is missing');
+});

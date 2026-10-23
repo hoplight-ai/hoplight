@@ -37,6 +37,19 @@ const pmeCSS = `
 .pme-page .wrap{max-width:1080px;margin:0 auto}
 .pme-page .wrap-narrow{max-width:760px;margin:0 auto}
 
+.pme-page .ba{margin-top:44px;background:var(--card2);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:28px 24px}
+.pme-page .ba-title{font-family:'Outfit',sans-serif;font-weight:700;font-size:clamp(1.3rem,2vw,1.5rem);color:#fff;line-height:1.2;margin-bottom:22px}
+.pme-page .ba-grid{display:grid;grid-template-columns:1fr;gap:28px}
+@media (min-width:640px){ .pme-page .ba-grid{grid-template-columns:1fr 1fr;gap:40px} }
+.pme-page .ba-tag{display:block;font-family:'Outfit',sans-serif;font-weight:700;font-size:.95rem;color:rgba(255,255,255,.75);margin-bottom:8px}
+.pme-page .ba-pct{font-family:'Outfit',sans-serif;font-weight:800;font-size:clamp(2.5rem,4.5vw,2.75rem);line-height:1;color:rgba(255,255,255,.85)}
+.pme-page .ba-after .ba-pct{color:var(--green-text)}
+.pme-page .ba-track{height:10px;border-radius:5px;background:rgba(255,255,255,.1);margin-top:14px;overflow:hidden}
+.pme-page .ba-fill{height:100%;border-radius:5px;background:rgba(255,255,255,.5)}
+.pme-page .ba-after .ba-fill{background:var(--green-text)}
+.pme-page .ba .cap{margin-top:14px;color:rgba(255,255,255,.75);font-size:.92rem;line-height:1.5}
+.pme-page .ba .cap strong{color:#fff}
+
 .pme-page h1,.pme-page h2,.pme-page h3{margin:0;letter-spacing:-0.01em}
 
 .pme-page .bg-paper{background:var(--surface)}
@@ -677,6 +690,24 @@ const pmeHTML = `
         <span class="group-name">Lowest-Income Households</span>
         <div class="stat-num green">+19 pts</div>
         <p class="cap">Officer pay, 54 to 73, Personal Safety frame against the placebo group.</p>
+      </div>
+    </div>
+
+    <div class="ba reveal">
+      <h3 class="ba-title">Enterprising conservatives, officer pay</h3>
+      <div class="ba-grid">
+        <div class="ba-side">
+          <span class="ba-tag">Placebo group</span>
+          <div class="ba-pct">56%</div>
+          <div class="ba-track"><div class="ba-fill" style="width:56%"></div></div>
+          <p class="cap">Read an unrelated message.</p>
+        </div>
+        <div class="ba-side ba-after">
+          <span class="ba-tag">Personal Safety frame</span>
+          <div class="ba-pct">82%</div>
+          <div class="ba-track"><div class="ba-fill" style="width:82%"></div></div>
+          <p class="cap">AI-generated. <strong>+26 points</strong>, the largest gap in the study.</p>
+        </div>
       </div>
     </div>
   </div>

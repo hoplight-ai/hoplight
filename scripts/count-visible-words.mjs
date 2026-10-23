@@ -3,7 +3,7 @@
 //   node scripts/count-visible-words.mjs [origin]      default origin http://localhost:8793
 //
 // Whit, 2026-10-20: the restructured pages have word budgets (home 60 to 90, products 70 to 100,
-// insights 90 to 120, services 80 to 110). 2026-10-21: /insights (the two-column layout) is back to its 90 to 120,
+// insights 90 to 120, raised to 140 on 2026-10-23 for the three added report rows and the Analysis labels, services 80 to 110). 2026-10-21: /insights (the two-column layout) is back to its 90 to 120,
 // the three shapes of Services (/services, /services-b, /services-c) each take 70 to 130, and /about and
 // /faq are counted and printed with no budget, since the owner asked for no copy change on them. This reads the HTML the server sends and drops what no one
 // sees: the head, scripts and styles, drawings (svg, canvas), text hidden with .sr-only, and the
@@ -14,7 +14,7 @@ const ORIGIN = process.argv[2] || 'http://localhost:8793';
 const BUDGETS = {
   '/': [60, 90],
   '/products': [70, 100],
-  '/insights': [90, 120],
+  '/insights': [90, 140],
   '/services': [70, 130],
   '/services-b': [70, 130],
   '/services-c': [70, 130],
