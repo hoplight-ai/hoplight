@@ -2,6 +2,9 @@ import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
   output: 'standalone',
+  // /command-center reads src/private/command-center.html at request time (src/app/command-center/
+  // route.ts); the file is outside public/ on purpose, so the function bundle must carry it.
+  outputFileTracingIncludes: { '/command-center': ['./src/private/**/*'] },
   async headers() {
     // Added 2026-09-16 after the site review found no security headers at all: any origin could
     // frame hoplight.ai, including the contact form. SAMEORIGIN rather than DENY so the site can

@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Command Center — Office of the President</title>
+<meta name="description" content="A prototype of a chief-of-staff desk for a principal: the day, inbound requests, the briefing book, relationships, intelligence, priorities, commitments and the message.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Command Center">
+<meta property="og:description" content="A prototype of a chief-of-staff desk for a principal, built by Whit Pendergast.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-title" content="Command Center">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+@font-face{font-family:"Inter";font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/inter-latin-wght-normal.woff2) format("woff2")}
+@font-face{font-family:"JetBrains Mono";font-style:normal;font-weight:100 900;font-display:swap;src:url(/fonts/jetbrains-mono-latin-wght-normal.woff2) format("woff2")}
+</style>
+<style>
+:root{
+  --bg:#F4F4F5;
+  --panel:#FFFFFF;
+  --panel-2:#FAFAFA;
+  --sidebar:#161418;
+  --border:#E4E4E7;
+  --border-2:#D4D4D8;
+  --ink:#1A181D;
+  --ink-2:#67646E;
+  --ink-3:#9C99A2;
+  --ink-4:#B9B6BD;
+  --accent:#6E3DB8;
+  --accent-deep:#552A93;
+  --accent-soft:#F2ECFB;
+  --accent-line:#E5DAF6;
+  --gold:#D9A400;
+  --ok:#2C7A57;
+  --ok-soft:#E7F1EC;
+  --warn:#9E6B12;
+  --warn-soft:#F5EDDC;
+  --danger:#B8452F;
+  --danger-soft:#F7E8E3;
+  --s-ink:#ECEAEE;
+  --s-ink-2:#918E99;
+  --s-ink-3:#68656F;
+  --r:13px; --r-ctl:9px; --r-sm:7px;
+  --sh-card:0 1px 2px rgba(17,15,20,.035), 0 1px 3px rgba(17,15,20,.03);
+  --sh-pop:0 16px 40px rgba(17,15,20,.18), 0 3px 10px rgba(17,15,20,.08);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px}
+body{
+  font-family:"Inter",system-ui,sans-serif;
+  background:var(--bg);color:var(--ink);
+  font-size:14px;line-height:1.5;letter-spacing:-.006em;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  font-feature-settings:"cv05","ss01";
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;letter-spacing:inherit}
+input{font-family:inherit}
+svg{display:block}
+.tnum{font-variant-numeric:tabular-nums}
+.mono{font-family:"JetBrains Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.eyebrow{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.11em;font-size:10.5px;color:var(--ink-3);font-weight:500}
+
+/* ---------------- shell ---------------- */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+.sidebar{background:var(--sidebar);color:var(--s-ink-2);display:flex;flex-direction:column;padding:16px 12px;position:sticky;top:0;height:100vh}
+.brand{display:flex;align-items:center;gap:9px;padding:6px 8px 4px}
+.brand .logo{width:26px;height:26px;border-radius:7px;background:linear-gradient(150deg,var(--accent),#8A5FCF);display:flex;align-items:center;justify-content:center;flex:0 0 auto}
+.brand .logo span{width:10px;height:10px;border:2px solid #fff;border-radius:2px;transform:rotate(45deg)}
+.brand .name{font-size:13.5px;font-weight:600;color:var(--s-ink);letter-spacing:-.01em}
+.brand .name small{display:block;font-size:10px;color:var(--s-ink-3);font-weight:450;letter-spacing:.02em}
+.principal{margin:16px 4px 6px;padding:9px 10px;border-radius:10px;background:rgba(255,255,255,.045);display:flex;align-items:center;gap:9px;cursor:pointer;transition:background .15s}
+.principal:hover{background:rgba(255,255,255,.075)}
+.principal .av{width:30px;height:30px;border-radius:8px;background:linear-gradient(140deg,#7A4AC4,#B99AE0);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:11.5px;flex:0 0 auto}
+.principal .who{font-size:12.5px;font-weight:550;color:var(--s-ink);line-height:1.25}
+.principal .role{font-size:10.5px;color:var(--s-ink-3)}
+.principal .chev{margin-left:auto;color:var(--s-ink-3)}
+.nav-sec{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.13em;font-size:9.5px;color:var(--s-ink-3);padding:16px 10px 6px;font-weight:500}
+.nav-item{display:flex;align-items:center;gap:10px;padding:7px 10px;border-radius:8px;font-size:13px;font-weight:450;color:var(--s-ink-2);width:100%;text-align:left;position:relative;transition:background .13s,color .13s}
+.nav-item svg{flex:0 0 auto;opacity:.8}
+.nav-item .n-badge{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--s-ink-3);background:rgba(255,255,255,.06);border-radius:5px;padding:1px 6px}
+.nav-item:hover{background:rgba(255,255,255,.05);color:var(--s-ink)}
+.nav-item.active{background:rgba(255,255,255,.08);color:#fff}
+.nav-item.active svg{opacity:1;color:#B79AE6}
+.nav-item.active::before{content:"";position:absolute;left:-12px;top:50%;transform:translateY(-50%);width:3px;height:16px;background:var(--accent);border-radius:0 3px 3px 0}
+.nav-item.active .n-badge{background:var(--accent);color:#fff}
+.side-foot{margin-top:auto;padding:12px 10px 4px;font-size:10.5px;color:var(--s-ink-3);line-height:1.5;border-top:1px solid rgba(255,255,255,.06)}
+
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;gap:16px;padding:0 28px;height:60px;border-bottom:1px solid var(--border);background:rgba(246,245,242,.82);backdrop-filter:saturate(180%) blur(10px);position:sticky;top:0;z-index:30}
+.topbar .tt{font-size:14.5px;font-weight:600;letter-spacing:-.015em}
+.topbar .meta{display:flex;gap:14px;color:var(--ink-2);font-size:12.5px;align-items:center;padding-left:2px}
+.topbar .meta span{display:flex;align-items:center;gap:5px}
+.topbar .meta svg{color:var(--ink-3)}
+.topbar .right{margin-left:auto;display:flex;align-items:center;gap:10px}
+.search{position:relative}
+.search input{border:1px solid var(--border-2);background:var(--panel);border-radius:9px;height:34px;padding:0 12px 0 32px;font-size:12.5px;width:250px;color:var(--ink);transition:border .15s,box-shadow .15s}
+.search input::placeholder{color:var(--ink-4)}
+.search input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.search svg{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--ink-3)}
+.top-btn{height:34px;padding:0 13px;border-radius:9px;background:var(--accent);color:#fff;font-size:12.5px;font-weight:550;display:flex;align-items:center;gap:6px;transition:background .15s}
+.top-btn:hover{background:var(--accent-deep)}
+
+.content{padding:26px 28px 64px;max-width:1260px;width:100%}
+.view{display:none}
+.view.active{display:block;animation:fade .28s cubic-bezier(.22,.61,.36,1)}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.view.active{animation:none}}
+
+.page-head{margin-bottom:22px}
+.page-head .eyebrow{margin-bottom:7px}
+.page-head h1{font-size:24px;font-weight:600;letter-spacing:-.025em;line-height:1.1}
+.page-head p{color:var(--ink-2);font-size:13.5px;margin-top:6px;max-width:74ch;line-height:1.55}
+
+.grid{display:grid;gap:20px}
+.g-2{grid-template-columns:1fr 1fr}
+.g-wide{grid-template-columns:1.5fr 1fr}
+.g-col{display:flex;flex-direction:column;gap:20px}
+@media(max-width:1000px){.g-2,.g-wide{grid-template-columns:1fr}}
+
+/* ---------------- card ---------------- */
+.card{background:var(--panel);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--sh-card)}
+.card-h{display:flex;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--border)}
+.card-h h2{font-size:13.5px;font-weight:600;letter-spacing:-.01em}
+.card-h .k{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-4)}
+.card-h .act{margin-left:auto;display:flex;align-items:center;gap:4px}
+.card-h .act .lbl{font-size:11.5px;color:var(--ink-3);font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.06em;padding:0 4px}
+.icon-btn{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;color:var(--ink-3);transition:background .13s,color .13s}
+.icon-btn:hover{background:var(--panel-2);color:var(--ink)}
+.text-btn{font-size:12px;color:var(--ink-2);display:flex;align-items:center;gap:5px;padding:5px 9px;border-radius:7px;font-weight:500;transition:.13s}
+.text-btn:hover{background:var(--panel-2);color:var(--ink)}
+.card-b{padding:8px 18px 16px}
+.card-b.tight{padding:6px 18px 12px}
+
+/* stat cards */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px}
+@media(max-width:1000px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{background:var(--panel);border:1px solid var(--border);border-radius:11px;padding:15px 16px;box-shadow:var(--sh-card)}
+.stat .lbl{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.09em;font-size:10px;color:var(--ink-3);margin-bottom:9px;display:flex;align-items:center;gap:6px}
+.stat .val{font-size:29px;font-weight:600;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .sub{font-size:11.5px;color:var(--ink-2);margin-top:7px;display:flex;align-items:center;gap:5px}
+.stat .sub .em{font-weight:600}
+.stat .sub .em.d{color:var(--danger)}
+.stat .sub .em.u{color:var(--ok)}
+.stat .sub .em.w{color:var(--warn)}
+
+/* rows */
+.row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
+.row:last-child{border-bottom:none}
+.row.click{cursor:pointer;margin:0 -18px;padding:11px 18px;border-radius:0}
+.row.click:hover{background:var(--panel-2)}
+.row .lead{font-weight:500;font-size:13.5px;letter-spacing:-.01em}
+.row .sub{color:var(--ink-3);font-size:12px;margin-top:1px}
+.row .rt{margin-left:auto;display:flex;align-items:center;gap:11px}
+.mono-meta{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3)}
+
+.mono-av{width:28px;height:28px;border-radius:8px;background:var(--accent-soft);color:var(--accent-deep);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:10.5px;flex:0 0 auto;font-family:"Inter"}
+
+/* badge */
+.badge{font-size:11px;font-weight:550;border-radius:6px;padding:2.5px 8px;display:inline-flex;align-items:center;gap:5px;letter-spacing:-.005em;white-space:nowrap}
+.badge .bd{width:5px;height:5px;border-radius:50%}
+.badge.review{background:var(--panel-2);color:var(--ink-2);border:1px solid var(--border-2)}
+.badge.review .bd{background:var(--ink-3)}
+.badge.scheduled{background:var(--accent-soft);color:var(--accent-deep)}
+.badge.scheduled .bd{background:var(--accent)}
+.badge.declined{background:var(--danger-soft);color:var(--danger)}
+.badge.declined .bd{background:var(--danger)}
+.badge.hold{background:var(--warn-soft);color:var(--warn)}
+.badge.hold .bd{background:var(--warn)}
+
+.pill{background:var(--panel-2);border:1px solid var(--border);border-radius:6px;padding:3px 9px;font-size:12px;color:var(--ink-2);font-weight:450;display:inline-flex;align-items:center;gap:5px}
+.pill.accent{background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-deep)}
+
+/* temperature */
+.temp{display:inline-flex;gap:2.5px;align-items:center}
+.temp i{width:6px;height:6px;border-radius:50%;background:var(--border-2)}
+.temp.warm i:nth-child(-n+3){background:var(--ok)}
+.temp.cooling i:nth-child(-n+2){background:var(--warn)}
+.temp.cold i:nth-child(-n+1){background:var(--danger)}
+
+/* schedule */
+.sched{display:flex;gap:14px;padding:13px 18px;margin:0 -18px;cursor:pointer;border-radius:0;transition:background .13s;position:relative}
+.sched:hover{background:var(--panel-2)}
+.sched+.sched{border-top:1px solid var(--border)}
+.sched .time{font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--ink-3);width:66px;flex:0 0 auto;padding-top:2px}
+.sched .st{font-weight:550;font-size:13.5px;letter-spacing:-.01em}
+.sched .sd{color:var(--ink-3);font-size:12px;margin-top:2px}
+.sched .rt{margin-left:auto}
+
+/* buttons */
+.btn{border-radius:var(--r-ctl);padding:0 15px;height:38px;font-weight:550;font-size:13px;display:inline-flex;align-items:center;gap:7px;justify-content:center;transition:background .14s,border-color .14s,transform .08s;letter-spacing:-.01em}
+.btn:active{transform:translateY(.5px)}
+.btn svg{flex:0 0 auto}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:var(--accent-deep)}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-dark:hover{background:#000}
+.btn-ghost{background:var(--panel);border:1px solid var(--border-2);color:var(--ink)}
+.btn-ghost:hover{background:var(--panel-2);border-color:var(--ink-3)}
+.btn-block{width:100%}
+
+/* ask */
+.ask{display:flex;align-items:center;gap:11px;background:var(--panel);border:1px solid var(--border-2);border-radius:11px;padding:0 12px 0 15px;height:52px;box-shadow:var(--sh-card);transition:border .15s,box-shadow .15s}
+.ask:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.ask .spark{color:var(--accent)}
+.ask input{flex:1;border:none;font-size:14px;color:var(--ink);background:none;height:100%}
+.ask input:focus{outline:none}
+.ask .go{width:34px;height:34px;border-radius:8px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;flex:0 0 auto;transition:background .14s}
+.ask .go:hover{background:var(--accent-deep)}
+.answer{margin-top:14px;background:var(--panel);border:1px solid var(--accent-line);border-left:3px solid var(--accent);border-radius:0 11px 11px 0;padding:16px 18px;font-size:13.5px;line-height:1.6;color:var(--ink);display:none}
+.answer.show{display:block;animation:fade .3s ease-out}
+.answer b{font-weight:600}
+.answer .src{margin-top:11px;font-size:11.5px;color:var(--ink-3);display:flex;align-items:center;gap:6px;font-family:"JetBrains Mono",monospace}
+
+/* ai suggestion (calm) */
+.ai-row{display:flex;align-items:flex-start;gap:9px;padding:12px 15px;background:var(--accent-soft);border:1px solid var(--accent-line);border-radius:10px;font-size:12.5px;color:var(--accent-deep);line-height:1.5}
+.ai-row .spark{color:var(--accent);flex:0 0 auto;margin-top:1px}
+.ai-row .ai-act{margin-left:auto;display:flex;gap:5px;flex:0 0 auto}
+.ai-row .ai-act button{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.7);color:var(--accent-deep);transition:.13s}
+.ai-row .ai-act .y:hover{background:var(--ok);color:#fff}
+.ai-row .ai-act .n:hover{background:var(--danger);color:#fff}
+
+/* toggles */
+.toggles{display:flex;gap:7px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--border)}
+.toggle{border:1px solid var(--border-2);background:var(--panel);border-radius:8px;padding:6px 11px;font-size:12px;font-weight:500;color:var(--ink-2);display:flex;align-items:center;gap:7px;transition:.13s}
+.toggle:hover{background:var(--panel-2)}
+.toggle .bd{width:6px;height:6px;border-radius:50%;background:var(--ink-4)}
+.toggle.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.toggle.on .bd{background:var(--accent)}
+.clip{padding:16px 18px;border-bottom:1px solid var(--border);display:none}
+.clip:last-child{border-bottom:none}
+.clip.show{display:block}
+.clip .src-line{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.clip .cat-dot{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.clip .src-name{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-3)}
+.clip h3{font-size:14px;font-weight:600;line-height:1.35;letter-spacing:-.01em;margin-bottom:9px}
+.clip .sowhat{font-size:12.5px;color:var(--ink-2);line-height:1.55;padding-left:12px;border-left:2px solid var(--accent-line)}
+.clip .sowhat b{color:var(--accent-deep);font-weight:600}
+
+/* legend + charts */
+.legend .lg{display:flex;align-items:center;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px}
+.legend .lg:last-child{border-bottom:none}
+.legend .lg .sw{width:9px;height:9px;border-radius:3px;flex:0 0 auto}
+.legend .lg .v{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink-2);font-size:12.5px}
+.legend .lg .pct{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-4);width:34px;text-align:right}
+.legend .lg.total{font-weight:600}.legend .lg.total .v{color:var(--ink)}
+.bars{display:flex;align-items:flex-end;gap:14px;height:180px;padding:20px 2px 0}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:9px}
+.bar{width:100%;max-width:52px;border-radius:5px 5px 2px 2px;background:var(--accent);position:relative;transition:background .14s}
+.bar-col:hover .bar{background:var(--accent-deep)}
+.bar .bv{position:absolute;top:-19px;left:50%;transform:translateX(-50%);font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-2)}
+.bar-x{display:flex;padding-top:9px;border-top:1px solid var(--border);margin-top:0}
+.bar-x div{flex:1;text-align:center;font-size:11.5px;color:var(--ink-3)}
+
+/* commit */
+.commit{display:flex;gap:11px;padding:12px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.commit:last-child{border-bottom:none}
+.chk{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--border-2);flex:0 0 auto;margin-top:1px;cursor:pointer;transition:.13s;display:flex;align-items:center;justify-content:center;color:#fff}
+.chk:hover{border-color:var(--accent)}
+.chk.done{background:var(--accent);border-color:var(--accent)}
+.chk svg{opacity:0}.chk.done svg{opacity:1}
+.commit .ct{font-weight:500;font-size:13px;letter-spacing:-.01em}
+.commit .ct.done{text-decoration:line-through;color:var(--ink-3)}
+.commit .cm{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.commit .due{margin-left:auto;font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--ink-3);white-space:nowrap;padding-top:1px;display:flex;align-items:center;gap:4px}
+.commit .due.over{color:var(--danger)}
+.commit .accent-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:6px;flex:0 0 auto}
+
+/* message */
+.ml{padding:12px 0;border-bottom:1px solid var(--border);display:flex;gap:11px;align-items:flex-start;font-size:13.5px;line-height:1.5}
+.ml:last-child{border-bottom:none}
+.ml .mk{flex:0 0 auto;margin-top:1px}
+.ml .mk.ok{color:var(--ok)}.ml .mk.no{color:var(--danger)}
+.donot{background:var(--danger-soft);border-radius:7px;padding:7px 10px;font-size:11.5px;color:var(--danger);margin-top:7px;line-height:1.45}
+
+/* modal */
+.scrim{position:fixed;inset:0;background:rgba(20,18,22,.42);backdrop-filter:blur(3px);display:none;align-items:flex-start;justify-content:center;z-index:100;padding:56px 20px;overflow-y:auto}
+.scrim.show{display:flex;animation:fade .16s ease-out}
+.modal{background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:var(--sh-pop);width:min(540px,100%);overflow:hidden;animation:pop .2s cubic-bezier(.2,.8,.3,1.1)}
+@keyframes pop{from{opacity:0;transform:scale(.97) translateY(8px)}to{opacity:1;transform:none}}
+.m-h{padding:20px 22px 16px;position:relative;border-bottom:1px solid var(--border)}
+.m-h .x{position:absolute;top:16px;right:16px}
+.m-h h2{font-size:18px;font-weight:600;letter-spacing:-.02em}
+.m-h .st{color:var(--ink-3);font-size:12.5px;margin-top:2px}
+.m-tags{display:flex;gap:6px;margin-top:12px;flex-wrap:wrap}
+.m-b{padding:16px 22px 20px}
+.sec-l{font-family:"JetBrains Mono",monospace;text-transform:uppercase;letter-spacing:.09em;font-size:10px;color:var(--ink-3);margin:16px 0 8px}
+.sec-l:first-child{margin-top:0}
+.ctx{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13px;align-items:flex-start;line-height:1.45}
+.ctx:last-child{border-bottom:none}
+.ctx .spark{color:var(--accent);flex:0 0 auto;margin-top:1px}
+.eng{display:flex;justify-content:space-between;align-items:center;background:var(--panel-2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:6px;font-size:12.5px;font-weight:500}
+.eng .dt{color:var(--ink-3);font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:400;display:flex;align-items:center;gap:5px}
+.m-f{padding:14px 22px 18px;display:flex;gap:9px;border-top:1px solid var(--border)}
+.note{font-size:11.5px;color:var(--ink-3);line-height:1.55;margin-top:14px}
+
+/* briefing */
+.brief .bh{font-size:18px;font-weight:600;letter-spacing:-.02em}
+.brief .bmeta{display:grid;grid-template-columns:auto 1fr;gap:5px 14px;font-size:12.5px;color:var(--ink);margin:12px 0 4px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.brief .bmeta b{color:var(--ink-3);font-weight:450;font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding-top:2px}
+.brief .bi{padding:14px 0;border-bottom:1px solid var(--border)}
+.brief .bi:last-child{border-bottom:none}
+.brief .bt{font-family:"JetBrains Mono",monospace;font-size:10.5px;color:var(--ink-3);text-transform:uppercase;letter-spacing:.06em}
+.brief .bn{font-weight:600;font-size:14.5px;margin:5px 0 7px;letter-spacing:-.01em}
+.brief .bl{font-size:12.5px;color:var(--ink-2);line-height:1.55;display:flex;gap:7px;margin-top:3px}
+.brief .bl b{color:var(--ink-3);font-weight:500;flex:0 0 auto;width:64px;font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.05em;padding-top:2px}
+.brief .link{color:var(--accent);font-weight:500;font-size:12px;display:inline-flex;align-items:center;gap:4px;margin-top:8px}
+
+.skel{height:9px;border-radius:5px;background:linear-gradient(90deg,var(--panel-2),#EFEDE9,var(--panel-2));background-size:200% 100%;animation:sh 1.4s infinite;margin:6px 0}
+@keyframes sh{to{background-position:-200% 0}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"><span></span></div>
+      <div class="name">Command Center<small>Office of the President</small></div>
+    </div>
+    <div class="principal">
+      <div class="av">DA</div>
+      <div><div class="who">Dana Alvarez</div><div class="role">International President</div></div>
+      <span class="chev" data-ic="chevron"></span>
+    </div>
+
+    <div class="nav-sec">Today</div>
+    <button class="nav-item active" data-view="day"><span data-ic="calendar"></span>The Day</button>
+    <button class="nav-item" data-view="requests"><span data-ic="inbox"></span>Requests<span class="n-badge">5</span></button>
+    <button class="nav-item" data-view="briefing"><span data-ic="book"></span>Briefing Book</button>
+
+    <div class="nav-sec">The Field</div>
+    <button class="nav-item" data-view="relationships"><span data-ic="users"></span>Relationships</button>
+    <button class="nav-item" data-view="intel"><span data-ic="feed"></span>Intelligence</button>
+    <button class="nav-item" data-view="priorities"><span data-ic="chart"></span>Priorities</button>
+
+    <div class="nav-sec">Accountability</div>
+    <button class="nav-item" data-view="commitments"><span data-ic="check"></span>Commitments</button>
+    <button class="nav-item" data-view="message"><span data-ic="message"></span>Message</button>
+
+    <div class="side-foot">Prototype v2 · reverse-engineered from Chief AI, skinned for SEIU.</div>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="tt">Wednesday, July 8</div>
+      <div class="meta">
+        <span><span data-ic="pin"></span>Oakland, CA</span>
+        <span><span data-ic="clock"></span>Pacific</span>
+        <span><span data-ic="sun"></span>68°F</span>
+      </div>
+      <div class="right">
+        <div class="search"><span data-ic="search"></span><input placeholder="Ask across people, events, memos…"></div>
+        <button class="top-btn"><span data-ic="plus"></span>New request</button>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- DAY -->
+      <section class="view active" id="view-day">
+        <div class="page-head">
+          <div class="eyebrow">Wednesday · July 8 · 2026</div>
+          <h1>The Day</h1>
+          <p>Everything the President needs in the car. Each block carries the context that matters: who is in the room, why it exists, the ask to land, and the one thing not to step on.</p>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="lbl"><span data-ic="calendar"></span>Today</div><div class="val">4</div><div class="sub">events · <span class="em w">1</span> needs a decision</div></div>
+          <div class="stat"><div class="lbl"><span data-ic="inbox"></span>Inbound</div><div class="val">5</div><div class="sub"><span class="em">5</span> requests to triage</div></div>
+          <div class="stat"><div class="lbl"><span data-ic="users"></span>Relationships</div><div class="val">3</div><div class="sub"><span class="em w">3</span> priority, cooling</div></div>
+          <div class="stat"><div class="lbl"><span data-ic="check"></span>Commitments</div><div class="val">7</div><div class="sub">open · <span class="em d">2</span> overdue</div></div>
+        </div>
+
+        <div class="grid g-wide">
+          <div class="card">
+            <div class="card-h"><h2>Schedule</h2><div class="act"><span class="lbl">Today</span><button class="icon-btn" data-ic="chevron"></button></div></div>
+            <div class="card-b" id="daySchedule"></div>
+            <div style="padding:0 18px 18px"><button class="btn btn-dark btn-block" onclick="switchView('briefing')"><span data-ic="printer"></span>Export briefing book</button></div>
+          </div>
+          <div class="g-col">
+            <div class="card">
+              <div class="card-h"><h2>Needs the President</h2><span class="badge hold"><span class="bd"></span>3 open</span></div>
+              <div class="card-b tight" id="needsList"></div>
+            </div>
+            <div class="card">
+              <div class="card-h"><h2>Active now</h2><span class="card-h k">Live</span></div>
+              <div class="card-b tight">
+                <div class="row"><span class="temp cold" style="gap:0"><i style="width:7px;height:7px;background:var(--warn)"></i></span><div><div class="lead">Homecare strike authorization vote</div><div class="sub">USWW · counts expected 4:00 PM PT</div></div></div>
+                <div class="row"><span class="temp cold" style="gap:0"><i style="width:7px;height:7px;background:var(--ink-3)"></i></span><div><div class="lead">Hospital-system ULP filing</div><div class="sub">Comms drafting the line · press may call</div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- REQUESTS -->
+      <section class="view" id="view-requests">
+        <div class="page-head">
+          <div class="eyebrow">Intake pipeline</div>
+          <h1>Requests</h1>
+          <p>The biggest time sink in the office. Requests arrive from the scheduling form and email, the system proposes a disposition with its reasoning, and every human confirm or override trains the model to triage the next one.</p>
+        </div>
+        <div class="grid g-wide">
+          <div class="card">
+            <div class="card-h"><h2>Inbound queue</h2><div class="act"><button class="text-btn"><span data-ic="refresh"></span>Refresh</button></div></div>
+            <div class="card-b tight" id="requestList"></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2>Detail</h2><span class="card-h k">Triage</span></div>
+            <div class="card-b" id="requestDetail"><div style="color:var(--ink-3);font-size:13px;padding:40px 8px;text-align:center">Select a request to triage it.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- BRIEFING -->
+      <section class="view" id="view-briefing">
+        <div class="page-head">
+          <div class="eyebrow">Auto-compiled</div>
+          <h1>Briefing Book</h1>
+          <p>Assembled from the schedule, the relationship records, and linked memos. One click to print. No binder assembly at 11pm.</p>
+        </div>
+        <div class="grid g-wide">
+          <div class="card"><div class="card-b brief" style="padding:20px 22px">
+            <div class="bh">Wednesday, July 8, 2026</div>
+            <div class="bmeta"><b>Location</b><span>Oakland, CA</span><b>Timezone</b><span>Pacific Time</span><b>Weather</b><span>68°F, clear</span><b>Staff</b><span>J. Okafor (body), R. Singh (advance)</span></div>
+            <div id="briefBody"></div>
+          </div></div>
+          <div class="g-col">
+            <div class="card"><div class="card-h"><h2>Export</h2></div><div class="card-b">
+              <button class="btn btn-primary btn-block" style="margin-bottom:9px"><span data-ic="printer"></span>Print full book (PDF)</button>
+              <button class="btn btn-ghost btn-block" style="margin-bottom:9px"><span data-ic="send"></span>Send to iPad</button>
+              <button class="btn btn-ghost btn-block"><span data-ic="share"></span>Share (tiered access)</button>
+              <div class="note">Role-based access: body and COS see the full book. Regional staff see only their segment. Chief AI's access model, hardened for internal union politics.</div>
+            </div></div>
+            <div class="card"><div class="card-h"><h2>Auto-included</h2></div><div class="card-b tight" id="autoInc"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RELATIONSHIPS -->
+      <section class="view" id="view-relationships">
+        <div class="page-head">
+          <div class="eyebrow">Living CRM</div>
+          <h1>Relationships</h1>
+          <p>Every transcript, note, and press mention on a contact flows into their record and gets distilled to what matters now. Tracks the labor world Chief AI cannot: locals, affiliates, peer presidents, movement partners, electeds, with temperature and last-contact decay.</p>
+        </div>
+        <div class="grid g-wide">
+          <div class="card">
+            <div class="card-h"><h2>Directory</h2><div class="act"><button class="text-btn"><span data-ic="plus"></span>Add</button></div></div>
+            <div style="padding:12px 18px 4px;display:flex;gap:6px;flex-wrap:wrap" id="relFilters"></div>
+            <div class="card-b tight" id="relList"></div>
+          </div>
+          <div class="g-col">
+            <div class="card">
+              <div class="card-h"><h2>Going cold</h2><span class="card-h k">Decay</span></div>
+              <div class="card-b tight" id="coldList"></div>
+            </div>
+            <div class="card">
+              <div class="card-h"><h2>Network</h2></div>
+              <div class="card-b legend" id="relBreakdown"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- INTEL -->
+      <section class="view" id="view-intel">
+        <div class="page-head">
+          <div class="eyebrow">Bespoke feed</div>
+          <h1>Intelligence</h1>
+          <p>Newsclips toggled by power-relationship. Every clip carries a so-what: the headline, then what it means for the next move.</p>
+        </div>
+        <div class="card">
+          <div class="toggles" id="intelToggles"></div>
+          <div id="intelFeed"></div>
+        </div>
+      </section>
+
+      <!-- PRIORITIES -->
+      <section class="view" id="view-priorities">
+        <div class="page-head">
+          <div class="eyebrow">Time &amp; attention</div>
+          <h1>Priorities</h1>
+          <p>Where the President's time actually goes, measured against the mission. Ask in plain language.</p>
+        </div>
+        <div class="ask" onclick="this.querySelector('input').focus()">
+          <span class="spark" data-ic="spark"></span>
+          <input id="askInput" placeholder="How is my time allocated over the next week?" onkeydown="if(event.key==='Enter')askQuery()">
+          <button class="go" onclick="askQuery()"><span data-ic="arrow"></span></button>
+        </div>
+        <div class="answer" id="askAnswer"></div>
+        <div class="grid g-2" style="margin-top:20px">
+          <div class="card">
+            <div class="card-h"><h2>Time by mission area</h2><div class="act"><span class="lbl">This week</span></div></div>
+            <div class="card-b">
+              <div style="display:flex;justify-content:center;padding:10px 0 16px" id="donutWrap"></div>
+              <div class="legend" id="donutLegend"></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2>Insights</h2><div class="act"><span class="lbl">Next 7 days · Hours</span></div></div>
+            <div class="card-b">
+              <div class="bars" id="barChart"></div>
+              <div class="bar-x" id="barLabels"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- COMMITMENTS -->
+      <section class="view" id="view-commitments">
+        <div class="page-head">
+          <div class="eyebrow">The ledger</div>
+          <h1>Commitments</h1>
+          <p>What the President owes, and what the President is owed. The difference between a promise landing and rotting.</p>
+        </div>
+        <div class="grid g-2">
+          <div class="card"><div class="card-h"><h2>We owe</h2><span class="badge hold"><span class="bd"></span>7 open</span></div><div class="card-b tight" id="weOwe"></div></div>
+          <div class="card"><div class="card-h"><h2>Owed to us</h2><span class="badge scheduled"><span class="bd"></span>Leverage</span></div><div class="card-b tight" id="owedUs"></div></div>
+        </div>
+      </section>
+
+      <!-- MESSAGE -->
+      <section class="view" id="view-message">
+        <div class="page-head">
+          <div class="eyebrow">This week</div>
+          <h1>Message</h1>
+          <p>Message discipline is a staffing product. Five events a day, one script, handed to the President every time.</p>
+        </div>
+        <div class="grid g-2">
+          <div class="card">
+            <div class="card-h"><h2>Approved lines</h2><span class="pill accent">Comms-cleared</span></div>
+            <div class="card-b">
+              <div class="ml"><span class="mk ok" data-ic="check-c"></span><div>"AI answers to the workers it affects, not the other way around. Labor writes these rules, or we live with rules written against us."</div></div>
+              <div class="ml"><span class="mk ok" data-ic="check-c"></span><div>"We're not asking permission to organize the AI economy. We're already doing it."</div></div>
+              <div class="ml"><span class="mk ok" data-ic="check-c"></span><div>"Every contract we win now is a template for two million workers facing the same technology."</div></div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2>Do not say</h2><span class="card-h k">Guardrail</span></div>
+            <div class="card-b">
+              <div class="ml"><span class="mk no" data-ic="ban"></span><div>No specifics on the homecare strike vote until USWW counts certify.<div class="donot">Legal and political exposure until 4:00 PM PT.</div></div></div>
+              <div class="ml"><span class="mk no" data-ic="ban"></span><div>Don't name the Governor's office as a partner on the AI taskforce.<div class="donot">Disclosure guard: internal clearance required first.</div></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="scrim" id="scrim" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal"></div></div>
+
+<script>
+/* ---------- icons ---------- */
+const P={
+  calendar:'<rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/>',
+  inbox:'<path d="M3 12h5l1.5 2.5h5L21 12"/><path d="M4 12l2.5-7.5A2 2 0 0 1 8.4 3h7.2a2 2 0 0 1 1.9 1.5L20 12v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/>',
+  book:'<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v18H6.5A1.5 1.5 0 0 1 5 19.5z"/><path d="M5 16.5A1.5 1.5 0 0 1 6.5 15H19"/>',
+  users:'<circle cx="9" cy="8" r="3.2"/><path d="M3.5 20v-1.5A4 4 0 0 1 7.5 14.5h3A4 4 0 0 1 14.5 18.5V20M16 5.2a3.2 3.2 0 0 1 0 6M20.5 20v-1.5a4 4 0 0 0-2.8-3.8"/>',
+  feed:'<path d="M4 21V5a2 2 0 0 1 2-2h9l5 5v13"/><path d="M8 8h6M8 12h8M8 16h5"/>',
+  chart:'<path d="M4 3v17a1 1 0 0 0 1 1h16"/><rect x="7.5" y="12" width="2.6" height="6" rx=".5"/><rect x="12" y="8.5" width="2.6" height="9.5" rx=".5"/><rect x="16.5" y="5.5" width="2.6" height="12.5" rx=".5"/>',
+  check:'<path d="M4 12.5l4.5 4.5L20 5.5"/>',
+  'check-c':'<circle cx="12" cy="12" r="9"/><path d="M8 12l2.8 2.8L16 9"/>',
+  message:'<path d="M20 15.5a2 2 0 0 1-2 2H8l-4 3.5V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z"/>',
+  ban:'<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
+  search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/>',
+  pin:'<path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  clock:'<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/>',
+  sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  chevron:'<path d="M6 9l6 6 6-6"/>',
+  refresh:'<path d="M20 11a8 8 0 0 0-14-5.3L4 8M4 4v4h4M4 13a8 8 0 0 0 14 5.3L20 16M20 20v-4h-4"/>',
+  printer:'<path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7" rx="1"/>',
+  send:'<path d="M21 3L3 10.5l7 2.5 2.5 7z"/><path d="M21 3l-11 11"/>',
+  share:'<circle cx="6" cy="12" r="2.5"/><circle cx="17" cy="6" r="2.5"/><circle cx="17" cy="18" r="2.5"/><path d="M8.2 10.8l6.6-3.6M8.2 13.2l6.6 3.6"/>',
+  spark:'<path d="M12 3l1.8 5.4L19 10l-5.2 1.6L12 17l-1.8-5.4L5 10l5.2-1.6z"/>',
+  arrow:'<path d="M7 17L17 7M8 7h9v9"/>',
+  x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  cal2:'<rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9h18M8 2.5v4M16 2.5v4"/>',
+  phone:'<path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h2.1a1.5 1.5 0 0 1 1.5 1.3l.5 3a1.5 1.5 0 0 1-.7 1.5l-1.3.9a12 12 0 0 0 5 5l.9-1.3a1.5 1.5 0 0 1 1.5-.7l3 .5a1.5 1.5 0 0 1 1.3 1.5v2.1a1.5 1.5 0 0 1-1.6 1.5A16 16 0 0 1 4 6z"/>',
+  alert:'<path d="M12 3l9.5 16.5H2.5z"/><path d="M12 10v4M12 17.5v.01"/>'
+};
+function ic(n,s=16,sw=1.7,cls=''){return `<svg class="${cls}" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${P[n]||''}</svg>`}
+document.querySelectorAll('[data-ic]').forEach(e=>{const n=e.dataset.ic;const s=e.closest('.nav-item')?17:(e.closest('.stat')||e.closest('.brand')?14:15);e.innerHTML=ic(n,e.closest('.btn')||e.closest('.top-btn')?15:s)});
+
+/* ---------- data ---------- */
+const schedule=[
+  {time:"9:00 AM",t:"Local 1021 Leadership Roundtable",d:"Oakland · bargaining escalation · J. Okafor",tag:"scheduled",who:"Local 1021 executive board",why:"They feel unheard on the hospital contract. Show up before it becomes a floor fight.",ask:"Commit to a joint press event if talks stall.",mine:"Do not promise strike-fund money in the room.",people:["Marcus Feld"]},
+  {time:"11:15 AM",t:"Homecare Bargaining Update",d:"Call · USWW · needs a decision",tag:"review",who:"USWW bargaining team",why:"Strike authorization vote lands today. They want air cover.",ask:"They want you on the picket line Thursday.",mine:"Nothing public until counts certify (see Message).",people:["Sophia Vasquez"]},
+  {time:"1:30 PM",t:"AFL-CIO Sec-Treasurer 1:1",d:"Lunch · peer principal · coalition",tag:"scheduled",who:"AFL-CIO Secretary-Treasurer",why:"Aligning the federation behind labor's AI position before the fall convention.",ask:"You want their endorsement of the AI & Labor charter.",mine:"Sore about endorsement timing last cycle. Acknowledge it early.",people:["Ray Coleman"]},
+  {time:"4:00 PM",t:"AI & Labor Taskforce Briefing",d:"Prep for Exec Board · priority",tag:"scheduled",who:"Internal taskforce and policy staff",why:"Charter goes to the board Friday. Last shaping session.",ask:"Lock the three deliverables so the board vote is clean.",mine:"Do not reopen the funding debate. It's settled.",people:[]}
+];
+const needs=[
+  {t:"Approve 32BJ convention keynote date",m:"Scheduling needs a yes to hold the room.",due:"Overdue",over:true},
+  {t:"Sign the AI & Labor taskforce charter",m:"Goes to the Exec Board Friday.",due:"Jul 9",over:false},
+  {t:"Call back Local 1021 President",m:"Second attempt. Bargaining escalation.",due:"2 days",over:true}
+];
+const requests=[
+  {id:0,name:"Podcast: Labor & AI",date:"Jul 11",status:"review",type:"Media",press:"Recorded",dur:"30 min",people:["L. Braun (host)"],desc:"National labor podcast, 400k listeners. Wants the President on the AI organizing push. Friendly outlet, strong reach with rank-and-file.",rec:"accept",why:"Matches your top message priority this month, friendly reach, low prep. You've accepted 4 of 4 similar media asks."},
+  {id:1,name:"Governor's Office Call",date:"Jul 12",status:"review",type:"Political",press:"Private",dur:"20 min",people:["Governor's staff"],desc:"Governor's team wants to discuss state AI procurement standards. Real opportunity, but the disclosure guard applies.",rec:"accept",why:"High-value political relationship. Flagging the disclosure guard: no public partnership framing until internal clearance."},
+  {id:2,name:"32BJ Convention Keynote",date:"Aug 3",status:"hold",type:"Movement",press:"Open Press",dur:"45 min",people:["Kendra Ross"],desc:"Affiliate convention, 2,000 delegates. Scheduling needs a yes to hold the main-stage slot.",rec:"accept",why:"Ross is a warm, rising ally and the base visibility is high. Time-sensitive: room releases in 48h."},
+  {id:3,name:"Coalition Partner Dinner",date:"Jul 15",status:"scheduled",type:"Partner",press:"Private",dur:"2 hr",people:["Immigrant rights coalition"],desc:"Relationship maintenance with a key movement partner. Confirmed.",rec:"accept",why:"Already scheduled. Miripol's coalition is going cold, so this is well-timed."},
+  {id:4,name:"Press: Strike Authorization",date:"Jul 8",status:"declined",type:"Media",press:"Open Press",dur:"15 min",people:["Regional press"],desc:"Too much exposure before USWW counts certify.",rec:"decline",why:"Conflicts with the do-not-say guardrail. Revisit after 4:00 PM PT if the vote passes clean."}
+];
+const relationships=[
+  {name:"Marcus Feld",org:"SEIU Local 1021",cat:"Local",role:"President, Local 1021",temp:"cooling",last:"14d",context:["Ran on a reform slate in 2023.","Daughter just started at Berkeley, ask about it.","Wants a heads-up call before any public SEIU move in his region."],orgs:["Local 1021","Bay Area Labor Council"],eng:[["Local 1021 Roundtable","Jun 24"],["Regional bargaining summit","May 2"]],ai:"Local 1021 filed a new ULP against Sutter. SF Chronicle, Jun 30."},
+  {name:"Sophia Vasquez",org:"USWW",cat:"Local",role:"Lead Organizer, Homecare",temp:"warm",last:"2d",context:["Built homecare organizing from 400 to 12,000 members.","Direct, hates being managed. Give her room.","Owes you nothing and says so. Respect it."],orgs:["USWW","Homecare Council"],eng:[["Bargaining prep","Jul 6"],["Strike readiness call","Jul 1"]],ai:"Homecare strike authorization vote scheduled today. LA Times, Jul 7."},
+  {name:"Ray Coleman",org:"AFL-CIO",cat:"Peer President",role:"Secretary-Treasurer",temp:"cooling",last:"31d",context:["Old-guard federation figure, thinks SEIU moves too fast.","Still stung by the endorsement timing last cycle.","Responds to being consulted first, not informed after."],orgs:["AFL-CIO"],eng:[["Federation exec council","Jun 7"],["Joint AI policy call","Apr 19"]],ai:"Signaled openness to a federation-wide AI framework. Politico, Jun 28."},
+  {name:"Kendra Ross",org:"SEIU 32BJ",cat:"Affiliate",role:"President, 32BJ",temp:"warm",last:"6d",context:["Rising star, likely to run for higher federation office.","Strong with property-services and building workers.","Reliable ally on the AI charter."],orgs:["32BJ"],eng:[["32BJ leadership call","Jul 2"],["East Coast strategy","Jun 12"]],ai:"Announced a 32BJ AI-displacement survey of 5,000 members. Bloomberg Law, Jul 1."},
+  {name:"Aaron Miripol",org:"Community Partners Alliance",cat:"Movement Partner",role:"Executive Director",temp:"cold",last:"48d",context:["Anchors the community-labor coalition in three states.","Felt sidelined on the last joint campaign.","Wants co-branding, not a logo on the flyer."],orgs:["Community Partners Alliance"],eng:[["Coalition planning","May 21"],["Joint action debrief","Apr 8"]],ai:"CPA launched a new economic-justice campaign with no SEIU listed. Local press, Jun 25."},
+  {name:"Bridget Holt",org:"State Assembly",cat:"Elected",role:"Assembly Labor Chair",temp:"warm",last:"9d",context:["Carried the last two pro-labor bills.","Wants the President at her town hall in the fall.","Reliable, but needs public credit."],orgs:["State Assembly"],eng:[["Bill signing","Jun 29"],["Field program briefing","Jun 3"]],ai:"Introduced an AI-transparency bill for public employers. State wire, Jul 2."},
+  {name:"David Okonkwo",org:"Horizon Foundation",cat:"Funder",role:"Program Officer, Future of Work",temp:"cooling",last:"22d",context:["Controls a $4M future-of-work portfolio.","Data-driven, wants outcomes not vision.","Warm on the taskforce but needs a concrete ask."],orgs:["Horizon Foundation"],eng:[["Grant check-in","Jun 16"],["Portfolio review","May 5"]],ai:"Horizon opened an RFP on worker-centered AI. Inside Philanthropy, Jun 27."}
+];
+const intel={
+  "Our Union":[{src:"SEIU Press",h:"President's AI organizing push draws national coverage",so:"<b>So what:</b> the frame is landing. Reinforce it at the 4:00 PM taskforce briefing. The board reads this coverage."}],
+  "Locals":[{src:"SF Chronicle",h:"Local 1021 files new ULP against Sutter Health",so:"<b>So what:</b> you see Feld at 9:00. Acknowledge the filing directly. He will expect you to know."},{src:"LA Times",h:"USWW homecare workers vote on strike authorization today",so:"<b>So what:</b> Vasquez wants you on the line Thursday. Decide before the 4:00 count, not after."}],
+  "Movement Partners":[{src:"Local press",h:"Community Partners Alliance launches campaign, SEIU not listed",so:"<b>So what:</b> Miripol is drifting, 48 days cold. This is the visible symptom. Call before the coalition dinner."}],
+  "Peer Presidents":[{src:"Politico",h:"AFL-CIO signals openness to a federation-wide AI framework",so:"<b>So what:</b> Coleman moved your way in print. Use the 1:30 lunch to lock it before he cools."}],
+  "Opposition":[{src:"Bloomberg Law",h:"Hospital systems coordinate on AI staffing tools ahead of bargaining",so:"<b>So what:</b> employer counter-move. Feed this to the bargaining teams before the next session."}],
+  "Political":[{src:"State wire",h:"Assembly Labor Chair introduces AI-transparency bill",so:"<b>So what:</b> Holt is delivering. Line up the President's public credit. She needs it, and it cements the relationship."}]
+};
+const timeAlloc=[{label:"Organizing",v:9.5,c:"#552A93"},{label:"Bargaining",v:6.0,c:"#7A4AC4"},{label:"Political",v:4.0,c:"#9E77D6"},{label:"Movement",v:3.5,c:"#C3ABE6"},{label:"Internal Gov.",v:5.0,c:"#E2D6F2"}];
+const barData=[{label:"Organizing",v:9.5},{label:"Bargaining",v:6.0},{label:"Political",v:4.0},{label:"Internal",v:5.0}];
+const weOwe=[
+  {t:"Picket-line appearance, homecare",m:"Promised Vasquez if the vote passes",due:"Jul 10",over:false},
+  {t:"Public credit for the Assembly labor bill",m:"Owe Holt a statement and an event",due:"Jul 9",over:false},
+  {t:"Co-branding fix with Community Partners",m:"Owe Miripol a real answer, not a logo",due:"Jul 3",over:true},
+  {t:"32BJ keynote confirmation",m:"Scheduling waiting on your yes",due:"Jul 8",over:true},
+  {t:"Funder concept note, Horizon RFP",m:"Okonkwo needs a concrete ask",due:"Jul 14",over:false}
+];
+const owedUs=[
+  {t:"AFL-CIO endorsement of the AI charter",m:"Coleman signaled yes in print",due:"By conv."},
+  {t:"Governor's AI procurement meeting",m:"Their office requested it",due:"Jul 12"},
+  {t:"32BJ member AI survey data",m:"Ross offered the raw numbers",due:"Aug"},
+  {t:"Coalition turnout for the fall action",m:"Three partners committed",due:"Sep"}
+];
+
+/* ---------- render ---------- */
+const initials=n=>n.split(" ").map(w=>w[0]).slice(0,2).join("");
+
+document.getElementById("daySchedule").innerHTML=schedule.map((s,i)=>`
+  <div class="sched" onclick="openEvent(${i})">
+    <div class="time">${s.time}</div>
+    <div style="min-width:0"><div class="st">${s.t}</div><div class="sd">${s.d}</div></div>
+    <div class="rt"><span class="badge ${s.tag}"><span class="bd"></span>${s.tag==='review'?'Decide':'Set'}</span></div>
+  </div>`).join("");
+
+document.getElementById("needsList").innerHTML=needs.map(n=>`
+  <div class="commit"><div class="chk">${ic('check',11,2.4)}</div>
+  <div style="min-width:0"><div class="ct">${n.t}</div><div class="cm">${n.m}</div></div>
+  <div class="due ${n.over?'over':''}">${n.over?ic('alert',11,1.9):''}${n.due}</div></div>`).join("");
+document.querySelectorAll('#needsList .chk').forEach(c=>c.onclick=function(){this.classList.toggle('done');this.parentElement.querySelector('.ct').classList.toggle('done')});
+
+document.getElementById("briefBody").innerHTML=schedule.map(s=>`
+  <div class="bi"><div class="bt">${s.time}</div><div class="bn">${s.t}</div>
+  <div class="bl"><b>Why</b><span>${s.why}</span></div>
+  <div class="bl"><b>The ask</b><span>${s.ask}</span></div>
+  <div class="bl"><b>Landmine</b><span>${s.mine}</span></div>
+  <div><span class="link">${ic('arrow',12,1.8)} Linked memo</span></div></div>`).join("");
+document.getElementById("autoInc").innerHTML=["Bios and last-contact for every name","Linked memos and talking points","The ask and the landmine per event"].map(x=>`<div class="row"><span class="accent-dot" style="margin:0"></span><div class="lead" style="font-weight:450">${x}</div></div>`).join("");
+
+function renderRequests(){document.getElementById("requestList").innerHTML=requests.map(r=>`
+  <div class="row click" onclick="showRequest(${r.id})">
+    <div style="min-width:0"><div class="lead">${r.name}</div><div class="sub">${r.type} · ${r.date}</div></div>
+    <div class="rt"><span class="badge ${r.status}"><span class="bd"></span>${r.status.charAt(0).toUpperCase()+r.status.slice(1)}</span></div>
+  </div>`).join("")}
+renderRequests();
+function showRequest(id){const r=requests[id];const recAccept=r.rec==='accept';
+  document.getElementById("requestDetail").innerHTML=`
+    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px"><div style="min-width:0"><div style="font-size:16px;font-weight:600;letter-spacing:-.02em">${r.name}</div></div><span class="badge ${r.status}" style="margin-left:auto"><span class="bd"></span>${r.status.charAt(0).toUpperCase()+r.status.slice(1)}</span></div>
+    <div class="m-tags" style="margin:0 0 4px">
+      <span class="pill">${r.type}</span><span class="pill">${r.press}</span><span class="pill">${ic('clock',12,1.7)} ${r.date} · ${r.dur}</span>
+    </div>
+    <div class="sec-l">Related people</div>
+    <div class="m-tags" style="margin:0">${r.people.map(p=>`<span class="pill accent">${p}</span>`).join("")}</div>
+    <div class="sec-l">Description</div>
+    <p style="font-size:13px;color:var(--ink-2);line-height:1.6">${r.desc}</p>
+    <div class="sec-l">Suggested disposition</div>
+    <div class="ai-row"><span class="spark">${ic('spark',15,1.7)}</span>
+      <div><b>${recAccept?'Add to schedule':'Decline'}.</b> ${r.why}</div>
+    </div>
+    <div style="display:flex;gap:9px;margin-top:16px">
+      <button class="btn ${recAccept?'btn-primary':'btn-ghost'}" style="flex:1" onclick="triage(${id},'scheduled')">${ic('check',15,1.9)} Add to schedule</button>
+      <button class="btn ${recAccept?'btn-ghost':'btn-primary'}" style="flex:1" onclick="triage(${id},'declined')">${ic('x',15,1.9)} Decline</button>
+    </div>
+    <div class="note">Every confirm or override becomes a labeled example. The queue triages itself a little better each week.</div>`;
+}
+function triage(id,s){requests[id].status=s;renderRequests();showRequest(id)}
+
+const cats=["All","Local","Affiliate","Peer President","Movement Partner","Elected","Funder"];
+let relFilter="All";
+function renderRelFilters(){document.getElementById("relFilters").innerHTML=cats.map(c=>`<button class="toggle ${c===relFilter?'on':''}" onclick="relFilter='${c}';renderRelFilters();renderRel()">${c}</button>`).join("")}
+function renderRel(){const list=relationships.filter(r=>relFilter==="All"||r.cat===relFilter);
+  document.getElementById("relList").innerHTML=list.map(r=>{const i=relationships.indexOf(r);return `
+    <div class="row click" onclick="openPerson(${i})">
+      <div class="mono-av">${initials(r.name)}</div>
+      <div style="min-width:0"><div class="lead">${r.name}</div><div class="sub">${r.role}</div></div>
+      <div class="rt"><span class="temp ${r.temp}"><i></i><i></i><i></i></span><span class="mono-meta" style="width:26px;text-align:right">${r.last}</span></div>
+    </div>`}).join("")}
+renderRelFilters();renderRel();
+document.getElementById("coldList").innerHTML=relationships.filter(r=>r.temp!=="warm").sort((a,b)=>parseInt(b.last)-parseInt(a.last)).map(r=>{const i=relationships.indexOf(r);return `
+  <div class="row click" onclick="openPerson(${i})"><span class="temp ${r.temp}" style="gap:0"><i style="width:7px;height:7px;background:${r.temp==='cold'?'var(--danger)':'var(--warn)'}"></i></span>
+  <div style="min-width:0"><div class="lead">${r.name}</div><div class="sub">${r.cat}</div></div>
+  <div class="rt"><span class="mono-meta">${r.last} cold</span></div></div>`}).join("");
+const cc={};relationships.forEach(r=>cc[r.cat]=(cc[r.cat]||0)+1);
+document.getElementById("relBreakdown").innerHTML=`<div class="lg total">Total tracked<span class="v">${relationships.length}</span></div>`+Object.entries(cc).map(([k,v])=>`<div class="lg"><span class="sw" style="background:var(--accent)"></span>${k}<span class="v">${v}</span></div>`).join("");
+
+function openPerson(i){const r=relationships[i];const tl={warm:"Warm",cooling:"Cooling",cold:"Cold"}[r.temp];
+  document.getElementById("modal").innerHTML=`
+    <div class="m-h"><button class="icon-btn x" onclick="closeModal()">${ic('x',16,1.8)}</button>
+      <h2>${r.name}</h2><div class="st">${r.role}</div>
+      <div class="m-tags"><span class="pill accent">${r.cat}</span><span class="pill">${ic('clock',12,1.7)} ${r.last} ago</span><span class="pill"><span class="temp ${r.temp}"><i></i><i></i><i></i></span> ${tl}</span></div>
+    </div>
+    <div class="m-b">
+      <div class="sec-l">Personal context</div>
+      ${r.context.map(c=>`<div class="ctx"><span class="spark">${ic('spark',14,1.7)}</span><div>${c}</div></div>`).join("")}
+      <div class="sec-l">Related organizations</div>
+      <div class="m-tags">${r.orgs.map(o=>`<span class="pill">${o}</span>`).join("")}</div>
+      <div class="sec-l">Past engagements</div>
+      ${r.eng.map(e=>`<div class="eng"><span>${e[0]}</span><span class="dt">${ic('cal2',12,1.6)} ${e[1]}</span></div>`).join("")}
+    </div>
+    <div style="padding:0 22px 20px"><div class="ai-row"><span class="spark">${ic('spark',15,1.7)}</span><div><b>From the feed:</b> ${r.ai}</div>
+      <div class="ai-act"><button class="y" onclick="closeModal()">${ic('check',14,2)}</button><button class="n" onclick="closeModal()">${ic('x',14,2)}</button></div></div></div>`;
+  document.getElementById("scrim").classList.add("show");
+}
+function openEvent(i){const s=schedule[i];
+  document.getElementById("modal").innerHTML=`
+    <div class="m-h"><button class="icon-btn x" onclick="closeModal()">${ic('x',16,1.8)}</button>
+      <h2>${s.t}</h2><div class="st">${s.time} · ${s.d.split('·')[0].trim()}</div>
+      <div class="m-tags"><span class="pill">Event</span>${s.tag==='review'?'<span class="pill accent">Needs a decision</span>':'<span class="pill">Confirmed</span>'}</div>
+    </div>
+    <div class="m-b">
+      <div class="sec-l">Who's in the room</div><p style="font-size:13px">${s.who}</p>
+      <div class="sec-l">Why it exists</div><p style="font-size:13px;color:var(--ink-2);line-height:1.6">${s.why}</p>
+      <div class="sec-l">The ask to land</div><p style="font-size:13px">${s.ask}</p>
+      <div class="sec-l">Landmine</div><div class="donot" style="margin-top:0">${s.mine}</div>
+      ${s.people.length?`<div class="sec-l">Related people</div><div class="m-tags">${s.people.map(p=>{const pi=relationships.findIndex(r=>r.name===p);return `<span class="pill accent" style="cursor:pointer" onclick="${pi>=0?`openPerson(${pi})`:''}">${p}</span>`}).join("")}</div>`:''}
+    </div>
+    <div class="m-f"><button class="btn btn-primary" style="flex:1" onclick="closeModal()">${ic('check',15,1.9)} Confirm</button><button class="btn btn-ghost" style="flex:1" onclick="closeModal()">Add note</button></div>`;
+  document.getElementById("scrim").classList.add("show");
+}
+function closeModal(){document.getElementById("scrim").classList.remove("show")}
+
+const keys=Object.keys(intel);let on=new Set(keys);
+function renderToggles(){document.getElementById("intelToggles").innerHTML=keys.map(k=>`<button class="toggle ${on.has(k)?'on':''}" onclick="tog('${k}')"><span class="bd"></span>${k}</button>`).join("")}
+function tog(k){on.has(k)?on.delete(k):on.add(k);renderToggles();renderIntel()}
+function renderIntel(){let h="";keys.forEach(k=>{if(on.has(k))intel[k].forEach(c=>{h+=`<div class="clip show"><div class="src-line"><span class="cat-dot"></span><span class="src-name">${k} · ${c.src}</span></div><h3>${c.h}</h3><div class="sowhat">${c.so}</div></div>`})});document.getElementById("intelFeed").innerHTML=h||`<div style="padding:40px;text-align:center;color:var(--ink-3);font-size:13px">Toggle a feed to see clips.</div>`}
+renderToggles();renderIntel();
+
+/* donut */
+(function(){const total=timeAlloc.reduce((a,b)=>a+b.v,0),r=64,c=2*Math.PI*r;let off=0;
+  const rings=timeAlloc.map(s=>{const len=s.v/total*c;const el=`<circle cx="80" cy="80" r="${r}" fill="none" stroke="${s.c}" stroke-width="17" stroke-dasharray="${len-1.5} ${c-len+1.5}" stroke-dashoffset="${-off}" transform="rotate(-90 80 80)" stroke-linecap="butt"/>`;off+=len;return el}).join("");
+  document.getElementById("donutWrap").innerHTML=`<svg width="160" height="160" viewBox="0 0 160 160">${rings}<text x="80" y="76" text-anchor="middle" font-family="Inter" font-weight="600" font-size="27" letter-spacing="-1" fill="#1A181D">${total}</text><text x="80" y="93" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="1.5" fill="#9C99A2">HOURS</text></svg>`;
+  document.getElementById("donutLegend").innerHTML=timeAlloc.map(s=>`<div class="lg"><span class="sw" style="background:${s.c}"></span>${s.label}<span class="pct">${Math.round(s.v/total*100)}%</span><span class="v">${s.v}h</span></div>`).join("");
+})();
+/* bars */
+(function(){const max=Math.max(...barData.map(b=>b.v));
+  document.getElementById("barChart").innerHTML=barData.map(b=>`<div class="bar-col"><div class="bar" style="height:${b.v/max*100}%"><span class="bv">${b.v}h</span></div></div>`).join("");
+  document.getElementById("barLabels").innerHTML=barData.map(b=>`<div>${b.label}</div>`).join("");
+})();
+function askQuery(){const a=document.getElementById("askAnswer");
+  a.innerHTML=`Over the next 7 days the President spends <b>9.5h on organizing</b> and <b>6h on bargaining</b>, so 55% of scheduled time sits on core movement work. <b>Political</b> is light at 4h with the Governor's-office request still pending. <b>Movement-partner</b> time (3.5h) runs under-weight while Miripol is going cold. Recommendation: convert one internal-governance block into a partner call before the coalition dinner.
+    <div class="src">${ic('spark',12,1.7)} schedule · relationship decay · commitments ledger</div>`;
+  a.classList.add("show");
+}
+
+document.getElementById("weOwe").innerHTML=weOwe.map(c=>`<div class="commit"><div class="chk">${ic('check',11,2.4)}</div><div style="min-width:0"><div class="ct">${c.t}</div><div class="cm">${c.m}</div></div><div class="due ${c.over?'over':''}">${c.over?ic('alert',11,1.9):''}${c.due}</div></div>`).join("");
+document.querySelectorAll('#weOwe .chk').forEach(c=>c.onclick=function(){this.classList.toggle('done');this.parentElement.querySelector('.ct').classList.toggle('done')});
+document.getElementById("owedUs").innerHTML=owedUs.map(c=>`<div class="commit"><span class="accent-dot"></span><div style="min-width:0"><div class="ct">${c.t}</div><div class="cm">${c.m}</div></div><div class="due">${c.due}</div></div>`).join("");
+
+function switchView(v){document.querySelectorAll(".view").forEach(e=>e.classList.remove("active"));document.getElementById("view-"+v).classList.add("active");document.querySelectorAll(".nav-item").forEach(n=>n.classList.toggle("active",n.dataset.view===v));window.scrollTo(0,0)}
+document.querySelectorAll(".nav-item").forEach(n=>n.addEventListener("click",()=>switchView(n.dataset.view)));
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+</script>
+</body>
+</html>
