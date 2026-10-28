@@ -16,33 +16,16 @@ const THUMBS_IN = path.join(ROOT, '..', 'vault', 'public', 'thumbs');
 
 const DOCS = [
   'dnc-autopsy-taken-apart',
-  'ai-governance-checklist',
-  'ai-lobbyist-player-map',
-  'cba-win-pattern-playbook',
-  'every-political-dollar-buys-less',
-  'federal-agency-ai-inventory',
-  'hoplight-persuasion-story-page',
   'oregon-school-budget-report',
-  'pdi-trust-dilution-model',
-  'redistricting-seat-shifts',
-  'where-political-money-actually-works',
   'worker-equity-dilution-at-ge',
 ];
 
 // Bet Appetit is left out on purpose: its thumbnail shows real names, and the demo copy gets its own.
 const THUMBS = [
   'agis-policy-search-aria',
-  'ai-governance-checklist',
-  'ai-lobbyist-player-map',
-  'cba-win-pattern-playbook',
   'dnc-autopsy-taken-apart',
-  'every-political-dollar-buys-less',
-  'federal-agency-ai-inventory',
   'oregon-school-budget-report',
-  'pdi-trust-dilution-model',
-  'redistricting-seat-shifts',
   'what-s-human',
-  'where-political-money-actually-works',
   'which-ai-should-i-use',
   'worker-equity-dilution-at-ge',
 ];
