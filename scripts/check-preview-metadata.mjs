@@ -287,17 +287,8 @@ async function main() {
   // under public/portfolio/*.html had titles but no description, canonical, or preview image.
   // scripts/add-portfolio-metadata.mjs is what adds these; this checks the deployed result.
   const PORTFOLIO_PAGES = [
-    'ai-governance-checklist',
-    'ai-lobbyist-player-map',
-    'cba-win-pattern-playbook',
     'dnc-autopsy-taken-apart',
-    'every-political-dollar-buys-less',
-    'federal-agency-ai-inventory',
-    'hoplight-persuasion-story-page',
     'oregon-school-budget-report',
-    'pdi-trust-dilution-model',
-    'redistricting-seat-shifts',
-    'where-political-money-actually-works',
     'worker-equity-dilution-at-ge',
   ];
   for (const slug of PORTFOLIO_PAGES) {

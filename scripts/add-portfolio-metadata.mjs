@@ -23,17 +23,8 @@ const MARKER = 'data-hoplight-pmeta';
 // Card titles match src/app/(main)/portfolio/page.tsx's PIECES array exactly, for consistency
 // with how each piece is already named on the gallery that links to it.
 const TITLES = {
-  'ai-governance-checklist': 'AI governance checklist',
-  'ai-lobbyist-player-map': 'AI lobbyist player map',
-  'cba-win-pattern-playbook': 'CBA win pattern playbook',
   'dnc-autopsy-taken-apart': 'DNC autopsy, taken apart',
-  'every-political-dollar-buys-less': 'Every political dollar buys less',
-  'federal-agency-ai-inventory': 'Federal agency AI inventory',
-  'hoplight-persuasion-story-page': 'Hoplight persuasion story page',
   'oregon-school-budget-report': 'Oregon school budget report',
-  'pdi-trust-dilution-model': 'PDI trust dilution model',
-  'redistricting-seat-shifts': 'Redistricting seat shifts',
-  'where-political-money-actually-works': 'Where political money actually works',
   'worker-equity-dilution-at-ge': 'Worker equity dilution at GE',
 };
 
@@ -41,28 +32,10 @@ const TITLES = {
 // substantive <p>, quoted or paraphrased down to fit — see the done-file for the exact source
 // line per page.
 const DESCRIPTIONS = {
-  'ai-governance-checklist':
-    'For mission-driven organizations beginning AI adoption, an interactive checklist to work through with your team.',
-  'ai-lobbyist-player-map':
-    "Who's lobbying on AI, how much they're spending, and what they want.",
-  'cba-win-pattern-playbook':
-    'What unions have actually won on AI at the bargaining table.',
   'dnc-autopsy-taken-apart':
     "A systematic examination of what the DNC's 2024 after-action report says, what it omits, and what it means for Democratic politics.",
-  'every-political-dollar-buys-less':
-    'Federal election spending grew 5.1x from 2000 to 2024 while inflation grew 1.8x: higher unit costs, collapsing contact rates, pricier media.',
-  'federal-agency-ai-inventory':
-    'What every federal agency is doing on AI, compiled and made browsable in plain English.',
-  'hoplight-persuasion-story-page':
-    'Progressive messaging works with the choir. The groups progressives count on are leaving, and the headlines say it all.',
   'oregon-school-budget-report':
     'Five years of Oregon K-12 spending across all 197 districts shows where the money actually goes, and where it does not reach the classroom.',
-  'pdi-trust-dilution-model':
-    'A three-bucket worker trust model: transitional income, dilution-vulnerable equity, and portable individual accounts.',
-  'redistricting-seat-shifts':
-    'Likely flips and battleground districts, mapped by floor and ceiling seat shifts.',
-  'where-political-money-actually-works':
-    'Federal election spending has tripled since 2000, but a competitive state legislative seat often costs a fraction of a federal one.',
   'worker-equity-dilution-at-ge':
     "An 80-year simulation (1940-2020) testing three equity structures against GE's historical headcount, revenue, and turnover.",
 };

@@ -80,3 +80,12 @@
   curated row that carries a feed number as its own. Both pages read one loader,
   `src/lib/undo/load.ts`. The five-model Design Murder Board webhook was refused by the session's
   auto-mode classifier (outbound POST), so the review was the three in-house critics.
+
+## The Command Center door, `/command-center` (added 2026-10-28, lane sendlist1)
+
+- **What it is:** the July 2026 chief-of-staff desk prototype (v2), shown to one person at a time behind its own password. Whit, 2026-10-23: "give it a password". Its copy is his mockup, unchanged apart from self-hosted fonts and neutral ground colours.
+- **Route:** `src/app/command-center/route.ts` (GET serves the page or the sign-in form, POST is the form sign-in). Door logic: `src/lib/command-center.ts`. Page file: `src/private/command-center.html`, read at request time, so the route is the only way in (`outputFileTracingIncludes` in `next.config.ts` ships it).
+- **Password:** env var name `COMMAND_CENTER_PASSWORD` on the `hoplight` Vercel project (production, preview, development). The value lives there and in no file. A request passes with Basic auth (any user plus the password) or the thirty-day `cc_access` cookie. With the variable missing, nobody gets in (fails closed).
+- **Test:** `scripts/command-center.test.mjs`, seven tests, part of `npm test`. It is the proof that his own way in still works; a change to the door is not done until it passes.
+- **Never add `/command-center` to the site gate** (`GATED_PREFIXES` in `src/lib/gate.ts` once the site-posture branch lands; the file does not exist on main yet). The door is page-level on one route so one link can go to one person, and it never touches the site-wide sign-in.
+- **Merge note:** when `site-posture-mockups` merges, the `package.json` test line carries both lists (gate and nav tests from the branch, `command-center.test.mjs` from here).
