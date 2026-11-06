@@ -95,11 +95,15 @@
 - **What it is:** the grader Whit asked for on 2026-11-05 ("drop a press release from house oversight
   or a quote from jamie raskin or a news article and have it evaluated on this"), made a Hoplight tool
   on 2026-11-06 ("let's make this a hop light tool"; "make justice the second thing so that it rings").
-  Paste a statement or a link, or click one of the recent articles on the right; five readings as bars
-  out from a centre line between revenge and justice, the precedent pair, the words behind each
-  reading, three rewrites. Public, not in the nav, in the sitemap. `/revenge-or-justice/about` is the
+  Paste a statement or a link, or click one of the recent articles on the right. The politicians and
+  operatives in their own words come first; a toggle reads the outlet's own framing on the same scale,
+  and the whole text last (Whit, 2026-11-06: "i should see the politicians and operative etc first, and
+  i should be able to toggle to have the outlet/coverage evaluated"); within a voice, one tab per issue.
+  Five readings as bars out from a centre line between revenge and justice, the precedent pair, the
+  words behind each reading with the speaker named on each quoted line, three rewrites. Public, not in the nav, in the sitemap. `/revenge-or-justice/about` is the
   why, the record and how it reads, in Whit's own words from his Substack draft of 2026-11-05 and his
-  message of 2026-11-06; nothing in his voice was written for him.
+  messages of 2026-11-06, as short blocks with a bold lead-in, no location, his name as the sign-off and
+  a Send feedback button to /contact; nothing in his voice was written for him.
 - **Where the grader lives:** NOT here. `/api/revenge-or-justice` and `/api/revenge-or-justice/feed`
   forward to quick-tools (`/api/justice-or-retribution`, `/api/justice-feed`, behind that site's
   sign-in) with this site's own `PRIVATE_SITE_USER` / `PRIVATE_SITE_PASSWORD` pair, so the Anthropic
