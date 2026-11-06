@@ -43,7 +43,8 @@ export function initRevengeOrJustice(root) {
     var views = [];
     if (voices.politicians) views.push({ k: 'politicians', label: 'The politicians', j: voices.politicians });
     if (voices.coverage) views.push({ k: 'coverage', label: 'The coverage', j: voices.coverage });
-    views.push({ k: 'all', label: views.length ? 'All of it' : 'All together', j: reply });
+    // A column or an editorial has no politicians' words: the coverage is the whole text, so there is one reading and no toggle.
+    if (!(voices.coverage && voices.coverage.whole && !voices.politicians)) views.push({ k: 'all', label: views.length ? 'All of it' : 'All together', j: reply });
     var vt = $('voices'), tabs = $('issues'), issues = reply.issues || [];
     var issuesOf = reply.issues_of || 'all';
     if (views.length > 1) {
@@ -55,14 +56,14 @@ export function initRevengeOrJustice(root) {
     } else { vt.innerHTML = ''; vt.classList.remove('on'); }
     function ctxFor(v){
       if (v.k === 'politicians') return { kind: 'politicians', speakers: v.j.speakers || [], passages: v.j.passages || [], share: v.j.share };
-      if (v.k === 'coverage') return { kind: 'coverage', outlet: v.j.outlet || '', share: v.j.share };
+      if (v.k === 'coverage') return { kind: 'coverage', outlet: v.j.outlet || '', share: v.j.whole ? 0 : v.j.share, fetched: reply.fetched };
       return { kind: 'all' };
     }
     function pick(k){
       Array.prototype.forEach.call(vt.querySelectorAll('button'), function(b){ b.setAttribute('aria-selected', b.getAttribute('data-v') === k ? 'true' : 'false'); });
       var v = views.filter(function(x){ return x.k === k; })[0] || views[views.length - 1];
       var ctx = ctxFor(v);
-      var withIssues = issues.length >= 2 && ((k === 'politicians' && issuesOf === 'politicians') || (k === 'all' && issuesOf === 'all'));
+      var withIssues = issues.length >= 2 && ((k === 'politicians' && issuesOf === 'politicians') || (k === 'all' && issuesOf === 'all') || (k === 'coverage' && v.j.whole && issuesOf === 'all'));
       if (withIssues) {
         tabs.innerHTML = '<button type="button" role="tab" data-k="all" aria-selected="true">All together</button>' +
           issues.map(function(it, n){ return '<button type="button" role="tab" data-k="' + n + '" aria-selected="false">' + esc(it.name) + '</button>'; }).join('');
@@ -86,7 +87,7 @@ export function initRevengeOrJustice(root) {
     ctx = ctx || { kind: 'all' };
     var m = [];
     if (ctx.kind === 'politicians') m.push('The words of ' + esc(names(ctx.speakers)) + (ctx.share ? ', ' + esc(ctx.share) + '% of the text' : ''));
-    else if (ctx.kind === 'coverage') m.push((ctx.outlet ? esc(ctx.outlet) + '\u2019s' : 'The outlet\u2019s') + ' own framing' + (ctx.share ? ', ' + esc(ctx.share) + '% of the text' : ''));
+    else if (ctx.kind === 'coverage') { m.push((ctx.outlet ? esc(ctx.outlet) + '\u2019s' : 'The outlet\u2019s') + ' own framing' + (ctx.share ? ', ' + esc(ctx.share) + '% of the text' : '')); if (!ctx.share && ctx.fetched) m.push('Read from <a href="' + esc(ctx.fetched) + '" target="_blank" rel="noopener">' + esc(host(ctx.fetched)) + '</a>'); }
     if (issue) {
       m.push('This issue is ' + esc(issue.share) + '% of ' + (ctx.kind === 'politicians' ? 'their words' : 'the text'));
     } else if (ctx.kind === 'all') {

@@ -62,9 +62,10 @@ export default async function AboutPage() {
   return (
     <div className="rj rj-about">
       <div className="rj-wrap">
-        <div className="rj-head">
+        <div className="rj-head rj-abouthead">
+          <p className="up"><a href="/revenge-or-justice">Revenge or Justice, the tool</a></p>
           <h1>Why this exists</h1>
-          <p className="rj-lede">Retribution and revenge have a strong draw in this moment. But history has valuable insights on how to exact justice without blowing all of your political capital.</p>
+          <p className="finding">Retribution and revenge have a strong draw in this moment. But history has valuable insights on how to exact justice without blowing all of your political capital.</p>
         </div>
 
         <div className="prose">
@@ -123,9 +124,8 @@ export default async function AboutPage() {
 
           <div className="signoff">
             <p>Thanks for reading, using this tool, and sharing. If you have feedback, email it here.</p>
-            <a className="rj-btn" href="/contact">Send feedback</a>
             <p className="name">Whit Pendergast</p>
-            <p className="back"><a href="/revenge-or-justice">Back to the tool</a></p>
+            <a className="rj-btn" href="/contact">Send feedback</a>
           </div>
         </div>
       </div>
