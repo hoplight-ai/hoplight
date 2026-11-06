@@ -35,41 +35,69 @@ export function initRevengeOrJustice(root) {
     return '<i class="bar ' + side(p) + (p < 50 ? ' left' : '') + (extra || '') + '" style="left:' + left + '%;width:' + w + '%" data-left="' + left + '%" data-width="' + w + '%"></i>';
   }
 
-  // A text about several issues gets one tab per issue, each graded on its own passages, and the whole text last.
+  // Whose words: the politicians and operatives first, the outlet's own framing on a toggle, the whole text last
+  // (Whit, 2026-11-06: "in the output i should see the politicians and operative etc first, and i should be able
+  // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
-    var issues = reply.issues || [];
-    var tabs = $('issues');
-    if (issues.length >= 2) {
-      tabs.innerHTML = issues.map(function(it, k){ return '<button type="button" role="tab" data-k="' + k + '" aria-selected="false">' + esc(it.name) + '</button>'; }).join('') +
-        '<button type="button" role="tab" data-k="all" aria-selected="false">All together</button>';
-      tabs.classList.add('on');
-      Array.prototype.forEach.call(tabs.querySelectorAll('button'), function(b){
-        b.addEventListener('click', function(){ select(b.getAttribute('data-k')); window.scrollTo({ top: 0, behavior: 'auto' }); });
+    var voices = reply.voices || {};
+    var views = [];
+    if (voices.politicians) views.push({ k: 'politicians', label: 'The politicians', j: voices.politicians });
+    if (voices.coverage) views.push({ k: 'coverage', label: 'The coverage', j: voices.coverage });
+    views.push({ k: 'all', label: views.length ? 'All of it' : 'All together', j: reply });
+    var vt = $('voices'), tabs = $('issues'), issues = reply.issues || [];
+    var issuesOf = reply.issues_of || 'all';
+    if (views.length > 1) {
+      vt.innerHTML = views.map(function(v){ return '<button type="button" role="tab" data-v="' + v.k + '" aria-selected="false">' + esc(v.label) + '</button>'; }).join('');
+      vt.classList.add('on');
+      Array.prototype.forEach.call(vt.querySelectorAll('button'), function(b){
+        b.addEventListener('click', function(){ pick(b.getAttribute('data-v')); window.scrollTo({ top: 0, behavior: 'auto' }); });
       });
-      select('0');
-    } else {
-      tabs.innerHTML = ''; tabs.classList.remove('on');
-      show(reply, null);
+    } else { vt.innerHTML = ''; vt.classList.remove('on'); }
+    function ctxFor(v){
+      if (v.k === 'politicians') return { kind: 'politicians', speakers: v.j.speakers || [], passages: v.j.passages || [], share: v.j.share };
+      if (v.k === 'coverage') return { kind: 'coverage', outlet: v.j.outlet || '', share: v.j.share };
+      return { kind: 'all' };
     }
-    function select(k){
-      Array.prototype.forEach.call(tabs.querySelectorAll('button'), function(b){ b.setAttribute('aria-selected', b.getAttribute('data-k') === k ? 'true' : 'false'); });
-      if (k === 'all') show(reply, null); else show(issues[+k], issues[+k]);
+    function pick(k){
+      Array.prototype.forEach.call(vt.querySelectorAll('button'), function(b){ b.setAttribute('aria-selected', b.getAttribute('data-v') === k ? 'true' : 'false'); });
+      var v = views.filter(function(x){ return x.k === k; })[0] || views[views.length - 1];
+      var ctx = ctxFor(v);
+      var withIssues = issues.length >= 2 && ((k === 'politicians' && issuesOf === 'politicians') || (k === 'all' && issuesOf === 'all'));
+      if (withIssues) {
+        tabs.innerHTML = '<button type="button" role="tab" data-k="all" aria-selected="true">All together</button>' +
+          issues.map(function(it, n){ return '<button type="button" role="tab" data-k="' + n + '" aria-selected="false">' + esc(it.name) + '</button>'; }).join('');
+        tabs.classList.add('on');
+        Array.prototype.forEach.call(tabs.querySelectorAll('button'), function(b){
+          b.addEventListener('click', function(){
+            var key = b.getAttribute('data-k');
+            Array.prototype.forEach.call(tabs.querySelectorAll('button'), function(x){ x.setAttribute('aria-selected', x.getAttribute('data-k') === key ? 'true' : 'false'); });
+            if (key === 'all') show(v.j, null, ctx); else show(issues[+key], issues[+key], ctx);
+            window.scrollTo({ top: 0, behavior: 'auto' });
+          });
+        });
+      } else { tabs.innerHTML = ''; tabs.classList.remove('on'); }
+      show(v.j, null, ctx);
     }
+    pick(views[0].k);
   }
 
-  function show(j, issue){
+  function names(list){ var n = list.map(function(x){ return x.name; }); return n.length <= 1 ? n.join('') : n.slice(0, -1).join(', ') + ' and ' + n[n.length - 1]; }
+  function show(j, issue, ctx){
+    ctx = ctx || { kind: 'all' };
     var m = [];
+    if (ctx.kind === 'politicians') m.push('The words of ' + esc(names(ctx.speakers)) + (ctx.share ? ', ' + esc(ctx.share) + '% of the text' : ''));
+    else if (ctx.kind === 'coverage') m.push((ctx.outlet ? esc(ctx.outlet) + '\u2019s' : 'The outlet\u2019s') + ' own framing' + (ctx.share ? ', ' + esc(ctx.share) + '% of the text' : ''));
     if (issue) {
-      m.push('This issue is ' + esc(issue.share) + '% of the text');
-    } else {
+      m.push('This issue is ' + esc(issue.share) + '% of ' + (ctx.kind === 'politicians' ? 'their words' : 'the text'));
+    } else if (ctx.kind === 'all') {
       if (j.fetched) m.push('Read from <a href="' + esc(j.fetched) + '" target="_blank" rel="noopener">' + esc(host(j.fetched)) + '</a>');
-      if (j.issues && j.issues.length >= 2) m.push('all ' + j.issues.length + ' issues together');
+      if (j.voices && (j.voices.politicians || j.voices.coverage)) m.push('every voice together');
     }
     if (j.fallbacks && j.fallbacks.length) m.push('<span class="warn">' + j.fallbacks.length + (j.fallbacks.length === 1 ? ' model refused' : ' models refused') + ' before this one answered</span>');
-    if (j.error) m.push('<span class="warn">this issue could not be graded: ' + esc(j.error) + '</span>');
+    if (j.error) m.push('<span class="warn">this reading could not be graded: ' + esc(j.error) + '</span>');
     $('meta').innerHTML = m.join(' · ');
     $('verdict').textContent = j.error ? '' : (j.verdict === 'mixed' ? 'Mixed' : j.verdict ? 'Leans ' + word(j.verdict) : '');
-    $('headline').textContent = j.error ? 'The grade for this issue did not come back.' : rw(j.headline || '');
+    $('headline').textContent = j.error ? 'This reading did not come back.' : rw(j.headline || '');
 
     var rows = j.rows || [];
     $('rows').innerHTML = rows.map(function(r, i){
@@ -83,11 +111,18 @@ export function initRevengeOrJustice(root) {
     $('detail').innerHTML = rows.map(function(r, i){
       var s = side(r.position);
       var ev = r.evidence ? '<dd class="ev">' + esc(r.evidence) + '</dd>' : '<dd class="ev none">The text says nothing on this.</dd>';
+      var said = 'They said';
+      if (ctx.kind === 'coverage') said = (ctx.outlet ? ctx.outlet : 'The outlet') + ' wrote';
+      else if (ctx.kind === 'politicians' && r.evidence) {
+        var q = String(r.evidence).toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/\s+/g, ' ').trim().slice(0, 80);
+        var hit = (ctx.passages || []).filter(function(p){ return String(p.text || '').toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/\s+/g, ' ').indexOf(q) >= 0; })[0];
+        if (hit) said = hit.who + ' said';
+      }
       var rec = r.precedent ? '<dt>The record</dt><dd class="rec">' + esc(r.precedent_line || '') + ' ' + esc(r.precedent.name) + ', ' + esc(r.precedent.year) + ' (' + src(r.precedent) + ').</dd>' : '';
       return '<article class="r" id="row' + i + '">' +
         '<div class="rh"><span class="thumb" aria-hidden="true">' + bar(r.position) + '</span>' +
         '<h3>' + esc(r.title) + '</h3><span class="side ' + s + '">' + Math.round(r.position) + ', ' + sideWords(r.position) + '</span></div>' +
-        '<dl class="tiers"><dt>They said</dt>' + ev +
+        '<dl class="tiers"><dt>' + esc(said) + '</dt>' + ev +
         '<dt>How it reads</dt><dd class="crit">' + esc(rw(r.critique)) + '</dd>' + rec + '</dl></article>';
     }).join('');
 

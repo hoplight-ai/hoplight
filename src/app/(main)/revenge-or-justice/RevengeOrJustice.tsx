@@ -50,6 +50,7 @@ export default function RevengeOrJustice() {
         </div>
 
         <section id="out" aria-live="polite">
+          <div className="voices" id="voices" role="tablist" aria-label="Whose words to read" />
           <div className="issues" id="issues" role="tablist" aria-label="Which issue to read" />
           <div className="rj-hero">
             <p className="claim"><span className="v" id="verdict" /> <span id="headline" /></p>
