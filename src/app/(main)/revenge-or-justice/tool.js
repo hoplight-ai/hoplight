@@ -23,6 +23,8 @@ export function initRevengeOrJustice(root) {
   function side(pos){ return pos >= 62 ? 'justice' : pos <= 38 ? 'retribution' : 'mixed'; }
   // On hoplight.ai the bad side is called revenge (Whit, 2026-11-06: make justice the second thing so it rings). The API's word stays retribution; only what is shown changes.
   function word(s){ return s === 'retribution' ? 'revenge' : s; }
+  // The same swap in the model's own prose (the claim, the critiques, the rewrites and their reasons); the quoted evidence is the source's words and is never touched.
+  function rw(s){ return String(s == null ? '' : s).replace(/\bRetribution\b/g, 'Revenge').replace(/\bretribution\b/g, 'revenge'); }
   function sideWords(pos){ var s = side(pos); return s === 'mixed' ? 'mixed' : 'leans ' + word(s); }
   function src(p){ return p && p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.source) + '</a>' : esc(p && p.source || ''); }
   function host(u){ try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } }
@@ -67,7 +69,7 @@ export function initRevengeOrJustice(root) {
     if (j.error) m.push('<span class="warn">this issue could not be graded: ' + esc(j.error) + '</span>');
     $('meta').innerHTML = m.join(' · ');
     $('verdict').textContent = j.error ? '' : (j.verdict === 'mixed' ? 'Mixed' : j.verdict ? 'Leans ' + word(j.verdict) : '');
-    $('headline').textContent = j.error ? 'The grade for this issue did not come back.' : (j.headline || '');
+    $('headline').textContent = j.error ? 'The grade for this issue did not come back.' : rw(j.headline || '');
 
     var rows = j.rows || [];
     $('rows').innerHTML = rows.map(function(r, i){
@@ -86,14 +88,14 @@ export function initRevengeOrJustice(root) {
         '<div class="rh"><span class="thumb" aria-hidden="true">' + bar(r.position) + '</span>' +
         '<h3>' + esc(r.title) + '</h3><span class="side ' + s + '">' + Math.round(r.position) + ', ' + sideWords(r.position) + '</span></div>' +
         '<dl class="tiers"><dt>They said</dt>' + ev +
-        '<dt>How it reads</dt><dd class="crit">' + esc(r.critique || '') + '</dd>' + rec + '</dl></article>';
+        '<dt>How it reads</dt><dd class="crit">' + esc(rw(r.critique)) + '</dd>' + rec + '</dl></article>';
     }).join('');
 
     $('reframes').innerHTML = (j.reframes || []).map(function(f, i){
       var b = f.borrows ? ' Borrows ' + esc(f.borrows.name) + ', ' + esc(f.borrows.year) + ' (' + src(f.borrows) + ').' : '';
-      return '<div class="reframe"><h3>' + esc(f.label || ('Rewrite ' + (i + 1))) + '</h3>' +
-        '<p class="t" id="rf' + i + '">' + esc(f.text || '') + '</p>' +
-        '<p class="why">' + esc(f.why || '') + b + '</p><button class="copy" type="button" data-copy="rf' + i + '">Copy this rewrite</button></div>';
+      return '<div class="reframe"><h3>' + esc(rw(f.label || ('Rewrite ' + (i + 1)))) + '</h3>' +
+        '<p class="t" id="rf' + i + '">' + esc(rw(f.text)) + '</p>' +
+        '<p class="why">' + esc(rw(f.why)) + b + '</p><button class="copy" type="button" data-copy="rf' + i + '">Copy this rewrite</button></div>';
     }).join('') || '<p class="h2sub">No rewrite came back.</p>';
     if (j.dropped && j.dropped.length) {
       $('reframes').innerHTML += '<p class="dropped">' + j.dropped.length + (j.dropped.length === 1 ? ' rewrite was' : ' rewrites were') + ' thrown away for carrying a number the text does not contain (' + esc(j.dropped.map(function(d){ return d.numbers.join(', '); }).join('; ')) + ').</p>';
@@ -102,7 +104,7 @@ export function initRevengeOrJustice(root) {
     function precBlock(tag, p){
       if (!p) return '';
       return '<div class="prec"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div><h3>' + esc(p.name) + '</h3><div class="yr">' + esc(p.year) + '</div>' +
-        '<p class="this">' + esc(p.why_this_one || '') + '</p><p>' + esc(p.move) + '</p><p>' + esc(p.lesson) + '</p><p class="src">' + src(p) + '</p></div>';
+        '<p class="this">' + esc(rw(p.why_this_one)) + '</p><p>' + esc(p.move) + '</p><p>' + esc(p.lesson) + '</p><p class="src">' + src(p) + '</p></div>';
     }
     $('prec').innerHTML = precBlock('better', j.precedent && j.precedent.better) + precBlock('worse', j.precedent && j.precedent.worse);
 
