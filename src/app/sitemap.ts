@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   //
   // '/products' and '/insights' added 2026-10-20: the restructured nav (Products, Insights, Services,
   // FAQ, About). Every link on /insights opens a gated page; the page itself is open.
-  const paths = ['', '/products', '/insights', '/services', '/about', '/faq', '/contact', '/tools/which-ai', '/undo'];
+  const paths = ['', '/products', '/insights', '/services', '/about', '/faq', '/contact', '/tools/which-ai', '/undo', '/revenge-or-justice', '/revenge-or-justice/about'];
   // Fixed date rather than a build-time Date.now(): a `lastModified` that changes on every deploy
   // regardless of whether the page's content changed teaches crawlers to ignore the field. Bump
   // this by hand when a route's content actually changes. Added 2026-09-16 (SEO review #3): the
@@ -24,7 +24,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const RESTRUCTURED = ['', '/products', '/insights', '/services'];
   return paths.map((p) => ({
     url: `${ORIGIN}${p}`,
-    lastModified: p === '/undo' ? '2026-10-09' : RESTRUCTURED.includes(p) ? '2026-10-20' : LAST_MODIFIED,
+    lastModified: p.startsWith('/revenge-or-justice') ? '2026-11-06' : p === '/undo' ? '2026-10-09' : RESTRUCTURED.includes(p) ? '2026-10-20' : LAST_MODIFIED,
     changeFrequency: 'monthly' as const,
     priority: p === '' ? 1 : p === '/undo' ? 0.8 : 0.7,
   }));

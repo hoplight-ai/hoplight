@@ -80,3 +80,29 @@
   curated row that carries a feed number as its own. Both pages read one loader,
   `src/lib/undo/load.ts`. The five-model Design Murder Board webhook was refused by the session's
   auto-mode classifier (outbound POST), so the review was the three in-house critics.
+
+## Revenge or Justice, `/revenge-or-justice` (added 2026-11-06)
+
+- **What it is:** the grader Whit asked for on 2026-11-05 ("drop a press release from house oversight
+  or a quote from jamie raskin or a news article and have it evaluated on this"), made a Hoplight tool
+  on 2026-11-06 ("let's make this a hop light tool"; "make justice the second thing so that it rings").
+  Paste a statement or a link, or click one of the recent articles on the right; five readings as bars
+  out from a centre line between revenge and justice, the precedent pair, the words behind each
+  reading, three rewrites. Public, not in the nav, in the sitemap. `/revenge-or-justice/about` is the
+  why, the record and how it reads, in Whit's own words from his Substack draft of 2026-11-05 and his
+  message of 2026-11-06; nothing in his voice was written for him.
+- **Where the grader lives:** NOT here. `/api/revenge-or-justice` and `/api/revenge-or-justice/feed`
+  forward to quick-tools (`/api/justice-or-retribution`, `/api/justice-feed`, behind that site's
+  sign-in) with this site's own `PRIVATE_SITE_USER` / `PRIVATE_SITE_PASSWORD` pair, so the Anthropic
+  key stays on the one project that holds it. The rubric, the precedent corpus, the issue split, the
+  people and key words of the headline list, and the verify script are all in the quick-tools repo.
+  The API's word for the bad side stays `retribution`; `tool.js` shows `revenge`.
+- **The page is a port, on purpose:** `RevengeOrJustice.tsx` is static markup drawn into by id by
+  `tool.js`, the quick-tools page script as it stood at build v6 (plus the word swap and the route
+  names), and `revenge-or-justice.css` is that page's stylesheet scoped under `.rj` with the site's
+  tokens. React never re-renders the exhibit. Newsreader is loaded by the page for the quoted words
+  only.
+- **What stands between the public and a paid model call:** six readings an hour per address and
+  three hundred a day per instance (`checkLimitIn` in `src/lib/rate-limit.ts`, tested in
+  `scripts/intake-ratelimit.test.mjs`), both soft; the hard limit is a Vercel Firewall rate-limit
+  rule on the two routes, Whit's to set.

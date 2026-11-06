@@ -1,0 +1,195 @@
+/* Revenge or Justice (/revenge-or-justice). Ported 2026-11-06 from quick-tools/tools/justice-or-retribution.html
+   (Whit, 2026-11-06: "let's make this a hop light tool"). Every rule is scoped under .rj so the site's own
+   type and button rules stay out of the exhibit. Tokens come from globals.css where the site has them:
+   ink, gold, gold-deep, stone, danger (the retribution side's colour), measure. The serif has one job, the
+   words quoted from the pasted text (Newsreader, loaded by the page through next/font). */
+.rj{--ink:#0F1B2D;--white:#FFFFFF;--gold:#D4950A;--gold-deep:#996D00;--stone:#575752;--flag:var(--danger);
+  --ink2:#2A3F5F;--rule:rgba(15,27,45,.18);--rule2:rgba(15,27,45,.08);--hover:rgba(15,27,45,.04);
+  --sans:var(--font-body);--serif:var(--font-newsreader),Georgia,'Times New Roman',serif;
+  --s1:8px;--s2:16px;--s3:24px;--s4:32px;--s5:48px;--s6:64px;--s7:96px;--measure:65ch;
+  background:var(--white);color:var(--ink);font-family:var(--sans);font-weight:400;font-size:16px;line-height:1.6;font-variant-numeric:lining-nums}
+.rj *{box-sizing:border-box;margin:0;padding:0}
+.rj h1,.rj h2,.rj h3{letter-spacing:-.01em}
+.rj a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
+.rj a:hover{border-bottom-color:var(--gold)}
+.rj a:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6);border-radius:2px}
+.rj-wrap{max-width:960px;margin:0 auto;padding:0 var(--s3) var(--s6)}
+/* Ask */
+.rj-head{padding:var(--s5) 0 var(--s3);max-width:var(--measure)}
+.rj h1{font-size:clamp(28px,1.3rem + 1.6vw,36px);font-weight:500;letter-spacing:-.015em;line-height:1.15;text-wrap:balance}
+.rj .rj-lede{font-size:18px;line-height:1.5;color:var(--stone);margin-top:var(--s2)}
+.rj form{max-width:var(--measure)}
+.rj textarea{display:block;width:100%;min-height:240px;padding:var(--s2);font:inherit;font-size:16px;line-height:1.55;color:var(--ink);background:var(--white);border:1px solid var(--rule);border-radius:6px;resize:vertical;caret-color:var(--gold-deep)}
+.rj textarea::placeholder{color:var(--stone)}
+.rj textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(212,149,10,.5)}
+.rj-row{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s2);flex-wrap:wrap}
+/* The filled button is the site's Hoplight v2 primary (CCBRAND1, 2026-10-15): gold, ink text, gold-hot on hover, 4px radius. */
+.rj-btn{font:inherit;font-weight:500;font-size:16px;padding:11px 20px;min-height:44px;border:0;border-radius:4px;background:var(--gold);color:var(--ink);cursor:pointer;transition:background .15s ease-out}
+.rj-btn:focus-visible{outline:none;box-shadow:0 0 0 3px var(--gold-deep),0 0 0 5px var(--white)}
+.rj-btn[disabled]{opacity:.45;cursor:default}
+@media (hover:hover){.btn:not([disabled]):hover{background:#e8a820}}
+.rj .quiet{font-size:14px;color:var(--stone)}
+.rj .quiet button{font:inherit;color:var(--ink2);background:none;border:0;padding:0;border-bottom:1px solid var(--rule);cursor:pointer;min-height:44px}
+.rj .quiet button:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
+.rj #rubric{display:none;margin-top:var(--s2);padding:var(--s2) 0 0;border-top:1px solid var(--rule2);font-size:16px;line-height:1.5;color:var(--ink2)}
+.rj #rubric.on{display:block}
+.rj #rubric dt{font-weight:500;color:var(--ink);margin-top:var(--s1)}
+.rj #rubric dd{margin:0 0 var(--s1)}
+.rj #status{margin-top:var(--s2);font-size:16px;color:var(--stone);min-height:1.5em}
+.rj #status.err{color:var(--flag)}
+.rj #status.busy::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;border:2px solid var(--rule);border-top-color:var(--gold);margin-right:8px;vertical-align:-1px;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* After a read, the ask collapses to one line so the exhibit is the first thing on screen. */
+.rj .strip{display:none;align-items:center;gap:var(--s3);padding:var(--s3) 0;border-bottom:1px solid var(--rule2);margin-top:var(--s2)}
+.rj .strip.on{display:flex;flex-wrap:wrap}
+.rj .strip .what{flex:1 1 320px;min-width:0;font-size:16px;color:var(--stone);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rj .strip .what b{font-weight:500;color:var(--ink)}
+.rj.read .rj-top{display:none}
+/* The headline list: recent articles the grader can read, one click each. */
+.rj .feed{max-width:var(--measure);margin-top:var(--s5);padding-top:var(--s3);border-top:1px solid var(--rule2)}
+/* From 1100px the headline list stands to the right of the box (Whit, 2026-11-06: "put the article list to the right"). */
+@media (min-width:1100px){
+  .rj-wrap{max-width:1180px}
+  .rj-top{display:grid;grid-template-columns:minmax(0,var(--measure)) minmax(320px,1fr);grid-template-rows:auto 1fr;column-gap:var(--s7);align-items:start}
+  .rj-top .rj-head,.rj-top form{grid-column:1}
+  .rj-top .feed{grid-column:2;grid-row:1/3;margin-top:0;padding-top:var(--s5);border-top:0;max-width:none;position:sticky;top:84px;max-height:calc(100vh - 84px);overflow-y:auto;padding-right:var(--s2)}
+  .rj-top .feed h2{padding-top:var(--s2)}
+}
+.rj .feed h2{margin-top:0;padding-top:0;border-top:0;font-size:18px}
+.rj .feed .h2sub{font-size:14px}
+.rj .feed ol{list-style:none;margin-top:var(--s2)}
+.rj .feed li{border-top:1px solid var(--rule2)}
+.rj .feed li:first-child{border-top:0}
+.rj .feed .pick{display:block;width:100%;text-align:left;font:inherit;background:none;border:0;padding:12px 0;cursor:pointer;color:var(--ink)}
+.rj .feed .pick:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--gold)}
+@media (hover:hover){.feed .pick:hover .hl{text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:3px}}
+.rj .feed .hl{font-size:16px;line-height:1.4;font-weight:400;color:var(--ink2)}
+.rj .feed .by{display:block;margin-top:3px;font-size:14px;color:var(--stone)}
+.rj .feed li.rj-more{display:none}
+.rj .feed ol.open li.rj-more{display:block}
+.rj .feed li.all{border-top:0;padding-top:var(--s2)}
+.rj .quietbtn{font:inherit;font-size:14px;color:var(--ink2);background:none;border:0;padding:0;border-bottom:1px solid var(--rule);cursor:pointer;min-height:44px}
+.rj .quietbtn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
+.rj .feed .by b{font-weight:500;color:var(--ink2)}
+.rj .feed .note{font-size:14px;color:var(--stone);margin-top:var(--s2)}
+.rj .feed .note.err{color:var(--flag)}
+/* Exhibit */
+.rj #out{display:none}
+.rj #out.on{display:block}
+/* One tab per issue the text addresses, each graded on its own passages; the whole text last. */
+.rj .issues{display:none;gap:0 var(--s3);border-bottom:1px solid var(--rule);margin-top:var(--s3);flex-wrap:wrap}
+.rj .issues.on{display:flex}
+.rj .issues button{font:inherit;font-size:16px;font-weight:500;color:var(--stone);background:none;border:0;border-bottom:2px solid transparent;padding:10px 0 12px;margin-bottom:-1px;min-height:44px;text-align:left;cursor:pointer}
+.rj .issues button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.rj .issues button:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6);border-radius:2px}
+@media (hover:hover){.issues button:hover{color:var(--ink)}}
+.rj .rj-hero{padding-top:var(--s5)}
+.rj .claim{font-size:clamp(23px,1.1rem + 1.4vw,31px);line-height:1.3;letter-spacing:-.012em;font-weight:400;max-width:30em;text-wrap:balance}
+.rj .claim .v{font-weight:500;color:var(--ink);box-shadow:inset 0 -3px 0 var(--gold)}
+.rj .claim .v::after{content:"."}
+.rj .claim .v:empty::after{content:none}
+.rj .meta{font-size:14px;line-height:1.5;color:var(--stone);margin-top:var(--s2)}
+.rj .meta a{color:var(--stone)}
+.rj .meta .warn{color:var(--flag)}
+/* The signature element: five readings as bars out from one centre line, length left for retribution, right for justice, hollow for mixed. */
+.rj .instrument{position:relative;margin-top:var(--s4);padding-top:var(--s2)}
+.rj .ends{display:grid;grid-template-columns:minmax(150px,260px) 1fr 44px;column-gap:var(--s3);font-size:14px;color:var(--stone)}
+.rj .ends .l{grid-column:2;display:flex;justify-content:space-between}
+.rj .ends .l span:first-child{color:var(--flag)}
+.rj .ends .l span:last-child{color:var(--ink)}
+.rj-rows{position:relative}
+.rj .ir{position:relative;z-index:1;display:grid;grid-template-columns:minmax(150px,260px) 1fr 44px;column-gap:var(--s3);align-items:center;min-height:48px;border-top:1px solid var(--rule2);cursor:pointer}
+.rj .ir:first-child{border-top:0}
+@media (hover:hover){.ir:hover{background:var(--hover)}}
+.rj .ir:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--gold)}
+.rj .ir .t{font-size:16px;line-height:1.3;font-weight:500;color:var(--ink);padding:6px 0;hyphens:none;overflow-wrap:normal}
+.rj .ir .track{position:relative;height:48px}
+.rj .ir .track::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--rule2)}
+.rj .ir .track::after{content:"";position:absolute;left:50%;top:8px;height:32px;width:1px;background:var(--ink);z-index:3}
+.rj .bar{position:absolute;top:14px;height:20px;box-sizing:border-box;background:var(--ink);border-radius:0 3px 3px 0;transition:left .6s cubic-bezier(.2,.7,.2,1),width .6s cubic-bezier(.2,.7,.2,1)}
+.rj .bar.retribution{background:var(--flag);border-radius:3px 0 0 3px}
+.rj .bar.mixed{background:var(--white);border:2px solid var(--ink)}
+.rj .bar.mixed.left{border-radius:3px 0 0 3px;border-right:0}
+.rj .bar.left{border-radius:3px 0 0 3px}
+.rj .ir .n{font-size:16px;color:var(--stone);text-align:right;font-variant-numeric:tabular-nums lining-nums}
+.rj .ir .n.retribution{color:var(--flag)}
+.rj .ir .bar{z-index:2}
+/* Row by row: the same three tiers in the same places, so the eye learns the pattern once. */
+.rj h2{font-size:23px;line-height:1.3;font-weight:500;letter-spacing:-.01em;margin-top:var(--s7);padding-top:var(--s3);border-top:1px solid var(--rule);max-width:var(--measure)}
+.rj .h2sub{font-size:16px;line-height:1.5;color:var(--stone);margin-top:4px;max-width:var(--measure)}
+.rj .r{margin-top:var(--s5);scroll-margin-top:var(--s3)}
+.rj .r.lit{animation:lit 1.2s ease-out}
+@keyframes lit{0%{background:rgba(212,149,10,.14)}100%{background:transparent}}
+.rj .rh{display:flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.rj .rh .thumb{position:relative;width:72px;height:20px;flex:0 0 72px}
+.rj .rh .thumb::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--rule2)}
+.rj .rh .thumb::after{content:"";position:absolute;left:50%;top:2px;height:16px;width:1px;background:var(--ink);z-index:3}
+.rj .rh .thumb .bar{top:5px;height:10px;transition:none;border-radius:0 2px 2px 0}
+.rj .rh .thumb .bar.left{border-radius:2px 0 0 2px}
+.rj .rh .thumb .bar.mixed{border-width:1.5px}
+.rj .rh h3{font-size:18px;font-weight:500;letter-spacing:-.01em;line-height:1.3}
+.rj .rh .side{font-size:14px;color:var(--stone);font-variant-numeric:tabular-nums}
+.rj .rh .side.retribution{color:var(--flag)}
+.rj .tiers{display:grid;grid-template-columns:120px 1fr;column-gap:var(--s3);row-gap:var(--s2);margin-top:var(--s2);max-width:calc(120px + var(--s3) + var(--measure))}
+.rj .tiers dt{font-size:14px;line-height:1.5;color:var(--stone);padding-top:6px}
+.rj .tiers dd{min-width:0}
+.rj .ev{font-family:var(--serif);font-size:23px;line-height:1.4;color:var(--ink);padding-left:var(--s2);border-left:2px solid var(--rule)}
+.rj .ev.none{font-family:var(--sans);font-size:16px;line-height:1.5;color:var(--stone);border-left-color:var(--rule);padding-left:var(--s2)}
+.rj .crit{font-size:16px;line-height:1.6;color:var(--ink2)}
+.rj .rec{font-size:14px;line-height:1.5;color:var(--stone)}
+.rj .rec a{color:var(--ink2)}
+/* Rewrites */
+.rj .reframe{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--rule2);max-width:var(--measure)}
+.rj .reframe h3{font-size:18px;font-weight:500}
+.rj .reframe .why a{color:var(--ink2)}
+.rj .reframe p.t{font-size:16px;line-height:1.65;margin-top:var(--s2);white-space:pre-wrap}
+.rj .reframe .why{font-size:14px;line-height:1.5;color:var(--stone);margin-top:var(--s2)}
+.rj .copy{font:inherit;font-size:14px;font-weight:500;color:var(--ink);background:none;border:1px solid var(--rule);border-radius:4px;padding:8px 14px;margin-top:var(--s2);cursor:pointer;min-height:40px;transition:border-color .15s ease-out,background .15s ease-out}
+.rj .copy:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
+@media (hover:hover){.copy:hover{border-color:var(--ink);background:var(--hover)}}
+.rj .dropped{font-size:14px;color:var(--stone);margin-top:var(--s3);max-width:var(--measure)}
+/* The pair: one who kept the public, one who lost them, side by side. */
+.rj .pair{display:grid;grid-template-columns:1fr 1fr;gap:var(--s5);margin-top:var(--s4)}
+.rj .prec{min-width:0;padding-top:var(--s3);border-top:1px solid var(--rule2)}
+.rj .prec .tag{font-size:14px;font-weight:500;color:var(--ink)}
+.rj .prec .tag.worse{color:var(--flag)}
+.rj .prec h3{font-size:23px;font-weight:500;letter-spacing:-.01em;line-height:1.25;margin-top:var(--s1);text-wrap:balance}
+.rj .prec .yr{font-size:14px;color:var(--stone);margin-top:2px;font-variant-numeric:tabular-nums}
+.rj .prec p{font-size:16px;line-height:1.6;color:var(--ink2);margin-top:var(--s2)}
+.rj .prec p.this{color:var(--ink);font-weight:500}
+.rj .prec .src{font-size:14px;color:var(--stone);margin-top:var(--s2)}
+.rj .prec .src a{color:var(--ink2)}
+.rj-foot{margin-top:var(--s7);padding-top:var(--s2);border-top:1px solid var(--rule2);font-size:14px;line-height:1.5;color:var(--stone);max-width:var(--measure)}
+@media (prefers-reduced-motion:reduce){.bar{transition:none}.r.lit{animation:none}#status.busy::before{animation:none}}
+@media (max-width:720px){
+  .rj-wrap{padding:0 var(--s2) var(--s5)}
+  .rj-head{padding-top:var(--s4)}
+  .rj textarea{min-height:200px}
+  .rj .ends,.rj .ir{grid-template-columns:112px 1fr 32px;column-gap:12px}
+  .rj .claim{font-size:23px}
+  .rj .claim .v{font-size:28px}
+  .rj .ir .t{font-size:14px;line-height:1.25;padding:8px 0}
+  .rj .ir .n{font-size:14px}
+  .rj .ir .track{height:44px}
+  .rj .ir .track::after{top:6px}
+  .rj .bar{top:12px}
+  .rj .tiers{grid-template-columns:1fr;row-gap:4px}
+  .rj .tiers dt{padding-top:var(--s2)}
+  .rj .tiers dt:first-child{padding-top:0}
+  .rj .ev{font-size:18px}
+  .rj .pair{grid-template-columns:1fr;gap:var(--s3)}
+  .rj h2{margin-top:var(--s6)}
+}
+
+/* The about page: his words at the measure, the record as two lists. */
+.rj-about .prose{max-width:var(--measure)}
+.rj-about .prose p{font-size:18px;line-height:1.6;margin-top:var(--s2)}
+.rj-about .prose h2{font-size:23px;line-height:1.3;font-weight:500;margin-top:var(--s6);padding-top:var(--s3);border-top:1px solid var(--rule)}
+.rj-about .how{margin-top:var(--s3);padding-left:1.4em}
+.rj-about .how li{font-size:16px;line-height:1.6;margin-top:var(--s2)}
+.rj-about .how b{font-weight:500}
+.rj-about .record h3{font-size:16px;font-weight:500;margin-top:var(--s3)}
+.rj-about .record ul{list-style:none;margin-top:var(--s1)}
+.rj-about .record li{font-size:16px;line-height:1.6;padding:8px 0;border-top:1px solid var(--rule2)}
+.rj-about .record b{font-weight:500}
+.rj-about .byline{margin-top:var(--s6);padding-top:var(--s3);border-top:1px solid var(--rule);font-size:14px;color:var(--stone)}
