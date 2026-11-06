@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // '/rayli' added 2026-08-21 (SITE1): the flagship product had no page at all until then.
   // '/tools/which-ai' added 2026-09-16: live, linked from the nav and the portfolio, never listed.
   // '/undo' added 2026-10-09: The Undo List, live but deliberately unlinked from the nav.
-  const paths = ['', '/rayli', '/services', '/persuasion', '/research', '/about', '/faq', '/contact', '/portfolio', '/tools/which-ai', '/undo'];
+  const paths = ['', '/rayli', '/services', '/persuasion', '/research', '/about', '/faq', '/contact', '/portfolio', '/tools/which-ai', '/undo', '/revenge-or-justice', '/revenge-or-justice/about'];
   // The 12 static portfolio pieces under public/portfolio/*.html (review squad, 2026-09-16,
   // expert-seo.md #8: titled pages with no sitemap entry at all). Listed separately from `paths`
   // above because they live under a shared /portfolio/ prefix and carry their own, lower priority
@@ -33,7 +33,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const LAST_MODIFIED = '2026-09-16';
   const topLevel = paths.map((p) => ({
     url: `${ORIGIN}${p}`,
-    lastModified: p === '/undo' ? '2026-10-09' : LAST_MODIFIED,
+    lastModified: p.startsWith('/revenge-or-justice') ? '2026-11-06' : p === '/undo' ? '2026-10-09' : LAST_MODIFIED,
     changeFrequency: 'monthly' as const,
     priority: p === '' ? 1 : p === '/rayli' ? 0.9 : p === '/research' ? 0.9 : p === '/undo' ? 0.8 : 0.7,
   }));

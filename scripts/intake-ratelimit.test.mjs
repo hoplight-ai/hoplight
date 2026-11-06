@@ -26,3 +26,25 @@ test('a different IP is unaffected by another IP exhausting its window', () => {
   assert.equal(checkRateLimit(busyIp, now + 5), false, 'busyIp should be exhausted');
   assert.equal(checkRateLimit(freshIp, now + 5), true, 'freshIp should still be allowed');
 });
+
+// /api/revenge-or-justice (2026-11-06): its own buckets, its own ceilings, nothing shared with intake.
+import { checkLimitIn } from '../src/lib/rate-limit.ts';
+
+test('the grader allows six readings an hour from one address and refuses the seventh', () => {
+  const now = Date.now();
+  for (let i = 0; i < 6; i += 1) assert.equal(checkLimitIn('grade-ip', '198.51.100.7', 6, 3600000, now + i), true, `reading ${i + 1}`);
+  assert.equal(checkLimitIn('grade-ip', '198.51.100.7', 6, 3600000, now + 6), false, 'the seventh in the hour is refused');
+  assert.equal(checkLimitIn('grade-ip', '198.51.100.7', 6, 3600000, now + 3600001), true, 'an hour later the window has moved on');
+});
+
+test('the grader’s buckets do not touch the intake limiter', () => {
+  const now = Date.now();
+  for (let i = 0; i < 6; i += 1) checkLimitIn('grade-ip', '198.51.100.8', 6, 3600000, now + i);
+  assert.equal(checkRateLimit('198.51.100.8', now + 10), true, 'the same address can still send the intake form');
+});
+
+test('the day ceiling counts every address together', () => {
+  const now = Date.now();
+  for (let i = 0; i < 3; i += 1) assert.equal(checkLimitIn('day-test', 'all', 3, 86400000, now + i), true);
+  assert.equal(checkLimitIn('day-test', 'all', 3, 86400000, now + 3), false, 'the fourth reading of the day is refused');
+});

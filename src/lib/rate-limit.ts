@@ -36,3 +36,21 @@ export function clientIp(req: Request): string {
   if (xff) return xff.split(',')[0].trim();
   return 'unknown';
 }
+
+// A second limiter with its own buckets, for /api/revenge-or-justice (2026-11-06): each `bucket`
+// (a route, or a route-wide 'all' key) keeps its own window and ceiling, so the grader's six-an-hour
+// per address and its three-hundred-a-day per instance never share state with the intake form's
+// five-per-ten-minutes above. Same soft, per-instance nature; same hard limit lives in the Firewall.
+const buckets = new Map<string, number[]>();
+
+export function checkLimitIn(bucket: string, key: string, max: number, windowMs: number, now: number = Date.now()): boolean {
+  const id = bucket + '\u0000' + key;
+  const recent = (buckets.get(id) ?? []).filter((t) => now - t < windowMs);
+  if (recent.length >= max) {
+    buckets.set(id, recent);
+    return false;
+  }
+  recent.push(now);
+  buckets.set(id, recent);
+  return true;
+}
