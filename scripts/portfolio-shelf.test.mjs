@@ -53,6 +53,13 @@ test('onShelf: keeps the schedule order and only that shelf', () => {
   assert.deepEqual(onShelf('report', TOOLS.filter((t) => t.shelf === 'product')), []);
 });
 
+test('onShelf: at 2026-11-07 noon /portfolio shows exactly these products (PORTHOLD1)', () => {
+  // Whit, 2026-11-07: Bet Appetit cut; AGIS and Gut Check held for their own announcements; Letters waits
+  // on its go-public check (feedback box and usage logging not yet on its live page).
+  const now = at('2026-11-07T12:00:00-08:00');
+  assert.deepEqual(slugs(onShelf('product', visibleTools(now))), ['ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
+});
+
 test('page: /portfolio draws products only and carries no Reports part', () => {
   const src = read('src/app/(main)/portfolio/page.tsx').replace(/\/\/.*$/gm, '').replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
   assert.match(src, /onShelf\('product'/, 'the portfolio does not keep to products');

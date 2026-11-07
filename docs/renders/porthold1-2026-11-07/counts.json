@@ -1,0 +1,43 @@
+{
+  "words_in_first_screen": 85,
+  "text_share_of_first_screen_pct": 9,
+  "type_sizes_in_first_screen": [
+    12,
+    13,
+    14,
+    18,
+    22,
+    35,
+    50
+  ],
+  "font_families_in_first_screen": [
+    "Albert Sans",
+    "Inter"
+  ],
+  "text_above_28px": [
+    "50px: Systems we’ve shipped.",
+    "35px: AI Election Errors",
+    "35px: What’s Human?",
+    "35px: Which AI should I use?"
+  ],
+  "filled_buttons_in_first_screen": [
+    "Contact"
+  ],
+  "distinct_hues_in_first_screen": 1,
+  "colour_keys_on_page": 0,
+  "em_dashes_whole_page": 0,
+  "em_dashes_first_screen": 0,
+  "ground_colour": "rgb(255, 255, 255)",
+  "cream_ground": false,
+  "surfaces_with_border_fill_and_shadow": 0,
+  "sideways_scroll": false,
+  "page_height_px": 900,
+  "phone_sideways_scroll": false,
+  "target": "http://localhost:3001/portfolio",
+  "pictures": [
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-porthold1/docs/renders/porthold1-2026-11-07/desktop-colour.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-porthold1/docs/renders/porthold1-2026-11-07/desktop-grayscale.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-porthold1/docs/renders/porthold1-2026-11-07/phone.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-porthold1/docs/renders/porthold1-2026-11-07/desktop-full.png"
+  ]
+}
