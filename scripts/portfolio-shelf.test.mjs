@@ -80,12 +80,13 @@ test('page: /insights lists its reports from the tool list, not by hand', () => 
   for (const t of reportTools()) assert.ok(!content.includes(t.href), `${t.slug} is still hand-listed in insights-content`);
 });
 
-test('built: every report renders on /insights under Reports, with its name and line', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
+test('built: every report renders on /insights under Research, with its name and line', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
   const html = readFileSync(BUILT_INSIGHTS, 'utf8');
-  const part = html.match(/<section[^>]*aria-labelledby="reports-title"[^>]*>([\s\S]*?)<\/section>/);
-  assert.ok(part, 'no Reports section on /insights');
+  const part = html.match(/<section[^>]*aria-labelledby="research-title"[^>]*>([\s\S]*?)<\/section>/);
+  assert.ok(part, 'no Research section on /insights');
   for (const t of reportTools()) {
-    assert.ok(part[1].includes(`href="${t.href}"`), `${t.slug} is not under Reports on /insights`);
+    assert.ok(part[1].includes(`href="${t.href}"`), `${t.slug} is not under Research on /insights`);
+    assert.ok(part[1].includes(t.name), `${t.slug} name missing on /insights`);
     assert.ok(part[1].includes(t.line), `${t.slug} line missing on /insights`);
     assert.equal(html.split(`href="${t.href}"`).length - 1, 1, `${t.slug} listed more than once on /insights`);
   }

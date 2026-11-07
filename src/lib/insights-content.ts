@@ -30,6 +30,8 @@ export type InsightItem = {
   /** ISO date and the words shown for it, only where a date exists. */
   iso?: string;
   shown?: string;
+  /** A picture drawn on top of the card: a report's own preview card (PORTSPLIT1 round five, 2026-11-07). */
+  picture?: string;
 };
 
 export const WRITING: InsightItem[] = [

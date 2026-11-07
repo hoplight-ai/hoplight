@@ -137,14 +137,17 @@ test('the two Services review routes are noindex, out of the sitemap and out of 
   assert.ok(!/robots:\s*\{\s*index:\s*false/.test(read('src/app/(main)/services/page.tsx')), '/services is marked noindex');
 });
 
-test('/insights-b and /insights-c are gone, and /insights is the two-column page', () => {
+test('/insights-b and /insights-c are gone, and /insights is one body of work in two parts', () => {
   for (const dir of ['insights-b', 'insights-c']) {
     assert.ok(!existsSync(path.join(ROOT, 'src/app/(main)', dir)), `${dir} came back`);
   }
   const urls = sitemap().map((e) => e.url);
   for (const route of ['/insights-b', '/insights-c']) assert.ok(!urls.includes(`https://hoplight.ai${route}`), `${route} is in the sitemap`);
   const page = read('src/app/(main)/insights/page.tsx');
-  assert.ok(page.includes('ic-field') && page.includes('ic-reports'), '/insights is not the two-column layout');
+  // PORTSPLIT1 round five, 2026-11-07: the navy Writing panel and the Reports side column went. The page is
+  // Research then Writing, every item a card of one kind (see the built-page test below).
+  assert.ok(!page.includes('ic-field') && !page.includes('ic-reports') && !page.includes('RuledList'), '/insights still carries the panel or the side column');
+  assert.ok(page.includes('research-title') && page.includes('writing-title'), '/insights is not Research and Writing');
   assert.ok(!/robots:\s*\{\s*index:\s*false/.test(page), '/insights is marked noindex');
   const sources = ['src/app/(main)/insights/page.tsx', 'src/components/InsightParts.tsx'].map(read).join('\n');
   assert.ok(!/insights-[bc]\b(?!\w)/.test(sources.replace(/insights-content/g, '')), 'a source still names a removed review route');
@@ -234,4 +237,34 @@ test('the research page names Rayli once under the findings, and the persuasion 
 test('the About page names Pandora’s Router with its link', () => {
   const about = read('src/app/(main)/about/page.tsx');
   assert.ok(about.includes('https://router.hoplight.ai') && about.includes('Pandora&rsquo;s Router'), 'the router sentence is missing');
+});
+
+// PORTSPLIT1 round five, 2026-11-07 (design review): one Research section with one treatment, the three
+// public reports as picture cards at the scale of the writing cards, the page heading "Research and writing",
+// the nav word unchanged. Research comes first: its pictures are what wins the eye.
+const BUILT_INSIGHTS = ['.next/server/app/insights.html', '.next/server/app/(main)/insights.html']
+  .map((rel) => path.join(ROOT, rel))
+  .find((p) => existsSync(p));
+
+test('Insights: the heading is "Research and writing" and the nav still says Insights', () => {
+  assert.ok(NAV_LINKS.some((l) => l.label === 'Insights' && l.href === '/insights'), 'the nav word changed');
+  assert.match(read('src/app/(main)/insights/page.tsx'), />Research and writing</, 'the page heading is not "Research and writing"');
+});
+
+test('built Insights: Research first, then Writing; every item a card, the reports with their pictures', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
+  const html = readFileSync(BUILT_INSIGHTS, 'utf8');
+  assert.match(html, /<h1[^>]*>Research and writing<\/h1>/, 'no "Research and writing" heading');
+  const r = html.indexOf('aria-labelledby="research-title"');
+  const w = html.indexOf('aria-labelledby="writing-title"');
+  assert.ok(r > 0 && w > 0 && r < w, 'Research does not come before Writing');
+  const research = html.slice(r, w);
+  for (const href of ['/research', '/persuasion', '/portfolio/cba-win-pattern-playbook.html', '/portfolio/ai-governance-checklist.html', '/portfolio/dnc-autopsy-taken-apart.html']) {
+    assert.match(research, new RegExp(`<a class="ptile[^"]*" href="${href.replace(/[.]/g, '\\.')}"`), `${href} is not a card under Research`);
+  }
+  assert.equal((research.match(/class="ptile ptile-pic"/g) || []).length, 3, 'the three reports are not picture cards');
+  for (const slug of ['dnc-autopsy-taken-apart', 'oregon-school-budget-report', 'worker-equity-dilution-at-ge']) {
+    assert.ok(research.includes(`/api/og/tool/${slug}?band=0`), `${slug} carries no picture`);
+  }
+  assert.ok(!html.includes('rep-list') && !html.includes('class="rep"'), 'a ruled list is still on the page');
+  assert.ok(!html.includes('ic-field'), 'the navy Writing panel is still on the page');
 });

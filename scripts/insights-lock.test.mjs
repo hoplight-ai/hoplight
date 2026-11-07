@@ -45,7 +45,7 @@ test('opensSignIn agrees with the gate on every Insights link', () => {
 
 test('in the built Insights page, gated rows carry the lock and open rows do not', { skip: BUILT ? false : 'no build present' }, () => {
   const html = readFileSync(BUILT, 'utf8');
-  const anchors = [...html.matchAll(/<a class="(?:rep|ptile)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+  const anchors = [...html.matchAll(/<a class="(?:rep|ptile)(?: [^"]*)?" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
   const hrefs = anchors.map(([, href]) => href.replace(/&amp;/g, '&'));
   for (const href of LOCAL) assert.equal(hrefs.filter((h) => h === href).length, 1, `${href}: not one card or row`);
   assert.ok(hrefs.some((h) => h.startsWith('https://whitpendergast.substack.com/p/')), 'no Writing card');
