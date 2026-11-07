@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>The bloom at the height of the letters</title>
-<meta name="description" content="Three heights for the bloom beside the word Hoplight, each with a thinner line, on five framed cards.">
+<meta name="description" content="Two heights for the bloom beside the word Hoplight, each with a thinner line, on five framed cards.">
 <meta property="og:title" content="The bloom at the height of the letters">
-<meta property="og:description" content="Three heights for the bloom beside the word Hoplight, each with a thinner line.">
+<meta property="og:description" content="Two heights for the bloom beside the word Hoplight, each with a thinner line.">
 <meta property="og:image" content="https://hoplight.ai/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="apple-mobile-web-app-title" content="Card lockup">
@@ -27,17 +27,20 @@
   below the baseline, the stem of the l 113, the bar of the H 99.
 
   So the brief's third height ("the H including any overshoot") is the cap height again in this face. The
-  three options are therefore: a, the x-height; b, the cap height; c, the full height of the letters, from
-  the foot of the p to the top of the l. a and b sit on the baseline and dip below it, and rise above
-  their line, by the font's own round overshoot, exactly as the o and the O do; c is bound by the
-  letters' extremes and centred on them. None is taller than the letters.
+  options were therefore: a, the x-height; b, the cap height; c, the full height of the letters, from
+  the foot of the p to the top of the l. b sits on the baseline and dips below it, and rises above the
+  cap height, by the font's own round overshoot, exactly as the O does; c is bound by the letters'
+  extremes and centred on them. None is taller than the letters.
+
+  After the design review, the same day: a was deleted (at phone width it became a 4 px gold dot), and b
+  and c keep their letters; the lines inside the centre circle are drawn at half weight, because the six
+  circles crossing at the centre thickened into a solid knot at card size; and c's space to the H is b's.
 
   The line. Treatment 3's line was 0.38 of a circle's radius, which puts 65% ink in the bloom's box
   against the word's 43% across its cap height (counted, _scratch/cardmark3/density.mjs): the bloom was
   half again as dark as the word it sits beside, which is why it read thick and filled in. Each option's
-  line is set so the bloom carries the same ink as the word does across the same band: 49% in the
-  x-height band (line 0.24 of the radius), 43% across the cap height (0.187), 32% across the full height
-  (0.132). Floor: 4/3 px on the 1200 card, one device pixel at text-message size on a 3x phone. That puts
+  line is set so the bloom carries the same ink as the word does across the same band: 43% across the
+  cap height (line 0.187 of the radius), 32% across the full height (0.132). Floor: 4/3 px on the 1200 card, one device pixel at text-message size on a 3x phone. That puts
   every option near a quarter of the word's stem.
 
   The dot is seed.ts's: radius 1.9 px of the drawn box, never under 4.2 of its 100 units. The word is 56,
@@ -75,7 +78,7 @@ h2 { font-size: 20px; font-weight: 600; margin: 64px 0 16px; letter-spacing: -0.
 .cu .g { position: absolute; right: 12px; font-size: 12px; line-height: 1; color: rgba(255, 255, 255, 0.72); transform: translateY(-120%); }
 
 /* Every card carries its option letter beside it, so a card met mid-scroll says where it belongs. */
-.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .shot { display: grid; grid-template-columns: 22px minmax(0, 1fr); column-gap: 4px; align-items: start; }
 .ltr { font-size: 16px; font-weight: 600; line-height: 1; padding-top: 2px; }
 
@@ -87,7 +90,7 @@ h2 { font-size: 20px; font-weight: 600; margin: 64px 0 16px; letter-spacing: -0.
   .opt p { order: -1; max-width: none; }
   /* Text-message size: a card about 300 wide. */
   .cards { grid-template-columns: minmax(0, 326px); gap: 12px; }
-  .cards .shot:nth-child(3n) { margin-bottom: 16px; }
+  .cards .shot:nth-child(2n) { margin-bottom: 16px; }
   .page { padding-bottom: 32px; }
 }
 
@@ -124,7 +127,7 @@ h2 { font-size: 20px; font-weight: 600; margin: 64px 0 16px; letter-spacing: -0.
 <body>
 <main class="page">
   <h1>The bloom at the height of the letters</h1>
-  <p class="lede">Three heights for the bloom beside Hoplight, none taller than the letters. Each line is about a quarter of the word's 6.3 px stem, measured on the full-size card. Name a, b or c.</p>
+  <p class="lede">Two heights for the bloom beside Hoplight, none taller than the letters. Each line is about a quarter of the word's 6.3 px stem, measured on the full-size card, and half that where the circles cross at the centre. Name b or c.</p>
   <div class="closeups" id="closeups"></div>
   <h2>On the five cards</h2>
   <div class="cards" id="cards"></div>
@@ -138,13 +141,14 @@ h2 { font-size: 20px; font-weight: 600; margin: 64px 0 16px; letter-spacing: -0.
   var EM = { x: 0.500, round: 0.007, cap: 0.700, asc: 0.720, desc: 0.200, stem: 0.113, word: 3.791 };
   var F = 56;              // the word's size on the 1200 card
   var FLOOR = 4 / 3;       // one device pixel at 300 wide on a 3x phone
+  var GAP = (EM.cap + 2 * EM.round) * F / 2;  // bloom to word, both options: half of b's bloom height
+  var INNER = 0.5;         // the lines inside the centre circle, as a share of the full line
 
   // Each option: the band the bloom fills (in em, from the baseline up), its line as a share of a
   // circle's radius (the word's ink across the same band), and the two letter lines that bound it.
+  // Option a (the x-height) was deleted after the design review: at phone width it became a 4 px gold
+  // dot. The two that remain keep their letters, b and c.
   var OPTIONS = [
-    { id: 'a', top: EM.x + EM.round, bottom: -EM.round, f: 0.24,
-      lines: [[EM.x, 'x-height'], [0, 'baseline']],
-      say: 'As tall as the o, sitting on the baseline.' },
     { id: 'b', top: EM.cap + EM.round, bottom: -EM.round, f: 0.187,
       lines: [[EM.cap, 'cap height'], [0, 'baseline']],
       say: 'As tall as the H, sitting on the baseline.' },
@@ -160,21 +164,28 @@ h2 { font-size: 20px; font-weight: 600; margin: 64px 0 16px; letter-spacing: -0.
     var k = T / (68 + 17 * o.f), s = o.f * 17 * k;
     if (s < FLOOR) { s = FLOOR; k = (T - s) / 68; }
     var r = 17 * k, cx = 31.72 * k + s / 2, cy = baseline - (o.top + o.bottom) / 2 * F;
-    // The space from bloom to word is half the bloom's height, so the pair keeps its proportion.
-    return { k: k, r: r, s: s, cx: cx, cy: cy, w: 2 * cx, gap: T / 2, dot: Math.max(1.9, 4.2 * k) };
+    return { k: k, r: r, s: s, si: s * INNER, cx: cx, cy: cy, w: 2 * cx, gap: GAP, dot: Math.max(1.9, 4.2 * k) };
   }
   function n(v) { return Math.round(v * 100) / 100; }
 
   // One lockup, bloom then word, as SVG pieces on a baseline at y, the bloom's left edge at x 0.
+  // Each of the six ring circles passes through the centre; the third of it inside the centre circle
+  // (from 120 to 240 degrees round its own centre, facing the bloom's centre) is drawn at the thinner
+  // inner line, so the six crossings at the centre stay open. The other two thirds, the outer rings,
+  // and the centre circle keep the full line. The weight steps where the arc meets the centre circle,
+  // inside a junction of three lines, so the step does not show.
   function lockup(o, baseline) {
-    var g = geometry(o, baseline), c = '';
-    for (var j = -1; j < 6; j++) {
-      var a = (-90 + 60 * j) * Math.PI / 180, d = j < 0 ? 0 : g.r;
-      c += '<circle cx="' + n(g.cx + d * Math.cos(a)) + '" cy="' + n(g.cy + d * Math.sin(a)) + '" r="' + n(g.r) + '"/>';
+    var g = geometry(o, baseline), outer = '<circle cx="' + n(g.cx) + '" cy="' + n(g.cy) + '" r="' + n(g.r) + '"/>', inner = '';
+    for (var j = 0; j < 6; j++) {
+      var t = (-90 + 60 * j) * Math.PI / 180, X = g.cx + g.r * Math.cos(t), Y = g.cy + g.r * Math.sin(t);
+      var p = function (deg) { var a = t + deg * Math.PI / 180; return n(X + g.r * Math.cos(a)) + ' ' + n(Y + g.r * Math.sin(a)); };
+      inner += '<path d="M' + p(120) + 'A' + n(g.r) + ' ' + n(g.r) + ' 0 0 1 ' + p(240) + '"/>';
+      outer += '<path d="M' + p(240) + 'A' + n(g.r) + ' ' + n(g.r) + ' 0 1 1 ' + p(120) + '"/>';
     }
     return {
       g: g,
-      svg: '<g fill="none" stroke="' + SEED_GOLD + '" stroke-width="' + n(g.s) + '">' + c + '</g>'
+      svg: '<g fill="none" stroke="' + SEED_GOLD + '"><g stroke-width="' + n(g.s) + '">' + outer + '</g>'
+        + '<g stroke-width="' + n(g.si) + '">' + inner + '</g></g>'
         + '<circle cx="' + n(g.cx) + '" cy="' + n(g.cy) + '" r="' + n(g.dot) + '" fill="' + SEED_GOLD + '"/>'
         + '<text x="' + n(g.w + g.gap) + '" y="' + n(baseline) + '" fill="#FFFFFF" font-family="Albert Sans" font-weight="600" font-size="' + F + '" style="letter-spacing:-0.02em">Hoplight</text>'
     };
