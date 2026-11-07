@@ -61,6 +61,15 @@ test('card: a band-on link-preview card draws the navy frame and lockup b, and n
   for (const t of TOOLS) framed(toolCard(t, FONTS), t.slug, t.brand);
 });
 
+test('card: no tool card fills its window with the mat\'s own navy, so the frame always shows', () => {
+  // CARDLIVE1 finding 1, 2026-11-07: Gut Check's ground was the mat's navy, so its window and the mat
+  // read as one block. Its live app is white with navy type and gold, as card-frames.html draws it.
+  for (const t of TOOLS) assert.notEqual(t.brand.ground.toUpperCase(), NAVY, `${t.slug}: ground is the mat's navy`);
+  const gut = TOOL_BY_SLUG['gut-check'].brand;
+  assert.equal(gut.ground.toUpperCase(), '#FFFFFF', 'gut-check: white ground, as the live app');
+  assert.equal(gut.ink.toUpperCase(), NAVY, 'gut-check: navy type, as the live app');
+});
+
 test('card: the portfolio card takes the same frame', () => {
   framed(toolCard(PORTFOLIO_CARD, FONTS), 'portfolio', PORTFOLIO_CARD.brand);
 });

@@ -138,11 +138,12 @@ export const TOOLS: Tool[] = [
     href: 'https://gut-check-hoplight.vercel.app/play',
     kind: 'live',
     shelf: 'product',
-    // Read from gut-check-hoplight.vercel.app/play on 2026-11-07: navy and gold, Inter.
+    // Read from gut-check-hoplight.vercel.app/play on 2026-11-07: white with navy type and gold, Inter
+    // (card-frames.html, counted that day). White, not navy, so the card's navy frame shows (CARDLIVE1).
     brand: {
-      ground: NAVY,
+      ground: WHITE,
       accent: '#E0A62A',
-      ink: '#EDF0F4',
+      ink: NAVY,
       display: { family: 'Inter', weight: 700 },
       wordmark: [{ text: 'Gut Check' }],
       glyph: 'cards',
