@@ -9,7 +9,13 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { TOOLS, TOOL_BY_SLUG } from '../src/data/tools.ts';
 import { pictureSvg } from '../src/data/tool-pictures.ts';
-import { toolCard, PORTFOLIO_CARD, CARD_W, CARD_H } from '../src/lib/brand/tool-card.ts';
+import * as card from '../src/lib/brand/tool-card.ts';
+
+const { toolCard, PORTFOLIO_CARD, CARD_W, CARD_H } = card;
+// Absent before the polish fixes; the tests that need them fail rather than the whole file.
+const HAIRLINE_CONTRAST = card.HAIRLINE_CONTRAST ?? 0;
+const contrastWithMat = card.contrastWithMat ?? (() => Infinity);
+const LIBRARY = card.LIBRARY ?? [];
 import { bloomLockup } from '../src/lib/brand/marks.ts';
 
 const FONTS = { display: null, body: null };
@@ -68,6 +74,44 @@ test('card: no tool card fills its window with the mat\'s own navy, so the frame
   const gut = TOOL_BY_SLUG['gut-check'].brand;
   assert.equal(gut.ground.toUpperCase(), '#FFFFFF', 'gut-check: white ground, as the live app');
   assert.equal(gut.ink.toUpperCase(), NAVY, 'gut-check: navy type, as the live app');
+});
+
+// The card review of 2026-11-07, polish fix 1: What's Human's near-black window merged with the navy
+// mat at 300px. A ground within HAIRLINE_CONTRAST of the mat gets a light hairline at the window's
+// edge; every other card has none, and What's Human keeps its own ground.
+const isHairline = (el) => el.props?.style?.position === 'absolute' && typeof el.props.style.border === 'string';
+
+test('card: a ground too close to the mat gets a light hairline at the window edge, as a rule', () => {
+  assert.ok(HAIRLINE_CONTRAST > 1 && HAIRLINE_CONTRAST <= 2, 'the threshold is a contrast ratio');
+  const wh = TOOL_BY_SLUG['what-s-human'];
+  assert.equal(wh.brand.ground.toUpperCase(), '#0D1017', "what-s-human keeps its own ground");
+  assert.ok(contrastWithMat(wh.brand.ground) < HAIRLINE_CONTRAST, "what-s-human is within the threshold");
+  for (const t of TOOLS) {
+    const lines = walk(toolCard(t, FONTS)).els.filter(isHairline);
+    const close = contrastWithMat(t.brand.ground) < HAIRLINE_CONTRAST;
+    assert.equal(lines.length, close ? 1 : 0, `${t.slug}: ${close ? 'one hairline' : 'no hairline'}`);
+    if (close) {
+      const s = lines[0].props.style;
+      assert.equal(s.left, '0px', `${t.slug}: hairline on the window's edge`);
+      assert.equal(s.top, '0px');
+      assert.equal(s.width, '1144px');
+      assert.equal(s.height, '494px');
+      assert.equal(s.borderRadius, '8px', `${t.slug}: hairline follows the window's corners`);
+    }
+    // A band-off tile never draws one.
+    assert.equal(walk(toolCard(t, FONTS, { band: false })).els.filter(isHairline).length, 0, `${t.slug} tile: no hairline`);
+  }
+  const close = TOOLS.filter((t) => contrastWithMat(t.brand.ground) < HAIRLINE_CONTRAST).map((t) => t.slug);
+  assert.deepEqual(close, ['what-s-human'], 'today only What\'s Human is that dark');
+});
+
+// Polish fix 2: the portfolio card shows the launch-day three, drawn larger, so they read at 300px.
+test('card: the portfolio card shows Revenge or Justice, The Undo List and Gut Check as large tiles', () => {
+  assert.deepEqual(LIBRARY, ['revenge-or-justice', 'undo', 'gut-check']);
+  const { els } = walk(toolCard(PORTFOLIO_CARD, FONTS));
+  const tiles = els.filter((el) => el.props?.style?.borderRadius && el.props.style.width === el.props.style.height && el.key && LIBRARY.includes(el.key));
+  assert.deepEqual(tiles.map((el) => el.key), LIBRARY, 'three tiles, in launch order');
+  for (const el of tiles) assert.ok(parseInt(el.props.style.width, 10) >= 160, `${el.key}: tile at least 160px (40px at 300 wide)`);
 });
 
 test('card: the portfolio card takes the same frame', () => {
