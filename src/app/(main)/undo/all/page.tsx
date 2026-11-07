@@ -3,6 +3,7 @@ import { toolMetadata } from '@/lib/metadata';
 import { COPY } from '@/lib/undo/copy';
 import { loadUndo } from '@/lib/undo/load';
 import UndoAll from '../UndoAll';
+import ToolFeedback from '@/components/ToolFeedback';
 
 // Rebuilt at most once an hour, like /undo.
 export const revalidate = 3600;
@@ -30,6 +31,7 @@ export default async function UndoAllPage() {
         </div>
       </div>
       <UndoAll rows={data.slim} penInForce={data.penInForce} orders={data.orders} />
+      <ToolFeedback tool="undo" />
     </>
   );
 }

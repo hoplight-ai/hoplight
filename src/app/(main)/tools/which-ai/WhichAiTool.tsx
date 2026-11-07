@@ -1,6 +1,11 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { track } from '@/lib/track';
+
+// Anonymous usage (2026-11-07, Whit: "user actions to be logged anonymized. queries and setting etc."):
+// each answer chosen, and the recommendation shown at the end. src/lib/signal.ts says what is kept.
+const TOOL = 'which-ai-should-i-use';
 import Link from 'next/link';
 import {
   CheckCircle2, XCircle, Briefcase, Lock, ShieldAlert,
@@ -380,6 +385,18 @@ export default function WhichAiTool() {
   }, [animKey]);
 
   const handleSelect = (stepId: string, optionId: string, nextStep: string) => {
+    track(TOOL, 'answer', { step: stepId, answer: optionId });
+    if (nextStep === 'result') {
+      const chosen = { ...answers, [stepId]: optionId };
+      const rec = getRecommendation(chosen);
+      track(TOOL, 'recommendation', {
+        primary: rec?.primary?.name ?? 'none',
+        usecase: chosen.usecase ?? '',
+        sensitivity: chosen.newspaper === 'yes' ? 'public' : (chosen.sensitivity ?? ''),
+      });
+    } else if (nextStep === 'restricted') {
+      track(TOOL, 'restricted', { step: stepId, answer: optionId });
+    }
     setAnswers(prev => ({ ...prev, [stepId]: optionId }));
     setHistory(prev => [...prev, { step: currentStep, answers: { ...answers } }]);
     setCurrentStep(nextStep);
@@ -402,6 +419,7 @@ export default function WhichAiTool() {
   };
 
   const startAssessment = () => {
+    track(TOOL, 'start');
     setHistory(prev => [...prev, { step: 'landing', answers: {} }]);
     setCurrentStep('newspaper');
     window.scrollTo({ top: 0, behavior: 'smooth' });

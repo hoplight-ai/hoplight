@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 import { initRevengeOrJustice } from './tool.js';
+import { track } from '@/lib/track';
+import { USAGE_NOTE } from '@/components/ToolFeedback';
 import './revenge-or-justice.css';
 
 // Static markup the script in tool.js draws into by id. React renders this once and never updates it,
@@ -10,7 +12,9 @@ import './revenge-or-justice.css';
 export default function RevengeOrJustice() {
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    initRevengeOrJustice(root.current);
+    initRevengeOrJustice(root.current, {
+      track: (action: string, props?: Record<string, string | number | boolean>) => track('revenge-or-justice', action, props),
+    });
   }, []);
 
   return (
@@ -75,7 +79,7 @@ export default function RevengeOrJustice() {
         </section>
 
         <div className="rj-foot">
-          Nothing you paste is stored. The rubric: the subject is a practice, priced in what it cost people, ending in the remedy, from a speaker with nothing to gain, anchored back to the listener.{' '}
+          {USAGE_NOTE} The rubric: the subject is a practice, priced in what it cost people, ending in the remedy, from a speaker with nothing to gain, anchored back to the listener.{' '}
           <a href="/revenge-or-justice/about">How this was built.</a>
         </div>
       </div>

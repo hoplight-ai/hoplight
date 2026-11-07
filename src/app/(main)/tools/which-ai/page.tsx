@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import WhichAiTool from './WhichAiTool';
+import ToolFeedback from '@/components/ToolFeedback';
 import { toolMetadata } from '@/lib/metadata';
 
 export const metadata: Metadata = toolMetadata('which-ai-should-i-use', {
@@ -11,5 +12,10 @@ export const metadata: Metadata = toolMetadata('which-ai-should-i-use', {
 });
 
 export default function Page() {
-  return <WhichAiTool />;
+  return (
+    <>
+      <WhichAiTool />
+      <ToolFeedback tool="which-ai-should-i-use" />
+    </>
+  );
 }

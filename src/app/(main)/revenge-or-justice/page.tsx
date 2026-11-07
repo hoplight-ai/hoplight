@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Newsreader } from 'next/font/google';
 import { toolMetadata } from '@/lib/metadata';
+import ToolFeedback from '@/components/ToolFeedback';
 import RevengeOrJustice from './RevengeOrJustice';
 
 // The serif has exactly one job on this page: the words quoted from the pasted text, so the eye knows
@@ -19,6 +20,8 @@ export default function Page() {
   return (
     <div className={newsreader.variable}>
       <RevengeOrJustice />
+      {/* The usage note is already in the tool's own foot line, so the box leaves it out. */}
+      <ToolFeedback tool="revenge-or-justice" note={false} />
     </div>
   );
 }

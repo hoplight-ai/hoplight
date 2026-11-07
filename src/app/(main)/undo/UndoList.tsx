@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { BUCKETS } from '@/lib/undo/types';
 import type { Bucket } from '@/lib/undo/types';
 import { COPY } from '@/lib/undo/copy';
+import { track } from '@/lib/track';
 import { fieldBlocks } from '@/lib/undo/field';
 import type { IssueKey } from '@/lib/undo/issues';
 import { issueBars } from '@/lib/undo/progress';
@@ -88,7 +89,9 @@ export default function UndoList({
 
   // A bar sets the issue; the field, the orders and the strip all read it.
   function pickIssue(key: IssueKey) {
-    setIssue(issue === key ? null : key);
+    const next = issue === key ? null : key;
+    setIssue(next);
+    track('undo', 'filter', { issue: next ?? 'all', page: 'undo' });
   }
 
   // A block in the field, or the hero button, opens one order.

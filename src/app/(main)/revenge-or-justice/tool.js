@@ -3,9 +3,16 @@
 // React tree never re-renders, so the two never fight over the same nodes. Only the three lines that
 // name a route or the page root changed. Edits to the reading, the bars, the tiers or the headline list
 // belong here and in the quick-tools original alike until that page is retired.
-export function initRevengeOrJustice(root) {
+//
+// Anonymous usage (2026-11-07, Whit: "user actions to be logged anonymized. queries and setting etc."):
+// `opts.track` is src/lib/track.ts's track() bound to this tool. It logs a reading asked for (how it
+// came in, its length, the first thousand characters as `query`), the verdict shown, the voice and
+// issue picked, a headline clicked, a rewrite copied. What the server keeps and cuts: src/lib/signal.ts.
+export function initRevengeOrJustice(root, opts) {
   if (!root || root.dataset.init) return;
   root.dataset.init = '1';
+  var track = (opts && opts.track) || function(){};
+  var from = 'paste';
 
   var API = '/api/revenge-or-justice';
   var $ = function(id){ return document.getElementById(id); };
@@ -51,7 +58,7 @@ export function initRevengeOrJustice(root) {
       vt.innerHTML = views.map(function(v){ return '<button type="button" role="tab" data-v="' + v.k + '" aria-selected="false">' + esc(v.label) + '</button>'; }).join('');
       vt.classList.add('on');
       Array.prototype.forEach.call(vt.querySelectorAll('button'), function(b){
-        b.addEventListener('click', function(){ pick(b.getAttribute('data-v')); window.scrollTo({ top: 0, behavior: 'auto' }); });
+        b.addEventListener('click', function(){ track('voice', { voice: b.getAttribute('data-v') }); pick(b.getAttribute('data-v')); window.scrollTo({ top: 0, behavior: 'auto' }); });
       });
     } else { vt.innerHTML = ''; vt.classList.remove('on'); }
     function ctxFor(v){
@@ -71,6 +78,7 @@ export function initRevengeOrJustice(root) {
         Array.prototype.forEach.call(tabs.querySelectorAll('button'), function(b){
           b.addEventListener('click', function(){
             var key = b.getAttribute('data-k');
+            track('issue', { voice: k, issue: key === 'all' ? 'all' : String(issues[+key] && issues[+key].name || key).slice(0, 120) });
             Array.prototype.forEach.call(tabs.querySelectorAll('button'), function(x){ x.setAttribute('aria-selected', x.getAttribute('data-k') === key ? 'true' : 'false'); });
             if (key === 'all') show(v.j, null, ctx); else show(issues[+key], issues[+key], ctx);
             window.scrollTo({ top: 0, behavior: 'auto' });
@@ -161,6 +169,7 @@ export function initRevengeOrJustice(root) {
     Array.prototype.forEach.call(document.querySelectorAll('.copy'), function(b){
       b.addEventListener('click', function(){
         var t = $(b.getAttribute('data-copy')).textContent;
+        track('copy_rewrite', { which: b.getAttribute('data-copy') });
         navigator.clipboard.writeText(t).then(function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy this rewrite'; }, 1500); });
       });
     });
@@ -175,6 +184,7 @@ export function initRevengeOrJustice(root) {
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
   $('again').addEventListener('click', function(){
+    track('again');
     root.classList.remove('read');
     $('strip').classList.remove('on');
     $('out').classList.remove('on');
@@ -196,9 +206,12 @@ export function initRevengeOrJustice(root) {
       return '<li' + (k >= SHOW ? ' class="rj-more"' : '') + '><button type="button" class="pick" data-url="' + esc(it.url) + '"><span class="hl">' + esc(it.title) + '</span>' +
         '<span class="by"><b>' + esc(it.source) + '</b>' + (when(it.published) ? ' · ' + when(it.published) : '') + (who ? ' · ' + esc(who) : '') + '</span></button></li>';
     }).join('') + (items.length > SHOW ? '<li class="all"><button type="button" class="quietbtn" id="feedall">All ' + items.length + ' articles</button></li>' : '');
-    if ($('feedall')) $('feedall').addEventListener('click', function(){ $('feedlist').classList.add('open'); $('feedall').parentNode.removeChild($('feedall')); });
+    if ($('feedall')) $('feedall').addEventListener('click', function(){ track('headlines_all', { count: items.length }); $('feedlist').classList.add('open'); $('feedall').parentNode.removeChild($('feedall')); });
     Array.prototype.forEach.call($('feedlist').querySelectorAll('.pick'), function(b){
       b.addEventListener('click', function(){
+        var list = $('feedlist').querySelectorAll('.pick');
+        track('headline', { url: b.getAttribute('data-url').slice(0, 300), rank: Array.prototype.indexOf.call(list, b) + 1 });
+        from = 'headline';
         $('t').value = b.getAttribute('data-url');
         if ($('f').requestSubmit) $('f').requestSubmit(); else $('f').dispatchEvent(new Event('submit', { cancelable: true }));
         window.scrollTo({ top: 0, behavior: 'auto' });
@@ -210,6 +223,9 @@ export function initRevengeOrJustice(root) {
     e.preventDefault();
     var text = $('t').value.trim();
     if (!text) { $('status').textContent = 'Paste something first.'; $('status').className = 'err'; return; }
+    var source = /^https?:\/\/\S+$/.test(text) ? 'url' : 'text';
+    var came = from; from = 'paste';
+    track('grade', { source: source, from: came, length: text.length, query: text.slice(0, 1000) });
     $('go').disabled = true;
     $('status').className = 'busy';
     $('status').textContent = 'Reading it against the rubric and the record. Twenty to forty seconds.';
@@ -217,7 +233,8 @@ export function initRevengeOrJustice(root) {
     fetch(API, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: text }) })
       .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
       .then(function(x){
-        if (!x.ok || x.j.error) { $('status').textContent = x.j.error || 'It failed.'; $('status').className = 'err'; return; }
+        if (!x.ok || x.j.error) { track('grade_failed', { source: source }); $('status').textContent = x.j.error || 'It failed.'; $('status').className = 'err'; return; }
+        track('result', { source: source, verdict: String(x.j.verdict || 'none'), voices: [x.j.voices && x.j.voices.politicians ? 'politicians' : '', x.j.voices && x.j.voices.coverage ? 'coverage' : ''].filter(Boolean).join(',') || 'all' });
         $('status').textContent = ''; $('status').className = '';
         collapse(text);
         render(x.j);
