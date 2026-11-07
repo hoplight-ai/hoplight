@@ -1156,3 +1156,160 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .tool-feedback-again { font: inherit; font-size: 0.9rem; color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--line-card); padding: 0; min-height: 44px; cursor: pointer; }
 .tool-note { margin: 20px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--stone); max-width: 60ch; }
 @media (max-width: 480px) { .tool-feedback-send { width: 100%; } }
+/* ===== The restructured site, 2026-10-20 =====
+   Whit, 2026-10-19 and 2026-10-20: the site says less ("overexplaining" is what he named as the fault) and
+   keeps the high-end look ("that sacred geometry"). Every page opens on the masthead's lattice and lens
+   (src/components/Masthead.tsx, src/lib/brand/masthead.ts); the home is the full masthead, the others are a
+   short band of the same. Tiles are white on the navy band (the site's card edge, no tint), or navy glass
+   on the home. Tokens only; no warm tint, no italics, no left rule. */
+
+/* Home: the long question and the four places to go */
+.hero h1.long { font-size: clamp(1.875rem, 1.05rem + 2.4vw, 3rem); line-height: 1.08; max-width: 24ch; margin-bottom: 22px; }
+.hero .lede.wide { max-width: 48ch; margin-bottom: clamp(28px, 4vh, 44px); }
+.hero .lede a { color: #fff; }
+
+.hero-tiles, .ptiles { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.hero-tiles > li, .ptiles > li { min-width: 0; }
+.hero-tiles { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 900px) { .hero-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.hero-tile {
+  position: relative; display: flex; flex-direction: column; gap: 6px; height: 100%; min-height: 44px;
+  padding: 18px 18px 40px; background: rgba(22,38,64,0.92); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-lg); color: #fff; transition: border-color 160ms ease-out;
+}
+.hero-tile:hover { border-color: var(--gold-hot); }
+.hero-tile:focus-visible, .ptile:focus-visible { border-radius: var(--radius-lg); box-shadow: 0 0 0 3px var(--ring); }
+.hero-tile h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: #fff; }
+.hero-tile p { margin: 0; font-size: 0.92rem; line-height: 1.4; color: rgba(255,255,255,0.78); }
+.tile-arrow { position: absolute; right: 16px; bottom: 16px; transition: transform 160ms ease-out; }
+.hero .tile-arrow { color: var(--gold-hot); }
+.hero-tile:hover .tile-arrow, a.ptile:hover .tile-arrow { transform: translateX(3px); }
+
+.mailband { padding: clamp(22px, 3vw, 32px) 0; border-bottom: 1px solid var(--line-card); }
+.mailband p { margin: 0; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.625rem); letter-spacing: -0.015em; color: var(--stone-deep); }
+.mailband a { color: var(--ink); }
+
+/* The short band at the head of every other page: the same lattice and lens, a smaller room */
+.hero.masthead.masthead-page { min-height: 0; justify-content: flex-start; padding: 0; }
+.masthead-page .mast-wrap { padding-top: clamp(44px, 7vh, 72px); padding-bottom: 76px; }
+.masthead-page h1 { max-width: none; margin-bottom: 0; }
+.masthead-page .lede { margin: 14px 0 0; max-width: 46ch; }
+@media (max-width: 640px) { .masthead-page .mast-wrap { padding-top: 150px; padding-bottom: 76px; } }
+
+/* White tiles on the band */
+.ptiles { grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 16px; margin-top: 30px; }
+.ptiles-lead { grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 760px) { .ptiles-lead { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); } }
+.ptile {
+  position: relative; display: flex; flex-direction: column; gap: 8px; height: 100%; min-height: 44px;
+  padding: 22px 22px 46px; background: var(--white); border: 1px solid var(--line-card);
+  border-radius: var(--radius-lg); color: var(--ink); transition: border-color 160ms ease-out, box-shadow 160ms ease-out;
+}
+a.ptile:hover { border-color: var(--gold-hot); box-shadow: 0 6px 22px rgba(0,0,0,0.28); }
+.ptile-tag { font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-deep); }
+.ptile h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+.ptile p { margin: 0; font-size: 0.95rem; line-height: 1.5; color: var(--stone-deep); max-width: 52ch; }
+.ptile .tile-arrow { color: var(--gold-deep); }
+.ptile p.ptile-ask { color: var(--ink); font-weight: 500; border-left: 2px solid var(--gold-hot); padding-left: 12px; }
+
+/* Insights: the reports as ruled rows under the band */
+.reports { padding: clamp(24px, 4vw, 48px) 0 clamp(40px, 6vw, 80px); }
+.rep-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.rep {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 16px; align-items: baseline; column-gap: 24px;
+  min-height: 56px; padding: 16px 0; border: 0; border-bottom: 1px solid var(--line-card); color: var(--ink);
+}
+.rep-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); letter-spacing: -0.015em; line-height: 1.25; }
+.rep-line { font-size: 0.95rem; color: var(--stone-deep); }
+.rep-label { display: block; margin-bottom: 2px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-deep); }
+.rep-arrow { align-self: center; color: var(--gold-deep); transition: transform 160ms ease-out; }
+.rep:hover .rep-title { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.rep:hover .rep-arrow { transform: translateX(3px); }
+@media (max-width: 640px) {
+  .rep { grid-template-columns: minmax(0, 1fr) 16px; row-gap: 2px; }
+  .rep-line { grid-column: 1; }
+  .rep-arrow { grid-column: 2; grid-row: 1 / span 2; }
+}
+
+/* Services: four numbered lines and a close */
+.svc-lines { padding: clamp(32px, 5vw, 64px) 0 clamp(40px, 6vw, 80px); }
+.sl { list-style: none; margin: 0; padding: 0; max-width: 1040px; }
+.sl li {
+  display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 1fr); column-gap: clamp(20px, 3vw, 40px); row-gap: 8px; align-items: baseline;
+  padding: clamp(24px, 3.4vw, 40px) 0; border-top: 1px solid var(--line-card);
+}
+.sl li:last-child { border-bottom: 1px solid var(--line-card); }
+.sl-num { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem); line-height: 1.1; color: var(--gold-deep); font-variant-numeric: lining-nums tabular-nums; }
+.sl-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink); }
+.sl-text { margin: 0; max-width: 46ch; font-size: 1.02rem; line-height: 1.55; color: var(--stone-deep); }
+@media (max-width: 760px) {
+  .sl li { grid-template-columns: 44px minmax(0, 1fr); }
+  .sl-text { grid-column: 2; }
+}
+section.sl-close { padding: clamp(40px, 5vw, 64px) 0; }
+.sl-close .lede { margin: 0; max-width: 46ch; color: rgba(255,255,255,0.84); }
+
+/* 44px targets on the restructured pages: the lockup, the footer links, the email and the Pause control */
+header.site .brand, footer.site .brand { min-height: 44px; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; }
+.mailband a { display: inline-block; padding: 10px 0; }
+@media (max-width: 640px) { .hero .mast-pause { height: 44px; } }
+
+/* ===== Round two, 2026-10-21 =====
+   Whit: "the subheading on the landing page arent necessary... just cut all the sub headers". The home tiles
+   are a title and an arrow now, so they sit as one line each. About and FAQ take the page masthead. The
+   Insights page is the two-column layout (Whit, 2026-10-21: option three, the blue box). */
+.hero-tile { justify-content: center; min-height: 72px; padding: 18px 40px 18px 18px; }
+.hero-tile .tile-arrow { right: 14px; bottom: auto; top: calc(50% - 8px); }
+
+/* About: the LinkedIn link under the sentence, on the navy band */
+.hero .about-linkedin { margin: 8px 0 0; }
+.hero .about-linkedin a { display: inline-flex; align-items: center; min-height: 44px; color: #fff; font-weight: 600; text-decoration: underline; text-decoration-color: var(--gold-hot); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+/* Insights, shared: a heading over a ruled list, and the card title (an h3 under the band's h2) */
+.ptile h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+.ic-reports h2, .ic-field h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+
+/* Insights: Writing and Research as cards on a navy field band, Reports as the ruled list beside it */
+.ic-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: clamp(28px, 4vw, 56px); row-gap: 40px; align-items: start; padding-block: clamp(28px, 4vw, 48px) clamp(40px, 6vw, 80px); }
+.ic-field { --ring: var(--gold-hot); display: grid; gap: 30px; padding: clamp(20px, 3vw, 32px); background: var(--ink); border-radius: var(--radius-lg); }
+.ic-field h2 { color: #fff; }
+.ic-cards { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; }
+.ic-cards > li { min-width: 0; }
+.ic-reports h2 { margin-bottom: 16px; }
+.ic-reports .rep { grid-template-columns: minmax(0, 1fr) 16px; row-gap: 2px; }
+.ic-reports .rep-line { grid-column: 1; }
+.ic-reports .rep-arrow { grid-column: 2; grid-row: 1 / span 2; }
+@media (max-width: 860px) { .ic-grid { grid-template-columns: minmax(0, 1fr); } }
+
+.band-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.ic-field .band-link { color: #fff; text-decoration-color: var(--gold-hot); }
+
+/* The global section padding is too much inside these layouts; the bands carry their own */
+.ic-grid section { padding: 0; }
+/* Home: a calmer veil under the sentence, so the lattice lines do not cross the words */
+.hero .mast-veil { background: linear-gradient(90deg, rgba(15,27,45,0.92) 0%, rgba(15,27,45,0.82) 38%, rgba(15,27,45,0.4) 54%, rgba(15,27,45,0) 66%); }
+@media (max-width: 640px) { .hero .mast-veil { background: linear-gradient(180deg, rgba(15,27,45,0.1) 0, rgba(15,27,45,0.4) 150px, rgba(15,27,45,0.9) 240px, rgba(15,27,45,0.94) 100%); } }
+/* About: the long name wraps to two lines so it stays clear of the lens; Services: the lone button sits level in its band */
+.masthead-page h1.two-line { max-width: 17ch; }
+.masthead-page h1.method { max-width: 17ch; font-size: clamp(2rem, 1.2rem + 2.6vw, 3.25rem); }
+.sl-close .cta-row { margin: 0; }
+
+/* Services, shape 2 (Why, What, How): a one-word heading in the left column, the words in the right */
+.wwh { padding-block: clamp(8px, 2vw, 24px) clamp(40px, 6vw, 80px); }
+.wwh .wwh-row { display: grid; grid-template-columns: minmax(96px, 220px) minmax(0, 1fr); column-gap: clamp(20px, 4vw, 56px); padding: clamp(28px, 4vw, 48px) 0; border-top: 1px solid var(--line-card); }
+.wwh .wwh-row:first-child { border-top: 0; }
+.wwh h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 1.1vw, 1.875rem); line-height: 1.12; letter-spacing: -0.02em; color: var(--gold-deep); }
+.wwh-text { display: grid; gap: 16px; max-width: 60ch; }
+.wwh-text p { margin: 0; font-size: 1.02rem; line-height: 1.55; color: var(--stone-deep); }
+.wwh-big p { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.25rem, 1.05rem + 0.9vw, 1.625rem); line-height: 1.3; letter-spacing: -0.015em; color: var(--ink); }
+@media (max-width: 640px) { .wwh .wwh-row { grid-template-columns: minmax(0, 1fr); row-gap: 12px; } }
+
+/* Services, shape 3 (four capabilities): the site's own line, then a two-by-two ruled grid */
+.caps { padding-block: clamp(28px, 4vw, 56px) clamp(40px, 6vw, 80px); }
+.caps-line { margin: 0 0 clamp(24px, 3.4vw, 44px); max-width: 28ch; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem); line-height: 1.15; letter-spacing: -0.02em; color: var(--ink); }
+.caps-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: clamp(28px, 4vw, 56px); }
+.caps-grid li { padding: clamp(20px, 2.6vw, 32px) 0 clamp(24px, 3vw, 36px); border-top: 1px solid var(--line-card); min-width: 0; }
+.caps-grid h2 { margin-bottom: 10px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink); }
+.caps-grid p { margin: 0; max-width: 46ch; font-size: 1.02rem; line-height: 1.55; color: var(--stone-deep); }
+@media (max-width: 760px) { .caps-grid { grid-template-columns: minmax(0, 1fr); } }

@@ -45,7 +45,18 @@ function subscribePaused(cb: () => void) {
 }
 const no = () => false;
 
-export default function Masthead({ labelledBy, children }: { labelledBy: string; children: React.ReactNode }) {
+// variant 'home' is the full masthead of the front page. 'page' is the same lattice and lens as a short
+// band at the head of the other pages (Whit, 2026-10-20: the field stays on every page); the lens rests
+// high and right, beside the title, so it never sits under the tiles that follow it.
+export default function Masthead({
+  labelledBy,
+  children,
+  variant = 'home',
+}: {
+  labelledBy: string;
+  children: React.ReactNode;
+  variant?: 'home' | 'page';
+}) {
   const hostRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const copyRef = useRef<HTMLDivElement>(null);
@@ -65,6 +76,7 @@ export default function Masthead({ labelledBy, children }: { labelledBy: string;
         const top = copy ? copy.getBoundingClientRect().top - host.getBoundingClientRect().top : h * 0.3;
         return { home: [w * 0.56, Math.max(72, top * 0.48)], amp: [w * 0.12, Math.min(h * 0.18, top * 0.12)] };
       }
+      if (variant === 'page') return { home: [w * 0.74, Math.min(h * 0.5, 120)], amp: [w * 0.1, 32] };
       return { home: [w * 0.7, h * 0.48], amp: [w * 0.14, h * 0.18] };
     };
     engine.current = createMasthead(host, canvas, { frame, still: readStill(), paused: readPaused() });
@@ -72,7 +84,7 @@ export default function Masthead({ labelledBy, children }: { labelledBy: string;
       engine.current?.destroy();
       engine.current = null;
     };
-  }, []);
+  }, [variant]);
 
   useEffect(() => {
     engine.current?.setStill(still);
@@ -82,7 +94,7 @@ export default function Masthead({ labelledBy, children }: { labelledBy: string;
   }, [paused]);
 
   return (
-    <section ref={hostRef} className="hero masthead" aria-labelledby={labelledBy}>
+    <section ref={hostRef} className={variant === 'page' ? 'hero masthead masthead-page' : 'hero masthead'} aria-labelledby={labelledBy}>
       <canvas ref={canvasRef} className="mast-canvas" aria-hidden="true" />
       <div className="mast-veil" aria-hidden="true" />
       <div className="wrap mast-wrap">
