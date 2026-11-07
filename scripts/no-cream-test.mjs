@@ -1139,14 +1139,16 @@ test('(p) the agency inventory\'s "Uncertain" reaches 4.5:1 on white and on the 
 // The site's content security policy (next.config.ts: style-src 'self', font-src 'self' data:) refuses
 // Google's stylesheet and font files, so a page that links them draws in a fallback face. The one file left
 // out is the link-preview image route: it fetches Inter on the server to draw a PNG, which no browser loads.
+// The tool cards' route (/api/og/tool/<slug>, 2026-11-07) does the same with each tool's own face, so it is
+// left out for the same reason.
 const GOOGLE_FONTS = /fonts\.googleapis\.com|fonts\.gstatic\.com/;
 const SELF_HOSTED = ['barlow-semi-condensed', 'dm-sans', 'dm-mono', 'inter', 'jetbrains-mono', 'archivo'];
 
 test('(q) no served page loads a font from fonts.googleapis.com or fonts.gstatic.com', () => {
-  const ogRoute = join('src', 'app', 'api', 'og', 'route.tsx');
+  const ogRoutes = [join('src', 'app', 'api', 'og', 'route.tsx'), join('src', 'app', 'api', 'og', 'tool', '[slug]', 'route.tsx')];
   const files = [
     ...walkFiles('public', new Set(['.html', '.css', '.js', '.svg', '.json'])),
-    ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])).filter((f) => f !== ogRoute),
+    ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])).filter((f) => !ogRoutes.includes(f)),
     'scripts/build-brand-tokens.mjs', // writes public/hoplight-brand-tokens-2026-09-20.html
   ];
   const offenders = files.filter((f) => GOOGLE_FONTS.test(read(f)));
