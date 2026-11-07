@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { pageMetadata } from '@/lib/metadata';
+import { toolMetadata } from '@/lib/metadata';
 import '../revenge-or-justice.css';
 
 // The about page for Revenge or Justice. The first-person text is Whit's, stitched from his Substack
@@ -13,18 +13,13 @@ import '../revenge-or-justice.css';
 // pair, which a build machine may not carry. The fetch itself is cached an hour.
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = pageMetadata({
+export const metadata: Metadata = toolMetadata('revenge-or-justice', {
   title: 'Why Revenge or Justice exists',
+  name: 'Revenge or Justice',
   description:
     'Why this tool was built, the record of American accountability efforts it reads against, and how it reads a statement.',
   path: '/revenge-or-justice/about',
   ogDescription: 'History has a lot to say about exacting justice without blowing your political capital.',
-  image: {
-    url: 'https://hoplight.ai/api/og?title=Why+Revenge+or+Justice+exists&sub=The+record+behind+the+reading',
-    width: 1200,
-    height: 630,
-    alt: 'Why Revenge or Justice exists - Hoplight',
-  },
 });
 
 type Precedent = { key: string; name: string; year: string; side: 'better' | 'worse'; source: string; url?: string };

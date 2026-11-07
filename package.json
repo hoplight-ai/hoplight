@@ -18,6 +18,7 @@
     "check:preview": "node scripts/check-preview-metadata.mjs",
     "check:claims": "node scripts/check-claims-and-palette.mjs",
     "og:build": "node scripts/gen-og-card.mjs",
+    "cards:export": "node scripts/export-tool-cards.mjs",
     "tokens:build": "node scripts/build-brand-tokens.mjs",
     "tokens:check": "node scripts/build-brand-tokens.mjs --check",
     "palette:retire": "node scripts/retire-old-palette.mjs",
