@@ -63,12 +63,8 @@ export default function Home() {
           ))}
         </ul>
       </Masthead>
-
-      <section className="mailband" aria-label="Email">
-        <div className="wrap">
-          <p>Or email <a href="mailto:whit@hoplight.ai">whit@hoplight.ai</a></p>
-        </div>
-      </section>
+      {/* The Chanel pass (HOPSITE2, 2026-11-07): the "Or email whit@hoplight.ai" band went; the footer right
+          under it carries the same address. */}
     </>
   );
 }

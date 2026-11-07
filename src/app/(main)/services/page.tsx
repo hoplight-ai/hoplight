@@ -29,6 +29,11 @@ const serviceSchema = {
   },
 };
 
+// The Chanel pass (HOPSITE2, 2026-11-07): step four's sentence ("We help you build the maintenance muscle
+// in-house.") says its title, "Stand it up so it's yours", a second time, so this page draws the title alone.
+// The sentence stays in src/lib/services-content.ts for the two review shapes.
+const SAYS_ITS_TITLE_AGAIN = new Set([STEPS[3].title]);
+
 export default function Services() {
   return (
     <>
@@ -46,7 +51,7 @@ export default function Services() {
               <li key={l.title}>
                 <span className="sl-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
                 <h2 className="sl-title">{l.title}</h2>
-                <p className="sl-text">{l.text}</p>
+                {!SAYS_ITS_TITLE_AGAIN.has(l.title) && <p className="sl-text">{l.text}</p>}
               </li>
             ))}
           </ol>

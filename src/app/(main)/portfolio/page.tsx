@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { portfolioClock, visibleTools } from '@/data/tools';
 import { toolMetadata } from '@/lib/metadata';
 
@@ -27,6 +26,11 @@ export const metadata: Metadata = toolMetadata('portfolio', {
   ogDescription: 'Systems we’ve shipped.',
 });
 
+// Tiles whose line only says the tool's name again in other words, so the line is not drawn here (the
+// card above it already shows the name). The line itself stays in src/data/tools.ts, which belongs to the
+// tool drops and is not edited from here. HOPSITE2, 2026-11-07.
+const RESTATES_NAME = new Set(['which-ai-should-i-use', 'oregon-school-budget-report']);
+
 export default function Portfolio() {
   const clock = portfolioClock(process.env);
   const pieces = visibleTools(clock.now, undefined, { includeUncleared: clock.includeUncleared });
@@ -45,7 +49,6 @@ export default function Portfolio() {
           <ul className="gallery-grid">
             {pieces.map((p, i) => {
               const external = p.href.startsWith('http');
-              const live = p.kind === 'live';
               return (
                 <li key={p.slug}>
                   <a
@@ -69,10 +72,11 @@ export default function Portfolio() {
                       />
                     </div>
                     <div className="wcard-body">
-                      <h3 className="sr-only">{p.name}</h3>
-                      <p>{p.line}</p>
+                      <h2 className="sr-only">{p.name}</h2>
+                      {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
                       <span className="wc-go">
-                        {live ? 'Open the live app' : 'Open it'}{' '}&rarr;
+                        {/* One action, one label (HOPSITE2 review, 2026-11-07): "Open the live app" went. */}
+                        Open it{' '}&rarr;
                         {external && <span aria-hidden="true"> ↗</span>}
                         {external && <span className="sr-only"> (opens in a new tab)</span>}
                       </span>
@@ -115,17 +119,8 @@ export default function Portfolio() {
           </div>
         </div>
       </section>
-
-      <section className="slate" style={{ paddingTop: 0 }}>
-        <div className="wrap">
-          <h2 className="sr-only">Get in touch</h2>
-          <hr className="rule" style={{ marginBottom: '36px' }} />
-          <p className="lede">Something here you want to talk about?</p>
-          <div className="cta-row" style={{ marginTop: '24px' }}>
-            <Link className="btn btn-primary" href="/contact">Start a conversation</Link>
-          </div>
-        </div>
-      </section>
+      {/* The Chanel pass (HOPSITE2, 2026-11-07): the closing "Something here you want to talk about?" band and
+          its Start a conversation button went; the Contact button sits in the header on every screen. */}
     </>
   );
 }

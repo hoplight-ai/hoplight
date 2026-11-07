@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Masthead from '@/components/Masthead';
 import { Card, RuledList, SubstackLink } from '@/components/InsightParts';
 import { pageMetadata } from '@/lib/metadata';
-import { REPORTS, RESEARCH, WRITING } from '@/lib/insights-content';
+import { REPORTS, RESEARCH, WRITING, type InsightItem } from '@/lib/insights-content';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Insights',
@@ -14,6 +14,11 @@ export const metadata: Metadata = pageMetadata({
 // Whit, 2026-10-21: "new insights page works as option three that has the blue box". Two columns: Writing
 // and Research as cards on the navy field band, Reports as the ruled list beside it. The links to the trial
 // write-up, the persuasion page and the reports open pages behind the one-password sign-in (src/lib/gate.ts).
+// The Chanel pass (HOPSITE2, 2026-11-07): each essay card's tag said "Substack" under a link that already
+// says "Whit Pendergast on Substack", so the card shows its date alone. Drawn the way a dated Research card
+// is drawn (date as the tag, no line), since the shared card puts the source in an essay's tag.
+const datedOnly = (item: InsightItem): InsightItem => ({ ...item, kind: 'Research', line: undefined });
+
 export default function Insights() {
   return (
     <>
@@ -29,7 +34,7 @@ export default function Insights() {
             <ul className="ic-cards">
               {WRITING.map((item) => (
                 <li key={item.title}>
-                  <Card item={item} />
+                  <Card item={datedOnly(item)} />
                 </li>
               ))}
             </ul>
