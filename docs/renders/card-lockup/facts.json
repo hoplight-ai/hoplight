@@ -1,0 +1,38 @@
+{
+ "phone-375": {
+  "cardWidth": 300,
+  "pageHeight": 3401,
+  "sideways": false,
+  "emDashes": 0,
+  "fonts": [
+   "Inter",
+   "Albert Sans",
+   "JetBrains Mono",
+   "IBM Plex Mono"
+  ],
+  "captions": [
+   "aAs tall as the o, sitting on the baseline. Line 1.6 px.",
+   "bAs tall as the H, sitting on the baseline. Line 1.8 px.",
+   "cFrom the foot of the p to the top of the l, centred on the word. Line 1.6 px."
+  ],
+  "closeupHeight": 85
+ },
+ "desktop-1440": {
+  "cardWidth": 414,
+  "pageHeight": 2178,
+  "sideways": false,
+  "emDashes": 0,
+  "fonts": [
+   "Inter",
+   "Albert Sans",
+   "JetBrains Mono",
+   "IBM Plex Mono"
+  ],
+  "captions": [
+   "a\nAs tall as the o, sitting on the baseline. Line 1.6 px.",
+   "b\nAs tall as the H, sitting on the baseline. Line 1.8 px.",
+   "c\nFrom the foot of the p to the top of the l, centred on the word. Line 1.6 px."
+  ],
+  "closeupHeight": 219
+ }
+}
