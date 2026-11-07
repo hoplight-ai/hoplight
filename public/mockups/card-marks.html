@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Five ways to mark a Hoplight card</title>
+<meta name="description" content="Five ways to mark a link-preview card as a Hoplight product or report, on AGIS policy search, What's Human? and the DNC autopsy.">
+<meta property="og:title" content="Five ways to mark a Hoplight card">
+<meta property="og:description" content="Five ways to mark a link-preview card as a Hoplight product or report.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-title" content="Card marks">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.webmanifest">
+<!--
+  CARDMARK1, 2026-11-07, second round after the design review. Whit: "each one feels like a muddled
+  brand. I feel like we need some sort of consistent marker of it being a hot light product or report,
+  but each one needs to look like its own specific brand."
+
+  Where each tool's look comes from (read from the live pages on 2026-11-07 with computed styles):
+  - AGIS policy search, hoplight.ai/agis: white ground, ink #141414, Archivo 800 logo "AGIS." with the
+    period in #FFD000, Archivo 700 headings, the yellow #FFD200 highlighter stroke (its own SVG path,
+    copied here) behind key words, the world map in a dashed #141414 frame, map fills #C9C5BF and
+    #8A7459 from the live map's own paths, muted #474747. (The tool list in src/data/tools.ts still
+    says purple #6F3DB8; the live app is not purple.)
+  - What's Human?, whatshuman.vercel.app in its dark theme: ground #080E14, text #F3F5F8, Lora 400
+    title, Inter body, rounded-full choice chips on #1D293D with a 10% white edge, the filled light
+    button #F3F5F8, muted #90A1B9. Lora Regular (OFL) is embedded from the workspace's own copy.
+  - DNC autopsy, taken apart, hoplight.ai/portfolio/dnc-autopsy-taken-apart.html: white, ink #1A1A1A,
+    system sans 700 title, cover number "480+" and "pages total" in red #C0392B weight 800, the
+    pull-quote block with a red left rule on a 6% red tint, muted #575752.
+  Hoplight marker: the seed (src/lib/brand/seed.ts), the word in Albert Sans 600 as the site lockup
+  draws it (src/lib/brand/marks.ts), navy #0F1B2D, seed gold #E8A820, stone #8B8578.
+  Product and report are two forms of one mark: the tile filled for a product, outlined for a report.
+-->
+<style>
+@font-face { font-family: 'Inter'; src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: block; }
+@font-face { font-family: 'Archivo'; src: url('/fonts/archivo-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: block; }
+@font-face { font-family: 'Albert Sans'; src: url('/fonts/albert-sans-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: block; }
+@font-face { font-family: 'Lora'; src: url('/fonts/lora-latin-400-normal.ttf') format('truetype'); font-weight: 400; font-display: block; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #FFFFFF; color: #0F1B2D; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.4; }
+.page { max-width: 1400px; margin: 0 auto; padding: 24px 16px 64px; }
+h1 { font-size: clamp(24px, 1.2rem + 1.2vw, 34px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; margin: 0 0 6px; text-wrap: balance; }
+.lede { margin: 0; font-size: 16px; }
+section { margin-top: 56px; }
+h2 { font-size: 22px; font-weight: 600; margin: 0 0 2px; letter-spacing: -0.01em; }
+h2 b { display: inline-block; min-width: 1.3em; color: #996D00; font-weight: 700; }
+.what { margin: 0 0 16px; font-size: 15px; max-width: 64ch; }
+.full { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+.small-label { margin: 24px 0 10px; font-size: 14px; font-weight: 500; }
+.small { display: flex; flex-wrap: wrap; gap: 16px; }
+.small .shot { width: 326px; flex: none; }
+/* Every card carries its system's letter beside it, so a card met mid-scroll says where it belongs. */
+.shot { display: grid; grid-template-columns: 22px minmax(0, 1fr); column-gap: 4px; align-items: start; }
+.ltr { font-size: 14px; font-weight: 700; color: #996D00; line-height: 1; padding-top: 4px; }
+.small .card + .cap, .full .card + .cap { grid-column: 2; }
+
+@media (max-width: 760px) {
+  .full, .small-label { display: none; }
+  section { margin-top: 28px; }
+  .small { gap: 10px; }
+  .page { padding-bottom: 32px; }
+  .what { font-size: 14px; margin-bottom: 10px; }
+  .cap { padding: 6px 10px 7px; }
+}
+
+/* A card is drawn at 1200 by 630 and scaled to its box. */
+.card { position: relative; width: 100%; aspect-ratio: 1200 / 630; overflow: hidden; border-radius: 10px; box-shadow: 0 0 0 1px rgba(15, 27, 45, 0.16); grid-column: 2; }
+.c { position: absolute; left: 0; top: 0; width: 1200px; height: 630px; transform-origin: 0 0; overflow: hidden; }
+.art { position: absolute; left: 0; top: 0; width: 1200px; height: 630px; transform-origin: 0 0; display: flex; align-items: center; justify-content: space-between; padding: 0 72px; }
+
+/* The phone's own caption under a link preview (system C only). */
+.cap { background: #E9E9EB; border-radius: 0 0 10px 10px; padding: 8px 12px 9px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+.cap .t { font-size: 15px; font-weight: 600; line-height: 1.25; color: #000000; }
+.cap .d { font-size: 13px; color: #6B6B70; }
+.card.capped { border-radius: 10px 10px 0 0; }
+
+/* ---------- The three tools, each in its own look ---------- */
+/* AGIS policy search */
+.agis { background: #FFFFFF; }
+.agis .name { font-family: 'Archivo', sans-serif; font-weight: 800; font-size: 190px; line-height: 0.9; letter-spacing: 0.01em; color: #141414; }
+.agis .sub { margin-top: 26px; font-family: 'Archivo', sans-serif; font-weight: 700; font-size: 76px; line-height: 1.1; letter-spacing: -0.01em; color: #141414; }
+/* The live AGIS highlighter: yellow drawn behind dark text, never yellow as the text. The name's
+   period gets the same stroke, a short swipe behind a #141414 dot. */
+.agis .hl { padding: 0 8px; margin-left: -8px; }
+.agis .hl, .agis .name i {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 40' preserveAspectRatio='none'%3E%3Cpath fill='%23FFD200' d='M1.6 12.2C14 11 31 11.6 50 10.4C68 9.4 86 9.1 98.4 8.6C99.6 11.4 98.7 14 99.8 17.5C98.9 22 100 26.5 99.1 30.4C99.7 33 99 35 99.4 35.9C84 36.6 66 36 46 37.2C29 37.9 13 38.3 0.9 37.8C1.5 33.6 0.3 29 1.1 24.6C0.5 20 1.7 15.8 1.6 12.2Z'/%3E%3C/svg%3E") no-repeat center / 104% 78%; }
+.agis .name i { font-style: normal; color: #141414; padding: 0 0.07em; margin-left: 0.01em; background-size: 100% 30%; background-position: center 74%; }
+.agis .map { flex: none; }
+.agis .map svg { display: block; width: 330px; height: auto; }
+
+/* What's Human? */
+.wh { background: #080E14; }
+.wh .name { font-family: 'Lora', Georgia, serif; font-weight: 400; font-size: 150px; line-height: 1.0; letter-spacing: -0.01em; color: #F3F5F8; }
+.wh svg.chips { width: 360px; height: 300px; flex: none; }
+
+/* DNC autopsy, taken apart */
+.dnc { background: #FFFFFF; }
+.dnc .name { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 86px; line-height: 1.04; letter-spacing: -0.01em; color: #1A1A1A; }
+.dnc .pull { background: rgba(192, 57, 43, 0.06); border-left: 14px solid #C0392B; padding: 36px 52px 40px 44px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+.dnc .num { font-weight: 800; font-size: 150px; line-height: 1; color: #C0392B; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.01em; }
+.dnc .lab { font-weight: 400; font-size: 60px; line-height: 1.1; color: #575752; margin-top: 10px; }
+
+/* ---------- The Hoplight mark, two forms ---------- */
+.tile { display: flex; align-items: center; justify-content: center; flex: none; border-radius: 22%; }
+.hw { font-family: 'Albert Sans', sans-serif; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap; }
+
+/* A, corner seal: top-right, one line, quieter than the tool's name. */
+.sealA { position: absolute; right: 44px; top: 40px; display: flex; align-items: center; gap: 18px; font-size: 48px; line-height: 1; }
+
+/* B, spine: a strip down the left edge with the seed; a label at its foot carries the words. */
+.spineB { position: absolute; left: 0; top: 0; bottom: 0; width: 104px; display: flex; justify-content: center; padding-top: 34px; }
+.footB { position: absolute; left: 0; bottom: 30px; height: 84px; display: flex; align-items: center; padding: 0 30px 0 26px; font-size: 48px; line-height: 1; border-radius: 0 14px 14px 0; }
+
+/* D, frame: one frame inset on every card, the words set into its bottom line. */
+.frameD { position: absolute; inset: 28px; border-width: 12px; border-style: solid; border-radius: 6px; }
+.legendD { position: absolute; left: 76px; bottom: 6px; padding: 0 20px; display: flex; align-items: center; gap: 14px; font-size: 48px; line-height: 1; }
+
+/* E, maker's mark: under the name, in the tool's own type and quiet colour. */
+.markE { display: flex; align-items: center; gap: 18px; margin-top: 34px; font-size: 56px; line-height: 1; letter-spacing: 0; white-space: nowrap; }
+.agis .markE { font-family: 'Archivo', sans-serif; font-weight: 500; color: #474747; }
+.wh .markE { font-family: 'Inter', sans-serif; font-weight: 400; color: #90A1B9; }
+.dnc .markE { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 400; color: #575752; }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Five ways to mark a Hoplight card</h1>
+  <p class="lede">Filled mark: product. Outlined: report.</p>
+  <div id="systems"></div>
+</main>
+
+<script>
+(function () {
+  var SEED_GOLD = '#E8A820';
+  // The seed of life, as src/lib/brand/seed.ts draws it: seven circles of radius 17 in a 100 box, the
+  // centre dot always gold.
+  function seed(px, line, sw) {
+    var pts = [[50, 50], [50, 33], [64.7, 41.5], [64.7, 58.5], [50, 67], [35.3, 58.5], [35.3, 41.5]];
+    var c = pts.map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="17"/>'; }).join('');
+    return '<svg width="' + px + '" height="' + px + '" viewBox="0 0 100 100" aria-hidden="true">'
+      + '<g fill="none" stroke="' + line + '" stroke-width="' + (sw || 5.5) + '">' + c + '</g>'
+      + '<circle cx="50" cy="50" r="8" fill="' + SEED_GOLD + '"/></svg>';
+  }
+  // The mark's two forms, in Hoplight navy on every card so only the form changes. Product: a navy
+  // tile, the seed in gold. Report: the same tile as a navy outline, the seed in navy.
+  var NAVY = '#0F1B2D';
+  function tile(size, kind) {
+    var inner = Math.round(size * 0.78);
+    if (kind === 'product') {
+      return '<div class="tile" style="width:' + size + 'px;height:' + size + 'px;background:' + NAVY + '">' + seed(inner, SEED_GOLD) + '</div>';
+    }
+    var bw = Math.max(5, Math.round(size * 0.075));
+    return '<div class="tile" style="width:' + size + 'px;height:' + size + 'px;border:' + bw + 'px solid ' + NAVY + '">' + seed(inner - bw, NAVY) + '</div>';
+  }
+  function isLight(hex) { var n = parseInt(hex.slice(1), 16); return ((n >> 16) * 299 + ((n >> 8) & 255) * 587 + (n & 255) * 114) / 1000 > 140; }
+
+  // AGIS: the live map's dot world in the live map's own fills, the US in its darker data shade.
+  var WORLD = [
+    '......#####.....#.##########....', '..##uuuuu#.##...##############..', '..#uuuuuu#.....###############..',
+    '...uuuuu#......############.#...', '....####.......##########.......', '.....###.......#########........',
+    '......##........######..##......', '.......###......#####....#......', '........####....####.....##.....',
+    '........#####....###......#.##..', '.........####....##.......####..', '.........###.....#.........##...',
+    '.........##.....................'
+  ];
+  function map() {
+    var cols = 24, rows = 10, pitch = 15, dot = 12, s = '';
+    for (var r = 0; r < rows; r++) {
+      var line = WORLD[Math.floor(((r + 0.5) * WORLD.length) / rows)];
+      for (var k = 0; k < cols; k++) {
+        var ch = line[Math.floor(((k + 0.5) * line.length) / cols)];
+        if (ch === '.') continue;
+        s += '<rect x="' + k * pitch + '" y="' + r * pitch + '" width="' + dot + '" height="' + dot + '" rx="2.5" fill="' + (ch === 'u' ? '#8A7459' : '#C9C5BF') + '"/>';
+      }
+    }
+    return '<svg viewBox="0 0 ' + (cols * pitch - 3) + ' ' + (rows * pitch - 3) + '" aria-hidden="true">' + s + '</svg>';
+  }
+  // What's Human?: the first screen's rounded choice chips on #1D293D with a faint edge, one picked
+  // and filled in the light button colour.
+  function chips() {
+    var H = 44, s = '';
+    function chip(x, y, w, on) {
+      return on ? '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + H + '" rx="22" fill="#F3F5F8"/>'
+        : '<rect x="' + (x + 1.5) + '" y="' + (y + 1.5) + '" width="' + (w - 3) + '" height="' + (H - 3) + '" rx="20.5" fill="#1D293D" stroke="#F5FFFF" stroke-opacity="0.14" stroke-width="3"/>';
+    }
+    function bar(y, w) { return '<rect x="0" y="' + y + '" width="' + w + '" height="10" rx="5" fill="#90A1B9"/>'; }
+    s += bar(0, 70) + chip(0, 22, 140, false) + chip(152, 22, 140, true)
+      + chip(0, 76, 140, false) + chip(152, 76, 140, false)
+      + bar(146, 190) + chip(0, 168, 96, false) + chip(106, 168, 96, false) + chip(212, 168, 110, false)
+      + chip(0, 222, 112, false) + chip(122, 222, 96, false) + chip(228, 222, 84, false);
+    return '<svg class="chips" viewBox="0 0 322 270" aria-hidden="true">' + s + '</svg>';
+  }
+
+  var TOOLS = [
+    { id: 'agis', title: 'AGIS policy search', kind: 'product', domain: 'hoplight.ai', ground: '#FFFFFF', quiet: '#474747' },
+    { id: 'wh', title: 'What’s Human?', kind: 'product', domain: 'whatshuman.vercel.app', ground: '#080E14', quiet: '#90A1B9' },
+    { id: 'dnc', title: 'DNC autopsy, taken apart', kind: 'report', domain: 'hoplight.ai', ground: '#FFFFFF', quiet: '#575752' }
+  ];
+  // Hoplight's ink on each ground: navy on a light card, white on a dark one; the kind word quieter.
+  function inkFor(t) { return isLight(t.ground) ? '#0F1B2D' : '#FFFFFF'; }
+  function mutedFor(t) { return isLight(t.ground) ? '#8B8578' : '#C9D3E0'; }
+  function words(t) { return '<span class="hw" style="color:' + inkFor(t) + '">Hoplight <span style="color:' + mutedFor(t) + '">' + t.kind + '</span></span>'; }
+
+  function markE(t) {
+    return '<div class="markE">' + tile(72, t.kind) + '<span>Hoplight ' + t.kind + '</span></div>';
+  }
+
+  function body(t, withMark) {
+    var m = withMark ? markE(t) : '';
+    if (t.id === 'agis') {
+      return '<div class="art agis"><div><div class="name">AGIS<i>.</i></div><div class="sub"><span class="hl">policy search</span></div>' + m + '</div>'
+        + '<div class="map">' + map() + '</div></div>';
+    }
+    if (t.id === 'wh') {
+      return '<div class="art wh"><div><div class="name">What’s<br>Human?</div>' + m + '</div>' + chips() + '</div>';
+    }
+    return '<div class="art dnc"><div><div class="name">DNC<br>autopsy,<br>taken apart</div>' + m + '</div>'
+      + '<div class="pull"><div class="num">480+</div><div class="lab">pages total</div></div></div>';
+  }
+
+  // Fit the 1200 by 630 tool body into the box a system leaves it.
+  function fit(t, box, withMark) {
+    var k = Math.min(box.w / 1200, box.h / 630);
+    var x = box.x + (box.w - 1200 * k) / 2, y = box.y + (box.h - 630 * k) / 2;
+    return body(t, withMark).replace('class="art ', 'style="transform: translate(' + x + 'px,' + y + 'px) scale(' + k + ')" class="art ');
+  }
+  var WHOLE = { x: 0, y: 0, w: 1200, h: 630 };
+
+  var SYSTEMS = [
+    { l: 'A', n: 'Corner seal', what: 'Tile and name pinned top right, one line.',
+      draw: function (t) {
+        return fit(t, WHOLE) + '<div class="sealA">' + tile(80, t.kind) + words(t) + '</div>';
+      } },
+    { l: 'B', n: 'Spine', what: 'A navy strip on the left, its label at the foot.',
+      draw: function (t) {
+        // One navy on every card: filled for a product, outlined for a report.
+        var prod = t.kind === 'product';
+        var spine = prod ? 'background:' + NAVY : 'background:' + t.ground + ';border-right:6px solid ' + NAVY;
+        var foot = prod ? 'background:' + NAVY : 'background:' + t.ground + ';border:6px solid ' + NAVY + ';border-left:0';
+        var txt = prod ? '#FFFFFF' : NAVY;
+        var seedLine = prod ? SEED_GOLD : NAVY;
+        return fit(t, { x: 104, y: 0, w: 1096, h: 630 })
+          + '<div class="spineB" style="' + spine + '">' + seed(72, seedLine) + '</div>'
+          + '<div class="footB" style="' + foot + '"><span class="hw" style="color:' + txt + '">Hoplight ' + t.kind + '</span></div>';
+      } },
+    { l: 'C', n: 'Caption line', what: 'Only the tool on the card; Hoplight in the text below.', caption: true,
+      draw: function (t) { return fit(t, WHOLE); } },
+    { l: 'D', n: 'Frame', what: 'One frame: navy on light, white on dark.',
+      draw: function (t) {
+        var ink = inkFor(t);
+        return fit(t, { x: 40, y: 44, w: 1120, h: 542 })
+          + '<div class="frameD" style="border-color:' + ink + '"></div>'
+          + '<div class="legendD" style="background:' + t.ground + '">' + tile(58, t.kind) + words(t) + '</div>';
+      } },
+    { l: 'E', n: 'Maker’s mark', what: 'Under the name, in the tool’s own type.',
+      draw: function (t) { return fit(t, WHOLE, true); } }
+  ];
+
+  function shot(s, t, small) {
+    var label = t.title + ', a Hoplight ' + t.kind + ', system ' + s.l;
+    var cap = s.caption && small;
+    var h = '<div class="shot"><span class="ltr" aria-hidden="true">' + s.l + '</span>'
+      + '<div class="card' + (cap ? ' capped' : '') + '" role="img" aria-label="' + label + '"><div class="c" style="background:' + t.ground + '">' + s.draw(t) + '</div></div>';
+    if (cap) h += '<div class="cap"><div class="t">' + t.title + ', a Hoplight ' + t.kind + '</div><div class="d">' + t.domain + '</div></div>';
+    return h + '</div>';
+  }
+
+  var out = '';
+  SYSTEMS.forEach(function (s) {
+    var full = TOOLS.map(function (t) { return shot(s, t, false); }).join('');
+    var small = TOOLS.map(function (t) { return shot(s, t, true); }).join('');
+    out += '<section id="' + s.l.toLowerCase() + '"><h2><b>' + s.l + '</b>' + s.n + '</h2><p class="what">' + s.what + '</p>'
+      + '<div class="full">' + full + '</div>'
+      + '<p class="small-label">At text-message size</p><div class="small">' + small + '</div></section>';
+  });
+  document.getElementById('systems').innerHTML = out;
+
+  function scaleAll() {
+    document.querySelectorAll('.card').forEach(function (card) {
+      if (card.clientWidth) card.firstChild.style.transform = 'scale(' + (card.clientWidth / 1200) + ')';
+    });
+  }
+  scaleAll();
+  new ResizeObserver(scaleAll).observe(document.body);
+})();
+</script>
+</body>
+</html>
