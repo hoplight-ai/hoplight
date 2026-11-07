@@ -22,7 +22,9 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = readFileSync(path.join(ROOT, 'src/lib/insights-content.ts'), 'utf8');
 // Plain-quoted hrefs are the site's own paths; the Substack ones are template strings to another site.
 const LOCAL = [...SRC.matchAll(/href: '([^']+)'/g)].map((m) => m[1]);
-const ALL_LINKS = (SRC.match(/href:/g) || []).length;
+// Writing comes from the Substack feed since PORTSPLIT1 (2026-11-07), so its count follows the feed at build
+// time; the count below is every other link the content file holds, and Writing must show at least one card.
+const ALL_LINKS = (SRC.match(/href:/g) || []).length - (SRC.match(/href: `\$\{SUBSTACK\}\/p\//g) || []).length;
 const gatedHref = (href) => href.startsWith('/') && isGated(href);
 const MARK = /aria-label="sign-in required"/;
 
@@ -42,7 +44,9 @@ test('opensSignIn agrees with the gate on every Insights link', () => {
 test('in the built Insights page, gated rows carry the lock and open rows do not', { skip: BUILT ? false : 'no build present' }, () => {
   const html = readFileSync(BUILT, 'utf8');
   const anchors = [...html.matchAll(/<a class="(?:rep|ptile)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
-  assert.equal(anchors.length, ALL_LINKS, 'one card or row per Insights link');
+  const essays = anchors.filter(([, href]) => href.startsWith('https://whitpendergast.substack.com/p/'));
+  assert.ok(essays.length >= 1, 'Writing shows no essay');
+  assert.equal(anchors.length - essays.length, ALL_LINKS, 'one card or row per Insights link');
   let locked = 0;
   for (const [, href, inner] of anchors) {
     const want = gatedHref(href.replace(/&amp;/g, '&'));

@@ -1,0 +1,42 @@
+{
+  "words_in_first_screen": 114,
+  "text_share_of_first_screen_pct": 12.3,
+  "type_sizes_in_first_screen": [
+    12,
+    13,
+    15,
+    16,
+    22,
+    28,
+    66
+  ],
+  "font_families_in_first_screen": [
+    "Albert Sans",
+    "Inter",
+    "JetBrains Mono"
+  ],
+  "text_above_28px": [
+    "66px: Insights"
+  ],
+  "filled_buttons_in_first_screen": [
+    "Contact",
+    "Pause"
+  ],
+  "distinct_hues_in_first_screen": 1,
+  "colour_keys_on_page": 0,
+  "em_dashes_whole_page": 0,
+  "em_dashes_first_screen": 0,
+  "ground_colour": "rgb(255, 255, 255)",
+  "cream_ground": false,
+  "surfaces_with_border_fill_and_shadow": 0,
+  "sideways_scroll": false,
+  "page_height_px": 1346,
+  "phone_sideways_scroll": false,
+  "target": "https://hoplight.ai/insights",
+  "pictures": [
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-portsplit1/docs/renders/portsplit1-2026-11-07/round4/before-live-insights/desktop-colour.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-portsplit1/docs/renders/portsplit1-2026-11-07/round4/before-live-insights/desktop-grayscale.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-portsplit1/docs/renders/portsplit1-2026-11-07/round4/before-live-insights/phone.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-portsplit1/docs/renders/portsplit1-2026-11-07/round4/before-live-insights/desktop-full.png"
+  ]
+}

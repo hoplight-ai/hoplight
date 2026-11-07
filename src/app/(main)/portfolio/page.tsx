@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { portfolioClock, visibleTools } from '@/data/tools';
+import { onShelf, portfolioClock, visibleTools } from '@/data/tools';
 import { toolMetadata } from '@/lib/metadata';
 
 // The list lives in src/data/tools.ts with a release day and a cleared flag per entry (Whit,
@@ -26,14 +26,14 @@ export const metadata: Metadata = toolMetadata('portfolio', {
   ogDescription: 'Systems we’ve shipped.',
 });
 
-// Tiles whose line only says the tool's name again in other words, so the line is not drawn here (the
-// card above it already shows the name). The line itself stays in src/data/tools.ts, which belongs to the
-// tool drops and is not edited from here. HOPSITE2, 2026-11-07.
-const RESTATES_NAME = new Set(['which-ai-should-i-use', 'oregon-school-budget-report']);
+// Every entry draws its line. HOPSITE2 (2026-11-07) hid the line on two tiles whose line restated the
+// name; PORTSPLIT1's design review the same day put Oregon's back (its empty gap read as a fault), and the
+// dispatcher's follow-up put Which AI's back, so the hidden list went. scripts/portfolio-shelf.test.mjs
+// keeps every line drawn.
 
 export default function Portfolio() {
   const clock = portfolioClock(process.env);
-  const pieces = visibleTools(clock.now, undefined, { includeUncleared: clock.includeUncleared });
+  const products = onShelf('product', visibleTools(clock.now, undefined, { includeUncleared: clock.includeUncleared }));
   return (
     <>
       <div className="page-hero portfolio-hero">
@@ -43,11 +43,15 @@ export default function Portfolio() {
       </div>
 
       {/* The gallery opens straight onto the tiles, so a full row sits in the first screen at 1440 by 900
-          (visual review, 2026-11-07). Its old heading block and the two mono labels went then. */}
-      <section className="slate portfolio-gallery" aria-label="The gallery">
+          (visual review, 2026-11-07). Its old heading block and the two mono labels went then.
+          PORTSPLIT1 round two, 2026-11-07 (Whit, after seeing Products and Reports as two parts here: "the
+          reports need to live more as ... a research section of the website or something may be tied into my
+          writings"): the portfolio shows products only. The reports are listed on /insights beside his
+          writing, read from the same tool list. With one part left, its heading went too. */}
+      <section className="slate portfolio-gallery portfolio-products" aria-label="The gallery">
         <div className="wrap">
           <ul className="gallery-grid">
-            {pieces.map((p, i) => {
+            {products.map((p, i) => {
               const external = p.href.startsWith('http');
               return (
                 <li key={p.slug}>
@@ -73,7 +77,7 @@ export default function Portfolio() {
                     </div>
                     <div className="wcard-body">
                       <h2 className="sr-only">{p.name}</h2>
-                      {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
+                      <p>{p.line}</p>
                       <span className="wc-go">
                         {/* One action, one label (HOPSITE2 review, 2026-11-07): "Open the live app" went. A tile that
                             leaves the site shows the outward arrow alone (design review, same day). */}

@@ -3,6 +3,7 @@ import Masthead from '@/components/Masthead';
 import { Card, RuledList, SubstackLink } from '@/components/InsightParts';
 import { pageMetadata } from '@/lib/metadata';
 import { REPORTS, RESEARCH, WRITING, type InsightItem } from '@/lib/insights-content';
+import { latestWriting } from '@/lib/substack';
 
 export const metadata: Metadata = pageMetadata({
   title: 'Insights',
@@ -19,7 +20,13 @@ export const metadata: Metadata = pageMetadata({
 // is drawn (date as the tag, no line), since the shared card puts the source in an essay's tag.
 const datedOnly = (item: InsightItem): InsightItem => ({ ...item, kind: 'Research', line: undefined });
 
-export default function Insights() {
+// PORTSPLIT1, 2026-11-07: Writing reads Whit's Substack feed, rebuilt at most once an hour, and falls back to
+// the hand-kept WRITING list when the feed fails or is empty (src/lib/substack.ts). The layout is unchanged:
+// Whit chose the page as it was ("The insights page the before version is the winner").
+export const revalidate = 3600;
+
+export default async function Insights() {
+  const writing = await latestWriting(WRITING);
   return (
     <>
       <Masthead labelledBy="insights-title" variant="page">
@@ -32,8 +39,8 @@ export default function Insights() {
             <h2 id="writing-title">Writing</h2>
             <SubstackLink />
             <ul className="ic-cards">
-              {WRITING.map((item) => (
-                <li key={item.title}>
+              {writing.map((item) => (
+                <li key={item.href ?? item.title}>
                   <Card item={datedOnly(item)} />
                 </li>
               ))}

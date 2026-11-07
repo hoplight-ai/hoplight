@@ -1,0 +1,1088 @@
+{
+  "/portfolio": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 2228,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Systems we’ve shipped.",
+          "top": 100,
+          "screens": 0.12
+        },
+        {
+          "level": 2,
+          "text": "Products",
+          "top": 218,
+          "screens": 0.27
+        },
+        {
+          "level": 3,
+          "text": "Gut Check",
+          "top": 370,
+          "screens": 0.46
+        },
+        {
+          "level": 3,
+          "text": "AGIS policy search",
+          "top": 595,
+          "screens": 0.73
+        },
+        {
+          "level": 3,
+          "text": "AI Election Errors",
+          "top": 798,
+          "screens": 0.98
+        },
+        {
+          "level": 3,
+          "text": "Bet Appetit",
+          "top": 1023,
+          "screens": 1.26
+        },
+        {
+          "level": 3,
+          "text": "What’s Human?",
+          "top": 1248,
+          "screens": 1.54
+        },
+        {
+          "level": 3,
+          "text": "Which AI should I use?",
+          "top": 1450,
+          "screens": 1.79
+        },
+        {
+          "level": 2,
+          "text": "Reports",
+          "top": 1601,
+          "screens": 1.97
+        },
+        {
+          "level": 3,
+          "text": "DNC autopsy, taken apart",
+          "top": 1666,
+          "screens": 2.05
+        },
+        {
+          "level": 3,
+          "text": "Oregon school budget report",
+          "top": 1798,
+          "screens": 2.21
+        },
+        {
+          "level": 3,
+          "text": "Worker equity dilution at GE",
+          "top": 1907,
+          "screens": 2.35
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [],
+      "bigText": [
+        "Systems we’ve shipped. (32.15px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Systems we’ve shipped.",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 32.15,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 100
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 21.6,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 218
+        },
+        {
+          "text": "Take a side on AI, the midterms, psychedelics, g",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 371
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 445
+        },
+        {
+          "text": "↗",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 447
+        },
+        {
+          "text": "31,900+ sources, 2,100+ jurisdictions, searchabl",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 596
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 647
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 647
+        },
+        {
+          "text": "Did a chatbot give someone wrong election inform",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 799
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 872
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 872
+        },
+        {
+          "text": "Bet tracker skinned as the Michelin Guide. Bets ",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1024
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1097
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1097
+        },
+        {
+          "text": "Guess whether a person or a machine wrote the te",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1249
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1300
+        },
+        {
+          "text": "↗",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1302
+        },
+        {
+          "text": "Answer a few questions, get told which model fit",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1451
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1502
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1502
+        },
+        {
+          "text": "Reports",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 21.6,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1601
+        },
+        {
+          "text": "DNC autopsy, taken apart",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16.8,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1666
+        },
+        {
+          "text": "The party’s own 2024 after-action report, argued",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 6.88,
+          "need": 4.5,
+          "top": 1692
+        },
+        {
+          "text": "Read it",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1745
+        },
+        {
+          "text": "→",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1745
+        },
+        {
+          "text": "Oregon school budget report",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16.8,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1798
+        },
+        {
+          "text": "Where Oregon K-12 money actually goes.",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 6.88,
+          "need": 4.5,
+          "top": 1824
+        },
+        {
+          "text": "Read it",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1854
+        },
+        {
+          "text": "→",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1854
+        },
+        {
+          "text": "Worker equity dilution at GE",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16.8,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1907
+        },
+        {
+          "text": "80 years of worker equity draining out of one co",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 6.88,
+          "need": 4.5,
+          "top": 1933
+        },
+        {
+          "text": "Read it",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1986
+        },
+        {
+          "text": "→",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1986
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 2100
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2118
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2118
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2118
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2156
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2156
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1611,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Systems we’ve shipped.",
+          "top": 116,
+          "screens": 0.13
+        },
+        {
+          "level": 2,
+          "text": "Products",
+          "top": 239,
+          "screens": 0.27
+        },
+        {
+          "level": 3,
+          "text": "Gut Check",
+          "top": 483,
+          "screens": 0.54
+        },
+        {
+          "level": 3,
+          "text": "AGIS policy search",
+          "top": 483,
+          "screens": 0.54
+        },
+        {
+          "level": 3,
+          "text": "AI Election Errors",
+          "top": 483,
+          "screens": 0.54
+        },
+        {
+          "level": 3,
+          "text": "Bet Appetit",
+          "top": 816,
+          "screens": 0.91
+        },
+        {
+          "level": 3,
+          "text": "What’s Human?",
+          "top": 816,
+          "screens": 0.91
+        },
+        {
+          "level": 3,
+          "text": "Which AI should I use?",
+          "top": 816,
+          "screens": 0.91
+        },
+        {
+          "level": 2,
+          "text": "Reports",
+          "top": 1040,
+          "screens": 1.16
+        },
+        {
+          "level": 3,
+          "text": "DNC autopsy, taken apart",
+          "top": 1105,
+          "screens": 1.23
+        },
+        {
+          "level": 3,
+          "text": "Oregon school budget report",
+          "top": 1214,
+          "screens": 1.35
+        },
+        {
+          "level": 3,
+          "text": "Worker equity dilution at GE",
+          "top": 1323,
+          "screens": 1.47
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Portfolio",
+          "w": 53,
+          "h": 17
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 16
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 16
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 16
+        }
+      ],
+      "filled": [
+        "Contact"
+      ],
+      "bigText": [
+        "Systems we’ve shipped. (49.6px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Portfolio",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Systems we’ve shipped.",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 49.6,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 116
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 21.6,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 239
+        },
+        {
+          "text": "Take a side on AI, the midterms, psychedelics, g",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 484
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 563
+        },
+        {
+          "text": "↗",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 565
+        },
+        {
+          "text": "31,900+ sources, 2,100+ jurisdictions, searchabl",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 484
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 541
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 541
+        },
+        {
+          "text": "Did a chatbot give someone wrong election inform",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 484
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 563
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 563
+        },
+        {
+          "text": "Bet tracker skinned as the Michelin Guide. Bets ",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 817
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 897
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 897
+        },
+        {
+          "text": "Guess whether a person or a machine wrote the te",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 817
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 874
+        },
+        {
+          "text": "↗",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 876
+        },
+        {
+          "text": "Answer a few questions, get told which model fit",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 817
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 874
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 874
+        },
+        {
+          "text": "Reports",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 21.6,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1040
+        },
+        {
+          "text": "DNC autopsy, taken apart",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16.8,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1105
+        },
+        {
+          "text": "The party’s own 2024 after-action report, argued",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 6.88,
+          "need": 4.5,
+          "top": 1131
+        },
+        {
+          "text": "Read it",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1161
+        },
+        {
+          "text": "→",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1161
+        },
+        {
+          "text": "Oregon school budget report",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16.8,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1214
+        },
+        {
+          "text": "Where Oregon K-12 money actually goes.",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 6.88,
+          "need": 4.5,
+          "top": 1240
+        },
+        {
+          "text": "Read it",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1270
+        },
+        {
+          "text": "→",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1270
+        },
+        {
+          "text": "Worker equity dilution at GE",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16.8,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1323
+        },
+        {
+          "text": "80 years of worker equity draining out of one co",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 6.88,
+          "need": 4.5,
+          "top": 1349
+        },
+        {
+          "text": "Read it",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1380
+        },
+        {
+          "text": "→",
+          "fg": "#e8a820",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 8.27,
+          "need": 4.5,
+          "top": 1380
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1532
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1550
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1550
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1550
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1539
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1539
+        }
+      ]
+    }
+  }
+}

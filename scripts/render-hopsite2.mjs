@@ -21,13 +21,18 @@ const REPO = join(dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(join(REPO, '..', 'quick-tools', 'package.json'));
 const { chromium } = require('playwright');
 
-const [origin, round, ...rest] = process.argv.slice(2);
+// `--dir <folder>` puts the round under docs/renders/<folder>/ instead of hopsite2-2026-11-07 (PORTSPLIT1,
+// 2026-11-07, renders into portsplit1-2026-11-07).
+const argv = process.argv.slice(2);
+const dirAt = argv.indexOf('--dir');
+const DIR = dirAt >= 0 ? argv.splice(dirAt, 2)[1] : 'hopsite2-2026-11-07';
+const [origin, round, ...rest] = argv;
 if (!origin || !round) {
-  console.error('usage: node scripts/render-hopsite2.mjs <origin> <round-name> [path ...]');
+  console.error('usage: node scripts/render-hopsite2.mjs <origin> <round-name> [path ...] [--dir <folder>]');
   process.exit(2);
 }
 const PATHS = rest.length ? rest : ['/', '/portfolio', '/services', '/insights', '/about'];
-const OUT = join(REPO, 'docs', 'renders', 'hopsite2-2026-11-07', round);
+const OUT = join(REPO, 'docs', 'renders', DIR, round);
 mkdirSync(OUT, { recursive: true });
 writeFileSync(join(REPO, 'docs', 'renders', '.metadata_never_index'), '');
 
@@ -89,7 +94,7 @@ function audit() {
     });
   }
 
-  const headings = [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) => ({ level: +h.tagName[1], text: h.textContent.trim().slice(0, 40) }));
+  const headings = [...document.querySelectorAll('h1,h2,h3,h4,h5,h6')].map((h) => ({ level: +h.tagName[1], text: h.textContent.trim().slice(0, 40), top: Math.round(h.getBoundingClientRect().top + scrollY), screens: +((h.getBoundingClientRect().top + scrollY) / innerHeight).toFixed(2) }));
   const skips = [];
   for (let i = 1; i < headings.length; i += 1) if (headings[i].level > headings[i - 1].level + 1) skips.push(`${headings[i - 1].text} (h${headings[i - 1].level}) -> ${headings[i].text} (h${headings[i].level})`);
 
@@ -147,6 +152,7 @@ for (const [path, byWidth] of Object.entries(report)) {
     console.log(`${path} @${w}: status ${a.status}, height ${a.height}, overflowX ${a.overflowX}, heading skips ${a.skips.length}, contrast fails ${a.failing.length}, small targets ${a.small.length}, filled in fold ${a.filled.length} [${a.filled.join(' | ')}], text >28px in fold ${a.bigText.length} [${a.bigText.join(' | ')}]`);
     for (const f of a.failing) console.log(`   contrast ${f.ratio} < ${f.need}: "${f.text}" ${f.fg} on ${f.bg}${f.overImage ? ` over ${f.overImage}` : ''}`);
     for (const s of a.skips) console.log(`   heading skip: ${s}`);
+    for (const h of a.headings.filter((x) => x.level <= 2)) console.log(`   h${h.level} "${h.text}" at ${h.top}px, screen ${h.screens}`);
     if (w === '375') for (const s of a.small) console.log(`   small target ${s.w}x${s.h}: "${s.text}"`);
   }
 }
