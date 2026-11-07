@@ -16,7 +16,8 @@ const TOOLS = [
   { slug: 'gut-check', name: 'Gut Check', href: 'https://gut-check-hoplight.vercel.app/play' },
   { slug: 'revenge-or-justice', name: 'Revenge or Justice', href: '/revenge-or-justice' },
 ];
-const PAID = { 'revenge-or-justice': ['src/app/api/revenge-or-justice/route.ts', 'src/app/api/revenge-or-justice/feed/route.ts'] };
+// The fixture routes end in .txt so the site's type check does not compile them.
+const PAID = { 'revenge-or-justice': ['src/app/api/revenge-or-justice/route.ts.txt', 'src/app/api/revenge-or-justice/feed/route.ts.txt'] };
 
 /** A PNG header with the given size; enough for pngSize. */
 function png(w, h) {
@@ -147,8 +148,8 @@ test('launch: the security report must say STATUS: PASS on its own line (e)', as
 test('launch: every paid-model route needs a limiter (f)', async () => {
   const s = byStep(await run('revenge-or-justice', {}));
   assert.equal(s.f.ok, false);
-  assert.match(s.f.detail, /feed\/route\.ts/);
-  assert.doesNotMatch(s.f.detail, /justice\/route\.ts,/);
+  assert.match(s.f.detail, /feed\/route\.ts\.txt/);
+  assert.doesNotMatch(s.f.detail, /justice\/route\.ts\.txt,/);
   const real = byStep(await runChecks({ slug: 'revenge-or-justice', tools: TOOLS, fetchImpl: net({}) }));
   assert.equal(real.f.ok, true, `the real routes: ${real.f.detail}`);
 });
