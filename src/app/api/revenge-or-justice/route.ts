@@ -13,6 +13,7 @@
 
 import { NextResponse } from 'next/server';
 import { checkLimitIn, clientIp } from '@/lib/rate-limit';
+import { LOOKS_LIKE_LINK, publicHttpUrl } from '@/lib/safe-url';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
@@ -51,6 +52,14 @@ export async function POST(req: Request) {
   const text = typeof b.text === 'string' ? b.text.slice(0, 20000) : '';
   const url = typeof b.url === 'string' ? b.url.slice(0, 2000) : '';
   if (!text && !url) return NextResponse.json({ error: 'paste some text or a link' }, { status: 400 });
+  // Security check SITESEC1, 2026-11-07: the upstream fetches any address it is handed, and reads a text
+  // that is one link as a link. A link to a private network, a loopback or link-local address, a
+  // metadata host or a bare machine name stops here (src/lib/safe-url.ts, scripts/safe-url.test.mjs).
+  const link = url || (LOOKS_LIKE_LINK.test(text.trim()) ? text.trim() : '');
+  if (link) {
+    const safe = publicHttpUrl(link);
+    if (!safe.ok) return NextResponse.json({ error: safe.reason }, { status: 400 });
+  }
   const res = await fetch(UPSTREAM, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: a },
