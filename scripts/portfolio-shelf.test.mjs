@@ -91,3 +91,21 @@ test('built: the three reports render under Reports and no product does', { skip
   }
   assert.ok(html.indexOf('data-shelf="product"') < html.indexOf('data-shelf="report"'), 'Reports comes before Products');
 });
+
+// Design review of the split, 2026-11-07: fix 1 (blocking) puts a quiet "Read it" under each report's
+// title, matching the products' "Open it"; fix 2 shows Oregon's one line, as DNC and GE show theirs.
+test('page: Oregon is not on the hidden-line list', () => {
+  const src = read('src/app/(main)/portfolio/page.tsx');
+  const set = src.match(/const RESTATES_NAME = new Set\(\[([^\]]*)\]\)/);
+  assert.ok(set, 'RESTATES_NAME not found');
+  assert.ok(!/oregon-school-budget-report/.test(set[1]), 'Oregon’s line is still hidden');
+});
+
+test('built: every report row carries its line and a "Read it" label', { skip: BUILT ? false : 'no build present' }, () => {
+  const html = readFileSync(BUILT, 'utf8');
+  const reports = html.match(/<section[^>]*data-shelf="report"[^>]*>([\s\S]*?)<\/section>/)[1];
+  for (const t of TOOLS.filter((x) => x.shelf === 'report')) {
+    assert.ok(reports.includes(t.line), `${t.slug} line missing`);
+  }
+  assert.equal((reports.match(/Read it/g) ?? []).length, TOOLS.filter((x) => x.shelf === 'report').length, 'one Read it per report');
+});

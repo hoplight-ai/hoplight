@@ -399,7 +399,20 @@ section { padding: var(--space-section) 0; }
 .report-row, .report-row:hover { display: block; padding: 16px 0; min-height: 44px; color: #fff; border-bottom: 0; }
 .report-row h3 { font-size: 1.05rem; font-weight: 500; margin: 0; color: #fff; }
 .report-row p { font-size: 0.88rem; color: rgba(255,255,255,0.6); margin: 4px 0 0; }
-@media (hover: hover) { .slate .report-row:hover h3 { text-decoration: underline; text-decoration-color: var(--gold-hot); text-underline-offset: 4px; } }
+/* Design review of the split, fix 1: a quiet "Read it" under each row's line, the products' "Open it" in
+   the gold that holds on navy. */
+.slate .report-row .wc-go { display: block; margin-top: 8px; font-size: 0.78rem; font-weight: 600; color: var(--gold-hot); }
+@media (hover: hover) { .slate .report-row:hover h3, .slate .report-row:hover .wc-go { text-decoration: underline; text-decoration-color: var(--gold-hot); text-underline-offset: 4px; } }
+/* Fix 3: on a phone the product cards run shorter, so Reports start within about three screens at 375 even
+   with every product showing. One column stays: two columns at 375 would set each card's name near 15px
+   and wrap each line to five or six lines. The card face is cropped to its middle band, and the text
+   under it sits tighter. */
+@media (max-width: 640px) {
+  .portfolio-products .gallery-grid { gap: 12px; }
+  .portfolio-products .gallery-grid .wcard-img.wcard-img-card { aspect-ratio: 1200 / 330; }
+  .portfolio-products .wcard-body { padding: 12px 16px 14px; }
+  .portfolio-products .wcard-body .wc-go { margin-top: 6px; }
+}
 .report-row:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); border-radius: 4px; }
 @media (max-width: 640px) { .work-cards { grid-template-columns: 1fr; } }
 

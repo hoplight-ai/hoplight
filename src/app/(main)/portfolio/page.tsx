@@ -29,7 +29,9 @@ export const metadata: Metadata = toolMetadata('portfolio', {
 // Tiles whose line only says the tool's name again in other words, so the line is not drawn here (the
 // card above it already shows the name). The line itself stays in src/data/tools.ts, which belongs to the
 // tool drops and is not edited from here. HOPSITE2, 2026-11-07.
-const RESTATES_NAME = new Set(['which-ai-should-i-use', 'oregon-school-budget-report']);
+// Oregon left this list on 2026-11-07 (design review of PORTSPLIT1, fix 2): its row in Reports shows its
+// one line, as DNC and GE do.
+const RESTATES_NAME = new Set(['which-ai-should-i-use']);
 
 export default function Portfolio() {
   const clock = portfolioClock(process.env);
@@ -106,12 +108,16 @@ export default function Portfolio() {
                         href={p.href}
                         {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                       >
-                        {/* The look pass (PORTSPLIT1, 2026-11-07) took the "Open it" label off each row: three
-                            gold labels made a second accent column beside the tiles' own, and the whole
-                            row is the link. */}
+                        {/* The design review of the split (2026-11-07, fix 1, blocking): a quiet "Read it" under
+                            the line, matching the products' "Open it", so a row reads as a link on a phone. It
+                            sits under the text, not in a right-hand column, so no second gold column forms. */}
                         <h3>{p.name}</h3>
                         {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
-                        {external && <span className="sr-only"> (opens in a new tab)</span>}
+                        <span className="wc-go">
+                          Read it{' '}
+                          {external ? <span aria-hidden="true">↗</span> : <>&rarr;</>}
+                          {external && <span className="sr-only"> (opens in a new tab)</span>}
+                        </span>
                       </a>
                     </li>
                   );
