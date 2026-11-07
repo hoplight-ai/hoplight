@@ -1231,6 +1231,8 @@ a.ptile:hover { border-color: var(--gold-hot); box-shadow: 0 6px 22px rgba(0,0,0
 .rep-line { font-size: 0.95rem; color: var(--stone-deep); }
 .rep-label { display: block; margin-bottom: 2px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-deep); }
 .rep-arrow { align-self: center; color: var(--gold-deep); transition: transform 160ms ease-out; }
+/* The lock after a title that opens with the site password (HOPSITE2, 2026-11-07): grey, not the accent. */
+.lock { display: inline-block; margin-left: 0.4em; vertical-align: -0.05em; color: var(--stone-deep); }
 .rep:hover .rep-title { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 .rep:hover .rep-arrow { transform: translateX(3px); }
 @media (max-width: 640px) {

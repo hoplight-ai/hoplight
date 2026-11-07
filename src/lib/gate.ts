@@ -83,6 +83,12 @@ export function isGated(pathname: string): boolean {
   return GATED_PREFIXES.some((prefix) => p === prefix || p.startsWith(`${prefix}/`))
 }
 
+/** True when a link on the site's own pages lands on the sign-in: the Insights rows draw a lock on these
+ *  (HOPSITE2, 2026-11-07; scripts/insights-lock.test.mjs). A link to another site is never gated here. */
+export function opensSignIn(href?: string): boolean {
+  return typeof href === 'string' && href.startsWith('/') && isGated(href)
+}
+
 /** The vercel.app address a moved-tool path forwards to, or null when the path is not one of them. */
 export function movedToolTarget(pathname: string, search = ''): string | null {
   const p = normalizePath(pathname)

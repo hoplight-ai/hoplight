@@ -1,8 +1,11 @@
 import Arrow from '@/components/Arrow';
+import Lock from '@/components/Lock';
+import { opensSignIn } from '@/lib/gate';
 import { SUBSTACK, type InsightItem } from '@/lib/insights-content';
 
 // The pieces the Insights page is made of: a white card for the navy band, a ruled row for the reports,
-// and the Substack link under the Writing heading.
+// and the Substack link under the Writing heading. A card or row that lands on the site's sign-in carries a
+// small lock after its title (HOPSITE2, 2026-11-07; scripts/insights-lock.test.mjs).
 
 function linkProps(item: InsightItem) {
   return item.external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
@@ -19,6 +22,7 @@ export function RuledRow({ item }: { item: InsightItem }) {
       <span className="rep-title">
         {item.label && <span className="rep-label">{item.label}</span>}
         {item.title}
+        {opensSignIn(item.href) && <Lock />}
       </span>
       <span className="rep-line">{item.line}</span>
       <Arrow className="arrow rep-arrow" />
@@ -51,7 +55,10 @@ export function Card({ item }: { item: InsightItem }) {
   return (
     <a className="ptile" href={item.href} {...linkProps(item)}>
       {tag && <span className="ptile-tag">{tag}</span>}
-      <h3>{item.title}</h3>
+      <h3>
+        {item.title}
+        {opensSignIn(item.href) && <Lock />}
+      </h3>
       {text && <p>{text}</p>}
       <Arrow className="arrow tile-arrow" />
       <OpensNewTab item={item} />
