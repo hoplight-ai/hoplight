@@ -9,8 +9,20 @@
 
 import type { ToolBrand } from './tools.ts';
 
-/** Every picture is drawn in a square of this many units. */
+/** Most pictures are drawn in a square of this many units; the card draws them at this many pixels. */
 export const PIC = 280;
+
+/** The pictures that need a wider box than the square (re-review, 2026-11-07: the AGIS map about 360
+ *  wide with dots of at least 12, the What's Human chips about 300 wide). Units are card pixels. */
+const BOX: Partial<Record<string, { w: number; h: number }>> = {
+  map: { w: 360, h: 152 },
+  chips: { w: 300, h: 250 },
+};
+
+/** The size a card draws a brand's picture at, in pixels. */
+export function pictureSize(b: ToolBrand): { w: number; h: number } {
+  return BOX[b.glyph] ?? { w: PIC, h: PIC };
+}
 
 const svg = (body: string, view = `0 0 ${PIC} ${PIC}`) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${view}">${body}</svg>`;
 
@@ -76,7 +88,7 @@ function cat(): string {
 /** Letters: the traced letter as the app first shows it, its start dot, and the arrow for which way to go. */
 function letter(b: ToolBrand): string {
   return svg(
-    `<path d="M96 56 V214 H206" fill="none" stroke="${b.ink}" stroke-opacity="0.16" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>`
+    `<path d="M96 56 V214 H206" fill="none" stroke="${b.ink}" stroke-opacity="0.28" stroke-width="34" stroke-linecap="round" stroke-linejoin="round"/>`
     + `<path d="M96 56 V150" fill="none" stroke="${b.accent}" stroke-width="10" stroke-linecap="round"/>`
     + `<path d="M76 140 L96 172 L116 140 Z" fill="${b.accent}"/>`
     + `<circle cx="96" cy="56" r="26" fill="${b.accent}"/>`,
@@ -103,16 +115,22 @@ const WORLD = [
   '..........#.....................',
 ];
 
-/** AGIS policy search: the white map panel under the purple header, states shaded in the app's purple. */
+/** AGIS policy search: its dot map straight on the app's purple, the highlighted places white and the
+ *  rest pale lavender. The hand-drawn world above is sampled down to 24 by 10 so each dot is 12 across. */
 function map(): string {
-  const pitch = 7.6, dot = 6, x0 = 18, y0 = 84;
+  const cols = 24, rows = 10, pitch = 15, dot = 12;
+  const src = WORLD.slice(1, 14);
   const dots: string[] = [];
-  WORLD.forEach((row, r) => [...row].forEach((c, k) => {
-    if (c === '.') return;
-    const fill = c === 'u' ? '#6F3DB8' : (k * 7 + r * 3) % 5 === 0 ? '#A784DE' : '#D8CCF0';
-    dots.push(`<rect x="${(x0 + k * pitch).toFixed(1)}" y="${(y0 + r * pitch).toFixed(1)}" width="${dot}" height="${dot}" rx="1.5" fill="${fill}"/>`);
-  }));
-  return svg(`<rect x="6" y="66" width="268" height="150" rx="14" fill="#FFFFFF"/>` + dots.join(''));
+  for (let r = 0; r < rows; r++) {
+    const line = src[Math.floor(((r + 0.5) * src.length) / rows)];
+    for (let k = 0; k < cols; k++) {
+      const c = line[Math.floor(((k + 0.5) * line.length) / cols)];
+      if (c === '.') continue;
+      const fill = c === 'u' ? '#FFFFFF' : '#C9B3EE';
+      dots.push(`<rect x="${k * pitch}" y="${r * pitch}" width="${dot}" height="${dot}" rx="2.5" fill="${fill}"/>`);
+    }
+  }
+  return svg(dots.join(''), `0 0 ${cols * pitch - (pitch - dot)} ${rows * pitch - (pitch - dot)}`);
 }
 
 /** AI Election Errors: the assistant's answer with the wrong date struck out, and the correction under it. */
@@ -158,38 +176,46 @@ function years(b: ToolBrand): string {
     const y = 26 + Math.floor(k / 4) * 60;
     cells.push(k < 12
       ? `<rect x="${x}" y="${y}" width="48" height="48" rx="4" fill="${b.ink}"/>`
-      : `<rect x="${x + 2}" y="${y + 2}" width="44" height="44" rx="3" fill="none" stroke="${b.accent}" stroke-width="4" stroke-dasharray="8 6"/>`);
+      : `<rect x="${x + 3}" y="${y + 3}" width="42" height="42" rx="2.5" fill="none" stroke="${b.accent}" stroke-width="6"/>`);
   }
   return svg(cells.join(''));
 }
 
-/** What's Human?: the outlined choice chips of its first screen, one chosen. */
+/** What's Human?: the outlined choice chips of its first screen, one chosen. Drawn 300 wide with 5px
+ *  light grey outlines so they hold at preview size (re-review, 2026-11-07). */
 function chips(b: ToolBrand): string {
+  const GREY = '#B0B5BD', W = 66, H = 40, STEP = 78;
+  const out = (x: number, y: number, w: number) =>
+    `<rect x="${x + 2.5}" y="${y + 2.5}" width="${w - 5}" height="${H - 5}" rx="6" fill="none" stroke="${GREY}" stroke-width="5"/>`;
   const row = (y: number, n: number, on = -1) => Array.from({ length: n }, (_, i) =>
-    i === on
-      ? `<rect x="${20 + i * 62}" y="${y}" width="54" height="30" rx="5" fill="${b.ink}"/>`
-      : `<rect x="${21 + i * 62}" y="${y + 1}" width="52" height="28" rx="4.5" fill="none" stroke="${b.ink}" stroke-opacity="0.45" stroke-width="2"/>`).join('');
+    i === on ? `<rect x="${i * STEP}" y="${y}" width="${W}" height="${H}" rx="7" fill="${b.ink}"/>` : out(i * STEP, y, W)).join('');
+  const label = (y: number, w: number) => `<rect x="0" y="${y}" width="${w}" height="10" rx="5" fill="${GREY}"/>`;
   return svg(
-    `<rect x="20" y="40" width="80" height="8" rx="4" fill="${b.ink}" fill-opacity="0.5"/>` + row(58, 4, 1)
-    + `<rect x="20" y="114" width="120" height="8" rx="4" fill="${b.ink}" fill-opacity="0.5"/>` + row(132, 4) + row(170, 3)
-    + `<rect x="21" y="221" width="114" height="30" rx="4.5" fill="none" stroke="${b.ink}" stroke-opacity="0.45" stroke-width="2"/>`
-    + `<rect x="145" y="221" width="114" height="30" rx="4.5" fill="none" stroke="${b.ink}" stroke-opacity="0.45" stroke-width="2"/>`,
+    label(0, 96) + row(20, 4, 1)
+    + label(84, 140) + row(104, 4) + row(156, 3)
+    + out(0, 208, 144) + out(156, 208, 144),
+    '0 0 300 250',
   );
 }
 
-/** Which AI should I use?: the picker's table, each plan and tier marked red, yellow or green. */
+/** Which AI should I use?: the picker's table, three rows of choices, the recommended pick in each
+ *  row a filled dark chip and the others outlined, so the shape carries the answer, not red against
+ *  green (re-review, 2026-11-07). */
 function picker(b: ToolBrand): string {
-  const tone = [['#F6D5D1', '#B3261E'], ['#F8E9B9', '#8A6A00'], ['#D9EED9', '#2E7D32']];
-  const grid = [[0, 0, 1, 1], [0, 1, 1, 1], [2, 1, 2, 2], [2, 2, 2, 2]];
-  const rows = grid.map((r, i) => {
-    const y = 78 + i * 46;
-    return `<rect x="22" y="${y + 9}" width="44" height="10" rx="5" fill="${b.ink}" fill-opacity="0.75"/>`
-      + r.map((t, j) => `<rect x="${80 + j * 46}" y="${y}" width="40" height="28" rx="6" fill="${tone[t][0]}"/>`
-        + `<rect x="${88 + j * 46}" y="${y + 11}" width="24" height="6" rx="3" fill="${tone[t][1]}"/>`).join('');
+  const picks = [2, 0, 1];
+  const rows = picks.map((pick, i) => {
+    const y = 84 + i * 62;
+    return `<rect x="26" y="${y + 17}" width="50" height="12" rx="6" fill="${b.ink}" fill-opacity="0.75"/>`
+      + [0, 1, 2].map((j) => {
+        const x = 92 + j * 58;
+        return j === pick
+          ? `<rect x="${x}" y="${y}" width="50" height="46" rx="8" fill="${b.ink}"/>`
+          : `<rect x="${x + 2}" y="${y + 2}" width="46" height="42" rx="7" fill="none" stroke="${b.ink}" stroke-opacity="0.4" stroke-width="4"/>`;
+      }).join('');
   }).join('');
   return svg(
     `<rect x="8" y="30" width="264" height="232" rx="12" fill="#FFFFFF" stroke="${b.ink}" stroke-opacity="0.18" stroke-width="2"/>`
-    + `<rect x="22" y="48" width="70" height="12" rx="6" fill="${b.ink}"/>` + rows,
+    + `<rect x="26" y="52" width="80" height="12" rx="6" fill="${b.ink}"/>` + rows,
   );
 }
 

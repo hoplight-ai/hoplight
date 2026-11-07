@@ -15,7 +15,7 @@
 
 import { createElement as h, type ReactElement } from 'react';
 import { TOOL_BY_SLUG, type ToolBrand } from '../../data/tools.ts';
-import { pictureSvg } from '../../data/tool-pictures.ts';
+import { pictureSize, pictureSvg } from '../../data/tool-pictures.ts';
 import { LOCKUP_H, LOCKUP_W, seedLockup } from './marks.ts';
 
 export const CARD_W = 1200;
@@ -40,9 +40,9 @@ const LOCKUP = seedLockup({ word: ON_BAND, seen: 24 });
 /** Every tool name on every card is set at this size; a long name takes two lines, never a smaller size. */
 export const NAME_PX = 112;
 const LINE_H = 1.02;
-// The picture: 280 square beside a short name, 176 square in the top corner above a long one.
-const PIC_SIDE = 280;
-const PIC_STACK = 176;
+// The picture sits beside the name on every card, at its own size (280 square for most), centred on the
+// name block with its right edge on the card's right margin. A long name takes more lines in a narrower
+// column rather than pushing the picture into a corner (re-review, 2026-11-07).
 const GAP = 48;
 
 const svgUri = (svg: string) => `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
@@ -92,8 +92,8 @@ function nameBlock(b: ToolBrand, fonts: CardFonts, maxWidth: number): ReactEleme
   );
 }
 
-function picture(svg: string, size: number): ReactElement {
-  return h('img', { src: svgUri(svg), width: size, height: size, alt: '' });
+function picture(svg: string, w: number, hh: number = w): ReactElement {
+  return h('img', { src: svgUri(svg), width: w, height: hh, alt: '' });
 }
 
 /** The portfolio's own card: "Tool library" and a row of the tools' pictures, each on its own ground. */
@@ -138,7 +138,7 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
   const b = tool.brand;
   const band = opts.band !== false;
   const svg = tool.library ? null : pictureSvg(b);
-  const stack = b.layout === 'stack';
+  const size = pictureSize(b);
   const fieldH = band ? CARD_H - BAND_H - RULE_H : CARD_H;
   const inner = CARD_W - PAD * 2;
 
@@ -150,19 +150,12 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
       nameBlock(b, fonts, inner - (LIBRARY.length * (TILE + 14)) - GAP),
       libraryRow(),
     );
-  } else if (stack) {
-    field = h(
-      'div',
-      { style: { display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `40px ${PAD}px 46px`, backgroundColor: b.ground } },
-      h('div', { style: { display: 'flex', justifyContent: 'flex-end', width: `${inner}px` } }, svg ? picture(svg, PIC_STACK) : null),
-      nameBlock(b, fonts, inner),
-    );
   } else {
     field = h(
       'div',
       { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `0 ${PAD}px`, backgroundColor: b.ground } },
-      nameBlock(b, fonts, svg ? inner - PIC_SIDE - GAP : inner),
-      svg ? picture(svg, PIC_SIDE) : null,
+      nameBlock(b, fonts, svg ? inner - size.w - GAP : inner),
+      svg ? picture(svg, size.w, size.h) : null,
     );
   }
 

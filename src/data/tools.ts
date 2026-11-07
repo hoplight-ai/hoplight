@@ -39,12 +39,6 @@ export interface ToolBrand {
    */
   wordmark: { text: string; accent?: boolean; mark?: string }[];
   glyph: ToolGlyph;
-  /**
-   * 'side' puts the picture beside a name short enough to sit next to it; 'stack' puts a smaller
-   * picture top right and lets a long name run the card's full width below it. Every card sets the
-   * name at the same size (Whit's reviewer, 2026-11-07), so the layout, not the size, absorbs length.
-   */
-  layout?: 'side' | 'stack';
 }
 
 export interface Tool {
@@ -191,9 +185,8 @@ export const TOOLS: Tool[] = [
       accent: '#B3261E',
       ink: '#16181D',
       display: { family: 'Inter', weight: 700 },
-      wordmark: [{ text: 'DNC autopsy,' }, { text: 'taken apart', accent: true }],
+      wordmark: [{ text: 'DNC' }, { text: 'autopsy,' }, { text: 'taken apart', accent: true }],
       glyph: 'quotes',
-      layout: 'stack',
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
@@ -268,9 +261,8 @@ export const TOOLS: Tool[] = [
       accent: '#B42318',
       ink: '#111111',
       display: { family: 'Archivo', weight: 900 },
-      wordmark: [{ text: 'Oregon school' }, { text: 'budget report' }],
+      wordmark: [{ text: 'Oregon' }, { text: 'school' }, { text: 'budget' }, { text: 'report' }],
       glyph: 'years',
-      layout: 'stack',
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
@@ -305,9 +297,8 @@ export const TOOLS: Tool[] = [
       accent: GOLD_DEEP,
       ink: NAVY,
       display: { family: 'Albert Sans', weight: 600 },
-      wordmark: [{ text: 'Which AI' }, { text: 'should I use?' }],
+      wordmark: [{ text: 'Which AI' }, { text: 'should I' }, { text: 'use?' }],
       glyph: 'picker',
-      layout: 'stack',
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
@@ -324,9 +315,8 @@ export const TOOLS: Tool[] = [
       accent: '#2E7D32',
       ink: '#1F2A44',
       display: { family: 'Inter', weight: 700 },
-      wordmark: [{ text: 'Worker equity' }, { text: 'dilution at GE' }],
+      wordmark: [{ text: 'Worker' }, { text: 'equity' }, { text: 'dilution' }, { text: 'at GE' }],
       glyph: 'area',
-      layout: 'stack',
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
