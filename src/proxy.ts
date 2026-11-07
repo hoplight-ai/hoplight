@@ -54,8 +54,7 @@ export const config = {
     '/research',
     '/research/:path*',
     '/hoplight-rct-research-brief.pdf',
-    '/portfolio',
-    '/portfolio/:path*',
+    '/portfolio/:path*', // /portfolio itself is public; the pieces its list links to pass isGated()
     '/rayli',
     '/rayli/:path*',
     '/pme-lever.html',

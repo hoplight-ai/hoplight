@@ -60,8 +60,8 @@ const OPEN = [
 
 // One path per entry on the owner's list, plus children and the seven moved tools.
 const GATED = [
-  '/persuasion', '/research', '/hoplight-rct-research-brief.pdf', '/portfolio',
-  '/portfolio/dnc-autopsy-taken-apart.html', '/portfolio/thumbs/x.png', '/rayli', '/rayli/x',
+  '/persuasion', '/research', '/hoplight-rct-research-brief.pdf',
+  '/portfolio/ai-governance-checklist.html', '/portfolio/thumbs/x.png', '/rayli', '/rayli/x',
   '/pme-lever.html', '/hoplight-brand-tokens-2026-09-20.html', '/shelf-options/a.html',
   '/shelf-options/shots/x.png', '/mockups/a-discretion/index.html',
   ...MOVED_TOOLS.flatMap((t) => [`/${t.name}`, `/${t.name}/x`]),
@@ -125,10 +125,10 @@ test('gated path returns 200 with the cookie, marked noindex, and a wrong cookie
 test('the Basic pair opens a gated path for scripts and proofs', async () => {
   await withEnv(true, async () => {
     const basic = `Basic ${Buffer.from(`${USER}:${PASS}`).toString('base64')}`;
-    const res = await proxy(req('/portfolio', { authorization: basic, accept: '*/*' }));
+    const res = await proxy(req('/research', { authorization: basic, accept: '*/*' }));
     assert.ok(passedThrough(res));
     const bad = `Basic ${Buffer.from(`${USER}:nope`).toString('base64')}`;
-    assert.equal((await proxy(req('/portfolio', { authorization: bad, accept: '*/*' }))).status, 401);
+    assert.equal((await proxy(req('/research', { authorization: bad, accept: '*/*' }))).status, 401);
   });
 });
 
@@ -174,10 +174,12 @@ test('the proxy matcher and the gate list agree', () => {
   // every matcher entry stands for a gated path
   for (const m of config.matcher) {
     const sample = m.replace('/:path*', '/x');
-    assert.ok(isGated(sample.replace(/\/x$/, '')) && isGated(sample), `gate list misses matcher entry ${m}`);
+    // /portfolio itself is public since 2026-11-07 (HOPSITE2); only what sits under it is gated.
+    const base = sample.replace(/\/x$/, '');
+    assert.ok((base === '/portfolio' || isGated(base)) && isGated(sample), `gate list misses matcher entry ${m}`);
   }
   // the owner's list, spelled out
-  for (const p of ['/persuasion', '/research', '/hoplight-rct-research-brief.pdf', '/portfolio', '/portfolio/a', '/rayli',
+  for (const p of ['/persuasion', '/research', '/hoplight-rct-research-brief.pdf', '/portfolio/a', '/rayli',
     '/pme-lever.html', '/hoplight-brand-tokens-2026-09-20.html', '/shelf-options/a.html', '/mockups/a/b']) {
     assert.ok(isGated(p), p);
   }

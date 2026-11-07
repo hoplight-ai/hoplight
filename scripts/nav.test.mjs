@@ -35,10 +35,11 @@ const PAGE_FILES = [
   'src/app/(main)/contact/page.tsx',
 ];
 
-test('the nav holds exactly Products, Insights, Services, FAQ and About, and a Contact button', () => {
+test('the nav holds exactly Portfolio, Products, Insights, Services, FAQ and About, and a Contact button', () => {
   assert.deepEqual(
     NAV_LINKS.map((l) => [l.label, l.href]),
     [
+      ['Portfolio', '/portfolio'],
       ['Products', '/products'],
       ['Insights', '/insights'],
       ['Services', '/services'],
@@ -56,12 +57,12 @@ test('no nav item and no footer link is a gated path', () => {
   }
 });
 
-test('Research, Rayli, Persuasion and Portfolio are in neither the nav nor the footer', () => {
+test('Research, Rayli and Persuasion are in neither the nav nor the footer (Portfolio came back public on 2026-11-07)', () => {
   const links = [...NAV_LINKS, CONTACT_LINK, ...FOOTER_LINKS];
-  for (const gone of ['/research', '/rayli', '/persuasion', '/portfolio']) {
+  for (const gone of ['/research', '/rayli', '/persuasion']) {
     assert.ok(!links.some((l) => l.href === gone || l.href.startsWith(`${gone}/`)), `${gone} came back`);
   }
-  for (const word of ['Research', 'Rayli', 'Persuasion', 'Portfolio']) {
+  for (const word of ['Research', 'Rayli', 'Persuasion']) {
     assert.ok(!links.some((l) => l.label === word), `${word} came back as a label`);
   }
 });
@@ -96,7 +97,7 @@ test('the groveling sentence and the cut sub-lines never come back to a page sou
     'ten reports',
     'with a password',
   ];
-  // The portfolio page is behind the sign-in and is not one of the pages the owner named, so it is not read.
+  // The portfolio page is read by scripts/portfolio-public.test.mjs (public again since 2026-11-07).
   for (const rel of OWNER_PAGES) {
     const text = read(rel).toLowerCase();
     for (const phrase of cut) assert.ok(!text.includes(phrase), `${rel} carries "${phrase}"`);

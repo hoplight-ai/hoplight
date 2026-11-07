@@ -64,8 +64,21 @@ export function normalizePath(pathname: string): string {
   return p || '/'
 }
 
+// The portfolio is public (HOPSITE2, 2026-11-07; Whit that day: the portfolio page "live w the rebuild
+// and dialed in for public sharing"). /portfolio itself opens to anyone, and so do the pieces its own
+// list (src/data/tools.ts) links to, so a tile never lands a stranger on the sign-in. Every other file
+// under /portfolio/ (the nine pieces that left the gallery on 2026-10-21, the thumbnails) stays gated.
+// scripts/portfolio-public.test.mjs fails when a cleared entry links to a piece missing here.
+export const PUBLIC_PORTFOLIO = [
+  '/portfolio',
+  '/portfolio/dnc-autopsy-taken-apart.html',
+  '/portfolio/oregon-school-budget-report.html',
+  '/portfolio/worker-equity-dilution-at-ge.html',
+]
+
 export function isGated(pathname: string): boolean {
   const p = normalizePath(pathname)
+  if (PUBLIC_PORTFOLIO.includes(p)) return false
   if (GATED_EXACT.includes(p)) return true
   return GATED_PREFIXES.some((prefix) => p === prefix || p.startsWith(`${prefix}/`))
 }

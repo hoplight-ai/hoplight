@@ -20,7 +20,7 @@ const PRODUCTS: Product[] = [
   { name: 'Rayli', state: 'Platform', line: 'Writes voice-true, source-cited copy and maps who heard what.' },
   { name: 'AGIS', state: 'Live app', line: `AI governance search across ${FACTS.agis.jurisdictions} jurisdictions and ${FACTS.agis.sources} sources.`, ask: 'Which states have enacted algorithmic management protections for workers?', href: '/agis' },
   { name: 'Which AI', state: 'Free tool', line: 'Which model fits the job, and what it does with your organization’s data.', href: '/tools/which-ai' },
-  { name: 'AI Election Errors', state: 'Public form', line: 'A public report form, run by Hoplight, for AI tools that give wrong election information.', href: '/ai-election-errors' },
+  { name: 'AI Election Errors', state: 'Public form', line: 'For AI tools that give wrong election information.', href: '/ai-election-errors' },
   { name: 'The Undo List', state: 'Public list', line: 'Second-term Trump actions, sorted by effort to undo.', href: '/undo' },
 ];
 

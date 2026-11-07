@@ -14,13 +14,17 @@ export const revalidate = 3600;
 // Federal agency AI inventory, the AI lobbyist player map and the AI governance checklist. Their files
 // stay under public/portfolio/ (the design tests read them); nothing links to them.
 
+// HOPSITE2, 2026-11-07 (Whit: "less is more. be coco chanel and take on thing off before leaving the
+// house"): every line that explained what the visitor can already see went, starting with the "open"
+// line in both descriptions, the production subline under the heading, the tile tags and the router
+// band's label, heading and second sentence. scripts/portfolio-public.test.mjs keeps them gone.
 export const metadata: Metadata = toolMetadata('portfolio', {
   title: 'Portfolio',
   description:
-    'A selection of AI systems Hoplight has shipped for labor, advocacy, and mission-driven organizations. Most of them open in your browser.',
+    'A selection of AI systems Hoplight has shipped for labor, advocacy, and mission-driven organizations.',
   path: '/portfolio',
   ogTitle: 'The Hoplight portfolio',
-  ogDescription: 'Systems we’ve shipped. Most of them open in your browser.',
+  ogDescription: 'Systems we’ve shipped.',
 });
 
 export default function Portfolio() {
@@ -31,7 +35,6 @@ export default function Portfolio() {
       <div className="page-hero portfolio-hero">
         <div className="wrap">
           <h1>Systems we&rsquo;ve shipped.</h1>
-          <p>National organizations are running these tools in production. Not proofs of concept.</p>
         </div>
       </div>
 
@@ -66,7 +69,6 @@ export default function Portfolio() {
                       />
                     </div>
                     <div className="wcard-body">
-                      <span className="wc-tag">{live ? 'Live app' : 'Interactive'}</span>
                       <h3 className="sr-only">{p.name}</h3>
                       <p>{p.line}</p>
                       <span className="wc-go">
@@ -86,12 +88,9 @@ export default function Portfolio() {
       <section>
         <div className="wrap">
           <div className="section-head">
-            <span className="label">Open source</span>
-            <h2>A tool other teams can run themselves.</h2>
+            <h2 className="sr-only">Pandora&rsquo;s Router</h2>
             <p>
-              Pandora&rsquo;s Router lets several AI coding agents work on one codebase at once. It
-              proves their file claims don&rsquo;t overlap before any agent starts, then checks what
-              each one says it finished. MIT licensed, live at router.hoplight.ai.
+              Pandora&rsquo;s Router lets several AI coding agents work on one codebase at once. MIT licensed.
             </p>
           </div>
           <div className="cta-row">

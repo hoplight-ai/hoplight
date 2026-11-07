@@ -48,8 +48,9 @@ export default function About() {
           </div>
 
           <div className="mit-credential">
+            {/* The caption that stood here repeated the sentence just above it (HOPSITE2, 2026-11-07). */}
             <img src="/mit-logo.png" alt="Massachusetts Institute of Technology" width={600} height={400} />
-            <span className="mc-text">Certificate in Agentic AI for Organizational Transformation, MIT.</span>
+
           </div>
 
           <div className="prose" style={{ maxWidth: '65ch', marginTop: '28px' }}>
