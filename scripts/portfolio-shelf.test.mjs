@@ -93,12 +93,19 @@ test('built: the three reports render under Reports and no product does', { skip
 });
 
 // Design review of the split, 2026-11-07: fix 1 (blocking) puts a quiet "Read it" under each report's
-// title, matching the products' "Open it"; fix 2 shows Oregon's one line, as DNC and GE show theirs.
-test('page: Oregon is not on the hidden-line list', () => {
+// title, matching the products' "Open it"; fix 2 shows Oregon's one line, as DNC and GE show theirs. The
+// dispatcher's follow-up the same day took Which AI off the hidden-line list too, so the list is gone and
+// every entry draws its line.
+test('page: no entry has its line hidden', () => {
   const src = read('src/app/(main)/portfolio/page.tsx');
-  const set = src.match(/const RESTATES_NAME = new Set\(\[([^\]]*)\]\)/);
-  assert.ok(set, 'RESTATES_NAME not found');
-  assert.ok(!/oregon-school-budget-report/.test(set[1]), 'Oregon’s line is still hidden');
+  assert.ok(!/RESTATES_NAME/.test(src), 'the hidden-line list is still on the page');
+});
+
+test('built: every entry showing draws its line, products and reports alike', { skip: BUILT ? false : 'no build present' }, () => {
+  const html = readFileSync(BUILT, 'utf8');
+  const showing = TOOLS.filter((t) => html.includes(`href="${t.href}"`));
+  assert.ok(showing.some((t) => t.slug === 'which-ai-should-i-use'), 'Which AI is not showing in the build');
+  for (const t of showing) assert.ok(html.includes(t.line), `${t.slug} line missing`);
 });
 
 test('built: every report row carries its line and a "Read it" label', { skip: BUILT ? false : 'no build present' }, () => {

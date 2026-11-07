@@ -3,7 +3,7 @@
     "375": {
       "status": 200,
       "overflowX": 0,
-      "height": 2183,
+      "height": 2228,
       "headings": [
         {
           "level": 1,
@@ -56,26 +56,26 @@
         {
           "level": 2,
           "text": "Reports",
-          "top": 1556,
-          "screens": 1.92
+          "top": 1601,
+          "screens": 1.97
         },
         {
           "level": 3,
           "text": "DNC autopsy, taken apart",
-          "top": 1621,
-          "screens": 2
+          "top": 1666,
+          "screens": 2.05
         },
         {
           "level": 3,
           "text": "Oregon school budget report",
-          "top": 1753,
-          "screens": 2.16
+          "top": 1798,
+          "screens": 2.21
         },
         {
           "level": 3,
           "text": "Worker equity dilution at GE",
-          "top": 1862,
-          "screens": 2.29
+          "top": 1907,
+          "screens": 2.35
         }
       ],
       "skips": [],
@@ -277,6 +277,16 @@
           "top": 1302
         },
         {
+          "text": "Answer a few questions, get told which model fit",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1451
+        },
+        {
           "text": "Open it",
           "fg": "#996d00",
           "bg": "#ffffff",
@@ -284,7 +294,7 @@
           "size": 12.48,
           "ratio": 4.62,
           "need": 4.5,
-          "top": 1457
+          "top": 1502
         },
         {
           "text": "→",
@@ -294,7 +304,7 @@
           "size": 12.48,
           "ratio": 4.62,
           "need": 4.5,
-          "top": 1457
+          "top": 1502
         },
         {
           "text": "Reports",
@@ -304,7 +314,7 @@
           "size": 21.6,
           "ratio": 17.28,
           "need": 4.5,
-          "top": 1556
+          "top": 1601
         },
         {
           "text": "DNC autopsy, taken apart",
@@ -314,7 +324,7 @@
           "size": 16.8,
           "ratio": 17.28,
           "need": 4.5,
-          "top": 1621
+          "top": 1666
         },
         {
           "text": "The party’s own 2024 after-action report, argued",
@@ -324,7 +334,7 @@
           "size": 14.08,
           "ratio": 6.88,
           "need": 4.5,
-          "top": 1647
+          "top": 1692
         },
         {
           "text": "Read it",
@@ -334,7 +344,7 @@
           "size": 12.48,
           "ratio": 8.27,
           "need": 4.5,
-          "top": 1700
+          "top": 1745
         },
         {
           "text": "→",
@@ -344,7 +354,7 @@
           "size": 12.48,
           "ratio": 8.27,
           "need": 4.5,
-          "top": 1700
+          "top": 1745
         },
         {
           "text": "Oregon school budget report",
@@ -354,7 +364,7 @@
           "size": 16.8,
           "ratio": 17.28,
           "need": 4.5,
-          "top": 1753
+          "top": 1798
         },
         {
           "text": "Where Oregon K-12 money actually goes.",
@@ -364,7 +374,7 @@
           "size": 14.08,
           "ratio": 6.88,
           "need": 4.5,
-          "top": 1779
+          "top": 1824
         },
         {
           "text": "Read it",
@@ -374,7 +384,7 @@
           "size": 12.48,
           "ratio": 8.27,
           "need": 4.5,
-          "top": 1809
+          "top": 1854
         },
         {
           "text": "→",
@@ -384,7 +394,7 @@
           "size": 12.48,
           "ratio": 8.27,
           "need": 4.5,
-          "top": 1809
+          "top": 1854
         },
         {
           "text": "Worker equity dilution at GE",
@@ -394,7 +404,7 @@
           "size": 16.8,
           "ratio": 17.28,
           "need": 4.5,
-          "top": 1862
+          "top": 1907
         },
         {
           "text": "80 years of worker equity draining out of one co",
@@ -404,7 +414,7 @@
           "size": 14.08,
           "ratio": 6.88,
           "need": 4.5,
-          "top": 1888
+          "top": 1933
         },
         {
           "text": "Read it",
@@ -414,7 +424,7 @@
           "size": 12.48,
           "ratio": 8.27,
           "need": 4.5,
-          "top": 1941
+          "top": 1986
         },
         {
           "text": "→",
@@ -424,7 +434,7 @@
           "size": 12.48,
           "ratio": 8.27,
           "need": 4.5,
-          "top": 1941
+          "top": 1986
         },
         {
           "text": "Hoplight",
@@ -434,7 +444,7 @@
           "size": 18,
           "ratio": 17.28,
           "need": 4.5,
-          "top": 2055
+          "top": 2100
         },
         {
           "text": "©",
@@ -444,7 +454,7 @@
           "size": 13.12,
           "ratio": 7.27,
           "need": 4.5,
-          "top": 2073
+          "top": 2118
         },
         {
           "text": "2026",
@@ -454,7 +464,7 @@
           "size": 13.12,
           "ratio": 7.27,
           "need": 4.5,
-          "top": 2073
+          "top": 2118
         },
         {
           "text": "Hoplight",
@@ -464,7 +474,7 @@
           "size": 13.12,
           "ratio": 7.27,
           "need": 4.5,
-          "top": 2073
+          "top": 2118
         },
         {
           "text": "whit@hoplight.ai",
@@ -474,7 +484,7 @@
           "size": 13.12,
           "ratio": 7.5,
           "need": 4.5,
-          "top": 2111
+          "top": 2156
         },
         {
           "text": "LinkedIn",
@@ -484,7 +494,7 @@
           "size": 13.12,
           "ratio": 7.5,
           "need": 4.5,
-          "top": 2111
+          "top": 2156
         }
       ]
     },
@@ -853,6 +863,16 @@
           "top": 876
         },
         {
+          "text": "Answer a few questions, get told which model fit",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 817
+        },
+        {
           "text": "Open it",
           "fg": "#996d00",
           "bg": "#ffffff",
@@ -860,7 +880,7 @@
           "size": 12.48,
           "ratio": 4.62,
           "need": 4.5,
-          "top": 829
+          "top": 874
         },
         {
           "text": "→",
@@ -870,7 +890,7 @@
           "size": 12.48,
           "ratio": 4.62,
           "need": 4.5,
-          "top": 829
+          "top": 874
         },
         {
           "text": "Reports",

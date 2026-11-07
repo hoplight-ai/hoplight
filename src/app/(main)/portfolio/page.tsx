@@ -26,12 +26,10 @@ export const metadata: Metadata = toolMetadata('portfolio', {
   ogDescription: 'Systems we’ve shipped.',
 });
 
-// Tiles whose line only says the tool's name again in other words, so the line is not drawn here (the
-// card above it already shows the name). The line itself stays in src/data/tools.ts, which belongs to the
-// tool drops and is not edited from here. HOPSITE2, 2026-11-07.
-// Oregon left this list on 2026-11-07 (design review of PORTSPLIT1, fix 2): its row in Reports shows its
-// one line, as DNC and GE do.
-const RESTATES_NAME = new Set(['which-ai-should-i-use']);
+// Every entry draws its line. HOPSITE2 (2026-11-07) hid the line on two tiles whose line restated the
+// name; PORTSPLIT1's design review the same day put Oregon's back (its empty gap read as a fault), and the
+// dispatcher's follow-up put Which AI's back, so the hidden list went. scripts/portfolio-shelf.test.mjs
+// keeps every line drawn.
 
 export default function Portfolio() {
   const clock = portfolioClock(process.env);
@@ -83,7 +81,7 @@ export default function Portfolio() {
                         </div>
                         <div className="wcard-body">
                           <h3 className="sr-only">{p.name}</h3>
-                          {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
+                          <p>{p.line}</p>
                           <span className="wc-go">
                             {/* One action, one label (HOPSITE2 review, 2026-11-07): "Open the live app" went. A tile that
                                 leaves the site shows the outward arrow alone (design review, same day). */}
@@ -112,7 +110,7 @@ export default function Portfolio() {
                             the line, matching the products' "Open it", so a row reads as a link on a phone. It
                             sits under the text, not in a right-hand column, so no second gold column forms. */}
                         <h3>{p.name}</h3>
-                        {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
+                        <p>{p.line}</p>
                         <span className="wc-go">
                           Read it{' '}
                           {external ? <span aria-hidden="true">↗</span> : <>&rarr;</>}
