@@ -56,3 +56,7 @@ Content-Security-Policy on every page carries `script-src 'self' 'unsafe-inline'
 
 - Vercel, project hoplight, Firewall, Rate Limiting: the rules on /api/revenge-or-justice and /api/revenge-or-justice/feed (the high finding).
 - Anthropic Console: the spend limit on the workspace of quick-tools' ANTHROPIC_API_KEY.
+
+## Update, 2026-11-07 evening (Publicist Dispatch)
+
+Counted, `vercel firewall overview` on project hoplight: the firewall was "Not configured" (no rule existed). Two rules are now live: "Revenge or Justice model cap", POST to any path starting /api/revenge-or-justice, 10 per address per hour, deny past it; and "Signal and sign-in cap", POST /api/signal or /api/grant, 150 per address per ten minutes. A cap across all addresses was refused by Vercel ("Rate limit key header:host is not available for this plan (402)"), so a rotating set of addresses is still bounded only by the in-memory caps. The high finding stays open until fix 2 (a spend limit on the Anthropic workspace that holds quick-tools' ANTHROPIC_API_KEY) or fix 3 lands; with either, change the first line to PASS.
