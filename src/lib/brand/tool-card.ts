@@ -135,9 +135,13 @@ export interface CardSubject {
 }
 
 export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boolean } = {}): ReactElement {
-  const b = tool.brand;
   const band = opts.band !== false;
-  const svg = tool.library ? null : pictureSvg(b);
+  const raw = tool.brand;
+  // A portfolio tile (no band) of a loud-ground tool: white top, the brand colour on the name, the
+  // picture on its own ground in a rounded square. The link-preview card keeps the full ground.
+  const onWhite = !band && !tool.library && raw.tileOnWhite === true;
+  const b: ToolBrand = onWhite ? { ...raw, ground: '#FFFFFF', ink: raw.ground, accent: raw.ground } : raw;
+  const svg = tool.library ? null : pictureSvg(raw);
   const size = b.pic ? { w: b.pic, h: b.pic } : pictureSize(b);
   // A smaller picture sits a little closer to its name, so a two-line long name keeps its lines.
   const gap = b.pic ? 32 : GAP;
@@ -157,7 +161,15 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
       'div',
       { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `0 ${PAD}px`, backgroundColor: b.ground } },
       nameBlock(b, fonts, svg ? inner - size.w - gap : inner),
-      svg ? picture(svg, size.w, size.h) : null,
+      svg
+        ? onWhite
+          ? h(
+              'div',
+              { style: { display: 'flex', alignItems: 'center', justifyContent: 'center', width: `${size.w}px`, height: `${size.h}px`, borderRadius: '28px', backgroundColor: raw.ground } },
+              picture(svg, size.w - 40, size.h - 40),
+            )
+          : picture(svg, size.w, size.h)
+        : null,
     );
   }
 

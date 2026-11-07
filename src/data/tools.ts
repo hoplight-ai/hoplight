@@ -46,6 +46,10 @@ export interface ToolBrand {
    */
   pic?: number;
   namePx?: number;
+  /** Portfolio tile only (the card without its band): white top, the brand colour on the name and
+   *  behind the picture, so a full-colour ground does not pull the eye ahead of the first tile.
+   *  The link-preview card keeps the full ground. Design review of the rebuilt portfolio, 2026-11-07. */
+  tileOnWhite?: boolean;
 }
 
 export interface Tool {
@@ -119,7 +123,7 @@ export const TOOLS: Tool[] = [
   {
     slug: 'gut-check',
     name: 'Gut Check',
-    line: 'Take a side on AI, the midterms, psychedelics, golf or the baseball draft, one card at a time. Then see who stands with you.',
+    line: 'Take a side on AI, the midterms, psychedelics, golf or the baseball draft, one card at a time.',
     href: 'https://gut-check-hoplight.vercel.app/play',
     kind: 'live',
     // Read from gut-check-hoplight.vercel.app/play on 2026-11-07: navy and gold, Inter.
@@ -216,6 +220,7 @@ export const TOOLS: Tool[] = [
       display: { family: 'Barlow Semi Condensed', weight: 900 },
       wordmark: [{ text: 'AGIS policy' }, { text: 'search' }],
       glyph: 'map',
+      tileOnWhite: true,
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
@@ -254,6 +259,7 @@ export const TOOLS: Tool[] = [
       display: { family: 'EB Garamond', weight: 500 },
       wordmark: [{ text: 'Bet' }, { text: 'Appétit' }],
       glyph: 'rosette',
+      tileOnWhite: true,
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
