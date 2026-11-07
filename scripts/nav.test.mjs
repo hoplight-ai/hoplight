@@ -268,3 +268,18 @@ test('built Insights: Research first, then Writing; every item a card, the repor
   assert.ok(!html.includes('rep-list') && !html.includes('class="rep"'), 'a ruled list is still on the page');
   assert.ok(!html.includes('ic-field'), 'the navy Writing panel is still on the page');
 });
+
+// Round five polish, 2026-11-07 (design review): the trial card was the only dated research card, so its
+// date went; the quarter-width text cards set their titles smaller so a short name sits on one line.
+test('built Insights: no research card carries a date tag', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
+  const html = readFileSync(BUILT_INSIGHTS, 'utf8');
+  const research = html.slice(html.indexOf('aria-labelledby="research-title"'), html.indexOf('aria-labelledby="writing-title"'));
+  assert.ok(!research.includes('ptile-tag'), 'a research card still carries a date tag');
+});
+
+test('Insights: the quarter-width text cards set a smaller title than the writing cards', () => {
+  const css = read('src/app/globals.css');
+  const m = css.match(/\.rw-text \.ptile h3 \{[^}]*font-size:\s*([^;]+);/);
+  assert.ok(m, 'no title size for the text cards');
+  assert.ok(!m[1].includes('1.5rem'), 'the text-card title is the writing-card size');
+});

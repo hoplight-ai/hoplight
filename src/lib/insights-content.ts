@@ -62,8 +62,8 @@ export const RESEARCH: InsightItem[] = [
     // Cut to its own first sentence (HOPSITE2 design review, 2026-11-07); the write-up carries the rest.
     line: `${FACTS.rct.n} adults, randomized.`,
     href: '/research',
-    iso: '2025-08',
-    shown: 'Aug 2025',
+    // Its "Aug 2025" date went in the round five polish (PORTSPLIT1, 2026-11-07): it was the only dated
+    // research card. The trial was fielded in August 2025 (FACTS.rct.date); the write-up says so.
   },
   {
     kind: 'Research',
