@@ -1,0 +1,54 @@
+{
+  "words_in_first_screen": 64,
+  "text_share_of_first_screen_pct": 14.7,
+  "type_sizes_in_first_screen": [
+    14,
+    16,
+    20,
+    28,
+    34,
+    40,
+    56,
+    64,
+    124,
+    128,
+    150
+  ],
+  "font_families_in_first_screen": [
+    "Inter",
+    "-apple-system",
+    "Albert Sans",
+    "IBM Plex Mono"
+  ],
+  "text_above_28px": [
+    "34px: The frame, marked by Hoplight or the blo",
+    "64px: 1",
+    "128px: Rumi",
+    "128px: Español",
+    "40px: Tap to wake up Rumi",
+    "56px: Hoplight",
+    "56px: Hoplight",
+    "150px: Gut",
+    "150px: Check",
+    "124px: Revenge or",
+    "124px: Justice"
+  ],
+  "filled_buttons_in_first_screen": [],
+  "distinct_hues_in_first_screen": 6,
+  "colour_keys_on_page": 0,
+  "em_dashes_whole_page": 0,
+  "em_dashes_first_screen": 0,
+  "ground_colour": "rgb(255, 255, 255)",
+  "cream_ground": false,
+  "surfaces_with_border_fill_and_shadow": 0,
+  "sideways_scroll": false,
+  "page_height_px": 3775,
+  "phone_sideways_scroll": false,
+  "target": "http://127.0.0.1:3001/mockups/card-frames.html",
+  "pictures": [
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-cardmark2/docs/renders/card-frames/desktop-colour.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-cardmark2/docs/renders/card-frames/desktop-grayscale.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-cardmark2/docs/renders/card-frames/phone.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-cardmark2/docs/renders/card-frames/desktop-full.png"
+  ]
+}
