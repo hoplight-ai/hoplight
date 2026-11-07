@@ -1,5 +1,12 @@
 import type { NextConfig } from 'next'
 
+// The seven moved tools (/tools-hub /visualizations /whatshuman /pme /research-books /board /daily,
+// Whit 2026-10-19: "4 yes") are NOT listed here. They are 307 redirects to their vercel.app
+// addresses, issued by src/proxy.ts behind the sign-in (list: MOVED_TOOLS in src/lib/gate.ts),
+// because a redirect in this file runs before the proxy and would skip the gate. They are
+// redirects and not rewrites because a trial rewrite on a local build served each page (200) and
+// then 404'd the asset each page names, for all seven: the targets name their files from the root.
+
 const nextConfig: NextConfig = {
   output: 'standalone',
   // /command-center reads src/private/command-center.html at request time (src/app/command-center/
@@ -97,7 +104,8 @@ const nextConfig: NextConfig = {
       // /engine retired 2026-09-16 (review squad: six reviewers found it as a live, unlinked,
       // older copy of /persuasion with the wrong tab title and no preview image).
       { source: '/engine', destination: '/persuasion', permanent: true },
-      { source: '/pme', destination: '/persuasion', permanent: false },
+      // '/pme' used to land on /persuasion; it is the Message Engine's address now (src/proxy.ts,
+      // Whit 2026-10-19 "4 yes"), so only the .html spelling keeps the old move.
       { source: '/pme.html', destination: '/persuasion', permanent: false },
       { source: '/index.html', destination: '/', permanent: true },
       { source: '/services.html', destination: '/services', permanent: true },
@@ -110,6 +118,9 @@ const nextConfig: NextConfig = {
       { source: '/faq.html', destination: '/faq', permanent: true },
       { source: '/contact.html', destination: '/contact', permanent: true },
       { source: '/portfolio.html', destination: '/portfolio', permanent: true },
+      // Products folded into Portfolio, 2026-11-07 (HOPSITE2; Whit: "yes to 2 and 1" to "Fold Products into
+      // Portfolio? Both pages list your tools."). Tested in scripts/products-folded.test.mjs.
+      { source: '/products', destination: '/portfolio', permanent: true },
       // Draft home pages came off the public site 2026-09-25 (Portfolio AUDITPUB1): they were
       // drafts for Whit's review served to anyone. They now live behind the visualizations
       // password; anyone holding an old link lands on the password prompt, not a 404.

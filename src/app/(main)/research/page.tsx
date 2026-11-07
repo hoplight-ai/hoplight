@@ -293,6 +293,16 @@ export default function Research() {
         </div>
       </section>
 
+      {/* BUILT FROM THE TRIAL (owner, 2026-10-23: one line, link to /rayli, nothing else) */}
+      <section style={{ borderTop: '1px solid var(--line)' }}>
+        <div className="wrap">
+          <p className="rct-body">
+            Built from this trial: <a href="/rayli">Rayli</a>, communications intelligence for
+            mission-driven organizations.
+          </p>
+        </div>
+      </section>
+
       {/* IMPLICATIONS */}
       <section style={{ borderTop: '1px solid var(--line)' }}>
         <div className="wrap">

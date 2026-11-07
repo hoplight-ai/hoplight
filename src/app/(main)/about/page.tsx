@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { FACTS } from '@/lib/facts';
 import JsonLd from '@/components/JsonLd';
+import Masthead from '@/components/Masthead';
 import { pageMetadata } from '@/lib/metadata';
 
 export const metadata: Metadata = pageMetadata({
@@ -27,18 +28,15 @@ export default function About() {
   return (
     <>
       <JsonLd data={founderSchema} />
-      <div className="page-hero">
-        <div className="wrap">
-          <span className="label">About</span>
-          <h1>Hoplight is led by Whit Pendergast.</h1>
-          <p>Enterprise-grade AI strategy, brought to the organizations that can&rsquo;t hire a Chief AI Officer.</p>
-          <p className="about-linkedin">
-            <a href="https://www.linkedin.com/in/whit-pendergast/" target="_blank" rel="noopener noreferrer">
-              LinkedIn<span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </p>
-        </div>
-      </div>
+      <Masthead labelledBy="about-title" variant="page">
+        <h1 id="about-title" className="two-line">Hoplight is led by Whit Pendergast.</h1>
+        <p className="lede">Enterprise-grade AI strategy, brought to the organizations that can&rsquo;t hire a Chief AI Officer.</p>
+        <p className="about-linkedin">
+          <a href="https://www.linkedin.com/in/whit-pendergast/" target="_blank" rel="noopener noreferrer">
+            LinkedIn<span className="sr-only"> (opens in a new tab)</span>
+          </a>
+        </p>
+      </Masthead>
 
       <section>
         <div className="wrap">
@@ -50,8 +48,19 @@ export default function About() {
           </div>
 
           <div className="mit-credential">
+            {/* The caption that stood here repeated the sentence just above it (HOPSITE2, 2026-11-07). */}
             <img src="/mit-logo.png" alt="Massachusetts Institute of Technology" width={600} height={400} />
-            <span className="mc-text">Certificate in Agentic AI for Organizational Transformation, MIT.</span>
+
+          </div>
+
+          <div className="prose" style={{ maxWidth: '65ch', marginTop: '28px' }}>
+            <p style={{ color: 'var(--stone-deep)' }}>
+              Hoplight runs its own work on{' '}
+              <a href="https://router.hoplight.ai" target="_blank" rel="noopener noreferrer">
+                Pandora&rsquo;s Router<span className="sr-only"> (opens in a new tab)</span>
+              </a>
+              , an open-source tool that keeps several AI coding agents from overlapping.
+            </p>
           </div>
 
           <h2 style={{ margin: '52px 0 18px' }}>Not a solo shop.</h2>

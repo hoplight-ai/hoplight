@@ -4,44 +4,34 @@ const ORIGIN = 'https://hoplight.ai';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   // '/work' removed 2026-08-13: it now 308s to /portfolio, and a sitemap should not list a redirect.
-  // '/rayli' added 2026-08-21 (SITE1): the flagship product had no page at all until then.
   // '/tools/which-ai' added 2026-09-16: live, linked from the nav and the portfolio, never listed.
   // '/undo' added 2026-10-09: The Undo List, live but deliberately unlinked from the nav.
-  const paths = ['', '/rayli', '/services', '/persuasion', '/research', '/about', '/faq', '/contact', '/portfolio', '/tools/which-ai', '/undo', '/revenge-or-justice', '/revenge-or-justice/about'];
-  // The 12 static portfolio pieces under public/portfolio/*.html (review squad, 2026-09-16,
-  // expert-seo.md #8: titled pages with no sitemap entry at all). Listed separately from `paths`
-  // above because they live under a shared /portfolio/ prefix and carry their own, lower priority
-  // rather than the 0.7 every top-level route gets.
-  const portfolioPages = [
-    'ai-governance-checklist',
-    'ai-lobbyist-player-map',
-    'cba-win-pattern-playbook',
-    'dnc-autopsy-taken-apart',
-    'every-political-dollar-buys-less',
-    'federal-agency-ai-inventory',
-    'hoplight-persuasion-story-page',
-    'oregon-school-budget-report',
-    'pdi-trust-dilution-model',
-    'redistricting-seat-shifts',
-    'where-political-money-actually-works',
-    'worker-equity-dilution-at-ge',
-  ];
+  //
+  // Whit, 2026-10-19 ("5 yes"): hidden pages go behind the one-password sign-in. Everything behind it
+  // came out of this list the same day: /rayli, /persuasion, /research, /portfolio and the twelve
+  // portfolio pieces under it (the full gated list is src/lib/gate.ts, enforced by src/proxy.ts). A
+  // sitemap that names a page a crawler cannot open is a sitemap that lies. scripts/gate.test.mjs
+  // fails if a gated path comes back.
+  //
+  // '/products' and '/insights' added 2026-10-20: the restructured nav (Products, Insights, Services,
+  // FAQ, About). Every link on /insights opens a gated page; the page itself is open.
+  //
+  // '/portfolio' back 2026-11-07 (HOPSITE2): the portfolio is public on the rebuilt site; the gate opens it
+  // and the pieces its list links to (PUBLIC_PORTFOLIO in src/lib/gate.ts).
+  //
+  // '/products' out 2026-11-07 (HOPSITE2): folded into /portfolio, a permanent redirect in next.config.ts
+  // (Whit: "yes to 2 and 1"). The home page changed the same day: its Products tile is now Portfolio.
+  const paths = ['', '/portfolio', '/insights', '/services', '/about', '/faq', '/contact', '/tools/which-ai', '/undo', '/revenge-or-justice', '/revenge-or-justice/about'];
   // Fixed date rather than a build-time Date.now(): a `lastModified` that changes on every deploy
   // regardless of whether the page's content changed teaches crawlers to ignore the field. Bump
   // this by hand when a route's content actually changes. Added 2026-09-16 (SEO review #3): the
   // field was absent entirely before this.
   const LAST_MODIFIED = '2026-09-16';
-  const topLevel = paths.map((p) => ({
+  const RESTRUCTURED = ['/insights', '/services'];
+  return paths.map((p) => ({
     url: `${ORIGIN}${p}`,
-    lastModified: p.startsWith('/revenge-or-justice') ? '2026-11-06' : p === '/undo' ? '2026-10-09' : LAST_MODIFIED,
+    lastModified: p === '/portfolio' || p === '' ? '2026-11-07' : p.startsWith('/revenge-or-justice') ? '2026-11-06' : p === '/undo' ? '2026-10-09' : RESTRUCTURED.includes(p) ? '2026-10-20' : LAST_MODIFIED,
     changeFrequency: 'monthly' as const,
-    priority: p === '' ? 1 : p === '/rayli' ? 0.9 : p === '/research' ? 0.9 : p === '/undo' ? 0.8 : 0.7,
+    priority: p === '' ? 1 : p === '/undo' ? 0.8 : 0.7,
   }));
-  const portfolio = portfolioPages.map((slug) => ({
-    url: `${ORIGIN}/portfolio/${slug}.html`,
-    lastModified: LAST_MODIFIED,
-    changeFrequency: 'monthly' as const,
-    priority: 0.5,
-  }));
-  return [...topLevel, ...portfolio];
 }

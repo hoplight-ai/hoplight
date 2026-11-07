@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import Collapse from '@/components/Collapse';
 import JsonLd from '@/components/JsonLd';
+import Masthead from '@/components/Masthead';
 import { pageMetadata } from '@/lib/metadata';
 
 export const metadata: Metadata = pageMetadata({
@@ -73,13 +74,10 @@ export default function Faq() {
   return (
     <>
       <JsonLd data={faqSchema} />
-      <div className="page-hero">
-        <div className="wrap">
-          <span className="label">FAQ</span>
-          <h1>The questions you&rsquo;re actually asking.</h1>
-          <p>Plain answers to what mission-driven leaders raise before they bring AI anywhere near their work.</p>
-        </div>
-      </div>
+      <Masthead labelledBy="faq-title" variant="page">
+        <h1 id="faq-title">The questions you&rsquo;re actually asking.</h1>
+        <p className="lede">Plain answers to what mission-driven leaders raise before they bring AI anywhere near their work.</p>
+      </Masthead>
 
       <section>
         <div className="wrap">

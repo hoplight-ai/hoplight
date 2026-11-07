@@ -1,0 +1,3710 @@
+{
+  "/": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1224,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Most organizations are bushwhacking thei"
+        },
+        {
+          "level": 2,
+          "text": "Products"
+        },
+        {
+          "level": 2,
+          "text": "Insights"
+        },
+        {
+          "level": 2,
+          "text": "Services"
+        },
+        {
+          "level": 2,
+          "text": "FAQ"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [
+        "Products",
+        "Insights",
+        "Services",
+        "FAQ"
+      ],
+      "bigText": [
+        "Most organizations are bushwhacking their way th (38px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Most organizations are bushwhacking their way th",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 38,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 352
+        },
+        {
+          "text": "95%",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 531
+        },
+        {
+          "text": "of enterprise AI pilots return nothing (MIT). Ho",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 531
+        },
+        {
+          "text": "130+",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 581
+        },
+        {
+          "text": "production AI systems",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 581
+        },
+        {
+          "text": "for the labor, advocacy, and mission-driven orga",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 531
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 22,
+          "ratio": 15.33,
+          "need": 4.5,
+          "top": 707
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 22,
+          "ratio": 15.33,
+          "need": 4.5,
+          "top": 707
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 22,
+          "ratio": 15.33,
+          "need": 4.5,
+          "top": 793
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 22,
+          "ratio": 15.33,
+          "need": 4.5,
+          "top": 793
+        },
+        {
+          "text": "Or email",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 20,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 991
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 20,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 991
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1096
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1114
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1114
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1114
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1152
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1152
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1124,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Most organizations are bushwhacking thei"
+        },
+        {
+          "level": 2,
+          "text": "Products"
+        },
+        {
+          "level": 2,
+          "text": "Insights"
+        },
+        {
+          "level": 2,
+          "text": "Services"
+        },
+        {
+          "level": 2,
+          "text": "FAQ"
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Products",
+          "w": 56,
+          "h": 16
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 16
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 16
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 16
+        }
+      ],
+      "filled": [
+        "Contact",
+        "Products",
+        "Insights",
+        "Services",
+        "FAQ"
+      ],
+      "bigText": [
+        "Most organizations are bushwhacking their way th (66px)"
+      ],
+      "failing": [
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        }
+      ],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Most organizations are bushwhacking their way th",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 66,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 241
+        },
+        {
+          "text": "95%",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 466
+        },
+        {
+          "text": "of enterprise AI pilots return nothing (MIT). Ho",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 466
+        },
+        {
+          "text": "130+",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 497
+        },
+        {
+          "text": "production AI systems",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 497
+        },
+        {
+          "text": "for the labor, advocacy, and mission-driven orga",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 466
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 28,
+          "ratio": 15.33,
+          "need": 3,
+          "top": 637
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 28,
+          "ratio": 15.33,
+          "need": 3,
+          "top": 637
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 28,
+          "ratio": 15.33,
+          "need": 3,
+          "top": 637
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 28,
+          "ratio": 15.33,
+          "need": 3,
+          "top": 637
+        },
+        {
+          "text": "Or email",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 26,
+          "ratio": 7.5,
+          "need": 3,
+          "top": 920
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 26,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 920
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1045
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1063
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1063
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1063
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1052
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1052
+        }
+      ]
+    }
+  },
+  "/portfolio": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 812,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Hoplight tools"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [
+        "Sign in"
+      ],
+      "bigText": [],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Hoplight tools",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 23,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 271
+        },
+        {
+          "text": "This is Whit's private workspace. Sign in with t",
+          "fg": "#2a3f5f",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 17,
+          "ratio": 10.63,
+          "need": 4.5,
+          "top": 327
+        },
+        {
+          "text": "Password",
+          "fg": "#2a3f5f",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15,
+          "ratio": 10.63,
+          "need": 4.5,
+          "top": 404
+        },
+        {
+          "text": "Sign in",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 17,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 497
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 900,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Hoplight tools"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [
+        "Sign in"
+      ],
+      "bigText": [],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Hoplight tools",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 23,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 315
+        },
+        {
+          "text": "This is Whit's private workspace. Sign in with t",
+          "fg": "#2a3f5f",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 17,
+          "ratio": 10.63,
+          "need": 4.5,
+          "top": 371
+        },
+        {
+          "text": "Password",
+          "fg": "#2a3f5f",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15,
+          "ratio": 10.63,
+          "need": 4.5,
+          "top": 448
+        },
+        {
+          "text": "Sign in",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 17,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 541
+        }
+      ]
+    }
+  },
+  "/products": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1554,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Products"
+        },
+        {
+          "level": 2,
+          "text": "Rayli"
+        },
+        {
+          "level": 2,
+          "text": "AGIS"
+        },
+        {
+          "level": 2,
+          "text": "Which AI"
+        },
+        {
+          "level": 2,
+          "text": "AI Election Errors"
+        },
+        {
+          "level": 2,
+          "text": "The Undo List"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [],
+      "bigText": [
+        "Products (38px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 38,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 218
+        },
+        {
+          "text": "Platform",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 310
+        },
+        {
+          "text": "Rayli",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 337
+        },
+        {
+          "text": "Writes voice-true, source-cited copy and maps wh",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 369
+        },
+        {
+          "text": "Live app",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 500
+        },
+        {
+          "text": "AGIS",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 527
+        },
+        {
+          "text": "AI governance search across 2,100+ jurisdictions",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 559
+        },
+        {
+          "text": "Ask it: “",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 613
+        },
+        {
+          "text": "Which states have enacted algorithmic management",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 613
+        },
+        {
+          "text": "”",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 613
+        },
+        {
+          "text": "Free tool",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 767
+        },
+        {
+          "text": "Which AI",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 793
+        },
+        {
+          "text": "Which model fits the job, and what it does with ",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 826
+        },
+        {
+          "text": "Public form",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 957
+        },
+        {
+          "text": "AI Election Errors",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 984
+        },
+        {
+          "text": "A public report form, run by Hoplight, for AI to",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1016
+        },
+        {
+          "text": "Public list",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1170
+        },
+        {
+          "text": "The Undo List",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1197
+        },
+        {
+          "text": "Second-term Trump actions, sorted by effort to u",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1229
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1426
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1445
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1445
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1445
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1482
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1482
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 900,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Products"
+        },
+        {
+          "level": 2,
+          "text": "Rayli"
+        },
+        {
+          "level": 2,
+          "text": "AGIS"
+        },
+        {
+          "level": 2,
+          "text": "Which AI"
+        },
+        {
+          "level": 2,
+          "text": "AI Election Errors"
+        },
+        {
+          "level": 2,
+          "text": "The Undo List"
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Products",
+          "w": 56,
+          "h": 17
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 16
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 16
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 16
+        }
+      ],
+      "filled": [
+        "Contact"
+      ],
+      "bigText": [
+        "Products (66px)"
+      ],
+      "failing": [
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        }
+      ],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 66,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 131
+        },
+        {
+          "text": "Platform",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 252
+        },
+        {
+          "text": "Rayli",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 278
+        },
+        {
+          "text": "Writes voice-true, source-cited copy and maps wh",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 317
+        },
+        {
+          "text": "Live app",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 252
+        },
+        {
+          "text": "AGIS",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 278
+        },
+        {
+          "text": "AI governance search across 2,100+ jurisdictions",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 317
+        },
+        {
+          "text": "Ask it: “",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 371
+        },
+        {
+          "text": "Which states have enacted algorithmic management",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 371
+        },
+        {
+          "text": "”",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 371
+        },
+        {
+          "text": "Free tool",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 252
+        },
+        {
+          "text": "Which AI",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 278
+        },
+        {
+          "text": "Which model fits the job, and what it does with ",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 317
+        },
+        {
+          "text": "Public form",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 525
+        },
+        {
+          "text": "AI Election Errors",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 552
+        },
+        {
+          "text": "A public report form, run by Hoplight, for AI to",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 590
+        },
+        {
+          "text": "Public list",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 525
+        },
+        {
+          "text": "The Undo List",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 552
+        },
+        {
+          "text": "Second-term Trump actions, sorted by effort to u",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 590
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 811
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 829
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 829
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 829
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 818
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 818
+        }
+      ]
+    }
+  },
+  "/services": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1384,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Start with the thing people hate doing e"
+        },
+        {
+          "level": 2,
+          "text": "Sentiment and stack audit"
+        },
+        {
+          "level": 2,
+          "text": "Build for real pain points"
+        },
+        {
+          "level": 2,
+          "text": "Upskill, don’t just train"
+        },
+        {
+          "level": 2,
+          "text": "Stand it up so it’s yours"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [],
+      "bigText": [
+        "Start with the thing people hate doing every wee (32px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Start with the thing people hate doing every wee",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 32,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 218
+        },
+        {
+          "text": "01",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 483
+        },
+        {
+          "text": "Sentiment and stack audit",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 483
+        },
+        {
+          "text": "What are people already using, what are they afr",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 16.32,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 515
+        },
+        {
+          "text": "02",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 640
+        },
+        {
+          "text": "Build for real pain points",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 640
+        },
+        {
+          "text": "Bespoke beats a generic training on Claude every",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 16.32,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 673
+        },
+        {
+          "text": "03",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 772
+        },
+        {
+          "text": "Upskill, don’t just train",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 772
+        },
+        {
+          "text": "You have an intern with access to everything eve",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 16.32,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 805
+        },
+        {
+          "text": "04",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 955
+        },
+        {
+          "text": "Stand it up so it’s yours",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 955
+        },
+        {
+          "text": "We help you build the maintenance muscle in-hous",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 16.32,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 988
+        },
+        {
+          "text": "Start a conversation",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 14.4,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 1143
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1256
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1275
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1275
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1275
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1312
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1312
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1326,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Start with the thing people hate doing e"
+        },
+        {
+          "level": 2,
+          "text": "Sentiment and stack audit"
+        },
+        {
+          "level": 2,
+          "text": "Build for real pain points"
+        },
+        {
+          "level": 2,
+          "text": "Upskill, don’t just train"
+        },
+        {
+          "level": 2,
+          "text": "Stand it up so it’s yours"
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Products",
+          "w": 56,
+          "h": 16
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 16
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 17
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 16
+        }
+      ],
+      "filled": [
+        "Contact"
+      ],
+      "bigText": [
+        "Start with the thing people hate doing every wee (52px)",
+        "01 (30px)",
+        "Sentiment and stack audit (30px)",
+        "02 (30px)",
+        "Build for real pain points (30px)",
+        "03 (30px)",
+        "Upskill, don’t just train (30px)",
+        "04 (30px)",
+        "Stand it up so it’s yours (30px)"
+      ],
+      "failing": [
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        }
+      ],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Start with the thing people hate doing every wee",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 52,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 131
+        },
+        {
+          "text": "01",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 30,
+          "ratio": 4.62,
+          "need": 3,
+          "top": 473
+        },
+        {
+          "text": "Sentiment and stack audit",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 30,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 473
+        },
+        {
+          "text": "What are people already using, what are they afr",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 16.32,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 481
+        },
+        {
+          "text": "02",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 30,
+          "ratio": 4.62,
+          "need": 3,
+          "top": 612
+        },
+        {
+          "text": "Build for real pain points",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 30,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 612
+        },
+        {
+          "text": "Bespoke beats a generic training on Claude every",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 16.32,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 620
+        },
+        {
+          "text": "03",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 30,
+          "ratio": 4.62,
+          "need": 3,
+          "top": 727
+        },
+        {
+          "text": "Upskill, don’t just train",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 30,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 727
+        },
+        {
+          "text": "You have an intern with access to everything eve",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 16.32,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 735
+        },
+        {
+          "text": "04",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 30,
+          "ratio": 4.62,
+          "need": 3,
+          "top": 892
+        },
+        {
+          "text": "Stand it up so it’s yours",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 30,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 892
+        },
+        {
+          "text": "We help you build the maintenance muscle in-hous",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 16.32,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 900
+        },
+        {
+          "text": "Start a conversation",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 14.4,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 1110
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1247
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1265
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1265
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1265
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1254
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1254
+        }
+      ]
+    }
+  },
+  "/insights": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 2130,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Insights"
+        },
+        {
+          "level": 2,
+          "text": "Writing"
+        },
+        {
+          "level": 3,
+          "text": "Are We Engineering Groupthink at Civiliz"
+        },
+        {
+          "level": 3,
+          "text": "The Wrong Altitude"
+        },
+        {
+          "level": 2,
+          "text": "Research"
+        },
+        {
+          "level": 3,
+          "text": "The trial write-up"
+        },
+        {
+          "level": 3,
+          "text": "The persuasion page"
+        },
+        {
+          "level": 2,
+          "text": "Reports"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [],
+      "bigText": [
+        "Insights (38px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 38,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 218
+        },
+        {
+          "text": "Writing",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 381
+        },
+        {
+          "text": "Whit Pendergast on Substack",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 409
+        },
+        {
+          "text": "Substack, Jul 1, 2026",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 490
+        },
+        {
+          "text": "Are We Engineering Groupthink at Civilization Sc",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 517
+        },
+        {
+          "text": "Substack, Mar 5, 2026",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 673
+        },
+        {
+          "text": "The Wrong Altitude",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 700
+        },
+        {
+          "text": "Research",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 801
+        },
+        {
+          "text": "Aug 2025",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 862
+        },
+        {
+          "text": "The trial write-up",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 889
+        },
+        {
+          "text": "3,006 adults, randomized. AI-generated frames be",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 921
+        },
+        {
+          "text": "The persuasion page",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1141
+        },
+        {
+          "text": "Psychology, not demographics.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1174
+        },
+        {
+          "text": "Reports",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1303
+        },
+        {
+          "text": "The Undo List",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1361
+        },
+        {
+          "text": "Live Federal Register feed, by what undoes each.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1385
+        },
+        {
+          "text": "CBA win pattern playbook",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1467
+        },
+        {
+          "text": "Contract language for a local at the table.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1491
+        },
+        {
+          "text": "AI governance checklist",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1573
+        },
+        {
+          "text": "For teams beginning with AI.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1597
+        },
+        {
+          "text": "Analysis",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1655
+        },
+        {
+          "text": "DNC autopsy, taken apart",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1655
+        },
+        {
+          "text": "From its own report, cited by page.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1696
+        },
+        {
+          "text": "Analysis",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1753
+        },
+        {
+          "text": "Oregon school budget report",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1753
+        },
+        {
+          "text": "From state actuals and Census data.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1794
+        },
+        {
+          "text": "Analysis",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1851
+        },
+        {
+          "text": "Worker equity dilution at GE",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1851
+        },
+        {
+          "text": "From public headcount and filings.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1892
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 2002
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2021
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2021
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2021
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2058
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2058
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1391,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Insights"
+        },
+        {
+          "level": 2,
+          "text": "Writing"
+        },
+        {
+          "level": 3,
+          "text": "Are We Engineering Groupthink at Civiliz"
+        },
+        {
+          "level": 3,
+          "text": "The Wrong Altitude"
+        },
+        {
+          "level": 2,
+          "text": "Research"
+        },
+        {
+          "level": 3,
+          "text": "The trial write-up"
+        },
+        {
+          "level": 3,
+          "text": "The persuasion page"
+        },
+        {
+          "level": 2,
+          "text": "Reports"
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Products",
+          "w": 56,
+          "h": 16
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 17
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 16
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 16
+        }
+      ],
+      "filled": [
+        "Contact"
+      ],
+      "bigText": [
+        "Insights (66px)"
+      ],
+      "failing": [
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        }
+      ],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 66,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 131
+        },
+        {
+          "text": "Writing",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 355
+        },
+        {
+          "text": "Whit Pendergast on Substack",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 390
+        },
+        {
+          "text": "Substack, Jul 1, 2026",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 471
+        },
+        {
+          "text": "Are We Engineering Groupthink at Civilization Sc",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 497
+        },
+        {
+          "text": "Substack, Mar 5, 2026",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 643
+        },
+        {
+          "text": "The Wrong Altitude",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 669
+        },
+        {
+          "text": "Research",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 777
+        },
+        {
+          "text": "Aug 2025",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 845
+        },
+        {
+          "text": "The trial write-up",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 871
+        },
+        {
+          "text": "3,006 adults, randomized. AI-generated frames be",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 910
+        },
+        {
+          "text": "The persuasion page",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 1062
+        },
+        {
+          "text": "Psychology, not demographics.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1101
+        },
+        {
+          "text": "Reports",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 323
+        },
+        {
+          "text": "The Undo List",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 387
+        },
+        {
+          "text": "Live Federal Register feed, by what undoes each.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 416
+        },
+        {
+          "text": "CBA win pattern playbook",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 474
+        },
+        {
+          "text": "Contract language for a local at the table.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 503
+        },
+        {
+          "text": "AI governance checklist",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 560
+        },
+        {
+          "text": "For teams beginning with AI.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 590
+        },
+        {
+          "text": "Analysis",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 647
+        },
+        {
+          "text": "DNC autopsy, taken apart",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 647
+        },
+        {
+          "text": "From its own report, cited by page.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 693
+        },
+        {
+          "text": "Analysis",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 750
+        },
+        {
+          "text": "Oregon school budget report",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 750
+        },
+        {
+          "text": "From state actuals and Census data.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 796
+        },
+        {
+          "text": "Analysis",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 854
+        },
+        {
+          "text": "Worker equity dilution at GE",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 854
+        },
+        {
+          "text": "From public headcount and filings.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 900
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1312
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1330
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1330
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1330
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1319
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1319
+        }
+      ]
+    }
+  },
+  "/about": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 2294,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Hoplight is led by Whit Pendergast."
+        },
+        {
+          "level": 2,
+          "text": "Not a solo shop."
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "reach out →",
+          "w": 80,
+          "h": 17
+        }
+      ],
+      "filled": [],
+      "bigText": [
+        "Hoplight is led by Whit Pendergast. (38px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Hoplight is led by Whit Pendergast.",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 38,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 218
+        },
+        {
+          "text": "Enterprise-grade AI strategy, brought to the org",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 310
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 390
+        },
+        {
+          "text": "Whit founded Hoplight to fill a gap in the AI ec",
+          "fg": "#2a3f5f",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18.4,
+          "ratio": 10.63,
+          "need": 4.5,
+          "top": 558
+        },
+        {
+          "text": "Twenty years of building at the cutting edge. He",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 693
+        },
+        {
+          "text": "From running frontline congressional races, to b",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1055
+        },
+        {
+          "text": "4×",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1055
+        },
+        {
+          "text": "return on ad spend, then to shift attitudes in a",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1055
+        },
+        {
+          "text": "3,006",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1055
+        },
+        {
+          "text": "-person randomized controlled trial.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1055
+        },
+        {
+          "text": "He has no engineering background. Everything he ",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1343
+        },
+        {
+          "text": "Certificate in Agentic AI for Organizational Tra",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.4,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1605
+        },
+        {
+          "text": "Hoplight runs its own work on",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1691
+        },
+        {
+          "text": "Pandora’s Router",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1693
+        },
+        {
+          "text": ", an open-source tool that keeps several AI codi",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1691
+        },
+        {
+          "text": "Not a solo shop.",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 24,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 1817
+        },
+        {
+          "text": "Whit leads a team: a project manager, a bench of",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1863
+        },
+        {
+          "text": "We’re always talking to exceptional trainers and",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.6,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1977
+        },
+        {
+          "text": "reach out →",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.6,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 2001
+        },
+        {
+          "text": "Start a conversation →",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 14.4,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 2045
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 2166
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2184
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2184
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2184
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2222
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2222
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1757,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Hoplight is led by Whit Pendergast."
+        },
+        {
+          "level": 2,
+          "text": "Not a solo shop."
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Products",
+          "w": 56,
+          "h": 16
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 16
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 16
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 17
+        },
+        {
+          "text": "Pandora’s Router (opens in a new tab)",
+          "w": 124,
+          "h": 20
+        },
+        {
+          "text": "reach out →",
+          "w": 80,
+          "h": 17
+        }
+      ],
+      "filled": [
+        "Contact"
+      ],
+      "bigText": [
+        "Hoplight is led by Whit Pendergast. (66px)"
+      ],
+      "failing": [
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        }
+      ],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Products",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#ffffff",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 1.72,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Hoplight is led by Whit Pendergast.",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 66,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 131
+        },
+        {
+          "text": "Enterprise-grade AI strategy, brought to the org",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 281
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 346
+        },
+        {
+          "text": "Whit founded Hoplight to fill a gap in the AI ec",
+          "fg": "#2a3f5f",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18.4,
+          "ratio": 10.63,
+          "need": 4.5,
+          "top": 552
+        },
+        {
+          "text": "Twenty years of building at the cutting edge. He",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 629
+        },
+        {
+          "text": "From running frontline congressional races, to b",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 842
+        },
+        {
+          "text": "4×",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 842
+        },
+        {
+          "text": "return on ad spend, then to shift attitudes in a",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 842
+        },
+        {
+          "text": "3,006",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 842
+        },
+        {
+          "text": "-person randomized controlled trial.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 842
+        },
+        {
+          "text": "He has no engineering background. Everything he ",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1005
+        },
+        {
+          "text": "Certificate in Agentic AI for Organizational Tra",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.4,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1138
+        },
+        {
+          "text": "Hoplight runs its own work on",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1226
+        },
+        {
+          "text": "Pandora’s Router",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1228
+        },
+        {
+          "text": ", an open-source tool that keeps several AI codi",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1226
+        },
+        {
+          "text": "Not a solo shop.",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 35.2,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 1328
+        },
+        {
+          "text": "Whit leads a team: a project manager, a bench of",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1386
+        },
+        {
+          "text": "We’re always talking to exceptional trainers and",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.6,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1451
+        },
+        {
+          "text": "reach out →",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.6,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1475
+        },
+        {
+          "text": "Start a conversation →",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 14.4,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 1519
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1678
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1696
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1696
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1696
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1685
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1685
+        }
+      ]
+    }
+  }
+}
