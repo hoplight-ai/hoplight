@@ -2,15 +2,26 @@
 
 import { useEffect, useRef } from 'react';
 import { initRevengeOrJustice } from './tool.js';
+import { track } from '@/lib/track';
+import { USAGE_NOTE } from '@/components/ToolFeedback';
+import { TOOL_BY_SLUG } from '@/data/tools';
+import { pictureSvg } from '@/data/tool-pictures';
 import './revenge-or-justice.css';
 
 // Static markup the script in tool.js draws into by id. React renders this once and never updates it,
 // so the ids are the contract: the exhibit (#out and everything under it), the ask (#f), the strip
 // (#strip) and the headline list (#feed). Same markup as the quick-tools original, build v6.
+// The title is set the way the tool's link-preview card sets it (visual review, 2026-11-07): "Justice"
+// on its own line in the card's gold, the bars picture beside it. The picture is the card's own
+// drawing (src/data/tool-pictures.ts), so the page and a pasted link show the same face.
+const BARS = pictureSvg(TOOL_BY_SLUG['revenge-or-justice'].brand) ?? '';
+
 export default function RevengeOrJustice() {
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    initRevengeOrJustice(root.current);
+    initRevengeOrJustice(root.current, {
+      track: (action: string, props?: Record<string, string | number | boolean>) => track('revenge-or-justice', action, props),
+    });
   }, []);
 
   return (
@@ -18,7 +29,12 @@ export default function RevengeOrJustice() {
       <div className="rj-wrap">
         <div className="rj-top">
           <div className="rj-head">
-            <h1>Revenge or Justice</h1>
+            <div className="rj-title">
+              <h1>
+                <span>Revenge or</span> <span className="rj-j">Justice</span>
+              </h1>
+              <span className="rj-bars" aria-hidden="true" dangerouslySetInnerHTML={{ __html: BARS }} />
+            </div>
             <p className="rj-lede">
               Paste a statement or a link. It says whether the words sound like revenge or justice, and how to say it so it lands.{' '}
               <a href="/revenge-or-justice/about">Why this exists.</a>
@@ -30,16 +46,20 @@ export default function RevengeOrJustice() {
             <textarea id="t" placeholder="The release, the quote or the article. A link on its own line works too." />
             <div className="rj-row">
               <button className="rj-btn" id="go" type="submit">Read it</button>
-              <span className="quiet"><button type="button" id="showr">What the rubric asks</button></span>
+              <span className="quiet"><button type="button" id="showr" aria-expanded="false" aria-controls="rubricbox">What the rubric asks</button></span>
             </div>
-            <dl id="rubric" />
+            <div id="rubricbox">
+              <p className="rubric-sum">The rubric: the subject is a practice, priced in what it cost people, ending in the remedy, from a speaker with nothing to gain, anchored back to the listener.</p>
+              <dl id="rubric" />
+            </div>
             <div id="status" aria-live="polite" />
           </form>
 
-          <section className="feed" id="feed" aria-labelledby="feedh">
+          {/* Hidden until the list arrives with at least one headline; an empty or failed list keeps the
+              whole column out of sight rather than showing an error to a stranger. */}
+          <section className="feed" id="feed" aria-labelledby="feedh" hidden>
             <h2 id="feedh">Or pick a recent article</h2>
             <p className="h2sub">Democrats in leadership on investigations, hearings and corruption, the last two weeks. One click reads it.</p>
-            <p className="note" id="feednote" />
             <ol id="feedlist" />
           </section>
         </div>
@@ -75,7 +95,7 @@ export default function RevengeOrJustice() {
         </section>
 
         <div className="rj-foot">
-          Nothing you paste is stored. The rubric: the subject is a practice, priced in what it cost people, ending in the remedy, from a speaker with nothing to gain, anchored back to the listener.{' '}
+          {USAGE_NOTE}{' '}
           <a href="/revenge-or-justice/about">How this was built.</a>
         </div>
       </div>

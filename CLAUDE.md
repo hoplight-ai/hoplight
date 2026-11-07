@@ -103,7 +103,8 @@
   words behind each reading with the speaker named on each quoted line, three rewrites. Public, not in the nav, in the sitemap. `/revenge-or-justice/about` is the
   why, the record and how it reads, in Whit's own words from his Substack draft of 2026-11-05 and his
   messages of 2026-11-06, as short blocks with a bold lead-in, no location, his name as the sign-off and
-  a Send feedback button to /contact; nothing in his voice was written for him.
+  (since 2026-11-07) the site's feedback box under it in place of the old Send feedback button to /contact;
+  nothing in his voice was written for him.
 - **Where the grader lives:** NOT here. `/api/revenge-or-justice` and `/api/revenge-or-justice/feed`
   forward to quick-tools (`/api/justice-or-retribution`, `/api/justice-feed`, behind that site's
   sign-in) with this site's own `PRIVATE_SITE_USER` / `PRIVATE_SITE_PASSWORD` pair, so the Anthropic
@@ -119,3 +120,19 @@
   three hundred a day per instance (`checkLimitIn` in `src/lib/rate-limit.ts`, tested in
   `scripts/intake-ratelimit.test.mjs`), both soft; the hard limit is a Vercel Firewall rate-limit
   rule on the two routes, Whit's to set.
+
+## Tool drops, feedback and anonymous usage (added 2026-11-07, lane tooldrop1)
+
+- **The portfolio is a schedule.** `src/data/tools.ts` holds every entry with `releaseAt` (a day, read as
+  midnight America/Los_Angeles) and `cleared`. `/portfolio` shows an entry only when both hold, newest
+  first, and revalidates hourly, so a cleared entry appears on its day with no deploy. Flip `cleared` only
+  after `npm run launch:check -- <slug>` passes. Outside production, `PORTFOLIO_NOW` and
+  `PORTFOLIO_SHOW_UNCLEARED=1` let a render show a future drop. Tested in `scripts/portfolio-schedule.test.mjs`.
+- **Every tool has its own preview card** at `/api/og/tool/<slug>` (`src/lib/brand/tool-card.ts`): the tool's
+  name and look above one identical Hoplight band. Pages use `toolMetadata()` in `src/lib/metadata.ts`.
+  `npm run cards:export -- --base <url>` writes every card as a PNG.
+- **Feedback and usage go through one route**, `POST /api/signal` (rules in `src/lib/signal.ts`, tested in
+  `scripts/signal.test.mjs`), forwarded to the quick-tools store. Env, names only: `TOOL_SIGNAL_URL`
+  (unset: signals are answered 202 and dropped), `SIGNAL_HASH_SALT`, and the existing `PRIVATE_SITE_USER` /
+  `PRIVATE_SITE_PASSWORD`. Pages call `track()` from `src/lib/track.ts` and put `<ToolFeedback tool=...>` at
+  the foot; tools hosted elsewhere load `/kit/signal.js`. No third-party analytics, ever.

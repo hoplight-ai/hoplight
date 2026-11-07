@@ -1,0 +1,41 @@
+{
+  "words_in_first_screen": 64,
+  "text_share_of_first_screen_pct": 5.9,
+  "type_sizes_in_first_screen": [
+    13,
+    14,
+    16,
+    18,
+    22,
+    56
+  ],
+  "font_families_in_first_screen": [
+    "Albert Sans",
+    "Inter"
+  ],
+  "text_above_28px": [
+    "56px: Revenge or",
+    "56px: Justice"
+  ],
+  "filled_buttons_in_first_screen": [
+    "Start a conversation",
+    "Read it"
+  ],
+  "distinct_hues_in_first_screen": 3,
+  "colour_keys_on_page": 0,
+  "em_dashes_whole_page": 0,
+  "em_dashes_first_screen": 0,
+  "ground_colour": "rgb(255, 255, 255)",
+  "cream_ground": false,
+  "surfaces_with_border_fill_and_shadow": 0,
+  "sideways_scroll": false,
+  "page_height_px": 1317,
+  "phone_sideways_scroll": false,
+  "target": "http://localhost:3417/revenge-or-justice",
+  "pictures": [
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-tooldrop1/docs/tool-cards-2026-11-07/look-revenge-or-justice/desktop-colour.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-tooldrop1/docs/tool-cards-2026-11-07/look-revenge-or-justice/desktop-grayscale.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-tooldrop1/docs/tool-cards-2026-11-07/look-revenge-or-justice/phone.png",
+    "/Users/whitpendergast/Documents/Code Claude/hoplight-site-tooldrop1/docs/tool-cards-2026-11-07/look-revenge-or-justice/desktop-full.png"
+  ]
+}

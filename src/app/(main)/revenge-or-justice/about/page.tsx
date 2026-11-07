@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { pageMetadata } from '@/lib/metadata';
+import { toolMetadata } from '@/lib/metadata';
+import ToolFeedback from '@/components/ToolFeedback';
 import '../revenge-or-justice.css';
 
 // The about page for Revenge or Justice. The first-person text is Whit's, stitched from his Substack
@@ -13,18 +14,13 @@ import '../revenge-or-justice.css';
 // pair, which a build machine may not carry. The fetch itself is cached an hour.
 export const dynamic = 'force-dynamic';
 
-export const metadata: Metadata = pageMetadata({
+export const metadata: Metadata = toolMetadata('revenge-or-justice', {
   title: 'Why Revenge or Justice exists',
+  name: 'Revenge or Justice',
   description:
     'Why this tool was built, the record of American accountability efforts it reads against, and how it reads a statement.',
   path: '/revenge-or-justice/about',
   ogDescription: 'History has a lot to say about exacting justice without blowing your political capital.',
-  image: {
-    url: 'https://hoplight.ai/api/og?title=Why+Revenge+or+Justice+exists&sub=The+record+behind+the+reading',
-    width: 1200,
-    height: 630,
-    alt: 'Why Revenge or Justice exists - Hoplight',
-  },
 });
 
 type Precedent = { key: string; name: string; year: string; side: 'better' | 'worse'; source: string; url?: string };
@@ -60,6 +56,7 @@ export default async function AboutPage() {
   const lost = precedents.filter((x) => x.side === 'worse');
 
   return (
+    <>
     <div className="rj rj-about">
       <div className="rj-wrap">
         <div className="rj-head rj-abouthead">
@@ -102,8 +99,14 @@ export default async function AboutPage() {
             <dd>Every reading quotes the passage it weighed, says how it reads, and pairs it with one who did this and kept the public and one who lost them, from the record below and nowhere else.</dd>
             <dt>Say it so it lands</dt>
             <dd>Three rewrites, same facts, none added. A rewrite that invents a number is thrown away, and the page says so.</dd>
-            <dt>Nothing is kept</dt>
-            <dd>What you paste is read once by a Claude model from Anthropic and not stored.</dd>
+            {/* Was "Nothing is kept / ... and not stored." until 2026-11-07, when the tools began logging
+                anonymous usage (Whit: "user actions to be logged anonymized. queries and setting etc."). */}
+            <dt>What is kept</dt>
+            <dd>
+              What you paste is read once by a Claude model from Anthropic. Anonymous usage is logged to make this
+              better, including the first thousand characters of what you paste, with email addresses and phone
+              numbers cut out. No names, no addresses.
+            </dd>
           </dl>
 
           <h2>The record</h2>
@@ -123,12 +126,13 @@ export default async function AboutPage() {
           )}
 
           <div className="signoff">
-            <p>Thanks for reading, using this tool, and sharing. If you have feedback, email it here.</p>
+            <p>Thanks for reading, using this tool, and sharing. If you have feedback, leave it here.</p>
             <p className="name">Whit Pendergast</p>
-            <a className="rj-btn" href="/contact">Send feedback</a>
           </div>
         </div>
       </div>
     </div>
+    <ToolFeedback tool="revenge-or-justice" />
+    </>
   );
 }

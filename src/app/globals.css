@@ -375,6 +375,15 @@ section { padding: var(--space-section) 0; }
 .gallery-grid .wcard, .gallery-grid .wcard-body h3 { color: var(--ink); }
 .gallery-grid .wcard-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 .gallery-grid .wcard-plate { color: #fff; font-weight: 700; font-size: 1.05rem; padding: 0 24px; text-align: center; }
+/* Every tile shows the tool's own link-preview card (src/data/tools.ts, 2026-11-07), whole, at the card's shape. */
+.gallery-grid .wcard-img.wcard-img-card { aspect-ratio: 1200 / 630; }
+.gallery-grid .wcard-img img.wcard-card { object-fit: contain; object-position: center; }
+/* The portfolio's first screen: the headline and its one line, then straight into a full row of tiles
+   at 1440 by 900 (visual review, 2026-11-07). */
+.page-hero.portfolio-hero { padding: clamp(32px, 4vw, 48px) 0 clamp(24px, 3vw, 32px); }
+.page-hero.portfolio-hero p { margin-top: 12px; }
+.portfolio-gallery { padding-top: clamp(24px, 3vw, 36px); }
+.portfolio-gallery .gallery-grid { margin-top: 0; }
 /* The hover used to brighten the link to --gold, 2.6:1 on the white card. It keeps option C and gains an
    underline instead, so the link still answers the pointer; the card's gold edge and shadow do the rest. */
 .wcard:hover .wc-go { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 3px; }
@@ -1123,3 +1132,27 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-all-link .btn { margin-top: 4px; }
 .undo-back { display: inline-block; margin-bottom: 20px; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--gold-deep); border-bottom: 1px solid var(--gold); }
 .undo-hero-all { padding-bottom: 8px; border-bottom: 0; }
+
+/* ----- The feedback box at the foot of a tool (src/components/ToolFeedback.tsx, 2026-11-07). Quiet on
+   purpose: a hairline above, no tint, no shadow, one outlined button; 44px targets; works at 390. ----- */
+.tool-feedback { border-top: 1px solid var(--line); padding: clamp(32px, 5vw, 48px) 0 clamp(36px, 5vw, 56px); background: var(--white); }
+.tool-feedback form { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+/* On Revenge or Justice the box takes the tool's own column (.rj-wrap: 960px, 1180px from 1100px, 24px sides). */
+.tool-feedback-rj { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+@media (min-width: 1100px) { .tool-feedback-rj { max-width: 1180px; } }
+.tool-feedback-h { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; color: var(--ink); margin: 0; }
+.tool-feedback-h label { cursor: text; }
+.tool-feedback-text,
+.tool-feedback-contact input { width: 100%; font: inherit; font-size: 16px; line-height: 1.5; color: var(--ink); background: var(--white); border: 1px solid var(--field-edge); border-radius: var(--radius-sm); padding: 10px 12px; min-height: 44px; box-sizing: border-box; }
+.tool-feedback-text { resize: vertical; min-height: 96px; }
+.tool-feedback-text:focus-visible,
+.tool-feedback-contact input:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; border-color: var(--ink); }
+.tool-feedback-row { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 12px; }
+.tool-feedback-contact { flex: 1 1 260px; display: flex; flex-direction: column; gap: 6px; font-size: 0.875rem; color: var(--stone); }
+.tool-feedback-send { flex: 0 0 auto; min-width: 96px; }
+.tool-feedback-send:disabled { opacity: 0.45; cursor: default; }
+.tool-feedback-err { margin: 0; font-size: 0.9rem; color: var(--danger); }
+.tool-feedback-thanks { margin: 0; font-size: 1rem; color: var(--ink); display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.tool-feedback-again { font: inherit; font-size: 0.9rem; color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--line-card); padding: 0; min-height: 44px; cursor: pointer; }
+.tool-note { margin: 20px 0 0; font-size: 0.8125rem; line-height: 1.5; color: var(--stone); max-width: 60ch; }
+@media (max-width: 480px) { .tool-feedback-send { width: 100%; } }

@@ -59,3 +59,25 @@ export function pageMetadata({
     },
   };
 }
+
+// A tool page's metadata with the tool's own link-preview card (/api/og/tool/<slug>, drawn by
+// src/lib/brand/tool-card.ts): its name and look as the picture, one Hoplight band below, and an
+// og:title of the form "The Undo List by Hoplight". Whit, 2026-11-07: "any linked thing should have
+// a preview image and tile like it would if i sent it by text to some one... something that speaks to
+// hoplight consistently as the shop behind it." The image URL is absolute, because a relative
+// og:image draws a blank card in iMessage.
+export function toolCardUrl(slug: string): string {
+  return `${ORIGIN}/api/og/tool/${slug}`;
+}
+
+export function toolMetadata(
+  slug: string,
+  input: Omit<PageMetadataInput, 'image' | 'ogTitle'> & { ogTitle?: string; name?: string },
+): Metadata {
+  const ogTitle = input.ogTitle ?? `${input.name ?? input.title} by Hoplight`;
+  return pageMetadata({
+    ...input,
+    ogTitle,
+    image: { url: toolCardUrl(slug), width: 1200, height: 630, alt: ogTitle },
+  });
+}

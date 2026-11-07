@@ -5,6 +5,7 @@ import type React from 'react';
 import { INSTRUMENT_LABEL } from '@/lib/undo/types';
 import type { Instrument } from '@/lib/undo/types';
 import { COPY } from '@/lib/undo/copy';
+import { track } from '@/lib/track';
 import { orderText } from '@/lib/undo/order-text';
 import { ISSUES, ISSUE_BY_KEY } from '@/lib/undo/issues';
 import type { IssueKey } from '@/lib/undo/issues';
@@ -59,6 +60,7 @@ function OrderDisclosure({ row }: { row: SlimRow }) {
               label={COPY.order.copy}
               copiedLabel={COPY.order.copied}
               className="undo-copy"
+              track={{ action: 'copy-row-order', props: { row: row.id } }}
             />
           </div>
           <p className="undo-order-note">{COPY.order.footnote}</p>
@@ -337,6 +339,26 @@ export default function UndoAll({
     };
   }, [rows, query, issue]);
 
+  // Anonymous usage (2026-11-07): a search is logged once typing pauses, with how many rows it found.
+  useEffect(() => {
+    const q = query.trim();
+    if (q.length < 2) return;
+    const t = setTimeout(() => {
+      track('undo', 'search', { query: q.slice(0, 200), results: rows.filter((r) => matchesQuery(r, q)).length });
+    }, 1200);
+    return () => clearTimeout(t);
+  }, [query, rows]);
+
+  function chooseSort(value: SortMode) {
+    setSort(value);
+    track('undo', 'sort', { sort: value, page: 'all' });
+  }
+
+  function chooseIssue(key: IssueKey | null) {
+    setIssue(key);
+    track('undo', 'filter', { issue: key ?? 'all', page: 'all' });
+  }
+
   const byIssue = sort === 'issue';
   const searching = query.trim() !== '' || issue !== null;
   const congressCount = view.majority.length + view.sixty.length;
@@ -382,7 +404,7 @@ export default function UndoAll({
                       name="undo-sort"
                       className="undo-sort-input"
                       checked={sort === value}
-                      onChange={() => setSort(value)}
+                      onChange={() => chooseSort(value)}
                     />
                     <span className="undo-sort-text">{label}</span>
                   </label>
@@ -396,7 +418,7 @@ export default function UndoAll({
                 {COPY.issues.filterLabel}
               </span>
               <div className="undo-fchips">
-                <button type="button" className="undo-fchip" aria-pressed={issue === null} onClick={() => setIssue(null)}>
+                <button type="button" className="undo-fchip" aria-pressed={issue === null} onClick={() => chooseIssue(null)}>
                   {COPY.issues.all}
                 </button>
                 {ISSUES.map((i) => {
@@ -408,7 +430,7 @@ export default function UndoAll({
                       className="undo-fchip"
                       aria-pressed={issue === i.key}
                       disabled={n === 0 && issue !== i.key}
-                      onClick={() => setIssue(issue === i.key ? null : i.key)}
+                      onClick={() => chooseIssue(issue === i.key ? null : i.key)}
                     >
                       {i.label}
                       <span className="undo-fchip-n">{n.toLocaleString('en-US')}</span>

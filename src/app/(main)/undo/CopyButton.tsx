@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { track as logAction, type TrackProps } from '@/lib/track';
 
 // Copies text to the clipboard and reads "Copied" for two seconds. If both the async clipboard and
 // the old textarea route are refused, it does nothing and never claims success.
@@ -31,12 +32,15 @@ export default function CopyButton({
   label,
   copiedLabel,
   className,
+  track,
 }: {
   /** What to copy. Left out, it copies this page's own address. */
   text?: string;
   label: string;
   copiedLabel: string;
   className?: string;
+  /** Logs one anonymous action for The Undo List when the copy succeeds (src/lib/track.ts). */
+  track?: { action: string; props?: TrackProps };
 }) {
   const [copied, setCopied] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -51,6 +55,7 @@ export default function CopyButton({
   async function onClick() {
     const ok = await copyText(text ?? window.location.href.split('#')[0]);
     if (!ok) return;
+    if (track) logAction('undo', track.action, track.props);
     setCopied(true);
     if (timer.current) clearTimeout(timer.current);
     timer.current = setTimeout(() => setCopied(false), 2000);

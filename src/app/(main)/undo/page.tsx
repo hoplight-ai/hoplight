@@ -1,24 +1,21 @@
 import type { Metadata } from 'next';
-import { pageMetadata } from '@/lib/metadata';
+import { toolMetadata } from '@/lib/metadata';
 import { COPY } from '@/lib/undo/copy';
 import { loadUndo } from '@/lib/undo/load';
 import CopyButton from './CopyButton';
 import UndoList from './UndoList';
+import ToolFeedback from '@/components/ToolFeedback';
+import TrackedLink from '@/components/TrackedLink';
 
 // Rebuilt at most once an hour. The Federal Register fetch inside carries the same interval.
 export const revalidate = 3600;
 
-export const metadata: Metadata = pageMetadata({
+export const metadata: Metadata = toolMetadata('undo', {
   title: 'The Undo List',
   description:
     'Every action of the second Trump administration, sorted by what it takes to undo it in 2029: a pen, a process, a majority, sixty votes, or nothing at all.',
   path: '/undo',
-  image: {
-    url: 'https://hoplight.ai/api/og?title=The+Undo+List&sub=Everything+Trump+did%2C+sorted+by+what+it+takes+to+undo+it',
-    width: 1200,
-    height: 630,
-    alt: 'The Undo List - Hoplight',
-  },
+  ogDescription: 'Everything Trump did, sorted by what it takes to undo it in 2029.',
 });
 
 export default async function UndoPage() {
@@ -40,6 +37,7 @@ export default async function UndoPage() {
               label={COPY.cta.copyLink}
               copiedLabel={COPY.cta.copied}
               className="btn btn-primary"
+              track={{ action: 'copy-link' }}
             />
             <a className="btn btn-ghost" href={COPY.cta.mailto}>
               {COPY.cta.correction}
@@ -55,9 +53,9 @@ export default async function UndoPage() {
             {COPY.all.title}
           </h2>
           <p className="undo-intro">{COPY.all.intro(data.total)}</p>
-          <a className="btn btn-ghost" href="/undo/all">
+          <TrackedLink className="btn btn-ghost" href="/undo/all" tool="undo" action="see-all">
             {COPY.all.link(data.total)}
-          </a>
+          </TrackedLink>
         </div>
       </section>
 
@@ -112,6 +110,8 @@ export default async function UndoPage() {
           </details>
         </div>
       </section>
+
+      <ToolFeedback tool="undo" />
     </>
   );
 }
