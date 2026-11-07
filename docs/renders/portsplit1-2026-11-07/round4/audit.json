@@ -1,755 +1,9 @@
 {
-  "/portfolio": {
-    "375": {
-      "status": 200,
-      "overflowX": 0,
-      "height": 1710,
-      "headings": [
-        {
-          "level": 1,
-          "text": "Systems we’ve shipped.",
-          "top": 100,
-          "screens": 0.12
-        },
-        {
-          "level": 2,
-          "text": "Gut Check",
-          "top": 322,
-          "screens": 0.4
-        },
-        {
-          "level": 2,
-          "text": "AGIS policy search",
-          "top": 547,
-          "screens": 0.67
-        },
-        {
-          "level": 2,
-          "text": "AI Election Errors",
-          "top": 750,
-          "screens": 0.92
-        },
-        {
-          "level": 2,
-          "text": "Bet Appetit",
-          "top": 975,
-          "screens": 1.2
-        },
-        {
-          "level": 2,
-          "text": "What’s Human?",
-          "top": 1200,
-          "screens": 1.48
-        },
-        {
-          "level": 2,
-          "text": "Which AI should I use?",
-          "top": 1402,
-          "screens": 1.73
-        }
-      ],
-      "skips": [],
-      "small": [],
-      "filled": [],
-      "bigText": [
-        "Systems we’ve shipped. (32.15px)"
-      ],
-      "failing": [],
-      "texts": [
-        {
-          "text": "Skip to content",
-          "fg": "#ffffff",
-          "bg": "#0f1b2d",
-          "overImage": null,
-          "size": 15.5,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": -100
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 22,
-          "ratio": 16.03,
-          "need": 4.5,
-          "top": 12
-        },
-        {
-          "text": "Systems we’ve shipped.",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 32.15,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 100
-        },
-        {
-          "text": "Take a side on AI, the midterms, psychedelics, g",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 323
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 397
-        },
-        {
-          "text": "↗",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 399
-        },
-        {
-          "text": "31,900+ sources, 2,100+ jurisdictions, searchabl",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 548
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 599
-        },
-        {
-          "text": "→",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 599
-        },
-        {
-          "text": "Did a chatbot give someone wrong election inform",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 751
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 824
-        },
-        {
-          "text": "→",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 824
-        },
-        {
-          "text": "Bet tracker skinned as the Michelin Guide. Bets ",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 976
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 1049
-        },
-        {
-          "text": "→",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 1049
-        },
-        {
-          "text": "Guess whether a person or a machine wrote the te",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1201
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 1252
-        },
-        {
-          "text": "↗",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 1254
-        },
-        {
-          "text": "Answer a few questions, get told which model fit",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1403
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 1454
-        },
-        {
-          "text": "→",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 1454
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 18,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 1582
-        },
-        {
-          "text": "©",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1600
-        },
-        {
-          "text": "2026",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1600
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1600
-        },
-        {
-          "text": "whit@hoplight.ai",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1638
-        },
-        {
-          "text": "LinkedIn",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1638
-        }
-      ]
-    },
-    "1440": {
-      "status": 200,
-      "overflowX": 0,
-      "height": 1100,
-      "headings": [
-        {
-          "level": 1,
-          "text": "Systems we’ve shipped.",
-          "top": 116,
-          "screens": 0.13
-        },
-        {
-          "level": 2,
-          "text": "Gut Check",
-          "top": 435,
-          "screens": 0.48
-        },
-        {
-          "level": 2,
-          "text": "AGIS policy search",
-          "top": 435,
-          "screens": 0.48
-        },
-        {
-          "level": 2,
-          "text": "AI Election Errors",
-          "top": 435,
-          "screens": 0.48
-        },
-        {
-          "level": 2,
-          "text": "Bet Appetit",
-          "top": 768,
-          "screens": 0.85
-        },
-        {
-          "level": 2,
-          "text": "What’s Human?",
-          "top": 768,
-          "screens": 0.85
-        },
-        {
-          "level": 2,
-          "text": "Which AI should I use?",
-          "top": 768,
-          "screens": 0.85
-        }
-      ],
-      "skips": [],
-      "small": [
-        {
-          "text": "Portfolio",
-          "w": 53,
-          "h": 17
-        },
-        {
-          "text": "Insights",
-          "w": 49,
-          "h": 16
-        },
-        {
-          "text": "Services",
-          "w": 55,
-          "h": 16
-        },
-        {
-          "text": "FAQ",
-          "w": 25,
-          "h": 16
-        },
-        {
-          "text": "About",
-          "w": 38,
-          "h": 16
-        }
-      ],
-      "filled": [
-        "Contact"
-      ],
-      "bigText": [
-        "Systems we’ve shipped. (49.6px)"
-      ],
-      "failing": [],
-      "texts": [
-        {
-          "text": "Skip to content",
-          "fg": "#ffffff",
-          "bg": "#0f1b2d",
-          "overImage": null,
-          "size": 15.5,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": -100
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 22,
-          "ratio": 16.03,
-          "need": 4.5,
-          "top": 12
-        },
-        {
-          "text": "Portfolio",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 16.03,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Insights",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Services",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "FAQ",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "About",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Contact",
-          "fg": "#0f1b2d",
-          "bg": "#d4950a",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 6.67,
-          "need": 4.5,
-          "top": 12
-        },
-        {
-          "text": "Systems we’ve shipped.",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 49.6,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 116
-        },
-        {
-          "text": "Take a side on AI, the midterms, psychedelics, g",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 436
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 515
-        },
-        {
-          "text": "↗",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 517
-        },
-        {
-          "text": "31,900+ sources, 2,100+ jurisdictions, searchabl",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 436
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 493
-        },
-        {
-          "text": "→",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 493
-        },
-        {
-          "text": "Did a chatbot give someone wrong election inform",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 436
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 515
-        },
-        {
-          "text": "→",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 515
-        },
-        {
-          "text": "Bet tracker skinned as the Michelin Guide. Bets ",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 769
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 849
-        },
-        {
-          "text": "→",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 849
-        },
-        {
-          "text": "Guess whether a person or a machine wrote the te",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 769
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 826
-        },
-        {
-          "text": "↗",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 828
-        },
-        {
-          "text": "Answer a few questions, get told which model fit",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 14.08,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 769
-        },
-        {
-          "text": "Open it",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 826
-        },
-        {
-          "text": "→",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 12.48,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 826
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 18,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 1021
-        },
-        {
-          "text": "©",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1039
-        },
-        {
-          "text": "2026",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1039
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1039
-        },
-        {
-          "text": "whit@hoplight.ai",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1028
-        },
-        {
-          "text": "LinkedIn",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1028
-        }
-      ]
-    }
-  },
   "/insights": {
     "375": {
       "status": 200,
       "overflowX": 0,
-      "height": 2040,
+      "height": 1934,
       "headings": [
         {
           "level": 1,
@@ -1029,7 +283,7 @@
           "top": 1483
         },
         {
-          "text": "The Undo List",
+          "text": "CBA win pattern playbook",
           "fg": "#0f1b2d",
           "bg": "#ffffff",
           "overImage": null,
@@ -1039,7 +293,7 @@
           "top": 1565
         },
         {
-          "text": "Live Federal Register feed, by what undoes each.",
+          "text": "Contract language for a local at the table.",
           "fg": "#555550",
           "bg": "#ffffff",
           "overImage": null,
@@ -1049,7 +303,7 @@
           "top": 1590
         },
         {
-          "text": "CBA win pattern playbook",
+          "text": "AI governance checklist",
           "fg": "#0f1b2d",
           "bg": "#ffffff",
           "overImage": null,
@@ -1059,7 +313,7 @@
           "top": 1671
         },
         {
-          "text": "Contract language for a local at the table.",
+          "text": "For teams beginning with AI.",
           "fg": "#555550",
           "bg": "#ffffff",
           "overImage": null,
@@ -1069,26 +323,6 @@
           "top": 1696
         },
         {
-          "text": "AI governance checklist",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 18,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 1777
-        },
-        {
-          "text": "For teams beginning with AI.",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1802
-        },
-        {
           "text": "Hoplight",
           "fg": "#0f1b2d",
           "bg": "#ffffff",
@@ -1096,7 +330,7 @@
           "size": 18,
           "ratio": 17.28,
           "need": 4.5,
-          "top": 1912
+          "top": 1806
         },
         {
           "text": "©",
@@ -1106,7 +340,7 @@
           "size": 13.12,
           "ratio": 7.27,
           "need": 4.5,
-          "top": 1930
+          "top": 1824
         },
         {
           "text": "2026",
@@ -1116,7 +350,7 @@
           "size": 13.12,
           "ratio": 7.27,
           "need": 4.5,
-          "top": 1930
+          "top": 1824
         },
         {
           "text": "Hoplight",
@@ -1126,7 +360,7 @@
           "size": 13.12,
           "ratio": 7.27,
           "need": 4.5,
-          "top": 1930
+          "top": 1824
         },
         {
           "text": "whit@hoplight.ai",
@@ -1136,7 +370,7 @@
           "size": 13.12,
           "ratio": 7.5,
           "need": 4.5,
-          "top": 1968
+          "top": 1862
         },
         {
           "text": "LinkedIn",
@@ -1146,7 +380,7 @@
           "size": 13.12,
           "ratio": 7.5,
           "need": 4.5,
-          "top": 1968
+          "top": 1862
         }
       ]
     },
@@ -1521,7 +755,7 @@
           "top": 614
         },
         {
-          "text": "The Undo List",
+          "text": "CBA win pattern playbook",
           "fg": "#0f1b2d",
           "bg": "#ffffff",
           "overImage": null,
@@ -1531,7 +765,7 @@
           "top": 696
         },
         {
-          "text": "Live Federal Register feed, by what undoes each.",
+          "text": "Contract language for a local at the table.",
           "fg": "#555550",
           "bg": "#ffffff",
           "overImage": null,
@@ -1541,7 +775,7 @@
           "top": 725
         },
         {
-          "text": "CBA win pattern playbook",
+          "text": "AI governance checklist",
           "fg": "#0f1b2d",
           "bg": "#ffffff",
           "overImage": null,
@@ -1551,26 +785,6 @@
           "top": 783
         },
         {
-          "text": "Contract language for a local at the table.",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 812
-        },
-        {
-          "text": "AI governance checklist",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 22,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 869
-        },
-        {
           "text": "For teams beginning with AI.",
           "fg": "#555550",
           "bg": "#ffffff",
@@ -1578,7 +792,7 @@
           "size": 15.2,
           "ratio": 7.5,
           "need": 4.5,
-          "top": 899
+          "top": 812
         },
         {
           "text": "Hoplight",

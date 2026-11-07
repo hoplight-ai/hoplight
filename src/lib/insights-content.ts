@@ -71,8 +71,9 @@ export const RESEARCH: InsightItem[] = [
   },
 ];
 
+// The Undo List left this list the same day: Whit named it a product ("Products would be like rumi Roem gut
+// check undo"), so it lives on /portfolio only (shelf 'product' in src/data/tools.ts).
 export const REPORTS: InsightItem[] = [
-  { kind: 'Report', title: 'The Undo List', line: 'Live Federal Register feed, by what undoes each.', href: '/undo' },
   { kind: 'Report', title: 'CBA win pattern playbook', line: 'Contract language for a local at the table.', href: '/portfolio/cba-win-pattern-playbook.html' },
   { kind: 'Report', title: 'AI governance checklist', line: 'For teams beginning with AI.', href: '/portfolio/ai-governance-checklist.html' },
 ];

@@ -90,3 +90,19 @@ test('built: every report renders on /insights under Reports, with its name and 
     assert.equal(html.split(`href="${t.href}"`).length - 1, 1, `${t.slug} listed more than once on /insights`);
   }
 });
+
+// Whit, 2026-11-07: "Products would be like rumi Roem gut check undo". A product lives on /portfolio only,
+// so no shelf-product entry is hand-listed for /insights or links from it.
+const productTools = () => TOOLS.filter((t) => t.shelf === 'product');
+
+test('page: no product is hand-listed on /insights', () => {
+  const content = read('src/lib/insights-content.ts');
+  for (const t of productTools()) assert.ok(!content.includes(`href: '${t.href}'`), `${t.slug} is a product but is hand-listed in insights-content`);
+});
+
+test('built: no product links from /insights', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
+  const html = readFileSync(BUILT_INSIGHTS, 'utf8');
+  const main = html.match(/<main[\s\S]*?<\/main>/);
+  assert.ok(main, 'no main on /insights');
+  for (const t of productTools()) assert.ok(!main[0].includes(`href="${t.href}"`), `${t.slug} is a product but appears on /insights`);
+});
