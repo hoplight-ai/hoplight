@@ -129,8 +129,14 @@
   after `npm run launch:check -- <slug>` passes. Outside production, `PORTFOLIO_NOW` and
   `PORTFOLIO_SHOW_UNCLEARED=1` let a render show a future drop. Tested in `scripts/portfolio-schedule.test.mjs`.
 - **Every tool has its own preview card** at `/api/og/tool/<slug>` (`src/lib/brand/tool-card.ts`): the tool's
-  name and look above one identical Hoplight band. Pages use `toolMetadata()` in `src/lib/metadata.ts`.
-  `npm run cards:export -- --base <url>` writes every card as a PNG.
+  name and look inside one identical Hoplight frame, a solid navy mat (28px at the top and sides, 108 at the
+  foot) with the bloom and the word Hoplight in its foot, lockup b (`bloomLockup()` in
+  `src/lib/brand/marks.ts`). Whit picked both on 2026-11-07 ("let’s do lock up b"); the approved mockups are
+  `public/mockups/card-frames.html` (treatment 3) and `public/mockups/card-lockup.html` (option b), and
+  `scripts/tool-card.test.mjs` holds the renderer to their numbers. `?band=0` is the frameless portfolio tile.
+  Pages use `toolMetadata()` in `src/lib/metadata.ts`. `npm run cards:export -- --base <url>` writes every
+  card as a PNG; `npm run cards:sheet -- --dir <that folder>` makes one contact sheet of them at 300px and
+  at full size; `node scripts/cards-measure-foot.mjs <png>` reads the frame and lockup back from the pixels.
 - **Feedback and usage go through one route**, `POST /api/signal` (rules in `src/lib/signal.ts`, tested in
   `scripts/signal.test.mjs`), forwarded to the quick-tools store. Env, names only: `TOOL_SIGNAL_URL`
   (unset: signals are answered 202 and dropped), `SIGNAL_HASH_SALT`, and the existing `PRIVATE_SITE_USER` /

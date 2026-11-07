@@ -25,6 +25,98 @@ const BASELINE = (MARK - 100) / 2 + 85;
 export const LOCKUP_W = WORD_X + 378.1;
 export const LOCKUP_H = MARK;
 
+// The card lockup, option b of public/mockups/card-lockup.html (Whit, 2026-11-07: "let’s do lock up
+// b", after "the bloom lines are too think and the bloom needs to be within the height of the
+// letters"). Ported from that file's geometry() and lockup() number for number: the word at 56px on
+// the 1200 card; the bloom exactly as tall as the H plus the font's round overshoot (0.707 em above
+// the baseline to 0.007 em below it, so 39.98px), sitting on the baseline; its line 0.187 of a
+// circle's radius (1.79px, the word's own ink density across the cap height); the third of each ring
+// circle inside the centre circle drawn at half that line so the six crossings at the centre stay
+// open; 19.99px (half the bloom's height) from the bloom to the word. Albert Sans 600 per em, as the
+// mockup measured it in Chromium: cap 0.700, round overshoot 0.007.
+const EM_CAP = 0.7;
+const EM_ROUND = 0.007;
+export const CARD_LOCKUP = {
+  /** The word's size on the 1200 card. */
+  wordPx: 56,
+  /** The band the bloom fills, in em from the baseline up: b's cap height with its overshoot. */
+  top: EM_CAP + EM_ROUND,
+  bottom: -EM_ROUND,
+  /** The line as a share of a ring circle's radius. */
+  line: 0.187,
+  /** The lines inside the centre circle, as a share of the full line. */
+  inner: 0.5,
+  /** One device pixel at 300 wide on a 3x phone; the line never goes under it. */
+  floor: 4 / 3,
+} as const;
+
+export interface BloomGeometry {
+  /** Scale from the seed's 100-unit box to card px. */
+  k: number;
+  /** A ring circle's radius, its full line and its inner line, in card px. */
+  r: number;
+  s: number;
+  si: number;
+  /** The bloom's centre and its full width (line included), in card px. */
+  cx: number;
+  cy: number;
+  w: number;
+  /** The bloom's height, line included. */
+  h: number;
+  /** The space from the bloom's right edge to the word's origin. */
+  gap: number;
+  /** The gold dot's radius. */
+  dot: number;
+}
+
+/** The bloom's geometry for lockup b on a baseline at y `baseline`, its left edge at x 0. */
+export function bloomGeometry(baseline: number, F: number = CARD_LOCKUP.wordPx): BloomGeometry {
+  const o = CARD_LOCKUP;
+  const T = (o.top - o.bottom) * F;
+  let k = T / (68 + 17 * o.line);
+  let s = o.line * 17 * k;
+  if (s < o.floor) { s = o.floor; k = (T - s) / 68; }
+  const r = 17 * k;
+  const cx = 31.72 * k + s / 2;
+  const cy = baseline - ((o.top + o.bottom) / 2) * F;
+  return { k, r, s, si: s * o.inner, cx, cy, w: 2 * cx, h: 68 * k + s, gap: ((EM_CAP + 2 * EM_ROUND) * F) / 2, dot: Math.max(1.9, 4.2 * k) };
+}
+
+const n2 = (v: number) => String(Math.round(v * 100) / 100);
+
+/**
+ * Lockup b as a standalone SVG `height` px tall (the frame's foot), the word's cap height centred in
+ * it, the bloom's left edge at x 0. Returns the SVG with its width, the baseline and the geometry.
+ */
+export function bloomLockup({ height = 108, word = '#FFFFFF', F = CARD_LOCKUP.wordPx }: { height?: number; word?: string; F?: number } = {}): {
+  svg: string; width: number; height: number; baseline: number; wordX: number; g: BloomGeometry;
+} {
+  const baseline = height / 2 + (EM_CAP / 2) * F;
+  const g = bloomGeometry(baseline, F);
+  let outer = `<circle cx="${n2(g.cx)}" cy="${n2(g.cy)}" r="${n2(g.r)}"/>`;
+  let inner = '';
+  for (let j = 0; j < 6; j++) {
+    const t = ((-90 + 60 * j) * Math.PI) / 180;
+    const X = g.cx + g.r * Math.cos(t);
+    const Y = g.cy + g.r * Math.sin(t);
+    const p = (deg: number) => {
+      const a = t + (deg * Math.PI) / 180;
+      return `${n2(X + g.r * Math.cos(a))} ${n2(Y + g.r * Math.sin(a))}`;
+    };
+    inner += `<path d="M${p(120)}A${n2(g.r)} ${n2(g.r)} 0 0 1 ${p(240)}"/>`;
+    outer += `<path d="M${p(240)}A${n2(g.r)} ${n2(g.r)} 0 1 1 ${p(120)}"/>`;
+  }
+  const wordX = g.w + g.gap;
+  const scale = F / 100;
+  const width = Math.ceil(wordX + 378.1 * scale + 1);
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" role="img" aria-label="Hoplight">`
+    + `<g fill="none" stroke="${SEED_GOLD}"><g stroke-width="${n2(g.s)}">${outer}</g><g stroke-width="${n2(g.si)}">${inner}</g></g>`
+    + `<circle cx="${n2(g.cx)}" cy="${n2(g.cy)}" r="${n2(g.dot)}" fill="${SEED_GOLD}"/>`
+    + `<path transform="translate(${n2(wordX)} ${n2(baseline)}) scale(${scale})" fill="${word}" d="${WORDMARK_PATH}"/>`
+    + '</svg>';
+  return { svg, width, height, baseline, wordX, g };
+}
+
 /**
  * The lockup as a standalone SVG. `seen` is the width the seed will be seen at once the card is shown
  * (a 1200px card is usually seen at 500 to 600px), which sets its line weight, as everywhere else.

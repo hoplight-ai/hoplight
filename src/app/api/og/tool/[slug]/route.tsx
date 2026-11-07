@@ -2,10 +2,10 @@ import { ImageResponse } from 'next/og';
 import { TOOL_BY_SLUG } from '@/data/tools';
 import { CARD_H, CARD_W, PORTFOLIO_CARD, cardText, toolCard } from '@/lib/brand/tool-card';
 
-// A tool's own link-preview card, 1200 by 630: its name and look as the main field, the Hoplight band
-// below. /api/og/tool/<slug> for any slug in src/data/tools.ts, plus /api/og/tool/portfolio for the
-// portfolio page. ?band=0 drops the band (the portfolio page uses it as a thumbnail, where the page
-// itself is already Hoplight's). Tools on their own Vercel projects (Gut Check, Rumi Español, Letters)
+// A tool's own link-preview card, 1200 by 630: its name and look as the field, inside the Hoplight
+// frame with the bloom and the word in its foot. /api/og/tool/<slug> for any slug in
+// src/data/tools.ts, plus /api/og/tool/portfolio for the portfolio page. ?band=0 drops the frame (the
+// portfolio page uses it as a thumbnail, where the page itself is already Hoplight's). Tools on their own Vercel projects (Gut Check, Rumi Español, Letters)
 // point their og:image here by absolute URL.
 //
 // Fonts are fetched when the card is drawn, from Google Fonts, cut to the characters this card
@@ -36,16 +36,12 @@ export async function GET(req: Request, { params }: { params: Promise<{ slug: st
 
   const text = cardText(tool.brand);
   const d = tool.brand.display;
-  const [display, body] = await Promise.all([
-    loadGoogleFont(d.family, d.weight, text.display),
-    band ? loadGoogleFont('Inter', 400, text.body) : Promise.resolve(null),
-  ]);
+  const display = await loadGoogleFont(d.family, d.weight, text.display);
   const fonts: { name: string; data: ArrayBuffer; weight: FontWeight; style: 'normal' }[] = [];
   if (display) fonts.push({ name: d.family, data: display, weight: d.weight as FontWeight, style: 'normal' });
-  if (body) fonts.push({ name: 'Inter', data: body, weight: 400, style: 'normal' });
 
   return new ImageResponse(
-    toolCard(tool, { display: display ? d.family : null, body: body ? 'Inter' : null }, { band }),
+    toolCard(tool, { display: display ? d.family : null }, { band }),
     {
       width: CARD_W,
       height: CARD_H,

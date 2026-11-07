@@ -1,41 +1,44 @@
 // A tool's link-preview card (/api/og/tool/<slug>): the tool's own name, colours and one picture from
-// its first screen as the main field, one Hoplight band along the bottom. Whit, 2026-11-07: "i want
-// image preview to visually have the app or app branding. but also something that speaks to hoplight
-// consistently as the shop behind it."
+// its first screen as the field, held in one Hoplight frame. Whit, 2026-11-07: "i want image preview
+// to visually have the app or app branding. but also something that speaks to hoplight consistently
+// as the shop behind it."
 //
-// Reading order, by size: the tool's name first (the largest thing on the card, the same size on every
-// card), "by Hoplight" second (the band, identical on every card: same height, same lockup, same
-// place, a thick gold rule along its top so it reads as its own strip even on a dark field). Nothing
-// else is typed on the card; the one-line description travels as og:description.
+// The frame is treatment 3 of public/mockups/card-frames.html with lockup b of
+// public/mockups/card-lockup.html in its foot (Whit, 2026-11-07: "The frame is strongest, but we
+// don’t need to say product every time", then "let’s do lock up b"): a solid navy mat, 28px at the
+// top and sides and 108px at the foot, a window of 1144 by 494 with 8px corners, and the bloom and
+// the word Hoplight in the foot at the window's content edge (x 96), the word's cap height centred in
+// the foot. No "by" and no kind word. Nothing else is typed on the card; the one-line description
+// travels as og:description.
 //
-// The band uses only the site's tokens and the seed lockup from marks.ts. The field's colours, face
-// and picture come from the tool's own entry (src/data/tools.ts, src/data/tool-pictures.ts), which is
-// the point: the field is the tool's look, not Hoplight's. Written with createElement so a Node script
-// can render it too.
+// The frame uses only the site's tokens and the lockup from marks.ts. The field's colours, face and
+// picture come from the tool's own entry (src/data/tools.ts, src/data/tool-pictures.ts), which is the
+// point: the field is the tool's look, not Hoplight's. A portfolio tile (band off) is the field alone,
+// frameless, because the portfolio page is already Hoplight's. Written with createElement so a Node
+// script can render it too.
 
 import { createElement as h, type ReactElement } from 'react';
 import { TOOL_BY_SLUG, type ToolBrand } from '../../data/tools.ts';
 import { pictureSize, pictureSvg } from '../../data/tool-pictures.ts';
-import { LOCKUP_H, LOCKUP_W, seedLockup } from './marks.ts';
+import { bloomLockup } from './marks.ts';
 
 export const CARD_W = 1200;
 export const CARD_H = 630;
 
-// The band: navy, "by" and the lockup in white with the gold seed, a 10px gold rule along its top.
-const BAND = '#0F1B2D';
-const ON_BAND = '#FFFFFF';
-const ON_BAND_MUTED = '#C9D3E0';
-const RULE = '#D4950A';
-export const BAND_H = 118;
-export const RULE_H = 10;
+// The frame, card-frames.html's .c, .win and .foot rules: the mat, the window inside it, the foot.
+const MAT = '#0F1B2D';
+export const MAT_EDGE = 28;
+export const MAT_FOOT = 108;
+const WIN_W = CARD_W - MAT_EDGE * 2; // 1144
+const WIN_H = CARD_H - MAT_EDGE - MAT_FOOT; // 494
+const WIN_R = 8;
+// Inside the window the content runs 68px from its sides (the mockup's .win padding), so the field's
+// content edge and the lockup's left edge share x 96 on the card.
+const WIN_PAD = 68;
+// A portfolio tile has no frame; its field keeps the old 72px margin.
 const PAD = 72;
 
-// The lockup at 50px tall: the seed's square is 50, the word "Hoplight" is set at 40px (the lockup
-// draws the word at 0.8 of the mark's height). "by" is set at the same 40px, lighter.
-const LOCK_H = 50;
-const LOCK_W = Math.round((LOCK_H * LOCKUP_W) / LOCKUP_H);
-const WORD_PX = Math.round((LOCK_H * 100) / LOCKUP_H);
-const LOCKUP = seedLockup({ word: ON_BAND, seen: 24 });
+const LOCKUP = bloomLockup({ height: MAT_FOOT, word: '#FFFFFF' });
 
 /** Every tool name on every card is set at this size; a long name takes two lines, never a smaller size. */
 export const NAME_PX = 112;
@@ -50,13 +53,11 @@ const svgUri = (svg: string) => `data:image/svg+xml;base64,${Buffer.from(svg).to
 export interface CardFonts {
   /** The family name registered for the tool's display face, or null if it did not load. */
   display: string | null;
-  /** Inter for "by", or null. */
-  body: string | null;
 }
 
-/** The text a card draws, per font, so the route can fetch only those characters. */
-export function cardText(brand: ToolBrand): { display: string; body: string } {
-  return { display: brand.wordmark.map((w) => w.text).join(' '), body: 'by' };
+/** The text a card types, so the route can fetch only those characters. The lockup is a drawing. */
+export function cardText(brand: ToolBrand): { display: string } {
+  return { display: brand.wordmark.map((w) => w.text).join(' ') };
 }
 
 function nameBlock(b: ToolBrand, fonts: CardFonts, maxWidth: number): ReactElement {
@@ -118,7 +119,7 @@ function libraryRow(): ReactElement {
             width: `${TILE}px`,
             height: `${TILE}px`,
             borderRadius: '18px',
-            backgroundColor: t ? t.brand.ground : BAND,
+            backgroundColor: t ? t.brand.ground : MAT,
             border: '2px solid rgba(15,27,45,0.18)',
           },
         },
@@ -145,21 +146,25 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
   const size = b.pic ? { w: b.pic, h: b.pic } : pictureSize(b);
   // A smaller picture sits a little closer to its name, so a two-line long name keeps its lines.
   const gap = b.pic ? 32 : GAP;
-  const fieldH = band ? CARD_H - BAND_H - RULE_H : CARD_H;
-  const inner = CARD_W - PAD * 2;
+  // Framed, the field is the window; frameless, it is the whole tile.
+  const fieldW = band ? WIN_W : CARD_W;
+  const fieldH = band ? WIN_H : CARD_H;
+  const pad = band ? WIN_PAD : PAD;
+  const inner = fieldW - pad * 2;
+  const fieldStyle = { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: `${fieldW}px`, height: `${fieldH}px`, padding: `0 ${pad}px`, backgroundColor: b.ground };
 
   let field: ReactElement;
   if (tool.library) {
     field = h(
       'div',
-      { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `0 ${PAD}px`, backgroundColor: b.ground } },
+      { style: fieldStyle },
       nameBlock(b, fonts, inner - (LIBRARY.length * (TILE + 14)) - GAP),
       libraryRow(),
     );
   } else {
     field = h(
       'div',
-      { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `0 ${PAD}px`, backgroundColor: b.ground } },
+      { style: fieldStyle },
       nameBlock(b, fonts, svg ? inner - size.w - gap : inner),
       svg
         ? onWhite
@@ -177,43 +182,35 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
 
   return h(
     'div',
-    { style: { display: 'flex', flexDirection: 'column', width: `${CARD_W}px`, height: `${CARD_H}px`, backgroundColor: b.ground } },
-    field,
-    h('div', { style: { display: 'flex', width: `${CARD_W}px`, height: `${RULE_H}px`, backgroundColor: RULE } }),
+    { style: { display: 'flex', position: 'relative', width: `${CARD_W}px`, height: `${CARD_H}px`, backgroundColor: MAT } },
     h(
       'div',
       {
         style: {
           display: 'flex',
-          alignItems: 'center',
-          width: `${CARD_W}px`,
-          height: `${BAND_H}px`,
-          padding: `0 ${PAD}px`,
-          backgroundColor: BAND,
+          position: 'absolute',
+          left: `${MAT_EDGE}px`,
+          top: `${MAT_EDGE}px`,
+          width: `${WIN_W}px`,
+          height: `${WIN_H}px`,
+          borderRadius: `${WIN_R}px`,
+          overflow: 'hidden',
         },
       },
-      h(
-        'div',
-        {
-          style: {
-            display: 'flex',
-            fontFamily: fonts.body ?? 'sans-serif',
-            fontWeight: 400,
-            fontSize: `${WORD_PX}px`,
-            color: ON_BAND_MUTED,
-            marginRight: '16px',
-            marginTop: '-3px',
-          },
-        },
-        'by',
-      ),
-      h('img', { src: svgUri(LOCKUP), width: LOCK_W, height: LOCK_H, alt: 'Hoplight' }),
+      field,
     ),
+    h('img', {
+      src: svgUri(LOCKUP.svg),
+      width: LOCKUP.width,
+      height: LOCKUP.height,
+      alt: 'Hoplight',
+      style: { position: 'absolute', left: `${MAT_EDGE + WIN_PAD}px`, top: `${CARD_H - MAT_FOOT}px` },
+    }),
   );
 }
 
 // The portfolio's own card: "Tool library" (Whit's words for it: "engage w my tool library") on the
-// site's white, with the row of tool pictures, the same band below.
+// site's white, with the row of tool pictures, in the same frame.
 export const PORTFOLIO_CARD: CardSubject = {
   library: true,
   brand: {
