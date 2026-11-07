@@ -390,6 +390,16 @@ section { padding: var(--space-section) 0; }
 /* The hover used to brighten the link to --gold, 2.6:1 on the white card. It keeps option C and gains an
    underline instead, so the link still answers the pointer; the card's gold edge and shadow do the rest. */
 .wcard:hover .wc-go { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 3px; }
+/* PORTSPLIT1, 2026-11-07: on a phone the product cards run shorter (design review of the split, fix 3), so
+   more of the portfolio sits in the first screens at 375. One column stays: two columns at 375 would set
+   each card's name near 15px and wrap each line to five or six lines. The card face is cropped to its
+   middle band, and the text under it sits tighter. */
+@media (max-width: 640px) {
+  .portfolio-products .gallery-grid { gap: 12px; }
+  .portfolio-products .gallery-grid .wcard-img.wcard-img-card { aspect-ratio: 1200 / 330; }
+  .portfolio-products .wcard-body { padding: 12px 16px 14px; }
+  .portfolio-products .wcard-body .wc-go { margin-top: 6px; }
+}
 @media (max-width: 640px) { .work-cards { grid-template-columns: 1fr; } }
 
 /* === BARN DOOR (home grid + subpage text block) === */
