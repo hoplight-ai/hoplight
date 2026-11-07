@@ -10,7 +10,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const APP = join(dirname(fileURLToPath(import.meta.url)), '..', '.next', 'server', 'app');
-const PAGES = { '/': 'index.html', '/portfolio': 'portfolio.html', '/products': 'products.html', '/services': 'services.html', '/insights': 'insights.html', '/about': 'about.html' };
+const PAGES = { '/': 'index.html', '/portfolio': 'portfolio.html', '/services': 'services.html', '/insights': 'insights.html', '/about': 'about.html' };
 
 function visibleText(html) {
   let body = html.slice(html.indexOf('<body'));

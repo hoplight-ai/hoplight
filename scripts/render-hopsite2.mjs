@@ -26,7 +26,7 @@ if (!origin || !round) {
   console.error('usage: node scripts/render-hopsite2.mjs <origin> <round-name> [path ...]');
   process.exit(2);
 }
-const PATHS = rest.length ? rest : ['/', '/portfolio', '/products', '/services', '/insights', '/about'];
+const PATHS = rest.length ? rest : ['/', '/portfolio', '/services', '/insights', '/about'];
 const OUT = join(REPO, 'docs', 'renders', 'hopsite2-2026-11-07', round);
 mkdirSync(OUT, { recursive: true });
 writeFileSync(join(REPO, 'docs', 'renders', '.metadata_never_index'), '');

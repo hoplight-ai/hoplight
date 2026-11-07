@@ -118,6 +118,9 @@ const nextConfig: NextConfig = {
       { source: '/faq.html', destination: '/faq', permanent: true },
       { source: '/contact.html', destination: '/contact', permanent: true },
       { source: '/portfolio.html', destination: '/portfolio', permanent: true },
+      // Products folded into Portfolio, 2026-11-07 (HOPSITE2; Whit: "yes to 2 and 1" to "Fold Products into
+      // Portfolio? Both pages list your tools."). Tested in scripts/products-folded.test.mjs.
+      { source: '/products', destination: '/portfolio', permanent: true },
       // Draft home pages came off the public site 2026-09-25 (Portfolio AUDITPUB1): they were
       // drafts for Whit's review served to anyone. They now live behind the visualizations
       // password; anyone holding an old link lands on the password prompt, not a 404.

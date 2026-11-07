@@ -4,11 +4,10 @@
 
 export type SiteLink = { href: string; label: string };
 
-// Portfolio joined on 2026-11-07 (HOPSITE2): the portfolio is public again, and the phone header is the
-// mark and the menu button, so six links still read in one glance at 375.
+// Portfolio joined on 2026-11-07 (HOPSITE2): the portfolio is public again. Products left the same day,
+// folded into Portfolio (Whit: "yes to 2 and 1"); /products is a permanent redirect to /portfolio.
 export const NAV_LINKS: SiteLink[] = [
   { href: '/portfolio', label: 'Portfolio' },
-  { href: '/products', label: 'Products' },
   { href: '/insights', label: 'Insights' },
   { href: '/services', label: 'Services' },
   { href: '/faq', label: 'FAQ' },

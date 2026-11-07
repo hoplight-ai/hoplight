@@ -8,7 +8,8 @@
 // What it proves:
 //   1. The nav holds exactly the six items, in order, with the paths the owner named.
 //   2. None of the six, and nothing in the footer, is a gated path (the list is read from gate.ts).
-//   3. Each page of the new structure has its page file, and the sitemap names /products and /insights.
+//   3. Each page of the new structure has its page file, and the sitemap names /insights. (Products folded
+//      into Portfolio on 2026-11-07; scripts/products-folded.test.mjs holds that.)
 //   4. The words the owner banned from the site (doors, rooms, builds, IP, tiers, lane) and the em dash
 //      appear in none of the restructured pages, the nav or the footer.
 
@@ -27,7 +28,6 @@ const read = (rel) => readFileSync(path.join(ROOT, rel), 'utf8');
 
 const PAGE_FILES = [
   'src/app/(main)/page.tsx',
-  'src/app/(main)/products/page.tsx',
   'src/app/(main)/insights/page.tsx',
   'src/app/(main)/services/page.tsx',
   'src/app/(main)/faq/page.tsx',
@@ -35,12 +35,11 @@ const PAGE_FILES = [
   'src/app/(main)/contact/page.tsx',
 ];
 
-test('the nav holds exactly Portfolio, Products, Insights, Services, FAQ and About, and a Contact button', () => {
+test('the nav holds exactly Portfolio, Insights, Services, FAQ and About, and a Contact button', () => {
   assert.deepEqual(
     NAV_LINKS.map((l) => [l.label, l.href]),
     [
       ['Portfolio', '/portfolio'],
-      ['Products', '/products'],
       ['Insights', '/insights'],
       ['Services', '/services'],
       ['FAQ', '/faq'],
@@ -71,9 +70,8 @@ test('every page of the new structure has its page file', () => {
   for (const rel of PAGE_FILES) assert.ok(existsSync(path.join(ROOT, rel)), `${rel} is missing`);
 });
 
-test('the sitemap lists /products and /insights', () => {
+test('the sitemap lists /insights', () => {
   const urls = sitemap().map((e) => e.url);
-  assert.ok(urls.includes('https://hoplight.ai/products'), '/products is not in the sitemap');
   assert.ok(urls.includes('https://hoplight.ai/insights'), '/insights is not in the sitemap');
 });
 
@@ -110,7 +108,7 @@ test('the home page carries the vetted hero from main and four tiles with no lin
   assert.ok(!home.includes('You have valuable data'), 'the unvetted headline came back');
   assert.ok(!/line:\s*['"`]/.test(home), 'a tile carries a line under its title');
   assert.ok(!home.includes('<p>{t.'), 'a tile renders a line under its title');
-  for (const name of ['Products', 'Insights', 'Services', 'FAQ']) assert.ok(home.includes(`name: '${name}'`), `${name} tile is missing`);
+  for (const name of ['Portfolio', 'Insights', 'Services', 'FAQ']) assert.ok(home.includes(`name: '${name}'`), `${name} tile is missing`);
 });
 
 test('About and FAQ render in the new frame: the page masthead', () => {
@@ -179,7 +177,7 @@ test('the three Services shapes carry the owner\'s lines and nothing else', () =
 });
 
 test('the restructured pages, the nav and the footer carry no banned word and no em dash', () => {
-  const files = [...PAGE_FILES.slice(0, 4), ...REVIEW_FILES, 'src/lib/insights-content.ts', 'src/lib/services-content.ts', 'src/components/InsightParts.tsx', 'src/components/Nav.tsx', 'src/components/Footer.tsx', 'src/lib/nav-links.ts'];
+  const files = [...PAGE_FILES.slice(0, 3), ...REVIEW_FILES, 'src/lib/insights-content.ts', 'src/lib/services-content.ts', 'src/components/InsightParts.tsx', 'src/components/Nav.tsx', 'src/components/Footer.tsx', 'src/lib/nav-links.ts'];
   const banned = /\b(doors?|rooms?|builds|tiers?|lanes?)\b/i;
   for (const rel of files) {
     // The home sentence under the vetted headline stays exactly as the live site has it (Whit, 2026-10-21:
@@ -193,14 +191,14 @@ test('the restructured pages, the nav and the footer carry no banned word and no
 });
 
 // 2026-10-23, the owner's "mock up these changes for me to review" (scored assessment of each asset).
-test('Products no longer lists the router or the demo, and lists AI Election Errors', () => {
-  const products = read('src/app/(main)/products/page.tsx');
-  assert.ok(!/Pandora/i.test(products), 'Products still lists Pandora’s Router');
-  assert.ok(!/Bet Appetit/i.test(products), 'Products still lists Bet Appetit');
-  assert.ok(!products.includes('router.hoplight.ai'), 'Products still links the router');
-  assert.ok(products.includes('AI Election Errors') && products.includes('/ai-election-errors'), 'the AI Election Errors tile is missing');
-  assert.ok(products.includes('ask:'), 'the AGIS tile carries no worked question');
-  assert.ok(products.includes('your organization'), 'the Which AI line does not name the organization’s data');
+// The Products page this test read folded into Portfolio on 2026-11-07 (HOPSITE2; Whit: "yes to 2 and 1").
+// What it pinned for the tools now lives on the portfolio's list: AI Election Errors is on it, and the
+// router and Bet Appetit are the portfolio's own business. The AGIS worked question had no home there and
+// went with the page (named in the HOPSITE2 done-file). scripts/products-folded.test.mjs holds the fold.
+test('the Products page is gone and AI Election Errors is on the portfolio list', () => {
+  assert.ok(!existsSync(path.join(ROOT, 'src/app/(main)/products/page.tsx')), 'the Products page came back');
+  const tools = read('src/data/tools.ts');
+  assert.ok(tools.includes("href: '/ai-election-errors'"), 'AI Election Errors is not on the portfolio list');
 });
 
 test('Insights lists the Undo List and the two restored reports, and labels the three analyses', () => {

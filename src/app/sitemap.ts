@@ -18,16 +18,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
   //
   // '/portfolio' back 2026-11-07 (HOPSITE2): the portfolio is public on the rebuilt site; the gate opens it
   // and the pieces its list links to (PUBLIC_PORTFOLIO in src/lib/gate.ts).
-  const paths = ['', '/portfolio', '/products', '/insights', '/services', '/about', '/faq', '/contact', '/tools/which-ai', '/undo', '/revenge-or-justice', '/revenge-or-justice/about'];
+  //
+  // '/products' out 2026-11-07 (HOPSITE2): folded into /portfolio, a permanent redirect in next.config.ts
+  // (Whit: "yes to 2 and 1"). The home page changed the same day: its Products tile is now Portfolio.
+  const paths = ['', '/portfolio', '/insights', '/services', '/about', '/faq', '/contact', '/tools/which-ai', '/undo', '/revenge-or-justice', '/revenge-or-justice/about'];
   // Fixed date rather than a build-time Date.now(): a `lastModified` that changes on every deploy
   // regardless of whether the page's content changed teaches crawlers to ignore the field. Bump
   // this by hand when a route's content actually changes. Added 2026-09-16 (SEO review #3): the
   // field was absent entirely before this.
   const LAST_MODIFIED = '2026-09-16';
-  const RESTRUCTURED = ['', '/products', '/insights', '/services'];
+  const RESTRUCTURED = ['/insights', '/services'];
   return paths.map((p) => ({
     url: `${ORIGIN}${p}`,
-    lastModified: p === '/portfolio' ? '2026-11-07' : p.startsWith('/revenge-or-justice') ? '2026-11-06' : p === '/undo' ? '2026-10-09' : RESTRUCTURED.includes(p) ? '2026-10-20' : LAST_MODIFIED,
+    lastModified: p === '/portfolio' || p === '' ? '2026-11-07' : p.startsWith('/revenge-or-justice') ? '2026-11-06' : p === '/undo' ? '2026-10-09' : RESTRUCTURED.includes(p) ? '2026-10-20' : LAST_MODIFIED,
     changeFrequency: 'monthly' as const,
     priority: p === '' ? 1 : p === '/undo' ? 0.8 : 0.7,
   }));

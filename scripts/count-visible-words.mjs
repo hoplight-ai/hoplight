@@ -13,7 +13,6 @@
 const ORIGIN = process.argv[2] || 'http://localhost:8793';
 const BUDGETS = {
   '/': [60, 90],
-  '/products': [70, 100],
   '/insights': [90, 140],
   '/services': [70, 130],
   '/services-b': [70, 130],

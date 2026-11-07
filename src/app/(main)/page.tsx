@@ -35,8 +35,10 @@ const orgSchema = {
 // The tiles carry their one word and nothing under it ("just cut all the sub headers"). The headline and
 // the sentence under it are the live site's own, kept as main has them ("was never vetted by me" is what he
 // said of the longer question that stood here). The structure is mockup C (public/mockups/c-hybrid/index.html).
+// The first tile said Products until 2026-11-07, when Products folded into Portfolio (HOPSITE2; Whit: "yes to
+// 2 and 1"), which puts a tool one tap from a phone's first screen.
 const TILES = [
-  { href: '/products', name: 'Products' },
+  { href: '/portfolio', name: 'Portfolio' },
   { href: '/insights', name: 'Insights' },
   { href: '/services', name: 'Services' },
   { href: '/faq', name: 'FAQ' },

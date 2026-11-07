@@ -11,7 +11,7 @@
         },
         {
           "level": 2,
-          "text": "Products"
+          "text": "Portfolio"
         },
         {
           "level": 2,
@@ -29,7 +29,7 @@
       "skips": [],
       "small": [],
       "filled": [
-        "Products",
+        "Portfolio",
         "Insights",
         "Services",
         "FAQ"
@@ -120,7 +120,7 @@
           "top": 531
         },
         {
-          "text": "Products",
+          "text": "Portfolio",
           "fg": "#ffffff",
           "bg": "#15253e",
           "overImage": null,
@@ -232,7 +232,7 @@
         },
         {
           "level": 2,
-          "text": "Products"
+          "text": "Portfolio"
         },
         {
           "level": 2,
@@ -252,11 +252,6 @@
         {
           "text": "Portfolio",
           "w": 53,
-          "h": 16
-        },
-        {
-          "text": "Products",
-          "w": 56,
           "h": 16
         },
         {
@@ -282,7 +277,7 @@
       ],
       "filled": [
         "Contact",
-        "Products",
+        "Portfolio",
         "Insights",
         "Services",
         "FAQ"
@@ -314,16 +309,6 @@
         },
         {
           "text": "Portfolio",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Products",
           "fg": "#ffffff",
           "bg": "#162233",
           "overImage": null,
@@ -443,7 +428,7 @@
           "top": 466
         },
         {
-          "text": "Products",
+          "text": "Portfolio",
           "fg": "#ffffff",
           "bg": "#15253e",
           "overImage": null,
@@ -1054,11 +1039,6 @@
           "h": 17
         },
         {
-          "text": "Products",
-          "w": 56,
-          "h": 16
-        },
-        {
           "text": "Insights",
           "w": 49,
           "h": 16
@@ -1114,16 +1094,6 @@
           "overImage": null,
           "size": 13.12,
           "ratio": 16.03,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Products",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
           "need": 4.5,
           "top": 26
         },
@@ -1550,731 +1520,6 @@
       ]
     }
   },
-  "/products": {
-    "375": {
-      "status": 200,
-      "overflowX": 0,
-      "height": 1532,
-      "headings": [
-        {
-          "level": 1,
-          "text": "Products"
-        },
-        {
-          "level": 2,
-          "text": "Rayli"
-        },
-        {
-          "level": 2,
-          "text": "AGIS"
-        },
-        {
-          "level": 2,
-          "text": "Which AI"
-        },
-        {
-          "level": 2,
-          "text": "AI Election Errors"
-        },
-        {
-          "level": 2,
-          "text": "The Undo List"
-        }
-      ],
-      "skips": [],
-      "small": [],
-      "filled": [],
-      "bigText": [
-        "Products (38px)"
-      ],
-      "failing": [],
-      "texts": [
-        {
-          "text": "Skip to content",
-          "fg": "#ffffff",
-          "bg": "#0f1b2d",
-          "overImage": null,
-          "size": 15.5,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": -100
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 22,
-          "ratio": 16.03,
-          "need": 4.5,
-          "top": 12
-        },
-        {
-          "text": "Products",
-          "fg": "#ffffff",
-          "bg": "#0f1b2d",
-          "overImage": null,
-          "size": 38,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 218
-        },
-        {
-          "text": "Platform",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 310
-        },
-        {
-          "text": "Rayli",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 22,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 337
-        },
-        {
-          "text": "Writes voice-true, source-cited copy and maps wh",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 369
-        },
-        {
-          "text": "Live app",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 500
-        },
-        {
-          "text": "AGIS",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 22,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 527
-        },
-        {
-          "text": "AI governance search across 2,100+ jurisdictions",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 559
-        },
-        {
-          "text": "Ask it: “",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 613
-        },
-        {
-          "text": "Which states have enacted algorithmic management",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 613
-        },
-        {
-          "text": "”",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 613
-        },
-        {
-          "text": "Free tool",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 767
-        },
-        {
-          "text": "Which AI",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 22,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 793
-        },
-        {
-          "text": "What it does with your organization’s data.",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 826
-        },
-        {
-          "text": "Public form",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 957
-        },
-        {
-          "text": "AI Election Errors",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 22,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 984
-        },
-        {
-          "text": "For AI tools that give wrong election informatio",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1016
-        },
-        {
-          "text": "Public list",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 1147
-        },
-        {
-          "text": "The Undo List",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 22,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 1174
-        },
-        {
-          "text": "Second-term Trump actions, sorted by effort to u",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1206
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 18,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 1404
-        },
-        {
-          "text": "©",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1422
-        },
-        {
-          "text": "2026",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1422
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 1422
-        },
-        {
-          "text": "whit@hoplight.ai",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1460
-        },
-        {
-          "text": "LinkedIn",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 1460
-        }
-      ]
-    },
-    "1440": {
-      "status": 200,
-      "overflowX": 0,
-      "height": 900,
-      "headings": [
-        {
-          "level": 1,
-          "text": "Products"
-        },
-        {
-          "level": 2,
-          "text": "Rayli"
-        },
-        {
-          "level": 2,
-          "text": "AGIS"
-        },
-        {
-          "level": 2,
-          "text": "Which AI"
-        },
-        {
-          "level": 2,
-          "text": "AI Election Errors"
-        },
-        {
-          "level": 2,
-          "text": "The Undo List"
-        }
-      ],
-      "skips": [],
-      "small": [
-        {
-          "text": "Portfolio",
-          "w": 53,
-          "h": 16
-        },
-        {
-          "text": "Products",
-          "w": 56,
-          "h": 17
-        },
-        {
-          "text": "Insights",
-          "w": 49,
-          "h": 16
-        },
-        {
-          "text": "Services",
-          "w": 55,
-          "h": 16
-        },
-        {
-          "text": "FAQ",
-          "w": 25,
-          "h": 16
-        },
-        {
-          "text": "About",
-          "w": 38,
-          "h": 16
-        }
-      ],
-      "filled": [
-        "Contact"
-      ],
-      "bigText": [
-        "Products (66px)"
-      ],
-      "failing": [],
-      "texts": [
-        {
-          "text": "Skip to content",
-          "fg": "#ffffff",
-          "bg": "#0f1b2d",
-          "overImage": null,
-          "size": 15.5,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": -100
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 22,
-          "ratio": 16.03,
-          "need": 4.5,
-          "top": 12
-        },
-        {
-          "text": "Portfolio",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Products",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 16.03,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Insights",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Services",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "FAQ",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "About",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Contact",
-          "fg": "#0f1b2d",
-          "bg": "#d4950a",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 6.67,
-          "need": 4.5,
-          "top": 12
-        },
-        {
-          "text": "Products",
-          "fg": "#ffffff",
-          "bg": "#0f1b2d",
-          "overImage": null,
-          "size": 66,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 131
-        },
-        {
-          "text": "Platform",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 252
-        },
-        {
-          "text": "Rayli",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 28,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 278
-        },
-        {
-          "text": "Writes voice-true, source-cited copy and maps wh",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 317
-        },
-        {
-          "text": "Live app",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 252
-        },
-        {
-          "text": "AGIS",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 28,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 278
-        },
-        {
-          "text": "AI governance search across 2,100+ jurisdictions",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 317
-        },
-        {
-          "text": "Ask it: “",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 371
-        },
-        {
-          "text": "Which states have enacted algorithmic management",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 371
-        },
-        {
-          "text": "”",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 371
-        },
-        {
-          "text": "Free tool",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 252
-        },
-        {
-          "text": "Which AI",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 28,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 278
-        },
-        {
-          "text": "What it does with your organization’s data.",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 317
-        },
-        {
-          "text": "Public form",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 525
-        },
-        {
-          "text": "AI Election Errors",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 28,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 552
-        },
-        {
-          "text": "For AI tools that give wrong election informatio",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 590
-        },
-        {
-          "text": "Public list",
-          "fg": "#996d00",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 11.52,
-          "ratio": 4.62,
-          "need": 4.5,
-          "top": 525
-        },
-        {
-          "text": "The Undo List",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 28,
-          "ratio": 17.28,
-          "need": 3,
-          "top": 552
-        },
-        {
-          "text": "Second-term Trump actions, sorted by effort to u",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 15.2,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 590
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#0f1b2d",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 18,
-          "ratio": 17.28,
-          "need": 4.5,
-          "top": 788
-        },
-        {
-          "text": "©",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 806
-        },
-        {
-          "text": "2026",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 806
-        },
-        {
-          "text": "Hoplight",
-          "fg": "#575752",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.27,
-          "need": 4.5,
-          "top": 806
-        },
-        {
-          "text": "whit@hoplight.ai",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 795
-        },
-        {
-          "text": "LinkedIn",
-          "fg": "#555550",
-          "bg": "#ffffff",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 7.5,
-          "need": 4.5,
-          "top": 795
-        }
-      ]
-    }
-  },
   "/services": {
     "375": {
       "status": 200,
@@ -2556,11 +1801,6 @@
           "h": 16
         },
         {
-          "text": "Products",
-          "w": 56,
-          "h": 16
-        },
-        {
           "text": "Insights",
           "w": 49,
           "h": 16
@@ -2611,16 +1851,6 @@
         },
         {
           "text": "Portfolio",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Products",
           "fg": "#ffffff",
           "bg": "#162233",
           "overImage": null,
@@ -3337,11 +2567,6 @@
           "h": 16
         },
         {
-          "text": "Products",
-          "w": 56,
-          "h": 16
-        },
-        {
           "text": "Insights",
           "w": 49,
           "h": 17
@@ -3392,16 +2617,6 @@
         },
         {
           "text": "Portfolio",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Products",
           "fg": "#ffffff",
           "bg": "#162233",
           "overImage": null,
@@ -4136,11 +3351,6 @@
           "h": 16
         },
         {
-          "text": "Products",
-          "w": 56,
-          "h": 16
-        },
-        {
           "text": "Insights",
           "w": 49,
           "h": 16
@@ -4201,16 +3411,6 @@
         },
         {
           "text": "Portfolio",
-          "fg": "#ffffff",
-          "bg": "#162233",
-          "overImage": null,
-          "size": 13.12,
-          "ratio": 5.77,
-          "need": 4.5,
-          "top": 26
-        },
-        {
-          "text": "Products",
           "fg": "#ffffff",
           "bg": "#162233",
           "overImage": null,
