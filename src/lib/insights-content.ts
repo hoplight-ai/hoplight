@@ -5,7 +5,8 @@
 // essays, with the titles and dates below. The CPR Hub Insight is not published yet, so it is not listed;
 // it returns when it has a URL (Whit, 2026-10-21: "the CPR piece isnt live yet"). The trial was fielded in
 // August 2025 (FACTS.rct.date). The Reports list (2026-10-23, owner: "mock up these changes"): the Undo List, the CBA playbook and the
-// governance checklist, then the three analyses with a label and one line on what each draws on.
+// governance checklist, then the three analyses with one line on what each draws on. Their Analysis labels
+// went in the HOPSITE2 design review, 2026-11-07.
 
 import { FACTS } from '@/lib/facts';
 
@@ -51,7 +52,8 @@ export const RESEARCH: InsightItem[] = [
   {
     kind: 'Research',
     title: 'The trial write-up',
-    line: `${FACTS.rct.n} adults, randomized. AI-generated frames beat the staff-written frame by ${FACTS.rct.liftVsStaffFrame} points on officer pay among conservative segments. It measured attitudes, not votes.`,
+    // Cut to its own first sentence (HOPSITE2 design review, 2026-11-07); the write-up carries the rest.
+    line: `${FACTS.rct.n} adults, randomized.`,
     href: '/research',
     iso: '2025-08',
     shown: 'Aug 2025',
@@ -68,7 +70,7 @@ export const REPORTS: InsightItem[] = [
   { kind: 'Report', title: 'The Undo List', line: 'Live Federal Register feed, by what undoes each.', href: '/undo' },
   { kind: 'Report', title: 'CBA win pattern playbook', line: 'Contract language for a local at the table.', href: '/portfolio/cba-win-pattern-playbook.html' },
   { kind: 'Report', title: 'AI governance checklist', line: 'For teams beginning with AI.', href: '/portfolio/ai-governance-checklist.html' },
-  { kind: 'Report', label: 'Analysis', title: 'DNC autopsy, taken apart', line: 'From its own report, cited by page.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
-  { kind: 'Report', label: 'Analysis', title: 'Oregon school budget report', line: 'From state actuals and Census data.', href: '/portfolio/oregon-school-budget-report.html' },
-  { kind: 'Report', label: 'Analysis', title: 'Worker equity dilution at GE', line: 'From public headcount and filings.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
+  { kind: 'Report', title: 'DNC autopsy, taken apart', line: 'From its own report, cited by page.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
+  { kind: 'Report', title: 'Oregon school budget report', line: 'From state actuals and Census data.', href: '/portfolio/oregon-school-budget-report.html' },
+  { kind: 'Report', title: 'Worker equity dilution at GE', line: 'From public headcount and filings.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
 ];

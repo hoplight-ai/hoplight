@@ -102,13 +102,15 @@ test('the groveling sentence and the cut sub-lines never come back to a page sou
   }
 });
 
-test('the home page carries the vetted hero from main and four tiles with no line under them', () => {
+test('the home page carries the vetted hero from main and two tiles with no line under them', () => {
   const home = read('src/app/(main)/page.tsx');
   assert.ok(home.includes('Most organizations are bushwhacking their way through AI.'), 'the vetted H1 is missing');
   assert.ok(!home.includes('You have valuable data'), 'the unvetted headline came back');
   assert.ok(!/line:\s*['"`]/.test(home), 'a tile carries a line under its title');
   assert.ok(!home.includes('<p>{t.'), 'a tile renders a line under its title');
-  for (const name of ['Portfolio', 'Insights', 'Services', 'FAQ']) assert.ok(home.includes(`name: '${name}'`), `${name} tile is missing`);
+  // Services and FAQ left the tiles in the HOPSITE2 design review, 2026-11-07 (the menu carries both).
+  for (const name of ['Portfolio', 'Insights']) assert.ok(home.includes(`name: '${name}'`), `${name} tile is missing`);
+  for (const name of ['Services', 'FAQ']) assert.ok(!home.includes(`name: '${name}'`), `the ${name} tile came back`);
 });
 
 test('About and FAQ render in the new frame: the page masthead', () => {
@@ -201,13 +203,14 @@ test('the Products page is gone and AI Election Errors is on the portfolio list'
   assert.ok(tools.includes("href: '/ai-election-errors'"), 'AI Election Errors is not on the portfolio list');
 });
 
-test('Insights lists the Undo List and the two restored reports, and labels the three analyses', () => {
+test('Insights lists the Undo List and the two restored reports, and the analyses carry no label', () => {
   const content = read('src/lib/insights-content.ts');
   for (const href of ['/undo', '/portfolio/cba-win-pattern-playbook.html', '/portfolio/ai-governance-checklist.html']) {
     assert.ok(content.includes(`href: '${href}'`), `${href} is not listed under Reports`);
   }
   for (const title of ['CBA win pattern playbook', 'AI governance checklist', 'The Undo List']) assert.ok(content.includes(title), `${title} is missing`);
-  assert.equal((content.match(/label: 'Analysis'/g) || []).length, 3, 'the three analyses do not each carry the Analysis label');
+  // The Analysis labels went in the HOPSITE2 design review, 2026-11-07.
+  assert.equal((content.match(/label: 'Analysis'/g) || []).length, 0, 'an Analysis label came back');
 });
 
 test('the governance checklist opens on the owner’s laundry and dishes line, not on adoption', () => {

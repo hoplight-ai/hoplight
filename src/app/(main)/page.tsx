@@ -37,11 +37,11 @@ const orgSchema = {
 // said of the longer question that stood here). The structure is mockup C (public/mockups/c-hybrid/index.html).
 // The first tile said Products until 2026-11-07, when Products folded into Portfolio (HOPSITE2; Whit: "yes to
 // 2 and 1"), which puts a tool one tap from a phone's first screen.
+// The design review of 2026-11-07: the Services and FAQ tiles went (the menu carries both), and Insights is
+// drawn quieter than Portfolio, so the one way to the work wins the first screen.
 const TILES = [
-  { href: '/portfolio', name: 'Portfolio' },
-  { href: '/insights', name: 'Insights' },
-  { href: '/services', name: 'Services' },
-  { href: '/faq', name: 'FAQ' },
+  { href: '/portfolio', name: 'Portfolio', quiet: false },
+  { href: '/insights', name: 'Insights', quiet: true },
 ];
 
 export default function Home() {
@@ -57,7 +57,7 @@ export default function Home() {
         <ul className="hero-tiles">
           {TILES.map((t) => (
             <li key={t.href}>
-              <Link className="hero-tile" href={t.href} prefetch={false}>
+              <Link className={t.quiet ? 'hero-tile hero-tile-quiet' : 'hero-tile'} href={t.href} prefetch={false}>
                 <h2>{t.name}</h2>
                 <Arrow className="arrow tile-arrow" />
               </Link>

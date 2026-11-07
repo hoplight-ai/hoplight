@@ -75,9 +75,10 @@ export default function Portfolio() {
                       <h2 className="sr-only">{p.name}</h2>
                       {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
                       <span className="wc-go">
-                        {/* One action, one label (HOPSITE2 review, 2026-11-07): "Open the live app" went. */}
-                        Open it{' '}&rarr;
-                        {external && <span aria-hidden="true"> ↗</span>}
+                        {/* One action, one label (HOPSITE2 review, 2026-11-07): "Open the live app" went. A tile that
+                            leaves the site shows the outward arrow alone (design review, same day). */}
+                        Open it{' '}
+                        {external ? <span aria-hidden="true">↗</span> : <>&rarr;</>}
                         {external && <span className="sr-only"> (opens in a new tab)</span>}
                       </span>
                     </div>
@@ -89,36 +90,8 @@ export default function Portfolio() {
         </div>
       </section>
 
-      <section>
-        <div className="wrap">
-          <div className="section-head">
-            <h2 className="sr-only">Pandora&rsquo;s Router</h2>
-            <p>
-              Pandora&rsquo;s Router lets several AI coding agents work on one codebase at once. MIT licensed.
-            </p>
-          </div>
-          <div className="cta-row">
-            <a
-              className="btn btn-primary"
-              href="https://router.hoplight.ai"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Open the router &rarr;
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-            <a
-              className="btn btn-secondary"
-              href="https://github.com/hoplight-ai/pandoras-router"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View on GitHub
-              <span className="sr-only"> (opens in a new tab)</span>
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* The design review of 2026-11-07, fix 1: the router block (its sentence and its two buttons) went.
+          The router is a one-off and is never surfaced; scripts/portfolio-public.test.mjs keeps it off. */}
       {/* The Chanel pass (HOPSITE2, 2026-11-07): the closing "Something here you want to talk about?" band and
           its Start a conversation button went; the Contact button sits in the header on every screen. */}
     </>

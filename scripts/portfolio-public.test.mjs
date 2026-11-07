@@ -77,6 +77,18 @@ test('the built portfolio HTML carries none of the cut lines and no noindex', { 
   assert.ok(!/<meta[^>]+name="robots"[^>]+noindex/i.test(html), 'the built portfolio is marked noindex');
 });
 
+// The design review of 2026-11-07, fix 1 (blocking): the router is a one-off and is never surfaced, so
+// the portfolio carries no Pandora's Router block, no router button and no link to its code.
+const ROUTER = [/Pandora/i, /router\.hoplight\.ai/i, /pandoras-router/i];
+test('no Pandora’s Router block renders on /portfolio', { skip: BUILT ? false : 'no build present' }, () => {
+  const src = read('src/app/(main)/portfolio/page.tsx').replace(/\/\/.*$/gm, '').replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
+  const html = readFileSync(BUILT, 'utf8');
+  for (const re of ROUTER) {
+    assert.ok(!re.test(src), `the portfolio source still renders ${re}`);
+    assert.ok(!re.test(html), `the built portfolio still carries ${re}`);
+  }
+});
+
 test('/portfolio answers without the cookie and the proxy adds no noindex', async () => {
   for (const p of ['/portfolio', '/portfolio/']) {
     assert.equal(isGated(p), false, `${p} is gated`);

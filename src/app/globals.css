@@ -1325,3 +1325,19 @@ header.site .brand, footer.site .brand { min-height: 44px; }
 .caps-grid h2 { margin-bottom: 10px; font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); line-height: 1.12; letter-spacing: -0.02em; color: var(--ink); }
 .caps-grid p { margin: 0; max-width: 46ch; font-size: 1.02rem; line-height: 1.55; color: var(--stone-deep); }
 @media (max-width: 760px) { .caps-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ===== HOPSITE2 design review fixes, 2026-11-07 =====
+   Home: two tiles (Services and FAQ are in the menu), Portfolio the strong one, Insights drawn quieter.
+   Home phone: the lattice band above the headline is about 80px, not 236px; the field stays.
+   Portfolio phone: the card tops are a third shorter, cropped from the middle of the card, so two cards
+   show in the first screen at 375. */
+.hero-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 560px; }
+.hero-tile-quiet { background: transparent; border-color: rgba(255,255,255,0.14); }
+.hero-tile-quiet h2 { color: rgba(255,255,255,0.72); font-weight: 500; }
+.hero .hero-tile-quiet .tile-arrow { color: rgba(255,255,255,0.55); }
+@media (max-width: 640px) {
+  .hero.masthead:not(.masthead-page) .mast-wrap { padding-top: 80px; }
+  .hero.masthead:not(.masthead-page) .mast-veil { background: linear-gradient(180deg, rgba(15,27,45,0.1) 0, rgba(15,27,45,0.5) 48px, rgba(15,27,45,0.9) 96px, rgba(15,27,45,0.94) 100%); }
+  .gallery-grid .wcard-img.wcard-img-card { aspect-ratio: 1200 / 420; }
+  .gallery-grid .wcard-img img.wcard-card { object-fit: cover; object-position: center; }
+}

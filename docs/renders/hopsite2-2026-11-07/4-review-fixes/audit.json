@@ -1,0 +1,2219 @@
+{
+  "/": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 884,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Most organizations are bushwhacking thei"
+        },
+        {
+          "level": 2,
+          "text": "Portfolio"
+        },
+        {
+          "level": 2,
+          "text": "Insights"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [
+        "Portfolio"
+      ],
+      "bigText": [
+        "Most organizations are bushwhacking their way th (38px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Most organizations are bushwhacking their way th",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 38,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 196
+        },
+        {
+          "text": "95%",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 375
+        },
+        {
+          "text": "of enterprise AI pilots return nothing (MIT). Ho",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 375
+        },
+        {
+          "text": "130+",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 425
+        },
+        {
+          "text": "production AI systems",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 425
+        },
+        {
+          "text": "for the labor, advocacy, and mission-driven orga",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 16,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 375
+        },
+        {
+          "text": "Portfolio",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 22,
+          "ratio": 15.33,
+          "need": 4.5,
+          "top": 551
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 22,
+          "ratio": 9.38,
+          "need": 4.5,
+          "top": 551
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 756
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 774
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 774
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 774
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 812
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 812
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 996,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Most organizations are bushwhacking thei"
+        },
+        {
+          "level": 2,
+          "text": "Portfolio"
+        },
+        {
+          "level": 2,
+          "text": "Insights"
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Portfolio",
+          "w": 53,
+          "h": 16
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 16
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 16
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 16
+        }
+      ],
+      "filled": [
+        "Contact",
+        "Portfolio"
+      ],
+      "bigText": [
+        "Most organizations are bushwhacking their way th (66px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Portfolio",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Most organizations are bushwhacking their way th",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 66,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 241
+        },
+        {
+          "text": "95%",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 466
+        },
+        {
+          "text": "of enterprise AI pilots return nothing (MIT). Ho",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 466
+        },
+        {
+          "text": "130+",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 497
+        },
+        {
+          "text": "production AI systems",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 497
+        },
+        {
+          "text": "for the labor, advocacy, and mission-driven orga",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 19,
+          "ratio": 9.85,
+          "need": 4.5,
+          "top": 466
+        },
+        {
+          "text": "Portfolio",
+          "fg": "#ffffff",
+          "bg": "#15253e",
+          "overImage": null,
+          "size": 28,
+          "ratio": 15.33,
+          "need": 3,
+          "top": 637
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 28,
+          "ratio": 9.38,
+          "need": 3,
+          "top": 637
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 917
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 935
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 935
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 935
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 924
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 924
+        }
+      ]
+    }
+  },
+  "/portfolio": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 2687,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Systems we’ve shipped."
+        },
+        {
+          "level": 2,
+          "text": "Gut Check"
+        },
+        {
+          "level": 2,
+          "text": "DNC autopsy, taken apart"
+        },
+        {
+          "level": 2,
+          "text": "AGIS policy search"
+        },
+        {
+          "level": 2,
+          "text": "AI Election Errors"
+        },
+        {
+          "level": 2,
+          "text": "Bet Appetit"
+        },
+        {
+          "level": 2,
+          "text": "Oregon school budget report"
+        },
+        {
+          "level": 2,
+          "text": "What’s Human?"
+        },
+        {
+          "level": 2,
+          "text": "Which AI should I use?"
+        },
+        {
+          "level": 2,
+          "text": "Worker equity dilution at GE"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [],
+      "bigText": [
+        "Systems we’ve shipped. (32.15px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Systems we’ve shipped.",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 32.15,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 100
+        },
+        {
+          "text": "Take a side on AI, the midterms, psychedelics, g",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 356
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 458
+        },
+        {
+          "text": "↗",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 460
+        },
+        {
+          "text": "The party’s own 2024 after-action report, argued",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 653
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 710
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 710
+        },
+        {
+          "text": "31,900+ sources, 2,100+ jurisdictions, searchabl",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 904
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 961
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 961
+        },
+        {
+          "text": "Did a chatbot give someone wrong election inform",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1156
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1235
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1235
+        },
+        {
+          "text": "Bet tracker skinned as the Michelin Guide. Bets ",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1430
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1509
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1509
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1716
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1716
+        },
+        {
+          "text": "Guess whether a person or a machine wrote the te",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1910
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1967
+        },
+        {
+          "text": "↗",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1969
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 2174
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 2174
+        },
+        {
+          "text": "80 years of worker equity draining out of one co",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2368
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 2425
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 2425
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 2559
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2577
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2577
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 2577
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2615
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 2615
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1433,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Systems we’ve shipped."
+        },
+        {
+          "level": 2,
+          "text": "Gut Check"
+        },
+        {
+          "level": 2,
+          "text": "DNC autopsy, taken apart"
+        },
+        {
+          "level": 2,
+          "text": "AGIS policy search"
+        },
+        {
+          "level": 2,
+          "text": "AI Election Errors"
+        },
+        {
+          "level": 2,
+          "text": "Bet Appetit"
+        },
+        {
+          "level": 2,
+          "text": "Oregon school budget report"
+        },
+        {
+          "level": 2,
+          "text": "What’s Human?"
+        },
+        {
+          "level": 2,
+          "text": "Which AI should I use?"
+        },
+        {
+          "level": 2,
+          "text": "Worker equity dilution at GE"
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Portfolio",
+          "w": 53,
+          "h": 17
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 16
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 16
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 16
+        }
+      ],
+      "filled": [
+        "Contact"
+      ],
+      "bigText": [
+        "Systems we’ve shipped. (49.6px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Portfolio",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Systems we’ve shipped.",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 49.6,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 116
+        },
+        {
+          "text": "Take a side on AI, the midterms, psychedelics, g",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 436
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 538
+        },
+        {
+          "text": "↗",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 540
+        },
+        {
+          "text": "The party’s own 2024 after-action report, argued",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 436
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 493
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 493
+        },
+        {
+          "text": "31,900+ sources, 2,100+ jurisdictions, searchabl",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 436
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 493
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 493
+        },
+        {
+          "text": "Did a chatbot give someone wrong election inform",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 792
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 871
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 871
+        },
+        {
+          "text": "Bet tracker skinned as the Michelin Guide. Bets ",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 792
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 871
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 871
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 804
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 804
+        },
+        {
+          "text": "Guess whether a person or a machine wrote the te",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1125
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1182
+        },
+        {
+          "text": "↗",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1184
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1137
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1137
+        },
+        {
+          "text": "80 years of worker equity draining out of one co",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 14.08,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1125
+        },
+        {
+          "text": "Open it",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1182
+        },
+        {
+          "text": "→",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 12.48,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 1182
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1354
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1372
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1372
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1372
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1361
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1361
+        }
+      ]
+    }
+  },
+  "/insights": {
+    "375": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1967,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Insights"
+        },
+        {
+          "level": 2,
+          "text": "Writing"
+        },
+        {
+          "level": 3,
+          "text": "Are We Engineering Groupthink at Civiliz"
+        },
+        {
+          "level": 3,
+          "text": "The Wrong Altitude"
+        },
+        {
+          "level": 2,
+          "text": "Research"
+        },
+        {
+          "level": 3,
+          "text": "The trial write-up"
+        },
+        {
+          "level": 3,
+          "text": "The persuasion page"
+        },
+        {
+          "level": 2,
+          "text": "Reports"
+        }
+      ],
+      "skips": [],
+      "small": [],
+      "filled": [],
+      "bigText": [
+        "Insights (38px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 38,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 218
+        },
+        {
+          "text": "Writing",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 381
+        },
+        {
+          "text": "Whit Pendergast on Substack",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 409
+        },
+        {
+          "text": "Jul 1, 2026",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 490
+        },
+        {
+          "text": "Are We Engineering Groupthink at Civilization Sc",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 517
+        },
+        {
+          "text": "Mar 5, 2026",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 673
+        },
+        {
+          "text": "The Wrong Altitude",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 700
+        },
+        {
+          "text": "Research",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 801
+        },
+        {
+          "text": "Aug 2025",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 862
+        },
+        {
+          "text": "The trial write-up",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 889
+        },
+        {
+          "text": "3,006 adults, randomized.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 921
+        },
+        {
+          "text": "The persuasion page",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1028
+        },
+        {
+          "text": "Psychology, not demographics.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1060
+        },
+        {
+          "text": "Reports",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1189
+        },
+        {
+          "text": "The Undo List",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1247
+        },
+        {
+          "text": "Live Federal Register feed, by what undoes each.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1271
+        },
+        {
+          "text": "CBA win pattern playbook",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1353
+        },
+        {
+          "text": "Contract language for a local at the table.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1377
+        },
+        {
+          "text": "AI governance checklist",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1459
+        },
+        {
+          "text": "For teams beginning with AI.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1483
+        },
+        {
+          "text": "DNC autopsy, taken apart",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1541
+        },
+        {
+          "text": "From its own report, cited by page.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1565
+        },
+        {
+          "text": "Oregon school budget report",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1623
+        },
+        {
+          "text": "From state actuals and Census data.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1647
+        },
+        {
+          "text": "Worker equity dilution at GE",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1704
+        },
+        {
+          "text": "From public headcount and filings.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1729
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1839
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1857
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1857
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1857
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1895
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1895
+        }
+      ]
+    },
+    "1440": {
+      "status": 200,
+      "overflowX": 0,
+      "height": 1346,
+      "headings": [
+        {
+          "level": 1,
+          "text": "Insights"
+        },
+        {
+          "level": 2,
+          "text": "Writing"
+        },
+        {
+          "level": 3,
+          "text": "Are We Engineering Groupthink at Civiliz"
+        },
+        {
+          "level": 3,
+          "text": "The Wrong Altitude"
+        },
+        {
+          "level": 2,
+          "text": "Research"
+        },
+        {
+          "level": 3,
+          "text": "The trial write-up"
+        },
+        {
+          "level": 3,
+          "text": "The persuasion page"
+        },
+        {
+          "level": 2,
+          "text": "Reports"
+        }
+      ],
+      "skips": [],
+      "small": [
+        {
+          "text": "Portfolio",
+          "w": 53,
+          "h": 16
+        },
+        {
+          "text": "Insights",
+          "w": 49,
+          "h": 17
+        },
+        {
+          "text": "Services",
+          "w": 55,
+          "h": 16
+        },
+        {
+          "text": "FAQ",
+          "w": 25,
+          "h": 16
+        },
+        {
+          "text": "About",
+          "w": 38,
+          "h": 16
+        }
+      ],
+      "filled": [
+        "Contact"
+      ],
+      "bigText": [
+        "Insights (66px)"
+      ],
+      "failing": [],
+      "texts": [
+        {
+          "text": "Skip to content",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": -100
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 22,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Portfolio",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 16.03,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Services",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "FAQ",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "About",
+          "fg": "#ffffff",
+          "bg": "#162233",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 5.77,
+          "need": 4.5,
+          "top": 26
+        },
+        {
+          "text": "Contact",
+          "fg": "#0f1b2d",
+          "bg": "#d4950a",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 6.67,
+          "need": 4.5,
+          "top": 12
+        },
+        {
+          "text": "Insights",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 66,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 131
+        },
+        {
+          "text": "Writing",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 355
+        },
+        {
+          "text": "Whit Pendergast on Substack",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 15.5,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 390
+        },
+        {
+          "text": "Jul 1, 2026",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 471
+        },
+        {
+          "text": "Are We Engineering Groupthink at Civilization Sc",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 497
+        },
+        {
+          "text": "Mar 5, 2026",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 643
+        },
+        {
+          "text": "The Wrong Altitude",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 669
+        },
+        {
+          "text": "Research",
+          "fg": "#ffffff",
+          "bg": "#0f1b2d",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 777
+        },
+        {
+          "text": "Aug 2025",
+          "fg": "#996d00",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 11.52,
+          "ratio": 4.62,
+          "need": 4.5,
+          "top": 845
+        },
+        {
+          "text": "The trial write-up",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 871
+        },
+        {
+          "text": "3,006 adults, randomized.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 910
+        },
+        {
+          "text": "The persuasion page",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 1017
+        },
+        {
+          "text": "Psychology, not demographics.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1056
+        },
+        {
+          "text": "Reports",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 28,
+          "ratio": 17.28,
+          "need": 3,
+          "top": 323
+        },
+        {
+          "text": "The Undo List",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 387
+        },
+        {
+          "text": "Live Federal Register feed, by what undoes each.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 416
+        },
+        {
+          "text": "CBA win pattern playbook",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 474
+        },
+        {
+          "text": "Contract language for a local at the table.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 503
+        },
+        {
+          "text": "AI governance checklist",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 560
+        },
+        {
+          "text": "For teams beginning with AI.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 590
+        },
+        {
+          "text": "DNC autopsy, taken apart",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 647
+        },
+        {
+          "text": "From its own report, cited by page.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 677
+        },
+        {
+          "text": "Oregon school budget report",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 734
+        },
+        {
+          "text": "From state actuals and Census data.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 764
+        },
+        {
+          "text": "Worker equity dilution at GE",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 22,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 821
+        },
+        {
+          "text": "From public headcount and filings.",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 15.2,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 850
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#0f1b2d",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 18,
+          "ratio": 17.28,
+          "need": 4.5,
+          "top": 1266
+        },
+        {
+          "text": "©",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1285
+        },
+        {
+          "text": "2026",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1285
+        },
+        {
+          "text": "Hoplight",
+          "fg": "#575752",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.27,
+          "need": 4.5,
+          "top": 1285
+        },
+        {
+          "text": "whit@hoplight.ai",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1274
+        },
+        {
+          "text": "LinkedIn",
+          "fg": "#555550",
+          "bg": "#ffffff",
+          "overImage": null,
+          "size": 13.12,
+          "ratio": 7.5,
+          "need": 4.5,
+          "top": 1274
+        }
+      ]
+    }
+  }
+}
