@@ -66,7 +66,7 @@ export interface Tool {
   line: string;
   href: string;
   kind: ToolKind;
-  /** Products or Reports on /portfolio (PORTSPLIT1, 2026-11-07). */
+  /** A product shows on /portfolio; a report is listed on /insights with Whit's writing (PORTSPLIT1, 2026-11-07). */
   shelf: Shelf;
   brand: ToolBrand;
   /** YYYY-MM-DD, the day it goes public, read as midnight America/Los_Angeles. */
@@ -400,25 +400,12 @@ export function visibleTools(now: number, tools: Tool[] = TOOLS, opts: VisibleOp
     .map((x) => x.t);
 }
 
-export interface ShelfPart {
-  shelf: Shelf;
-  heading: string;
-  tools: Tool[];
-}
-
-const SHELF_ORDER: { shelf: Shelf; heading: string }[] = [
-  { shelf: 'product', heading: 'Products' },
-  { shelf: 'report', heading: 'Reports' },
-];
-
 /**
- * The portfolio's two parts, Products first, then Reports, each keeping the order of `list` (already
- * scheduled by visibleTools). A part with no entry is left out, so an empty heading never draws.
+ * The entries of `list` on one shelf, in its order (already scheduled by visibleTools). /portfolio shows
+ * the products; /insights lists the reports beside Whit's writing (PORTSPLIT1 round two, 2026-11-07).
  */
-export function shelves(list: Tool[]): ShelfPart[] {
-  return SHELF_ORDER
-    .map(({ shelf, heading }) => ({ shelf, heading, tools: list.filter((t) => t.shelf === shelf) }))
-    .filter((p) => p.tools.length > 0);
+export function onShelf(shelf: Shelf, list: Tool[]): Tool[] {
+  return list.filter((t) => t.shelf === shelf);
 }
 
 /**

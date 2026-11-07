@@ -7,6 +7,11 @@
 // August 2025 (FACTS.rct.date). The Reports list (2026-10-23, owner: "mock up these changes"): the Undo List, the CBA playbook and the
 // governance checklist, then the three analyses with one line on what each draws on. Their Analysis labels
 // went in the HOPSITE2 design review, 2026-11-07.
+//
+// PORTSPLIT1 round two, 2026-11-07: the three public reports (DNC autopsy, Oregon school budget, GE
+// dilution) are no longer hand-listed here. The page reads them from src/data/tools.ts (shelf 'report'),
+// so a future report lands in one place, and shows each with its line from that list. WRITING below is
+// now the fallback for the Substack feed (src/lib/substack.ts), shown only when the feed gives nothing.
 
 import { FACTS } from '@/lib/facts';
 
@@ -70,7 +75,4 @@ export const REPORTS: InsightItem[] = [
   { kind: 'Report', title: 'The Undo List', line: 'Live Federal Register feed, by what undoes each.', href: '/undo' },
   { kind: 'Report', title: 'CBA win pattern playbook', line: 'Contract language for a local at the table.', href: '/portfolio/cba-win-pattern-playbook.html' },
   { kind: 'Report', title: 'AI governance checklist', line: 'For teams beginning with AI.', href: '/portfolio/ai-governance-checklist.html' },
-  { kind: 'Report', title: 'DNC autopsy, taken apart', line: 'From its own report, cited by page.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
-  { kind: 'Report', title: 'Oregon school budget report', line: 'From state actuals and Census data.', href: '/portfolio/oregon-school-budget-report.html' },
-  { kind: 'Report', title: 'Worker equity dilution at GE', line: 'From public headcount and filings.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
 ];
