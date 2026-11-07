@@ -37,7 +37,7 @@ export default async function UndoPage() {
               label={COPY.cta.copyLink}
               copiedLabel={COPY.cta.copied}
               className="btn btn-primary"
-              track={{ action: 'copy_link' }}
+              track={{ action: 'copy-link' }}
             />
             <a className="btn btn-ghost" href={COPY.cta.mailto}>
               {COPY.cta.correction}
@@ -53,7 +53,7 @@ export default async function UndoPage() {
             {COPY.all.title}
           </h2>
           <p className="undo-intro">{COPY.all.intro(data.total)}</p>
-          <TrackedLink className="btn btn-ghost" href="/undo/all" tool="undo" action="see_all">
+          <TrackedLink className="btn btn-ghost" href="/undo/all" tool="undo" action="see-all">
             {COPY.all.link(data.total)}
           </TrackedLink>
         </div>

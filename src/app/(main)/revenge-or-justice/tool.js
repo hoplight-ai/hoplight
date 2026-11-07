@@ -169,7 +169,7 @@ export function initRevengeOrJustice(root, opts) {
     Array.prototype.forEach.call(document.querySelectorAll('.copy'), function(b){
       b.addEventListener('click', function(){
         var t = $(b.getAttribute('data-copy')).textContent;
-        track('copy_rewrite', { which: b.getAttribute('data-copy') });
+        track('copy-rewrite', { which: b.getAttribute('data-copy') });
         navigator.clipboard.writeText(t).then(function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy this rewrite'; }, 1500); });
       });
     });
@@ -206,7 +206,7 @@ export function initRevengeOrJustice(root, opts) {
       return '<li' + (k >= SHOW ? ' class="rj-more"' : '') + '><button type="button" class="pick" data-url="' + esc(it.url) + '"><span class="hl">' + esc(it.title) + '</span>' +
         '<span class="by"><b>' + esc(it.source) + '</b>' + (when(it.published) ? ' · ' + when(it.published) : '') + (who ? ' · ' + esc(who) : '') + '</span></button></li>';
     }).join('') + (items.length > SHOW ? '<li class="all"><button type="button" class="quietbtn" id="feedall">All ' + items.length + ' articles</button></li>' : '');
-    if ($('feedall')) $('feedall').addEventListener('click', function(){ track('headlines_all', { count: items.length }); $('feedlist').classList.add('open'); $('feedall').parentNode.removeChild($('feedall')); });
+    if ($('feedall')) $('feedall').addEventListener('click', function(){ track('headlines-all', { count: items.length }); $('feedlist').classList.add('open'); $('feedall').parentNode.removeChild($('feedall')); });
     Array.prototype.forEach.call($('feedlist').querySelectorAll('.pick'), function(b){
       b.addEventListener('click', function(){
         var list = $('feedlist').querySelectorAll('.pick');
@@ -233,7 +233,7 @@ export function initRevengeOrJustice(root, opts) {
     fetch(API, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: text }) })
       .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
       .then(function(x){
-        if (!x.ok || x.j.error) { track('grade_failed', { source: source }); $('status').textContent = x.j.error || 'It failed.'; $('status').className = 'err'; return; }
+        if (!x.ok || x.j.error) { track('grade-failed', { source: source }); $('status').textContent = x.j.error || 'It failed.'; $('status').className = 'err'; return; }
         track('result', { source: source, verdict: String(x.j.verdict || 'none'), voices: [x.j.voices && x.j.voices.politicians ? 'politicians' : '', x.j.voices && x.j.voices.coverage ? 'coverage' : ''].filter(Boolean).join(',') || 'all' });
         $('status').textContent = ''; $('status').className = '';
         collapse(text);

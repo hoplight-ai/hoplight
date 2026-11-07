@@ -18,7 +18,9 @@
 
 import { createHash } from 'node:crypto';
 
-export const ACTION_RE = /^[a-z0-9_.-]{1,64}$/;
+// The store's own rule (quick-tools lib/tool-signal.mjs): lower case, starting with a letter or digit,
+// then letters, digits, dot, colon or hyphen. No underscore, so the store never refuses what this keeps.
+export const ACTION_RE = /^[a-z0-9][a-z0-9.:-]{0,63}$/;
 const PROP_KEY_RE = /^[a-zA-Z0-9_.-]{1,40}$/;
 export const PROPS_MAX = 2048;
 export const MESSAGE_MAX = 2000;
@@ -49,6 +51,39 @@ export interface Forwarded extends Signal {
   country: string | null;
   region: string | null;
   at: string;
+}
+
+/**
+ * This site's tool slug to the store's. The store is POST /api/tool-signal in quick-tools (lane
+ * signal1, 2026-11-07), which takes seven tools by its own names and refuses any field it does not
+ * list. A slug missing here is not accepted by /api/signal at all.
+ */
+export const STORE_TOOL: Readonly<Record<string, string>> = {
+  'revenge-or-justice': 'revenge-or-justice',
+  undo: 'undo',
+  'which-ai-should-i-use': 'which-ai',
+  'which-ai': 'which-ai',
+  'gut-check': 'gut-check',
+  rumi: 'rumi-espanol',
+  letters: 'letters',
+  portfolio: 'portfolio',
+};
+export const SIGNAL_TOOLS: ReadonlySet<string> = new Set(Object.keys(STORE_TOOL));
+
+/**
+ * The body the store takes: its ten fields only (no `at`, the store stamps its own time), the tool
+ * under the store's name, and nothing empty. Null when the store has no name for the tool.
+ */
+export function storeBody(f: Forwarded): Record<string, unknown> | null {
+  const tool = STORE_TOOL[f.tool];
+  if (!tool) return null;
+  const out: Record<string, unknown> = { kind: f.kind, tool, action: f.action };
+  if (Object.keys(f.props).length) out.props = f.props;
+  for (const k of ['message', 'contact', 'visitor_hash', 'country', 'region', 'path'] as const) {
+    const v = f[k];
+    if (typeof v === 'string' && v.trim()) out[k] = v;
+  }
+  return out;
 }
 
 // ---- scrubbing -------------------------------------------------------------------------------
@@ -84,7 +119,7 @@ export function parseSignal(body: unknown, tools: ReadonlySet<string>): Parsed {
   if (kind !== 'event' && kind !== 'feedback') return { ok: false, error: 'kind must be event or feedback' };
   if (typeof b.tool !== 'string' || !tools.has(b.tool)) return { ok: false, error: 'unknown tool' };
   const action = b.action === undefined && kind === 'feedback' ? 'feedback' : b.action;
-  if (typeof action !== 'string' || !ACTION_RE.test(action)) return { ok: false, error: 'action must be 1 to 64 of a-z 0-9 _ . -' };
+  if (typeof action !== 'string' || !ACTION_RE.test(action)) return { ok: false, error: 'action must be 1 to 64 of a-z 0-9 . : - starting with a letter or digit' };
 
   const props: Props = {};
   if (b.props !== undefined && b.props !== null) {
@@ -96,7 +131,7 @@ export function parseSignal(body: unknown, tools: ReadonlySet<string>): Parsed {
       else if (typeof v === 'number' && Number.isFinite(v)) props[k] = v;
       else return { ok: false, error: `prop ${k} must be a string, number or boolean` };
     }
-    if (JSON.stringify(props).length > PROPS_MAX) return { ok: false, error: 'props over 2KB' };
+    if (Buffer.byteLength(JSON.stringify(props)) > PROPS_MAX) return { ok: false, error: 'props over 2KB' };
   }
 
   let message: string | null = null;
@@ -146,6 +181,11 @@ export function corsHeaders(origin: string | null): Record<string, string> {
     'Access-Control-Max-Age': '86400',
     Vary: 'Origin',
   };
+}
+
+/** A network header's country or region code, kept only when it is a plain short code. */
+function code(v: string | null, max: number): string | null {
+  return v && v.length <= max && /^[A-Za-z0-9-]+$/.test(v) ? v : null;
 }
 
 function refererPath(ref: string | null): string | null {
@@ -201,8 +241,8 @@ export function handleSignal(input: HandleInput): HandleResult {
       ...parsed.signal,
       path: parsed.signal.path ?? refererPath(input.header('referer')),
       visitor_hash: hash,
-      country: input.header('x-vercel-ip-country'),
-      region: input.header('x-vercel-ip-country-region'),
+      country: code(input.header('x-vercel-ip-country'), 8),
+      region: code(input.header('x-vercel-ip-country-region'), 16),
       at: input.now.toISOString(),
     },
   };

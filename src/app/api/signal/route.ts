@@ -4,7 +4,8 @@
 // users to give me feedback and for user actions to be logged anonymized."
 //
 // Env, names only:
-//   TOOL_SIGNAL_URL       the quick-tools endpoint (POST /api/tool-signal). Unset: every valid signal
+//   TOOL_SIGNAL_URL       the quick-tools endpoint, https://quick-tools-pi.vercel.app/api/tool-signal
+//                         (lane signal1; storeBody() shapes the body it takes). Unset: every valid signal
 //                         is answered 202 and dropped, so this route is safe before the store exists.
 //   PRIVATE_SITE_USER,    the Basic auth pair the revenge-or-justice forwarder already uses.
 //   PRIVATE_SITE_PASSWORD
@@ -16,13 +17,11 @@
 
 import { randomBytes } from 'node:crypto';
 import { after, NextResponse } from 'next/server';
-import { TOOLS } from '@/data/tools';
 import { checkLimitIn } from '@/lib/rate-limit';
-import { corsHeaders, handleSignal, originPolicy } from '@/lib/signal';
+import { corsHeaders, handleSignal, originPolicy, SIGNAL_TOOLS, storeBody } from '@/lib/signal';
 
 export const dynamic = 'force-dynamic';
 
-const TOOL_SLUGS: ReadonlySet<string> = new Set(TOOLS.map((t) => t.slug));
 const TEN_MIN = 10 * 60 * 1000;
 const LIMITS = { event: 120, feedback: 5 } as const;
 
@@ -54,14 +53,14 @@ export async function POST(req: Request) {
   const result = handleSignal({
     bodyText,
     header: (n) => req.headers.get(n),
-    tools: TOOL_SLUGS,
+    tools: SIGNAL_TOOLS,
     salt: salt(),
     now: new Date(),
     allow: (kind, key) => checkLimitIn(`signal-${kind}`, key, LIMITS[kind], TEN_MIN),
   });
 
   const target = process.env.TOOL_SIGNAL_URL;
-  const forward = result.forward;
+  const forward = result.forward ? storeBody(result.forward) : null;
   if (forward && target) {
     const auth = upstreamAuth();
     // After the answer goes out, so a slow store never slows a page.

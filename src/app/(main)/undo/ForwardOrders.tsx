@@ -147,7 +147,7 @@ function OrderRow({
                   <pre className="undo-draft" tabIndex={0} role="region" aria-labelledby={titleId}>
                     {text}
                   </pre>
-                  <CopyButton text={text} label={COPY.forward.copy} copiedLabel={COPY.forward.copied} className="undo-copy" track={{ action: 'copy_order', props: { order: order.id } }} />
+                  <CopyButton text={text} label={COPY.forward.copy} copiedLabel={COPY.forward.copied} className="undo-copy" track={{ action: 'copy-order', props: { order: order.id } }} />
                 </div>
                 <p className="undo-order-note">{COPY.forward.footnote(order.ids.length)}</p>
               </div>

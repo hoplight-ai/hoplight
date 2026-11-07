@@ -60,7 +60,7 @@ function OrderDisclosure({ row }: { row: SlimRow }) {
               label={COPY.order.copy}
               copiedLabel={COPY.order.copied}
               className="undo-copy"
-              track={{ action: 'copy_row_order', props: { row: row.id } }}
+              track={{ action: 'copy-row-order', props: { row: row.id } }}
             />
           </div>
           <p className="undo-order-note">{COPY.order.footnote}</p>

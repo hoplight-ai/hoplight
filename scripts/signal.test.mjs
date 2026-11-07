@@ -5,11 +5,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, statSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { scrub, parseSignal, visitorHash, originPolicy, handleSignal, EXTERNAL_ORIGINS } from '../src/lib/signal.ts';
+import { scrub, parseSignal, visitorHash, originPolicy, handleSignal, EXTERNAL_ORIGINS, storeBody, SIGNAL_TOOLS, ACTION_RE } from '../src/lib/signal.ts';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
-const TOOLS = new Set(['undo', 'revenge-or-justice', 'gut-check']);
+const TOOLS = SIGNAL_TOOLS;
 const NOW = new Date('2026-11-10T17:00:00Z');
 
 function req(body, headers = {}, allow = () => true) {
@@ -112,4 +113,34 @@ test('kit: public/kit/signal.js is under 3KB and exposes track and feedback', ()
   const src = readFileSync(p, 'utf8');
   assert.match(src, /window\.hoplightSignal\s*=\s*\{\s*track: track, feedback: feedback\s*\}/);
   assert.ok(!/import |require\(/.test(src), 'the kit has no dependencies');
+});
+
+// The store is quick-tools POST /api/tool-signal (lane signal1, 2026-11-07). Its validator refuses
+// any field outside these ten, any tool outside these seven, and any action with an underscore.
+const STORE_FIELDS = ['kind', 'tool', 'action', 'props', 'message', 'contact', 'visitor_hash', 'country', 'region', 'path'];
+const STORE_TOOLS = ['revenge-or-justice', 'undo', 'which-ai', 'gut-check', 'rumi-espanol', 'letters', 'portfolio'];
+const STORE_ACTION = /^[a-z0-9][a-z0-9._:-]*$/;
+
+test('store: the forwarded body carries only the store\'s fields and names', () => {
+  const ev = req({ kind: 'event', tool: 'which-ai-should-i-use', action: 'answer', props: { step: 2 } }, { 'x-vercel-ip-country': 'US' });
+  const b = storeBody(ev.forward);
+  assert.equal(b.tool, 'which-ai');
+  assert.ok(Object.keys(b).every((k) => STORE_FIELDS.includes(k)), Object.keys(b).join(','));
+  assert.ok(!('message' in b) && !('contact' in b), 'an event carries no message or contact');
+  assert.ok(!('at' in b));
+  const fb = storeBody(req({ kind: 'feedback', tool: 'rumi', message: 'ok' }).forward);
+  assert.equal(fb.tool, 'rumi-espanol');
+  assert.equal(fb.message, 'ok');
+  for (const t of SIGNAL_TOOLS) assert.ok(STORE_TOOLS.includes(storeBody({ ...ev.forward, tool: t }).tool), t);
+  assert.equal(req({ kind: 'event', tool: 'undo', action: 'copy_link' }).status, 400, 'underscore actions are refused here too');
+});
+
+test('store: every action name the site sends passes both rules', () => {
+  const src = execFileSync('git', ['grep', '-hoE', "(track\\(['\"][a-z0-9._:-]+['\"]|action[=:] ?\\{?['\"][a-z0-9_.:-]+['\"])", '--', 'src'], { cwd: ROOT, encoding: 'utf8' });
+  const names = [...src.matchAll(/['"]([a-z0-9_.:-]+)['"]/g)].map((m) => m[1]);
+  assert.ok(names.length >= 10, `found ${names.length} action names`);
+  for (const n of names) {
+    assert.match(n, ACTION_RE, n);
+    assert.match(n, STORE_ACTION, n);
+  }
 });
