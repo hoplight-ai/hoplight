@@ -28,26 +28,19 @@ export default function Portfolio() {
   const pieces = visibleTools(clock.now, undefined, { includeUncleared: clock.includeUncleared });
   return (
     <>
-      <div className="page-hero">
+      <div className="page-hero portfolio-hero">
         <div className="wrap">
-          <span className="label">Portfolio</span>
           <h1>Systems we&rsquo;ve shipped.</h1>
           <p>National organizations are running these tools in production. Not proofs of concept.</p>
         </div>
       </div>
 
-      <section className="slate">
+      {/* The gallery opens straight onto the tiles, so a full row sits in the first screen at 1440 by 900
+          (visual review, 2026-11-07). Its old heading block and the two mono labels went then. */}
+      <section className="slate portfolio-gallery" aria-label="The gallery">
         <div className="wrap">
-          <div className="section-head">
-            <span className="label">The gallery</span>
-            <h2>Most of it, you can just open.</h2>
-            <p>
-              Live applications and interactive analyses, running in a browser, with no sales call in
-              between.
-            </p>
-          </div>
           <ul className="gallery-grid">
-            {pieces.map((p) => {
+            {pieces.map((p, i) => {
               const external = p.href.startsWith('http');
               const live = p.kind === 'live';
               return (
@@ -57,39 +50,24 @@ export default function Portfolio() {
                     href={p.href}
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
-                    <div className="wcard-img">
-                      {p.thumb ? (
-                        // Responsive WebP variants (scripts/optimize-portfolio-thumbs.mjs,
-                        // performance review 2026-09-16 #7): phones get the 600px file instead of
-                        // the same full-desktop JPG a 1440px screen downloads. The 1200w WebP source
-                        // covers everyone else on a WebP-capable browser; the plain .jpg stays as
-                        // the <img> fallback for anything that supports neither <picture> nor WebP.
-                        <picture>
-                          <source
-                            type="image/webp"
-                            srcSet={`${p.thumb.replace(/\.jpg$/, '-600.webp')} 600w, ${p.thumb.replace(/\.jpg$/, '-1200.webp')} 1200w`}
-                            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 380px"
-                          />
-                          <img src={p.thumb} alt="" width={1200} height={750} loading="lazy" decoding="async" />
-                        </picture>
-                      ) : (
-                        // No screenshot yet: the tool's own link-preview card, without the Hoplight
-                        // band (this page is already Hoplight's), so the gallery and a pasted link
-                        // show the same face.
-                        <img
-                          className="wcard-card"
-                          src={`/api/og/tool/${p.slug}?band=0`}
-                          alt=""
-                          width={1200}
-                          height={630}
-                          loading="lazy"
-                          decoding="async"
-                        />
-                      )}
+                    <div className="wcard-img wcard-img-card">
+                      {/* Every tile is the tool's own link-preview card without the Hoplight band
+                          (this page is already Hoplight's), so the gallery and a pasted link show
+                          the same face. The card carries the name, so the text below does not
+                          repeat it except for screen readers. */}
+                      <img
+                        className="wcard-card"
+                        src={`/api/og/tool/${p.slug}?band=0`}
+                        alt=""
+                        width={1200}
+                        height={630}
+                        loading={i < 3 ? 'eager' : 'lazy'}
+                        decoding="async"
+                      />
                     </div>
                     <div className="wcard-body">
                       <span className="wc-tag">{live ? 'Live app' : 'Interactive'}</span>
-                      <h3>{p.name}</h3>
+                      <h3 className="sr-only">{p.name}</h3>
                       <p>{p.line}</p>
                       <span className="wc-go">
                         {live ? 'Open the live app' : 'Open it'}{' '}&rarr;

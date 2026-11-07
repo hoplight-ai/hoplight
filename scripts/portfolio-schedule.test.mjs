@@ -28,7 +28,7 @@ test('schedule: the eight gallery pieces keep their words exactly', () => {
   const byslug = Object.fromEntries(TOOLS.map((t) => [t.slug, t]));
   assert.equal(byslug['dnc-autopsy-taken-apart'].line, 'The party’s own 2024 after-action report, argued from its own numbers.');
   assert.equal(byslug['what-s-human'].href, 'https://whatshuman.vercel.app');
-  assert.equal(byslug['bet-appetit'].thumb, '/portfolio/thumbs/bet-appetit-demo.jpg');
+  assert.equal(byslug['bet-appetit'].line, 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.');
   for (const s of GALLERY) assert.equal(byslug[s].cleared, true, s);
 });
 
@@ -53,20 +53,34 @@ test('schedule: a cleared entry shows from the first minute of its day, newest f
   assert.deepEqual(day.slice(3), GALLERY);
 });
 
-test('schedule: the rebuilt Which AI replaces the old entry once it shows, never both', () => {
-  const all = TOOLS.map((t) => ({ ...t, cleared: true }));
-  const before = slugs(visibleTools(at('2027-01-05T12:00:00-08:00'), all));
-  assert.ok(before.includes('which-ai-should-i-use') && !before.includes('which-ai'));
-  const after = slugs(visibleTools(at('2027-01-06T08:00:00-08:00'), all));
-  assert.ok(after.includes('which-ai') && !after.includes('which-ai-should-i-use'));
-  assert.equal(after[0], 'which-ai');
+test('schedule: an entry that replaces another takes its place once it shows, never both', () => {
+  const next = { ...TOOLS.find((t) => t.slug === 'which-ai-should-i-use'), slug: 'which-ai-next', releaseAt: '2027-01-06', cleared: true, replaces: 'which-ai-should-i-use' };
+  const list = [...TOOLS, next];
+  const before = slugs(visibleTools(at('2027-01-05T12:00:00-08:00'), list));
+  assert.ok(before.includes('which-ai-should-i-use') && !before.includes('which-ai-next'));
+  const after = slugs(visibleTools(at('2027-01-06T08:00:00-08:00'), list));
+  assert.ok(after.includes('which-ai-next') && !after.includes('which-ai-should-i-use'));
+});
+
+test('schedule: Which AI is one tool with one preview card (visual review, 2026-11-07)', () => {
+  const which = TOOLS.filter((t) => /which ai/i.test(t.name));
+  assert.deepEqual(which.map((t) => t.slug), ['which-ai-should-i-use']);
+});
+
+test('cards: every tool card carries one picture from its own first screen, and no thumbnail is left', () => {
+  for (const t of TOOLS) {
+    assert.notEqual(t.brand.glyph, 'none', t.slug);
+    assert.ok(!('thumb' in t), `${t.slug} still has a thumb`);
+  }
+  const grounds = new Set(TOOLS.map((t) => t.brand.ground));
+  assert.ok(!TOOLS.some((t) => t.brand.ground === '#0F1B2D' && t.slug !== 'gut-check'), 'only Gut Check is navy, as its app is');
+  assert.ok(grounds.size >= 6, `${grounds.size} distinct grounds`);
 });
 
 test('schedule: the posting calendar dates', () => {
   const byslug = Object.fromEntries(TOOLS.map((t) => [t.slug, t]));
   assert.equal(byslug['rumi'].releaseAt, '2026-11-24');
   assert.equal(byslug['letters'].releaseAt, '2026-12-09');
-  assert.equal(byslug['which-ai'].releaseAt, '2027-01-06');
   for (const s of ['revenge-or-justice', 'undo', 'gut-check']) assert.equal(byslug[s].releaseAt, '2026-11-10');
 });
 

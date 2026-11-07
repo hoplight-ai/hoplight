@@ -13,7 +13,11 @@ import { sendFeedback } from '@/lib/track';
 
 export const USAGE_NOTE = 'Anonymous usage is logged to make this better. No names, no addresses.';
 
-export default function ToolFeedback({ tool, note = true }: { tool: string; note?: boolean }) {
+/**
+ * `align="rj"` lines the box up with the Revenge or Justice tool above it, which sits in its own wider
+ * column (.rj-wrap), not the site's .wrap (visual review, 2026-11-07).
+ */
+export default function ToolFeedback({ tool, note = true, align }: { tool: string; note?: boolean; align?: 'rj' }) {
   const id = useId();
   const [message, setMessage] = useState('');
   const [contact, setContact] = useState('');
@@ -33,7 +37,7 @@ export default function ToolFeedback({ tool, note = true }: { tool: string; note
 
   return (
     <section className="tool-feedback" data-hoplight-feedback={tool} aria-labelledby={`${id}-h`}>
-      <div className="wrap tool-feedback-in">
+      <div className={align === 'rj' ? 'tool-feedback-in tool-feedback-rj' : 'wrap tool-feedback-in'}>
         {state === 'sent' ? (
           <p className="tool-feedback-thanks" role="status">
             Sent. Thank you.{' '}

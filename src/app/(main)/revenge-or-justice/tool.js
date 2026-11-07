@@ -25,7 +25,7 @@ export function initRevengeOrJustice(root, opts) {
     $('rubric').innerHTML = j.rubric.map(function(r){ return '<dt>' + esc(r.title) + '</dt><dd>' + esc(r.question) + '</dd>'; }).join('');
     if (j.available === false) { $('status').textContent = 'The grader is off on this deploy.'; $('status').className = 'err'; $('go').disabled = true; }
   }).catch(function(){});
-  $('showr').addEventListener('click', function(){ $('rubric').classList.toggle('on'); });
+  $('showr').addEventListener('click', function(){ var on = $('rubricbox').classList.toggle('on'); $('showr').setAttribute('aria-expanded', on ? 'true' : 'false'); });
 
   function side(pos){ return pos >= 62 ? 'justice' : pos <= 38 ? 'retribution' : 'mixed'; }
   // On hoplight.ai the bad side is called revenge (Whit, 2026-11-06: make justice the second thing so it rings). The API's word stays retribution; only what is shown changes.
@@ -198,8 +198,9 @@ export function initRevengeOrJustice(root, opts) {
   function when(iso){ if (!iso) return ''; var d = new Date(iso); if (isNaN(d)) return ''; return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); }
   fetch(FEED, { credentials: 'same-origin' }).then(function(r){ return r.json(); }).then(function(j){
     var items = j.items || [];
-    if (!items.length) { $('feednote').textContent = j.error || 'No headline in the last two weeks matched the names and the key words.'; $('feednote').className = 'note' + (j.error ? ' err' : ''); return; }
-    $('feednote').textContent = '';
+    // An empty or failed list leaves the column hidden; nothing about it is shown to a visitor.
+    if (!items.length) return;
+    $('feed').hidden = false;
     var SHOW = 8;
     $('feedlist').innerHTML = items.map(function(it, k){
       var who = (it.people || []).join(', ');
@@ -217,7 +218,7 @@ export function initRevengeOrJustice(root, opts) {
         window.scrollTo({ top: 0, behavior: 'auto' });
       });
     });
-  }).catch(function(err){ $('feednote').textContent = 'The headline list did not load: ' + err.message; $('feednote').className = 'note err'; });
+  }).catch(function(){ /* the column stays hidden */ });
 
   $('f').addEventListener('submit', function(e){
     e.preventDefault();

@@ -21,7 +21,7 @@ export default function Page() {
     <div className={newsreader.variable}>
       <RevengeOrJustice />
       {/* The usage note is already in the tool's own foot line, so the box leaves it out. */}
-      <ToolFeedback tool="revenge-or-justice" note={false} />
+      <ToolFeedback tool="revenge-or-justice" note={false} align="rj" />
     </div>
   );
 }

@@ -1,118 +1,51 @@
-// A tool's link-preview card (/api/og/tool/<slug>): the tool's own name and look as the main field,
-// one Hoplight band along the bottom. Whit, 2026-11-07: "i want image preview to visually have the
-// app or app branding. but also something that speaks to hoplight consistently as the shop behind it."
+// A tool's link-preview card (/api/og/tool/<slug>): the tool's own name, colours and one picture from
+// its first screen as the main field, one Hoplight band along the bottom. Whit, 2026-11-07: "i want
+// image preview to visually have the app or app branding. but also something that speaks to hoplight
+// consistently as the shop behind it."
 //
-// Reading order, by size: the tool's name first (the largest thing on the card), "by Hoplight" second
-// (the band, identical on every card: same height, same lockup, same place). Nothing else is typed on
-// the card; the one-line description travels as og:description, which every preview shows under it.
+// Reading order, by size: the tool's name first (the largest thing on the card, the same size on every
+// card), "by Hoplight" second (the band, identical on every card: same height, same lockup, same
+// place, a thick gold rule along its top so it reads as its own strip even on a dark field). Nothing
+// else is typed on the card; the one-line description travels as og:description.
 //
-// The band uses only the site's tokens and the seed lockup from marks.ts, unchanged. The main field's
-// colours and font come from the tool's own entry in src/data/tools.ts, which is the point: the field
-// is the tool's brand, not Hoplight's. Written with createElement so a Node script can render it too.
+// The band uses only the site's tokens and the seed lockup from marks.ts. The field's colours, face
+// and picture come from the tool's own entry (src/data/tools.ts, src/data/tool-pictures.ts), which is
+// the point: the field is the tool's look, not Hoplight's. Written with createElement so a Node script
+// can render it too.
 
 import { createElement as h, type ReactElement } from 'react';
-import type { Tool, ToolBrand } from '../../data/tools.ts';
+import { TOOL_BY_SLUG, type ToolBrand } from '../../data/tools.ts';
+import { pictureSvg } from '../../data/tool-pictures.ts';
 import { LOCKUP_H, LOCKUP_W, seedLockup } from './marks.ts';
 
 export const CARD_W = 1200;
 export const CARD_H = 630;
 
-// The band: navy, its lockup in white with the gold seed, a gold rule along its top edge (the brand's
-// horizontal rule) so it stays its own strip on a navy or a white field alike.
+// The band: navy, "by" and the lockup in white with the gold seed, a 10px gold rule along its top.
 const BAND = '#0F1B2D';
 const ON_BAND = '#FFFFFF';
 const ON_BAND_MUTED = '#C9D3E0';
 const RULE = '#D4950A';
-const DANGER = '#9C3327';
-export const BAND_H = 112;
-const RULE_H = 4;
+export const BAND_H = 118;
+export const RULE_H = 10;
 const PAD = 72;
 
-const LOCK_H = 48;
+// The lockup at 50px tall: the seed's square is 50, the word "Hoplight" is set at 40px (the lockup
+// draws the word at 0.8 of the mark's height). "by" is set at the same 40px, lighter.
+const LOCK_H = 50;
 const LOCK_W = Math.round((LOCK_H * LOCKUP_W) / LOCKUP_H);
-const LOCKUP = seedLockup({ word: ON_BAND, seen: 22 });
+const WORD_PX = Math.round((LOCK_H * 100) / LOCKUP_H);
+const LOCKUP = seedLockup({ word: ON_BAND, seen: 24 });
+
+/** Every tool name on every card is set at this size; a long name takes two lines, never a smaller size. */
+export const NAME_PX = 112;
+const LINE_H = 1.02;
+// The picture: 280 square beside a short name, 176 square in the top corner above a long one.
+const PIC_SIDE = 280;
+const PIC_STACK = 176;
+const GAP = 48;
 
 const svgUri = (svg: string) => `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
-
-/** The name's size: the longest line sets it, so a short name fills the field and a long one wraps. */
-export function nameSize(lines: string[], hasGlyph: boolean): number {
-  const n = Math.max(...lines.map((l) => Array.from(l).length));
-  const scale = hasGlyph ? 1 : 1.12;
-  const base = n <= 8 ? 144 : n <= 10 ? 128 : n <= 13 ? 108 : n <= 17 ? 88 : n <= 24 ? 76 : 64;
-  return Math.round(base * scale);
-}
-
-// ---- The glyphs: each tool's own visual idea, drawn small beside its name ----------------------
-
-const GLYPH = 280;
-
-/** Revenge or Justice: the result rows' centre line, revenge running left in red, justice right in navy. */
-function barsGlyph(b: ToolBrand): string {
-  const rows: number[] = [-0.62, 0.86, 0.4, -0.28];
-  const mid = GLYPH / 2;
-  const rowH = 52;
-  const top = (GLYPH - rows.length * rowH) / 2;
-  const parts = rows.map((v, i) => {
-    const y = top + i * rowH + rowH / 2;
-    const w = Math.abs(v) * (mid - 8);
-    const x = v < 0 ? mid - w : mid;
-    const fill = v < 0 ? DANGER : b.ink;
-    const rx = 5;
-    return `<line x1="8" y1="${y}" x2="${GLYPH - 8}" y2="${y}" stroke="${b.ink}" stroke-opacity="0.16" stroke-width="2"/>`
-      + `<rect x="${x.toFixed(1)}" y="${y - 13}" width="${w.toFixed(1)}" height="26" rx="${rx}" fill="${fill}"/>`;
-  });
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${GLYPH} ${GLYPH}">${parts.join('')}`
-    + `<line x1="${mid}" y1="${top - 10}" x2="${mid}" y2="${top + rows.length * rowH + 10}" stroke="${b.ink}" stroke-width="3"/></svg>`;
-}
-
-/** The Undo List: the signature field, outlined squares, the first stretch signed in gold. */
-function fieldGlyph(b: ToolBrand): string {
-  const cols = 8;
-  const cell = 26;
-  const gap = 8;
-  const size = cols * cell + (cols - 1) * gap;
-  const off = (GLYPH - size) / 2;
-  const signed = 27;
-  const cells: string[] = [];
-  for (let k = 0; k < cols * cols; k++) {
-    const x = off + (k % cols) * (cell + gap);
-    const y = off + Math.floor(k / cols) * (cell + gap);
-    cells.push(k < signed
-      ? `<rect x="${x}" y="${y}" width="${cell}" height="${cell}" rx="3" fill="${b.accent}"/>`
-      : `<rect x="${x + 1.75}" y="${y + 1.75}" width="${cell - 3.5}" height="${cell - 3.5}" rx="2.5" fill="none" stroke="${b.ink}" stroke-width="3.5"/>`);
-  }
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${GLYPH} ${GLYPH}">${cells.join('')}</svg>`;
-}
-
-/** Gut Check: one card at a time, the top card lit. */
-function cardsGlyph(b: ToolBrand): string {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${GLYPH} ${GLYPH}">`
-    + `<rect x="62" y="44" width="156" height="204" rx="18" fill="none" stroke="${b.ink}" stroke-opacity="0.35" stroke-width="4" transform="rotate(-9 140 146)"/>`
-    + `<rect x="62" y="40" width="156" height="204" rx="18" fill="${b.accent}" transform="rotate(5 140 142)"/>`
-    + `<rect x="92" y="96" width="96" height="10" rx="5" fill="${b.ground}" fill-opacity="0.85" transform="rotate(5 140 142)"/>`
-    + `<rect x="92" y="122" width="64" height="10" rx="5" fill="${b.ground}" fill-opacity="0.55" transform="rotate(5 140 142)"/></svg>`;
-}
-
-/** Letters: a stroke's start, its direction and its order, as the app draws a "b". */
-function strokeGlyph(b: ToolBrand): string {
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${GLYPH} ${GLYPH}">`
-    + `<circle cx="158" cy="178" r="62" fill="none" stroke="${b.ink}" stroke-opacity="0.14" stroke-width="40"/>`
-    + `<rect x="78" y="24" width="40" height="236" rx="20" fill="${b.ink}"/>`
-    + `<path d="M176 92 L214 112 L176 132 Z" fill="${b.accent}"/>`
-    + `<circle cx="98" cy="190" r="30" fill="${b.accent}"/></svg>`;
-}
-
-function glyphSvg(b: ToolBrand): string | null {
-  switch (b.glyph) {
-    case 'bars': return barsGlyph(b);
-    case 'field': return fieldGlyph(b);
-    case 'cards': return cardsGlyph(b);
-    case 'stroke': return strokeGlyph(b);
-    default: return null;
-  }
-}
-
-// ---- The card ---------------------------------------------------------------------------------
 
 export interface CardFonts {
   /** The family name registered for the tool's display face, or null if it did not load. */
@@ -126,45 +59,112 @@ export function cardText(brand: ToolBrand): { display: string; body: string } {
   return { display: brand.wordmark.map((w) => w.text).join(' '), body: 'by' };
 }
 
-export function toolCard(tool: Pick<Tool, 'brand'>, fonts: CardFonts, opts: { band?: boolean } = {}): ReactElement {
-  const b = tool.brand;
-  const band = opts.band !== false;
-  const glyph = glyphSvg(b);
-  const lines = b.wordmark.map((w) => w.text);
-  const size = nameSize(lines, Boolean(glyph));
-  const fieldH = band ? CARD_H - BAND_H - RULE_H : CARD_H;
-
-  const field = h(
+function nameBlock(b: ToolBrand, fonts: CardFonts, maxWidth: number): ReactElement {
+  return h(
     'div',
     {
       style: {
         display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        width: `${CARD_W}px`,
-        height: `${fieldH}px`,
-        padding: `0 ${PAD}px`,
-        backgroundColor: b.ground,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        maxWidth: `${maxWidth}px`,
+        fontFamily: fonts.display ?? 'sans-serif',
+        fontWeight: b.display.weight,
+        fontSize: `${NAME_PX}px`,
+        lineHeight: LINE_H,
+        letterSpacing: '-0.02em',
       },
     },
-    h(
-      'div',
-      {
-        style: {
-          display: 'flex',
-          flexDirection: 'column',
-          maxWidth: glyph ? `${CARD_W - PAD * 2 - GLYPH - 48}px` : `${CARD_W - PAD * 2}px`,
-          fontFamily: fonts.display ?? 'sans-serif',
-          fontWeight: b.display.weight,
-          fontSize: `${size}px`,
-          lineHeight: 1.02,
-          letterSpacing: '-0.025em',
+    ...b.wordmark.map((w, i) =>
+      h(
+        'div',
+        {
+          key: i,
+          style: {
+            display: 'flex',
+            color: w.accent ? b.accent : b.ink,
+            ...(w.mark ? { backgroundColor: w.mark, padding: '0 10px', marginLeft: '-10px' } : {}),
+          },
         },
-      },
-      ...b.wordmark.map((w, i) => h('div', { key: i, style: { display: 'flex', color: w.accent ? b.accent : b.ink } }, w.text)),
+        w.text,
+      ),
     ),
-    glyph ? h('img', { src: svgUri(glyph), width: GLYPH, height: GLYPH, alt: '' }) : null,
   );
+}
+
+function picture(svg: string, size: number): ReactElement {
+  return h('img', { src: svgUri(svg), width: size, height: size, alt: '' });
+}
+
+/** The portfolio's own card: "Tool library" and a row of the tools' pictures, each on its own ground. */
+const LIBRARY = ['revenge-or-justice', 'undo', 'gut-check', 'rumi', 'letters'];
+const TILE = 96;
+
+function libraryRow(): ReactElement {
+  return h(
+    'div',
+    { style: { display: 'flex', gap: '14px' } },
+    ...LIBRARY.map((slug) => {
+      const t = TOOL_BY_SLUG[slug];
+      const svg = t ? pictureSvg(t.brand) : null;
+      return h(
+        'div',
+        {
+          key: slug,
+          style: {
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: `${TILE}px`,
+            height: `${TILE}px`,
+            borderRadius: '18px',
+            backgroundColor: t ? t.brand.ground : BAND,
+            border: '2px solid rgba(15,27,45,0.18)',
+          },
+        },
+        svg ? picture(svg, TILE - 16) : null,
+      );
+    }),
+  );
+}
+
+export interface CardSubject {
+  brand: ToolBrand;
+  /** Set on the portfolio's card only: draw the row of tool pictures instead of one picture. */
+  library?: boolean;
+}
+
+export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boolean } = {}): ReactElement {
+  const b = tool.brand;
+  const band = opts.band !== false;
+  const svg = tool.library ? null : pictureSvg(b);
+  const stack = b.layout === 'stack';
+  const fieldH = band ? CARD_H - BAND_H - RULE_H : CARD_H;
+  const inner = CARD_W - PAD * 2;
+
+  let field: ReactElement;
+  if (tool.library) {
+    field = h(
+      'div',
+      { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `0 ${PAD}px`, backgroundColor: b.ground } },
+      nameBlock(b, fonts, inner - (LIBRARY.length * (TILE + 14)) - GAP),
+      libraryRow(),
+    );
+  } else if (stack) {
+    field = h(
+      'div',
+      { style: { display: 'flex', flexDirection: 'column', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `40px ${PAD}px 46px`, backgroundColor: b.ground } },
+      h('div', { style: { display: 'flex', justifyContent: 'flex-end', width: `${inner}px` } }, svg ? picture(svg, PIC_STACK) : null),
+      nameBlock(b, fonts, inner),
+    );
+  } else {
+    field = h(
+      'div',
+      { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `0 ${PAD}px`, backgroundColor: b.ground } },
+      nameBlock(b, fonts, svg ? inner - PIC_SIDE - GAP : inner),
+      svg ? picture(svg, PIC_SIDE) : null,
+    );
+  }
 
   if (!band) return h('div', { style: { display: 'flex', width: `${CARD_W}px`, height: `${CARD_H}px` } }, field);
 
@@ -192,10 +192,10 @@ export function toolCard(tool: Pick<Tool, 'brand'>, fonts: CardFonts, opts: { ba
             display: 'flex',
             fontFamily: fonts.body ?? 'sans-serif',
             fontWeight: 400,
-            fontSize: '34px',
+            fontSize: `${WORD_PX}px`,
             color: ON_BAND_MUTED,
-            marginRight: '18px',
-            marginTop: '-2px',
+            marginRight: '16px',
+            marginTop: '-3px',
           },
         },
         'by',
@@ -205,14 +205,17 @@ export function toolCard(tool: Pick<Tool, 'brand'>, fonts: CardFonts, opts: { ba
   );
 }
 
-// The portfolio's own card: the page's headline on the site's white ground, the same band below.
-export const PORTFOLIO_CARD: Pick<Tool, 'brand'> = {
+// The portfolio's own card: "Tool library" (Whit's words for it: "engage w my tool library") on the
+// site's white, with the row of tool pictures, the same band below.
+export const PORTFOLIO_CARD: CardSubject = {
+  library: true,
   brand: {
     ground: '#FFFFFF',
     accent: '#996D00',
     ink: '#0F1B2D',
     display: { family: 'Albert Sans', weight: 600 },
-    wordmark: [{ text: 'Systems we’ve' }, { text: 'shipped.' }],
+    wordmark: [{ text: 'Tool' }, { text: 'library' }],
     glyph: 'none',
   },
 };
+

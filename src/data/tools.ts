@@ -8,8 +8,9 @@
 // `npm run launch:check -- <slug>` passes for that tool; until then the date alone shows nothing.
 //
 // `brand` is the tool's own look, which its link-preview card (/api/og/tool/<slug>) draws as the main
-// field above the one Hoplight band. The colours of tools built outside this site (Gut Check, Rumi
-// Español, Letters) were read from their live pages on 2026-11-07; the rest use the site's tokens.
+// field above the one Hoplight band, with one picture from src/data/tool-pictures.ts. Every tool's
+// colours, face and picture were read from its own first screen on 2026-11-07, so the preview looks
+// like the app a stranger lands on; only the band is Hoplight's.
 //
 // Imported by the page, the card route, the signal route and by node scripts (launch check, tests),
 // so this file keeps relative imports with their .ts extension and only erasable TypeScript.
@@ -18,8 +19,10 @@ import { FACTS } from '../lib/facts.ts';
 
 export type ToolKind = 'live' | 'interactive';
 
-/** The small drawing a card puts beside the tool's name; each is the tool's own visual idea. */
-export type ToolGlyph = 'none' | 'bars' | 'field' | 'cards' | 'stroke';
+/** The one picture a card draws (src/data/tool-pictures.ts), taken from the tool's own first screen. */
+export type ToolGlyph =
+  | 'none' | 'bars' | 'field' | 'cards' | 'cat' | 'letter' | 'map' | 'bubble' | 'rosette' | 'quotes'
+  | 'years' | 'chips' | 'picker' | 'area';
 
 export interface ToolBrand {
   /** The card's main field. */
@@ -30,9 +33,18 @@ export interface ToolBrand {
   ink: string;
   /** Google Fonts family the name is set in, and its weight. */
   display: { family: string; weight: number };
-  /** The name as drawn, one entry per line; `accent: true` paints that line in the accent. */
-  wordmark: { text: string; accent?: boolean }[];
+  /**
+   * The name as drawn, one entry per line; `accent: true` paints that line in the accent, `mark` lays
+   * a highlighter colour behind it, as the tool's own headline does.
+   */
+  wordmark: { text: string; accent?: boolean; mark?: string }[];
   glyph: ToolGlyph;
+  /**
+   * 'side' puts the picture beside a name short enough to sit next to it; 'stack' puts a smaller
+   * picture top right and lets a long name run the card's full width below it. Every card sets the
+   * name at the same size (Whit's reviewer, 2026-11-07), so the layout, not the size, absorbs length.
+   */
+  layout?: 'side' | 'stack';
 }
 
 export interface Tool {
@@ -47,8 +59,6 @@ export interface Tool {
   releaseAt: string;
   /** True only once the tool has passed the go-public checklist (npm run launch:check). */
   cleared: boolean;
-  /** A screenshot under public/portfolio/thumbs/; without one the page shows the tool's own card. */
-  thumb?: string;
   /** The slug of an older entry this one takes the place of once it is showing. */
   replaces?: string;
 }
@@ -59,14 +69,6 @@ const WHITE = '#FFFFFF';
 const GOLD = '#D4950A';
 const GOLD_DEEP = '#996D00';
 
-const hoplightBrand = (name: string): ToolBrand => ({
-  ground: NAVY,
-  accent: GOLD,
-  ink: WHITE,
-  display: { family: 'Albert Sans', weight: 600 },
-  wordmark: [{ text: name }],
-  glyph: 'none',
-});
 
 // The gallery as it stood on 2026-10-21, after Whit's removals that day ("i want these removed from
 // my hoplight.ai portfolio"), kept exactly: same pieces, same words, same order. They share one
@@ -107,7 +109,7 @@ export const TOOLS: Tool[] = [
       accent: GOLD,
       ink: NAVY,
       display: { family: 'Albert Sans', weight: 600 },
-      wordmark: [{ text: 'The Undo List' }],
+      wordmark: [{ text: 'The Undo' }, { text: 'List' }],
       glyph: 'field',
     },
     releaseAt: '2026-11-10',
@@ -139,15 +141,16 @@ export const TOOLS: Tool[] = [
     line: 'A Spanish app for a five-year-old who cannot read yet. Tap, listen, repeat.',
     href: 'https://rumi-rouge.vercel.app',
     kind: 'live',
-    // Read from rumi-rouge.vercel.app and its own preview card on 2026-11-07: deep purple ground,
-    // "Rumi" in near-white, "Español" in its gold, a heavy sans.
+    // Read from rumi-rouge.vercel.app on 2026-11-07: a bright purple first screen (a purple to pink
+    // gradient there; one flat purple here, since a card carries no gradient), white heavy sans, and
+    // Rumi the cat, drawn as the app draws it. "Español" keeps the gold of the app's own preview card.
     brand: {
-      ground: '#1B1233',
+      ground: '#8E3FD3',
       accent: '#FFC53D',
-      ink: '#FFF7EF',
+      ink: WHITE,
       display: { family: 'Inter', weight: 800 },
       wordmark: [{ text: 'Rumi' }, { text: 'Español', accent: true }],
-      glyph: 'none',
+      glyph: 'cat',
     },
     releaseAt: '2026-11-24',
     cleared: false,
@@ -167,23 +170,10 @@ export const TOOLS: Tool[] = [
       ink: '#3A3226',
       display: { family: 'Inter', weight: 700 },
       wordmark: [{ text: 'Letters' }],
-      glyph: 'stroke',
+      glyph: 'letter',
     },
     releaseAt: '2026-12-09',
     cleared: false,
-  },
-  {
-    // The rebuilt Which AI, on the calendar for 2027-01-06. It takes the place of the 2026 piece of
-    // the same name once it is showing, so the gallery never lists the tool twice.
-    slug: 'which-ai',
-    name: 'Which AI Should I Use?',
-    line: 'Answer a few questions, get told which model fits the job.',
-    href: '/tools/which-ai',
-    kind: 'live',
-    brand: hoplightBrand('Which AI Should I Use?'),
-    releaseAt: '2027-01-06',
-    cleared: false,
-    replaces: 'which-ai-should-i-use',
   },
 
   // ---- The gallery as of 2026-10-21, unchanged ----
@@ -195,10 +185,18 @@ export const TOOLS: Tool[] = [
     line: 'The party’s own 2024 after-action report, argued from its own numbers.',
     href: '/portfolio/dnc-autopsy-taken-apart.html',
     kind: 'interactive',
-    brand: hoplightBrand('DNC autopsy, taken apart'),
+    brand: {
+      // The report page: white, near-black type, its numbers and quote rules in red.
+      ground: WHITE,
+      accent: '#B3261E',
+      ink: '#16181D',
+      display: { family: 'Inter', weight: 700 },
+      wordmark: [{ text: 'DNC autopsy,' }, { text: 'taken apart', accent: true }],
+      glyph: 'quotes',
+      layout: 'stack',
+    },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
-    thumb: '/portfolio/thumbs/dnc-autopsy-taken-apart.jpg',
   },
   // "(ARIA)" dropped (copy review, 2026-09-16): the card's own blurb never explains what ARIA
   // stands for, and AGIS is already the load-bearing name here.
@@ -208,10 +206,17 @@ export const TOOLS: Tool[] = [
     line: `${FACTS.agis.sources} sources, ${FACTS.agis.jurisdictions} jurisdictions, searchable in plain English.`,
     href: '/agis',
     kind: 'live',
-    brand: hoplightBrand('AGIS policy search'),
+    brand: {
+      // The AGIS header: its purple, white type in Barlow Semi Condensed, the map panel under it.
+      ground: '#6F3DB8',
+      accent: '#F5C842',
+      ink: WHITE,
+      display: { family: 'Barlow Semi Condensed', weight: 900 },
+      wordmark: [{ text: 'AGIS policy' }, { text: 'search' }],
+      glyph: 'map',
+    },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
-    thumb: '/portfolio/thumbs/agis-policy-search-aria.jpg',
   },
   // Whit, 2026-10-20: "add AI Election Errors to the hoplight.ai portfolio page." Served at
   // /ai-election-errors from its own Vercel project (see next.config.ts rewrites).
@@ -221,10 +226,17 @@ export const TOOLS: Tool[] = [
     line: 'Did a chatbot give someone wrong election information? A public form that builds the shared record.',
     href: '/ai-election-errors',
     kind: 'live',
-    brand: hoplightBrand('AI Election Errors'),
+    brand: {
+      // The intake page: white, Source Serif headline with a yellow highlighter, the assistant's answer.
+      ground: WHITE,
+      accent: '#1A1A1A',
+      ink: '#1A1A1A',
+      display: { family: 'Source Serif 4', weight: 600 },
+      wordmark: [{ text: 'AI Election' }, { text: 'Errors', mark: '#F5D547' }],
+      glyph: 'bubble',
+    },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
-    thumb: '/portfolio/thumbs/ai-election-errors.jpg',
   },
   {
     slug: 'bet-appetit',
@@ -232,10 +244,17 @@ export const TOOLS: Tool[] = [
     line: 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.',
     href: '/bet-appetit',
     kind: 'live',
-    brand: hoplightBrand('Bet Appetit'),
+    brand: {
+      // The guide's red band, its white serif name and rosette.
+      ground: '#A4212F',
+      accent: WHITE,
+      ink: WHITE,
+      display: { family: 'EB Garamond', weight: 500 },
+      wordmark: [{ text: 'Bet' }, { text: 'Appétit' }],
+      glyph: 'rosette',
+    },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
-    thumb: '/portfolio/thumbs/bet-appetit-demo.jpg',
   },
   {
     slug: 'oregon-school-budget-report',
@@ -243,10 +262,18 @@ export const TOOLS: Tool[] = [
     line: 'Where Oregon K-12 money actually goes.',
     href: '/portfolio/oregon-school-budget-report.html',
     kind: 'interactive',
-    brand: hoplightBrand('Oregon school budget report'),
+    brand: {
+      // The report's first screen: a black Archivo headline on white, its eyebrow in red.
+      ground: WHITE,
+      accent: '#B42318',
+      ink: '#111111',
+      display: { family: 'Archivo', weight: 900 },
+      wordmark: [{ text: 'Oregon school' }, { text: 'budget report' }],
+      glyph: 'years',
+      layout: 'stack',
+    },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
-    thumb: '/portfolio/thumbs/oregon-school-budget-report.jpg',
   },
   {
     slug: 'what-s-human',
@@ -254,10 +281,17 @@ export const TOOLS: Tool[] = [
     line: 'Guess whether a person or a machine wrote the text. Live vote tally.',
     href: 'https://whatshuman.vercel.app',
     kind: 'live',
-    brand: hoplightBrand('What’s Human?'),
+    brand: {
+      // The game's near-black ground, Lora title, outlined choice chips.
+      ground: '#0D1017',
+      accent: WHITE,
+      ink: '#F2F2F2',
+      display: { family: 'Lora', weight: 600 },
+      wordmark: [{ text: 'What’s' }, { text: 'Human?' }],
+      glyph: 'chips',
+    },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
-    thumb: '/portfolio/thumbs/what-s-human.jpg',
   },
   {
     slug: 'which-ai-should-i-use',
@@ -265,10 +299,18 @@ export const TOOLS: Tool[] = [
     line: 'Answer a few questions, get told which model fits the job.',
     href: '/tools/which-ai',
     kind: 'live',
-    brand: hoplightBrand('Which AI should I use?'),
+    brand: {
+      // The picker page: the site's white and navy, its table of red, yellow and green.
+      ground: WHITE,
+      accent: GOLD_DEEP,
+      ink: NAVY,
+      display: { family: 'Albert Sans', weight: 600 },
+      wordmark: [{ text: 'Which AI' }, { text: 'should I use?' }],
+      glyph: 'picker',
+      layout: 'stack',
+    },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
-    thumb: '/portfolio/thumbs/which-ai-should-i-use.jpg',
   },
   {
     slug: 'worker-equity-dilution-at-ge',
@@ -276,10 +318,18 @@ export const TOOLS: Tool[] = [
     line: '80 years of worker equity draining out of one company.',
     href: '/portfolio/worker-equity-dilution-at-ge.html',
     kind: 'interactive',
-    brand: hoplightBrand('Worker equity dilution at GE'),
+    brand: {
+      // The model page: white, navy title, the grey workforce area and the green pool line.
+      ground: WHITE,
+      accent: '#2E7D32',
+      ink: '#1F2A44',
+      display: { family: 'Inter', weight: 700 },
+      wordmark: [{ text: 'Worker equity' }, { text: 'dilution at GE' }],
+      glyph: 'area',
+      layout: 'stack',
+    },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
-    thumb: '/portfolio/thumbs/worker-equity-dilution-at-ge.jpg',
   },
 ];
 
