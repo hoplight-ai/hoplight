@@ -3,8 +3,8 @@
 // need that sort of division ... like dilution at GE is a report."
 // Round two, Whit, the same day, after seeing round one: "the reports need to live more as ... a research
 // section of the website or something may be tied into my writings or like a blog or a Substack
-// connection." So /portfolio shows products only, and the reports live on /insights with his writing,
-// read from the tool list's shelf field so a future report lands in one place.
+// connection." So /portfolio shows products only. /insights keeps its own hand-kept list, which already
+// names the three reports (round six, below).
 // Run: node --test scripts/portfolio-shelf.test.mjs (part of npm test).
 
 import { test } from 'node:test';
@@ -73,37 +73,13 @@ test('built: no report renders on /portfolio, and every product showing draws it
   }
 });
 
-test('page: /insights lists its reports from the tool list, not by hand', () => {
-  const page = read('src/app/(main)/insights/page.tsx');
-  assert.match(page, /onShelf\('report'/, 'the Insights page does not read the reports from the tool list');
-  const content = read('src/lib/insights-content.ts');
-  for (const t of reportTools()) assert.ok(!content.includes(t.href), `${t.slug} is still hand-listed in insights-content`);
-});
-
-test('built: every report renders on /insights under Research, with its name and line', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
+// Round six, Whit, 2026-11-07, after seeing both: "The insights page the before version is the winner and the
+// products page ... the after version is the winner". So /insights is back as it was, hand-kept, and lists
+// the three reports itself; the tool list's shelf field only keeps them off /portfolio. This test keeps every
+// report reachable from /insights once it has left /portfolio.
+test('built: every report is listed once on /insights', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
   const html = readFileSync(BUILT_INSIGHTS, 'utf8');
-  const part = html.match(/<section[^>]*aria-labelledby="research-title"[^>]*>([\s\S]*?)<\/section>/);
-  assert.ok(part, 'no Research section on /insights');
   for (const t of reportTools()) {
-    assert.ok(part[1].includes(`href="${t.href}"`), `${t.slug} is not under Research on /insights`);
-    assert.ok(part[1].includes(t.name), `${t.slug} name missing on /insights`);
-    assert.ok(part[1].includes(t.line), `${t.slug} line missing on /insights`);
-    assert.equal(html.split(`href="${t.href}"`).length - 1, 1, `${t.slug} listed more than once on /insights`);
+    assert.equal(html.split(`href="${t.href}"`).length - 1, 1, `${t.slug} is not listed exactly once on /insights`);
   }
-});
-
-// Whit, 2026-11-07: "Products would be like rumi Roem gut check undo". A product lives on /portfolio only,
-// so no shelf-product entry is hand-listed for /insights or links from it.
-const productTools = () => TOOLS.filter((t) => t.shelf === 'product');
-
-test('page: no product is hand-listed on /insights', () => {
-  const content = read('src/lib/insights-content.ts');
-  for (const t of productTools()) assert.ok(!content.includes(`href: '${t.href}'`), `${t.slug} is a product but is hand-listed in insights-content`);
-});
-
-test('built: no product links from /insights', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
-  const html = readFileSync(BUILT_INSIGHTS, 'utf8');
-  const main = html.match(/<main[\s\S]*?<\/main>/);
-  assert.ok(main, 'no main on /insights');
-  for (const t of productTools()) assert.ok(!main[0].includes(`href="${t.href}"`), `${t.slug} is a product but appears on /insights`);
 });

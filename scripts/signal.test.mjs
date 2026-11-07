@@ -72,6 +72,17 @@ test('signal: props are scrubbed, flat and capped', () => {
   assert.equal(req({ kind: 'event', tool: 'undo', action: 'x', props: { 'bad key!': 1 } }).status, 400);
 });
 
+test('signal: a prop that would name the visitor is refused here with a 400, not lost at the store', () => {
+  // The store (quick-tools lib/tool-signal.mjs) refuses the whole signal for one of these names; before
+  // SITESEC1 this route accepted it, answered 202, and the store's 400 was only a server log.
+  for (const key of ['ip', 'IP', 'ip_address', 'ip-address', 'client_ip', 'x-forwarded-for', 'remoteAddr', 'user_agent', 'userAgent', 'ua']) {
+    const r = req({ kind: 'event', tool: 'portfolio', action: 'x', props: { [key]: '203.0.113.9' } });
+    assert.equal(r.status, 400, key);
+    assert.match(String(r.body.error), /identify a visitor/);
+  }
+  assert.equal(req({ kind: 'event', tool: 'portfolio', action: 'x', props: { tip: 'y', group: 'z' } }).status, 202, 'ordinary names still pass');
+});
+
 test('signal: shape errors answer 400', () => {
   assert.equal(req('not json').status, 400);
   assert.equal(req({ kind: 'other', tool: 'undo', action: 'x' }).status, 400);

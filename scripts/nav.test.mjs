@@ -137,17 +137,14 @@ test('the two Services review routes are noindex, out of the sitemap and out of 
   assert.ok(!/robots:\s*\{\s*index:\s*false/.test(read('src/app/(main)/services/page.tsx')), '/services is marked noindex');
 });
 
-test('/insights-b and /insights-c are gone, and /insights is one body of work in two parts', () => {
+test('/insights-b and /insights-c are gone, and /insights is the two-column page', () => {
   for (const dir of ['insights-b', 'insights-c']) {
     assert.ok(!existsSync(path.join(ROOT, 'src/app/(main)', dir)), `${dir} came back`);
   }
   const urls = sitemap().map((e) => e.url);
   for (const route of ['/insights-b', '/insights-c']) assert.ok(!urls.includes(`https://hoplight.ai${route}`), `${route} is in the sitemap`);
   const page = read('src/app/(main)/insights/page.tsx');
-  // PORTSPLIT1 round five, 2026-11-07: the navy Writing panel and the Reports side column went. The page is
-  // Research then Writing, every item a card of one kind (see the built-page test below).
-  assert.ok(!page.includes('ic-field') && !page.includes('ic-reports') && !page.includes('RuledList'), '/insights still carries the panel or the side column');
-  assert.ok(page.includes('research-title') && page.includes('writing-title'), '/insights is not Research and Writing');
+  assert.ok(page.includes('ic-field') && page.includes('ic-reports'), '/insights is not the two-column layout');
   assert.ok(!/robots:\s*\{\s*index:\s*false/.test(page), '/insights is marked noindex');
   const sources = ['src/app/(main)/insights/page.tsx', 'src/components/InsightParts.tsx'].map(read).join('\n');
   assert.ok(!/insights-[bc]\b(?!\w)/.test(sources.replace(/insights-content/g, '')), 'a source still names a removed review route');
@@ -206,14 +203,12 @@ test('the Products page is gone and AI Election Errors is on the portfolio list'
   assert.ok(tools.includes("href: '/ai-election-errors'"), 'AI Election Errors is not on the portfolio list');
 });
 
-// The Undo List left Insights on 2026-11-07 (PORTSPLIT1): Whit named it a product, so it lives on /portfolio
-// only, and scripts/portfolio-shelf.test.mjs refuses any product on /insights.
-test('Insights lists the two restored reports, and the analyses carry no label', () => {
+test('Insights lists the Undo List and the two restored reports, and the analyses carry no label', () => {
   const content = read('src/lib/insights-content.ts');
-  for (const href of ['/portfolio/cba-win-pattern-playbook.html', '/portfolio/ai-governance-checklist.html']) {
+  for (const href of ['/undo', '/portfolio/cba-win-pattern-playbook.html', '/portfolio/ai-governance-checklist.html']) {
     assert.ok(content.includes(`href: '${href}'`), `${href} is not listed under Reports`);
   }
-  for (const title of ['CBA win pattern playbook', 'AI governance checklist']) assert.ok(content.includes(title), `${title} is missing`);
+  for (const title of ['CBA win pattern playbook', 'AI governance checklist', 'The Undo List']) assert.ok(content.includes(title), `${title} is missing`);
   // The Analysis labels went in the HOPSITE2 design review, 2026-11-07.
   assert.equal((content.match(/label: 'Analysis'/g) || []).length, 0, 'an Analysis label came back');
 });
@@ -237,49 +232,4 @@ test('the research page names Rayli once under the findings, and the persuasion 
 test('the About page names Pandora’s Router with its link', () => {
   const about = read('src/app/(main)/about/page.tsx');
   assert.ok(about.includes('https://router.hoplight.ai') && about.includes('Pandora&rsquo;s Router'), 'the router sentence is missing');
-});
-
-// PORTSPLIT1 round five, 2026-11-07 (design review): one Research section with one treatment, the three
-// public reports as picture cards at the scale of the writing cards, the page heading "Research and writing",
-// the nav word unchanged. Research comes first: its pictures are what wins the eye.
-const BUILT_INSIGHTS = ['.next/server/app/insights.html', '.next/server/app/(main)/insights.html']
-  .map((rel) => path.join(ROOT, rel))
-  .find((p) => existsSync(p));
-
-test('Insights: the heading is "Research and writing" and the nav still says Insights', () => {
-  assert.ok(NAV_LINKS.some((l) => l.label === 'Insights' && l.href === '/insights'), 'the nav word changed');
-  assert.match(read('src/app/(main)/insights/page.tsx'), />Research and writing</, 'the page heading is not "Research and writing"');
-});
-
-test('built Insights: Research first, then Writing; every item a card, the reports with their pictures', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
-  const html = readFileSync(BUILT_INSIGHTS, 'utf8');
-  assert.match(html, /<h1[^>]*>Research and writing<\/h1>/, 'no "Research and writing" heading');
-  const r = html.indexOf('aria-labelledby="research-title"');
-  const w = html.indexOf('aria-labelledby="writing-title"');
-  assert.ok(r > 0 && w > 0 && r < w, 'Research does not come before Writing');
-  const research = html.slice(r, w);
-  for (const href of ['/research', '/persuasion', '/portfolio/cba-win-pattern-playbook.html', '/portfolio/ai-governance-checklist.html', '/portfolio/dnc-autopsy-taken-apart.html']) {
-    assert.match(research, new RegExp(`<a class="ptile[^"]*" href="${href.replace(/[.]/g, '\\.')}"`), `${href} is not a card under Research`);
-  }
-  assert.equal((research.match(/class="ptile ptile-pic"/g) || []).length, 3, 'the three reports are not picture cards');
-  for (const slug of ['dnc-autopsy-taken-apart', 'oregon-school-budget-report', 'worker-equity-dilution-at-ge']) {
-    assert.ok(research.includes(`/api/og/tool/${slug}?band=0`), `${slug} carries no picture`);
-  }
-  assert.ok(!html.includes('rep-list') && !html.includes('class="rep"'), 'a ruled list is still on the page');
-  assert.ok(!html.includes('ic-field'), 'the navy Writing panel is still on the page');
-});
-
-// Round five polish, 2026-11-07 (design review): the trial card was the only dated research card, so its
-// date went; the quarter-width text cards set their titles smaller so a short name sits on one line.
-test('built Insights: no research card carries a date tag', { skip: BUILT_INSIGHTS ? false : 'no build present' }, () => {
-  const html = readFileSync(BUILT_INSIGHTS, 'utf8');
-  const research = html.slice(html.indexOf('aria-labelledby="research-title"'), html.indexOf('aria-labelledby="writing-title"'));
-  assert.ok(!research.includes('ptile-tag'), 'a research card still carries a date tag');
-});
-
-test('Insights: the quarter-width text cards set a smaller title than the writing cards', () => {
-  const css = read('src/app/globals.css');
-  const m = css.match(/\.rw-text \.ptile h3 \{[^}]*font-size:\s*([^;]+);/);
-  assert.ok(m, 'no title size for the text cards');
-  assert.ok(!m[1].includes('1.5rem'), 'the text-card title is the writing-card size');
 });

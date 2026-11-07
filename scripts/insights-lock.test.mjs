@@ -17,16 +17,14 @@ import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { isGated, opensSignIn } from '../src/lib/gate.ts';
-import { TOOLS } from '../src/data/tools.ts';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = readFileSync(path.join(ROOT, 'src/lib/insights-content.ts'), 'utf8');
 // Plain-quoted hrefs are the site's own paths; the Substack ones are template strings to another site.
-// Since PORTSPLIT1 round two (2026-11-07) the public reports come from the tool list (shelf 'report') and
-// Writing comes from the Substack feed, so the page's links are the content file's site paths, the tool
-// list's reports, and however many posts the feed gave at build time.
-const REPORT_HREFS = TOOLS.filter((t) => t.shelf === 'report').map((t) => t.href);
-const LOCAL = [...[...SRC.matchAll(/href: '([^']+)'/g)].map((m) => m[1]), ...REPORT_HREFS];
+const LOCAL = [...SRC.matchAll(/href: '([^']+)'/g)].map((m) => m[1]);
+// Writing comes from the Substack feed since PORTSPLIT1 (2026-11-07), so its count follows the feed at build
+// time; the count below is every other link the content file holds, and Writing must show at least one card.
+const ALL_LINKS = (SRC.match(/href:/g) || []).length - (SRC.match(/href: `\$\{SUBSTACK\}\/p\//g) || []).length;
 const gatedHref = (href) => href.startsWith('/') && isGated(href);
 const MARK = /aria-label="sign-in required"/;
 
@@ -45,10 +43,10 @@ test('opensSignIn agrees with the gate on every Insights link', () => {
 
 test('in the built Insights page, gated rows carry the lock and open rows do not', { skip: BUILT ? false : 'no build present' }, () => {
   const html = readFileSync(BUILT, 'utf8');
-  const anchors = [...html.matchAll(/<a class="(?:rep|ptile)(?: [^"]*)?" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
-  const hrefs = anchors.map(([, href]) => href.replace(/&amp;/g, '&'));
-  for (const href of LOCAL) assert.equal(hrefs.filter((h) => h === href).length, 1, `${href}: not one card or row`);
-  assert.ok(hrefs.some((h) => h.startsWith('https://whitpendergast.substack.com/p/')), 'no Writing card');
+  const anchors = [...html.matchAll(/<a class="(?:rep|ptile)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)];
+  const essays = anchors.filter(([, href]) => href.startsWith('https://whitpendergast.substack.com/p/'));
+  assert.ok(essays.length >= 1, 'Writing shows no essay');
+  assert.equal(anchors.length - essays.length, ALL_LINKS, 'one card or row per Insights link');
   let locked = 0;
   for (const [, href, inner] of anchors) {
     const want = gatedHref(href.replace(/&amp;/g, '&'));

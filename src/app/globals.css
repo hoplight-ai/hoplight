@@ -393,7 +393,7 @@ section { padding: var(--space-section) 0; }
 /* PORTSPLIT1, 2026-11-07: on a phone the product cards run shorter (design review of the split, fix 3), so
    more of the portfolio sits in the first screens at 375. One column stays: two columns at 375 would set
    each card's name near 15px and wrap each line to five or six lines. The card face is cropped to its
-   middle band, and the text under it sits tighter. The reports moved to /insights in round two. */
+   middle band, and the text under it sits tighter. */
 @media (max-width: 640px) {
   .portfolio-products .gallery-grid { gap: 12px; }
   .portfolio-products .gallery-grid .wcard-img.wcard-img-card { aspect-ratio: 1200 / 330; }
@@ -1230,9 +1230,26 @@ a.ptile:hover { border-color: var(--gold-hot); box-shadow: 0 6px 22px rgba(0,0,0
 .ptile .tile-arrow { color: var(--gold-deep); }
 .ptile p.ptile-ask { color: var(--ink); font-weight: 500; border-left: 2px solid var(--gold-hot); padding-left: 12px; }
 
-/* The lock after a title that opens with the site password (HOPSITE2, 2026-11-07): grey, not the accent.
-   The ruled report rows that sat here went in PORTSPLIT1 round five (2026-11-07). */
+/* Insights: the reports as ruled rows under the band */
+.reports { padding: clamp(24px, 4vw, 48px) 0 clamp(40px, 6vw, 80px); }
+.rep-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+.rep {
+  display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) 16px; align-items: baseline; column-gap: 24px;
+  min-height: 56px; padding: 16px 0; border: 0; border-bottom: 1px solid var(--line-card); color: var(--ink);
+}
+.rep-title { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.125rem, 1rem + 0.5vw, 1.375rem); letter-spacing: -0.015em; line-height: 1.25; }
+.rep-line { font-size: 0.95rem; color: var(--stone-deep); }
+.rep-label { display: block; margin-bottom: 2px; font-family: var(--font-mono); font-size: 0.72rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold-deep); }
+.rep-arrow { align-self: center; color: var(--gold-deep); transition: transform 160ms ease-out; }
+/* The lock after a title that opens with the site password (HOPSITE2, 2026-11-07): grey, not the accent. */
 .lock { display: inline-block; margin-left: 0.4em; vertical-align: -0.05em; color: var(--stone-deep); }
+.rep:hover .rep-title { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.rep:hover .rep-arrow { transform: translateX(3px); }
+@media (max-width: 640px) {
+  .rep { grid-template-columns: minmax(0, 1fr) 16px; row-gap: 2px; }
+  .rep-line { grid-column: 1; }
+  .rep-arrow { grid-column: 2; grid-row: 1 / span 2; }
+}
 
 /* Services: four numbered lines and a close */
 .svc-lines { padding: clamp(32px, 5vw, 64px) 0 clamp(40px, 6vw, 80px); }
@@ -1271,42 +1288,27 @@ header.site .brand, footer.site .brand { min-height: 44px; }
 .hero .about-linkedin { margin: 8px 0 0; }
 .hero .about-linkedin a { display: inline-flex; align-items: center; min-height: 44px; color: #fff; font-weight: 600; text-decoration: underline; text-decoration-color: var(--gold-hot); text-decoration-thickness: 2px; text-underline-offset: 4px; }
 
-/* Insights, PORTSPLIT1 round five (2026-11-07): Research and Writing, two parts of one body of work on the
-   white page, every item the same white card. Research is one twelve-column grid: the three reports with
-   their pictures take a third each, at the scale of the writing cards; the four text cards take a quarter
-   each, so both rows run the full width and no column ends early. Writing fills its row the same way. */
+/* Insights, shared: a heading over a ruled list, and the card title (an h3 under the band's h2) */
 .ptile h3 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
-.rw { display: grid; gap: clamp(40px, 5vw, 64px); padding-block: clamp(32px, 4vw, 56px) clamp(48px, 6vw, 88px); }
-.rw section { padding: 0; }
-.rw h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.625rem, 1.2rem + 1.2vw, 2.125rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
-.rw .band-link { margin-top: 2px; }
-.rw-cards { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 16px; }
-.rw-cards > li { min-width: 0; }
-.rw-research { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-.rw-research > .rw-pic { grid-column: span 4; }
-.rw-research > .rw-text { grid-column: span 3; }
-.rw-writing { grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); }
-.rw a.ptile:hover { border-color: var(--gold); box-shadow: var(--shadow-hover); }
-.rw .ptile h3 { font-size: clamp(1.25rem, 1.05rem + 0.6vw, 1.5rem); }
-/* Round five polish (2026-11-07): a quarter-width card sets its title smaller, so a short name such as
-   "The trial write-up" sits on one line with its lock. */
-.rw-text .ptile h3 { font-size: 1.125rem; line-height: 1.2; }
-.ptile-pic { padding: 0; gap: 0; overflow: hidden; }
-.ptile-img { aspect-ratio: 1200 / 630; border-bottom: 1px solid var(--line-card); background: var(--white); }
-.ptile-img img { display: block; width: 100%; height: 100%; object-fit: contain; }
-.ptile-body { display: flex; flex-direction: column; gap: 8px; padding: 18px 22px 46px; }
-@media (max-width: 960px) {
-  .rw-research > .rw-pic, .rw-research > .rw-text { grid-column: span 6; }
-}
-@media (max-width: 640px) {
-  .rw-research > .rw-pic, .rw-research > .rw-text { grid-column: 1 / -1; }
-  /* The same middle-band crop the portfolio uses on a phone; it still holds each report's name. */
-  .ptile-img { aspect-ratio: 1200 / 420; }
-  .ptile-img img { object-fit: cover; object-position: center; }
-}
+.ic-reports h2, .ic-field h2 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.375rem, 1.1rem + 0.9vw, 1.75rem); letter-spacing: -0.02em; line-height: 1.1; color: var(--ink); }
+
+/* Insights: Writing and Research as cards on a navy field band, Reports as the ruled list beside it */
+.ic-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); column-gap: clamp(28px, 4vw, 56px); row-gap: 40px; align-items: start; padding-block: clamp(28px, 4vw, 48px) clamp(40px, 6vw, 80px); }
+.ic-field { --ring: var(--gold-hot); display: grid; gap: 30px; padding: clamp(20px, 3vw, 32px); background: var(--ink); border-radius: var(--radius-lg); }
+.ic-field h2 { color: #fff; }
+.ic-cards { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 14px; }
+.ic-cards > li { min-width: 0; }
+.ic-reports h2 { margin-bottom: 16px; }
+.ic-reports .rep { grid-template-columns: minmax(0, 1fr) 16px; row-gap: 2px; }
+.ic-reports .rep-line { grid-column: 1; }
+.ic-reports .rep-arrow { grid-column: 2; grid-row: 1 / span 2; }
+@media (max-width: 860px) { .ic-grid { grid-template-columns: minmax(0, 1fr); } }
 
 .band-link { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.ic-field .band-link { color: #fff; text-decoration-color: var(--gold-hot); }
 
+/* The global section padding is too much inside these layouts; the bands carry their own */
+.ic-grid section { padding: 0; }
 /* Home: a calmer veil under the sentence, so the lattice lines do not cross the words */
 .hero .mast-veil { background: linear-gradient(90deg, rgba(15,27,45,0.92) 0%, rgba(15,27,45,0.82) 38%, rgba(15,27,45,0.4) 54%, rgba(15,27,45,0) 66%); }
 @media (max-width: 640px) { .hero .mast-veil { background: linear-gradient(180deg, rgba(15,27,45,0.1) 0, rgba(15,27,45,0.4) 150px, rgba(15,27,45,0.9) 240px, rgba(15,27,45,0.94) 100%); } }
