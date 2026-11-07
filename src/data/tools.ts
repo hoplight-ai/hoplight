@@ -75,6 +75,12 @@ export interface Tool {
   cleared: boolean;
   /** The slug of an older entry this one takes the place of once it is showing. */
   replaces?: string;
+  /**
+   * Set, with a one-line reason, to keep an entry off the portfolio whatever its date and clearance
+   * (PORTHOLD1, 2026-11-07): a cut, or a tool held back for its own announcement. The entry stays in
+   * the list so its old links and its preview card keep working.
+   */
+  hold?: string;
 }
 
 // The site's own tokens (src/app/globals.css :root), for pieces that carry the Hoplight look.
@@ -151,6 +157,8 @@ export const TOOLS: Tool[] = [
     // before the security report exists.
     releaseAt: '2026-11-07',
     cleared: true,
+    // Whit, 2026-11-07: "gut check should be an announcment too so hide that." The app stays up.
+    hold: 'held for its own announcement (Whit, 2026-11-07)',
   },
 
   // ---- Queued on the posting calendar (publicist, 2026-11-07) ----
@@ -240,6 +248,8 @@ export const TOOLS: Tool[] = [
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
+    // Whit, 2026-11-07: "hide agis and lets plan a post to announce it w analogy as partner in december."
+    hold: 'held for its December announcement with Analogy as partner (Whit, 2026-11-07)',
   },
   // Whit, 2026-10-20: "add AI Election Errors to the hoplight.ai portfolio page." Served at
   // /ai-election-errors from its own Vercel project (see next.config.ts rewrites).
@@ -281,6 +291,8 @@ export const TOOLS: Tool[] = [
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
+    // Whit, 2026-11-07: "cut bet apetit". Kept in the list so /bet-appetit and its card still resolve.
+    hold: 'cut by Whit, 2026-11-07',
   },
   {
     slug: 'oregon-school-budget-report',
@@ -387,11 +399,14 @@ export interface VisibleOptions {
 }
 
 /**
- * What the portfolio shows at `now`: released and cleared entries, newest release first (ties keep
- * their order in TOOLS), minus any older entry a showing entry replaces.
+ * What the portfolio shows at `now`: released and cleared entries that are not held, newest release
+ * first (ties keep their order in TOOLS), minus any older entry a showing entry replaces. A held entry
+ * never shows, not even in an uncleared preview render.
  */
 export function visibleTools(now: number, tools: Tool[] = TOOLS, opts: VisibleOptions = {}): Tool[] {
-  const showing = tools.filter((t) => releaseInstant(t.releaseAt) <= now && (t.cleared || opts.includeUncleared === true));
+  const showing = tools.filter(
+    (t) => !t.hold && releaseInstant(t.releaseAt) <= now && (t.cleared || opts.includeUncleared === true),
+  );
   const replaced = new Set(showing.map((t) => t.replaces).filter((s): s is string => Boolean(s)));
   return showing
     .filter((t) => !replaced.has(t.slug))

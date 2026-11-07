@@ -5,10 +5,16 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import { TOOLS, releaseInstant, visibleTools, portfolioClock } from '../src/data/tools.ts';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const at = (iso) => Date.parse(iso);
 const slugs = (list) => list.map((t) => t.slug);
+// The eight pieces of the 2026-10-21 gallery, every one still in the list so old links and cards work.
 const GALLERY = [
   'dnc-autopsy-taken-apart',
   'agis-policy-search-aria',
@@ -19,11 +25,55 @@ const GALLERY = [
   'which-ai-should-i-use',
   'worker-equity-dilution-at-ge',
 ];
+// Held off the portfolio whatever their date and clearance (PORTHOLD1). Whit, 2026-11-07: "cut bet apetit,
+// make letters live now, hide agis and lets plan a post to announce it w analogy as partner in december.
+// gut check should be an announcment too so hide that."
+const HELD = {
+  'bet-appetit': 'cut by Whit, 2026-11-07',
+  'agis-policy-search-aria': 'held for its December announcement with Analogy as partner (Whit, 2026-11-07)',
+  'gut-check': 'held for its own announcement (Whit, 2026-11-07)',
+};
+const SHOWN_GALLERY = GALLERY.filter((s) => !(s in HELD));
 
-test('schedule: from 2026-11-07 the page shows Gut Check first, then the eight gallery pieces in their old order', () => {
-  // Whit, 2026-11-07: "get gut punch up early" (Gut Check, moved up from 2026-11-10).
-  assert.deepEqual(slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))), GALLERY);
-  assert.deepEqual(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'))), ['gut-check', ...GALLERY]);
+test('schedule: from 2026-11-07 the page shows the gallery pieces not held, in their old order', () => {
+  assert.deepEqual(slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))), SHOWN_GALLERY);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'))), SHOWN_GALLERY);
+});
+
+test('hold: a held entry never shows, even released, cleared, or in an uncleared preview', () => {
+  const base = TOOLS.find((t) => t.slug === 'what-s-human');
+  const held = { ...base, slug: 'held-probe', releaseAt: '2026-01-01', cleared: true, hold: 'probe' };
+  const list = [...TOOLS, held];
+  const now = at('2026-11-07T12:00:00-08:00');
+  assert.ok(!slugs(visibleTools(now, list)).includes('held-probe'));
+  assert.ok(!slugs(visibleTools(now, list, { includeUncleared: true })).includes('held-probe'));
+  assert.ok(slugs(visibleTools(now, [...TOOLS, { ...held, hold: undefined }])).includes('held-probe'), 'the same entry shows unheld');
+});
+
+test('hold: the three held entries stay in the list with their reasons, and none shows at 2026-11-07 noon', () => {
+  const byslug = Object.fromEntries(TOOLS.map((t) => [t.slug, t]));
+  for (const [s, why] of Object.entries(HELD)) {
+    assert.ok(byslug[s], `${s} was deleted; it must stay so old links and cards work`);
+    assert.equal(byslug[s].hold, why, s);
+  }
+  assert.deepEqual(TOOLS.filter((t) => t.hold).map((t) => t.slug).sort(), Object.keys(HELD).sort());
+  const now = at('2026-11-07T12:00:00-08:00');
+  for (const opts of [{}, { includeUncleared: true }]) {
+    const shown = slugs(visibleTools(now, TOOLS, opts));
+    for (const s of Object.keys(HELD)) assert.ok(!shown.includes(s), `${s} shows`);
+  }
+});
+
+test('hold: the portfolio preview card draws no held tool', () => {
+  const src = readFileSync(path.join(ROOT, 'src/lib/brand/tool-card.ts'), 'utf8');
+  const m = /const LIBRARY = \[([^\]]*)\]/.exec(src);
+  assert.ok(m, 'LIBRARY not found in tool-card.ts');
+  const library = [...m[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
+  assert.ok(library.length > 0);
+  for (const s of library) {
+    assert.ok(TOOLS.some((t) => t.slug === s), `${s} is not a tool`);
+    assert.ok(!TOOLS.find((t) => t.slug === s).hold, `${s} is held but drawn on the portfolio card`);
+  }
 });
 
 test('schedule: the eight gallery pieces keep their words exactly', () => {
@@ -31,7 +81,7 @@ test('schedule: the eight gallery pieces keep their words exactly', () => {
   assert.equal(byslug['dnc-autopsy-taken-apart'].line, 'The party’s own 2024 after-action report, argued from its own numbers.');
   assert.equal(byslug['what-s-human'].href, 'https://whatshuman.vercel.app');
   assert.equal(byslug['bet-appetit'].line, 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.');
-  for (const s of GALLERY) assert.equal(byslug[s].cleared, true, s);
+  for (const s of GALLERY) assert.equal(byslug[s].cleared, true, s); // held entries keep cleared: true
 });
 
 test('schedule: a day starts at midnight Los Angeles time, standard and daylight', () => {
@@ -48,10 +98,10 @@ test('schedule: an uncleared entry never shows, even on its day', () => {
 
 test('schedule: a cleared entry shows from the first minute of its day, newest first', () => {
   const cleared = TOOLS.map((t) => (['undo', 'revenge-or-justice'].includes(t.slug) ? { ...t, cleared: true } : t));
-  assert.deepEqual(slugs(visibleTools(at('2026-11-09T23:59:00-08:00'), cleared)), ['gut-check', ...GALLERY]);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-09T23:59:00-08:00'), cleared)), SHOWN_GALLERY);
   const day = slugs(visibleTools(at('2026-11-10T00:00:00-08:00'), cleared));
   assert.deepEqual(day.slice(0, 2), ['revenge-or-justice', 'undo']);
-  assert.deepEqual(day.slice(2), ['gut-check', ...GALLERY]);
+  assert.deepEqual(day.slice(2), SHOWN_GALLERY);
 });
 
 test('schedule: an entry that replaces another takes its place once it shows, never both', () => {
@@ -94,7 +144,8 @@ test('schedule: the preview clock is ignored in production and honoured elsewher
   assert.deepEqual(portfolioClock({ ...env, VERCEL_ENV: 'preview' }, real), { now: at('2026-11-10T09:00:00-08:00'), includeUncleared: true });
   assert.deepEqual(portfolioClock({ PORTFOLIO_NOW: 'garbage' }, real), { now: real, includeUncleared: false });
   const preview = slugs(visibleTools(at('2026-11-10T09:00:00-08:00'), TOOLS, { includeUncleared: true }));
-  assert.deepEqual(preview.slice(0, 3), ['revenge-or-justice', 'undo', 'gut-check']);
+  assert.deepEqual(preview.slice(0, 3), ['revenge-or-justice', 'undo', ...SHOWN_GALLERY.slice(0, 1)]);
+  assert.ok(!preview.includes('gut-check'), 'a held entry shows in a preview render');
 });
 
 test('schedule: every slug is unique and every date is a real day', () => {
