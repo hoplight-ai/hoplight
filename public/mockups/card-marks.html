@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Five ways to mark a Hoplight card</title>
+<meta name="description" content="Five ways to mark a link-preview card as a Hoplight product or report, on Gut Check, Revenge or Justice and the DNC autopsy.">
+<meta property="og:title" content="Five ways to mark a Hoplight card">
+<meta property="og:description" content="Five ways to mark a link-preview card as a Hoplight product or report.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-title" content="Card marks">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.webmanifest">
+<!--
+  CARDMARK1, 2026-11-07. Whit: "each one feels like a muddled brand. I feel like we need some sort of
+  consistent marker of it being a hot light product or report, but each one needs to look like its own
+  specific brand." Five marking systems, each on the same three cards.
+
+  Where each tool's look comes from (read from the live pages on 2026-11-07, never invented):
+  - Gut Check, gut-check-hoplight.vercel.app/play: white ground, navy #0F1B2D, Inter 600 headline at
+    -0.02em, the statement card (18px radius, hairline inset shadow), outlined navy pill buttons
+    "Agree" and "Fight it", gold #D4950A progress bar on an #EEF1F5 track, muted text #4E5A6B.
+  - Revenge or Justice, hoplight.ai/revenge-or-justice: white ground, Albert Sans 600 title at -0.02em,
+    navy "Revenge or", "Justice" in #996D00, the bars picture (revenge #9C3327, justice #0F1B2D),
+    muted text #575752.
+  - DNC autopsy, taken apart, hoplight.ai/portfolio/dnc-autopsy-taken-apart.html: white ground, ink
+    #1A1A1A, system sans 700 title, numbers in red #C0392B at weight 800 ("480+", "pages total"), the
+    pull-quote block with a red left rule on a 6% red tint, muted text #575752.
+  Hoplight marker: the seed (src/lib/brand/seed.ts), the word in Albert Sans 600 as the site's lockup
+  draws it (src/lib/brand/marks.ts), navy #0F1B2D, gold #D4950A, seed gold #E8A820.
+-->
+<style>
+@font-face { font-family: 'Inter'; src: url('../fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: block; }
+@font-face { font-family: 'Albert Sans'; src: url("data:font/woff2;base64,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") format('woff2'); font-weight: 600; font-display: block; }
+
+:root { --ink: #0F1B2D; --gold: #D4950A; --gold-deep: #996D00; }
+* { box-sizing: border-box; }
+html, body { margin: 0; background: #FFFFFF; color: var(--ink); }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.45; }
+.page { max-width: 1400px; margin: 0 auto; padding: 32px 16px 96px; }
+h1 { font-size: clamp(26px, 1.4rem + 1.2vw, 34px); font-weight: 600; letter-spacing: -0.01em; line-height: 1.15; margin: 0 0 8px; text-wrap: balance; }
+.lede { margin: 0 0 8px; font-size: 17px; }
+section { margin-top: 72px; }
+h2 { font-size: 22px; font-weight: 600; margin: 0 0 4px; letter-spacing: -0.01em; }
+h2 b { display: inline-block; min-width: 1.4em; color: var(--gold-deep); font-weight: 700; }
+.what { margin: 0 0 20px; font-size: 16px; max-width: 62ch; }
+.full { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.small-label { margin: 28px 0 10px; font-size: 14px; font-weight: 500; }
+.small { display: flex; flex-wrap: wrap; gap: 16px; }
+.small .shot { width: 300px; flex: none; }
+
+/* A card is drawn at 1200 by 630 and scaled to its box. */
+.card { position: relative; width: 100%; aspect-ratio: 1200 / 630; overflow: hidden; border-radius: 12px; box-shadow: 0 0 0 1px rgba(15, 27, 45, 0.16); background: #FFFFFF; }
+.c { position: absolute; left: 0; top: 0; width: 1200px; height: 630px; transform-origin: 0 0; overflow: hidden; background: #FFFFFF; }
+.art { position: absolute; left: 0; top: 0; width: 1200px; height: 630px; transform-origin: 0 0; display: flex; align-items: center; justify-content: space-between; padding: 0 72px; }
+
+/* The phone's own caption under a link preview (system C only). */
+.cap { background: #E9E9EB; border-radius: 0 0 12px 12px; padding: 8px 12px 10px; margin-top: -12px; padding-top: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; }
+.cap .t { font-size: 15px; font-weight: 600; line-height: 1.25; color: #000000; }
+.cap .d { font-size: 13px; color: #6B6B70; }
+
+/* ---------- The three tools, each in its own look ---------- */
+/* Gut Check */
+.gut .name { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 140px; line-height: 0.98; letter-spacing: -0.02em; color: #0F1B2D; }
+.gut .bar { width: 300px; height: 16px; border-radius: 8px; background: #EEF1F5; margin-top: 40px; overflow: hidden; }
+.gut .bar i { display: block; width: 36%; height: 100%; background: #D4950A; }
+.gut .play { width: 560px; display: flex; flex-direction: column; align-items: flex-start; }
+.gut .q { width: 470px; padding: 40px 44px; border-radius: 36px; background: #FFFFFF; transform: rotate(3deg); font-family: 'Inter', sans-serif; font-weight: 600; font-size: 56px; line-height: 1.08; letter-spacing: -0.02em; color: #0F1B2D;
+  box-shadow: inset 0 0 0 3px rgba(15, 27, 45, 0.14), 0 2px 4px rgba(15, 27, 45, 0.06), 0 20px 56px rgba(15, 27, 45, 0.10); }
+.gut .pills { display: flex; gap: 16px; margin-top: 40px; }
+.gut .pills span { white-space: nowrap; border: 4px solid #0F1B2D; border-radius: 999px; padding: 8px 26px 12px; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 56px; line-height: 1.1; color: #0F1B2D; }
+
+/* Revenge or Justice */
+.roj .name { font-family: 'Albert Sans', sans-serif; font-weight: 600; font-size: 128px; line-height: 1.0; letter-spacing: -0.02em; color: #0F1B2D; }
+.roj .name .j { color: #996D00; }
+.roj svg.bars { width: 320px; height: 320px; flex: none; }
+
+/* DNC autopsy, taken apart */
+.dnc .name { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 700; font-size: 86px; line-height: 1.04; letter-spacing: -0.01em; color: #1A1A1A; }
+.dnc .pull { background: rgba(192, 57, 43, 0.06); border-left: 14px solid #C0392B; padding: 40px 52px 44px 44px; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+.dnc .num { font-weight: 800; font-size: 150px; line-height: 1; color: #C0392B; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.01em; }
+.dnc .lab { font-weight: 400; font-size: 56px; line-height: 1.1; color: #575752; margin-top: 12px; }
+
+/* ---------- The five Hoplight markers ---------- */
+.hw { font-family: 'Albert Sans', sans-serif; font-weight: 600; letter-spacing: -0.02em; }
+.kw { font-family: 'Albert Sans', sans-serif; font-weight: 600; letter-spacing: -0.01em; }
+
+/* A, corner seal: the app-icon tile pinned to the top-left corner, the kind beside it. */
+.sealA { position: absolute; left: 40px; top: 36px; display: flex; align-items: center; gap: 22px; }
+.sealA .tile { width: 112px; height: 112px; border-radius: 26px; background: #0F1B2D; display: flex; align-items: center; justify-content: center; }
+.sealA .words { font-size: 48px; line-height: 1.02; color: #0F1B2D; }
+.sealA .words .kw { color: #0F1B2D; }
+
+/* B, spine: a navy strip down the left edge. */
+.spineB { position: absolute; left: 0; top: 0; bottom: 0; width: 108px; background: #0F1B2D; display: flex; flex-direction: column; align-items: center; padding-top: 40px; }
+.spineB .v { writing-mode: vertical-rl; margin-top: 30px; font-size: 48px; line-height: 1; color: #FFFFFF; white-space: nowrap; }
+.spineB .v .kw { color: #D4950A; }
+
+/* D, frame: one gold frame inset on every card, the kind set into its bottom line. */
+.frameD { position: absolute; inset: 30px; border: 10px solid #D4950A; border-radius: 6px; pointer-events: none; }
+.legendD { position: absolute; left: 76px; bottom: 6px; background: #FFFFFF; padding: 0 22px; display: flex; align-items: center; gap: 16px; font-size: 48px; line-height: 1; color: #0F1B2D; }
+.legendD .kw { color: #996D00; }
+
+/* E, maker's mark: under the name, in the tool's own type and its own quiet colour. */
+.markE { display: flex; align-items: center; gap: 16px; margin-top: 34px; font-size: 48px; line-height: 1; letter-spacing: 0; }
+.gut .markE { font-family: 'Inter', sans-serif; font-weight: 500; color: #4E5A6B; }
+.roj .markE { font-family: 'Albert Sans', sans-serif; font-weight: 600; color: #575752; }
+.dnc .markE { font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; font-weight: 400; color: #575752; }
+.markE b { font-weight: inherit; }
+.gut .markE + .bar { display: none; }
+</style>
+</head>
+<body>
+<main class="page">
+  <h1>Five ways to mark a Hoplight card</h1>
+  <p class="lede">Same three cards in each: two products and one report.</p>
+  <div id="systems"></div>
+</main>
+
+<script>
+(function () {
+  // The seed of life, as src/lib/brand/seed.ts draws it: seven circles of radius 17 in a 100 box,
+  // the gold dot at the centre always gold.
+  var SEED_GOLD = '#E8A820';
+  function seed(px, line) {
+    var pts = [[50, 50], [50, 33], [64.7, 41.5], [64.7, 58.5], [50, 67], [35.3, 58.5], [35.3, 41.5]];
+    var c = pts.map(function (p) { return '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="17"/>'; }).join('');
+    return '<svg width="' + px + '" height="' + px + '" viewBox="0 0 100 100" aria-hidden="true">'
+      + '<g fill="none" stroke="' + line + '" stroke-width="4.6" stroke-opacity="0.95">' + c + '</g>'
+      + '<circle cx="50" cy="50" r="7" fill="' + SEED_GOLD + '"/></svg>';
+  }
+
+  // Revenge or Justice: the bars picture exactly as the live page draws it (rows -0.62, 0.86, 0.4, -0.28).
+  function bars() {
+    var rows = [-0.62, 0.86, 0.4, -0.28], mid = 140, rowH = 52, top = (280 - rows.length * rowH) / 2, s = '';
+    rows.forEach(function (v, i) {
+      var y = top + i * rowH + rowH / 2, w = Math.abs(v) * (mid - 8), x = v < 0 ? mid - w : mid;
+      s += '<line x1="8" y1="' + y + '" x2="272" y2="' + y + '" stroke="#0F1B2D" stroke-opacity="0.16" stroke-width="2"/>'
+        + '<rect x="' + x.toFixed(1) + '" y="' + (y - 13) + '" width="' + w.toFixed(1) + '" height="26" rx="5" fill="' + (v < 0 ? '#9C3327' : '#0F1B2D') + '"/>';
+    });
+    s += '<line x1="' + mid + '" y1="' + (top - 10) + '" x2="' + mid + '" y2="' + (top + rows.length * rowH + 10) + '" stroke="#0F1B2D" stroke-width="3"/>';
+    return '<svg class="bars" viewBox="0 0 280 280" aria-hidden="true">' + s + '</svg>';
+  }
+
+  var TOOLS = [
+    { id: 'gut', title: 'Gut Check', kind: 'product', domain: 'gut-check-hoplight.vercel.app', line: '#4E5A6B' },
+    { id: 'roj', title: 'Revenge or Justice', kind: 'product', domain: 'hoplight.ai', line: '#575752' },
+    { id: 'dnc', title: 'DNC autopsy, taken apart', kind: 'report', domain: 'hoplight.ai', line: '#575752' }
+  ];
+
+  // The maker's mark (system E): the seed in the tool's own quiet colour, then the words.
+  function markE(t) {
+    return '<div class="markE">' + seed(60, t.line) + '<span><b>Hoplight</b> ' + t.kind + '</span></div>';
+  }
+
+  function body(t, withMark) {
+    var m = withMark ? markE(t) : '';
+    if (t.id === 'gut') {
+      return '<div class="art gut"><div><div class="name">Gut<br>Check</div>' + m + '<div class="bar"><i></i></div></div>'
+        + '<div class="play"><div class="q">Hidden persuasion is manipulation</div>'
+        + '<div class="pills"><span>Agree</span><span>Fight it</span></div></div></div>';
+    }
+    if (t.id === 'roj') {
+      return '<div class="art roj"><div><div class="name">Revenge or<br><span class="j">Justice</span></div>' + m + '</div>' + bars() + '</div>';
+    }
+    return '<div class="art dnc"><div><div class="name">DNC<br>autopsy,<br>taken apart</div>' + m + '</div>'
+      + '<div class="pull"><div class="num">480+</div><div class="lab">pages total</div></div></div>';
+  }
+
+  // Fit the 1200 by 630 tool body into the box a system leaves it.
+  function fit(t, box, withMark) {
+    var k = Math.min(box.w / 1200, box.h / 630);
+    var x = box.x + (box.w - 1200 * k) / 2, y = box.y + (box.h - 630 * k) / 2;
+    return body(t, withMark).replace('class="art ', 'style="transform: translate(' + x + 'px,' + y + 'px) scale(' + k + ')" class="art ');
+  }
+
+  var SYSTEMS = [
+    { l: 'A', n: 'Corner seal', what: 'The Hoplight tile, the same as the app icon, pinned in the top-left corner with the kind beside it.',
+      draw: function (t) {
+        return fit(t, { x: 0, y: 0, w: 1200, h: 630 })
+          + '<div class="sealA"><div class="tile">' + seed(84, SEED_GOLD) + '</div>'
+          + '<div class="words"><div class="hw">Hoplight</div><div class="kw">' + t.kind + '</div></div></div>';
+      } },
+    { l: 'B', n: 'Spine', what: 'A navy strip down the left edge, like a book on a shelf. Everything right of it is the tool.',
+      draw: function (t) {
+        return fit(t, { x: 108, y: 0, w: 1092, h: 630 })
+          + '<div class="spineB">' + seed(64, SEED_GOLD) + '<div class="v"><span class="hw">Hoplight</span> <span class="kw">' + t.kind + '</span></div></div>';
+      } },
+    { l: 'C', n: 'Caption line', what: 'The picture is all tool. Hoplight and the kind ride in the title the phone prints under it.', caption: true,
+      draw: function (t) { return fit(t, { x: 0, y: 0, w: 1200, h: 630 }); } },
+    { l: 'D', n: 'Gold frame', what: 'One gold frame on every card, the kind set into its bottom line.',
+      draw: function (t) {
+        return fit(t, { x: 40, y: 44, w: 1120, h: 542 })
+          + '<div class="frameD"></div><div class="legendD"><span><span class="hw">Hoplight</span> <span class="kw">' + t.kind + '</span></span></div>';
+      } },
+    { l: 'E', n: "Maker's mark", what: 'Nothing laid over the art. The seed and the kind sit under the name, in the tool’s own type.',
+      draw: function (t) { return fit(t, { x: 0, y: 0, w: 1200, h: 630 }, true); } }
+  ];
+
+  function shot(s, t, small) {
+    var label = t.title + ', a Hoplight ' + t.kind;
+    var h = '<div class="shot"><div class="card" role="img" aria-label="' + label + ', system ' + s.l + '"><div class="c">' + s.draw(t) + '</div></div>';
+    if (s.caption && small) h += '<div class="cap"><div class="t">' + t.title + ', a Hoplight ' + t.kind + '</div><div class="d">' + t.domain + '</div></div>';
+    return h + '</div>';
+  }
+
+  var out = '';
+  SYSTEMS.forEach(function (s) {
+    var full = TOOLS.map(function (t) { return shot(s, t, false); }).join('');
+    var small = TOOLS.map(function (t) { return shot(s, t, true); }).join('');
+    out += '<section id="' + s.l.toLowerCase() + '"><h2><b>' + s.l + '</b>' + s.n + '</h2><p class="what">' + s.what + '</p>'
+      + '<div class="full">' + full + '</div>'
+      + '<p class="small-label">At text-message size</p><div class="small">' + small + '</div></section>';
+  });
+  document.getElementById('systems').innerHTML = out;
+
+  function scaleAll() {
+    document.querySelectorAll('.card').forEach(function (card) {
+      card.firstChild.style.transform = 'scale(' + (card.clientWidth / 1200) + ')';
+    });
+  }
+  scaleAll();
+  new ResizeObserver(scaleAll).observe(document.body);
+})();
+</script>
+</body>
+</html>
