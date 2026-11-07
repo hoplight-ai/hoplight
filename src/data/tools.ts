@@ -131,8 +131,10 @@ export const TOOLS: Tool[] = [
       wordmark: [{ text: 'Gut Check' }],
       glyph: 'cards',
     },
-    releaseAt: '2026-11-10',
-    cleared: false,
+    // Moved up from 2026-11-10 (Whit, 2026-11-07: "get gut punch up early"); cleared on his call
+    // before the security report exists.
+    releaseAt: '2026-11-07',
+    cleared: true,
   },
 
   // ---- Queued on the posting calendar (publicist, 2026-11-07) ----

@@ -20,8 +20,10 @@ const GALLERY = [
   'worker-equity-dilution-at-ge',
 ];
 
-test('schedule: today the page shows the eight gallery pieces, in their old order', () => {
-  assert.deepEqual(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'))), GALLERY);
+test('schedule: from 2026-11-07 the page shows Gut Check first, then the eight gallery pieces in their old order', () => {
+  // Whit, 2026-11-07: "get gut punch up early" (Gut Check, moved up from 2026-11-10).
+  assert.deepEqual(slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))), GALLERY);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'))), ['gut-check', ...GALLERY]);
 });
 
 test('schedule: the eight gallery pieces keep their words exactly', () => {
@@ -42,15 +44,14 @@ test('schedule: an uncleared entry never shows, even on its day', () => {
   const list = visibleTools(at('2026-11-10T09:00:00-08:00'));
   assert.ok(!slugs(list).includes('undo'));
   assert.ok(!slugs(list).includes('revenge-or-justice'));
-  assert.ok(!slugs(list).includes('gut-check'));
 });
 
 test('schedule: a cleared entry shows from the first minute of its day, newest first', () => {
-  const cleared = TOOLS.map((t) => (['undo', 'revenge-or-justice', 'gut-check'].includes(t.slug) ? { ...t, cleared: true } : t));
-  assert.deepEqual(slugs(visibleTools(at('2026-11-09T23:59:00-08:00'), cleared)), GALLERY);
+  const cleared = TOOLS.map((t) => (['undo', 'revenge-or-justice'].includes(t.slug) ? { ...t, cleared: true } : t));
+  assert.deepEqual(slugs(visibleTools(at('2026-11-09T23:59:00-08:00'), cleared)), ['gut-check', ...GALLERY]);
   const day = slugs(visibleTools(at('2026-11-10T00:00:00-08:00'), cleared));
-  assert.deepEqual(day.slice(0, 3), ['revenge-or-justice', 'undo', 'gut-check']);
-  assert.deepEqual(day.slice(3), GALLERY);
+  assert.deepEqual(day.slice(0, 2), ['revenge-or-justice', 'undo']);
+  assert.deepEqual(day.slice(2), ['gut-check', ...GALLERY]);
 });
 
 test('schedule: an entry that replaces another takes its place once it shows, never both', () => {
@@ -81,7 +82,9 @@ test('schedule: the posting calendar dates', () => {
   const byslug = Object.fromEntries(TOOLS.map((t) => [t.slug, t]));
   assert.equal(byslug['rumi'].releaseAt, '2026-11-24');
   assert.equal(byslug['letters'].releaseAt, '2026-12-09');
-  for (const s of ['revenge-or-justice', 'undo', 'gut-check']) assert.equal(byslug[s].releaseAt, '2026-11-10');
+  for (const s of ['revenge-or-justice', 'undo']) assert.equal(byslug[s].releaseAt, '2026-11-10');
+  assert.equal(byslug['gut-check'].releaseAt, '2026-11-07');
+  assert.equal(byslug['gut-check'].cleared, true);
 });
 
 test('schedule: the preview clock is ignored in production and honoured elsewhere', () => {
