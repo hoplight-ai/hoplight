@@ -39,6 +39,13 @@ export interface ToolBrand {
    */
   wordmark: { text: string; accent?: boolean; mark?: string }[];
   glyph: ToolGlyph;
+  /**
+   * Two cards whose names run long (Oregon, GE) draw a smaller picture (240) so the name holds two lines;
+   * Oregon's heavy face also sets its name at 100px. Every other card stays at 280 and 112px (third
+   * visual review, 2026-11-07).
+   */
+  pic?: number;
+  namePx?: number;
 }
 
 export interface Tool {
@@ -261,7 +268,9 @@ export const TOOLS: Tool[] = [
       accent: '#B42318',
       ink: '#111111',
       display: { family: 'Archivo', weight: 900 },
-      wordmark: [{ text: 'Oregon' }, { text: 'school' }, { text: 'budget' }, { text: 'report' }],
+      wordmark: [{ text: 'Oregon school' }, { text: 'budget report' }],
+      pic: 240,
+      namePx: 100,
       glyph: 'years',
     },
     releaseAt: GALLERY_AS_OF,
@@ -297,7 +306,7 @@ export const TOOLS: Tool[] = [
       accent: GOLD_DEEP,
       ink: NAVY,
       display: { family: 'Albert Sans', weight: 600 },
-      wordmark: [{ text: 'Which AI' }, { text: 'should I' }, { text: 'use?' }],
+      wordmark: [{ text: 'Which AI' }, { text: 'should I use?' }],
       glyph: 'picker',
     },
     releaseAt: GALLERY_AS_OF,
@@ -315,7 +324,8 @@ export const TOOLS: Tool[] = [
       accent: '#2E7D32',
       ink: '#1F2A44',
       display: { family: 'Inter', weight: 700 },
-      wordmark: [{ text: 'Worker' }, { text: 'equity' }, { text: 'dilution' }, { text: 'at GE' }],
+      wordmark: [{ text: 'Worker equity' }, { text: 'dilution at GE' }],
+      pic: 240,
       glyph: 'area',
     },
     releaseAt: GALLERY_AS_OF,

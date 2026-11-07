@@ -70,7 +70,7 @@ function nameBlock(b: ToolBrand, fonts: CardFonts, maxWidth: number): ReactEleme
         maxWidth: `${maxWidth}px`,
         fontFamily: fonts.display ?? 'sans-serif',
         fontWeight: b.display.weight,
-        fontSize: `${NAME_PX}px`,
+        fontSize: `${b.namePx ?? NAME_PX}px`,
         lineHeight: LINE_H,
         letterSpacing: '-0.02em',
       },
@@ -138,7 +138,9 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
   const b = tool.brand;
   const band = opts.band !== false;
   const svg = tool.library ? null : pictureSvg(b);
-  const size = pictureSize(b);
+  const size = b.pic ? { w: b.pic, h: b.pic } : pictureSize(b);
+  // A smaller picture sits a little closer to its name, so a two-line long name keeps its lines.
+  const gap = b.pic ? 32 : GAP;
   const fieldH = band ? CARD_H - BAND_H - RULE_H : CARD_H;
   const inner = CARD_W - PAD * 2;
 
@@ -154,7 +156,7 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
     field = h(
       'div',
       { style: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: `${CARD_W}px`, height: `${fieldH}px`, padding: `0 ${PAD}px`, backgroundColor: b.ground } },
-      nameBlock(b, fonts, svg ? inner - size.w - GAP : inner),
+      nameBlock(b, fonts, svg ? inner - size.w - gap : inner),
       svg ? picture(svg, size.w, size.h) : null,
     );
   }
