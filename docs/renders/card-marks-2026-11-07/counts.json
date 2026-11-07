@@ -1,5 +1,5 @@
 {
-  "words_in_first_screen": 98,
+  "words_in_first_screen": 99,
   "text_share_of_first_screen_pct": 15.1,
   "type_sizes_in_first_screen": [
     14,
@@ -67,7 +67,7 @@
     "60px: pages total"
   ],
   "filled_buttons_in_first_screen": [],
-  "distinct_hues_in_first_screen": 4,
+  "distinct_hues_in_first_screen": 3,
   "colour_keys_on_page": 0,
   "em_dashes_whole_page": 0,
   "em_dashes_first_screen": 0,
@@ -77,7 +77,7 @@
   "sideways_scroll": false,
   "page_height_px": 2999,
   "phone_sideways_scroll": false,
-  "target": "/Users/whitpendergast/Documents/Code Claude/hoplight-site-cardmark1/public/mockups/card-marks.html",
+  "target": "http://localhost:4517/mockups/card-marks.html",
   "pictures": [
     "/Users/whitpendergast/Documents/Code Claude/hoplight-site-cardmark1/docs/renders/card-marks-2026-11-07/desktop-colour.png",
     "/Users/whitpendergast/Documents/Code Claude/hoplight-site-cardmark1/docs/renders/card-marks-2026-11-07/desktop-grayscale.png",
