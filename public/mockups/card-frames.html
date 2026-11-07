@@ -93,7 +93,9 @@ h2 { font-size: 20px; font-weight: 500; margin: 0; letter-spacing: -0.01em; }
 .foot { position: absolute; left: 96px; top: 522px; height: 108px; display: flex; align-items: center; gap: 22px; }
 .hw { font-family: 'Albert Sans', sans-serif; font-weight: 600; font-size: 56px; line-height: 1; letter-spacing: -0.02em; color: #FFFFFF; white-space: nowrap; }
 .hw.small { font-size: 46px; }
-.foot svg { flex: none; }
+/* The bloom's seven circles fill 68% of its 100 box, so a 132 box draws a 90 flower in the 108 foot;
+   the empty margin of the box is pulled back so the flower, not its box, lines up with the text. */
+.foot svg { flex: none; margin: -12px -21px; }
 
 /* ---------- The five products, each in its own look ---------- */
 /* Rumi Español */
@@ -180,15 +182,21 @@ h2 { font-size: 20px; font-weight: 500; margin: 0; letter-spacing: -0.01em; }
   // Revenge or Justice, proposed picture: a balance scale, level, in the product's own colours. The
   // beam and post in navy, the revenge pan in its red, the justice pan in its gold. No blade.
   function scales() {
+    // The beam tips 8 degrees about its pivot (170, 60) so the justice pan hangs lower; each pan still
+    // hangs straight down, so it moves with its end of the beam (122 * sin 8 = 17 up or down) without turning.
     return '<svg viewBox="0 0 340 320" aria-hidden="true">'
-      + '<g stroke="#0F1B2D" stroke-width="3" stroke-linecap="round">'
-      + '<line x1="48" y1="66" x2="6" y2="196"/><line x1="48" y1="66" x2="90" y2="196"/>'
-      + '<line x1="292" y1="66" x2="250" y2="196"/><line x1="292" y1="66" x2="334" y2="196"/></g>'
-      + '<path d="M3 194 Q48 252 93 194 Z" fill="#9C3327"/>'
-      + '<path d="M247 194 Q292 252 337 194 Z" fill="#D4950A"/>'
+      + '<g transform="translate(1.2 -17)">'
+      + '<line x1="48" y1="66" x2="6" y2="196" stroke="#0F1B2D" stroke-width="3" stroke-linecap="round"/>'
+      + '<line x1="48" y1="66" x2="90" y2="196" stroke="#0F1B2D" stroke-width="3" stroke-linecap="round"/>'
+      + '<path d="M3 194 Q48 252 93 194 Z" fill="#9C3327"/></g>'
+      + '<g transform="translate(-1.2 17)">'
+      + '<line x1="292" y1="66" x2="250" y2="196" stroke="#0F1B2D" stroke-width="3" stroke-linecap="round"/>'
+      + '<line x1="292" y1="66" x2="334" y2="196" stroke="#0F1B2D" stroke-width="3" stroke-linecap="round"/>'
+      + '<path d="M247 194 Q292 252 337 194 Z" fill="#D4950A"/></g>'
       + '<rect x="164" y="40" width="12" height="244" fill="#0F1B2D"/>'
+      + '<g transform="rotate(8 170 60)">'
       + '<rect x="32" y="54" width="276" height="12" rx="6" fill="#0F1B2D"/>'
-      + '<circle cx="48" cy="60" r="9" fill="#0F1B2D"/><circle cx="292" cy="60" r="9" fill="#0F1B2D"/>'
+      + '<circle cx="48" cy="60" r="9" fill="#0F1B2D"/><circle cx="292" cy="60" r="9" fill="#0F1B2D"/></g>'
       + '<circle cx="170" cy="34" r="14" fill="#0F1B2D"/>'
       + '<path d="M112 314 L228 314 L210 284 L130 284 Z" fill="#0F1B2D"/>'
       + '</svg>';
@@ -218,8 +226,8 @@ h2 { font-size: 20px; font-weight: 500; margin: 0; letter-spacing: -0.01em; }
 
   var TREATMENTS = [
     { n: '1', name: 'Hoplight, the word', mark: function () { return WORD; } },
-    { n: '2', name: 'The bloom alone', mark: function () { return bloom(88); } },
-    { n: '3', name: 'The bloom leads, the word teaches it', mark: function () { return bloom(88) + '<span class="hw small">Hoplight</span>'; } }
+    { n: '2', name: 'The bloom alone', mark: function () { return bloom(132); } },
+    { n: '3', name: 'The bloom and the word', mark: function () { return bloom(132) + '<span class="hw small">Hoplight</span>'; } }
   ];
 
   function shot(t, p) {
