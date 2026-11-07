@@ -1,26 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { FACTS } from '@/lib/facts';
-import { pageMetadata } from '@/lib/metadata';
+import { portfolioClock, visibleTools } from '@/data/tools';
+import { toolMetadata } from '@/lib/metadata';
 
-// The gallery used to live on the vault app's vercel.app address. Whit, 2026-09-15: it belongs on
-// hoplight.ai. The interactive pieces are served from public/portfolio/ (npm run gallery:pull).
-type Piece = { slug: string; title: string; blurb: string; href: string; live?: boolean; thumb?: string };
-
-const PIECES: Piece[] = [
-  { slug: 'dnc-autopsy-taken-apart', title: 'DNC autopsy, taken apart', blurb: 'The party’s own 2024 after-action report, argued from its own numbers.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
-  // "(ARIA)" dropped (copy review, 2026-09-16): the card's own blurb never explains what ARIA
-  // stands for, and AGIS is already the load-bearing name here.
-  { slug: 'agis-policy-search-aria', title: 'AGIS policy search', blurb: `${FACTS.agis.sources} sources, ${FACTS.agis.jurisdictions} jurisdictions, searchable in plain English.`, href: '/agis', live: true },
-  // Whit, 2026-10-20: "add AI Election Errors to the hoplight.ai portfolio page." Served at
-  // /ai-election-errors from its own Vercel project (see next.config.ts rewrites).
-  { slug: 'ai-election-errors', title: 'AI Election Errors', blurb: 'Did a chatbot give someone wrong election information? A public form that builds the shared record.', href: '/ai-election-errors', live: true },
-  { slug: 'bet-appetit', title: 'Bet Appetit', blurb: 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.', href: '/bet-appetit', live: true, thumb: '/portfolio/thumbs/bet-appetit-demo.jpg' },
-  { slug: 'oregon-school-budget-report', title: 'Oregon school budget report', blurb: 'Where Oregon K-12 money actually goes.', href: '/portfolio/oregon-school-budget-report.html' },
-  { slug: 'what-s-human', title: 'What’s Human?', blurb: 'Guess whether a person or a machine wrote the text. Live vote tally.', href: 'https://whatshuman.vercel.app', live: true },
-  { slug: 'which-ai-should-i-use', title: 'Which AI should I use?', blurb: 'Answer a few questions, get told which model fits the job.', href: '/tools/which-ai', live: true },
-  { slug: 'worker-equity-dilution-at-ge', title: 'Worker equity dilution at GE', blurb: '80 years of worker equity draining out of one company.', href: '/portfolio/worker-equity-dilution-at-ge.html' },
-];
+// The list lives in src/data/tools.ts with a release day and a cleared flag per entry (Whit,
+// 2026-11-07: "launch portfolio page w 3 builds and i keep adding on a posting schedule"). Rebuilt at
+// most once an hour, so an entry whose day has come appears with no deploy.
+export const revalidate = 3600;
 
 // Nine pieces left the gallery on 2026-10-21 (Whit: "i want these removed from my hoplight.ai portfolio"):
 // the PDI trust dilution model, Where political money actually works, Redistricting seat shifts, the
@@ -28,15 +14,18 @@ const PIECES: Piece[] = [
 // Federal agency AI inventory, the AI lobbyist player map and the AI governance checklist. Their files
 // stay under public/portfolio/ (the design tests read them); nothing links to them.
 
-export const metadata: Metadata = pageMetadata({
+export const metadata: Metadata = toolMetadata('portfolio', {
   title: 'Portfolio',
   description:
     'A selection of AI systems Hoplight has shipped for labor, advocacy, and mission-driven organizations. Most of them open in your browser.',
   path: '/portfolio',
+  ogTitle: 'The Hoplight portfolio',
   ogDescription: 'Systems we’ve shipped. Most of them open in your browser.',
 });
 
 export default function Portfolio() {
+  const clock = portfolioClock(process.env);
+  const pieces = visibleTools(clock.now, undefined, { includeUncleared: clock.includeUncleared });
   return (
     <>
       <div className="page-hero">
@@ -58,9 +47,9 @@ export default function Portfolio() {
             </p>
           </div>
           <ul className="gallery-grid">
-            {PIECES.map((p) => {
+            {pieces.map((p) => {
               const external = p.href.startsWith('http');
-              const thumb = p.thumb ?? `/portfolio/thumbs/${p.slug}.jpg`;
+              const live = p.kind === 'live';
               return (
                 <li key={p.slug}>
                   <a
@@ -69,7 +58,7 @@ export default function Portfolio() {
                     {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   >
                     <div className="wcard-img">
-                      {thumb ? (
+                      {p.thumb ? (
                         // Responsive WebP variants (scripts/optimize-portfolio-thumbs.mjs,
                         // performance review 2026-09-16 #7): phones get the 600px file instead of
                         // the same full-desktop JPG a 1440px screen downloads. The 1200w WebP source
@@ -78,21 +67,32 @@ export default function Portfolio() {
                         <picture>
                           <source
                             type="image/webp"
-                            srcSet={`${thumb.replace(/\.jpg$/, '-600.webp')} 600w, ${thumb.replace(/\.jpg$/, '-1200.webp')} 1200w`}
+                            srcSet={`${p.thumb.replace(/\.jpg$/, '-600.webp')} 600w, ${p.thumb.replace(/\.jpg$/, '-1200.webp')} 1200w`}
                             sizes="(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 380px"
                           />
-                          <img src={thumb} alt="" width={1200} height={750} loading="lazy" decoding="async" />
+                          <img src={p.thumb} alt="" width={1200} height={750} loading="lazy" decoding="async" />
                         </picture>
                       ) : (
-                        <span className="wcard-plate">{p.title}</span>
+                        // No screenshot yet: the tool's own link-preview card, without the Hoplight
+                        // band (this page is already Hoplight's), so the gallery and a pasted link
+                        // show the same face.
+                        <img
+                          className="wcard-card"
+                          src={`/api/og/tool/${p.slug}?band=0`}
+                          alt=""
+                          width={1200}
+                          height={630}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       )}
                     </div>
                     <div className="wcard-body">
-                      <span className="wc-tag">{p.live ? 'Live app' : 'Interactive'}</span>
-                      <h3>{p.title}</h3>
-                      <p>{p.blurb}</p>
+                      <span className="wc-tag">{live ? 'Live app' : 'Interactive'}</span>
+                      <h3>{p.name}</h3>
+                      <p>{p.line}</p>
                       <span className="wc-go">
-                        {p.live ? 'Open the live app' : 'Open it'}{' '}&rarr;
+                        {live ? 'Open the live app' : 'Open it'}{' '}&rarr;
                         {external && <span aria-hidden="true"> ↗</span>}
                         {external && <span className="sr-only"> (opens in a new tab)</span>}
                       </span>

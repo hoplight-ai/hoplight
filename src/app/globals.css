@@ -375,6 +375,8 @@ section { padding: var(--space-section) 0; }
 .gallery-grid .wcard, .gallery-grid .wcard-body h3 { color: var(--ink); }
 .gallery-grid .wcard-img img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
 .gallery-grid .wcard-plate { color: #fff; font-weight: 700; font-size: 1.05rem; padding: 0 24px; text-align: center; }
+/* A tool with no screenshot shows its own link-preview card (src/data/tools.ts, 2026-11-07), centred so the name stays whole. */
+.gallery-grid .wcard-img img.wcard-card { object-position: center; }
 /* The hover used to brighten the link to --gold, 2.6:1 on the white card. It keeps option C and gains an
    underline instead, so the link still answers the pointer; the card's gold edge and shadow do the rest. */
 .wcard:hover .wc-go { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 3px; }
