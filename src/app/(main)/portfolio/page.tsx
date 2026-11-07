@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { portfolioClock, visibleTools } from '@/data/tools';
+import { portfolioClock, shelves, visibleTools } from '@/data/tools';
 import { toolMetadata } from '@/lib/metadata';
 
 // The list lives in src/data/tools.ts with a release day and a cleared flag per entry (Whit,
@@ -33,7 +33,7 @@ const RESTATES_NAME = new Set(['which-ai-should-i-use', 'oregon-school-budget-re
 
 export default function Portfolio() {
   const clock = portfolioClock(process.env);
-  const pieces = visibleTools(clock.now, undefined, { includeUncleared: clock.includeUncleared });
+  const parts = shelves(visibleTools(clock.now, undefined, { includeUncleared: clock.includeUncleared }));
   return (
     <>
       <div className="page-hero portfolio-hero">
@@ -43,52 +43,84 @@ export default function Portfolio() {
       </div>
 
       {/* The gallery opens straight onto the tiles, so a full row sits in the first screen at 1440 by 900
-          (visual review, 2026-11-07). Its old heading block and the two mono labels went then. */}
-      <section className="slate portfolio-gallery" aria-label="The gallery">
-        <div className="wrap">
-          <ul className="gallery-grid">
-            {pieces.map((p, i) => {
-              const external = p.href.startsWith('http');
-              return (
-                <li key={p.slug}>
-                  <a
-                    className="wcard"
-                    href={p.href}
-                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  >
-                    <div className="wcard-img wcard-img-card">
-                      {/* Every tile is the tool's own link-preview card without the Hoplight band
-                          (this page is already Hoplight's), so the gallery and a pasted link show
-                          the same face. The card carries the name, so the text below does not
-                          repeat it except for screen readers. */}
-                      <img
-                        className="wcard-card"
-                        src={`/api/og/tool/${p.slug}?band=0`}
-                        alt=""
-                        width={1200}
-                        height={630}
-                        loading={i < 3 ? 'eager' : 'lazy'}
-                        decoding="async"
-                      />
-                    </div>
-                    <div className="wcard-body">
-                      <h2 className="sr-only">{p.name}</h2>
-                      {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
-                      <span className="wc-go">
-                        {/* One action, one label (HOPSITE2 review, 2026-11-07): "Open the live app" went. A tile that
-                            leaves the site shows the outward arrow alone (design review, same day). */}
-                        Open it{' '}
-                        {external ? <span aria-hidden="true">↗</span> : <>&rarr;</>}
+          (visual review, 2026-11-07). Its old heading block and the two mono labels went then.
+          PORTSPLIT1, 2026-11-07 (Whit: "we had previously split out reports from apps and dashboards and I
+          think we need that sort of division"): the one list is two parts, Products then Reports, each under
+          one word and nothing else, each drawn only when it has an entry showing that day. Products keep the
+          card tiles; Reports are a plain list of name and line, which is a third of the height at 375 and
+          makes the two kinds of thing look different before a word is read. */}
+      {parts.map((part) => (
+        <section key={part.shelf} className={`slate portfolio-gallery portfolio-${part.shelf}s`} data-shelf={part.shelf} aria-labelledby={`shelf-${part.shelf}`}>
+          <div className="wrap">
+            <h2 className="shelf-head" id={`shelf-${part.shelf}`}>{part.heading}</h2>
+            {part.shelf === 'product' ? (
+              <ul className="gallery-grid">
+                {part.tools.map((p, i) => {
+                  const external = p.href.startsWith('http');
+                  return (
+                    <li key={p.slug}>
+                      <a
+                        className="wcard"
+                        href={p.href}
+                        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
+                        <div className="wcard-img wcard-img-card">
+                          {/* Every tile is the tool's own link-preview card without the Hoplight band
+                              (this page is already Hoplight's), so the gallery and a pasted link show
+                              the same face. The card carries the name, so the text below does not
+                              repeat it except for screen readers. */}
+                          <img
+                            className="wcard-card"
+                            src={`/api/og/tool/${p.slug}?band=0`}
+                            alt=""
+                            width={1200}
+                            height={630}
+                            loading={i < 3 ? 'eager' : 'lazy'}
+                            decoding="async"
+                          />
+                        </div>
+                        <div className="wcard-body">
+                          <h3 className="sr-only">{p.name}</h3>
+                          {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
+                          <span className="wc-go">
+                            {/* One action, one label (HOPSITE2 review, 2026-11-07): "Open the live app" went. A tile that
+                                leaves the site shows the outward arrow alone (design review, same day). */}
+                            Open it{' '}
+                            {external ? <span aria-hidden="true">↗</span> : <>&rarr;</>}
+                            {external && <span className="sr-only"> (opens in a new tab)</span>}
+                          </span>
+                        </div>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            ) : (
+              <ul className="report-list">
+                {part.tools.map((p) => {
+                  const external = p.href.startsWith('http');
+                  return (
+                    <li key={p.slug}>
+                      <a
+                        className="report-row"
+                        href={p.href}
+                        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                      >
+                        {/* The look pass (PORTSPLIT1, 2026-11-07) took the "Open it" label off each row: three
+                            gold labels made a second accent column beside the tiles' own, and the whole
+                            row is the link. */}
+                        <h3>{p.name}</h3>
+                        {!RESTATES_NAME.has(p.slug) && <p>{p.line}</p>}
                         {external && <span className="sr-only"> (opens in a new tab)</span>}
-                      </span>
-                    </div>
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </section>
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </section>
+      ))}
 
       {/* The design review of 2026-11-07, fix 1: the router block (its sentence and its two buttons) went.
           The router is a one-off and is never surfaced; scripts/portfolio-public.test.mjs keeps it off. */}

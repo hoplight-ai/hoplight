@@ -128,6 +128,7 @@
   first, and revalidates hourly, so a cleared entry appears on its day with no deploy. Flip `cleared` only
   after `npm run launch:check -- <slug>` passes. Outside production, `PORTFOLIO_NOW` and
   `PORTFOLIO_SHOW_UNCLEARED=1` let a render show a future drop. Tested in `scripts/portfolio-schedule.test.mjs`.
+- **Every entry carries `shelf: 'product' | 'report'`** (required by the type; PORTSPLIT1, 2026-11-07, Whit: "we had previously split out reports from apps and dashboards and I think we need that sort of division"). `/portfolio` draws Products (card tiles) first, then Reports (a plain list), each only when it has an entry showing; `shelves()` in `src/data/tools.ts` does the split. `shelf` is not `kind`, which stays the state label. Tested in `scripts/portfolio-shelf.test.mjs`.
 - **Every tool has its own preview card** at `/api/og/tool/<slug>` (`src/lib/brand/tool-card.ts`): the tool's
   name and look above one identical Hoplight band. Pages use `toolMetadata()` in `src/lib/metadata.ts`.
   `npm run cards:export -- --base <url>` writes every card as a PNG.

@@ -19,6 +19,13 @@ import { FACTS } from '../lib/facts.ts';
 
 export type ToolKind = 'live' | 'interactive';
 
+/**
+ * Which part of the portfolio an entry sits in: a product someone uses, or a report someone reads.
+ * Whit, 2026-11-07: "we had previously split out reports from apps and dashboards and I think we need
+ * that sort of division ... like dilution at GE is a report." Required, so no drop lands without one.
+ */
+export type Shelf = 'product' | 'report';
+
 /** The one picture a card draws (src/data/tool-pictures.ts), taken from the tool's own first screen. */
 export type ToolGlyph =
   | 'none' | 'bars' | 'field' | 'cards' | 'cat' | 'letter' | 'map' | 'bubble' | 'rosette' | 'quotes'
@@ -59,6 +66,8 @@ export interface Tool {
   line: string;
   href: string;
   kind: ToolKind;
+  /** Products or Reports on /portfolio (PORTSPLIT1, 2026-11-07). */
+  shelf: Shelf;
   brand: ToolBrand;
   /** YYYY-MM-DD, the day it goes public, read as midnight America/Los_Angeles. */
   releaseAt: string;
@@ -88,6 +97,7 @@ export const TOOLS: Tool[] = [
     line: 'Paste a statement or a link. It says whether the words sound like revenge or justice, and how to say it so it lands.',
     href: '/revenge-or-justice',
     kind: 'live',
+    shelf: 'product',
     // The page's own look: white ground, navy type, the result rows' centre line with revenge
     // running left in flag red and justice running right in navy. "Justice" rings second (Whit,
     // 2026-11-06: "make justice the second thing so that it rings").
@@ -108,6 +118,7 @@ export const TOOLS: Tool[] = [
     line: 'Everything the second Trump administration did, sorted by what it takes to undo it in 2029.',
     href: '/undo',
     kind: 'live',
+    shelf: 'product',
     // The page's own look: the signature field, one outlined square per pen item, gold when signed.
     brand: {
       ground: WHITE,
@@ -126,6 +137,7 @@ export const TOOLS: Tool[] = [
     line: 'Take a side on AI, the midterms, psychedelics, golf or the baseball draft, one card at a time.',
     href: 'https://gut-check-hoplight.vercel.app/play',
     kind: 'live',
+    shelf: 'product',
     // Read from gut-check-hoplight.vercel.app/play on 2026-11-07: navy and gold, Inter.
     brand: {
       ground: NAVY,
@@ -148,6 +160,7 @@ export const TOOLS: Tool[] = [
     line: 'A Spanish app for a five-year-old who cannot read yet. Tap, listen, repeat.',
     href: 'https://rumi-rouge.vercel.app',
     kind: 'live',
+    shelf: 'product',
     // Read from rumi-rouge.vercel.app on 2026-11-07: a bright purple first screen (a purple to pink
     // gradient there; one flat purple here, since a card carries no gradient), white heavy sans, and
     // Rumi the cat, drawn as the app draws it. "Español" keeps the gold of the app's own preview card.
@@ -168,6 +181,7 @@ export const TOOLS: Tool[] = [
     line: 'A letter-formation app for a four-year-old: where each stroke starts, which way it goes, and in what order. Then paper.',
     href: 'https://letters-ten-eta.vercel.app',
     kind: 'live',
+    shelf: 'product',
     // Read from letters-ten-eta.vercel.app on 2026-11-07. Its warm paper ground is a cream, which a
     // Hoplight surface never carries (Whit, 2026-10-06), so the card takes the app's own cool ground
     // (#E9F0F3, one of its three themes) with its ink and its burnt-orange start marker.
@@ -192,6 +206,7 @@ export const TOOLS: Tool[] = [
     line: 'The party’s own 2024 after-action report, argued from its own numbers.',
     href: '/portfolio/dnc-autopsy-taken-apart.html',
     kind: 'interactive',
+    shelf: 'report',
     brand: {
       // The report page: white, near-black type, its numbers and quote rules in red.
       ground: WHITE,
@@ -212,6 +227,7 @@ export const TOOLS: Tool[] = [
     line: `${FACTS.agis.sources} sources, ${FACTS.agis.jurisdictions} jurisdictions, searchable in plain English.`,
     href: '/agis',
     kind: 'live',
+    shelf: 'product',
     brand: {
       // The AGIS header: its purple, white type in Barlow Semi Condensed, the map panel under it.
       ground: '#6F3DB8',
@@ -233,6 +249,7 @@ export const TOOLS: Tool[] = [
     line: 'Did a chatbot give someone wrong election information? A public form that builds the shared record.',
     href: '/ai-election-errors',
     kind: 'live',
+    shelf: 'product',
     brand: {
       // The intake page: white, Source Serif headline with a yellow highlighter, the assistant's answer.
       ground: WHITE,
@@ -251,6 +268,7 @@ export const TOOLS: Tool[] = [
     line: 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.',
     href: '/bet-appetit',
     kind: 'live',
+    shelf: 'product',
     brand: {
       // The guide's red band, its white serif name and rosette.
       ground: '#A4212F',
@@ -270,6 +288,7 @@ export const TOOLS: Tool[] = [
     line: 'Where Oregon K-12 money actually goes.',
     href: '/portfolio/oregon-school-budget-report.html',
     kind: 'interactive',
+    shelf: 'report',
     brand: {
       // The report's first screen: a black Archivo headline on white, its eyebrow in red.
       ground: WHITE,
@@ -290,6 +309,7 @@ export const TOOLS: Tool[] = [
     line: 'Guess whether a person or a machine wrote the text. Live vote tally.',
     href: 'https://whatshuman.vercel.app',
     kind: 'live',
+    shelf: 'product',
     brand: {
       // The game's near-black ground, Lora title, outlined choice chips.
       ground: '#0D1017',
@@ -308,6 +328,7 @@ export const TOOLS: Tool[] = [
     line: 'Answer a few questions, get told which model fits the job.',
     href: '/tools/which-ai',
     kind: 'live',
+    shelf: 'product',
     brand: {
       // The picker page: the site's white and navy, its table of red, yellow and green.
       ground: WHITE,
@@ -326,6 +347,7 @@ export const TOOLS: Tool[] = [
     line: '80 years of worker equity draining out of one company.',
     href: '/portfolio/worker-equity-dilution-at-ge.html',
     kind: 'interactive',
+    shelf: 'report',
     brand: {
       // The model page: white, navy title, the grey workforce area and the green pool line.
       ground: WHITE,
@@ -376,6 +398,27 @@ export function visibleTools(now: number, tools: Tool[] = TOOLS, opts: VisibleOp
     .map((t, i) => ({ t, i, at: releaseInstant(t.releaseAt) }))
     .sort((a, b) => b.at - a.at || a.i - b.i)
     .map((x) => x.t);
+}
+
+export interface ShelfPart {
+  shelf: Shelf;
+  heading: string;
+  tools: Tool[];
+}
+
+const SHELF_ORDER: { shelf: Shelf; heading: string }[] = [
+  { shelf: 'product', heading: 'Products' },
+  { shelf: 'report', heading: 'Reports' },
+];
+
+/**
+ * The portfolio's two parts, Products first, then Reports, each keeping the order of `list` (already
+ * scheduled by visibleTools). A part with no entry is left out, so an empty heading never draws.
+ */
+export function shelves(list: Tool[]): ShelfPart[] {
+  return SHELF_ORDER
+    .map(({ shelf, heading }) => ({ shelf, heading, tools: list.filter((t) => t.shelf === shelf) }))
+    .filter((p) => p.tools.length > 0);
 }
 
 /**

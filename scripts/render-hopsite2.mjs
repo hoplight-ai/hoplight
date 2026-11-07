@@ -21,13 +21,18 @@ const REPO = join(dirname(fileURLToPath(import.meta.url)), '..');
 const require = createRequire(join(REPO, '..', 'quick-tools', 'package.json'));
 const { chromium } = require('playwright');
 
-const [origin, round, ...rest] = process.argv.slice(2);
+// `--dir <folder>` puts the round under docs/renders/<folder>/ instead of hopsite2-2026-11-07 (PORTSPLIT1,
+// 2026-11-07, renders into portsplit1-2026-11-07).
+const argv = process.argv.slice(2);
+const dirAt = argv.indexOf('--dir');
+const DIR = dirAt >= 0 ? argv.splice(dirAt, 2)[1] : 'hopsite2-2026-11-07';
+const [origin, round, ...rest] = argv;
 if (!origin || !round) {
-  console.error('usage: node scripts/render-hopsite2.mjs <origin> <round-name> [path ...]');
+  console.error('usage: node scripts/render-hopsite2.mjs <origin> <round-name> [path ...] [--dir <folder>]');
   process.exit(2);
 }
 const PATHS = rest.length ? rest : ['/', '/portfolio', '/services', '/insights', '/about'];
-const OUT = join(REPO, 'docs', 'renders', 'hopsite2-2026-11-07', round);
+const OUT = join(REPO, 'docs', 'renders', DIR, round);
 mkdirSync(OUT, { recursive: true });
 writeFileSync(join(REPO, 'docs', 'renders', '.metadata_never_index'), '');
 
