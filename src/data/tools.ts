@@ -118,7 +118,7 @@ export const TOOLS: Tool[] = [
       glyph: 'field',
     },
     releaseAt: '2026-11-10',
-    cleared: false,
+    cleared: true, // launch:check 7 of 7 and docs/security/undo-2026-11-07.md STATUS: PASS, 2026-11-07
   },
   {
     slug: 'gut-check',

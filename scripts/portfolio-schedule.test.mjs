@@ -42,7 +42,7 @@ test('schedule: a day starts at midnight Los Angeles time, standard and daylight
 
 test('schedule: an uncleared entry never shows, even on its day', () => {
   const list = visibleTools(at('2026-11-10T09:00:00-08:00'));
-  assert.ok(!slugs(list).includes('undo'));
+  assert.ok(slugs(list).includes('undo'), 'the Undo List is cleared (security PASS, 2026-11-07) and shows on its day');
   assert.ok(!slugs(list).includes('revenge-or-justice'));
 });
 
