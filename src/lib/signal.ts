@@ -22,6 +22,13 @@ import { createHash } from 'node:crypto';
 // then letters, digits, dot, colon or hyphen. No underscore, so the store never refuses what this keeps.
 export const ACTION_RE = /^[a-z0-9][a-z0-9.:-]{0,63}$/;
 const PROP_KEY_RE = /^[a-zA-Z0-9_.-]{1,40}$/;
+// Prop names that would carry who the visitor is, the store's own list (quick-tools lib/tool-signal.mjs,
+// compared lower-cased with - and _ removed). The store refuses the whole signal for one of these and
+// this route only logs that, so the sender would see 202 and lose the signal; refusing here instead
+// makes it a 400 the sender sees (security check SITESEC1, 2026-11-07).
+const IDENTIFYING_PROP = new Set(['ip', 'ipaddress', 'ipaddr', 'remoteaddr', 'remoteaddress', 'clientip',
+  'xforwardedfor', 'forwardedfor', 'xrealip', 'useragent', 'ua', 'httpuseragent']);
+const squash = (k: string) => k.toLowerCase().replace(/[-_\s]/g, '');
 export const PROPS_MAX = 2048;
 export const MESSAGE_MAX = 2000;
 export const CONTACT_MAX = 200;
@@ -126,6 +133,7 @@ export function parseSignal(body: unknown, tools: ReadonlySet<string>): Parsed {
     if (typeof b.props !== 'object' || Array.isArray(b.props)) return { ok: false, error: 'props must be a flat object' };
     for (const [k, v] of Object.entries(b.props as Record<string, unknown>)) {
       if (!PROP_KEY_RE.test(k)) return { ok: false, error: `bad prop name ${k.slice(0, 40)}` };
+      if (IDENTIFYING_PROP.has(squash(k))) return { ok: false, error: `prop ${k} would identify a visitor; signals carry no address and no user agent` };
       if (typeof v === 'string') props[k] = scrub(v);
       else if (typeof v === 'boolean') props[k] = v;
       else if (typeof v === 'number' && Number.isFinite(v)) props[k] = v;
