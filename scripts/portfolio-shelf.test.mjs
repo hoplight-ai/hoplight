@@ -64,6 +64,18 @@ test('onShelf: at 2026-11-07 noon /portfolio shows exactly these products (PORTH
     ['wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
 });
 
+// WCKIDS2, 2026-11-07, visual-sociologist review of the renders: at 1440 the AI Election Errors tile ended
+// about 23px lower than its two neighbours, because its line runs three lines and each tile was only as tall
+// as its own text. Every tile in a row is the row's height, with "Open it" at its foot on one shared line.
+test('page: tiles in a row are one height and "Open it" sits at each tile\'s foot', () => {
+  const css = read('src/app/globals.css');
+  assert.match(css, /\.portfolio-products \.gallery-grid > li \{[^}]*display: flex;/, 'the grid cell does not pass its height to the tile');
+  assert.match(css, /\.portfolio-products \.gallery-grid \.wcard \{[^}]*flex: 1 1 auto;/, 'the tile does not fill its grid cell');
+  assert.match(css, /\.wcard \{[^}]*display: flex; flex-direction: column;/, 'the tile is not a column');
+  assert.match(css, /\.wcard-body \{[^}]*flex: 1;[^}]*display: flex; flex-direction: column;/, 'the tile body does not take the spare height');
+  assert.match(css, /\.wcard-body p \{[^}]*flex: 1;/, 'the line does not push "Open it" to the foot');
+});
+
 test('page: /portfolio draws products only and carries no Reports part', () => {
   const src = read('src/app/(main)/portfolio/page.tsx').replace(/\/\/.*$/gm, '').replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
   assert.match(src, /onShelf\('product'/, 'the portfolio does not keep to products');

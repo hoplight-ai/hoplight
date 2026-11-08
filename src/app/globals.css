@@ -391,6 +391,12 @@ section { padding: var(--space-section) 0; }
 .page-hero.portfolio-hero p { margin-top: 12px; }
 .portfolio-gallery { padding-top: clamp(24px, 3vw, 36px); }
 .portfolio-gallery .gallery-grid { margin-top: 0; }
+/* WCKIDS2, 2026-11-07, visual-sociologist review: every tile in a row is the row's height, with "Open it"
+   at its foot on one shared line. The grid cell already stretches; the tile now fills it, and the line's
+   flex: 1 in .wcard-body pushes "Open it" down. Before, a three-line tile ended about 23px below its
+   neighbours at 1440. */
+.portfolio-products .gallery-grid > li { display: flex; }
+.portfolio-products .gallery-grid .wcard { flex: 1 1 auto; }
 /* The hover used to brighten the link to --gold, 2.6:1 on the white card. It keeps option C and gains an
    underline instead, so the link still answers the pointer; the card's gold edge and shadow do the rest. */
 .wcard:hover .wc-go { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 3px; }
