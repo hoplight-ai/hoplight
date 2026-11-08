@@ -43,7 +43,7 @@
   one object, flat colour, no text, read at the smallest size it will be seen.
   Signature element: the marks. Scales for Revenge or Justice (justice's gold pan lower, the one that
   weighs); a signature and a pen nib for The Undo List (the pen is how most of it is undone); one stem
-  diverging into four tapering roots, the one taken in gold, for Which AI should I use?; a fanned hand of
+  dividing into several with the one picked in gold, for Which AI should I use? (three ways, third row); a fanned hand of
   the deck's cards with the question on the front one for Wonder Cards. One line weight for the set.
 
   Token plan: #FFFFFF page; #0F1B2D navy, the ink and the gallery field as live; #555550 the tile line as
@@ -64,11 +64,14 @@
 
   Critique against the generic look: a row of icons above titles is the catalogued generic AI look, so the
   marks are drawings of the tool's own object in its own colours, sit where the live tile already has a
-  drawing, and carry no label of their own. Which AI's roots were drawn three ways side by side
-  (docs/renders/tilevalue1-2026-11-07/whichai-roots-trial.html): a fork downward, plant roots under a
-  ground line, a fork sideways. The downward fork was kept (at 78px, its size on a phone, it read as one
-  stem splitting); the visual-sociologist review then had its end circles go (they read as a plug or a
-  code branch) and the plant roots' taper come in, without their soil line or sprout.
+  drawing, and carry no label of their own.
+
+  Which AI went through three drawings. Roots (a stem splitting downward) were tried first; Whit, 2026-11-07:
+  "which AI looks like a broken umbrella upside down, no flow vibes at all. the rest work." So the third
+  row offers three flow drawings, each read left to right, one start, several ways, one picked in gold: a
+  river delta (one stream fanning into three, the gold one running on furthest), a split ribbon (a Sankey
+  split into three bands, the gold one widest, ending in a point), and a fork with an arrow (the gold path
+  curving up to an arrowhead). Row two shows the delta until he picks.
 
   Wonder Cards is the kids deck, "What Should We Wonder?" at wondercards-teal.vercel.app. It is not on the
   tool list, so its first tile is drawn the way the card route draws a tile
@@ -105,6 +108,9 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
 .body { padding: 16px 20px; flex: 1; display: flex; flex-direction: column; }
 .line { margin: 0; font-size: 14px; line-height: 1.5; color: #555550; flex: 1; }
 .go { margin-top: 12px; font-size: 12.5px; font-weight: 600; color: #996D00; }
+.opt { display: flex; flex-direction: column; min-width: 0; }
+.opt .tile { flex: 1; }
+.optname { margin: 8px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.78); }
 .tile:hover .go { text-decoration: underline; text-underline-offset: 3px; }
 
 @media (max-width: 1099px) {
@@ -114,7 +120,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
   .grid { --tw: min(334px, calc(100vw - 56px)); grid-template-columns: repeat(4, var(--tw)); column-gap: 12px; padding: 0 16px; width: max-content; max-width: none; }
   .rowhead { padding: 20px 0 10px; }
   .rowhead > div { display: block; position: sticky; left: 16px; width: calc(100vw - 32px); }
-  .tile { scroll-snap-align: start; }
+  .tile, .opt { scroll-snap-align: start; }
   .swipe { display: block; margin: 0; padding: 8px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.78); }
   .top { padding: 24px 16px 22px; }
 }
@@ -182,15 +188,8 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       + '<path d="M0 -8 V-50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>'
       + '<circle cx="0" cy="-56" r="7" fill="#FFFFFF"/>'
       + '<rect x="-24" y="-136" width="48" height="50" rx="9" fill="' + NAVY + '"/></g>'),
-    // Diverging roots: a stem that thickens toward the top splits into four roots that taper as they
-    // curve away; the one taken is gold, drawn first so the others' bases sit on it. taper() below draws each as a filled outline.
-    'which-ai-should-i-use': box('#FFFFFF',
-      '<g fill="#D4950A">' + taper([[147, 110], [160, 156], [214, 170], [250, 240]], 18, 8) + '</g>'
-      + '<g fill="' + NAVY + '">'
-      + taper([[133, 110], [124, 160], [66, 170], [30, 240]], 15, 7)
-      + taper([[137, 110], [134, 170], [104, 202], [98, 256]], 15, 7)
-      + taper([[143, 110], [146, 170], [170, 202], [174, 256]], 15, 7) + '</g>'
-      + '<g fill="' + NAVY + '">' + taper([[140, 22], [140, 60], [140, 100], [140, 134]], 36, 26) + '</g>'),
+    // Which AI: one of three flow drawings (WHICH below); row two shows the first.
+    'which-ai-should-i-use': null,
     // A fanned hand of three of the deck's cards, the question on the front one.
     'wonder-cards': box('#3B3560',
       '<g stroke="#3B3560" stroke-width="8">'
@@ -200,6 +199,40 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       + '<path d="M114 118 C114 90 166 90 166 118 C166 138 140 142 140 164" fill="none" stroke="#3B3560" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>'
       + '<circle cx="140" cy="192" r="11" fill="#3B3560"/>'),
   };
+
+  // Which AI, three ways to show the choice, each read left to right: one start, several ways, one picked
+  // (gold). Whit, 2026-11-07, of the roots: "looks like a broken umbrella upside down, no flow vibes at all."
+  var GOLD = '#D4950A';
+  var WHICH = [
+    { name: 'A river delta',
+      // One thick stream flowing right fans into three; the two not taken thin out in navy, the gold one
+      // stays full and runs on furthest.
+      svg: box('#FFFFFF',
+        '<g fill="' + NAVY + '">'
+        + taper([[100, 140], [168, 140], [186, 70], [246, 64]], 22, 9)
+        + taper([[100, 140], [168, 140], [186, 210], [246, 216]], 22, 9) + '</g>'
+        + '<g fill="' + GOLD + '">' + taper([[100, 140], [170, 140], [210, 140], [268, 140]], 24, 20) + '</g>'
+        + '<g fill="' + NAVY + '">' + taper([[16, 164], [52, 164], [76, 140], [118, 140]], 32, 26)
+        + '<circle cx="16" cy="164" r="16"/></g>') },
+    { name: 'A split ribbon',
+      // A Sankey split: one navy band divides into three of different widths; the gold one is the widest
+      // and runs on to a point.
+      svg: box('#FFFFFF',
+        '<path d="M88 106 C150 106 170 112 234 112 L266 140 L234 168 C170 168 150 174 88 174 Z" fill="' + GOLD + '" stroke="' + GOLD + '" stroke-width="4" stroke-linejoin="round"/>'
+        + '<path d="M88 84 C150 84 164 34 226 34 V62 C172 62 150 106 88 106 Z M88 174 C150 174 172 218 226 218 V246 C164 246 150 196 88 196 Z" fill="' + NAVY + '"/>'
+        + '<path d="M92 84 H44 C24 84 12 98 12 118 V162 C12 182 24 196 44 196 H92 Z" fill="' + NAVY + '"/>') },
+    { name: 'A fork with an arrow',
+      // One path forks three ways in smooth curves; the two not taken thin out, the gold one runs on to an
+      // arrowhead.
+      svg: box('#FFFFFF',
+        '<g fill="' + NAVY + '">'
+        + taper([[92, 154], [140, 154], [156, 226], [210, 228]], 16, 8)
+        + taper([[92, 154], [140, 154], [176, 154], [212, 154]], 16, 8) + '</g>'
+        + '<path d="M92 154 C152 154 160 76 222 76" fill="none" stroke="' + GOLD + '" stroke-width="16" stroke-linecap="round"/>'
+        + '<path d="M218 50 L266 76 L218 102 Z" fill="' + GOLD + '" stroke="' + GOLD + '" stroke-width="8" stroke-linejoin="round"/>'
+        + '<path d="M16 154 H100" stroke="' + NAVY + '" stroke-width="16" stroke-linecap="round"/>') },
+  ];
+  MARK['which-ai-should-i-use'] = WHICH[0].svg;
 
   // The four tools. name, href and line come from src/data/tools.ts as of 2026-11-07, except Wonder Cards,
   // which is not in it: its line is its own page's description, read from wondercards-teal.vercel.app
@@ -219,22 +252,28 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
   var ROWS = [
     { key: 'today', title: 'Today', note: 'The tile as it is live; Wonder Cards is drawn the same way.' },
     { key: 'mark', title: 'Today, with a mark that says what it does', note: 'Only the corner drawing changes.' },
+    { key: 'which', title: 'Which AI: three ways to show the choice', note: 'One start, several ways, one picked. The first is in the row above.' },
   ];
 
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-  function tile(row, t) {
+  function tile(row, t, mark) {
     var go = '<span class="go">Open it ' + (t.ext ? '<span aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span>' : '<span aria-hidden="true">→</span>') + '</span>';
     return '<a class="tile" href="' + esc(t.href) + '"' + (t.ext ? ' target="_blank" rel="noopener noreferrer"' : '') + '>'
       + '<div class="pic"><img src="/mockups/tile-value/today-' + t.slug + '.png" alt="" width="1200" height="630" decoding="async">'
-      + (row === 'mark' ? MARK[t.slug] : '') + '</div>'
+      + (mark || (row === 'mark' ? MARK[t.slug] : '')) + '</div>'
       + '<div class="body"><h3 class="sr">' + esc(t.name) + '</h3><p class="line">' + esc(t.line) + '</p>' + go + '</div></a>';
   }
 
   var html = '';
   ROWS.forEach(function (r, i) {
     html += '<div class="rowhead"><div><h2>' + esc(r.title) + '</h2><p>' + esc(r.note) + '</p>'
-      + (i === 0 ? '<p class="swipe">Swipe sideways: both rows move together.</p>' : '') + '</div></div>';
-    TOOLS.forEach(function (t) { html += tile(r.key, t); });
+      + (i === 0 ? '<p class="swipe">Swipe sideways: the rows move together.</p>' : '') + '</div></div>';
+    if (r.key === 'which') {
+      var w = TOOLS[2];
+      WHICH.forEach(function (o) { html += '<div class="opt">' + tile(r.key, w, o.svg) + '<p class="optname">' + esc(o.name) + '</p></div>'; });
+    } else {
+      TOOLS.forEach(function (t) { html += tile(r.key, t); });
+    }
   });
   document.getElementById('grid').innerHTML = html;
 })();
