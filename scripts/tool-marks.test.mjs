@@ -165,3 +165,14 @@ test('built: each marked tile on /portfolio draws its mark, and no other tile do
     else assert.ok(!tile.includes('wcard-mark'), `${t.slug} tile draws a mark it does not have`);
   }
 });
+
+// UNDONOW1, 2026-11-08. Whit, 2026-11-08: "The undo list is supposed to be one of the products. And I want you
+// to make this live." A build from 2026-11-08 on draws The Undo List's tile with its pen mark.
+test('built: The Undo List tile shows on /portfolio with its pen mark (UNDONOW1)', { skip: built ? false : 'no build present' }, async () => {
+  const { tileMarkSvg } = await marks();
+  const html = readFileSync(built, 'utf8');
+  const undo = TOOLS.find((t) => t.slug === 'undo');
+  const tile = html.split('<li>').slice(1).find((x) => x.includes(`href="${undo.href}"`));
+  assert.ok(tile, 'The Undo List has no tile on the built /portfolio');
+  assert.ok(tile.includes(tileMarkSvg('undo')), 'The Undo List tile does not draw its pen mark');
+});

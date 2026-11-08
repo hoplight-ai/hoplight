@@ -139,7 +139,8 @@ export const TOOLS: Tool[] = [
       wordmark: [{ text: 'The Undo' }, { text: 'List' }],
       glyph: 'field',
     },
-    releaseAt: '2026-11-10',
+    // Whit, 2026-11-08: "The undo list is supposed to be one of the products. And I want you to make this live."
+    releaseAt: '2026-11-08',
     cleared: true, // launch:check 7 of 7 and docs/security/undo-2026-11-07.md STATUS: PASS, 2026-11-07
   },
   {
