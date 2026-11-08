@@ -57,9 +57,9 @@ test('onShelf: at 2026-11-07 noon /portfolio shows exactly these products (PORTH
   // Whit, 2026-11-07: Bet Appetit cut; AGIS and Gut Check held for their own announcements; Letters held
   // the same day as a feature of Rumi (LETTERSOFF1; Whit, 2026-11-07: "1 yes.").
   const now = at('2026-11-07T12:00:00-08:00');
-  assert.deepEqual(slugs(onShelf('product', visibleTools(now))), ['ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
-  // The kids Wonder Cards deck (WCKIDS2) is a product from 2026-11-07; until its go-public check passes and
-  // the entry says cleared, only an uncleared preview render shows it, first.
+  // The kids Wonder Cards deck (WCKIDS2) is a product from 2026-11-07, cleared on its go-public check
+  // (CLEARTWO1, all seven passed against the live deck), so it shows first, in a preview render too.
+  assert.deepEqual(slugs(onShelf('product', visibleTools(now))), ['wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
   assert.deepEqual(slugs(onShelf('product', visibleTools(now, undefined, { includeUncleared: true }))),
     ['wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
 });

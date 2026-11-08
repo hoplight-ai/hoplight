@@ -41,8 +41,10 @@ const SHOWN_GALLERY = GALLERY.filter((s) => !(s in HELD));
 // cards that I was thinking of is actually the one that's geared towards kids not the adult one." Its day is
 // 2026-11-07; it shows once `npm run launch:check -- wonder-cards` passes and the entry says cleared. This
 // constant moves with the entry's `cleared`, so the flip is made here too, with the check's result.
+// CLEARTWO1, 2026-11-08 UTC (2026-11-07 Pacific): `npm run launch:check -- wonder-cards` passed all seven
+// against the live deck once its page carried the og:image tags (wonder-cards 0626d2a).
 const WONDER = 'wonder-cards';
-const WONDER_CLEARED = false;
+const WONDER_CLEARED = true;
 // Letters went live on 2026-11-07 (LETTERSON1) and came off the same day, held as a feature of Rumi
 // (LETTERSOFF1), so from 2026-11-07 the page shows the kids Wonder Cards deck once it is cleared, then the
 // gallery pieces not held, and nothing else.
@@ -84,6 +86,27 @@ test('wonder cards: once cleared it shows first from the first minute of 2026-11
   const uncleared = TOOLS.map((t) => (t.slug === WONDER ? { ...t, cleared: false } : t));
   assert.ok(!slugs(visibleTools(at('2026-11-07T12:00:00-08:00'), uncleared)).includes(WONDER), 'an uncleared deck shows');
   assert.equal(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'), uncleared, { includeUncleared: true }))[0], WONDER);
+});
+
+test('wonder cards: cleared, the real list shows it first at 2026-11-07 noon Pacific and not the minute before its day (CLEARTWO1)', () => {
+  assert.equal(TOOLS.find((t) => t.slug === WONDER).cleared, true, 'the kids deck passed its go-public check and is not cleared');
+  assert.equal(slugs(visibleTools(at('2026-11-07T12:00:00-08:00')))[0], WONDER);
+  assert.ok(!slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))).includes(WONDER));
+});
+
+test('revenge or justice: never shows before 2026-11-10, and stays off while its security report says FAIL (CLEARTWO1)', () => {
+  const roj = TOOLS.find((t) => t.slug === 'revenge-or-justice');
+  assert.equal(roj.releaseAt, '2026-11-10');
+  assert.ok(!slugs(visibleTools(at('2026-11-09T23:59:00-08:00'))).includes('revenge-or-justice'));
+  const report = readFileSync(path.join(ROOT, 'docs/security/revenge-or-justice-2026-11-07.md'), 'utf8');
+  if (!/^STATUS: PASS\s*$/m.test(report)) {
+    assert.equal(roj.cleared, false, 'cleared while its security report has no STATUS: PASS line');
+    assert.ok(!slugs(visibleTools(at('2026-11-10T12:00:00-08:00'))).includes('revenge-or-justice'));
+  }
+  // Once cleared it shows at noon Pacific on its day and not the minute before.
+  const list = TOOLS.map((t) => (t.slug === 'revenge-or-justice' ? { ...t, cleared: true } : t));
+  assert.ok(!slugs(visibleTools(at('2026-11-09T23:59:00-08:00'), list)).includes('revenge-or-justice'));
+  assert.equal(slugs(visibleTools(at('2026-11-10T12:00:00-08:00'), list))[0], 'revenge-or-justice');
 });
 
 test('letters: released 2026-11-07 and cleared, and held as a feature of Rumi (LETTERSOFF1)', () => {
