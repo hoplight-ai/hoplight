@@ -116,6 +116,11 @@ export const TOOLS: Tool[] = [
       glyph: 'bars',
     },
     releaseAt: '2026-11-10',
+    // Not cleared. `npm run launch:check -- revenge-or-justice` on 2026-11-07 Pacific (CLEARTWO1) passed six
+    // of seven, failing (e): docs/security/revenge-or-justice-2026-11-07.md says STATUS: FAIL, its high
+    // finding (no hard cap on the model bill) still open. It closes with a spend limit on the Anthropic
+    // workspace behind quick-tools, or a shared daily counter in quick-tools' route; then the report's first
+    // line goes to PASS, the check is rerun, and this flips.
     cleared: false,
   },
   {
@@ -236,12 +241,12 @@ export const TOOLS: Tool[] = [
       glyph: 'cards',
     },
     releaseAt: '2026-11-07',
-    // Not cleared. `npm run launch:check -- wonder-cards` on 2026-11-07 against the live deck passed six of
-    // seven: (g) entry, (a) public, (c) feedback box, (d) usage logging, (e) security PASS, (f) not a
-    // paid-model tool; (b) failed, "no og:image on the page". The deck's page needs the og:image tags the
-    // other outside tools carry (https://hoplight.ai/api/og/tool/wonder-cards, 1200 by 630 PNG); flip this
-    // only when the check passes all seven, and move WONDER_CLEARED in scripts/portfolio-schedule.test.mjs.
-    cleared: false,
+    // Cleared (CLEARTWO1). `npm run launch:check -- wonder-cards` passed all seven on 2026-11-07 Pacific
+    // against the live deck, after wonder-cards 0626d2a put the og:image tags on /junior: (g) entry,
+    // (a) public, (b) card https://hoplight.ai/api/og/tool/wonder-cards 1200 by 630 PNG, (c) feedback box,
+    // (d) usage logging, (e) docs/security/wonder-cards-2026-11-07.md STATUS: PASS, (f) not a paid-model
+    // tool. WONDER_CLEARED in scripts/portfolio-schedule.test.mjs moved with it.
+    cleared: true,
   },
 
   // ---- The gallery as of 2026-10-21, unchanged ----
