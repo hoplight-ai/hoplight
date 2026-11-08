@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>What each tool does, before the tap</title>
-<meta name="description" content="Five portfolio tiles drawn four ways: today's tile, the promise, the proof, and the proof plus the promise.">
+<meta name="description" content="Five portfolio tiles drawn four ways: today's tile, the proof plus the promise, then each alone.">
 <meta property="og:title" content="What each tool does, before the tap">
 <meta property="og:description" content="Five portfolio tiles drawn four ways, to pick how a tile says what its tool does.">
 <meta property="og:image" content="https://hoplight.ai/og.png">
@@ -21,8 +21,9 @@
   do that artfully clearly and tastefully".
 
   The job: a stranger sees, before tapping, what each tool does for them. Five tools (Revenge or Justice,
-  The Undo List, Letters, Which AI should I use?, Wonder Cards), four rows: today's live tile and three
-  treatments (the promise, the proof, and both together; the first-move row was folded into the last). Columns line up, so one tool stacks down the page and a row reads
+  The Undo List, Letters, Which AI should I use?, Wonder Cards), four rows: today's live tile, then the
+  candidate (the proof plus the promise, with the first move as its link), then the promise alone and the
+  proof alone as the alternatives. The candidate sits second so it shows on the first screen. Columns line up, so one tool stacks down the page and a row reads
   as a whole portfolio.
 
   References borrowed (design/references/REFERENCES.md):
@@ -77,15 +78,17 @@ html, body { margin: 0; background: #FFFFFF; color: #0F1B2D; }
 body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.45; -webkit-text-size-adjust: 100%; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-.top { max-width: 1440px; margin: 0 auto; padding: 32px 24px 28px; }
+.top { max-width: 1440px; margin: 0 auto; padding: 28px 24px 22px; }
 h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 10px; text-wrap: balance; }
-.lede { margin: 0; font-size: 17px; max-width: 62ch; color: #2A3F5F; }
+.lede { margin: 0; font-size: 16px; color: #2A3F5F; }
 
 .field { background: #0F1B2D; color: #FFFFFF; padding: 8px 0 48px; }
 .grid { max-width: 1440px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 16px; }
-.rowhead { grid-column: 1 / -1; padding: 36px 0 14px; }
+/* At desktop a row's name and note share one line, so the candidate row reaches the first screen. */
+.rowhead { grid-column: 1 / -1; padding: 26px 0 12px; }
+.rowhead > div { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 14px; }
 .rowhead h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
-.rowhead p { margin: 4px 0 0; font-size: 15px; color: rgba(255, 255, 255, 0.78); max-width: 72ch; }
+.rowhead p { margin: 2px 0 0; font-size: 16px; color: rgba(255, 255, 255, 0.78); max-width: 72ch; }
 .swipe { display: none; }
 
 /* A tile, as the live portfolio draws it (globals.css .wcard), then changed one way per row. */
@@ -93,13 +96,13 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
 .tile:focus-visible { outline: 3px solid #E8A820; outline-offset: 3px; }
 .pic { aspect-ratio: 1200 / 630; background: #0F1B2D; overflow: hidden; }
 .pic img { width: 100%; height: 100%; display: block; object-fit: cover; }
-.body { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+.body { padding: 16px 20px; flex: 1; display: flex; flex-direction: column; }
 .line { margin: 0; font-size: 14px; line-height: 1.5; color: #555550; flex: 1; }
 .go { margin-top: 12px; font-size: 12.5px; font-weight: 600; color: #996D00; }
 .tile:hover .go { text-decoration: underline; text-underline-offset: 3px; }
 
 /* The tool's name in its own face and colours, small, above a promise or a line. */
-.nm { font-family: var(--face); font-weight: var(--w); font-size: 15px; line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 6px; }
+.nm { font-family: var(--face); font-weight: var(--w); font-size: 16px; line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 6px; }
 .nm b { font-weight: inherit; color: var(--accent); }
 .pr { font-family: var(--face); font-weight: var(--w); font-size: 20px; line-height: 1.22; letter-spacing: -0.015em; color: var(--ink); margin: 0; flex: 1; text-wrap: pretty; }
 
@@ -107,25 +110,25 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
 .say { background: var(--ground); padding: 20px; flex: 1; display: flex; flex-direction: column; min-height: 168px; }
 .say .nm { color: var(--onground); }
 .say .nm b { color: var(--onaccent); }
-.say .pr { color: var(--onground); font-size: 22px; }
+.say .pr { color: var(--onground); }
 .foot { padding: 12px 20px 14px; }
 .foot .go { margin-top: 0; }
 
-/* The proof plus the promise: the name small, the promise under it, the line gone. */
-.both .pr { font-size: 19px; }
+/* Five type sizes on the page: 42 the title, 20 the row names and every promise (one size in both
+   promise rows, so the alternative is never louder than the candidate), 16 the lede, row notes and
+   tool names, 14 the tile line as live, 12.5 the link as live. */
 
 @media (max-width: 1099px) {
   /* Phone and tablet: the field swipes sideways as one piece, so every row moves together and one
      tool stays stacked down the page. The row names stay pinned to the left edge while it moves. */
   .field { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 16px; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
   .grid { --tw: min(334px, calc(100vw - 56px)); grid-template-columns: repeat(5, var(--tw)); column-gap: 12px; padding: 0 16px; width: max-content; max-width: none; }
-  .rowhead { padding: 28px 0 10px; }
-  .rowhead > div { position: sticky; left: 16px; width: calc(100vw - 32px); }
-  .rowhead h2 { font-size: 19px; }
+  .rowhead { padding: 20px 0 10px; }
+  .rowhead > div { display: block; position: sticky; left: 16px; width: calc(100vw - 32px); }
+  .lede { max-width: 62ch; }
   .tile { scroll-snap-align: start; }
-  .swipe { display: block; margin: 0; padding: 20px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.78); }
+  .swipe { display: block; margin: 0; padding: 8px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.78); }
   .top { padding: 24px 16px 22px; }
-  .lede { font-size: 16px; }
 }
 @media (max-width: 640px) {
   /* As live at this width: the card face is cropped to its middle band and the text sits tighter. */
@@ -141,7 +144,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
 <main>
   <div class="top">
     <h1>What each tool does, before the tap</h1>
-    <p class="lede">The same five tools, drawn four ways. The first row is the portfolio tile as it is today; the next two each change one thing, and the last puts both together.</p>
+    <p class="lede">The same five tools, drawn four ways. Today's tile first, then the candidate: a real screen from the tool and what you get, in words. Under it, each of those two alone.</p>
   </div>
   <section class="field" aria-label="Four ways to draw a tile">
     <div class="grid" id="grid"></div>
@@ -164,7 +167,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       promise: 'Find out if a statement sounds like revenge or justice.',
       // Its page's first instruction: "Paste a statement or a link."
       move: 'Paste a statement',
-      proofAlt: 'A real reading from Revenge or Justice: three bars running left from the centre line toward Revenge, away from Justice.' },
+      proofAlt: 'One real reading from Revenge or Justice: Practice, not person; Priced in the listener\'s money; Ends in a remedy; each a bar running from the centre toward Revenge, away from Justice.' },
     { slug: 'undo', name: 'The Undo List', plain: 'The Undo List', href: '/undo',
       face: ALBERT, w: 600, ink: NAVY, accent: NAVY, ground: WHITE, onground: NAVY, onaccent: NAVY,
       line: 'Everything the second Trump administration did, sorted by what it takes to undo it in 2029.',
@@ -172,7 +175,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       promise: 'See what the next president can undo, and what each one takes.',
       // Its first screen's one button: "Sign the first order".
       move: 'Sign the first order',
-      proofAlt: 'The Undo List: the headline Thirteen signatures undo 275 things, over a field of squares, the first block gold.' },
+      proofAlt: 'The Undo List: the headline Thirteen signatures undo 275 things, over rows of squares, the first block gold.' },
     { slug: 'letters', name: 'Letters', plain: 'Letters', href: 'https://letters-ten-eta.vercel.app', ext: true,
       face: INTER, w: 700, ink: '#3A3226', accent: '#B4541A', ground: '#E9F0F3', onground: '#3A3226', onaccent: '#B4541A',
       line: 'A letter-formation app for a four-year-old: where each stroke starts, which way it goes, and in what order. Then paper.',
@@ -180,7 +183,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       promise: 'Teach a four-year-old where each stroke starts and which way it goes.',
       // Its first screen's button is "Start"; what follows is tracing (tools.ts: "letter-formation").
       move: 'Start tracing',
-      proofAlt: 'Letters: the letter H three times, its strokes numbered 1, 2 and 3 in order, each with an arrow showing which way it goes.' },
+      proofAlt: 'Letters: the letter H, its three strokes numbered 1, 2 and 3 in order, each with an arrow showing which way it goes.' },
     { slug: 'which-ai-should-i-use', name: 'Which AI should I use?', plain: 'Which AI should I use?', href: '/tools/which-ai',
       face: ALBERT, w: 600, ink: NAVY, accent: NAVY, ground: WHITE, onground: NAVY, onaccent: NAVY,
       line: 'Answer a few questions, get told which model fits the job.',
@@ -195,8 +198,8 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       // talking about, one at a time, on sunlit poolside photographs, a Capri lemon grove").
       line: 'Questions worth talking about, one card at a time, on photographs of Capri and Palm Beach.',
       // Its page: the card's label "A question to talk about"; the topic screen "Where shall we sit today?";
-      // its description "Press once for another card, or sit with a single topic".
-      promise: 'A question to talk about, whenever you sit down together. Press once for the next.',
+      // its description "sit with a single topic".
+      promise: 'A question to talk about, whenever you sit down together.',
       // Its card's main button: "Draw another card".
       move: 'Draw a card',
       proofAlt: 'Wonder Cards: a card from the Screen topic asking What do you watch now that would have shocked you at twenty?' },
@@ -205,12 +208,12 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
   var ROWS = [
     { key: 'today', title: 'Today',
       note: 'The tile as it is live.' },
-    { key: 'promise', title: 'The promise',
-      note: 'What you get, in words. No picture.' },
-    { key: 'proof', title: 'The proof',
-      note: 'A real screen from the tool replaces the drawn mark.' },
     { key: 'both', title: 'The proof plus the promise',
       note: 'The real screen and the promise; the description is gone.' },
+    { key: 'promise', title: 'The promise alone',
+      note: 'What you get, in words. No picture.' },
+    { key: 'proof', title: 'The proof alone',
+      note: 'A real screen from the tool replaces the drawn mark.' },
   ];
 
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }

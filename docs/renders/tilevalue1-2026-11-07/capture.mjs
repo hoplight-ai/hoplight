@@ -49,34 +49,49 @@ const jobs = {
     await p.waitForTimeout(800);
     await p.screenshot({ path: join(out, 'undo-full.png') });
   },
-  // Letters, second pass: the letter H, one real frame per stroke. The parent panel's own word list is
-  // set to "H" (its normal use: her own words come first), so the session opens on H. Each frame is the
-  // app's glyph as it stands before that stroke: the strokes done in ink, the next one numbered with its
-  // start dot and arrow; the last frame is the whole letter the app shows after "You did it."
+  // Letters, third pass (second review, 2026-11-07): ONE H with all three strokes drawn and numbered,
+  // in the app's own stroke style. The app numbers one stroke at a time, so this is the one composite:
+  // the live app opened on H through its own word list (letters.v1 words ["H"]), then its own layers
+  // filled with H's three strokes (from its glyph data) as done ink (class g-done), and for each stroke
+  // the app's own cue marks drawn the way drawCueMarks draws them: dot r 54 (g-dot), the stroke's number
+  // (g-num), and the arrow on the stroke (g-arrow, half-width 34, length 46), a quarter of the way along
+  // rather than the app's third, so stroke 1's arrow clears stroke 3's dot when all three show at once.
   async letters() {
     const p = await page();
     await p.emulateMedia({ reducedMotion: 'reduce' });
     await p.addInitScript(() => localStorage.setItem('letters.v1', JSON.stringify({ ground: 'blue', words: ['H'] })));
     await p.goto('https://letters-ten-eta.vercel.app', { waitUntil: 'networkidle' });
     await clickText(p, 'Start');
-    const glyph = p.locator('#glyph');
-    const strokes = [[272, 192, 272, 672], [672, 192, 672, 672], [272, 432, 672, 432]];
-    for (let k = 0; k < strokes.length; k++) {
-      await p.waitForTimeout(2600); // the demonstration stroke clears; her turn
-      console.log(await p.textContent('#glyph-label'));
-      await glyph.screenshot({ path: join(out, 'letters-h-' + (k + 1) + '.png') });
-      const [x1, y1, x2, y2] = strokes[k];
-      const pts = await p.evaluate(([x1, y1, x2, y2]) => {
-        const svg = document.getElementById('glyph'), m = svg.getScreenCTM(), o = [];
-        for (let t = 0; t <= 40; t++) { const pt = svg.createSVGPoint(); pt.x = x1 + (x2 - x1) * t / 40; pt.y = y1 + (y2 - y1) * t / 40; const q = pt.matrixTransform(m); o.push([q.x, q.y]); }
-        return o;
-      }, [x1, y1, x2, y2]);
-      await p.mouse.move(pts[0][0], pts[0][1]); await p.mouse.down();
-      for (const [x, y] of pts) { await p.mouse.move(x, y); await p.waitForTimeout(16); }
-      await p.mouse.up();
-    }
-    await p.waitForTimeout(400);
-    await glyph.screenshot({ path: join(out, 'letters-h-done.png') });
+    await p.waitForTimeout(2600);
+    console.log(await p.textContent('#glyph-label'));
+    await p.evaluate(() => {
+      const NS = 'http://www.w3.org/2000/svg';
+      const mk = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); return e; };
+      // H's strokes as the app's glyph data gives them, in order.
+      const S = [[272, 192, 272, 672], [672, 192, 672, 672], [272, 432, 672, 432]];
+      const $ = (id) => document.getElementById(id);
+      $('layer-ghost').textContent = ''; $('layer-done').textContent = ''; $('layer-cue').textContent = '';
+      $('layer-demo').setAttribute('d', ''); $('layer-ink').setAttribute('d', '');
+      for (const [x1, y1, x2, y2] of S) $('layer-done').appendChild(mk('path', { d: `M ${x1} ${y1} L ${x2} ${y2}`, class: 'g-done' }));
+      S.forEach(([x1, y1, x2, y2], k) => {
+        const cue = $('layer-cue');
+        cue.appendChild(mk('circle', { cx: x1, cy: y1, r: 54, class: 'g-dot' }));
+        const t = mk('text', { x: x1, y: y1, class: 'g-num' }); t.textContent = String(k + 1); cue.appendChild(t);
+        const ang = Math.atan2(y2 - y1, x2 - x1), px = x1 + (x2 - x1) * 0.25, py = y1 + (y2 - y1) * 0.25, w = 34;
+        const pt = (a, r) => (px + Math.cos(a) * r).toFixed(1) + ' ' + (py + Math.sin(a) * r).toFixed(1);
+        cue.appendChild(mk('path', { d: 'M ' + pt(ang, 46) + ' L ' + pt(ang + 2.5, w) + ' L ' + pt(ang - 2.5, w) + ' Z', class: 'g-arrow' }));
+      });
+    });
+    await p.waitForTimeout(300);
+    await p.locator('#glyph').screenshot({ path: join(out, 'letters-h-one.png') });
+  },
+  // Revenge or Justice, third pass: its first three readings drawn large by rj-scored.html beside this
+  // file, from the one real reading the rj job took (see that file for every number's source).
+  async rjscored() {
+    const p = await b.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
+    await p.goto(pathToFileURL(join(dirname(fileURLToPath(import.meta.url)), 'rj-scored.html')).href);
+    await p.evaluate(() => document.fonts.ready);
+    await p.screenshot({ path: join(out, 'rj-scored.png') });
   },
   async whichai() {
     const p = await page();
@@ -96,5 +111,5 @@ const jobs = {
     console.log((await p.innerText('body')).slice(0, 600));
   },
 };
-for (const w of (want.length ? want : Object.keys(jobs).filter((k) => k !== 'wondertoday'))) { await jobs[w](); console.log('done', w); }
+for (const w of (want.length ? want : Object.keys(jobs).filter((k) => k !== 'wondertoday' && k !== 'rjscored'))) { await jobs[w](); console.log('done', w); }
 await b.close();

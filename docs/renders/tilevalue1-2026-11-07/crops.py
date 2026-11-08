@@ -24,29 +24,30 @@ def fit(im, ground):
 def crop(name, box):
     return Image.open(f'{raw}/{name}').convert('RGB').crop(box)
 
-def strip(names, box, ground, gap):
-    """Real frames of one screen side by side, each cut to the same box, a gap of ground between."""
-    ims = [crop(n, box) for n in names]
-    w = sum(i.width for i in ims) + gap * (len(ims) + 1)
-    canvas = Image.new('RGB', (w, ims[0].height + gap), ground)
-    x = gap
-    for i in ims:
-        canvas.paste(i, (x, gap // 2)); x += i.width + gap
+def stack(pieces, ground, gap, pad):
+    """Real cuts of one screen stacked top to bottom, left-aligned, with gap and pad of its ground."""
+    w = max(i.width for i in pieces) + 2 * pad
+    h = sum(i.height for i in pieces) + gap * (len(pieces) - 1) + 2 * pad
+    canvas = Image.new('RGB', (w, h), ground)
+    y = pad
+    for i in pieces:
+        canvas.paste(i, (pad, y)); y += i.height + gap
     return canvas
 
 # Each box is in the capture's own pixels (520 wide at 3x, The Undo List 1440 wide at 2x).
 jobs = [
-    # Revenge or Justice: one real reading (the Times of India Raskin article, 2026-11-07), cut to the
-    # Revenge and Justice ends and its first three bars out from the centre line; the row names and
-    # scores are left off so the ends read large at phone size.
-    ('proof-revenge-or-justice.png', crop('rj-hero.png', (355, 835, 1345, 1345)), '#FFFFFF'),
-    # The Undo List: the headline, its sentence and button, and the first row of blocks, the first one
-    # signed and gold. Cut to the left side of its 1440 layout so the headline reads at phone size.
-    ('proof-undo.png', crop('undo-full.png', (336, 336, 1784, 1100)), '#FFFFFF'),
-    # Letters: the letter H, three real frames of the app's glyph in its blue ground, one before each
-    # stroke: stroke 1 numbered on the pale letter, then 2 with the first in ink, then 3 with both.
-    ('proof-letters.png', strip(['letters-h-1.png', 'letters-h-2.png', 'letters-h-3.png'],
-                                (0, 440, 1460, 2010), '#E9F0F3', 280), '#E9F0F3'),
+    # Revenge or Justice: its first three readings from one real reading (the Times of India Raskin
+    # article, 2026-11-07), drawn large by rj-scored.html because the tool's own bars are too small
+    # on a phone; names, lengths and colours are the tool's own (see that file).
+    ('proof-revenge-or-justice.png', Image.open(f'{raw}/rj-scored.png').convert('RGB'), '#FFFFFF'),
+    # The Undo List: two cuts of its first screen (1440 wide, 2x), stacked: the headline "Thirteen
+    # signatures undo 275 things." and the top three rows of squares of the first five blocks, the
+    # first block signed and gold. The paragraph, button, eyebrow and block numbers are left out.
+    ('proof-undo.png', stack([crop('undo-full.png', (396, 398, 1312, 612)),
+                              crop('undo-full.png', (396, 930, 1740, 1040))], '#FFFFFF', 64, 70), '#FFFFFF'),
+    # Letters: one H in the live app with all three strokes drawn and numbered 1, 2, 3, each with its
+    # arrow, in the app's own classes (capture.mjs, job letters, says how and why it is the composite).
+    ('proof-letters.png', crop('letters-h-one.png', (0, 340, 1500, 2130)), '#E9F0F3'),
     # Which AI should I use?: the recommendation a writer handling confidential material gets, cut to
     # the model's name and its one line.
     ('proof-which-ai-should-i-use.png', crop('whichai-full.png', (140, 645, 1210, 870)), '#FFFFFF'),

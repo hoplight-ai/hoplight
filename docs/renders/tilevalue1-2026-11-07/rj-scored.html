@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>Revenge or Justice, one reading scored (tile picture)</title>
+<!--
+  TILEVALUE1 second review, 2026-11-07: the Revenge or Justice proof picture, drawn at 1200 by 630 because
+  the tool's own bars are too small to read on a phone tile. Every number and word is from one real
+  reading the lane took on 2026-11-07 (the Times of India Raskin article from the tool's recent list,
+  verdict "Leans revenge"): its first three readings by their own names, each bar's length measured off
+  the tool's own render (rj-hero.png: 0.64, 0.80 and 0.80 of the way from the centre line to the
+  Revenge end). Colours from that render: bar #9C3327, centre line #0F1B2D (one short line per row, as the tool draws it), track #ECEDEF.
+  Rendered by capture.mjs (job rjscored).
+-->
+<style>
+@font-face { font-family: 'Inter'; src: url('../../../public/fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; }
+html, body { margin: 0; background: #FFFFFF; }
+body { width: 1200px; height: 630px; font-family: 'Inter', sans-serif; color: #0F1B2D; position: relative; overflow: hidden; }
+.ends { position: absolute; top: 34px; left: 60px; right: 60px; display: flex; justify-content: space-between; font-size: 64px; font-weight: 600; letter-spacing: -0.02em; line-height: 1; }
+.ends .r { color: #9C3327; }
+.row { position: absolute; left: 60px; right: 60px; height: 150px; }
+.row .lab { font-size: 46px; font-weight: 500; letter-spacing: -0.015em; line-height: 1; margin: 0; }
+.row .track { position: absolute; left: 0; right: 0; top: 96px; height: 4px; background: #ECEDEF; }
+.row .bar { position: absolute; top: 76px; height: 44px; background: #9C3327; border-radius: 4px 0 0 4px; }
+.row .mid { position: absolute; left: 538px; top: 62px; width: 4px; height: 72px; background: #0F1B2D; }
+.row .dot { position: absolute; top: 68px; width: 60px; height: 60px; margin-left: -30px; border-radius: 50%; background: #9C3327; box-shadow: 0 0 0 6px #FFFFFF; }
+</style>
+</head>
+<body>
+  <div class="ends"><span class="r">Revenge</span><span>Justice</span></div>
+  <div id="rows"></div>
+<script>
+  // name, share of the way from the centre to the Revenge end (from the tool's own render)
+  var R = [['Practice, not person', 0.64], ["Priced in the listener's money", 0.80], ['Ends in a remedy', 0.80]];
+  var half = 480, mid = 540; // the centre line sits at 600 on the page, 540 inside a row
+  document.getElementById('rows').innerHTML = R.map(function (r, i) {
+    var w = Math.round(r[1] * half);
+    return '<div class="row" style="top:' + (132 + i * 158) + 'px"><p class="lab">' + r[0] + '</p><div class="track"></div>'
+      + '<div class="bar" style="left:' + (mid - w) + 'px;width:' + w + 'px"></div>'
+      + '<div class="dot" style="left:' + (mid - w) + 'px"></div><div class="mid"></div></div>';
+  }).join('');
+</script>
+</body>
+</html>
