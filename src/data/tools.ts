@@ -212,6 +212,37 @@ export const TOOLS: Tool[] = [
     // reaches the public inside Rumi. The entry stays so its link and preview card keep working.
     hold: 'folded into Rumi, its letter tracing ships there (Whit, 2026-11-07)',
   },
+  {
+    // The kids Wonder Cards deck, "What Should We Wonder?" (WCKIDS2, 2026-11-07). Whit, 2026-11-07: "wonder
+    // cards is a yes", then "the wonder cards that I was thinking of is actually the one that's geared
+    // towards kids not the adult one." The line is its own page's description, its dash made a comma.
+    slug: 'wonder-cards',
+    name: 'Wonder Cards',
+    line: '60 tap-to-draw question and activity cards for little kids, made for restaurant tables, waiting rooms and car rides.',
+    href: 'https://wonder-cards.vercel.app/junior',
+    kind: 'live',
+    shelf: 'product',
+    // Read from wonder-cards.vercel.app/junior on 2026-11-07: its home-screen name "Wonder Cards"
+    // (apple-mobile-web-app-title), its display face Fredoka 600, its blueberry ink #3B3560, its tangerine
+    // #FFAA5C. The ground is the blueberry of its own app icon, not the page's icing #FFF4E4, which is a
+    // cream and is not used on Hoplight; the cards picture is the deck's card in tangerine, as the approved
+    // tile mockup draws it (TILEVALUE1, 382e574).
+    brand: {
+      ground: '#3B3560',
+      accent: '#FFAA5C',
+      ink: WHITE,
+      display: { family: 'Fredoka', weight: 600 },
+      wordmark: [{ text: 'Wonder' }, { text: 'Cards' }],
+      glyph: 'cards',
+    },
+    releaseAt: '2026-11-07',
+    // Not cleared. `npm run launch:check -- wonder-cards` on 2026-11-07 against the live deck passed six of
+    // seven: (g) entry, (a) public, (c) feedback box, (d) usage logging, (e) security PASS, (f) not a
+    // paid-model tool; (b) failed, "no og:image on the page". The deck's page needs the og:image tags the
+    // other outside tools carry (https://hoplight.ai/api/og/tool/wonder-cards, 1200 by 630 PNG); flip this
+    // only when the check passes all seven, and move WONDER_CLEARED in scripts/portfolio-schedule.test.mjs.
+    cleared: false,
+  },
 
   // ---- The gallery as of 2026-10-21, unchanged ----
   // The gallery used to live on the vault app's vercel.app address. Whit, 2026-09-15: it belongs on
