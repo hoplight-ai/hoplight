@@ -69,8 +69,8 @@
   Which AI went through three drawings. Roots (a stem splitting downward) were tried first; Whit, 2026-11-07:
   "which AI looks like a broken umbrella upside down, no flow vibes at all. the rest work." So the third
   row offers three flow drawings, each read left to right, one start, several ways, one picked in gold: a
-  river delta (one stream fanning into three, the gold one running on furthest), a split ribbon (a Sankey
-  split into three bands, the gold one widest, ending in a point), and a fork with an arrow (the gold path
+  river delta (one stream fanning into three, the gold one running on furthest to an open point), a split
+  ribbon (a Sankey split into three outlined bands, the gold one filled), and a fork with an arrow (the gold path
   curving up to an arrowhead). Row two shows the fork, which the visual-sociologist review ranked first.
 
   Wonder Cards is the kids deck, "What Should We Wonder?" at wondercards-teal.vercel.app. It is not on the
@@ -205,23 +205,22 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
   var GOLD = '#D4950A';
   var WHICH = [
     { name: 'A river delta',
-      // A plain stem fans into three ways that curve alike and taper from 14 to 8; the gold one ends in a
-      // round end mark.
+      // A plain stem fans into three ways that keep spreading to their ends; the navy ones taper from 14
+      // to 8, the gold one runs on furthest and tapers to an open point, so it has a direction.
       svg: box('#FFFFFF',
         '<g fill="' + NAVY + '">'
-        + taper([[104, 140], [160, 140], [184, 68], [238, 64]], 14, 8)
-        + taper([[104, 140], [160, 140], [184, 212], [238, 216]], 14, 8) + '</g>'
-        + '<g fill="' + GOLD + '">' + taper([[104, 140], [160, 140], [196, 140], [236, 140]], 14, 8)
-        + '<circle cx="244" cy="140" r="16"/></g>'
+        + taper([[104, 140], [150, 140], [196, 104], [234, 58]], 14, 8)
+        + taper([[104, 140], [150, 140], [196, 176], [234, 222]], 14, 8) + '</g>'
+        + '<g fill="' + GOLD + '">' + taper([[104, 140], [170, 140], [220, 140], [268, 140]], 22, 6) + '</g>'
         + '<path d="M20 140 H108" stroke="' + NAVY + '" stroke-width="14" stroke-linecap="round"/>') },
     { name: 'A split ribbon',
-      // A Sankey split drawn as three outlined bands that run together, then part; the gold one is filled
-      // and ends in a point.
+      // A Sankey split drawn as three outlined bands of one height and stroke that run together, then
+      // part; only the gold fill marks the one picked.
       svg: box('#FFFFFF',
         '<g fill="#FFFFFF" stroke="' + NAVY + '" stroke-width="8" stroke-linejoin="round">'
         + '<path d="M26 96 H96 C150 96 164 44 226 44 A10 10 0 0 1 226 64 C172 64 150 116 96 116 H26 A10 10 0 0 1 26 96 Z"/>'
         + '<path d="M26 164 H96 C150 164 164 216 226 216 A10 10 0 0 1 226 236 C172 236 150 184 96 184 H26 A10 10 0 0 1 26 164 Z"/></g>'
-        + '<path d="M36 122 H222 L252 140 L222 158 H36 A18 18 0 0 1 36 122 Z" fill="' + GOLD + '" stroke="' + GOLD + '" stroke-width="8" stroke-linejoin="round"/>') },
+        + '<path d="M26 130 H236 A10 10 0 0 1 236 150 H26 A10 10 0 0 1 26 130 Z" fill="' + GOLD + '" stroke="' + NAVY + '" stroke-width="8" stroke-linejoin="round"/>') },
     { name: 'A fork with an arrow',
       // One path forks three ways in smooth curves; the two not taken thin out, the gold one runs on to an
       // arrowhead.
