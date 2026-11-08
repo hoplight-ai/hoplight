@@ -97,7 +97,7 @@ function picture(svg: string, w: number, hh: number = w): ReactElement {
 }
 
 /** The portfolio's own card: "Tool library" and a row of the tools' pictures, each on its own ground. */
-const LIBRARY = ['revenge-or-justice', 'undo', 'rumi', 'letters'];
+const LIBRARY = ['revenge-or-justice', 'undo', 'rumi'];
 const TILE = 96;
 
 function libraryRow(): ReactElement {

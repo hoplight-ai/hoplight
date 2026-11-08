@@ -207,6 +207,10 @@ export const TOOLS: Tool[] = [
     // (c) feedback box, (d) usage logging, (e) security PASS, (f) not a paid-model tool, (g) entry.
     releaseAt: '2026-11-07',
     cleared: true,
+    // Held the same day (LETTERSOFF1). Whit, 2026-11-07: "And I’m honestly not certain that letters as its
+    // own standalone thing that was supposed to just be a feature of roomie.", then "1 yes." Letter tracing
+    // reaches the public inside Rumi. The entry stays so its link and preview card keep working.
+    hold: 'folded into Rumi, its letter tracing ships there (Whit, 2026-11-07)',
   },
 
   // ---- The gallery as of 2026-10-21, unchanged ----
