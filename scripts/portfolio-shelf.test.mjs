@@ -64,6 +64,15 @@ test('onShelf: at 2026-11-07 noon /portfolio shows exactly these products (PORTH
     ['wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
 });
 
+test('onShelf: at 2026-11-08 noon /portfolio shows The Undo List first, then the same four (UNDONOW1)', () => {
+  // Whit, 2026-11-08: "The undo list is supposed to be one of the products. And I want you to make this live.
+  // My website is still the old one." Its day moved from 2026-11-10 to 2026-11-08.
+  const now = at('2026-11-08T12:00:00-08:00');
+  assert.deepEqual(slugs(onShelf('product', visibleTools(now))),
+    ['undo', 'wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
+  assert.ok(!slugs(onShelf('product', visibleTools(at('2026-11-07T23:59:00-08:00')))).includes('undo'));
+});
+
 // WCKIDS2, 2026-11-07, visual-sociologist review of the renders: at 1440 the AI Election Errors tile ended
 // about 23px lower than its two neighbours, because its line runs three lines and each tile was only as tall
 // as its own text. Every tile in a row is the row's height, with "Open it" at its foot on one shared line.
