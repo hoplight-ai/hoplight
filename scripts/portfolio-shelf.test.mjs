@@ -54,10 +54,10 @@ test('onShelf: keeps the schedule order and only that shelf', () => {
 });
 
 test('onShelf: at 2026-11-07 noon /portfolio shows exactly these products (PORTHOLD1)', () => {
-  // Whit, 2026-11-07: Bet Appetit cut; AGIS and Gut Check held for their own announcements; Letters live
-  // from 2026-11-07, its go-public check passing seven of seven on its live page (LETTERSON1).
+  // Whit, 2026-11-07: Bet Appetit cut; AGIS and Gut Check held for their own announcements; Letters held
+  // the same day as a feature of Rumi (LETTERSOFF1; Whit, 2026-11-07: "1 yes.").
   const now = at('2026-11-07T12:00:00-08:00');
-  assert.deepEqual(slugs(onShelf('product', visibleTools(now))), ['letters', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
+  assert.deepEqual(slugs(onShelf('product', visibleTools(now))), ['ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
 });
 
 test('page: /portfolio draws products only and carries no Reports part', () => {
