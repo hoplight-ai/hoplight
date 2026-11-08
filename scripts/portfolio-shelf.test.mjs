@@ -34,7 +34,7 @@ test('shelf: every entry says product or report', () => {
 test('shelf: the three reports are DNC, Oregon and GE, and everything else is a product', () => {
   assert.deepEqual(slugs(reportTools()).sort(), [...REPORTS].sort());
   for (const s of ['revenge-or-justice', 'undo', 'gut-check', 'rumi', 'letters', 'agis-policy-search-aria',
-    'ai-election-errors', 'bet-appetit', 'what-s-human', 'which-ai-should-i-use']) {
+    'ai-election-errors', 'bet-appetit', 'what-s-human', 'which-ai-should-i-use', 'wonder-cards']) {
     assert.equal(TOOLS.find((t) => t.slug === s).shelf, 'product', s);
   }
 });
@@ -58,6 +58,10 @@ test('onShelf: at 2026-11-07 noon /portfolio shows exactly these products (PORTH
   // the same day as a feature of Rumi (LETTERSOFF1; Whit, 2026-11-07: "1 yes.").
   const now = at('2026-11-07T12:00:00-08:00');
   assert.deepEqual(slugs(onShelf('product', visibleTools(now))), ['ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
+  // The kids Wonder Cards deck (WCKIDS2) is a product from 2026-11-07; until its go-public check passes and
+  // the entry says cleared, only an uncleared preview render shows it, first.
+  assert.deepEqual(slugs(onShelf('product', visibleTools(now, undefined, { includeUncleared: true }))),
+    ['wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
 });
 
 test('page: /portfolio draws products only and carries no Reports part', () => {

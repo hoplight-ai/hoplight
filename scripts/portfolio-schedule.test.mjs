@@ -37,9 +37,16 @@ const HELD = {
   letters: 'folded into Rumi, its letter tracing ships there (Whit, 2026-11-07)',
 };
 const SHOWN_GALLERY = GALLERY.filter((s) => !(s in HELD));
+// The kids Wonder Cards deck, "What Should We Wonder?" (WCKIDS2, 2026-11-07). Whit, 2026-11-07: "the wonder
+// cards that I was thinking of is actually the one that's geared towards kids not the adult one." Its day is
+// 2026-11-07; it shows once `npm run launch:check -- wonder-cards` passes and the entry says cleared. This
+// constant moves with the entry's `cleared`, so the flip is made here too, with the check's result.
+const WONDER = 'wonder-cards';
+const WONDER_CLEARED = false;
 // Letters went live on 2026-11-07 (LETTERSON1) and came off the same day, held as a feature of Rumi
-// (LETTERSOFF1), so from 2026-11-07 the page shows the gallery pieces not held, and nothing else.
-const SHOWN_NOW = SHOWN_GALLERY;
+// (LETTERSOFF1), so from 2026-11-07 the page shows the kids Wonder Cards deck once it is cleared, then the
+// gallery pieces not held, and nothing else.
+const SHOWN_NOW = WONDER_CLEARED ? [WONDER, ...SHOWN_GALLERY] : SHOWN_GALLERY;
 
 test('schedule: before and after 2026-11-07 the page shows the gallery pieces not held, in their old order, and no Letters', () => {
   assert.deepEqual(slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))), SHOWN_GALLERY);
@@ -50,6 +57,33 @@ test('schedule: before and after 2026-11-07 the page shows the gallery pieces no
       assert.ok(!slugs(visibleTools(at(iso), TOOLS, opts)).includes('letters'), `letters shows at ${iso}`);
     }
   }
+});
+
+test('wonder cards: the kids deck is a product from 2026-11-07, at its own address, in its own look', () => {
+  const w = TOOLS.find((t) => t.slug === WONDER);
+  assert.ok(w, 'the kids Wonder Cards deck is not on the tool list');
+  assert.equal(w.name, 'Wonder Cards');
+  assert.equal(w.line, '60 tap-to-draw question and activity cards for little kids, made for restaurant tables, waiting rooms and car rides.');
+  assert.equal(w.href, 'https://wonder-cards.vercel.app/junior', 'the kids deck, not the adult one');
+  assert.equal(w.shelf, 'product');
+  assert.equal(w.releaseAt, '2026-11-07');
+  assert.equal(w.cleared, WONDER_CLEARED);
+  assert.equal(w.hold, undefined);
+  assert.deepEqual(w.brand, {
+    ground: '#3B3560', accent: '#FFAA5C', ink: '#FFFFFF',
+    display: { family: 'Fredoka', weight: 600 },
+    wordmark: [{ text: 'Wonder' }, { text: 'Cards' }],
+    glyph: 'cards',
+  });
+});
+
+test('wonder cards: once cleared it shows first from the first minute of 2026-11-07, and never before', () => {
+  const list = TOOLS.map((t) => (t.slug === WONDER ? { ...t, cleared: true } : t));
+  assert.ok(!slugs(visibleTools(at('2026-11-06T23:59:00-08:00'), list)).includes(WONDER));
+  assert.deepEqual(slugs(visibleTools(at('2026-11-07T00:00:00-08:00'), list)), [WONDER, ...SHOWN_GALLERY]);
+  const uncleared = TOOLS.map((t) => (t.slug === WONDER ? { ...t, cleared: false } : t));
+  assert.ok(!slugs(visibleTools(at('2026-11-07T12:00:00-08:00'), uncleared)).includes(WONDER), 'an uncleared deck shows');
+  assert.equal(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'), uncleared, { includeUncleared: true }))[0], WONDER);
 });
 
 test('letters: released 2026-11-07 and cleared, and held as a feature of Rumi (LETTERSOFF1)', () => {
@@ -157,6 +191,7 @@ test('schedule: the posting calendar dates', () => {
   for (const s of ['revenge-or-justice', 'undo']) assert.equal(byslug[s].releaseAt, '2026-11-10');
   assert.equal(byslug['gut-check'].releaseAt, '2026-11-07');
   assert.equal(byslug['gut-check'].cleared, true);
+  assert.equal(byslug[WONDER].releaseAt, '2026-11-07');
 });
 
 test('schedule: the preview clock is ignored in production and honoured elsewhere', () => {
@@ -166,7 +201,7 @@ test('schedule: the preview clock is ignored in production and honoured elsewher
   assert.deepEqual(portfolioClock({ ...env, VERCEL_ENV: 'preview' }, real), { now: at('2026-11-10T09:00:00-08:00'), includeUncleared: true });
   assert.deepEqual(portfolioClock({ PORTFOLIO_NOW: 'garbage' }, real), { now: real, includeUncleared: false });
   const preview = slugs(visibleTools(at('2026-11-10T09:00:00-08:00'), TOOLS, { includeUncleared: true }));
-  assert.deepEqual(preview.slice(0, 3), ['revenge-or-justice', 'undo', ...SHOWN_NOW.slice(0, 1)]);
+  assert.deepEqual(preview.slice(0, 4), ['revenge-or-justice', 'undo', WONDER, ...SHOWN_GALLERY.slice(0, 1)]);
   assert.ok(!preview.includes('gut-check'), 'a held entry shows in a preview render');
   assert.ok(!preview.includes('letters'), 'Letters shows in a preview render');
 });

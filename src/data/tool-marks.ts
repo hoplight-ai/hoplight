@@ -3,7 +3,9 @@
 // way rising in gold to an arrow for Which AI should I use? (MARKSLIVE1, 2026-11-07). Whit, 2026-11-07:
 // "revenge of justice is supposed to use the scales of justice. The undo list should have a pen right it
 // should be the stroke of a pen.", then "which AI looks like a broken umbrella upside down, no flow vibes at
-// all. the rest work.", then "this" on the fork with the gold arrow.
+// all. the rest work.", then "this" on the fork with the gold arrow. The fourth, the fanned hand of cards for
+// the kids Wonder Cards deck, joined with the deck (WCKIDS2, 2026-11-07); Whit, the same day: "the wonder
+// cards that I was thinking of is actually the one that's geared towards kids not the adult one."
 //
 // Each string is the mark exactly as the tile mockup draws it (lane TILEVALUE1, public/mockups/tile-value.html
 // on branch tilevalue1-each-tile-says at 382e574, row two), copied from the mockup's own script output with
@@ -14,9 +16,10 @@
 // formatting of the output loks like the toolkit they recieved"). A tile with no mark here shows its card as
 // it is.
 //
-// Each mark is drawn in the card's 280 by 280 picture box and first paints that box in the card's white
-// ground, so the card's own drawing under it is covered and nothing else on the tile moves. The colours are
-// the tools' own, which is why this file sits beside tool-pictures.ts and not under src/lib/brand.
+// Each mark is drawn in the card's 280 by 280 picture box and first paints that box in the card's own
+// ground (white, or the deck's blueberry for Wonder Cards), so the card's own drawing under it is covered
+// and nothing else on the tile moves. The colours are the tools' own, which is why this file sits beside
+// tool-pictures.ts and not under src/lib/brand.
 //
 // Imported by node scripts as well as the app, so relative imports only and erasable TypeScript only.
 
@@ -33,6 +36,11 @@ export const TOOL_MARKS: Readonly<Record<string, string>> = {
   // on to an arrowhead.
   'which-ai-should-i-use':
     '<svg viewBox="0 0 280 280" aria-hidden="true"><rect width="280" height="280" fill="#FFFFFF"/><g fill="#0F1B2D"><path d="M92.0 162.0 L99.1 162.4 L106.3 163.7 L113.7 165.9 L121.1 168.9 L128.6 172.6 L136.1 176.9 L143.6 181.6 L151.1 186.5 L158.6 191.6 L166.1 196.8 L173.6 201.7 L181.0 206.4 L188.4 210.7 L195.8 214.4 L203.3 217.3 L210.8 219.4 A5.5 5.5 0 0 0 213.2 208.6 L207.1 206.7 L200.8 203.9 L194.3 200.3 L187.5 196.1 L180.6 191.3 L173.5 186.2 L166.3 180.9 L158.9 175.5 L151.3 170.1 L143.5 164.9 L135.6 160.0 L127.4 155.6 L119.0 151.8 L110.3 148.8 L101.3 146.8 L92.0 146.0 Z"/><path d="M92.0 162.0 L100.9 161.8 L109.5 161.7 L117.8 161.5 L125.9 161.4 L133.9 161.2 L141.6 161.1 L149.1 160.9 L156.5 160.8 L163.7 160.6 L170.9 160.4 L177.9 160.3 L184.8 160.1 L191.7 160.0 L198.5 159.8 L205.2 159.7 L212.0 159.5 A5.5 5.5 0 0 0 212.0 148.5 L205.2 148.3 L198.5 148.2 L191.7 148.0 L184.8 147.9 L177.9 147.7 L170.9 147.6 L163.7 147.4 L156.5 147.3 L149.1 147.1 L141.6 146.9 L133.9 146.8 L125.9 146.6 L117.8 146.5 L109.5 146.3 L100.9 146.2 L92.0 146.0 Z"/></g><path d="M92 154 C152 154 160 76 222 76" fill="none" stroke="#D4950A" stroke-width="16" stroke-linecap="round"/><path d="M218 50 L266 76 L218 102 Z" fill="#D4950A" stroke="#D4950A" stroke-width="8" stroke-linejoin="round"/><path d="M16 154 H100" stroke="#0F1B2D" stroke-width="16" stroke-linecap="round"/></svg>',
+  // A fanned hand of the kids Wonder Cards deck's cards, tangerine and sunshine behind, the white front card
+  // carrying a bold question mark, in the deck's blueberry (WCKIDS2, 2026-11-07). Whit, 2026-11-07, of the
+  // mockup's marks: "the rest work."
+  'wonder-cards':
+    '<svg viewBox="0 0 280 280" aria-hidden="true"><rect width="280" height="280" fill="#3B3560"/><g stroke="#3B3560" stroke-width="8"><rect x="80" y="62" width="120" height="166" rx="16" fill="#FFAA5C" transform="rotate(-20 140 250)"/><rect x="80" y="62" width="120" height="166" rx="16" fill="#FFD166" transform="rotate(20 140 250)"/><rect x="80" y="62" width="120" height="166" rx="16" fill="#FFFDF8"/></g><path d="M114 118 C114 90 166 90 166 118 C166 138 140 142 140 164" fill="none" stroke="#3B3560" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/><circle cx="140" cy="192" r="11" fill="#3B3560"/></svg>',
 };
 
 /** The card's picture box, in card pixels of the 1200 by 630 card: 72 in from the right edge, centred top

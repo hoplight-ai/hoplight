@@ -31,12 +31,15 @@ const built = [`.next/server/app/portfolio.html`, `.next/server/app/(main)/portf
   .map((rel) => path.join(ROOT, rel))
   .find((p) => existsSync(p));
 
-// The three approved marks, each the exact string the mockup's script draws for row two, hashed. Counted
-// 2026-11-07 by running the mockup's own script at 382e574 in node and hashing MARK[slug].
+// The four approved marks, each the exact string the mockup's script draws for row two, hashed. Counted
+// 2026-11-07 by running the mockup's own script at 382e574 in node and hashing MARK[slug]. The fourth, the
+// kids Wonder Cards deck's fanned hand of three cards with the question on the front one, joined with the
+// deck (WCKIDS2, 2026-11-07); Whit, 2026-11-07, of the mockup's marks: "the rest work."
 const APPROVED = {
   'revenge-or-justice': '286f28bbe021bf82d1fff206bdccda02e0f4e34efac7e7221388f5b580051f27',
   undo: '77882aaa6940515e7fff6d26dbe88da7c21b876411d6f780bbddbbdf7fc01dcb',
   'which-ai-should-i-use': 'f687685e6c95ba7da780bb503885830a6d0ba39a1ec9224d06255f742bec9136',
+  'wonder-cards': '56af4780ce5b74b2061fc0d3fd81c8aa841c45316c7c57b9db6bd6b93672de91',
 };
 
 // Each mark's colours, from the mockup's token plan: only the tool's own.
@@ -44,6 +47,7 @@ const COLOURS = {
   'revenge-or-justice': ['#FFFFFF', '#0F1B2D', '#9C3327', '#996D00'],
   undo: ['#FFFFFF', '#0F1B2D', '#D4950A'],
   'which-ai-should-i-use': ['#FFFFFF', '#0F1B2D', '#D4950A'],
+  'wonder-cards': ['#3B3560', '#FFFDF8', '#FFD166', '#FFAA5C'],
 };
 
 // Every tool's pictureSvg as it stood on 2026-11-07 before this lane, hashed (counted at c9fbfd1).
@@ -61,13 +65,16 @@ const PICTURES = {
   'what-s-human': '59158fab00a52180531232b327b19b495210909a53b93edee99e7e95bd3169ce',
   'which-ai-should-i-use': 'fce1f9e1cf6f31c6cc2e6a602f2ab4d21c32790ddc280fbeec9da1c2468f63f9',
   'worker-equity-dilution-at-ge': '1a5be396dd469d309863f25e8c8adb4e313d5ecfc011ce2b68da062e57eb1833',
+  // Added with the deck (WCKIDS2, 2026-11-07): the existing cards picture in the deck's colours, the way the
+  // mockup's first row draws its tile (docs/renders/tilevalue1-2026-11-07/today-wonder-cards.html at 382e574).
+  'wonder-cards': '490b2b7497b2ba0acd9ff7b4d4edad95794ded8d64d386fbbb933b7da17c4494',
 };
 
 test('marks: the marks file exists', () => {
   assert.ok(existsSync(MARKS_FILE), 'src/data/tool-marks.ts is missing');
 });
 
-test('marks: exactly the three approved slugs have a mark, each the mockup string unchanged', { skip: noMarks }, async () => {
+test('marks: exactly the four approved slugs have a mark, each the mockup string unchanged', { skip: noMarks }, async () => {
   const { TOOL_MARKS } = await marks();
   assert.deepEqual(Object.keys(TOOL_MARKS).sort(), Object.keys(APPROVED).sort());
   for (const [slug, hash] of Object.entries(APPROVED)) {
@@ -85,14 +92,16 @@ test('marks: each mark uses only its tool\'s own colours and carries no text', {
   }
 });
 
-test('marks: every marked tool is on the tool list, on a white ground with the 280 square picture', { skip: noMarks }, async () => {
-  // The mark paints the card's 280 by 280 picture box in white, so it is only right where the card draws
-  // that box on white.
+test('marks: every marked tool is on the tool list, its mark box painted in the card\'s own ground, with the 280 square picture', { skip: noMarks }, async () => {
+  // The mark first paints the card's 280 by 280 picture box in a ground: white for the three on white cards,
+  // the deck's blueberry for Wonder Cards. It is only right where the card draws that box on that ground.
   const { TOOL_MARKS } = await marks();
   for (const slug of Object.keys(TOOL_MARKS)) {
     const t = TOOLS.find((x) => x.slug === slug);
     assert.ok(t, `${slug} is not on the tool list`);
-    assert.equal(t.brand.ground.toUpperCase(), '#FFFFFF', slug);
+    const box = /^<svg viewBox="0 0 280 280" aria-hidden="true"><rect width="280" height="280" fill="(#[0-9A-Fa-f]{6})"\/>/.exec(TOOL_MARKS[slug]);
+    assert.ok(box, `${slug} mark does not paint its box first`);
+    assert.equal(box[1].toUpperCase(), t.brand.ground.toUpperCase(), slug);
     assert.equal(t.brand.pic, undefined, `${slug} draws a picture of its own size`);
     assert.equal(t.brand.tileOnWhite, undefined, `${slug} tile is redrawn on white`);
     assert.deepEqual(pictureSize(t.brand), { w: 280, h: 280 }, slug);
