@@ -126,7 +126,8 @@ export const TOOLS: Tool[] = [
   {
     slug: 'undo',
     name: 'The Undo List',
-    line: 'Everything the second Trump administration did, sorted by what it takes to undo it in 2029.',
+    // Whit, 2026-11-08: "and the undo list is everything The Trump administration did that can be undone with a stroke of a pen-  filterable, sortable and bundled for efficiency of reversal"
+    line: 'Everything the Trump administration did that can be undone with a stroke of a pen, filterable, sortable and bundled for efficiency of reversal.',
     href: '/undo',
     kind: 'live',
     shelf: 'product',
