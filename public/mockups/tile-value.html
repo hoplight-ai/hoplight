@@ -43,8 +43,8 @@
   one object, flat colour, no text, read at the smallest size it will be seen.
   Signature element: the marks. Scales for Revenge or Justice (justice's gold pan lower, the one that
   weighs); a signature and a pen nib for The Undo List (the pen is how most of it is undone); one stem
-  diverging into three roots, one taken, for Which AI should I use?; the deck's own question card for
-  Wonder Cards.
+  diverging into four tapering roots, the one taken in gold, for Which AI should I use?; a fanned hand of
+  the deck's cards with the question on the front one for Wonder Cards. One line weight for the set.
 
   Token plan: #FFFFFF page; #0F1B2D navy, the ink and the gallery field as live; #555550 the tile line as
   live; #996D00 the link as live; white at 0.78 for the row notes on navy. Inside the marks, only each
@@ -66,9 +66,9 @@
   marks are drawings of the tool's own object in its own colours, sit where the live tile already has a
   drawing, and carry no label of their own. Which AI's roots were drawn three ways side by side
   (docs/renders/tilevalue1-2026-11-07/whichai-roots-trial.html): a fork downward, plant roots under a
-  ground line, a fork sideways. The downward fork is kept: at 78px, its size on a phone, it still reads as
-  one stem splitting three ways with one end taken; the plant roots blur into a stick figure at that size,
-  and the sideways fork reads as a wiring diagram rather than roots.
+  ground line, a fork sideways. The downward fork was kept (at 78px, its size on a phone, it read as one
+  stem splitting); the visual-sociologist review then had its end circles go (they read as a plug or a
+  code branch) and the plant roots' taper come in, without their soil line or sprout.
 
   Wonder Cards is the kids deck, "What Should We Wonder?" at wondercards-teal.vercel.app. It is not on the
   tool list, so its first tile is drawn the way the card route draws a tile
@@ -143,44 +143,62 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
   function box(ground, inner) {
     return '<svg viewBox="0 0 280 280" aria-hidden="true"><rect width="280" height="280" fill="' + ground + '"/>' + inner + '</svg>';
   }
+  // A filled outline along a cubic curve p (four points), w0 wide at its start and w1 at its rounded end.
+  function taper(p, w0, w1) {
+    var L = [], R = [], n = 16;
+    function at(t) {
+      var u = 1 - t, x = 0, y = 0, dx, dy, k = [u * u * u, 3 * u * u * t, 3 * u * t * t, t * t * t];
+      for (var i = 0; i < 4; i++) { x += k[i] * p[i][0]; y += k[i] * p[i][1]; }
+      dx = 3 * u * u * (p[1][0] - p[0][0]) + 6 * u * t * (p[2][0] - p[1][0]) + 3 * t * t * (p[3][0] - p[2][0]);
+      dy = 3 * u * u * (p[1][1] - p[0][1]) + 6 * u * t * (p[2][1] - p[1][1]) + 3 * t * t * (p[3][1] - p[2][1]);
+      var m = Math.sqrt(dx * dx + dy * dy); return [x, y, -dy / m, dx / m];
+    }
+    for (var i = 0; i <= n; i++) {
+      var t = i / n, q = at(t), w = (w0 + (w1 - w0) * t) / 2;
+      L.push((q[0] + q[2] * w).toFixed(1) + ' ' + (q[1] + q[3] * w).toFixed(1));
+      R.unshift((q[0] - q[2] * w).toFixed(1) + ' ' + (q[1] - q[3] * w).toFixed(1));
+    }
+    var r = (w1 / 2).toFixed(1);
+    return '<path d="M' + L.join(' L') + ' A' + r + ' ' + r + ' 0 0 0 ' + R.join(' L') + ' Z"/>';
+  }
   var MARK = {
+    // One line weight for the set: 14 for every main stroke, 8 for the fine ones (the scales' cords, the
+    // signature's line, the card edges).
     // The scales of justice, in its own navy, revenge red and justice gold; justice's pan sits lower.
     'revenge-or-justice': box('#FFFFFF',
       '<g fill="none" stroke="' + NAVY + '" stroke-linecap="round">'
-      + '<path d="M140 64 V232" stroke-width="12"/><path d="M36 88 L244 112" stroke-width="12"/>'
-      + '<path d="M36 88 L8 168 M36 88 L64 168 M244 112 L216 192 M244 112 L272 192" stroke-width="5"/></g>'
-      + '<circle cx="140" cy="56" r="12" fill="' + NAVY + '"/>'
-      + '<rect x="88" y="228" width="104" height="16" rx="8" fill="' + NAVY + '"/>'
-      + '<path d="M2 168 H70 A34 24 0 0 1 2 168 Z" fill="#9C3327"/>'
-      + '<path d="M210 192 H278 A34 24 0 0 1 210 192 Z" fill="#996D00"/>'),
+      + '<path d="M140 64 V230 M36 88 L244 112" stroke-width="14"/>'
+      + '<path d="M36 88 L8 166 M36 88 L64 166 M244 112 L216 190 M244 112 L272 190" stroke-width="8"/></g>'
+      + '<circle cx="140" cy="56" r="13" fill="' + NAVY + '"/>'
+      + '<rect x="86" y="226" width="108" height="18" rx="9" fill="' + NAVY + '"/>'
+      + '<path d="M2 166 H70 A34 26 0 0 1 2 166 Z" fill="#9C3327"/>'
+      + '<path d="M210 190 H278 A34 26 0 0 1 210 190 Z" fill="#996D00"/>'),
     // The stroke of a pen: a signature on its line, the gold nib at its end.
-    'undo': box('#FFFFFF', '<g transform="translate(0 -14)">'
-      + '<path d="M24 226 H256" stroke="' + NAVY + '" stroke-opacity="0.3" stroke-width="5" stroke-linecap="round"/>'
-      + '<path d="M28 200 C44 150 72 120 84 140 C96 160 66 214 84 210 C102 206 112 150 128 156 C144 162 124 204 142 202 C160 200 166 178 180 176" fill="none" stroke="' + NAVY + '" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>'
-      + '<g transform="translate(180 176) rotate(40)">'
-      + '<path d="M0 0 L-20 -46 L-20 -80 L20 -80 L20 -46 Z" fill="#D4950A"/>'
-      + '<path d="M0 -6 V-48" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>'
-      + '<circle cx="0" cy="-54" r="6" fill="#FFFFFF"/>'
-      + '<rect x="-22" y="-134" width="44" height="50" rx="8" fill="' + NAVY + '"/></g></g>'),
-    // Diverging roots: one stem splits three ways; the root taken is in gold, the two not taken stay
-    // thin navy with open ends.
+    'undo': box('#FFFFFF',
+      '<path d="M20 216 H252" stroke="' + NAVY + '" stroke-opacity="0.35" stroke-width="8" stroke-linecap="round"/>'
+      + '<path d="M24 186 C38 128 74 96 88 120 C102 146 62 206 84 200 C106 194 112 128 132 136 C152 144 124 192 146 190 C164 188 168 166 182 162" fill="none" stroke="' + NAVY + '" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<g transform="translate(184 160) rotate(40)">'
+      + '<path d="M0 0 L-22 -48 L-22 -82 L22 -82 L22 -48 Z" fill="#D4950A"/>'
+      + '<path d="M0 -8 V-50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>'
+      + '<circle cx="0" cy="-56" r="7" fill="#FFFFFF"/>'
+      + '<rect x="-24" y="-136" width="48" height="50" rx="9" fill="' + NAVY + '"/></g>'),
+    // Diverging roots: a stem that thickens toward the top splits into four roots that taper as they
+    // curve away; the one taken is gold, drawn first so the others' bases sit on it. taper() below draws each as a filled outline.
     'which-ai-should-i-use': box('#FFFFFF',
-      '<g fill="none" stroke-linecap="round">'
-      + '<path d="M140 112 C140 160 60 170 52 226 M140 112 V226" stroke="' + NAVY + '" stroke-width="8"/>'
-      + '<path d="M140 112 C140 160 220 170 228 226" stroke="#D4950A" stroke-width="16"/>'
-      + '<path d="M140 30 V114" stroke="' + NAVY + '" stroke-width="16"/></g>'
-      + '<circle cx="52" cy="238" r="13" fill="#FFFFFF" stroke="' + NAVY + '" stroke-width="6"/>'
-      + '<circle cx="140" cy="238" r="13" fill="#FFFFFF" stroke="' + NAVY + '" stroke-width="6"/>'
-      + '<circle cx="228" cy="240" r="21" fill="#D4950A"/>'),
-    // The deck's own card, as its app icon draws it: a question card on a sunshine card, the tangerine
-    // suit shape in its corner.
+      '<g fill="#D4950A">' + taper([[147, 110], [160, 156], [214, 170], [250, 240]], 18, 8) + '</g>'
+      + '<g fill="' + NAVY + '">'
+      + taper([[133, 110], [124, 160], [66, 170], [30, 240]], 15, 7)
+      + taper([[137, 110], [134, 170], [104, 202], [98, 256]], 15, 7)
+      + taper([[143, 110], [146, 170], [170, 202], [174, 256]], 15, 7) + '</g>'
+      + '<g fill="' + NAVY + '">' + taper([[140, 22], [140, 60], [140, 100], [140, 134]], 36, 26) + '</g>'),
+    // A fanned hand of three of the deck's cards, the question on the front one.
     'wonder-cards': box('#3B3560',
-      '<rect x="65" y="45" width="150" height="190" rx="20" fill="#FFD166" transform="rotate(9 140 140)"/>'
-      + '<g transform="rotate(-6 140 140)">'
-      + '<rect x="65" y="45" width="150" height="190" rx="20" fill="#FFFDF8"/>'
-      + '<path d="M166 62 h36 a18 18 0 0 1 -36 0 z" fill="#FFAA5C"/>'
-      + '<path d="M110 114 C110 82 170 82 170 114 C170 138 140 140 140 166" fill="none" stroke="#3B3560" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>'
-      + '<circle cx="140" cy="198" r="13" fill="#3B3560"/></g>'),
+      '<g stroke="#3B3560" stroke-width="8">'
+      + '<rect x="80" y="62" width="120" height="166" rx="16" fill="#FFAA5C" transform="rotate(-20 140 250)"/>'
+      + '<rect x="80" y="62" width="120" height="166" rx="16" fill="#FFD166" transform="rotate(20 140 250)"/>'
+      + '<rect x="80" y="62" width="120" height="166" rx="16" fill="#FFFDF8"/></g>'
+      + '<path d="M114 118 C114 90 166 90 166 118 C166 138 140 142 140 164" fill="none" stroke="#3B3560" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<circle cx="140" cy="192" r="11" fill="#3B3560"/>'),
   };
 
   // The four tools. name, href and line come from src/data/tools.ts as of 2026-11-07, except Wonder Cards,
@@ -199,7 +217,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
   ];
 
   var ROWS = [
-    { key: 'today', title: 'Today', note: 'The tile as it is live.' },
+    { key: 'today', title: 'Today', note: 'The tile as it is live; Wonder Cards is drawn the same way.' },
     { key: 'mark', title: 'Today, with a mark that says what it does', note: 'Only the corner drawing changes.' },
   ];
 
