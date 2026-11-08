@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Which AI, three roots drawings side by side</title>
+<!--
+  TILEVALUE1 round 4, 2026-11-07. Whit: "we need to find a better graphic visualization of the which model
+  should I pick like maybe it's diverging roots or something". Three drawings of one stem splitting, each
+  at the tile's full 280 box and at 78px (the box's size on a 390 phone tile). The lane keeps one.
+  A: a fork, one stem splitting into three, the chosen end filled.
+  B: plant roots, a sprout above a ground line, the root splitting twice below, one path to a tip in ink.
+  C: sideways, one stem from the left splitting into three, the chosen branch in ink.
+-->
+<style>
+body { margin: 0; padding: 24px; font: 16px Inter, sans-serif; color: #0F1B2D; background: #FFFFFF; }
+.row { display: flex; gap: 40px; align-items: flex-end; margin-bottom: 24px; }
+.c { text-align: center; }
+.big { width: 280px; height: 280px; border: 1px solid #DDD; }
+.sm { width: 78px; height: 78px; border: 1px solid #DDD; }
+</style>
+</head>
+<body>
+<div class="row" id="r"></div>
+<script>
+var A = '<svg viewBox="0 0 280 280">'
+  + '<path d="M140 30 V112" stroke="#0F1B2D" stroke-width="16" stroke-linecap="round" fill="none"/>'
+  + '<path d="M140 112 C140 160 60 170 52 232" stroke="#A3A8B0" stroke-width="12" stroke-linecap="round" fill="none"/>'
+  + '<path d="M140 112 V232" stroke="#A3A8B0" stroke-width="12" stroke-linecap="round" fill="none"/>'
+  + '<path d="M140 112 C140 160 220 170 228 232" stroke="#0F1B2D" stroke-width="16" stroke-linecap="round" fill="none"/>'
+  + '<circle cx="52" cy="240" r="15" fill="#FFFFFF" stroke="#A3A8B0" stroke-width="7"/>'
+  + '<circle cx="140" cy="240" r="15" fill="#FFFFFF" stroke="#A3A8B0" stroke-width="7"/>'
+  + '<circle cx="228" cy="240" r="20" fill="#0F1B2D"/>'
+  + '</svg>';
+var B = '<svg viewBox="0 0 280 280">'
+  + '<path d="M140 92 C140 70 132 58 112 48 C126 44 138 52 140 66 C142 46 156 36 176 38 C168 54 154 62 140 70" fill="#0F1B2D"/>'
+  + '<path d="M140 64 V96" stroke="#0F1B2D" stroke-width="10" stroke-linecap="round"/>'
+  + '<path d="M36 96 H244" stroke="#4B5461" stroke-width="6" stroke-linecap="round"/>'
+  + '<g fill="none" stroke-linecap="round" stroke="#A3A8B0" stroke-width="8">'
+  + '<path d="M140 132 C120 160 82 160 70 186"/><path d="M140 132 C160 160 198 160 210 186"/>'
+  + '<path d="M70 186 C60 206 40 214 34 246"/><path d="M70 186 C80 206 92 222 96 250"/>'
+  + '<path d="M140 132 V206"/><path d="M140 206 C128 222 120 234 118 254"/><path d="M140 206 C152 222 160 234 162 254"/>'
+  + '<path d="M210 186 C200 206 188 222 184 250"/></g>'
+  + '<g fill="none" stroke-linecap="round" stroke="#0F1B2D" stroke-width="13">'
+  + '<path d="M140 96 V132"/><path d="M140 132 C160 160 198 160 210 186"/><path d="M210 186 C220 206 240 214 246 246"/></g>'
+  + '<circle cx="246" cy="250" r="13" fill="#0F1B2D"/>'
+  + '</svg>';
+var C = '<svg viewBox="0 0 280 280">'
+  + '<path d="M24 140 H104" stroke="#0F1B2D" stroke-width="16" stroke-linecap="round" fill="none"/>'
+  + '<path d="M104 140 C150 140 160 56 228 56" stroke="#A3A8B0" stroke-width="12" stroke-linecap="round" fill="none"/>'
+  + '<path d="M104 140 H228" stroke="#0F1B2D" stroke-width="16" stroke-linecap="round" fill="none"/>'
+  + '<path d="M104 140 C150 140 160 224 228 224" stroke="#A3A8B0" stroke-width="12" stroke-linecap="round" fill="none"/>'
+  + '<circle cx="240" cy="56" r="15" fill="#FFFFFF" stroke="#A3A8B0" stroke-width="7"/>'
+  + '<circle cx="240" cy="140" r="20" fill="#0F1B2D"/>'
+  + '<circle cx="240" cy="224" r="15" fill="#FFFFFF" stroke="#A3A8B0" stroke-width="7"/>'
+  + '</svg>';
+var h = '';
+[['A, fork', A], ['B, plant roots', B], ['C, sideways', C]].forEach(function (x) {
+  h += '<div class="c"><div class="big">' + x[1] + '</div><div class="sm">' + x[1] + '</div><p>' + x[0] + '</p></div>';
+});
+document.getElementById('r').innerHTML = h;
+</script>
+</body>
+</html>

@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>What each tool does, before the tap</title>
-<meta name="description" content="Five portfolio tiles drawn four ways: today's tile, the proof plus the promise, then each alone.">
+<meta name="description" content="Four portfolio tiles as they are today, and the same tiles with a corner drawing that says what each tool does.">
 <meta property="og:title" content="What each tool does, before the tap">
-<meta property="og:description" content="Five portfolio tiles drawn four ways, to pick how a tile says what its tool does.">
+<meta property="og:description" content="Today's portfolio tile, and the same tile with a mark that says what the tool does.">
 <meta property="og:image" content="https://hoplight.ai/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="apple-mobile-web-app-title" content="Tile value">
@@ -16,62 +16,67 @@
 <link rel="icon" href="/favicon.ico">
 <link rel="manifest" href="/manifest.webmanifest">
 <!--
-  TILEVALUE1, 2026-11-07. Whit: "wonder cards is a yes but i'm realizing the user can't tell what each of
-  these does just by looking. the unique value add needs to be clear before they will click. how could we
-  do that artfully clearly and tastefully".
+  TILEVALUE1, 2026-11-07. Whit first: "wonder cards is a yes but i'm realizing the user can't tell what each
+  of these does just by looking. the unique value add needs to be clear before they will click. how could
+  we do that artfully clearly and tastefully".
 
-  The job: a stranger sees, before tapping, what each tool does for them. Five tools (Revenge or Justice,
-  The Undo List, Letters, Which AI should I use?, Wonder Cards), four rows: today's live tile, then the
-  candidate (the proof plus the promise, with the first move as its link), then the promise alone and the
-  proof alone as the alternatives. The candidate sits second so it shows on the first screen. Columns line up, so one tool stacks down the page and a row reads
-  as a whole portfolio.
+  Round 4, after he saw round 3: "revenge of justice is supposed to use the scales of justice. The undo list
+  should have a pen right it should be the stroke of a pen. and the wonder cards that I was thinking of is
+  actually the one that's geared towards kids not the adult one. And I'm honestly not certain that letters
+  as its own standalone thing that was supposed to just be a feature of roomie. And we need to find a better
+  graphic visualization of the which model should I pick like maybe it's diverging roots or something and I
+  like the top row the version of the cards today is much stronger than the one that you have below."
+  Then, the same day: "1 yes." to taking Letters off the portfolio and folding it into Rumi, so Letters is
+  not on this page.
+
+  So: today's tile wins and stays exactly as live. The screenshot rows are gone. One change is proposed:
+  the abstract corner drawing becomes a drawn mark of what the tool does, in the tool's own colours, in
+  the same box (the card route's 280 by 280 picture, 72 in from the right of a 1200 by 630 card, centred
+  top to bottom). The second row is the first row's own picture with that box painted over.
 
   References borrowed (design/references/REFERENCES.md):
-  - Pentagram: the work is the content and each item gets one short line, so a tile is a picture and one
-    sentence, and the promise row is that sentence alone.
-  - Stripe, and the set's shared pattern "something on the page is real and current": a real screen
-    instead of decoration, so the proof row's pictures are crops of each tool's own output.
-  Signature element: the proof crops. Everything else on the page is the live portfolio's own quiet
-  chrome (white tiles on the navy gallery field, 14px grey line, gold-deep link).
+  - Pentagram: the work is the content and each item gets one short line, so the tile keeps its one line
+    and its picture does the telling.
+  - Anthropic, "pair a bold sans headline with a serif paragraph and stop there": the system is already
+    whole, so the change is one element and nothing is added around it.
+  The marks follow the pictogram rule in the canon's information design source (Aicher's codified rules):
+  one object, flat colour, no text, read at the smallest size it will be seen.
+  Signature element: the marks. Scales for Revenge or Justice (justice's gold pan lower, the one that
+  weighs); a signature and a pen nib for The Undo List (the pen is how most of it is undone); one stem
+  diverging into three roots, one taken, for Which AI should I use?; the deck's own question card for
+  Wonder Cards.
 
-  Token plan: #FFFFFF page; #0F1B2D navy, the ink and the gallery field as live; #555550 the tile line
-  as live; #996D00 the link as live; white at 0.78 for the row notes on navy. Type: Inter for the page
-  and every tile body, as live; inside a tile, each tool's own display face (Albert Sans 600 for the
-  three Hoplight-hosted tools, Inter 700 for Letters, Playfair Display 700 for Wonder Cards).
-  Layout: a short white header, then one navy field holding five named rows of the same five tiles. At
-  390 the field swipes sideways as one piece with the row names pinned, so a swipe moves every row.
+  Token plan: #FFFFFF page; #0F1B2D navy, the ink and the gallery field as live; #555550 the tile line as
+  live; #996D00 the link as live; white at 0.78 for the row notes on navy. Inside the marks, only each
+  tool's own colours: Revenge or Justice #0F1B2D, #9C3327, #996D00; The Undo List #0F1B2D, #D4950A;
+  Which AI #0F1B2D, #D4950A (the root taken); Wonder Cards #3B3560, #FFFDF8, #FFD166, #FFAA5C (read from its live page).
+  Type: Inter only, as live. Layout: a short white header, one navy field with two named rows of the same
+  four tiles; at 390 the field swipes sideways as one piece with the row names pinned.
 
   Wireframe, 1440:
     What each tool does, before the tap
-    The same five tools, drawn four ways ...
-    [navy field                                                          ]
-    [ Today  The live tile ...                                           ]
-    [ [RoJ ] [Undo] [Letters] [Which AI] [Wonder]                        ]
-    [ The promise  Leads with what you get ...                           ]
-    [ ...                                                                ]
+    Today's tile, and the same tile with ...
+    [navy field                                                  ]
+    [ Today  The tile as it is live.                             ]
+    [ [RoJ    ] [Undo   ] [Which AI] [Wonder ]                   ]
+    [ Today, with a mark that says what it does  ...             ]
+    [ [RoJ  ⚖ ] [Undo ✒ ] [Which ⑂ ] [Wonder ?]                  ]
 
-  Critique against the generic look, and what changed: round one numbered the rows 1 to 4 in big type
-  like the card-frames mockup; that is numbering on things that are not a sequence, so the rows carry
-  their plain names. The question row (the brief's third proposal) was drafted and dropped: two of the
-  five names are already questions (Revenge or Justice, Which AI should I use?) and Wonder Cards' whole
-  product is questions, so the row repeated the names. A first-move row (the link names what you do
-  first) was drawn and then folded into the last row on review: on the today picture it could not be told
-  apart from today, so its link words now sit on the proof plus the promise, which is the candidate in full.
+  Critique against the generic look: a row of icons above titles is the catalogued generic AI look, so the
+  marks are drawings of the tool's own object in its own colours, sit where the live tile already has a
+  drawing, and carry no label of their own. Which AI's roots were drawn three ways side by side
+  (docs/renders/tilevalue1-2026-11-07/whichai-roots-trial.html): a fork downward, plant roots under a
+  ground line, a fork sideways. The downward fork is kept: at 78px, its size on a phone, it still reads as
+  one stem splitting three ways with one end taken; the plant roots blur into a stick figure at that size,
+  and the sideways fork reads as a wiring diagram rather than roots.
 
-  Review by hand, 2026-11-07 (the visual-sociologist agent cannot be started from inside a lane): the
-  provenance note under the lede went (machinery on a reading page; it lives in the lane report), every
-  row note was cut to one short sentence so none wraps past two lines at 390, and The Undo List's crop
-  was tightened to its headline and first row of blocks so the headline reads on a phone.
-  Wonder Cards is not on the tool list, so its first tile is drawn the way the card route draws a tile
-  (docs/renders/tilevalue1-2026-11-07/today-wonder-cards.html).
-
-  Where every new line comes from is written beside it in TOOLS below. Pictures: public/mockups/tile-value/,
-  cut by docs/renders/tilevalue1-2026-11-07/crops.py from screens capture.mjs took on 2026-11-07.
+  Wonder Cards is the kids deck, "What Should We Wonder?" at wondercards-teal.vercel.app. It is not on the
+  tool list, so its first tile is drawn the way the card route draws a tile
+  (docs/renders/tilevalue1-2026-11-07/today-wonder-cards.html), on its app icon's blueberry, because its
+  page ground is a cream.
 -->
 <style>
 @font-face { font-family: 'Inter'; src: url('/fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
-@font-face { font-family: 'Albert Sans'; src: url('/fonts/albert-sans-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
-@font-face { font-family: 'Playfair Display'; src: url('/fonts/playfair-display-latin-700-normal.woff2') format('woff2'); font-weight: 700; font-display: swap; }
 
 * { box-sizing: border-box; }
 html, body { margin: 0; background: #FFFFFF; color: #0F1B2D; }
@@ -80,63 +85,42 @@ body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helv
 
 .top { max-width: 1440px; margin: 0 auto; padding: 28px 24px 22px; }
 h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin: 0 0 10px; text-wrap: balance; }
-.lede { margin: 0; font-size: 16px; color: #2A3F5F; }
+.lede { margin: 0; font-size: 16px; color: #2A3F5F; max-width: 62ch; }
 
 .field { background: #0F1B2D; color: #FFFFFF; padding: 8px 0 48px; }
-.grid { max-width: 1440px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: 16px; }
-/* At desktop a row's name and note share one line, so the candidate row reaches the first screen. */
+.grid { max-width: 1440px; margin: 0 auto; padding: 0 24px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); column-gap: 16px; }
 .rowhead { grid-column: 1 / -1; padding: 26px 0 12px; }
 .rowhead > div { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 14px; }
-.rowhead h2 { font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
+.rowhead h2 { text-wrap: balance; font-size: 20px; font-weight: 600; letter-spacing: -0.01em; margin: 0; }
 .rowhead p { margin: 2px 0 0; font-size: 16px; color: rgba(255, 255, 255, 0.78); max-width: 72ch; }
 .swipe { display: none; }
 
-/* A tile, as the live portfolio draws it (globals.css .wcard), then changed one way per row. */
+/* A tile, as the live portfolio draws it (globals.css .wcard). */
 .tile { position: relative; display: flex; flex-direction: column; min-width: 0; background: #FFFFFF; color: #0F1B2D; border: 1px solid rgba(15, 27, 45, 0.18); border-radius: 8px; overflow: hidden; text-decoration: none; }
 .tile:focus-visible { outline: 3px solid #E8A820; outline-offset: 3px; }
-.pic { aspect-ratio: 1200 / 630; background: #0F1B2D; overflow: hidden; }
+.pic { position: relative; aspect-ratio: 1200 / 630; background: #0F1B2D; overflow: hidden; }
 .pic img { width: 100%; height: 100%; display: block; object-fit: cover; }
+/* The card's picture box: 280 by 280 at x 848, y 175 of the 1200 by 630 card. */
+.pic svg { position: absolute; left: 70.6667%; top: 27.7778%; width: 23.3333%; height: 44.4444%; }
 .body { padding: 16px 20px; flex: 1; display: flex; flex-direction: column; }
 .line { margin: 0; font-size: 14px; line-height: 1.5; color: #555550; flex: 1; }
 .go { margin-top: 12px; font-size: 12.5px; font-weight: 600; color: #996D00; }
 .tile:hover .go { text-decoration: underline; text-underline-offset: 3px; }
 
-/* The tool's name in its own face and colours, small, above a promise or a line. */
-.nm { font-family: var(--face); font-weight: var(--w); font-size: 16px; line-height: 1.15; letter-spacing: -0.01em; color: var(--ink); margin: 0 0 6px; }
-.nm b { font-weight: inherit; color: var(--accent); }
-.pr { font-family: var(--face); font-weight: var(--w); font-size: 20px; line-height: 1.22; letter-spacing: -0.015em; color: var(--ink); margin: 0; flex: 1; text-wrap: pretty; }
-
-/* The promise row: no picture; the tile's top is the tool's ground with the promise on it. */
-.say { background: var(--ground); padding: 20px; flex: 1; display: flex; flex-direction: column; min-height: 168px; }
-.say .nm { color: var(--onground); }
-.say .nm b { color: var(--onaccent); }
-.say .pr { color: var(--onground); }
-.foot { padding: 12px 20px 14px; }
-.foot .go { margin-top: 0; }
-
-/* Five type sizes on the page: 42 the title, 20 the row names and every promise (one size in both
-   promise rows, so the alternative is never louder than the candidate), 16 the lede, row notes and
-   tool names, 14 the tile line as live, 12.5 the link as live. */
-
 @media (max-width: 1099px) {
-  /* Phone and tablet: the field swipes sideways as one piece, so every row moves together and one
-     tool stays stacked down the page. The row names stay pinned to the left edge while it moves. */
+  /* Phone and tablet: the field swipes sideways as one piece, so both rows move together and one tool
+     stays stacked down the page. The row names stay pinned to the left edge while it moves. */
   .field { overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-left: 16px; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
-  .grid { --tw: min(334px, calc(100vw - 56px)); grid-template-columns: repeat(5, var(--tw)); column-gap: 12px; padding: 0 16px; width: max-content; max-width: none; }
+  .grid { --tw: min(334px, calc(100vw - 56px)); grid-template-columns: repeat(4, var(--tw)); column-gap: 12px; padding: 0 16px; width: max-content; max-width: none; }
   .rowhead { padding: 20px 0 10px; }
   .rowhead > div { display: block; position: sticky; left: 16px; width: calc(100vw - 32px); }
-  .lede { max-width: 62ch; }
   .tile { scroll-snap-align: start; }
   .swipe { display: block; margin: 0; padding: 8px 0 0; font-size: 14px; color: rgba(255, 255, 255, 0.78); }
   .top { padding: 24px 16px 22px; }
 }
 @media (max-width: 640px) {
-  /* As live at this width: the card face is cropped to its middle band and the text sits tighter. */
-  .card .pic { aspect-ratio: 1200 / 330; }
   .body { padding: 12px 16px 14px; }
   .go { margin-top: 6px; }
-  .say { padding: 16px; min-height: 0; }
-  .foot { padding: 10px 16px 12px; }
 }
 </style>
 </head>
@@ -144,113 +128,94 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
 <main>
   <div class="top">
     <h1>What each tool does, before the tap</h1>
-    <p class="lede">The same five tools, drawn four ways. Today's tile first, then the candidate: a real screen from the tool and what you get, in words. Under it, each of those two alone.</p>
+    <p class="lede">Today's tile, and the same tile with a mark of what the tool does in its corner.</p>
   </div>
-  <section class="field" aria-label="Four ways to draw a tile">
+  <section class="field" aria-label="Today's tile and the tile with a mark">
     <div class="grid" id="grid"></div>
   </section>
 </main>
 
 <script>
 (function () {
-  var NAVY = '#0F1B2D', WHITE = '#FFFFFF', GOLD_DEEP = '#996D00';
-  var ALBERT = "'Albert Sans', 'Inter', sans-serif", INTER = "'Inter', sans-serif", PLAYFAIR = "'Playfair Display', Georgia, serif";
+  var NAVY = '#0F1B2D';
+  // Each mark is drawn in the card's 280 by 280 picture box and first paints the box in the card's own
+  // ground, so the live drawing under it is covered and nothing else on the card moves.
+  function box(ground, inner) {
+    return '<svg viewBox="0 0 280 280" aria-hidden="true"><rect width="280" height="280" fill="' + ground + '"/>' + inner + '</svg>';
+  }
+  var MARK = {
+    // The scales of justice, in its own navy, revenge red and justice gold; justice's pan sits lower.
+    'revenge-or-justice': box('#FFFFFF',
+      '<g fill="none" stroke="' + NAVY + '" stroke-linecap="round">'
+      + '<path d="M140 64 V232" stroke-width="12"/><path d="M36 88 L244 112" stroke-width="12"/>'
+      + '<path d="M36 88 L8 168 M36 88 L64 168 M244 112 L216 192 M244 112 L272 192" stroke-width="5"/></g>'
+      + '<circle cx="140" cy="56" r="12" fill="' + NAVY + '"/>'
+      + '<rect x="88" y="228" width="104" height="16" rx="8" fill="' + NAVY + '"/>'
+      + '<path d="M2 168 H70 A34 24 0 0 1 2 168 Z" fill="#9C3327"/>'
+      + '<path d="M210 192 H278 A34 24 0 0 1 210 192 Z" fill="#996D00"/>'),
+    // The stroke of a pen: a signature on its line, the gold nib at its end.
+    'undo': box('#FFFFFF', '<g transform="translate(0 -14)">'
+      + '<path d="M24 226 H256" stroke="' + NAVY + '" stroke-opacity="0.3" stroke-width="5" stroke-linecap="round"/>'
+      + '<path d="M28 200 C44 150 72 120 84 140 C96 160 66 214 84 210 C102 206 112 150 128 156 C144 162 124 204 142 202 C160 200 166 178 180 176" fill="none" stroke="' + NAVY + '" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<g transform="translate(180 176) rotate(40)">'
+      + '<path d="M0 0 L-20 -46 L-20 -80 L20 -80 L20 -46 Z" fill="#D4950A"/>'
+      + '<path d="M0 -6 V-48" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round"/>'
+      + '<circle cx="0" cy="-54" r="6" fill="#FFFFFF"/>'
+      + '<rect x="-22" y="-134" width="44" height="50" rx="8" fill="' + NAVY + '"/></g></g>'),
+    // Diverging roots: one stem splits three ways; the root taken is in gold, the two not taken stay
+    // thin navy with open ends.
+    'which-ai-should-i-use': box('#FFFFFF',
+      '<g fill="none" stroke-linecap="round">'
+      + '<path d="M140 112 C140 160 60 170 52 226 M140 112 V226" stroke="' + NAVY + '" stroke-width="8"/>'
+      + '<path d="M140 112 C140 160 220 170 228 226" stroke="#D4950A" stroke-width="16"/>'
+      + '<path d="M140 30 V114" stroke="' + NAVY + '" stroke-width="16"/></g>'
+      + '<circle cx="52" cy="238" r="13" fill="#FFFFFF" stroke="' + NAVY + '" stroke-width="6"/>'
+      + '<circle cx="140" cy="238" r="13" fill="#FFFFFF" stroke="' + NAVY + '" stroke-width="6"/>'
+      + '<circle cx="228" cy="240" r="21" fill="#D4950A"/>'),
+    // The deck's own card, as its app icon draws it: a question card on a sunshine card, the tangerine
+    // suit shape in its corner.
+    'wonder-cards': box('#3B3560',
+      '<rect x="65" y="45" width="150" height="190" rx="20" fill="#FFD166" transform="rotate(9 140 140)"/>'
+      + '<g transform="rotate(-6 140 140)">'
+      + '<rect x="65" y="45" width="150" height="190" rx="20" fill="#FFFDF8"/>'
+      + '<path d="M166 62 h36 a18 18 0 0 1 -36 0 z" fill="#FFAA5C"/>'
+      + '<path d="M110 114 C110 82 170 82 170 114 C170 138 140 140 140 166" fill="none" stroke="#3B3560" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>'
+      + '<circle cx="140" cy="198" r="13" fill="#3B3560"/></g>'),
+  };
 
-  // The five tools. name, href, line and look come from src/data/tools.ts as of 2026-11-07, except Wonder
-  // Cards, which is not in it: its look and words are read from wonder-cards.vercel.app that day.
-  // promise and move are the new lines this mockup proposes; each names its source beside it.
+  // The four tools. name, href and line come from src/data/tools.ts as of 2026-11-07, except Wonder Cards,
+  // which is not in it: its line is its own page's description, read from wondercards-teal.vercel.app
+  // that day ("60 tap-to-draw question and activity cards for little kids" then "made for restaurant
+  // tables, waiting rooms and car rides"), joined with a comma.
   var TOOLS = [
-    { slug: 'revenge-or-justice', name: 'Revenge or <b>Justice</b>', plain: 'Revenge or Justice', href: '/revenge-or-justice',
-      face: ALBERT, w: 600, ink: NAVY, accent: GOLD_DEEP, ground: WHITE, onground: NAVY, onaccent: GOLD_DEEP,
-      line: 'Paste a statement or a link. It says whether the words sound like revenge or justice, and how to say it so it lands.',
-      // From its tools.ts line ("It says whether the words sound like revenge or justice") and the brief's own example.
-      promise: 'Find out if a statement sounds like revenge or justice.',
-      // Its page's first instruction: "Paste a statement or a link."
-      move: 'Paste a statement',
-      proofAlt: 'One real reading from Revenge or Justice: Practice, not person; Priced in the listener\'s money; Ends in a remedy; each a bar running from the centre toward Revenge, away from Justice.' },
-    { slug: 'undo', name: 'The Undo List', plain: 'The Undo List', href: '/undo',
-      face: ALBERT, w: 600, ink: NAVY, accent: NAVY, ground: WHITE, onground: NAVY, onaccent: NAVY,
-      line: 'Everything the second Trump administration did, sorted by what it takes to undo it in 2029.',
-      // From its tools.ts line ("sorted by what it takes to undo it in 2029") and its headline ("Thirteen signatures undo 275 things").
-      promise: 'See what the next president can undo, and what each one takes.',
-      // Its first screen's one button: "Sign the first order".
-      move: 'Sign the first order',
-      proofAlt: 'The Undo List: the headline Thirteen signatures undo 275 things, over rows of squares, the first block gold.' },
-    { slug: 'letters', name: 'Letters', plain: 'Letters', href: 'https://letters-ten-eta.vercel.app', ext: true,
-      face: INTER, w: 700, ink: '#3A3226', accent: '#B4541A', ground: '#E9F0F3', onground: '#3A3226', onaccent: '#B4541A',
-      line: 'A letter-formation app for a four-year-old: where each stroke starts, which way it goes, and in what order. Then paper.',
-      // From its tools.ts line ("for a four-year-old: where each stroke starts, which way it goes").
-      promise: 'Teach a four-year-old where each stroke starts and which way it goes.',
-      // Its first screen's button is "Start"; what follows is tracing (tools.ts: "letter-formation").
-      move: 'Start tracing',
-      proofAlt: 'Letters: the letter H, its three strokes numbered 1, 2 and 3 in order, each with an arrow showing which way it goes.' },
-    { slug: 'which-ai-should-i-use', name: 'Which AI should I use?', plain: 'Which AI should I use?', href: '/tools/which-ai',
-      face: ALBERT, w: 600, ink: NAVY, accent: NAVY, ground: WHITE, onground: NAVY, onaccent: NAVY,
-      line: 'Answer a few questions, get told which model fits the job.',
-      // From its tools.ts line ("get told which model fits the job") and its page ("is your data safe with this platform at this pricing tier?").
-      promise: 'Get told which AI fits the job, and whether your data is safe on it.',
-      // Its tools.ts line: "Answer a few questions".
-      move: 'Answer a few questions',
-      proofAlt: 'Which AI should I use?: its answer, Claude, best-in-class for nuanced, high-quality writing.' },
-    { slug: 'wonder-cards', name: 'Wonder Cards', plain: 'Wonder Cards', href: 'https://wonder-cards.vercel.app', ext: true,
-      face: PLAYFAIR, w: 700, ink: '#005A63', accent: '#005A63', ground: '#005A63', onground: WHITE, onaccent: WHITE,
-      // Not on the tool list; written for this mockup from its page's description ("248 questions worth
-      // talking about, one at a time, on sunlit poolside photographs, a Capri lemon grove").
-      line: 'Questions worth talking about, one card at a time, on photographs of Capri and Palm Beach.',
-      // Its page: the card's label "A question to talk about"; the topic screen "Where shall we sit today?";
-      // its description "sit with a single topic".
-      promise: 'A question to talk about, whenever you sit down together.',
-      // Its card's main button: "Draw another card".
-      move: 'Draw a card',
-      proofAlt: 'Wonder Cards: a card from the Screen topic asking What do you watch now that would have shocked you at twenty?' },
+    { slug: 'revenge-or-justice', name: 'Revenge or Justice', href: '/revenge-or-justice',
+      line: 'Paste a statement or a link. It says whether the words sound like revenge or justice, and how to say it so it lands.' },
+    { slug: 'undo', name: 'The Undo List', href: '/undo',
+      line: 'Everything the second Trump administration did, sorted by what it takes to undo it in 2029.' },
+    { slug: 'which-ai-should-i-use', name: 'Which AI should I use?', href: '/tools/which-ai',
+      line: 'Answer a few questions, get told which model fits the job.' },
+    { slug: 'wonder-cards', name: 'Wonder Cards', href: 'https://wondercards-teal.vercel.app', ext: true,
+      line: '60 tap-to-draw question and activity cards for little kids, made for restaurant tables, waiting rooms and car rides.' },
   ];
 
   var ROWS = [
-    { key: 'today', title: 'Today',
-      note: 'The tile as it is live.' },
-    { key: 'both', title: 'The proof plus the promise',
-      note: 'The real screen and the promise; the description is gone.' },
-    { key: 'promise', title: 'The promise alone',
-      note: 'What you get, in words. No picture.' },
-    { key: 'proof', title: 'The proof alone',
-      note: 'A real screen from the tool replaces the drawn mark.' },
+    { key: 'today', title: 'Today', note: 'The tile as it is live.' },
+    { key: 'mark', title: 'Today, with a mark that says what it does', note: 'Only the corner drawing changes.' },
   ];
 
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
-  function vars(t) {
-    return '--face:' + t.face + ';--w:' + t.w + ';--ink:' + t.ink + ';--accent:' + t.accent
-      + ';--ground:' + t.ground + ';--onground:' + t.onground + ';--onaccent:' + t.onaccent;
-  }
-  function go(t, label) {
-    return '<span class="go">' + esc(label) + ' ' + (t.ext ? '<span aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span>' : '<span aria-hidden="true">→</span>') + '</span>';
-  }
-  function open(t, cls) {
-    return '<a class="tile ' + cls + '" style="' + esc(vars(t)) + '" href="' + esc(t.href) + '"'
-      + (t.ext ? ' target="_blank" rel="noopener noreferrer"' : '') + '>';
-  }
-  function today(t) { return '<div class="pic"><img src="/mockups/tile-value/today-' + t.slug + '.png" alt="" width="1200" height="630" decoding="async"></div>'; }
-  function proof(t) {
-    var ext = t.slug === 'wonder-cards' ? 'jpg' : 'png';
-    return '<div class="pic"><img src="/mockups/tile-value/proof-' + t.slug + '.' + ext + '" alt="' + esc(t.proofAlt) + '" width="1200" height="630" loading="lazy" decoding="async"></div>';
-  }
-
   function tile(row, t) {
-    if (row === 'today') {
-      return open(t, 'card') + today(t) + '<div class="body"><h3 class="sr">' + esc(t.plain) + '</h3><p class="line">' + esc(t.line) + '</p>' + go(t, 'Open it') + '</div></a>';
-    }
-    if (row === 'promise') {
-      return open(t, 'promise') + '<div class="say"><h3 class="nm">' + t.name + '</h3><p class="pr">' + esc(t.promise) + '</p></div><div class="foot">' + go(t, 'Open it') + '</div></a>';
-    }
-    if (row === 'proof') {
-      return open(t, 'proof') + proof(t) + '<div class="body"><h3 class="nm">' + t.name + '</h3><p class="line">' + esc(t.line) + '</p>' + go(t, 'Open it') + '</div></a>';
-    }
-    return open(t, 'both') + proof(t) + '<div class="body"><h3 class="nm">' + t.name + '</h3><p class="pr">' + esc(t.promise) + '</p>' + go(t, t.move) + '</div></a>';
+    var go = '<span class="go">Open it ' + (t.ext ? '<span aria-hidden="true">↗</span><span class="sr"> (opens in a new tab)</span>' : '<span aria-hidden="true">→</span>') + '</span>';
+    return '<a class="tile" href="' + esc(t.href) + '"' + (t.ext ? ' target="_blank" rel="noopener noreferrer"' : '') + '>'
+      + '<div class="pic"><img src="/mockups/tile-value/today-' + t.slug + '.png" alt="" width="1200" height="630" decoding="async">'
+      + (row === 'mark' ? MARK[t.slug] : '') + '</div>'
+      + '<div class="body"><h3 class="sr">' + esc(t.name) + '</h3><p class="line">' + esc(t.line) + '</p>' + go + '</div></a>';
   }
 
   var html = '';
   ROWS.forEach(function (r, i) {
     html += '<div class="rowhead"><div><h2>' + esc(r.title) + '</h2><p>' + esc(r.note) + '</p>'
-      + (i === 0 ? '<p class="swipe">Swipe sideways: every row moves together.</p>' : '') + '</div></div>';
+      + (i === 0 ? '<p class="swipe">Swipe sideways: both rows move together.</p>' : '') + '</div></div>';
     TOOLS.forEach(function (t) { html += tile(r.key, t); });
   });
   document.getElementById('grid').innerHTML = html;
