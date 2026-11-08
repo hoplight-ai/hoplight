@@ -24,18 +24,32 @@ def fit(im, ground):
 def crop(name, box):
     return Image.open(f'{raw}/{name}').convert('RGB').crop(box)
 
+def strip(names, box, ground, gap):
+    """Real frames of one screen side by side, each cut to the same box, a gap of ground between."""
+    ims = [crop(n, box) for n in names]
+    w = sum(i.width for i in ims) + gap * (len(ims) + 1)
+    canvas = Image.new('RGB', (w, ims[0].height + gap), ground)
+    x = gap
+    for i in ims:
+        canvas.paste(i, (x, gap // 2)); x += i.width + gap
+    return canvas
+
 # Each box is in the capture's own pixels (520 wide at 3x, The Undo List 1440 wide at 2x).
 jobs = [
-    # Revenge or Justice: one real reading (the Times of India Raskin article, 2026-11-07), its five
-    # readings as bars out from the centre line, under the Revenge and Justice ends.
-    ('proof-revenge-or-justice.png', crop('rj-hero.png', (0, 830, 1464, 1740)), '#FFFFFF'),
+    # Revenge or Justice: one real reading (the Times of India Raskin article, 2026-11-07), cut to the
+    # Revenge and Justice ends and its first three bars out from the centre line; the row names and
+    # scores are left off so the ends read large at phone size.
+    ('proof-revenge-or-justice.png', crop('rj-hero.png', (355, 835, 1345, 1345)), '#FFFFFF'),
     # The Undo List: the headline, its sentence and button, and the first row of blocks, the first one
     # signed and gold. Cut to the left side of its 1440 layout so the headline reads at phone size.
     ('proof-undo.png', crop('undo-full.png', (336, 336, 1784, 1100)), '#FFFFFF'),
-    # Letters: the first stroke traced, the second numbered with its arrow, in the app's blue ground.
-    ('proof-letters.png', crop('letters-full.png', (80, 560, 1480, 2440)), '#E9F0F3'),
-    # Which AI should I use?: the recommendation a writer handling confidential material gets.
-    ('proof-which-ai-should-i-use.png', crop('whichai-full.png', (75, 426, 1485, 1176)), '#FFFFFF'),
+    # Letters: the letter H, three real frames of the app's glyph in its blue ground, one before each
+    # stroke: stroke 1 numbered on the pale letter, then 2 with the first in ink, then 3 with both.
+    ('proof-letters.png', strip(['letters-h-1.png', 'letters-h-2.png', 'letters-h-3.png'],
+                                (0, 440, 1460, 2010), '#E9F0F3', 280), '#E9F0F3'),
+    # Which AI should I use?: the recommendation a writer handling confidential material gets, cut to
+    # the model's name and its one line.
+    ('proof-which-ai-should-i-use.png', crop('whichai-full.png', (140, 645, 1210, 870)), '#FFFFFF'),
     # Wonder Cards: one card from the Screen topic, its photograph's edge, the awning and the question.
     ('proof-wonder-cards.jpg', crop('wonder-full.png', (0, 1605, 1560, 2425)), '#005A63'),
 ]

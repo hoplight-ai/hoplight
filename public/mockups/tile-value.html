@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
 <title>What each tool does, before the tap</title>
-<meta name="description" content="Five portfolio tiles drawn five ways: today's tile, the promise, the proof, the first move, and the proof plus the promise.">
+<meta name="description" content="Five portfolio tiles drawn four ways: today's tile, the promise, the proof, and the proof plus the promise.">
 <meta property="og:title" content="What each tool does, before the tap">
-<meta property="og:description" content="Five portfolio tiles drawn five ways, to pick how a tile says what its tool does.">
+<meta property="og:description" content="Five portfolio tiles drawn four ways, to pick how a tile says what its tool does.">
 <meta property="og:image" content="https://hoplight.ai/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="apple-mobile-web-app-title" content="Tile value">
@@ -21,8 +21,8 @@
   do that artfully clearly and tastefully".
 
   The job: a stranger sees, before tapping, what each tool does for them. Five tools (Revenge or Justice,
-  The Undo List, Letters, Which AI should I use?, Wonder Cards), five rows: today's live tile and four
-  treatments, each changing one thing. Columns line up, so one tool stacks down the page and a row reads
+  The Undo List, Letters, Which AI should I use?, Wonder Cards), four rows: today's live tile and three
+  treatments (the promise, the proof, and both together; the first-move row was folded into the last). Columns line up, so one tool stacks down the page and a row reads
   as a whole portfolio.
 
   References borrowed (design/references/REFERENCES.md):
@@ -42,7 +42,7 @@
 
   Wireframe, 1440:
     What each tool does, before the tap
-    The same five tools, drawn five ways ...
+    The same five tools, drawn four ways ...
     [navy field                                                          ]
     [ Today  The live tile ...                                           ]
     [ [RoJ ] [Undo] [Letters] [Which AI] [Wonder]                        ]
@@ -53,8 +53,9 @@
   like the card-frames mockup; that is numbering on things that are not a sequence, so the rows carry
   their plain names. The question row (the brief's third proposal) was drafted and dropped: two of the
   five names are already questions (Revenge or Justice, Which AI should I use?) and Wonder Cards' whole
-  product is questions, so the row repeated the names. It is replaced by the first move (the link says
-  what you do first), a mechanism the drafting turned up.
+  product is questions, so the row repeated the names. A first-move row (the link names what you do
+  first) was drawn and then folded into the last row on review: on the today picture it could not be told
+  apart from today, so its link words now sit on the proof plus the promise, which is the candidate in full.
 
   Review by hand, 2026-11-07 (the visual-sociologist agent cannot be started from inside a lane): the
   provenance note under the lede went (machinery on a reading page; it lives in the lane report), every
@@ -140,9 +141,9 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
 <main>
   <div class="top">
     <h1>What each tool does, before the tap</h1>
-    <p class="lede">The same five tools, drawn five ways. The first row is the portfolio tile as it is today; each row under it changes one thing.</p>
+    <p class="lede">The same five tools, drawn four ways. The first row is the portfolio tile as it is today; the next two each change one thing, and the last puts both together.</p>
   </div>
-  <section class="field" aria-label="Five ways to draw a tile">
+  <section class="field" aria-label="Four ways to draw a tile">
     <div class="grid" id="grid"></div>
   </section>
 </main>
@@ -163,7 +164,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       promise: 'Find out if a statement sounds like revenge or justice.',
       // Its page's first instruction: "Paste a statement or a link."
       move: 'Paste a statement',
-      proofAlt: 'A real reading from Revenge or Justice: five bars running left from the centre line toward Revenge.' },
+      proofAlt: 'A real reading from Revenge or Justice: three bars running left from the centre line toward Revenge, away from Justice.' },
     { slug: 'undo', name: 'The Undo List', plain: 'The Undo List', href: '/undo',
       face: ALBERT, w: 600, ink: NAVY, accent: NAVY, ground: WHITE, onground: NAVY, onaccent: NAVY,
       line: 'Everything the second Trump administration did, sorted by what it takes to undo it in 2029.',
@@ -179,7 +180,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       promise: 'Teach a four-year-old where each stroke starts and which way it goes.',
       // Its first screen's button is "Start"; what follows is tracing (tools.ts: "letter-formation").
       move: 'Start tracing',
-      proofAlt: 'Letters: a T with its first stroke traced and the second stroke numbered 2 with an arrow.' },
+      proofAlt: 'Letters: the letter H three times, its strokes numbered 1, 2 and 3 in order, each with an arrow showing which way it goes.' },
     { slug: 'which-ai-should-i-use', name: 'Which AI should I use?', plain: 'Which AI should I use?', href: '/tools/which-ai',
       face: ALBERT, w: 600, ink: NAVY, accent: NAVY, ground: WHITE, onground: NAVY, onaccent: NAVY,
       line: 'Answer a few questions, get told which model fits the job.',
@@ -187,14 +188,15 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       promise: 'Get told which AI fits the job, and whether your data is safe on it.',
       // Its tools.ts line: "Answer a few questions".
       move: 'Answer a few questions',
-      proofAlt: 'Which AI should I use?: a recommendation card naming Claude as best for nuanced, high-quality writing.' },
+      proofAlt: 'Which AI should I use?: its answer, Claude, best-in-class for nuanced, high-quality writing.' },
     { slug: 'wonder-cards', name: 'Wonder Cards', plain: 'Wonder Cards', href: 'https://wonder-cards.vercel.app', ext: true,
       face: PLAYFAIR, w: 700, ink: '#005A63', accent: '#005A63', ground: '#005A63', onground: WHITE, onaccent: WHITE,
       // Not on the tool list; written for this mockup from its page's description ("248 questions worth
       // talking about, one at a time, on sunlit poolside photographs, a Capri lemon grove").
       line: 'Questions worth talking about, one card at a time, on photographs of Capri and Palm Beach.',
-      // Its page's description: "248 questions worth talking about, one at a time".
-      promise: '248 questions worth talking about, one card at a time.',
+      // Its page: the card's label "A question to talk about"; the topic screen "Where shall we sit today?";
+      // its description "Press once for another card, or sit with a single topic".
+      promise: 'A question to talk about, whenever you sit down together. Press once for the next.',
       // Its card's main button: "Draw another card".
       move: 'Draw a card',
       proofAlt: 'Wonder Cards: a card from the Screen topic asking What do you watch now that would have shocked you at twenty?' },
@@ -207,10 +209,8 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       note: 'What you get, in words. No picture.' },
     { key: 'proof', title: 'The proof',
       note: 'A real screen from the tool replaces the drawn mark.' },
-    { key: 'move', title: 'The first move',
-      note: 'The link names your first step.' },
     { key: 'both', title: 'The proof plus the promise',
-      note: 'The real screen and the promise. The line goes.' },
+      note: 'The real screen and the promise; the description is gone.' },
   ];
 
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -241,10 +241,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
     if (row === 'proof') {
       return open(t, 'proof') + proof(t) + '<div class="body"><h3 class="nm">' + t.name + '</h3><p class="line">' + esc(t.line) + '</p>' + go(t, 'Open it') + '</div></a>';
     }
-    if (row === 'move') {
-      return open(t, 'card') + today(t) + '<div class="body"><h3 class="sr">' + esc(t.plain) + '</h3><p class="line">' + esc(t.line) + '</p>' + go(t, t.move) + '</div></a>';
-    }
-    return open(t, 'both') + proof(t) + '<div class="body"><h3 class="nm">' + t.name + '</h3><p class="pr">' + esc(t.promise) + '</p>' + go(t, 'Open it') + '</div></a>';
+    return open(t, 'both') + proof(t) + '<div class="body"><h3 class="nm">' + t.name + '</h3><p class="pr">' + esc(t.promise) + '</p>' + go(t, t.move) + '</div></a>';
   }
 
   var html = '';

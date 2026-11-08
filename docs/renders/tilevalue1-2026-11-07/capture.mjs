@@ -49,21 +49,34 @@ const jobs = {
     await p.waitForTimeout(800);
     await p.screenshot({ path: join(out, 'undo-full.png') });
   },
+  // Letters, second pass: the letter H, one real frame per stroke. The parent panel's own word list is
+  // set to "H" (its normal use: her own words come first), so the session opens on H. Each frame is the
+  // app's glyph as it stands before that stroke: the strokes done in ink, the next one numbered with its
+  // start dot and arrow; the last frame is the whole letter the app shows after "You did it."
   async letters() {
     const p = await page();
-    await p.addInitScript(() => localStorage.setItem('letters.v1', JSON.stringify({ ground: 'blue' })));
+    await p.emulateMedia({ reducedMotion: 'reduce' });
+    await p.addInitScript(() => localStorage.setItem('letters.v1', JSON.stringify({ ground: 'blue', words: ['H'] })));
     await p.goto('https://letters-ten-eta.vercel.app', { waitUntil: 'networkidle' });
     await clickText(p, 'Start');
-    await p.waitForTimeout(1500);
-    // Trace the first stroke the way a child would, from its numbered start straight down, so the
-    // picture shows the stroke done and the next one numbered.
-    const box = await p.evaluate(() => ({ w: innerWidth, h: innerHeight }));
-    const x = box.w / 2;
-    await p.mouse.move(x, 280); await p.mouse.down();
-    for (let y = 280; y <= 735; y += 10) { await p.mouse.move(x, y); await p.waitForTimeout(16); }
-    await p.mouse.up();
-    await p.waitForTimeout(2500);
-    await p.screenshot({ path: join(out, 'letters-full.png') });
+    const glyph = p.locator('#glyph');
+    const strokes = [[272, 192, 272, 672], [672, 192, 672, 672], [272, 432, 672, 432]];
+    for (let k = 0; k < strokes.length; k++) {
+      await p.waitForTimeout(2600); // the demonstration stroke clears; her turn
+      console.log(await p.textContent('#glyph-label'));
+      await glyph.screenshot({ path: join(out, 'letters-h-' + (k + 1) + '.png') });
+      const [x1, y1, x2, y2] = strokes[k];
+      const pts = await p.evaluate(([x1, y1, x2, y2]) => {
+        const svg = document.getElementById('glyph'), m = svg.getScreenCTM(), o = [];
+        for (let t = 0; t <= 40; t++) { const pt = svg.createSVGPoint(); pt.x = x1 + (x2 - x1) * t / 40; pt.y = y1 + (y2 - y1) * t / 40; const q = pt.matrixTransform(m); o.push([q.x, q.y]); }
+        return o;
+      }, [x1, y1, x2, y2]);
+      await p.mouse.move(pts[0][0], pts[0][1]); await p.mouse.down();
+      for (const [x, y] of pts) { await p.mouse.move(x, y); await p.waitForTimeout(16); }
+      await p.mouse.up();
+    }
+    await p.waitForTimeout(400);
+    await glyph.screenshot({ path: join(out, 'letters-h-done.png') });
   },
   async whichai() {
     const p = await page();
