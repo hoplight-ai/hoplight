@@ -71,7 +71,7 @@
   row offers three flow drawings, each read left to right, one start, several ways, one picked in gold: a
   river delta (one stream fanning into three, the gold one running on furthest), a split ribbon (a Sankey
   split into three bands, the gold one widest, ending in a point), and a fork with an arrow (the gold path
-  curving up to an arrowhead). Row two shows the delta until he picks.
+  curving up to an arrowhead). Row two shows the fork, which the visual-sociologist review ranked first.
 
   Wonder Cards is the kids deck, "What Should We Wonder?" at wondercards-teal.vercel.app. It is not on the
   tool list, so its first tile is drawn the way the card route draws a tile
@@ -188,7 +188,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
       + '<path d="M0 -8 V-50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/>'
       + '<circle cx="0" cy="-56" r="7" fill="#FFFFFF"/>'
       + '<rect x="-24" y="-136" width="48" height="50" rx="9" fill="' + NAVY + '"/></g>'),
-    // Which AI: one of three flow drawings (WHICH below); row two shows the first.
+    // Which AI: one of three flow drawings (WHICH below); row two shows the fork with an arrow.
     'which-ai-should-i-use': null,
     // A fanned hand of three of the deck's cards, the question on the front one.
     'wonder-cards': box('#3B3560',
@@ -205,34 +205,35 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
   var GOLD = '#D4950A';
   var WHICH = [
     { name: 'A river delta',
-      // One thick stream flowing right fans into three; the two not taken thin out in navy, the gold one
-      // stays full and runs on furthest.
+      // A plain stem fans into three ways that curve alike and taper from 14 to 8; the gold one ends in a
+      // round end mark.
       svg: box('#FFFFFF',
         '<g fill="' + NAVY + '">'
-        + taper([[100, 140], [168, 140], [186, 70], [246, 64]], 22, 9)
-        + taper([[100, 140], [168, 140], [186, 210], [246, 216]], 22, 9) + '</g>'
-        + '<g fill="' + GOLD + '">' + taper([[100, 140], [170, 140], [210, 140], [268, 140]], 24, 20) + '</g>'
-        + '<g fill="' + NAVY + '">' + taper([[16, 164], [52, 164], [76, 140], [118, 140]], 32, 26)
-        + '<circle cx="16" cy="164" r="16"/></g>') },
+        + taper([[104, 140], [160, 140], [184, 68], [238, 64]], 14, 8)
+        + taper([[104, 140], [160, 140], [184, 212], [238, 216]], 14, 8) + '</g>'
+        + '<g fill="' + GOLD + '">' + taper([[104, 140], [160, 140], [196, 140], [236, 140]], 14, 8)
+        + '<circle cx="244" cy="140" r="16"/></g>'
+        + '<path d="M20 140 H108" stroke="' + NAVY + '" stroke-width="14" stroke-linecap="round"/>') },
     { name: 'A split ribbon',
-      // A Sankey split: one navy band divides into three of different widths; the gold one is the widest
-      // and runs on to a point.
+      // A Sankey split drawn as three outlined bands that run together, then part; the gold one is filled
+      // and ends in a point.
       svg: box('#FFFFFF',
-        '<path d="M88 106 C150 106 170 112 234 112 L266 140 L234 168 C170 168 150 174 88 174 Z" fill="' + GOLD + '" stroke="' + GOLD + '" stroke-width="4" stroke-linejoin="round"/>'
-        + '<path d="M88 84 C150 84 164 34 226 34 V62 C172 62 150 106 88 106 Z M88 174 C150 174 172 218 226 218 V246 C164 246 150 196 88 196 Z" fill="' + NAVY + '"/>'
-        + '<path d="M92 84 H44 C24 84 12 98 12 118 V162 C12 182 24 196 44 196 H92 Z" fill="' + NAVY + '"/>') },
+        '<g fill="#FFFFFF" stroke="' + NAVY + '" stroke-width="8" stroke-linejoin="round">'
+        + '<path d="M26 96 H96 C150 96 164 44 226 44 A10 10 0 0 1 226 64 C172 64 150 116 96 116 H26 A10 10 0 0 1 26 96 Z"/>'
+        + '<path d="M26 164 H96 C150 164 164 216 226 216 A10 10 0 0 1 226 236 C172 236 150 184 96 184 H26 A10 10 0 0 1 26 164 Z"/></g>'
+        + '<path d="M36 122 H222 L252 140 L222 158 H36 A18 18 0 0 1 36 122 Z" fill="' + GOLD + '" stroke="' + GOLD + '" stroke-width="8" stroke-linejoin="round"/>') },
     { name: 'A fork with an arrow',
       // One path forks three ways in smooth curves; the two not taken thin out, the gold one runs on to an
       // arrowhead.
       svg: box('#FFFFFF',
         '<g fill="' + NAVY + '">'
-        + taper([[92, 154], [140, 154], [156, 226], [210, 228]], 16, 8)
-        + taper([[92, 154], [140, 154], [176, 154], [212, 154]], 16, 8) + '</g>'
+        + taper([[92, 154], [136, 154], [176, 206], [212, 214]], 16, 11)
+        + taper([[92, 154], [140, 154], [176, 154], [212, 154]], 16, 11) + '</g>'
         + '<path d="M92 154 C152 154 160 76 222 76" fill="none" stroke="' + GOLD + '" stroke-width="16" stroke-linecap="round"/>'
         + '<path d="M218 50 L266 76 L218 102 Z" fill="' + GOLD + '" stroke="' + GOLD + '" stroke-width="8" stroke-linejoin="round"/>'
         + '<path d="M16 154 H100" stroke="' + NAVY + '" stroke-width="16" stroke-linecap="round"/>') },
   ];
-  MARK['which-ai-should-i-use'] = WHICH[0].svg;
+  MARK['which-ai-should-i-use'] = WHICH[2].svg;
 
   // The four tools. name, href and line come from src/data/tools.ts as of 2026-11-07, except Wonder Cards,
   // which is not in it: its line is its own page's description, read from wondercards-teal.vercel.app
@@ -252,7 +253,7 @@ h1 { font-size: clamp(28px, 1.2rem + 1.6vw, 42px); font-weight: 700; letter-spac
   var ROWS = [
     { key: 'today', title: 'Today', note: 'The tile as it is live; Wonder Cards is drawn the same way.' },
     { key: 'mark', title: 'Today, with a mark that says what it does', note: 'Only the corner drawing changes.' },
-    { key: 'which', title: 'Which AI: three ways to show the choice', note: 'One start, several ways, one picked. The first is in the row above.' },
+    { key: 'which', title: 'Which AI: three ways to show the choice', note: 'One start, several ways, one picked. The fork is in the row above.' },
   ];
 
   function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
