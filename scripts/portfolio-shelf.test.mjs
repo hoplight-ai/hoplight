@@ -90,3 +90,7 @@ test('built: every report is listed once on /insights', { skip: BUILT_INSIGHTS ?
     assert.equal(html.split(`href="${t.href}"`).length - 1, 1, `${t.slug} is not listed exactly once on /insights`);
   }
 });
+
+// The portfolio tiles' marks (MARKSLIVE1, 2026-11-07) are tested in their own file, run from here so they
+// sit in npm test and CI: this lane's brief could write the shelf test but not the package's test line.
+import './tool-marks.test.mjs';

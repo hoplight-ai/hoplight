@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { onShelf, portfolioClock, visibleTools } from '@/data/tools';
+import { tileMarkSvg } from '@/data/tool-marks';
 import { toolMetadata } from '@/lib/metadata';
 
 // The list lives in src/data/tools.ts with a release day and a cleared flag per entry (Whit,
@@ -53,6 +54,7 @@ export default function Portfolio() {
           <ul className="gallery-grid">
             {products.map((p, i) => {
               const external = p.href.startsWith('http');
+              const mark = tileMarkSvg(p.slug);
               return (
                 <li key={p.slug}>
                   <a
@@ -74,6 +76,9 @@ export default function Portfolio() {
                         loading={i < 3 ? 'eager' : 'lazy'}
                         decoding="async"
                       />
+                      {/* MARKSLIVE1, 2026-11-07: a tool whose mark Whit picked draws it over the card's
+                          corner picture, on the tile only (src/data/tool-marks.ts); the card is unchanged. */}
+                      {mark && <div className="wcard-mark" aria-hidden="true" dangerouslySetInnerHTML={{ __html: mark }} />}
                     </div>
                     <div className="wcard-body">
                       <h2 className="sr-only">{p.name}</h2>
