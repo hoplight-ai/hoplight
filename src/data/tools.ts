@@ -201,8 +201,12 @@ export const TOOLS: Tool[] = [
       wordmark: [{ text: 'Letters' }],
       glyph: 'letter',
     },
-    releaseAt: '2026-12-09',
-    cleared: false,
+    // Live from 2026-11-07 (LETTERSON1; Whit, 2026-11-07: "make letters live now", then "SHIP IT").
+    // `npm run launch:check -- letters` passed all seven on 2026-11-07 against the live page, after
+    // letters PR #1 put the feedback box and the /kit/signal.js usage tag on it: (a) public, (b) card,
+    // (c) feedback box, (d) usage logging, (e) security PASS, (f) not a paid-model tool, (g) entry.
+    releaseAt: '2026-11-07',
+    cleared: true,
   },
 
   // ---- The gallery as of 2026-10-21, unchanged ----
