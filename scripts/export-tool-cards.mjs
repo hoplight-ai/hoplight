@@ -26,9 +26,15 @@ export function pngSize(buf) {
   return { width: buf.readUInt32BE(16), height: buf.readUInt32BE(20) };
 }
 
+// A preview deploy sits behind Vercel's deployment protection. With the project's protection-bypass
+// secret in VERCEL_AUTOMATION_BYPASS_SECRET (put it in a gitignored .env*.local and run node with
+// --env-file, never on the command line), every request carries it; without it, nothing changes.
+const bypass = process.env.VERCEL_AUTOMATION_BYPASS_SECRET;
+const headers = bypass ? { 'x-vercel-protection-bypass': bypass } : {};
+
 let bad = 0;
 for (const slug of ['portfolio', ...TOOLS.map((t) => t.slug)]) {
-  const res = await fetch(`${base}/api/og/tool/${slug}`);
+  const res = await fetch(`${base}/api/og/tool/${slug}`, { headers, redirect: 'manual' });
   const buf = Buffer.from(await res.arrayBuffer());
   const size = pngSize(buf);
   const ok = res.ok && size && size.width === 1200 && size.height === 630;

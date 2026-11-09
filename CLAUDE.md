@@ -97,8 +97,16 @@
 - **Route:** `src/app/command-center/route.ts` (GET serves the page or the sign-in form, POST is the form sign-in). Door logic: `src/lib/command-center.ts`. Page file: `src/private/command-center.html`, read at request time, so the route is the only way in (`outputFileTracingIncludes` in `next.config.ts` ships it).
 - **Password:** env var name `COMMAND_CENTER_PASSWORD` on the `hoplight` Vercel project (production, preview, development). The value lives there and in no file. A request passes with Basic auth (any user plus the password) or the thirty-day `cc_access` cookie. With the variable missing, nobody gets in (fails closed).
 - **Test:** `scripts/command-center.test.mjs`, seven tests, part of `npm test`. It is the proof that his own way in still works; a change to the door is not done until it passes.
-- **Never add `/command-center` to the site gate** (`GATED_PREFIXES` in `src/lib/gate.ts` once the site-posture branch lands; the file does not exist on main yet). The door is page-level on one route so one link can go to one person, and it never touches the site-wide sign-in.
-- **Merge note:** when `site-posture-mockups` merges, the `package.json` test line carries both lists (gate and nav tests from the branch, `command-center.test.mjs` from here).
+- **Never add `/command-center` to the site gate** (`GATED_PREFIXES` in `src/lib/gate.ts`). The door is page-level on one route so one link can go to one person, and it never touches the site-wide sign-in.
+
+## The site gate (written 2026-11-08 from main's code, lane cardlive1)
+
+- **What it gates:** `src/lib/gate.ts`. `GATED_PREFIXES` gates a path equal to or under `/persuasion`, `/research`, `/portfolio`, `/rayli`, `/shelf-options`, `/mockups` and the seven moved tools (`MOVED_TOOLS`: `/tools-hub`, `/visualizations`, `/whatshuman`, `/pme`, `/research-books`, `/board`, `/daily`). `GATED_EXACT` gates five single files (`/hoplight-rct-research-brief.pdf`, `/pme-lever.html` and its manifest, the 2026-09-20 brand tokens page and its manifest). `PUBLIC_PORTFOLIO` opens `/portfolio` itself and nothing under it; every file under `/portfolio/` stays gated, the Oregon report included since 2026-11-08 (lockoregon1). `/tools/which-ai` is public and `/tools` is not gated on purpose.
+- **Where it runs:** `src/proxy.ts`. Its `config.matcher` must list the same paths as `gate.ts` (it lists `/portfolio/:path*` and not `/portfolio`, since the page is public). A moved tool answers a 307 to its vercel.app address, and only after sign-in.
+- **Sign-in:** env var names `PRIVATE_SITE_USER` and `PRIVATE_SITE_PASSWORD` (the values live on the Vercel project and in no file). A browser gets the sign-in page, a script gets a 401 with a Basic challenge, and a cookie or the Basic pair opens the path. With no password set, every gated path stays shut.
+- **Test:** `scripts/gate.test.mjs`, in the `package.json` test line. It fails when the matcher and the gate list drift, when the sitemap names a gated path, or when a moved tool forwards before sign-in.
+- **Redirects** (`next.config.ts`; they run before the proxy, so no gated path is redirected there): `hoplight-rouge.vercel.app` to `hoplight.ai`; `/engine` and `/pme.html` to `/persuasion`; `/index.html`, `/services.html`, `/persuasion.html`, `/about.html`, `/faq.html`, `/contact.html` and `/portfolio.html` to their routes; `/work`, `/work.html` and `/products` to `/portfolio`; four 2026-09-21 draft home pages, the 2026-09-09 productized services mockup and `/home-art/` to the visualizations site's private folder.
+- **`public/mockups`** (gated under `/mockups`): the three site posture mockups `a-discretion`, `b-candor` and `c-hybrid` (four pages each: home, products, services, insights), and the link-card mockups `card-frames.html`, `card-lockup.html` and `card-marks.html`.
 
 ## Revenge or Justice, `/revenge-or-justice` (added 2026-11-06)
 
@@ -142,8 +150,14 @@
 - **Every entry carries `shelf: 'product' | 'report'`** (required by the type; PORTSPLIT1, 2026-11-07, Whit: "we had previously split out reports from apps and dashboards and I think we need that sort of division"). `/portfolio` shows products only, through `onShelf('product', ...)` in `src/data/tools.ts`. `/insights` keeps its own hand-kept Reports list in `src/lib/insights-content.ts`, which names the three reports (Whit, 2026-11-07, after seeing a redesign: "The insights page the before version is the winner and the products page ... the after version is the winner"). So a new report goes in the tool list with `shelf: 'report'` and also in the Insights Reports list; the shelf test fails if a report is not listed once on the built /insights. `shelf` is not `kind`, which stays the state label. Tested in `scripts/portfolio-shelf.test.mjs`.
 - **Writing on `/insights` is Whit's Substack feed** (`src/lib/substack.ts`, `https://whitpendergast.substack.com/feed`, cached an hour), falling back to the hand-kept `WRITING` list when the feed fails or is empty. Tested on a saved copy of the feed in `scripts/fixtures/`, never on the network (`scripts/insights-writing.test.mjs`).
 - **Every tool has its own preview card** at `/api/og/tool/<slug>` (`src/lib/brand/tool-card.ts`): the tool's
-  name and look above one identical Hoplight band. Pages use `toolMetadata()` in `src/lib/metadata.ts`.
-  `npm run cards:export -- --base <url>` writes every card as a PNG.
+  name and look inside one identical Hoplight frame, a solid navy mat (28px at the top and sides, 108 at the
+  foot) with the bloom and the word Hoplight in its foot, lockup b (`bloomLockup()` in
+  `src/lib/brand/marks.ts`). Whit picked both on 2026-11-07 ("let’s do lock up b"); the approved mockups are
+  `public/mockups/card-frames.html` (treatment 3) and `public/mockups/card-lockup.html` (option b), and
+  `scripts/tool-card.test.mjs` holds the renderer to their numbers. `?band=0` is the frameless portfolio tile.
+  Pages use `toolMetadata()` in `src/lib/metadata.ts`. `npm run cards:export -- --base <url>` writes every
+  card as a PNG; `npm run cards:sheet -- --dir <that folder>` makes one contact sheet of them at 300px and
+  at full size; `node scripts/cards-measure-foot.mjs <png>` reads the frame and lockup back from the pixels.
 - **Feedback and usage go through one route**, `POST /api/signal` (rules in `src/lib/signal.ts`, tested in
   `scripts/signal.test.mjs`), forwarded to the quick-tools store. Env, names only: `TOOL_SIGNAL_URL`
   (unset: signals are answered 202 and dropped), `SIGNAL_HASH_SALT`, and the existing `PRIVATE_SITE_USER` /

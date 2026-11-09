@@ -19,27 +19,45 @@ const BOX: Partial<Record<string, { w: number; h: number }>> = {
   chips: { w: 300, h: 250 },
 };
 
-/** The size a card draws a brand's picture at, in pixels. */
-export function pictureSize(b: ToolBrand): { w: number; h: number } {
-  return BOX[b.glyph] ?? { w: PIC, h: PIC };
+/** Boxes used on the framed link-preview card only. The balance scale is drawn at the frames mockup's
+ *  340 by 320 there; a frameless portfolio tile keeps the 280 square, because the tile lays the tool's
+ *  approved mark (src/data/tool-marks.ts) over exactly that box and a larger picture would show round it. */
+const FRAMED_BOX: Partial<Record<string, { w: number; h: number }>> = {
+  bars: { w: 340, h: 320 },
+};
+
+/** The size a card draws a brand's picture at, in pixels; framed is the band-on link-preview card. */
+export function pictureSize(b: ToolBrand, framed = false): { w: number; h: number } {
+  return (framed ? FRAMED_BOX[b.glyph] : undefined) ?? BOX[b.glyph] ?? { w: PIC, h: PIC };
 }
 
 const svg = (body: string, view = `0 0 ${PIC} ${PIC}`) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${view}">${body}</svg>`;
 
-/** Revenge or Justice: the result rows' centre line, revenge running left in red, justice right in navy. */
+/** Revenge or Justice: the balance scale of public/mockups/card-frames.html, copied shape for shape
+ *  (Whit, 2026-11-07: "Maybe it’s just the scale of justice that would be a good icon for it"). Post,
+ *  beam and base in navy, the revenge pan in its red, the justice pan in its fill gold; no blade. The
+ *  beam tips 8 degrees about its pivot (170, 60) so the justice pan hangs lower; each pan hangs straight
+ *  down from its end of the beam (122 * sin 8 = 17 up or down). The glyph keeps its id, "bars", which
+ *  src/data/tools.ts names. */
 function bars(b: ToolBrand): string {
-  const rows = [-0.62, 0.86, 0.4, -0.28];
-  const mid = PIC / 2;
-  const rowH = 52;
-  const top = (PIC - rows.length * rowH) / 2;
-  const parts = rows.map((v, i) => {
-    const y = top + i * rowH + rowH / 2;
-    const w = Math.abs(v) * (mid - 8);
-    const x = v < 0 ? mid - w : mid;
-    return `<line x1="8" y1="${y}" x2="${PIC - 8}" y2="${y}" stroke="${b.ink}" stroke-opacity="0.16" stroke-width="2"/>`
-      + `<rect x="${x.toFixed(1)}" y="${y - 13}" width="${w.toFixed(1)}" height="26" rx="5" fill="${v < 0 ? '#9C3327' : b.ink}"/>`;
-  });
-  return svg(parts.join('') + `<line x1="${mid}" y1="${top - 10}" x2="${mid}" y2="${top + rows.length * rowH + 10}" stroke="${b.ink}" stroke-width="3"/>`);
+  const ink = b.ink;
+  return svg(
+    '<g transform="translate(1.2 -17)">'
+      + `<line x1="48" y1="66" x2="6" y2="196" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`
+      + `<line x1="48" y1="66" x2="90" y2="196" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`
+      + '<path d="M3 194 Q48 252 93 194 Z" fill="#9C3327"/></g>'
+      + '<g transform="translate(-1.2 17)">'
+      + `<line x1="292" y1="66" x2="250" y2="196" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`
+      + `<line x1="292" y1="66" x2="334" y2="196" stroke="${ink}" stroke-width="3" stroke-linecap="round"/>`
+      + '<path d="M247 194 Q292 252 337 194 Z" fill="#D4950A"/></g>'
+      + `<rect x="164" y="40" width="12" height="244" fill="${ink}"/>`
+      + '<g transform="rotate(8 170 60)">'
+      + `<rect x="32" y="54" width="276" height="12" rx="6" fill="${ink}"/>`
+      + `<circle cx="48" cy="60" r="9" fill="${ink}"/><circle cx="292" cy="60" r="9" fill="${ink}"/></g>`
+      + `<circle cx="170" cy="34" r="14" fill="${ink}"/>`
+      + `<path d="M112 314 L228 314 L210 284 L130 284 Z" fill="${ink}"/>`,
+    '0 0 340 320',
+  );
 }
 
 /** The Undo List: the signature field, outlined squares, the first stretch signed in gold. */

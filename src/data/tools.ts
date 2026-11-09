@@ -105,8 +105,9 @@ export const TOOLS: Tool[] = [
     href: '/revenge-or-justice',
     kind: 'live',
     shelf: 'product',
-    // The page's own look: white ground, navy type, the result rows' centre line with revenge
-    // running left in flag red and justice running right in navy. "Justice" rings second (Whit,
+    // The page's own look: white ground, navy type, the picture a balance scale with revenge's pan
+    // in flag red and justice's in gold (Whit, 2026-11-07: "revenge of justice is supposed to use
+    // the scales of justice"). "Justice" rings second (Whit,
     // 2026-11-06: "make justice the second thing so that it rings").
     brand: {
       ground: WHITE,
@@ -154,11 +155,12 @@ export const TOOLS: Tool[] = [
     href: 'https://gut-check-hoplight.vercel.app/play',
     kind: 'live',
     shelf: 'product',
-    // Read from gut-check-hoplight.vercel.app/play on 2026-11-07: navy and gold, Inter.
+    // Read from gut-check-hoplight.vercel.app/play on 2026-11-07: white with navy type and gold, Inter
+    // (card-frames.html, counted that day). White, not navy, so the card's navy frame shows (CARDLIVE1).
     brand: {
-      ground: NAVY,
+      ground: WHITE,
       accent: '#E0A62A',
-      ink: '#EDF0F4',
+      ink: NAVY,
       display: { family: 'Inter', weight: 700 },
       wordmark: [{ text: 'Gut Check' }],
       glyph: 'cards',

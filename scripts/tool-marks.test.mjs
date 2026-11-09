@@ -52,9 +52,15 @@ const COLOURS = {
 
 // Every tool's pictureSvg as it stood on 2026-11-07 before this lane, hashed (counted at c9fbfd1).
 const PICTURES = {
-  'revenge-or-justice': '28d1562bc6ec3f4b5913feea07e920387f058e46ff9b215fefc4f6d0d7a2ea08',
+  // Revenge or Justice's card picture became the balance scale in CARDLIVE1 (its brief, item 3; Whit, 2026-11-07:
+  // "Maybe it's just the scale of justice that would be a good icon for it"). It was the bars at c9fbfd1,
+  // 28d1562bc6ec3f4b5913feea07e920387f058e46ff9b215fefc4f6d0d7a2ea08. Re-pinned at the merge of main, 2026-11-08.
+  'revenge-or-justice': '448da0a8529753ff2a8999df153d3ee8855713c136be9b805d5d20927a8217e2',
   undo: '2d595a1c55944d0c9eddc227b47f947123cc9ea17730337fd0767ca45cd77c38',
-  'gut-check': '892266dedfb60e6de342062087a93e9f75a648793b1d73634502c2b05d7d1eed',
+  // Gut Check's card ground became white with navy type in CARDLIVE1 (its finding 1: a navy ground merged with the
+  // card's navy frame), and its picture draws in those colours. It was 892266dedfb60e6de342062087a93e9f75a648793b1d73634502c2b05d7d1eed
+  // at c9fbfd1. Re-pinned at the merge of main, 2026-11-08.
+  'gut-check': 'bedcd484ec959caaea9bc6dfdf26c88d55158d1d95a5e0fd7b09b0f7d13a555b',
   rumi: 'b45af9d91bc428222bd3eb610869b951b4ad583c22a1d19a4582a9e58354afe4',
   letters: 'bd0a392e0404d625e01167d132893387d6db13e5ac1f2d23cff6611a97bdf00d',
   'dnc-autopsy-taken-apart': '5d8b94fadb821b46b73ab37698fc72d66cb2aea0108ad02d33a5393a54f0f7ce',
