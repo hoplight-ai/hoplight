@@ -5,7 +5,7 @@ import { forwardOrderView } from './forward-text';
 import type { ForwardOrderView } from './forward-text';
 import type { ForwardOrder } from './issues';
 import { countPenInForce, slimRow } from './sections';
-import { penRows } from './pen';
+import { penKinds, penRows } from './pen';
 import type { SlimRow } from './sections';
 import { fetchFederalRegisterRows } from './federal-register';
 import rulingsJson from '@/data/undo/rulings.json';
@@ -34,6 +34,8 @@ export interface UndoData {
   auto: number;
   newest: string | null;
   penInForce: number;
+  /** The standing rows by the document that issued each, counted here with every source. */
+  kinds: { key: string; label: string; count: number }[];
   orders: ForwardOrderView[];
   feedOk: boolean;
 }
@@ -57,6 +59,7 @@ export async function loadUndo(): Promise<UndoData> {
     auto: pen.length - reviewed,
     newest: pen.length ? pen[0].date : null,
     penInForce: countPenInForce(pen),
+    kinds: penKinds(pen),
     orders,
     feedOk: feed.ok,
   };

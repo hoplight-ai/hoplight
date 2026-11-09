@@ -121,7 +121,7 @@ test('the sort control orders as named: newest first by default, oldest first, b
   assert.deepEqual(PEN_SORTS, ['newest', 'oldest', 'bundle'], 'three orders, newest first as the default');
   assert.deepEqual(
     PEN_SORTS.map((s) => COPY.sort[s]),
-    ['Newest first', 'Oldest first', 'By signing order'],
+    ['Newest', 'Oldest', 'By order'],
   );
   const rows = [
     { id: 'a', date: '2025-03-01' },
@@ -205,8 +205,8 @@ test('round 2: the key counts by document type only, so no kind contradicts an o
     ['Executive orders', 1],
     ['Proclamations', 1],
     ['Memoranda', 1],
-    ['Withdrawals', 1],
-    ['Other', 2],
+    // Round 3: no Withdrawals kind; a row whose source names no presidential document is Other.
+    ['Other', 3],
   ]);
 });
 
@@ -247,10 +247,9 @@ test('round 2, built /undo/all: the 275 are open with rows showing, the other 31
   assert.match(html, /<details class="undo-fold undo-rest"(?![^>]*open)/, 'the rest is one closed fold');
   const t = text(html);
   const n = standingOf();
-  assert.ok(t.includes(`To undo (${n})`), `the list heading says To undo (${n})`);
   assert.ok(t.includes(`${n} of ${n} executive actions.`), 'the counter counts the standing rows');
   const total = Number(t.match(/the pen reached (\d+) in all/)[1]);
-  assert.ok(t.indexOf(String(total)) > t.search(/The other \d+ executive actions/), 'the whole pen count shows only inside the fold');
+  assert.ok(t.indexOf(String(total)) > t.search(/Off the to-undo list \(\d+\)/), 'the whole pen count shows only inside the fold');
   assert.match(html, /class="undo-fchips-toggle"[^>]*aria-expanded="false"/, 'the issue filters sit behind one control');
 });
 
@@ -275,4 +274,72 @@ test('round 2, built /undo: the key is sideways bars with counts, no swatches, n
   assert.deepEqual(kinds.map(([l]) => l), ['Executive orders', 'Proclamations', 'Memoranda', 'Withdrawals', 'Other'].filter((l) => kinds.some(([k]) => k === l)));
   assert.ok(kinds.length >= 4);
   assert.equal(kinds.reduce((n, [, c]) => n + c, 0), Number(text(undo).match(/(\d+) executive actions, by kind/)[1]));
+});
+
+// ROUND 3 (2026-11-08): the second review failed round 2 on nine points.
+
+test('round 3: withdrawals count under the document that issued them; no Withdrawals kind', async () => {
+  const { penKinds } = await pen();
+  const base = { bucket: 'pen', status: 'in-force', reviewed: true, title: 'W' };
+  const rows = [
+    { ...base, id: '1', instrument: 'treaty', sources: [{ label: 'Federal Register: Memorandum of January 7, 2026', url: 'https://x' }] },
+    { ...base, id: '2', instrument: 'treaty', number: 'Under EO 14199', sources: [{ label: 'Federal Register: Executive Order 14199', url: 'https://x' }] },
+    { ...base, id: '3', instrument: 'treaty', sources: [{ label: 'ABC17 News: US to withdraw from UNESCO again', url: 'https://x' }] },
+    { ...base, id: '4', instrument: 'executive_order', sources: [] },
+  ];
+  assert.deepEqual(penKinds(rows).map((k) => [k.label, k.count]), [
+    ['Executive orders', 2],
+    ['Memoranda', 1],
+    ['Other', 1],
+  ]);
+});
+
+test('round 3: one unit, executive actions, everywhere; short sort labels; plain names', async () => {
+  const { ISSUE_BY_KEY } = await import('../src/lib/undo/issues.ts');
+  for (const [path, s] of copyStrings()) assert.doesNotMatch(s, /\bitems?\b/i, `${path}: ${s}`);
+  assert.equal(COPY.field.count(25, 0), '25 executive actions');
+  assert.equal(COPY.field.count(25, 3), '3/25 executive actions');
+  assert.ok(COPY.field.block(3, 'Citizenship as the Constitution wrote it', 18, 2).includes('18 executive actions, 2 signed'));
+  for (const s of Object.values(COPY.sort)) assert.ok(s.length <= 8, `sort label "${s}" fits a phone`);
+  assert.equal(ISSUE_BY_KEY.allies.label, 'Allies, treaties and aid');
+  // Whit's own words, kept: "America isn't a Quitter" (2026-10-19, quoted in hoplight-site/CLAUDE.md).
+  assert.ok(forward.some((o) => o.title === "America isn't a quitter"));
+  assert.equal(COPY.groups.rest(313), 'Off the to-undo list (313)');
+  assert.equal(COPY.groups.restLine, 'Already undone, not yet written up, worth keeping, or ceremonial. None needs a signature now.');
+  assert.ok(!('standingIntro' in COPY.groups), 'the subline under the list heading is gone');
+});
+
+test('round 3: the issue filters sit behind the one control at every width; rows carry no mechanism chip', () => {
+  const css = read('src/app/globals.css');
+  assert.match(css, /^\.undo-filters:not\(\.is-open\) #undo-fchips \{ display: none; \}$/m, 'the filters hide until opened, outside any media query');
+  assert.doesNotMatch(css, /\.undo-fchips-toggle \{[^}]*display: none/, 'the control shows at every width');
+  const all = read('src/app/(main)/undo/UndoAll.tsx');
+  assert.doesNotMatch(all, /tagOf|undo-tag/, 'no "one signature" chip on a row');
+  assert.match(css, /:is\(button, input, select, textarea\) \{ font-family: inherit; \}/, 'undo controls take the page font, never the browser default');
+});
+
+test('round 3, built pages: rows first, counts at the end of each bar, the unit under each block', { skip: noBuild }, () => {
+  const undo = readFileSync(UNDO_HTML, 'utf8');
+  const all = readFileSync(ALL_HTML, 'utf8');
+  assert.doesNotMatch(text(all), /To undo \(/, 'no second heading over the list');
+  assert.doesNotMatch(all, /class="undo-tag"/);
+  const bars = (undo.match(/class="undo-bar[ "]/g) ?? []).length;
+  const ends = (undo.match(/undo-bar-count[^"]*"[^>]*>[\d,]+<\/span><\/span><\/(button|div)>/g) ?? []).length;
+  assert.ok(bars >= 9, 'kind bars and issue bars render');
+  assert.equal(ends, bars, 'every bar ends in its count, inside the track');
+  assert.doesNotMatch(text(undo), /Withdrawals/);
+  const blocks = (undo.match(/class="undo-block[ "]/g) ?? []).length;
+  const units = (undo.match(/undo-block-count">[^<]*executive actions?</g) ?? []).length;
+  assert.equal(units, blocks, 'each block says its count in executive actions');
+  assert.doesNotMatch(text(undo), /\b\d+ items?\b/, 'no "items" unit on /undo');
+});
+
+test('round 3: the 2026-01-07 withdrawals count as memoranda on the real data, read from every source', async () => {
+  const { penRows, penKinds } = await pen();
+  const kinds = Object.fromEntries(penKinds(penRows(merged)).map((k) => [k.label, k.count]));
+  // Counted 2026-11-08 without the feed: 64 of the curated withdrawals cite the memorandum; the six
+  // left (UNESCO, a tariff probe, four agency moves) cite no presidential document.
+  assert.ok(kinds.Memoranda >= 64, `Memoranda ${kinds.Memoranda}`);
+  assert.ok((kinds.Other ?? 0) <= 6, `Other ${kinds.Other}`);
+  assert.match(read('src/lib/undo/load.ts'), /kinds: penKinds\(pen\)/, 'the loader counts the kinds on the server');
 });

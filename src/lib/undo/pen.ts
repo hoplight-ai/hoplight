@@ -16,25 +16,35 @@ export function penRows<T extends Pick<UndoRow, 'bucket'>>(rows: readonly T[]): 
 
 // The key counts by document type only (round 2, 2026-11-08): a subject label such as "Tariffs"
 // counted the one curated tariff row while order 04 bundles 29 tariff proclamations, so the two
-// numbers contradicted each other. Every instrument not named here is "Other".
-const KINDS: { key: string; label: string; instruments: UndoRow['instrument'][] }[] = [
-  { key: 'eo', label: 'Executive orders', instruments: ['executive_order'] },
-  { key: 'proc', label: 'Proclamations', instruments: ['proclamation'] },
-  { key: 'memo', label: 'Memoranda', instruments: ['memorandum'] },
-  { key: 'withdrawal', label: 'Withdrawals', instruments: ['treaty'] },
+// numbers contradicted each other. Round 3: a withdrawal, a tariff or an agency move is counted
+// under the document that issued it, read from its number and every source label (the 2026-01-07
+// memorandum that quit 66 bodies counts as a memorandum); one no document issued is "Other". The
+// slim rows the browser gets carry one source, so the loader counts this on the server.
+const KINDS: { key: string; label: string; instrument: UndoRow['instrument']; named: RegExp }[] = [
+  { key: 'eo', label: 'Executive orders', instrument: 'executive_order', named: /\bExecutive Order\b|\bEO \d/i },
+  { key: 'proc', label: 'Proclamations', instrument: 'proclamation', named: /\bProclamation\b/i },
+  { key: 'memo', label: 'Memoranda', instrument: 'memorandum', named: /\bMemorandum\b/i },
 ];
 
-/** The pen rows still standing, by document type, for the key under the field. The counts sum to
- *  the hero number; a type with nothing standing drops out. */
-export function penKinds<T extends Parameters<typeof isPenInForce>[0] & Pick<UndoRow, 'instrument'>>(
+type KindRow = Pick<UndoRow, 'instrument' | 'number'> & { sources?: readonly { label: string }[] };
+
+/** The kind of presidential document a row was issued as, or 'other' when none is named. */
+export function issuedAs(r: KindRow): string {
+  const own = KINDS.find((k) => k.instrument === r.instrument);
+  if (own) return own.key;
+  const said = `${r.number ?? ''} ${(r.sources ?? []).map((s) => s.label).join(' ')}`;
+  return KINDS.find((k) => k.named.test(said))?.key ?? 'other';
+}
+
+/** The pen rows still standing, by the document that issued each, for the key under the field.
+ *  The counts sum to the hero number; a kind with nothing standing drops out. */
+export function penKinds<T extends Parameters<typeof isPenInForce>[0] & KindRow>(
   rows: readonly T[],
 ): { key: string; label: string; count: number }[] {
   const standing = rows.filter(isPenInForce);
-  const named = new Set(KINDS.flatMap((k) => k.instruments));
-  return [
-    ...KINDS.map((k) => ({ key: k.key, label: k.label, count: standing.filter((r) => k.instruments.includes(r.instrument)).length })),
-    { key: 'other', label: 'Other', count: standing.filter((r) => !named.has(r.instrument)).length },
-  ].filter((k) => k.count > 0);
+  return [...KINDS, { key: 'other', label: 'Other' }]
+    .map((k) => ({ key: k.key, label: k.label, count: standing.filter((r) => issuedAs(r) === k.key).length }))
+    .filter((k) => k.count > 0);
 }
 
 /** The orders the one sort control offers, the default first. */
