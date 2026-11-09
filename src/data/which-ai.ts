@@ -94,5 +94,5 @@ export const SOURCES: { company: string; label: string; url: string }[] = [
   { company: 'Google', label: 'Google AI plans', url: 'https://gemini.google/subscriptions/' },
   { company: 'Google', label: 'Gemini Apps privacy', url: 'https://support.google.com/gemini/answer/13594961' },
   { company: 'Google', label: 'Google Workspace privacy hub', url: 'https://knowledge.workspace.google.com/admin/gemini/generative-ai-in-google-workspace-privacy-hub' },
-  { company: 'Perplexity AI', label: 'Plans', url: 'https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you' }
+  { company: 'Perplexity AI', label: 'Perplexity plans', url: 'https://www.perplexity.ai/help-center/en/articles/11187416-which-perplexity-subscription-plan-is-right-for-you' }
 ];
