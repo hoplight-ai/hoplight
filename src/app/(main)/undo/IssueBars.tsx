@@ -86,12 +86,6 @@ export default function IssueBars({
             </button>
           ) : null}
         </div>
-        <p className="undo-legend" aria-hidden="true">
-          <span className="undo-legend-item">
-            <span className="undo-legend-mark" />
-            {COPY.land.legendTicks}
-          </span>
-        </p>
       </div>
     </section>
   );

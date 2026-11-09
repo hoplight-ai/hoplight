@@ -502,8 +502,8 @@ test('slimRow ships official, verdict and unsure, and search finds the official 
   assert.ok(!matchesQuery({ title: 'Our line' }, 'meaning'));
 });
 
-test('the "Leave these" and mechanism-tag copy follows the house rules', () => {
-  assert.equal(COPY.leave.title, 'Leave these');
+test('the "Worth keeping" and mechanism-tag copy follows the house rules', () => {
+  assert.equal(COPY.groups.leave, 'Worth keeping');
   assert.equal(
     COPY.leave.intro,
     'Orders a Democratic president would keep or that change nothing worth the ink. Listed so the count is honest.',
@@ -864,7 +864,7 @@ test('no curated row is a twin of a Federal Register row (counted 2026-10-19: 19
 
 test('the key, the all page and the bar filter copy follows the house rules', () => {
   assert.equal(COPY.key.title(275), '275 executive actions, by kind');
-  assert.equal(COPY.all.link(588), 'Open all 588 executive actions');
+  assert.equal(COPY.all.link(275), 'Open all 275 executive actions');
   assert.equal(COPY.land.more(11), 'Show 11 more');
   assert.equal(COPY.list.showMore(25, 262), 'Show 25 more of 262');
   assert.equal(COPY.list.showMore(12, 12), 'Show the last 12');

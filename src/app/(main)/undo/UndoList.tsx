@@ -107,6 +107,7 @@ export default function UndoList({
 
   // The key: the pen rows still standing, by kind, over the whole list, never the filtered one.
   const kinds = useMemo(() => penKinds(rows), [rows]);
+  const kindMax = Math.max(1, ...kinds.map((k) => k.count));
 
   const bars = useMemo(() => issueBars(rows, signed), [rows, signed]);
 
@@ -131,26 +132,28 @@ export default function UndoList({
         </div>
       </div>
 
-      {/* THE KEY: one bar of the executive actions a pen undoes, one segment per kind, each with its count */}
+      {/* THE KEY: the executive actions a pen undoes by document type, one sideways bar each with its
+          count, the same form as "Who feels it" below (round 2, 2026-11-08) */}
       <section className="undo-section undo-key" aria-labelledby="undo-key-h">
         <div className="wrap">
           <h2 id="undo-key-h" className="undo-h2">
             {COPY.key.title(penInForce)}
           </h2>
           <p className="undo-intro">{COPY.key.intro}</p>
-          <div className="undo-keybar" aria-hidden="true">
+          <ul className="undo-land undo-kinds">
             {kinds.map((k) => (
-              <span key={k.key} className="undo-keyseg undo-keyseg-pen" style={{ flexGrow: k.count }} />
-            ))}
-          </div>
-          <ul className="undo-keylist">
-            {kinds.map((k) => (
-              <li key={k.key} className="undo-keyrow">
-                <span className="undo-keyterm">
-                  <span className="undo-keyswatch undo-keyseg-pen" aria-hidden="true" />
-                  <span className="undo-keyname">{k.label}</span>
-                  <span className="undo-keycount">{k.count.toLocaleString('en-US')}</span>
-                </span>
+              <li key={k.key}>
+                <div className="undo-bar undo-bar-static">
+                  <span className="undo-bar-label">
+                    <span className="undo-bar-name undo-kind-name">{k.label}</span>
+                  </span>
+                  <span className="undo-bar-track" aria-hidden="true">
+                    <span className="undo-bar-fill" style={{ width: `${(k.count / kindMax) * 100}%` }}>
+                      <span className="undo-seg undo-seg-pen" style={{ flexGrow: 1 }} />
+                    </span>
+                  </span>
+                  <span className="undo-bar-count undo-kind-count">{k.count.toLocaleString('en-US')}</span>
+                </div>
               </li>
             ))}
           </ul>

@@ -50,6 +50,8 @@ export const COPY = {
   },
   issues: {
     filterLabel: 'Filter by issue',
+    /** The one control that opens the issue filters on a phone, naming the issue picked, if any. */
+    toggle: (label?: string) => (label ? `Filter by issue: ${label}` : 'Filter by issue'),
     all: 'All issues',
     who: 'Filter by who feels it',
     hint: 'Tap one. The field, the orders and the list narrow to it.',
@@ -71,7 +73,6 @@ export const COPY = {
     more: (n: number) => `Show ${n} more`,
     fewer: 'Show fewer',
     countLabel: (pen: number) => `${pen}`,
-    legendTicks: 'the line is how far your ticks have gone',
     // Read out by a screen reader for each bar, so the numbers are in words and not only in widths.
     bar: (label: string, pen: number, signed: number) =>
       pen === 1
@@ -106,8 +107,8 @@ export const COPY = {
   },
   all: {
     title: 'Every executive action, one by one',
-    intro: (n: number, standing: number) =>
-      `All ${n} executive actions a pen reaches, one row each. The ${standing} still standing come first; the rest are already undone, just in, worth keeping, or ceremonial.`,
+    intro: (n: number) =>
+      `The ${n} executive actions still standing, one row each, with the exact sentence that undoes each. Search them, filter them by who feels it, sort them.`,
     link: (n: number) => `Open all ${n} executive actions`,
     back: 'Back to the orders',
   },
@@ -115,24 +116,28 @@ export const COPY = {
     more: 'Details',
     source: 'Read the source',
   },
-  lunch: {
-    title: 'Before lunch',
-    intro: 'One signature each. No vote, no hearing, no comment period.',
+  /** The groups on /undo/all, in plain words; a heading prints its count in brackets. */
+  groups: {
+    standing: 'To undo',
+    standingIntro: 'One signature each. No vote, no hearing, no comment period.',
+    done: 'Already undone',
+    justIn: 'Not yet written up',
+    leave: 'Worth keeping',
+    ceremonial: 'Ceremonial',
+    titled: (label: string, n: number) => `${label} (${n})`,
+    rest: (n: number) => `The other ${n} executive actions a pen reached`,
+    restIntro: (total: number) => `None of these needs a signature now. With the list above, the pen reached ${total} in all.`,
   },
   done: {
-    title: 'Already done for you',
     intro: 'Courts, or the administration itself, already undid these. They stay on the list so the count is honest.',
   },
   justIn: {
-    title: 'Just in',
     intro: 'Newly published and not yet written up in our words. The administration\'s own title shows until we write ours; nothing here counts toward the list above.',
   },
   leave: {
-    title: 'Leave these',
     intro: 'Orders a Democratic president would keep or that change nothing worth the ink. Listed so the count is honest.',
   },
   ceremonial: {
-    title: 'Commemorative proclamations',
     intro: 'National days, weeks and months, and proclamations of mourning. Nothing here needs undoing. They are listed so the count is complete.',
   },
   order: {
