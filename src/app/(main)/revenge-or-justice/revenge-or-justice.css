@@ -70,7 +70,13 @@
    gold tag for each elected official it names (Whit, 2026-11-09: "the news articles should jump off the
    page including the outlet that wrote them ... tags of ... what elected officials are in the article"). */
 .rj .feed ol{list-style:none;margin-top:var(--s2);display:grid;gap:10px}
-.rj .feed .pick{--oc:var(--ink);display:block;width:100%;text-align:left;font:inherit;background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--oc);border-radius:6px;padding:12px 14px 13px;cursor:pointer;color:var(--ink);transition:border-color .15s ease-out,box-shadow .15s ease-out,transform .15s ease-out}
+/* The outlet's colour as a band across the card's head, the dial on the right (the approved dial mockup, 2026-11-09). */
+.rj .feed .pick .cbody{display:block;min-width:0}
+.rj .feed .pick .cdial{display:block;padding-top:2px}
+.rj .feed .pick .cdial svg{display:block}
+.rj .feed .byline{display:flex;flex-direction:column;gap:2px;margin-top:9px;font-size:13px;line-height:1.35;color:var(--stone)}
+.rj .feed .byline b{font-weight:700;color:var(--ink)}
+.rj .feed .pick{--oc:var(--ink);display:grid;grid-template-columns:minmax(0,1fr) 96px;column-gap:12px;align-items:start;width:100%;text-align:left;font:inherit;background:var(--white);border:1px solid var(--rule);border-top:6px solid var(--oc);border-radius:8px;padding:12px 12px 14px 14px;cursor:pointer;color:var(--ink);transition:border-color .15s ease-out,box-shadow .15s ease-out,transform .15s ease-out}
 .rj .feed .pick:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
 @media (hover:hover){.rj .feed .pick:hover{box-shadow:0 6px 18px rgba(15,27,45,.10);transform:translateY(-1px)}.rj .feed .pick:hover .hl{text-decoration:underline;text-decoration-color:var(--oc);text-decoration-thickness:2px;text-underline-offset:3px}}
 .rj .feed .hl{display:block;margin-top:6px;font-size:20px;line-height:1.25;font-weight:700;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty}
@@ -131,36 +137,40 @@
 /* Who is quoted: one row per person, each placed on the same revenge-to-justice line by their own words;
    a tap opens their quotes under the row and turns the reading below to them. Elected officials in gold,
    appointed officials in blue, everyone else outlined. */
-/* The people rows sit on the same grid and the same scale as the five measures below, so a person's
-   placement and a measure's placement read on one line (design review, 2026-11-09). */
-.rj .quoted{margin-top:var(--s3)}
+/* The verdict line: the dial beside the article and the claim (the approved dial mockup, 2026-11-09). The
+   article's headline is the loudest words on the screen; the claim about it sits under it. */
+.rj .rj-top-line{display:grid;grid-template-columns:300px minmax(0,1fr);column-gap:var(--s5);align-items:center}
+.rj .rj-dial:empty{display:none}
+.rj .rj-dial svg{display:block}
+.rj .art:empty{display:none}
+.rj .art-by .outlet b{font-size:13px}
+.rj .art-hl{display:block;margin-top:10px;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;color:var(--ink);border-bottom:0;text-wrap:balance}
+@media (hover:hover){.rj .art-hl:hover{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}}
+.rj .art-link{display:inline-block;margin-top:6px;font-size:16px;color:var(--ink2)}
+.rj .art:not(:empty) + .claim{font-size:20px;line-height:1.45;color:var(--ink2);margin-top:var(--s2)}
+
+/* Who is quoted: a byline per person (name, role) with their own dial; a tap opens their words as a pull
+   quote and turns the reading to them. */
+.rj .quoted{margin-top:var(--s4);max-width:760px}
 .rj .quoted:empty{display:none}
-.rj .pl-head{display:grid;grid-template-columns:minmax(150px,260px) 1fr 44px;column-gap:var(--s3);align-items:end;padding-bottom:6px}
-.rj .pl-head .ql{font-size:14px;color:var(--stone)}
-.rj .pl-ends{display:flex;justify-content:space-between;font-size:14px;color:var(--gold-deep)}
-.rj .pl-ends span:first-child{color:var(--flag)}
-.rj .pl-group{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--stone);padding:10px 0 4px}
-.rj .prow{display:grid;grid-template-columns:minmax(150px,260px) 1fr 44px;column-gap:var(--s3);align-items:center;width:100%;min-height:52px;padding:4px 8px;margin:0 -8px;font:inherit;text-align:left;background:none;border:0;border-top:1px solid var(--rule2);border-radius:4px;cursor:pointer;color:var(--ink);box-sizing:content-box}
-.rj .pwho{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:4px 0}
-.rj .prow .who{font-size:14px}
-.rj .prole{display:block;font-size:13px;line-height:1.35;color:var(--stone);margin-top:3px}
+.rj .pl-head{display:flex;align-items:baseline;gap:var(--s2);flex-wrap:wrap;padding-bottom:6px}
+.rj .pl-head .ql{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--stone)}
+.rj .pl-hint{font-size:13px;color:var(--stone)}
+.rj .pl-group{font-size:12px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--gold-deep);padding:12px 0 4px}
+.rj .prow{display:grid;grid-template-columns:minmax(0,1fr) 120px;column-gap:var(--s3);align-items:center;width:100%;padding:6px 8px;margin:0 -8px;font:inherit;text-align:left;background:none;border:0;border-top:1px solid var(--rule2);border-radius:4px;cursor:pointer;color:var(--ink);box-sizing:content-box}
+.rj .pwho{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.rj .pname{font-size:20px;font-weight:700;line-height:1.25}
+.rj .prole{display:block;font-size:13px;line-height:1.35;color:var(--stone);margin-top:2px}
+.rj .pdial svg{display:block}
 .rj .prow.on{background:var(--hover);box-shadow:inset 3px 0 0 var(--gold)}
 /* With one person picked, the others step back so the picked one is the story. */
-.rj .quoted:has(.prow.on) .prow:not(.on) :is(.who,.bar,.pn){opacity:.4}
-@media (hover:hover){.rj .prow:hover{background:var(--hover)}.rj .quoted .prow:hover :is(.who,.bar,.pn){opacity:1}}
+.rj .quoted:has(.prow.on) .prow:not(.on) :is(.pname,.prole,.pdial){opacity:.4}
+@media (hover:hover){.rj .prow:hover{background:var(--hover)}.rj .quoted .prow:hover :is(.pname,.prole,.pdial){opacity:1}}
 .rj .prow:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--gold)}
-.rj .ptrack{position:relative;height:48px}
-.rj .ptrack::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--rule2)}
-.rj .ptrack::after{content:"";position:absolute;left:50%;top:8px;height:32px;width:1px;background:var(--ink);z-index:3}
-.rj .ptrack .bar{top:14px;height:20px;transition:none}
-.rj .pn{font-size:16px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums lining-nums;color:var(--gold-deep)}
-.rj .pn.retribution{color:var(--flag)}
-.rj .pn.mixed{color:var(--stone)}
 .rj .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .rj .pquotes{padding:var(--s1) 0 var(--s2) var(--s2);border-left:3px solid var(--gold);margin:0 0 var(--s1) -8px}
-.rj .pquotes blockquote{font-family:var(--serif);font-size:19px;line-height:1.45;color:var(--ink);margin-top:var(--s1)}
+.rj .pquotes blockquote{font-family:var(--serif);font-size:24px;line-height:1.35;color:var(--ink);margin-top:var(--s2)}
 .rj .pquotes blockquote:first-child{margin-top:0}
-.rj .pquotes mark{color:inherit;background:linear-gradient(transparent 48%,rgba(212,149,10,.42) 48%,rgba(212,149,10,.42) 94%,transparent 94%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .rj .pquotes .pl-all{margin-top:var(--s1)}
 .rj .who.official{background:#E3ECF8;color:#1C3D6E;box-shadow:inset 0 0 0 1px rgba(28,61,110,.30)}
 /* A measure's name is a term: a tap opens a small window with what it means, why it matters and what it sets
@@ -277,12 +287,13 @@
   .rj .pair{grid-template-columns:1fr;gap:var(--s3)}
   .rj .strip .what{white-space:normal}
   .rj .strip .what .outlet{display:flex;margin:0 0 6px;vertical-align:baseline}
-  .rj .prow,.rj .pl-head{grid-template-columns:112px 1fr 32px;column-gap:12px}
-  .rj .ptrack{height:44px}
-  .rj .ptrack::after{top:6px}
-  .rj .ptrack .bar{top:12px}
+  .rj .rj-top-line{grid-template-columns:1fr;row-gap:var(--s2)}
+  .rj .rj-dial{max-width:260px;margin:0 auto;width:100%}
+  .rj .art-hl{font-size:24px}
+  .rj .prow{grid-template-columns:minmax(0,1fr) 100px;column-gap:12px}
+  .rj .pname{font-size:18px}
   .rj .feed .hl{font-size:19px}
-  .rj .pquotes blockquote{font-size:17px}
+  .rj .pquotes blockquote{font-size:20px}
   .rj h2{margin-top:var(--s6)}
 }
 

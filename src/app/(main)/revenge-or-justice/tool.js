@@ -101,15 +101,59 @@ export function initRevengeOrJustice(root, opts) {
     return '<i class="bar ' + side(p) + (p < 50 ? ' left' : '') + (extra || '') + '" style="left:' + left + '%;width:' + w + '%" data-left="' + left + '%" data-width="' + w + '%"></i>';
   }
 
+  // The dial (Whit, 2026-11-09: "oh oh oh snopes has those little dials"; on the mockup: "that topline is stornger
+  // as a dial ... the article one is good. the name and quote is good- but the 5 measures i think should be the
+  // bars still"). A half circle from revenge (left) to justice (right) in three bands at the tool's own cut-offs,
+  // 38 and 62; the needle points at the score, the score sits under the hub in its side's colour, and the band
+  // the score falls in is drawn full while the other two step back. Big for the verdict, small on an article
+  // card and on each person. An empty value draws an empty dial that says "Tap to read".
+  var DC = { revenge: '#9c3327', mixed: '#CFCAC0', justice: '#D4950A', ink: '#0F1B2D', stone: '#575752', gold: '#996D00', empty: '#E8E5DE' };
+  function dpt(cx, cy, r, v){ var a = Math.PI - (v / 100) * Math.PI; return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; }
+  function darc(cx, cy, r, a, b){ var p = dpt(cx, cy, r, a), q = dpt(cx, cy, r, b); return 'M' + p[0].toFixed(2) + ' ' + p[1].toFixed(2) + ' A' + r + ' ' + r + ' 0 0 1 ' + q[0].toFixed(2) + ' ' + q[1].toFixed(2); }
+  function dside(v){ return v >= 62 ? 'justice' : v <= 38 ? 'revenge' : 'mixed'; }
+  function dial(v, size){
+    var big = size === 'big';
+    var W = big ? 300 : 120, r = big ? 118 : 44, sw = big ? 26 : 11;
+    var cx = W / 2, cy = r + sw / 2 + 4, H = cy + (big ? 60 : 32);
+    var has = v !== '' && v != null && !isNaN(+v);
+    if (has) v = Math.round(+v);
+    var label = has ? (dside(v) === 'mixed' ? 'Mixed' : dside(v) === 'revenge' ? 'Leans revenge' : 'Leans justice') + ', ' + v + ' of 100 toward justice' : 'Not read yet';
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' + label + '">';
+    [[0, 38, 'revenge'], [38, 62, 'mixed'], [62, 100, 'justice']].forEach(function(b){
+      var on = has && dside(v) === b[2];
+      s += '<path d="' + darc(cx, cy, r, b[0] + (b[0] ? 1.2 : 0), b[1] - (b[1] < 100 ? 1.2 : 0)) + '" fill="none" stroke="' + (has ? DC[b[2]] : DC.empty) + '" stroke-width="' + sw + '" stroke-opacity="' + (has && !on ? 0.6 : 1) + '"/>';
+    });
+    if (big) [0, 25, 50, 75, 100].forEach(function(t){ var a = dpt(cx, cy, r + sw / 2 + 4, t), b = dpt(cx, cy, r + sw / 2 + 10, t); s += '<line x1="' + a[0].toFixed(2) + '" y1="' + a[1].toFixed(2) + '" x2="' + b[0].toFixed(2) + '" y2="' + b[1].toFixed(2) + '" stroke="' + DC.stone + '" stroke-width="1.5"/>'; });
+    if (has) {
+      var tip = dpt(cx, cy, r - sw / 2 - (big ? 6 : 3), v), a = Math.PI - (v / 100) * Math.PI, hw = big ? 7 : 4;
+      var l = [cx + hw * Math.cos(a + Math.PI / 2), cy - hw * Math.sin(a + Math.PI / 2)], rr = [cx + hw * Math.cos(a - Math.PI / 2), cy - hw * Math.sin(a - Math.PI / 2)];
+      s += '<path class="needle" d="M' + l[0].toFixed(2) + ' ' + l[1].toFixed(2) + ' L' + tip[0].toFixed(2) + ' ' + tip[1].toFixed(2) + ' L' + rr[0].toFixed(2) + ' ' + rr[1].toFixed(2) + ' Z" fill="' + DC.ink + '"/>';
+      s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 11 : 6) + '" fill="' + DC.ink + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 4 : 2) + '" fill="#fff"/>';
+      var col = dside(v) === 'revenge' ? DC.revenge : dside(v) === 'justice' ? DC.gold : DC.stone;
+      s += '<text x="' + cx + '" y="' + (cy + (big ? 50 : 26)) + '" text-anchor="middle" font-size="' + (big ? 44 : 22) + '" font-weight="800" fill="' + col + '">' + v + '</text>';
+    } else {
+      s += '<text x="' + cx + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.stone + '">Tap to read</text>';
+    }
+    if (big) {
+      s += '<text x="' + (cx - r) + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.revenge + '">Revenge</text>';
+      s += '<text x="' + (cx + r) + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.gold + '">Justice</text>';
+    }
+    return s + '</svg>';
+  }
+
   // Whose words: the politicians and operatives first, the outlet's own framing on a toggle, the whole text last
   // (Whit, 2026-11-06: "in the output i should see the politicians and operative etc first, and i should be able
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
     var voices = reply.voices || {};
-    // The outlet, from the grader's own read of the article, for a pasted link the headline list does not hold.
-    if (reply.fetched && !feedByUrl[reply.fetched] && voices.coverage && voices.coverage.outlet) {
-      $('what').innerHTML = outletBadge(host(reply.fetched), voices.coverage.outlet) + ' <a href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(host(reply.fetched)) + '</a>';
-    }
+    // The article over the claim: its outlet and its headline as the headline it is. A pasted link the list does
+    // not hold shows the outlet the grader read and the address; pasted text shows nothing here.
+    var item = reply.fetched ? feedByUrl[reply.fetched] : null;
+    if (item) $('art').innerHTML = '<div class="art-by">' + outletBadge(item.host, item.source) + '</div><a class="art-hl" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(item.title) + '</a>';
+    else if (reply.fetched) $('art').innerHTML = '<div class="art-by">' + outletBadge(host(reply.fetched), (voices.coverage && voices.coverage.outlet) || host(reply.fetched)) + '</div><a class="art-link" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(host(reply.fetched)) + '</a>';
+    else $('art').innerHTML = '';
+    // The list's card for this article takes the reading too, so its dial fills once read.
+    if (item) { item.reading = { position: reply.mean_position, verdict: reply.verdict }; var card = $('feedlist').querySelector('.pick[data-url="' + (window.CSS && CSS.escape ? CSS.escape(reply.fetched) : reply.fetched) + '"] .cdial'); if (card) card.innerHTML = dial(reply.mean_position, 'small'); }
     // Who is quoted, one row each, every row placed on the same revenge-to-justice line by that person's own
     // words (Whit, 2026-11-09: "if i click on the quoted person chip, maybe it expands to show the quotes? and
     // i want to be able to toggle to different electeds or officials to see how their framing stacks up").
@@ -123,8 +167,7 @@ export function initRevengeOrJustice(root, opts) {
     var chosen = -1;
     function drawPeople(){
       if (!people.length) { $('quoted').innerHTML = ''; return; }
-      var html = '<div class="pl-head"><span class="ql">Who is quoted</span>' +
-        (people.some(function(p){ return p.verdict; }) ? '<span class="pl-ends" aria-hidden="true"><span>Revenge</span><span>Justice</span></span>' : '') + '</div>';
+      var html = '<div class="pl-head"><span class="ql">Who is quoted</span><span class="pl-hint">Tap a name for their words and their reading</span></div>';
       var last = '';
       people.forEach(function(p, i){
         var kind = kindOf(p);
@@ -132,13 +175,13 @@ export function initRevengeOrJustice(root, opts) {
         var graded = p.verdict && !p.error;
         var pos = graded ? (p.mean_position != null ? p.mean_position : 50) : null;
         html += '<button type="button" class="prow' + (i === chosen ? ' on' : '') + '" data-p="' + i + '" aria-expanded="' + (i === chosen ? 'true' : 'false') + '" aria-controls="pq' + i + '">' +
-          '<span class="pwho">' + tagHtml(p, false) + (p.role ? '<span class="prole">' + esc(p.role) + '</span>' : '') + '</span>' +
-          '<span class="ptrack" aria-hidden="true">' + (graded ? bar(pos) : '') + '</span>' +
-          '<span class="pn ' + (graded ? side(pos) : '') + '">' + (graded ? Math.round(pos) : '') + '</span>' +
+          // A byline (name, then role) and the person's own dial (the approved mockup, 2026-11-09).
+          '<span class="pwho"><span class="pname k-' + kindOf(p) + '">' + esc(p.name) + '</span>' + (p.role ? '<span class="prole">' + esc(p.role) + '</span>' : '') + '</span>' +
+          '<span class="pdial" aria-hidden="true">' + (graded ? dial(pos, 'small') : '') + '</span>' +
           '<span class="sr">' + (graded ? sideWords(pos) + ', ' + Math.round(pos) + ' of 100 toward justice. ' : '') + (i === chosen ? 'Showing their words.' : 'Show their words and their reading.') + '</span>' +
           '</button>' +
           '<div class="pquotes" id="pq' + i + '"' + (i === chosen ? '' : ' hidden') + '>' +
-          (p.passages || []).map(function(t){ return '<blockquote><mark>' + esc(t) + '</mark></blockquote>'; }).join('') +
+          (p.passages || []).map(function(t){ return '<blockquote>“' + esc(String(t).replace(/^["“]+|["”]+$/g, '')) + '”</blockquote>'; }).join('') +
           '<button type="button" class="quietbtn pl-all">Everyone together</button></div>';
       });
       $('quoted').innerHTML = html;
@@ -300,6 +343,9 @@ export function initRevengeOrJustice(root, opts) {
     $('meta').innerHTML = m.join(' · ');
     $('verdict').textContent = j.error ? '' : (j.verdict === 'mixed' ? 'Mixed' : j.verdict ? 'Leans ' + word(j.verdict) : '');
     $('verdict').className = 'v ' + (j.verdict === 'retribution' ? 'revenge' : j.verdict === 'justice' ? 'justice' : 'mixed');
+    // The dial reads the same score the verdict word is read from: the mean of the five rows.
+    var mean = j.mean_position != null ? j.mean_position : ((j.rows || []).length ? (j.rows || []).reduce(function(t, r){ return t + (+r.position || 0); }, 0) / j.rows.length : null);
+    $('dial').innerHTML = j.error || mean == null ? '' : dial(mean, 'big');
     $('headline').textContent = j.error ? 'This reading did not come back.' : rw(j.headline || '');
 
     var rows = j.rows || [];
@@ -374,7 +420,8 @@ export function initRevengeOrJustice(root, opts) {
     var isUrl = /^https?:\/\/\S+$/.test(text);
     var shown = isUrl ? host(text) : text.replace(/\s+/g, ' ').slice(0, 140) + (text.length > 140 ? '…' : '');
     var it = isUrl ? feedByUrl[text] : null;
-    $('what').innerHTML = it ? outletBadge(it.host, it.source) + ' <a href="' + esc(text) + '" target="_blank" rel="noopener">' + esc(it.title) + '</a>' : '<b>Read:</b> ' + esc(shown);
+    // The headline itself now sits over the claim, so the strip names only what was read.
+    $('what').innerHTML = it ? outletBadge(it.host, it.source) : '<b>Read:</b> ' + esc(shown);
     root.classList.add('read');
     $('strip').classList.add('on');
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -403,9 +450,14 @@ export function initRevengeOrJustice(root, opts) {
       var hue = hueOf(it.host);
       var people = officialsOf(it);
       return '<li' + (k >= SHOW ? ' class="rj-more"' : '') + '><button type="button" class="pick"' + (hue ? ' style="--oc:' + hue + '"' : '') + ' data-url="' + esc(it.url) + '">' +
+        '<span class="cbody">' +
         '<span class="by">' + outletBadge(it.host, it.source) + (when(it.published) ? '<span class="when">' + when(it.published) + '</span>' : '') + '</span>' +
         '<span class="hl">' + esc(it.title) + '</span>' +
-        (people.length ? '<span class="tags">' + people.map(function(o){ return tagHtml(o, true); }).join('') + '</span>' : '') +
+        // The officials as a plain byline, name in bold and role after it (the approved mockup, 2026-11-09).
+        (people.length ? '<span class="byline">' + people.map(function(o){ return '<span><b>' + esc(o.name) + '</b>' + (o.role ? ', ' + esc(o.role) + '' : '') + '</span>'; }).join('') + '</span>' : '') +
+        '</span>' +
+        // The article's dial: its stored reading where there is one, else an empty dial that fills once it is read.
+        '<span class="cdial" aria-hidden="' + (it.reading && it.reading.position != null ? 'false' : 'true') + '">' + dial(it.reading && it.reading.position != null ? it.reading.position : '', 'small') + '</span>' +
         '</button></li>';
     }).join('') + (items.length > SHOW ? '<li class="all"><button type="button" class="quietbtn" id="feedall">All ' + items.length + ' articles</button></li>' : '');
     if ($('feedall')) $('feedall').addEventListener('click', function(){ track('headlines-all', { count: items.length }); $('feedlist').classList.add('open'); $('feedall').parentNode.removeChild($('feedall')); });

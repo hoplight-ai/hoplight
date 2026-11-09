@@ -72,10 +72,18 @@ export default function RevengeOrJustice() {
         <section id="out" aria-live="polite">
           <div className="voices" id="voices" role="tablist" aria-label="Whose words to read" />
           <div className="issues" id="issues" role="tablist" aria-label="Which issue to read" />
+          {/* The verdict as a dial beside the article and the claim (Whit, 2026-11-09, on the dial mockup: "that
+              topline is stornger as a dial ... the 5 measures i think should be the bars still"). */}
           <div className="rj-hero">
-            <p className="claim"><span className="v" id="verdict" /> <span id="headline" /></p>
+            <div className="rj-top-line">
+              <div className="rj-dial" id="dial" />
+              <div className="rj-top-words">
+                <div className="art" id="art" />
+                <p className="claim"><span className="v" id="verdict" /> <span id="headline" /></p>
+                <p className="meta" id="meta" />
+              </div>
+            </div>
             <div className="quoted" id="quoted" />
-            <p className="meta" id="meta" />
             <div className="instrument">
               <div className="ends"><div className="l"><span>Revenge</span><span>Justice</span></div></div>
               <div className="rows" id="rows" />
