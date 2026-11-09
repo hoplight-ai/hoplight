@@ -457,7 +457,7 @@ export function initRevengeOrJustice(root, opts) {
       var left = p < 50 ? p : 50, w = Math.abs(p - 50);
       return '<div class="pp-row"><div class="pp-rh"><span class="pp-rt">' + esc(r.title) + '</span><span class="pp-rn ' + s + '">' + Math.round(p) + '</span></div>' +
         '<div class="pp-track"><i class="pp-bar ' + s + '" style="left:' + left + '%;width:' + w + '%"></i></div>' +
-        '<p class="pp-crit">' + esc(trunc(rw(r.critique), 230)) + '</p>' +
+        '<p class="pp-crit">' + esc(trunc(rw(r.critique), 320)) + '</p>' +
         (r.evidence ? '<p class="pp-ev">“' + esc(trunc(r.evidence, 150)) + '”</p>' : '') + '</div>';
     }).join('');
     var people = (reply.voices && reply.voices.politicians && reply.voices.politicians.by_speaker || []).filter(function(p){ return p.verdict && !p.error && p.mean_position != null; });
