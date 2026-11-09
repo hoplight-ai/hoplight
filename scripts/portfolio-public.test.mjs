@@ -65,6 +65,8 @@ const STILL_GATED = [
   '/portfolio/ai-governance-checklist.html',
   // the two reports locked on 2026-11-07 (LOCKREPORTS1), still listed on /insights with the lock
   '/portfolio/dnc-autopsy-taken-apart.html', '/portfolio/worker-equity-dilution-at-ge.html',
+  // the Oregon report, locked on 2026-11-08 (LOCKOREGON1), still listed on /insights with the lock
+  '/portfolio/oregon-school-budget-report.html',
   ...MOVED_TOOLS.flatMap((t) => [`/${t.name}`, `/${t.name}/x`]),
 ];
 
