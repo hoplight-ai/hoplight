@@ -13,9 +13,9 @@ export const revalidate = 3600;
 export const metadata: Metadata = toolMetadata('undo', {
   title: 'The Undo List',
   description:
-    'Every action of the second Trump administration, sorted by what it takes to undo it in 2029: a pen, a process, a majority, sixty votes, or nothing at all.',
+    'Every executive action of the second Trump administration that the next president can undo with a signature, filterable by who feels it, sortable, and bundled into signing orders.',
   path: '/undo',
-  ogDescription: 'Everything Trump did, sorted by what it takes to undo it in 2029.',
+  ogDescription: 'Every Trump executive action a pen undoes, bundled into signing orders for 2029.',
 });
 
 export default async function UndoPage() {
@@ -25,7 +25,7 @@ export default async function UndoPage() {
     <>
       {/* HERO, THE KEY, THE FILTER, THE ORDERS: one client tree, because the field, the strip and
           the ticks share one set of signed ids. The full list is its own page, /undo/all. */}
-      <UndoList rows={data.slim} penInForce={data.penInForce} locked={data.locked} orders={data.orders} />
+      <UndoList rows={data.slim} penInForce={data.penInForce} orders={data.orders} />
 
       {/* CLOSING CALL TO ACTION */}
       <section className="close-cta slate undo-cta" aria-labelledby="undo-cta-h">
@@ -52,7 +52,7 @@ export default async function UndoPage() {
           <h2 id="undo-all-h" className="undo-h2">
             {COPY.all.title}
           </h2>
-          <p className="undo-intro">{COPY.all.intro(data.total)}</p>
+          <p className="undo-intro">{COPY.all.intro(data.total, data.penInForce)}</p>
           <TrackedLink className="btn btn-ghost" href="/undo/all" tool="undo" action="see-all">
             {COPY.all.link(data.total)}
           </TrackedLink>
@@ -80,9 +80,17 @@ export default async function UndoPage() {
               <div className="undo-dl-row">
                 <dt>Curated rows</dt>
                 <dd>
-                  Statutes, Congressional Review Act repeals, judges, final rules, withdrawals,
-                  tariffs, personnel, pardons and court rulings are not in the feed. They are added
-                  by hand, and each one carries its own sources.
+                  Tariffs, withdrawals from treaties and bodies, and the appointments and agency
+                  moves a signature reaches are not in the feed. They are added by hand, and each
+                  one carries its own sources.
+                </dd>
+              </div>
+              <div className="undo-dl-row">
+                <dt>Executive actions only</dt>
+                <dd>
+                  This list carries only what a president undoes with a pen. Anything that takes a
+                  new rule, a vote in Congress, or that nothing undoes (statutes, judges, pardons,
+                  court rulings) is kept off it.
                 </dd>
               </div>
               <div className="undo-dl-row">

@@ -979,9 +979,6 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-bar-fill { position: relative; display: flex; height: 100%; min-width: 6px; transition: width 200ms ease-out; }
 .undo-seg { display: block; flex-basis: 0; min-width: 2px; height: 100%; box-shadow: inset -1px 0 0 var(--white); }
 .undo-seg-pen { background: var(--gold); }
-.undo-seg-process { background: var(--gold-deep); }
-.undo-seg-congress { background: var(--ink-soft); }
-.undo-seg-locked { background: var(--stone); }
 /* How far the reader's ticks have gone through this issue's pen items: a hairline over the pen segment */
 .undo-bar-mark { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); box-shadow: 0 0 0 1px var(--white); transition: left 200ms ease-out; }
 .undo-bar-count { grid-area: count; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
@@ -1110,28 +1107,19 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
    screen 94; two counts for one label). The list is its own page, the key is a bar under the hero,
    the issue bars are the one filter. ----- */
 
-/* The key: one bar of everything, then five lines with swatch, name, count, one sentence */
+/* The key: one bar of the executive actions a pen undoes, then one line per kind with swatch, name,
+   count (2026-11-08: executive actions only, so the four other buckets left the key) */
 .undo-key { padding-top: 20px; }
 .undo-keybar { display: flex; gap: 2px; height: 14px; margin: 18px 0 16px; max-width: 760px; }
 .undo-keyseg { display: block; flex-basis: 0; min-width: 4px; height: 100%; border-radius: 2px; }
 .undo-keyseg-pen { background: var(--gold); }
-.undo-keyseg-pen-process { background: var(--gold-deep); }
-.undo-keyseg-majority { background: var(--ink-soft); }
-.undo-keyseg-sixty { background: var(--ink); }
-.undo-keyseg-locked { background: var(--stone); }
-.undo-keylist { margin: 0; max-width: 760px; }
+.undo-keylist { margin: 0; padding: 0; list-style: none; max-width: 760px; }
 .undo-keyrow { display: grid; grid-template-columns: 1fr; gap: 2px 20px; padding: 10px 0; border-top: 1px solid var(--line); }
-.undo-keyrow dt { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
+.undo-keyrow .undo-keyterm { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
 .undo-keyswatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; flex: none; }
 .undo-keycount { margin-left: auto; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
-.undo-keyrow dd { margin: 0 0 0 22px; font-size: 0.9rem; line-height: 1.5; color: var(--stone-deep); }
-.undo-keymore { margin-top: 14px; }
-.undo-keymore > summary { list-style: none; width: fit-content; }
-.undo-keymore > summary::-webkit-details-marker { display: none; }
-.undo-keymore .undo-prose { margin-top: 12px; }
 @media (min-width: 760px) {
   .undo-keyrow { grid-template-columns: 300px 1fr; align-items: baseline; }
-  .undo-keyrow dd { margin-left: 0; }
 }
 
 /* The field names its wide blocks, so the biggest shape on the page carries its name */
