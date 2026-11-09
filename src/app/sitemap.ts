@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const RESTRUCTURED = ['/insights', '/services'];
   return paths.map((p) => ({
     url: `${ORIGIN}${p}`,
-    lastModified: p === '/portfolio' || p === '' ? '2026-11-07' : p.startsWith('/revenge-or-justice') ? '2026-11-06' : p === '/undo' ? '2026-10-09' : RESTRUCTURED.includes(p) ? '2026-10-20' : LAST_MODIFIED,
+    lastModified: p === '/portfolio' || p === '' ? '2026-11-07' : p.startsWith('/revenge-or-justice') ? '2026-11-06' : p === '/undo' ? '2026-11-08' : RESTRUCTURED.includes(p) ? '2026-10-20' : LAST_MODIFIED,
     changeFrequency: 'monthly' as const,
     priority: p === '' ? 1 : p === '/undo' ? 0.8 : 0.7,
   }));

@@ -5,13 +5,12 @@ import { COPY } from '@/lib/undo/copy';
 import type { IssueKey } from '@/lib/undo/issues';
 import type { IssueBar } from '@/lib/undo/progress';
 
-type SegmentKey = 'pen' | 'process' | 'congress' | 'locked';
-const SEGMENTS: SegmentKey[] = ['pen', 'process', 'congress', 'locked'];
 const FIRST = 5;
 
 // The filter: one HTML/CSS bar per issue, biggest first, the first five shown and the rest on a
-// tap. The track is as wide as the biggest issue needs, and each bar is a share of that; the
-// segments are the shares of that issue's own items. Tapping a bar narrows the field and the
+// tap. The track is as wide as the biggest issue needs, and each bar is a share of that. Every row
+// that reaches this page is an executive action a pen undoes (2026-11-08), so a bar is one gold
+// fill with the reader's ticks as a hairline. Tapping a bar narrows the field and the
 // orders to that issue; tapping it again clears. No chart library, no SVG. (Reshaped 2026-10-19:
 // this replaced a separate chip row, so one label carries one count on the page.)
 export default function IssueBars({
@@ -25,7 +24,7 @@ export default function IssueBars({
 }) {
   const [all, setAll] = useState(false);
   if (bars.length === 0) return null;
-  const max = Math.max(...bars.map((b) => b.total));
+  const max = Math.max(...bars.map((b) => b.pen));
   const activeIndex = active === null ? -1 : bars.findIndex((b) => b.key === active);
   // The active bar stays visible even when it sits past the first five.
   const shown = all ? bars : bars.filter((b, i) => i < FIRST || b.key === active);
@@ -45,7 +44,7 @@ export default function IssueBars({
                 type="button"
                 className={`undo-bar${active === b.key ? ' is-active' : ''}`}
                 aria-pressed={active === b.key}
-                aria-label={COPY.land.bar(b.label, b.total, b.pen, b.process, b.congress, b.locked, b.signedPen)}
+                aria-label={COPY.land.bar(b.label, b.pen, b.signedPen)}
                 onClick={() => onPick(b.key)}
               >
                 <span className="undo-bar-label" aria-hidden="true">
@@ -53,17 +52,15 @@ export default function IssueBars({
                   <span className="undo-bar-line">{b.line}</span>
                 </span>
                 <span className="undo-bar-track" aria-hidden="true">
-                  <span className="undo-bar-fill" style={{ width: `${(b.total / max) * 100}%` }}>
-                    {SEGMENTS.filter((k) => b[k] > 0).map((k) => (
-                      <span key={k} className={`undo-seg undo-seg-${k}`} style={{ flexGrow: b[k] }} />
-                    ))}
+                  <span className="undo-bar-fill" style={{ width: `${(b.pen / max) * 100}%` }}>
+                    <span className="undo-seg undo-seg-pen" style={{ flexGrow: 1 }} />
                     {b.signedPen > 0 ? (
-                      <span className="undo-bar-mark" style={{ left: `${(b.signedPen / b.total) * 100}%` }} />
+                      <span className="undo-bar-mark" style={{ left: `${(b.signedPen / b.pen) * 100}%` }} />
                     ) : null}
                   </span>
                 </span>
                 <span className="undo-bar-count" aria-hidden="true">
-                  {COPY.land.countLabel(b.pen, b.total)}
+                  {COPY.land.countLabel(b.pen)}
                 </span>
               </button>
             </li>
@@ -90,12 +87,6 @@ export default function IssueBars({
           ) : null}
         </div>
         <p className="undo-legend" aria-hidden="true">
-          {COPY.land.legend.map((l) => (
-            <span key={l.key} className="undo-legend-item">
-              <span className={`undo-legend-swatch undo-seg-${l.key}`} />
-              {l.label}
-            </span>
-          ))}
           <span className="undo-legend-item">
             <span className="undo-legend-mark" />
             {COPY.land.legendTicks}

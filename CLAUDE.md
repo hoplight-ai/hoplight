@@ -80,6 +80,7 @@
   curated row that carries a feed number as its own. Both pages read one loader,
   `src/lib/undo/load.ts`. The five-model Design Murder Board webhook was refused by the session's
   auto-mode classifier (outbound POST), so the review was the three in-house critics.
+- **Executive actions only (2026-11-08, lane undopen1; Whit: "wait yes the undo list is supposed ot be just exec orders").** `load.ts` hands both pages the pen-bucket rows only (`penRows` in `src/lib/undo/pen.ts`; the classifier and the data are untouched), the key counts the pen rows still standing by kind, /undo/all lists the same pen rows with one sort control (newest first, oldest first, by signing order), and `scripts/undo-pen.test.mjs` pins that no other bucket renders, the counts, one bundle per pen row and the sort.
 
 ## The Command Center door, `/command-center` (added 2026-10-28, lane sendlist1)
 

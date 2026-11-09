@@ -794,12 +794,14 @@ test('the new page copy follows the house rules: spelled heading, no reverse, ro
     ['forward.draftShow', COPY.forward.draftShow],
     ['forward.sign', COPY.forward.sign],
   ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
-  assert.ok(COPY.land.intro.startsWith('Every item, by who feels it. The gold is what one signature fixes.'));
-  assert.equal(COPY.land.countLabel(22, 41), '22 of 41 by pen');
+  // Executive actions only since 2026-11-08 (lane undopen1): every bar is pen items, one count each.
+  assert.ok(COPY.land.intro.startsWith('Every executive action, by who feels it.'));
+  assert.equal(COPY.land.countLabel(22), '22');
   assert.equal(COPY.forward.undoes(41), 'undoes 41 items');
   assert.equal(COPY.forward.undoes(1), 'undoes 1 item');
   assert.equal(COPY.forward.footnote(41), '41 items, one signature.');
-  assert.ok(COPY.land.bar('Your health care', 7, 3, 1, 2, 1, 2).includes('3 by a pen, 1 by a pen then a process, 2 need Congress, 1 locked'));
+  assert.equal(COPY.land.bar('Your health care', 3, 1), 'Your health care: 3 executive actions. You have signed 1 of them. Show these.');
+  assert.equal(COPY.land.bar('Your health care', 1, 0), 'Your health care: 1 executive action. You have not signed it. Show it.');
 });
 
 test('the signature field: every pen item sits in exactly one block, orders first, strays last', () => {
@@ -831,8 +833,8 @@ test('colsFor packs a block about 1.7 wide for 1 tall, between 2 and MAX_COLS co
 });
 
 test('the reshaped hero and order copy follows the house rules and spells the count', () => {
-  assert.equal(COPY.hero.headline(13, 287), 'Thirteen signatures undo 287 things.');
-  assert.equal(COPY.hero.headline(21, 5), '21 signatures undo 5 things.');
+  assert.equal(COPY.hero.headline(13, 275), 'Thirteen signatures undo 275 executive actions.');
+  assert.equal(COPY.hero.headline(21, 1), '21 signatures undo 1 executive action.');
   assert.equal(COPY.hero.count(3, 287), '3 of 287 signed');
   assert.equal(COPY.forward.items(1), '1 item');
   assert.equal(COPY.forward.items(25), '25 items');
@@ -840,7 +842,7 @@ test('the reshaped hero and order copy follows the house rules and spells the co
   assert.ok(COPY.field.block(3, 'Citizenship as the Constitution wrote it', 18, 2).startsWith('Order 3, Citizenship'));
   assert.ok(COPY.field.block(0, 'Not yet in an order', 2, 0).startsWith('Not yet in an order'));
   for (const [path, text] of [
-    ['hero.headline(13, 287)', COPY.hero.headline(13, 287)],
+    ['hero.headline(13, 275)', COPY.hero.headline(13, 275)],
     ['hero.cta', COPY.hero.cta],
     ['list.title', COPY.list.title],
     ['issues.who', COPY.issues.who],
@@ -861,13 +863,13 @@ test('no curated row is a twin of a Federal Register row (counted 2026-10-19: 19
 });
 
 test('the key, the all page and the bar filter copy follows the house rules', () => {
-  assert.equal(COPY.key.title(384), '384 things, five kinds of undo');
-  assert.equal(COPY.all.link(708), 'Open all 708 items');
+  assert.equal(COPY.key.title(275), '275 executive actions, by kind');
+  assert.equal(COPY.all.link(588), 'Open all 588 executive actions');
   assert.equal(COPY.land.more(11), 'Show 11 more');
   assert.equal(COPY.list.showMore(25, 262), 'Show 25 more of 262');
   assert.equal(COPY.list.showMore(12, 12), 'Show the last 12');
   for (const [path, text] of [
-    ['key.title', COPY.key.title(384)],
+    ['key.title', COPY.key.title(275)],
     ['all.title', COPY.all.title],
     ['land.title', COPY.land.title],
   ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
