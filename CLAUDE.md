@@ -21,10 +21,12 @@
 - **Notes:** Fonts are Inter and JetBrains Mono, loaded through `next/font/google` in `src/app/layout.tsx`. **Not GT America** (corrected 2026-09-16 under Whit's typed GOVERNANCE EDIT): the ten GT America, Outfit and Playfair files in `public/fonts/` are referenced only by the static `public/pme-lever.html` and by nothing under `src/`; they stay only because that file needs them. Standard Next.js app router. One environment variable, `MAKE_INTAKE_WEBHOOK` (see README); the intake form's Make listener is scenario 6294831, rebuilt 2026-09-16 after the old webhook was found with no scenario attached.
 ## The Undo List, `/undo` (added 2026-10-09)
 
-- **What it is:** every action of the second Trump administration since 2025-01-20, one row each,
-  placed in one of five buckets by what it takes a president sworn in 2029-01-20 to undo it: a pen,
-  a pen then a process, a simple majority, sixty votes, or locked. Public, deliberately not in the
-  nav. Whit asked for it on 2026-10-09 ("a running list of everything that Trump has done that we
+- **What it is:** every executive action of the second Trump administration since 2025-01-20 (the
+  orders, proclamations and memoranda a president sworn in 2029-01-20 can undo with a pen), one row
+  each. Both pages list executive actions only (since 2026-11-08, see "Executive actions only"
+  below). The data still places every row in one of five buckets (a pen, a pen then a process, a
+  simple majority, sixty votes, or locked), and the other four buckets stay in the data, untouched;
+  the pages draw the pen bucket alone. Public, deliberately not in the nav. Whit asked for it on 2026-10-09 ("a running list of everything that Trump has done that we
   can step into the oval office in 2029 and undo"). Nothing public did this; three research agents
   checked about sixty trackers first.
 - **Where the rows come from.** Executive orders, proclamations and memoranda are read LIVE from the
@@ -87,6 +89,7 @@
   - Units, labels and type: every count is in executive actions (never "items"), and each bar's count sits at its end. The sort labels are Newest, Oldest, By order. Buttons and fields take the page font instead of Arial.
   - By kind: the key counts each row under the document that issued it, read from every source label on the server (the 2026-01-07 memorandum's 64 withdrawals count as memoranda), so there is no Withdrawals kind.
   - Names: the allies issue is "Allies, treaties and aid". "America isn't a quitter" stays, because it is Whit's own words (2026-10-19, quoted above).
+- **Rows draw at their real height (2026-11-08, lane undotidy1).** List rows no longer use deferred drawing (`content-visibility: auto` with a 150px placeholder, from the first build when the list was one 700-row page). Measured at 1440, a one-line row is 63px and a row still waiting drew at 179px, so a full-page render showed blank rows and the scroll bar jumped. The list pages by 25, so nothing needs deferring; `scripts/undo-pen.test.mjs` pins it.
 
 ## The Command Center door, `/command-center` (added 2026-10-28, lane sendlist1)
 

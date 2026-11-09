@@ -343,3 +343,15 @@ test('round 3: the 2026-01-07 withdrawals count as memoranda on the real data, r
   assert.ok((kinds.Other ?? 0) <= 6, `Other ${kinds.Other}`);
   assert.match(read('src/lib/undo/load.ts'), /kinds: penKinds\(pen\)/, 'the loader counts the kinds on the server');
 });
+
+// Lane undotidy1, 2026-11-08. The rows used deferred drawing (content-visibility: auto) with a 150px
+// placeholder, about twice a one-line row, so a full-page render showed blank rows and the scroll bar
+// jumped as rows drew. The list already pages by 25, so no row waits to be drawn.
+test('undotidy1: every list row draws at its real height; the list pages by 25 instead', () => {
+  const css = read('src/app/globals.css');
+  const rule = css.match(/\.undo-item \{[^}]*\}/);
+  assert.ok(rule, 'the .undo-item rule exists');
+  assert.doesNotMatch(rule[0], /content-visibility/, 'list rows are not drawn late');
+  assert.doesNotMatch(rule[0], /contain-intrinsic-size/, 'no placeholder height on list rows');
+  assert.match(read('src/app/(main)/undo/UndoAll.tsx'), /const PAGE = 25;/, 'the list pages by 25');
+});
