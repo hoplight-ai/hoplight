@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Revenge or Justice, as a dial</title>
+<meta name="description" content="The Revenge or Justice reading drawn as a dial: on the verdict, on each article, on each person quoted, and on the five measures.">
+<meta property="og:title" content="Revenge or Justice, as a dial">
+<meta property="og:description" content="The reading drawn as a dial in four places, from one real article.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-title" content="RJ dials">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.webmanifest">
+<!--
+  Whit, 2026-11-09: "oh oh oh snopes has those little dials, can you mock up what that woudl look like? for
+  revene x justice?" A dial in the fact-check genre, drawn in Hoplight's own colours and shapes, never a copy
+  of anyone's rating art. Every number on this page is from one real reading the tool returned on 2026-11-09:
+  Townhall, "Jamie Raskin Vows to Lower Costs by Investigating Businesses That 'Capitulated' to Trump"
+  (whole text 21; the five measures 35, 8, 30, 25, 5; Raskin's own words alone 36, 8, 22, 25, 8, mean 20).
+  The second article in the list has no reading, so its dial is drawn empty.
+-->
+<style>
+:root{--ink:#0F1B2D;--ink2:#2A3F5F;--gold:#D4950A;--gold-deep:#996D00;--stone:#575752;--flag:#9c3327;--mixed:#CFCAC0;--rule:rgba(15,27,45,.14);--rule2:rgba(15,27,45,.07)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;font-variant-numeric:lining-nums tabular-nums}
+.wrap{max-width:1120px;margin:0 auto;padding:40px 24px 96px}
+.top h1{font-size:30px;font-weight:700;letter-spacing:-.015em}
+.top h1 .j{color:var(--gold-deep)}
+.top p{color:var(--stone);margin-top:6px}
+.frame{margin-top:48px;padding-top:20px;border-top:1px solid var(--rule)}
+.frame .n{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep)}
+.frame h2{font-size:21px;font-weight:700;margin-top:2px}
+.frame .cap{font-size:15px;color:var(--stone);margin-top:2px}
+.stage{margin-top:20px;border:1px solid var(--rule);border-radius:10px;padding:28px}
+
+/* 1. the verdict */
+.hero{display:grid;grid-template-columns:300px 1fr;gap:36px;align-items:center}
+.src{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink)}
+.logo{width:24px;height:24px;border-radius:4px;background:var(--ink);display:grid;place-items:center;color:#fff;font-size:13px;font-weight:700;overflow:hidden;position:relative;flex:none}
+.logo img{position:absolute;inset:0;width:100%;height:100%;background:#fff;opacity:0}
+.logo img.ok{opacity:1}
+.title{font-size:17px;font-weight:600;color:var(--ink2);margin-top:6px}
+.claim{font-size:27px;line-height:1.3;letter-spacing:-.012em;margin-top:14px}
+.claim b{font-weight:700;background:var(--flag);color:#fff;padding:0 .25em;border-radius:4px}
+
+/* 2. the list */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,380px));gap:16px}
+.card{border:1px solid var(--rule);border-left:4px solid var(--oc,var(--ink));border-radius:6px;padding:14px 14px 14px 16px;display:grid;grid-template-columns:1fr 92px;gap:12px;align-items:start}
+.card .by{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--stone)}
+.card .by b{font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ocd,var(--ink))}
+.card .hl{font-size:19px;line-height:1.25;font-weight:700;margin-top:6px}
+.tag{display:inline-block;margin-top:9px;font-size:13px;padding:3px 10px;border-radius:999px;background:#FBEFD2;color:#5C4100;box-shadow:inset 0 0 0 1px rgba(153,109,0,.35)}
+.tag b{font-weight:700}
+.card .dial{text-align:center}
+
+/* 3. people */
+.people{max-width:720px}
+.prow{display:grid;grid-template-columns:1fr 120px;gap:16px;align-items:center;padding:10px 0;border-top:1px solid var(--rule2)}
+.prow:first-child{border-top:0}
+.prole{display:block;font-size:13px;color:var(--stone);margin-top:3px}
+.prow .quote{font-family:Georgia,'Times New Roman',serif;font-size:17px;line-height:1.45;margin-top:8px;padding-left:12px;border-left:3px solid var(--gold)}
+.prow .quote mark{color:inherit;background:linear-gradient(transparent 48%,rgba(212,149,10,.42) 48%,rgba(212,149,10,.42) 94%,transparent 94%)}
+
+/* 4. five measures */
+.five{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.five .m{text-align:center}
+.five .m .t{font-size:14px;font-weight:600;line-height:1.3;margin-top:4px;text-decoration:underline dotted rgba(15,27,45,.45);text-underline-offset:4px}
+
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;gap:12px}
+  .hero .bigdial{max-width:300px;margin:0 auto}
+  .cards{grid-template-columns:1fr}
+  .five{grid-template-columns:repeat(3,1fr);row-gap:20px}
+  .stage{padding:18px}
+  .claim{font-size:22px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <h1>Revenge or <span class="j">Justice</span>, as a dial</h1>
+    <p>One real reading, drawn four ways.</p>
+  </div>
+
+  <section class="frame">
+    <div class="n">1</div>
+    <h2>The verdict</h2>
+    <p class="cap">The dial leads the reading, beside the claim.</p>
+    <div class="stage">
+      <div class="hero">
+        <div class="bigdial" data-dial="21" data-size="big"></div>
+        <div>
+          <div class="src"><span class="logo">T<img src="/api/revenge-or-justice/logo?host=townhall.com" alt="" onload="this.classList.add('ok')" onerror="this.remove()"></span>Townhall</div>
+          <div class="title">Jamie Raskin Vows to Lower Costs by Investigating Businesses That &lsquo;Capitulated&rsquo; to Trump</div>
+          <p class="claim"><b>Leans revenge.</b> It promises to &ldquo;go after&rdquo; named firms the day a party gets power, never says what it cost the listener, and the only fix is a subpoena.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="frame">
+    <div class="n">2</div>
+    <h2>Every article in the list</h2>
+    <p class="cap">A read article shows its dial; an unread one shows an empty dial.</p>
+    <div class="stage">
+      <div class="cards">
+        <div class="card" style="--oc:#0F1B2D;--ocd:#0F1B2D">
+          <div>
+            <div class="by"><span class="logo">T<img src="/api/revenge-or-justice/logo?host=townhall.com" alt="" onload="this.classList.add('ok')" onerror="this.remove()"></span><b>Townhall</b> Nov 5</div>
+            <div class="hl">Jamie Raskin Vows to Lower Costs by Investigating Businesses That &lsquo;Capitulated&rsquo; to Trump</div>
+            <span class="tag"><b>Jamie Raskin</b> Representative</span>
+          </div>
+          <div class="dial" data-dial="21" data-size="small"></div>
+        </div>
+        <div class="card" style="--oc:#D52B1E;--ocd:#951e15">
+          <div>
+            <div class="by"><span class="logo" style="background:#D52B1E">N<img src="/api/revenge-or-justice/logo?host=newrepublic.com" alt="" onload="this.classList.add('ok')" onerror="this.remove()"></span><b>The New Republic</b> Nov 5</div>
+            <div class="hl">Jamie Raskin Warns Law Firms That Caved to Trump to Watch Out</div>
+            <span class="tag"><b>Jamie Raskin</b> Representative</span>
+          </div>
+          <div class="dial" data-dial="" data-size="small"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="frame">
+    <div class="n">3</div>
+    <h2>Each person quoted</h2>
+    <p class="cap">One dial per official, on their own words.</p>
+    <div class="stage people">
+      <div class="prow">
+        <div>
+          <span class="tag" style="margin-top:0"><b>Jamie Raskin</b></span>
+          <span class="prole">Ranking Member, House Judiciary</span>
+          <div class="quote"><mark>We will not hesitate to go after private corporations that are collaborating in all of the lawlessness with Donald Trump</mark></div>
+        </div>
+        <div class="dial" data-dial="20" data-size="small"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="frame">
+    <div class="n">4</div>
+    <h2>The five measures</h2>
+    <p class="cap">Five dials in place of the five bars.</p>
+    <div class="stage">
+      <div class="five">
+        <div class="m"><div data-dial="35" data-size="mini"></div><div class="t">Practice, not person</div></div>
+        <div class="m"><div data-dial="8" data-size="mini"></div><div class="t">Priced in the listener&rsquo;s money</div></div>
+        <div class="m"><div data-dial="30" data-size="mini"></div><div class="t">Ends in a remedy</div></div>
+        <div class="m"><div data-dial="25" data-size="mini"></div><div class="t">Umpire, not prosecutor-candidate</div></div>
+        <div class="m"><div data-dial="5" data-size="mini"></div><div class="t">Anchored back to the listener</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<script>
+// One dial, three sizes. A half circle from Revenge (left) to Justice (right) in three bands, the same cut-offs
+// the tool uses (38 and 62); the needle points at the score and the score sits under the hub in its side's colour.
+(function(){
+  var C = { revenge: '#9c3327', mixed: '#CFCAC0', justice: '#D4950A', ink: '#0F1B2D', stone: '#575752', gold: '#996D00' };
+  function pt(cx, cy, r, v){ var a = Math.PI - (v / 100) * Math.PI; return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; }
+  function arc(cx, cy, r, a, b){ var p = pt(cx, cy, r, a), q = pt(cx, cy, r, b); return 'M' + p[0].toFixed(2) + ' ' + p[1].toFixed(2) + ' A' + r + ' ' + r + ' 0 0 1 ' + q[0].toFixed(2) + ' ' + q[1].toFixed(2); }
+  function side(v){ return v >= 62 ? 'justice' : v <= 38 ? 'revenge' : 'mixed'; }
+  function word(v){ var s = side(v); return s === 'mixed' ? 'Mixed' : s === 'revenge' ? 'Leans revenge' : 'Leans justice'; }
+  function dial(v, size){
+    var big = size === 'big', mini = size === 'mini';
+    var W = big ? 300 : mini ? 150 : 120, r = big ? 118 : mini ? 56 : 44, sw = big ? 26 : mini ? 13 : 11;
+    var cx = W / 2, cy = r + sw / 2 + 4, H = cy + (big ? 60 : mini ? 34 : 32);
+    var has = v !== '' && v != null && !isNaN(+v);
+    var gap = 1.2;
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' + (has ? word(+v) + ', ' + v + ' of 100 toward justice' : 'Not read yet') + '">';
+    var bands = [[0, 38, 'revenge'], [38, 62, 'mixed'], [62, 100, 'justice']];
+    bands.forEach(function(b){
+      var on = has && side(+v) === b[2];
+      s += '<path d="' + arc(cx, cy, r, b[0] + (b[0] ? gap : 0), b[1] - (b[1] < 100 ? gap : 0)) + '" fill="none" stroke="' + (has ? C[b[2]] : '#E8E5DE') + '" stroke-width="' + sw + '" stroke-opacity="' + (has && !on ? 0.35 : 1) + '"/>';
+    });
+    if (big) {
+      [0, 25, 50, 75, 100].forEach(function(t){ var a = pt(cx, cy, r + sw / 2 + 4, t), b = pt(cx, cy, r + sw / 2 + 10, t); s += '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '" stroke="' + C.stone + '" stroke-width="1.5"/>'; });
+    }
+    if (has) {
+      var tip = pt(cx, cy, r - sw / 2 - (big ? 6 : 3), +v), a = Math.PI - (+v / 100) * Math.PI, hw = big ? 7 : 4;
+      var l = [cx + hw * Math.cos(a + Math.PI / 2), cy - hw * Math.sin(a + Math.PI / 2)], rr = [cx + hw * Math.cos(a - Math.PI / 2), cy - hw * Math.sin(a - Math.PI / 2)];
+      s += '<path d="M' + l[0].toFixed(2) + ' ' + l[1].toFixed(2) + ' L' + tip[0].toFixed(2) + ' ' + tip[1].toFixed(2) + ' L' + rr[0].toFixed(2) + ' ' + rr[1].toFixed(2) + ' Z" fill="' + C.ink + '"/>';
+      s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 11 : 6) + '" fill="' + C.ink + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 4 : 2) + '" fill="#fff"/>';
+      var col = side(+v) === 'revenge' ? C.revenge : side(+v) === 'justice' ? C.gold : C.stone;
+      s += '<text x="' + cx + '" y="' + (cy + (big ? 50 : mini ? 26 : 26)) + '" text-anchor="middle" font-size="' + (big ? 40 : mini ? 20 : 18) + '" font-weight="700" fill="' + col + '">' + v + '</text>';
+    } else {
+      s += '<text x="' + cx + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + C.stone + '">Tap to read</text>';
+    }
+    if (big) {
+      var ly = cy + (big ? 22 : 16), fs = big ? 13 : 10;
+      s += '<text x="' + (cx - r) + '" y="' + ly + '" text-anchor="middle" font-size="' + fs + '" font-weight="600" fill="' + (has ? C.revenge : C.stone) + '">Revenge</text>';
+      s += '<text x="' + (cx + r) + '" y="' + ly + '" text-anchor="middle" font-size="' + fs + '" font-weight="600" fill="' + (has ? C.gold : C.stone) + '">Justice</text>';
+    }
+    return s + '</svg>';
+  }
+  Array.prototype.forEach.call(document.querySelectorAll('[data-dial]'), function(el){ el.innerHTML = dial(el.getAttribute('data-dial'), el.getAttribute('data-size')); });
+})();
+</script>
+</body>
+</html>
