@@ -161,7 +161,8 @@ export function initRevengeOrJustice(root, opts) {
   function show(j, issue, ctx){
     ctx = ctx || { kind: 'all' };
     var m = [];
-    if (ctx.kind === 'politicians') m.push('The words of ' + esc(names(ctx.speakers)) + (ctx.share ? ', ' + esc(ctx.share) + '% of the text' : ''));
+    // The names are already on the tags above, so this line keeps only the share.
+    if (ctx.kind === 'politicians' && ctx.share) m.push('Their words are ' + esc(ctx.share) + '% of the text');
     else if (ctx.kind === 'coverage') { m.push((ctx.outlet ? esc(ctx.outlet) + '\u2019s' : 'The outlet\u2019s') + ' own framing' + (ctx.share ? ', ' + esc(ctx.share) + '% of the text' : '')); if (!ctx.share && ctx.fetched) m.push('Read from <a href="' + esc(ctx.fetched) + '" target="_blank" rel="noopener">' + esc(host(ctx.fetched)) + '</a>'); }
     if (issue) {
       m.push('This issue is ' + esc(issue.share) + '% of ' + (ctx.kind === 'politicians' ? 'their words' : 'the text'));
@@ -193,7 +194,8 @@ export function initRevengeOrJustice(root, opts) {
       else if (ctx.kind === 'politicians' && r.evidence) {
         var q = String(r.evidence).toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/\s+/g, ' ').trim().slice(0, 80);
         var hit = (ctx.passages || []).filter(function(p){ return String(p.text || '').toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/\s+/g, ' ').indexOf(q) >= 0; })[0];
-        if (hit) said = '<b>' + esc(hit.who) + '</b> said';
+        // The speaker wears the same tag as in "who is quoted", so the eye ties the quote back to the person.
+        if (hit) { var sp = (ctx.speakers || []).filter(function(s){ return s.name === hit.who; })[0] || { name: hit.who }; said = '<span class="who ' + (elected(sp.role) ? 'elected' : 'other') + '"><b>' + esc(sp.name) + '</b></span>'; }
       }
       var rec = r.precedent ? '<dt>The record</dt><dd class="rec">' + esc(r.precedent_line || '') + ' ' + esc(r.precedent.name) + ', ' + esc(r.precedent.year) + ' (' + src(r.precedent) + ').</dd>' : '';
       return '<article class="r" id="row' + i + '">' +
