@@ -20,7 +20,6 @@ import {
   isJustIn,
   isPenInForce,
   matchesQuery,
-  tagOf,
   whyOf,
 } from '@/lib/undo/sections';
 import type { SlimRow } from '@/lib/undo/sections';
@@ -85,7 +84,6 @@ function Item({
   const titleId = `undo-t-${safeId(row.id)}`;
   const showStatus = row.status !== 'in-force';
   const hasOrder = variant === 'check' && ORDER_INSTRUMENTS.includes(row.instrument);
-  const tag = variant === 'check' ? tagOf(row.bucket) : null;
 
   return (
     <li
@@ -109,7 +107,6 @@ function Item({
           <span className="undo-title" id={titleId}>
             {row.title}
           </span>
-          {tag ? <span className="undo-tag">{tag}</span> : null}
           <span className="undo-row-more" aria-hidden="true">
             {COPY.row.more}
           </span>
@@ -313,7 +310,7 @@ export default function UndoAll({
 
   return (
     <>
-      <section className="undo-section" aria-labelledby="undo-tools-h">
+      <section className="undo-section undo-all-tools" aria-labelledby="undo-tools-h">
         <div className="wrap">
           <h2 id="undo-tools-h" className="sr-only">
             {COPY.search.label}
@@ -355,16 +352,14 @@ export default function UndoAll({
             <button
               type="button"
               className="undo-fchips-toggle"
+              id="undo-fchips-toggle"
               aria-expanded={filtersOpen}
               aria-controls="undo-fchips"
               onClick={() => setFiltersOpen(!filtersOpen)}
             >
               {COPY.issues.toggle(issue ? ISSUE_BY_KEY[issue].label : undefined)}
             </button>
-            <div role="group" aria-labelledby="undo-issue-legend" id="undo-fchips">
-              <span id="undo-issue-legend" className="undo-filter-legend">
-                {COPY.issues.filterLabel}
-              </span>
+            <div role="group" aria-labelledby="undo-fchips-toggle" id="undo-fchips">
               <div className="undo-fchips">
                 <button type="button" className="undo-fchip" aria-pressed={issue === null} onClick={() => chooseIssue(null)}>
                   {COPY.issues.all}
@@ -401,12 +396,8 @@ export default function UndoAll({
 
       {/* THE LIST: the executive actions still standing, open, so the sort and the filter visibly move it */}
       {view.lunchRows.length > 0 ? (
-        <section className="undo-section undo-section-ruled" aria-labelledby="undo-standing-h">
+        <section className="undo-section undo-all-list" aria-label={COPY.groups.titled(COPY.groups.standing, view.lunchRows.length)}>
           <div className="wrap">
-            <h2 id="undo-standing-h" className="undo-h2">
-              {COPY.groups.titled(COPY.groups.standing, view.lunchRows.length)}
-            </h2>
-            <p className="undo-intro">{COPY.groups.standingIntro}</p>
             <Rows rows={view.lunchRows} orders={orders} variant="check" sort={sort} signed={signed} onToggle={toggle} />
           </div>
         </section>
@@ -423,6 +414,7 @@ export default function UndoAll({
                 <h2 id="undo-rest-h" className="undo-h2">
                   {COPY.groups.rest(restCount)}
                 </h2>
+                <span className="undo-fold-line">{COPY.groups.restLine}</span>
               </summary>
               <p className="undo-intro">{COPY.groups.restIntro(rows.length)}</p>
               {(

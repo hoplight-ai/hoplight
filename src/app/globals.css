@@ -932,22 +932,34 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 /* Filter chips and the sort control, under the search */
 .undo-filters { margin-top: 24px; display: grid; gap: 20px; }
 .undo-fchips { display: flex; flex-wrap: wrap; gap: 8px; }
-/* On a phone the seventeen issue filters sit behind one control, so the rows come first (round 2,
-   2026-11-08). On a wide screen the filters always show and the control is hidden. */
+/* The seventeen issue filters sit behind one control at every width, so the rows come first (round
+   2 on a phone, round 3 on a wide screen, 2026-11-08). */
 .undo-fchips-toggle {
-  display: none; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 0 14px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; max-width: 480px; min-height: 44px; padding: 0 14px;
   font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; color: var(--ink); background: var(--white);
   border: 1px solid var(--line-card); border-radius: var(--radius-sm); cursor: pointer; text-align: left;
 }
 .undo-fchips-toggle::after { content: '+'; font-size: 1.1rem; }
 .undo-filters.is-open .undo-fchips-toggle::after { content: '\2212'; }
 .undo-fchips-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
-@media (max-width: 759px) {
-  .undo-filters { gap: 12px; }
-  .undo-fchips-toggle { display: flex; }
-  .undo-filters:not(.is-open) #undo-fchips { display: none; }
-  .undo-filters #undo-issue-legend { display: none; }
-}
+.undo-filters:not(.is-open) #undo-fchips { display: none; }
+.undo-all-tools .undo-filters { margin-top: 16px; gap: 12px; }
+
+/* /undo/all, round 3: rows start in the first screen. The tools sit close under the hero and the
+   list follows the counter with no heading of its own. */
+.undo-hero-all { padding-top: clamp(28px, 5vw, 56px); }
+.undo-all-tools { padding: 12px 0 8px; }
+.undo-all-tools .undo-count { margin-top: 10px; }
+.undo-all-list { padding-top: 4px; }
+.undo-all-list .undo-items { border-top: 1px solid var(--line); }
+.undo-rest > .undo-fold-summary { flex-wrap: wrap; }
+.undo-rest > .undo-fold-summary::after { order: 2; }
+.undo-rest .undo-fold-line { order: 3; }
+
+/* Controls take the page's font. A button or a field does not inherit it by default, which showed
+   the browser's own Arial in the block names and buttons (round 3). Classes that set the mono face
+   still win: this rule carries only an element's weight. */
+:where(.undo-hero, .undo-section, .undo-strip) :is(button, input, select, textarea) { font-family: inherit; }
 .undo-fchip {
   position: relative; display: inline-flex; align-items: baseline; gap: 8px; min-height: 36px; padding: 0 12px;
   font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--stone-deep); background: var(--white);
@@ -979,7 +991,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-land > li { border-bottom: 1px solid var(--line); }
 .undo-land > li:first-child { border-top: 1px solid var(--line); }
 .undo-bar {
-  display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'label label' 'track count'; align-items: center;
+  display: grid; grid-template-columns: 1fr; grid-template-areas: 'label' 'track'; align-items: center;
   column-gap: 14px; row-gap: 8px; width: 100%; min-height: 44px; padding: 12px 0; font: inherit; text-align: left;
   color: var(--ink); background: none; border: 0; cursor: pointer;
 }
@@ -989,17 +1001,17 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-bar:hover .undo-bar-name { border-bottom-color: var(--gold); }
 .undo-bar.is-active .undo-bar-name { border-bottom: 2px solid var(--gold); }
 .undo-bar-line { display: none; margin-top: 4px; font-size: 0.85rem; line-height: 1.45; color: var(--stone); }
-.undo-bar-track { grid-area: track; display: block; height: 18px; border: 1px solid var(--line-card); border-radius: var(--radius-sm); overflow: hidden; background: var(--white); }
-.undo-bar-fill { position: relative; display: flex; height: 100%; min-width: 6px; transition: width 200ms ease-out; }
+/* Round 3 (2026-11-08): each bar ends in its count, so the number sits where the bar stops. */
+.undo-bar-track { grid-area: track; display: flex; align-items: center; gap: 10px; height: 18px; }
+.undo-bar-fill { position: relative; display: flex; flex: none; height: 100%; min-width: 6px; border-radius: var(--radius-sm); overflow: hidden; transition: width 200ms ease-out; }
 .undo-seg { display: block; flex-basis: 0; min-width: 2px; height: 100%; box-shadow: inset -1px 0 0 var(--white); }
 .undo-seg-pen { background: var(--gold); }
 /* How far the reader's ticks have gone through this issue's pen items: a hairline over the pen segment */
 .undo-bar-mark { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); box-shadow: 0 0 0 1px var(--white); transition: left 200ms ease-out; }
-.undo-bar-count { grid-area: count; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.undo-bar-count { flex: none; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
 @media (min-width: 760px) {
-  .undo-bar { grid-template-columns: minmax(220px, 300px) 1fr 150px; grid-template-areas: 'label track count'; column-gap: 24px; padding: 14px 0; }
+  .undo-bar { grid-template-columns: minmax(220px, 300px) 1fr; grid-template-areas: 'label track'; column-gap: 24px; padding: 14px 0; }
   .undo-bar-line { display: block; }
-  .undo-bar-count { text-align: right; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1032,7 +1044,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-cell.is-off { opacity: 0.16; transition-delay: 0ms !important; }
 .undo-block.is-off { opacity: 0.4; }
 @media (hover: hover) { .undo-block:hover .undo-cell:not(.is-on):not(.is-off) { border-color: var(--gold-deep); } }
-.undo-block-n { display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.undo-block-n { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
 .undo-block-count { color: var(--stone); }
 .undo-block.is-signed .undo-block-n { color: var(--gold-deep); }
 @media (min-width: 700px) { .undo-field { --cell: 13px; --gap: 3px; gap: 22px 26px; } }

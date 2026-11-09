@@ -6,6 +6,8 @@ import type { IssueKey } from '@/lib/undo/issues';
 import type { IssueBar } from '@/lib/undo/progress';
 
 const FIRST = 5;
+// The longest bar takes this share of the track, so its count still fits at the bar's end.
+export const BAR_SPAN = 85;
 
 // The filter: one HTML/CSS bar per issue, biggest first, the first five shown and the rest on a
 // tap. The track is as wide as the biggest issue needs, and each bar is a share of that. Every row
@@ -52,15 +54,15 @@ export default function IssueBars({
                   <span className="undo-bar-line">{b.line}</span>
                 </span>
                 <span className="undo-bar-track" aria-hidden="true">
-                  <span className="undo-bar-fill" style={{ width: `${(b.pen / max) * 100}%` }}>
+                  <span className="undo-bar-fill" style={{ width: `${(b.pen / max) * BAR_SPAN}%` }}>
                     <span className="undo-seg undo-seg-pen" style={{ flexGrow: 1 }} />
                     {b.signedPen > 0 ? (
                       <span className="undo-bar-mark" style={{ left: `${(b.signedPen / b.pen) * 100}%` }} />
                     ) : null}
                   </span>
-                </span>
-                <span className="undo-bar-count" aria-hidden="true">
-                  {COPY.land.countLabel(b.pen)}
+                  <span className="undo-bar-count" aria-hidden="true">
+                    {COPY.land.countLabel(b.pen)}
+                  </span>
                 </span>
               </button>
             </li>

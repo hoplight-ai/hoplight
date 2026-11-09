@@ -8,11 +8,10 @@ import type { IssueKey } from '@/lib/undo/issues';
 import { issueBars } from '@/lib/undo/progress';
 import type { ForwardOrderView } from '@/lib/undo/forward-text';
 import { isPenInForce } from '@/lib/undo/sections';
-import { penKinds } from '@/lib/undo/pen';
 import type { SlimRow } from '@/lib/undo/sections';
 import ForwardOrders from './ForwardOrders';
 import type { OrderPick } from './ForwardOrders';
-import IssueBars from './IssueBars';
+import IssueBars, { BAR_SPAN } from './IssueBars';
 import SignatureField from './SignatureField';
 import { readSigned, writeSigned } from './signed';
 
@@ -22,10 +21,12 @@ import { readSigned, writeSigned } from './signed';
 export default function UndoList({
   rows,
   penInForce,
+  kinds,
   orders,
 }: {
   rows: SlimRow[];
   penInForce: number;
+  kinds: { key: string; label: string; count: number }[];
   orders: ForwardOrderView[];
 }) {
   // The issue filter is never stored: a reload starts from the whole list.
@@ -105,8 +106,8 @@ export default function UndoList({
   const penIds = useMemo(() => rows.filter(isPenInForce).map((r) => r.id), [rows]);
   const blocks = useMemo(() => fieldBlocks(orders, penIds, COPY.field.unbundled), [orders, penIds]);
 
-  // The key: the pen rows still standing, by kind, over the whole list, never the filtered one.
-  const kinds = useMemo(() => penKinds(rows), [rows]);
+  // The key: the pen rows still standing, by the document that issued each, over the whole list,
+  // never the filtered one. Counted on the server, where every row still carries all its sources.
   const kindMax = Math.max(1, ...kinds.map((k) => k.count));
 
   const bars = useMemo(() => issueBars(rows, signed), [rows, signed]);
@@ -147,12 +148,12 @@ export default function UndoList({
                   <span className="undo-bar-label">
                     <span className="undo-bar-name undo-kind-name">{k.label}</span>
                   </span>
-                  <span className="undo-bar-track" aria-hidden="true">
-                    <span className="undo-bar-fill" style={{ width: `${(k.count / kindMax) * 100}%` }}>
+                  <span className="undo-bar-track">
+                    <span className="undo-bar-fill" aria-hidden="true" style={{ width: `${(k.count / kindMax) * BAR_SPAN}%` }}>
                       <span className="undo-seg undo-seg-pen" style={{ flexGrow: 1 }} />
                     </span>
+                    <span className="undo-bar-count undo-kind-count">{k.count.toLocaleString('en-US')}</span>
                   </span>
-                  <span className="undo-bar-count undo-kind-count">{k.count.toLocaleString('en-US')}</span>
                 </div>
               </li>
             ))}

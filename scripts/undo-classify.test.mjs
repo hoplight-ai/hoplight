@@ -797,9 +797,10 @@ test('the new page copy follows the house rules: spelled heading, no reverse, ro
   // Executive actions only since 2026-11-08 (lane undopen1): every bar is pen items, one count each.
   assert.ok(COPY.land.intro.startsWith('Every executive action, by who feels it.'));
   assert.equal(COPY.land.countLabel(22), '22');
-  assert.equal(COPY.forward.undoes(41), 'undoes 41 items');
-  assert.equal(COPY.forward.undoes(1), 'undoes 1 item');
-  assert.equal(COPY.forward.footnote(41), '41 items, one signature.');
+  // Round 3 (2026-11-08): the page's one unit is "executive actions", never "items".
+  assert.equal(COPY.forward.undoes(41), 'undoes 41 executive actions');
+  assert.equal(COPY.forward.undoes(1), 'undoes 1 executive action');
+  assert.equal(COPY.forward.footnote(41), '41 executive actions, one signature.');
   assert.equal(COPY.land.bar('Your health care', 3, 1), 'Your health care: 3 executive actions. You have signed 1 of them. Show these.');
   assert.equal(COPY.land.bar('Your health care', 1, 0), 'Your health care: 1 executive action. You have not signed it. Show it.');
 });
@@ -836,9 +837,9 @@ test('the reshaped hero and order copy follows the house rules and spells the co
   assert.equal(COPY.hero.headline(13, 275), 'Thirteen signatures undo 275 executive actions.');
   assert.equal(COPY.hero.headline(21, 1), '21 signatures undo 1 executive action.');
   assert.equal(COPY.hero.count(3, 287), '3 of 287 signed');
-  assert.equal(COPY.forward.items(1), '1 item');
-  assert.equal(COPY.forward.items(25), '25 items');
-  assert.equal(COPY.forward.itemsFor(4, 25, 'Veterans and troops'), '4 of 25 for Veterans and troops');
+  assert.equal(COPY.forward.items(1), '1 executive action');
+  assert.equal(COPY.forward.items(25), '25 executive actions');
+  assert.equal(COPY.forward.itemsFor(4, 25, 'Veterans and troops'), '4 of 25 executive actions for Veterans and troops');
   assert.ok(COPY.field.block(3, 'Citizenship as the Constitution wrote it', 18, 2).startsWith('Order 3, Citizenship'));
   assert.ok(COPY.field.block(0, 'Not yet in an order', 2, 0).startsWith('Not yet in an order'));
   for (const [path, text] of [

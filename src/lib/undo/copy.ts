@@ -10,6 +10,11 @@ const COUNT_WORDS = [
   'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen', 'Twenty',
 ];
 
+/** The page's one unit (round 3, 2026-11-08): "25 executive actions", never "25 items". */
+export function actions(n: number): string {
+  return `${n} executive ${n === 1 ? 'action' : 'actions'}`;
+}
+
 /** The heading spells small counts ("Twelve") and prints the rest as digits. */
 export function countWord(n: number): string {
   return COUNT_WORDS[n] ?? String(n);
@@ -21,7 +26,7 @@ export const COPY = {
     title: 'The Undo List',
     lead: [
       'Every executive action of the second Trump administration that a pen undoes, bundled into signing orders.',
-      'Each item below says exactly what the next president signs to undo it. It is one sentence. We wrote the sentence.',
+      'Each executive action below says exactly what the next president signs to undo it. It is one sentence. We wrote the sentence.',
     ],
     /** The first line on the page: the job, as a count of signatures and a count of executive actions. */
     headline: (orders: number, pen: number) =>
@@ -34,7 +39,9 @@ export const COPY = {
   field: {
     label: 'The signature field: one square for each executive action a pen undoes, one block for each order',
     block: (n: number, title: string, total: number, done: number) =>
-      `${n > 0 ? `Order ${n}, ` : ''}${title}: ${total} ${total === 1 ? 'item' : 'items'}, ${done} signed. Open the order.`,
+      `${n > 0 ? `Order ${n}, ` : ''}${title}: ${actions(total)}, ${done} signed. Open the order.`,
+    /** The count under each block, in the page's unit. */
+    count: (total: number, done: number) => (done > 0 ? `${done}/${actions(total)}` : actions(total)),
     unbundled: 'Not yet in an order',
   },
   strip: {
@@ -63,9 +70,9 @@ export const COPY = {
   /** The one sort control on /undo/all, in the order PEN_SORTS offers it, the default first. */
   sort: {
     label: 'Sort',
-    newest: 'Newest first',
-    oldest: 'Oldest first',
-    bundle: 'By signing order',
+    newest: 'Newest',
+    oldest: 'Oldest',
+    bundle: 'By order',
   },
   land: {
     title: 'Who feels it',
@@ -87,22 +94,22 @@ export const COPY = {
     signed: 'Signed',
     open: 'Read the order',
     close: 'Close the order',
-    items: (n: number) => `${n} ${n === 1 ? 'item' : 'items'}`,
-    itemsFor: (hit: number, n: number, label: string) => `${hit} of ${n} for ${label}`,
+    items: (n: number) => actions(n),
+    itemsFor: (hit: number, n: number, label: string) => `${hit} of ${actions(n)} for ${label}`,
     noneFor: (label: string) => `No order touches ${label}.`,
-    undoes: (n: number) => `undoes ${n} ${n === 1 ? 'item' : 'items'}`,
+    undoes: (n: number) => `undoes ${actions(n)}`,
     draftShow: 'Draft the order',
     draftHide: 'Hide the draft',
     copy: 'Copy',
     copied: 'Copied',
-    footnote: (n: number) => `${n} ${n === 1 ? 'item' : 'items'}, one signature.`,
+    footnote: (n: number) => `${actions(n)}, one signature.`,
   },
   key: {
     title: (n: number) => `${n} executive ${n === 1 ? 'action' : 'actions'}, by kind`,
     intro: 'Every one is undone with a signature. The orders below bundle them.',
   },
   list: {
-    title: 'Every item, one by one',
+    title: 'Every executive action, one by one',
     showMore: (n: number, rest: number) => (rest > n ? `Show ${n} more of ${rest}` : `Show the last ${n}`),
   },
   all: {
@@ -119,14 +126,14 @@ export const COPY = {
   /** The groups on /undo/all, in plain words; a heading prints its count in brackets. */
   groups: {
     standing: 'To undo',
-    standingIntro: 'One signature each. No vote, no hearing, no comment period.',
     done: 'Already undone',
     justIn: 'Not yet written up',
     leave: 'Worth keeping',
     ceremonial: 'Ceremonial',
     titled: (label: string, n: number) => `${label} (${n})`,
-    rest: (n: number) => `The other ${n} executive actions a pen reached`,
-    restIntro: (total: number) => `None of these needs a signature now. With the list above, the pen reached ${total} in all.`,
+    rest: (n: number) => `Off the to-undo list (${n})`,
+    restLine: 'Already undone, not yet written up, worth keeping, or ceremonial. None needs a signature now.',
+    restIntro: (total: number) => `With the list above, the pen reached ${total} in all.`,
   },
   done: {
     intro: 'Courts, or the administration itself, already undid these. They stay on the list so the count is honest.',
