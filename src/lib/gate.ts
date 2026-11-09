@@ -73,10 +73,12 @@ export function normalizePath(pathname: string): string {
 // The DNC and GE reports came off this list on 2026-11-07 (LOCKREPORTS1; Whit: "hide them all the dnc after
 // action report, the electoral cost, the dilution models  can remain a report but locked up."). They stay
 // listed as reports on /insights, where their rows draw the lock. scripts/reports-locked.test.mjs holds it.
-// The Oregon report was not part of that ruling and stays open.
+// The Oregon report came off it on 2026-11-08 (LOCKOREGON1). Whit, 2026-11-07: "all the pages need to be
+// behind passwords and not served on public links from any of my sites"; on 2026-11-08 he answered "1 yes"
+// to "both pages go behind the password". It stays listed as a report on /insights, where its row draws the
+// lock, and scripts/reports-locked.test.mjs holds it. No report piece is open now; only /portfolio itself.
 export const PUBLIC_PORTFOLIO = [
   '/portfolio',
-  '/portfolio/oregon-school-budget-report.html',
 ]
 
 export function isGated(pathname: string): boolean {
