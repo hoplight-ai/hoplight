@@ -105,8 +105,9 @@ export const TOOLS: Tool[] = [
     href: '/revenge-or-justice',
     kind: 'live',
     shelf: 'product',
-    // The page's own look: white ground, navy type, the result rows' centre line with revenge
-    // running left in flag red and justice running right in navy. "Justice" rings second (Whit,
+    // The page's own look: white ground, navy type, the picture a balance scale with revenge's pan
+    // in flag red and justice's in gold (Whit, 2026-11-07: "revenge of justice is supposed to use
+    // the scales of justice"). "Justice" rings second (Whit,
     // 2026-11-06: "make justice the second thing so that it rings").
     brand: {
       ground: WHITE,
