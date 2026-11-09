@@ -94,6 +94,8 @@ export function initRevengeOrJustice(root, opts) {
   }
   var GROUP_LABEL = { elected: 'Elected officials', official: 'Government officials', other: 'Also quoted' };
   var feedByUrl = {};
+  // What is on screen now, so the one-page PDF matches it: the reply, and the reading shown (voice, issue or person).
+  var lastReply = null, last = null;
 
   // A bar out from the centre: left of 50 for retribution, right of 50 for justice. Returns the inline style and the side class.
   function bar(pos, extra){
@@ -145,6 +147,7 @@ export function initRevengeOrJustice(root, opts) {
   // (Whit, 2026-11-06: "in the output i should see the politicians and operative etc first, and i should be able
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
+    lastReply = reply;
     var voices = reply.voices || {};
     // The article over the claim: its outlet and its headline as the headline it is. A pasted link the list does
     // not hold shows the outlet the grader read and the address; pasted text shows nothing here.
@@ -328,6 +331,7 @@ export function initRevengeOrJustice(root, opts) {
   window.addEventListener('resize', function(){ closePop(false); });
   function show(j, issue, ctx){
     ctx = ctx || { kind: 'all' };
+    last = { j: j, issue: issue, ctx: ctx };
     var m = [];
     // The names are already on the tags above, so this line keeps only the share.
     if (ctx.kind === 'politicians' && ctx.share) m.push('Their words are ' + esc(ctx.share) + '% of the text');
@@ -428,6 +432,77 @@ export function initRevengeOrJustice(root, opts) {
     $('strip').classList.add('on');
     window.scrollTo({ top: 0, behavior: 'auto' });
   }
+  // The one-page PDF (Whit, 2026-11-09: "can we make this produce a pdf 1 pager w the assessment and recs for
+  // better, justics framing?"). A Letter page built from the reading on screen, appended to <body> so the print
+  // styles can hide everything else, then the browser's own print, whose "Save as PDF" writes a real PDF with
+  // selectable text. Claim first: the article, the dial and the verdict; then the five measures; then the
+  // rewrites that would read as justice and the record behind them. Shrunk to fit if a long reading would spill
+  // onto a second page.
+  function trunc(s, n){ s = String(s || '').replace(/\s+/g, ' ').trim(); return s.length > n ? s.slice(0, n - 1).replace(/\s+\S*$/, '') + '…' : s; }
+  function onePager(){
+    if (!lastReply || !last) return null;
+    var reply = lastReply, j = last.j, ctx = last.ctx, issue = last.issue;
+    var item = reply.fetched ? feedByUrl[reply.fetched] : null;
+    var cov = reply.voices && reply.voices.coverage;
+    var outlet = item ? item.source : (cov && cov.outlet) || (reply.fetched ? host(reply.fetched) : '');
+    var whose = ctx.kind === 'person' ? ctx.person.name + '’s own words' : ctx.kind === 'politicians' ? 'The politicians’ own words' : ctx.kind === 'coverage' ? (outlet || 'The outlet') + '’s own framing' : 'The whole text';
+    if (issue) whose += ', on ' + issue.name;
+    var mean = j.mean_position != null ? j.mean_position : null;
+    var verdictWord = j.verdict === 'mixed' ? 'Mixed.' : j.verdict ? 'Leans ' + word(j.verdict) + '.' : '';
+    var vClass = j.verdict === 'retribution' ? 'revenge' : j.verdict === 'justice' ? 'justice' : 'mixed';
+    var today = new Date();
+    var dateStr = today.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+    var rows = (j.rows || []).map(function(r){
+      var p = Math.max(0, Math.min(100, +r.position || 0)), s = side(p);
+      var left = p < 50 ? p : 50, w = Math.abs(p - 50);
+      return '<div class="pp-row"><div class="pp-rh"><span class="pp-rt">' + esc(r.title) + '</span><span class="pp-rn ' + s + '">' + Math.round(p) + '</span></div>' +
+        '<div class="pp-track"><i class="pp-bar ' + s + '" style="left:' + left + '%;width:' + w + '%"></i></div>' +
+        '<p class="pp-crit">' + esc(trunc(rw(r.critique), 230)) + '</p>' +
+        (r.evidence ? '<p class="pp-ev">“' + esc(trunc(r.evidence, 150)) + '”</p>' : '') + '</div>';
+    }).join('');
+    var people = (reply.voices && reply.voices.politicians && reply.voices.politicians.by_speaker || []).filter(function(p){ return p.verdict && !p.error && p.mean_position != null; });
+    var peopleHtml = people.length > 1 ? '<section class="pp-people"><h2>Who is quoted</h2><div class="pp-plist">' + people.map(function(p){
+      return '<div class="pp-p"><div class="pp-pd">' + dial(p.mean_position, 'small') + '</div><div><b>' + esc(p.name) + '</b>' + (p.role ? '<span>' + esc(p.role) + '</span>' : '') + '</div></div>';
+    }).join('') + '</div></section>' : '';
+    var recs = (j.reframes || []).slice(0, 3).map(function(f, i){
+      return '<div class="pp-rec"><div class="pp-recn">' + (i + 1) + '</div><div><h3>' + esc(rw(f.label || ('Rewrite ' + (i + 1)))) + '</h3><p class="pp-rect">' + esc(trunc(rw(f.text), 420)) + '</p>' +
+        (f.why ? '<p class="pp-why">' + esc(trunc(rw(f.why), 200)) + (f.borrows ? ' Borrows ' + esc(f.borrows.name) + ', ' + esc(f.borrows.year) + '.' : '') + '</p>' : '') + '</div></div>';
+    }).join('') || '<p class="pp-why">No rewrite came back for this reading.</p>';
+    var prec = j.precedent || {};
+    function precLine(tag, p){ return p ? '<div class="pp-prec ' + tag + '"><span class="pp-ptag">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</span><b>' + esc(p.name) + '</b>, ' + esc(p.year) + '. ' + esc(trunc(p.lesson, 170)) + '</div>' : ''; }
+    var html =
+      '<header class="pp-head"><div class="pp-brand"><b>Revenge or <span>Justice</span></b><span class="pp-by">Hoplight</span></div><div class="pp-date">Read ' + esc(dateStr) + '</div></header>' +
+      (item || outlet ? '<section class="pp-art">' + (outlet ? '<div class="pp-outlet">' + esc(outlet) + (item && item.published ? ' · ' + esc(when(item.published)) : '') + '</div>' : '') +
+        (item ? '<h1>' + esc(item.title) + '</h1>' : '') + (reply.fetched ? '<div class="pp-url">' + esc(trunc(reply.fetched, 110)) + '</div>' : '') + '</section>' : '') +
+      '<section class="pp-verdict"><div class="pp-dial">' + (mean != null ? dial(mean, 'big') : '') + '</div><div class="pp-vw"><div class="pp-whose">' + esc(whose) + '</div>' +
+        '<p class="pp-claim"><b class="pp-v ' + vClass + '">' + esc(verdictWord) + '</b> ' + esc(rw(j.headline || '')) + '</p></div></section>' +
+      peopleHtml +
+      '<section class="pp-cols"><div class="pp-col"><h2>The five measures</h2><div class="pp-ends"><span>Revenge</span><span>Justice</span></div>' + rows + '</div>' +
+        '<div class="pp-col"><h2>Say it so it lands</h2><p class="pp-sub">Same facts, none added. Each rewrite borrows one move from the record.</p>' + recs +
+        '<h2 class="pp-h2b">The record</h2>' + precLine('better', prec.better) + precLine('worse', prec.worse) + '</div></section>' +
+      '<footer class="pp-foot">hoplight.ai/revenge-or-justice · The rubric: the subject is a practice, priced in what it cost people, ending in the remedy, from a speaker with nothing to gain, anchored back to the listener.</footer>';
+    var box = document.createElement('div');
+    box.id = 'rj-print';
+    box.innerHTML = html;
+    var fileTitle = 'Revenge or Justice - ' + (outlet ? outlet + ' - ' : '') + (item ? trunc(item.title, 60) + ' - ' : '') + today.toISOString().slice(0, 10);
+    return { box: box, fileTitle: fileTitle };
+  }
+  $('pdf').addEventListener('click', function(){
+    var made = onePager();
+    if (!made) return;
+    var old = document.getElementById('rj-print');
+    if (old) old.parentNode.removeChild(old);
+    document.body.appendChild(made.box);
+    // One page: a long reading is shrunk until it fits a Letter page inside half-inch margins (7.5 by 10 inches).
+    var maxH = 960, h = made.box.scrollHeight;
+    if (h > maxH) made.box.style.zoom = String(Math.max(0.6, maxH / h));
+    track('pdf', { voice: last && last.ctx ? last.ctx.kind : 'all', zoom: h > maxH ? Math.round(maxH / h * 100) : 100 });
+    var keep = document.title;
+    document.title = made.fileTitle;
+    var done = function(){ document.title = keep; var b = document.getElementById('rj-print'); if (b) b.parentNode.removeChild(b); window.removeEventListener('afterprint', done); };
+    window.addEventListener('afterprint', done);
+    setTimeout(function(){ window.print(); }, 50);
+  });
   $('again').addEventListener('click', function(){
     track('again');
     root.classList.remove('read');

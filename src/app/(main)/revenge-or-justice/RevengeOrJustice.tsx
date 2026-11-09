@@ -66,6 +66,9 @@ export default function RevengeOrJustice() {
 
         <div className="strip" id="strip">
           <span className="what" id="what" />
+          {/* Whit, 2026-11-09: "can we make this produce a pdf 1 pager w the assessment and recs for better,
+              justics framing?" One page laid out for Letter from the reading on screen; the browser saves it. */}
+          <button className="rj-btn rj-pdf" id="pdf" type="button">Save as PDF</button>
           <button className="quietbtn" id="again" type="button">Read another</button>
         </div>
 

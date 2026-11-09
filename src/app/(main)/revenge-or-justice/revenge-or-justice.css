@@ -328,3 +328,71 @@
   .rj-about .points dt{padding-top:var(--s2)}
   .rj-about .record.two{grid-template-columns:1fr}
 }
+
+/* The one-page PDF (Whit, 2026-11-09: "can we make this produce a pdf 1 pager w the assessment and recs for
+   better, justics framing?"). #rj-print is built from the reading on screen and appended to <body> only while
+   printing; on screen it sits off to the side at the page's printed width (7.5 inches) so it can be measured
+   and shrunk to one page. In print, everything else is hidden. Colours print as drawn. */
+.rj .strip .rj-pdf{min-height:40px;padding:8px 16px;font-size:15px}
+#rj-print{position:absolute;left:-10000px;top:0;width:720px;background:#fff;color:#0F1B2D;font-family:var(--font-body);font-size:12px;line-height:1.4;font-variant-numeric:lining-nums tabular-nums;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#rj-print *{box-sizing:border-box;margin:0;padding:0}
+#rj-print .pp-head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:8px;border-bottom:2px solid #0F1B2D}
+#rj-print .pp-brand b{font-size:15px;font-weight:800;letter-spacing:-.01em}
+#rj-print .pp-brand b span{color:#996D00}
+#rj-print .pp-by{margin-left:8px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#575752}
+#rj-print .pp-date{font-size:11px;color:#575752}
+#rj-print .pp-art{margin-top:12px}
+#rj-print .pp-outlet{font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#575752}
+#rj-print h1{font-size:22px;line-height:1.15;font-weight:800;letter-spacing:-.015em;margin-top:3px}
+#rj-print .pp-url{font-size:9.5px;color:#575752;margin-top:3px;word-break:break-all}
+#rj-print .pp-verdict{display:grid;grid-template-columns:200px 1fr;gap:20px;align-items:center;margin-top:10px;padding:10px 0;border-top:1px solid rgba(15,27,45,.14);border-bottom:1px solid rgba(15,27,45,.14)}
+#rj-print .pp-dial svg{display:block;width:200px;height:auto}
+#rj-print .pp-whose{font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#575752}
+#rj-print .pp-claim{font-size:15px;line-height:1.4;margin-top:4px}
+#rj-print .pp-v{font-weight:800;padding:0 .25em;border-radius:3px}
+#rj-print .pp-v.revenge{background:#9c3327;color:#fff}
+#rj-print .pp-v.justice{background:#996D00;color:#fff}
+#rj-print .pp-v.mixed{box-shadow:inset 0 0 0 1.5px #0F1B2D}
+#rj-print .pp-people{margin-top:10px}
+#rj-print .pp-plist{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:4px}
+#rj-print .pp-p{display:flex;align-items:center;gap:6px}
+#rj-print .pp-pd svg{display:block;width:62px;height:auto}
+#rj-print .pp-p b{display:block;font-size:12px}
+#rj-print .pp-p span{display:block;font-size:10px;color:#575752}
+#rj-print h2{font-size:10.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#996D00}
+#rj-print .pp-h2b{margin-top:12px}
+#rj-print .pp-cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:12px}
+#rj-print .pp-ends{display:flex;justify-content:space-between;font-size:9.5px;font-weight:700;margin-top:4px}
+#rj-print .pp-ends span:first-child{color:#9c3327}
+#rj-print .pp-ends span:last-child{color:#996D00}
+#rj-print .pp-row{padding:6px 0;border-top:1px solid rgba(15,27,45,.08)}
+#rj-print .pp-rh{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+#rj-print .pp-rt{font-size:12px;font-weight:700}
+#rj-print .pp-rn{font-size:13px;font-weight:800;color:#996D00}
+#rj-print .pp-rn.retribution{color:#9c3327}
+#rj-print .pp-rn.mixed{color:#575752}
+#rj-print .pp-track{position:relative;height:10px;margin-top:3px}
+#rj-print .pp-track::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(15,27,45,.12)}
+#rj-print .pp-track::after{content:"";position:absolute;left:50%;top:0;height:10px;width:1px;background:#0F1B2D}
+#rj-print .pp-bar{position:absolute;top:1px;height:8px;background:#996D00;border-radius:0 2px 2px 0}
+#rj-print .pp-bar.retribution{background:#9c3327;border-radius:2px 0 0 2px}
+#rj-print .pp-bar.mixed{background:#fff;border:1.5px solid #0F1B2D}
+#rj-print .pp-crit{font-size:10.5px;line-height:1.4;color:#2A3F5F;margin-top:3px}
+#rj-print .pp-ev{font-family:Georgia,'Times New Roman',serif;font-size:10.5px;line-height:1.35;margin-top:2px;padding-left:6px;border-left:2px solid #D4950A}
+#rj-print .pp-sub{font-size:10px;color:#575752;margin-top:2px}
+#rj-print .pp-rec{display:grid;grid-template-columns:18px 1fr;gap:6px;padding:7px 0;border-top:1px solid rgba(15,27,45,.08)}
+#rj-print .pp-recn{width:18px;height:18px;border-radius:50%;background:#996D00;color:#fff;font-size:10.5px;font-weight:800;display:grid;place-items:center}
+#rj-print h3{font-size:12px;font-weight:800}
+#rj-print .pp-rect{font-size:11px;line-height:1.42;margin-top:2px}
+#rj-print .pp-why{font-size:9.5px;line-height:1.35;color:#575752;margin-top:3px}
+#rj-print .pp-prec{font-size:10.5px;line-height:1.4;margin-top:5px;padding-left:8px;border-left:3px solid #996D00}
+#rj-print .pp-prec.worse{border-left-color:#9c3327}
+#rj-print .pp-ptag{display:block;font-size:9.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#996D00}
+#rj-print .pp-prec.worse .pp-ptag{color:#9c3327}
+#rj-print .pp-foot{margin-top:12px;padding-top:6px;border-top:1px solid rgba(15,27,45,.14);font-size:9px;color:#575752}
+@media print{
+  @page{size:letter;margin:0.5in}
+  body > *:not(#rj-print){display:none !important}
+  html,body{background:#fff !important}
+  #rj-print{position:static;left:auto;width:7.5in}
+}
