@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { track } from '@/lib/track';
+import { EXPOSURE, CHECKED_AT, SOURCES, OPT_OUT_NOTES, TEAM_NOTES } from '@/data/which-ai';
 
 // Anonymous usage (2026-11-07, Whit: "user actions to be logged anonymized. queries and setting etc."):
 // each answer chosen, and the recommendation shown at the end. src/lib/signal.ts says what is kept.
@@ -36,46 +37,8 @@ const C = {
 };
 
 // ===== EXPOSURE DATA (shared between landing page and result page) =====
-const EXPOSURE = {
-  columns: ['Training', 'Retention', 'Human review', 'Opt-out'],
-  platforms: [
-    {
-      name: 'ChatGPT', company: 'OpenAI',
-      tiers: [
-        { name: 'Free', price: 'Free', cells: [ { level: 'red', text: 'By default' }, { level: 'red', text: 'Indefinite' }, { level: 'yellow', text: 'Flagged chats' }, { level: 'yellow', text: 'Manual toggle' } ]},
-        { name: 'Plus', price: '$20/mo', cells: [ { level: 'red', text: 'By default' }, { level: 'yellow', text: '30 days min' }, { level: 'yellow', text: 'Flagged chats' }, { level: 'yellow', text: 'Manual toggle' } ]},
-        { name: 'Team', price: '$30/user', cells: [ { level: 'green', text: 'Prohibited' }, { level: 'green', text: '30 days' }, { level: 'yellow', text: 'Safety only' }, { level: 'green', text: 'Automatic' } ]},
-        { name: 'Enterprise', price: 'Custom', cells: [ { level: 'green', text: 'Prohibited' }, { level: 'green', text: 'ZDR available' }, { level: 'green', text: 'No' }, { level: 'green', text: 'Automatic' } ]}
-      ]
-    },
-    {
-      name: 'Claude', company: 'Anthropic',
-      tiers: [
-        { name: 'Free', price: 'Free', cells: [ { level: 'red', text: 'May use' }, { level: 'red', text: 'Up to 5 yrs' }, { level: 'yellow', text: 'Flagged chats' }, { level: 'yellow', text: 'Manual toggle' } ]},
-        { name: 'Pro', price: '$20/mo', cells: [ { level: 'red', text: 'May use' }, { level: 'red', text: 'Up to 5 yrs' }, { level: 'yellow', text: 'Flagged chats' }, { level: 'yellow', text: 'Manual toggle' } ]},
-        { name: 'Team', price: '$25/user', cells: [ { level: 'green', text: 'Prohibited' }, { level: 'green', text: 'Contractual' }, { level: 'yellow', text: 'Safety only' }, { level: 'green', text: 'Automatic' } ]},
-        { name: 'Enterprise', price: 'Custom', cells: [ { level: 'green', text: 'Prohibited' }, { level: 'green', text: 'Custom terms' }, { level: 'green', text: 'No' }, { level: 'green', text: 'Automatic' } ]}
-      ]
-    },
-    {
-      name: 'Gemini', company: 'Google',
-      tiers: [
-        { name: 'Free', price: 'Free', cells: [ { level: 'red', text: 'Improves products' }, { level: 'yellow', text: 'Up to 18 mo' }, { level: 'red', text: 'Human reviewers' }, { level: 'yellow', text: 'Activity controls' } ]},
-        { name: 'Advanced', price: '$20/mo', cells: [ { level: 'yellow', text: 'Varies' }, { level: 'yellow', text: 'Activity controls' }, { level: 'yellow', text: 'May review' }, { level: 'yellow', text: 'Activity controls' } ]},
-        { name: 'Workspace', price: 'Org plan', cells: [ { level: 'green', text: 'Not used' }, { level: 'green', text: 'Org policy' }, { level: 'green', text: 'Org-controlled' }, { level: 'green', text: 'Automatic' } ]},
-        { name: 'Vertex AI', price: 'Usage-based', cells: [ { level: 'green', text: 'Not used' }, { level: 'green', text: 'Custom' }, { level: 'green', text: 'No' }, { level: 'green', text: 'Automatic' } ]}
-      ]
-    },
-    {
-      name: 'Perplexity', company: 'Perplexity AI',
-      tiers: [
-        { name: 'Free', price: 'Free', cells: [ { level: 'yellow', text: 'May use' }, { level: 'yellow', text: 'Unclear' }, { level: 'yellow', text: 'Unclear' }, { level: 'yellow', text: 'Limited' } ]},
-        { name: 'Pro', price: '$20/mo', cells: [ { level: 'yellow', text: 'Better terms' }, { level: 'yellow', text: 'Unclear' }, { level: 'yellow', text: 'Unclear' }, { level: 'yellow', text: 'Settings' } ]},
-        { name: 'Enterprise', price: 'Custom', cells: [ { level: 'green', text: 'Contractual' }, { level: 'green', text: 'Defined' }, { level: 'green', text: 'Admin controls' }, { level: 'green', text: 'Automatic' } ]}
-      ]
-    }
-  ]
-};
+// Every plan, price and data term lives in src/data/which-ai.ts with the day it was checked and the
+// pages it was checked against (2026-11-09). Edit facts there, never here.
 
 // ===== STEP DATA =====
 // Lint pass, 2026-09-16 (review-squad fix lane, item 3): each step below has a different shape
@@ -167,7 +130,7 @@ function getRecommendation(answers: Record<string, string>) {
 
   switch (usecase) {
     case 'research':
-      rec = { primary: { name: 'Perplexity', tagline: 'AI search engine that cites its sources', why: 'Search-native. Cites every claim with links to the source. Best tool for "is this true?" and factual validation.' }, alternatives: [ { name: 'Gemini', note: 'Strong web access, deep Google ecosystem integration.' }, { name: 'ChatGPT', note: 'Browsing mode works well for conversational follow-ups.' } ] }; break;
+      rec = { primary: { name: 'Perplexity', tagline: 'AI search engine that cites its sources', why: 'Search-native. Cites every claim with links to the source. Best tool for "is this true?" and factual validation.' }, alternatives: [ { name: 'Gemini', note: 'Strong web access, deep Google ecosystem integration.' }, { name: 'ChatGPT', note: 'Search and deep research work well for conversational follow-ups.' } ] }; break;
     case 'writing':
       if (ref === 'quality') {
         rec = { primary: { name: 'Claude', tagline: 'Best-in-class for nuanced, high-quality writing', why: 'Produces the most natural long-form prose. Handles nuance without flattening your ideas or smothering your voice.' }, alternatives: [ { name: 'ChatGPT', note: 'Faster iterations with Canvas mode for inline editing.' } ] };
@@ -197,9 +160,9 @@ function getRecommendation(answers: Record<string, string>) {
     case 'data':
       rec = { primary: { name: 'Claude', tagline: 'Advanced data interpretation', why: 'Excellent at exploring data, writing analysis code, and explaining findings in plain language.' }, alternatives: [ { name: 'ChatGPT', note: 'Code interpreter with built-in interactive charting.' } ] }; break;
     case 'imagegen':
-      rec = { primary: { name: 'Gemini', tagline: 'Highest quality text and photorealism', why: 'Produces superior AI images right now, with vastly better text rendering than DALL-E. Integrated with real-time reference imagery.' }, alternatives: [ { name: 'Midjourney', note: 'Still king for artistic, highly stylized output.' } ] }; break;
+      rec = { primary: { name: 'Gemini', tagline: 'Highest quality text and photorealism', why: 'Strong photorealism and legible text inside images, and it can edit a picture you upload in plain words.' }, alternatives: [ { name: 'ChatGPT', note: 'Its built-in image model is close behind and easy to iterate on in the same chat.' }, { name: 'Midjourney', note: 'Still the pick for artistic, highly stylized output.' } ] }; break;
     case 'draft':
-      rec = { primary: { name: 'ChatGPT', tagline: 'Built for rapid brainstorming', why: 'Fastest response time and great at generating variations. The best "thinking out loud" partner.' }, alternatives: [ { name: 'Claude', note: 'Better if the brainstorm involves genuine strategic complexity.' } ] }; break;
+      rec = { primary: { name: 'ChatGPT', tagline: 'Built for rapid brainstorming', why: 'Quick replies and great at generating variations. A good "thinking out loud" partner.' }, alternatives: [ { name: 'Claude', note: 'Better if the brainstorm involves genuine strategic complexity.' } ] }; break;
     default:
       rec = { primary: { name: 'ChatGPT', tagline: 'The versatile default', why: 'A strong all-rounder for general tasks.' }};
   }
@@ -227,25 +190,11 @@ function getSecurityInfo(sensitivity: string, toolName: string) {
 }
 
 function getOptOutNote(toolName: string) {
-  const notes: Record<string, string> = {
-    'Perplexity': 'Perplexity Pro: Review privacy settings to disable telemetry.',
-    'Claude': 'Claude Pro: Settings > Privacy > disable training. Paid does not mean private by default.',
-    'ChatGPT': 'ChatGPT Plus: Settings > Data Controls > Turn OFF "Improve the model for everyone."',
-    'Gemini': 'Gemini Advanced: Disable Google AI activity controls in your account settings.',
-    'Cursor': 'Cursor Pro: Enable Privacy Mode in settings to prevent code retention.'
-  };
-  return notes[toolName] || 'Check the provider\'s privacy settings and disable training data collection.';
+  return OPT_OUT_NOTES[toolName] || 'Check the provider\'s privacy settings and disable training data collection.';
 }
 
 function getTeamNote(toolName: string) {
-  const notes: Record<string, string> = {
-    'Perplexity': 'Perplexity Enterprise provides SSO and admin controls.',
-    'Claude': 'Claude Team/Enterprise: training prohibited by contract, configurable data retention.',
-    'ChatGPT': 'ChatGPT Team/Enterprise: training prohibited. Enterprise adds data residency options.',
-    'Gemini': 'Gemini Workspace: governed by your org\'s admin settings. Safest option if available.',
-    'Cursor': 'Cursor Business: SOC 2 compliance, zero data retention enforced.'
-  };
-  return notes[toolName] || 'Team/Enterprise plans with zero-data-retention contracts provide the strongest protection.';
+  return TEAM_NOTES[toolName] || 'Team/Enterprise plans with zero-data-retention contracts provide the strongest protection.';
 }
 
 // Look up a platform in the exposure data by recommendation name
@@ -312,7 +261,7 @@ const ExposureTable = ({ platforms, compact }: { platforms: any[]; compact?: boo
         <div key={i} style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 8, overflow: 'hidden' }}>
           <div style={{ background: `${C.ink}05`, borderBottom: `1px solid ${C.stone}25`, padding: compact ? '10px 16px' : '12px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h3 style={{ fontWeight: 600, color: C.ink, fontSize: compact ? 15 : 16, margin: 0 }}>{p.name}</h3>
-            <span style={{ fontSize: 13, fontWeight: 500, color: C.stone }}>{p.company}</span>
+            <span style={{ fontSize: 13, fontWeight: 500, color: C.stone, textAlign: 'right' }}>{p.company}{p.models ? ` · ${p.models}` : ''}</span>
           </div>
           <div className="exposure-scroll" style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, textAlign: 'left' }}>
@@ -373,7 +322,7 @@ export default function WhichAiTool() {
   useEffect(() => { setAnimKey(k => k + 1); }, [currentStep]);
 
   // Depends on animKey, not currentStep: each screen is wrapped in a <div key={animKey}> to
-  // replay its enter animation, and changing that key unmounts/remounts the subtree — including
+  // replay its enter animation, and changing that key unmounts/remounts the subtree, including
   // the heading this focuses. Focusing on [currentStep] raced that remount and lost the focus the
   // instant it landed; animKey changes one commit later, once the fresh DOM (and ref) exist.
   useEffect(() => {
@@ -472,9 +421,17 @@ export default function WhichAiTool() {
         <div style={{ background: C.paper, border: `1px solid ${C.line}`, borderRadius: 6, padding: '14px 18px', display: 'flex', alignItems: 'flex-start', gap: 12, marginTop: 20 }}>
           <Info size={18} style={{ color: C.goldDeep, flexShrink: 0, marginTop: 2 }} />
           <p style={{ fontSize: 14, color: C.ink, lineHeight: 1.6, margin: 0 }}>
-            Paying for Plus/Pro/Advanced buys you <em>features</em>, not privacy. Real data protection (green rows) starts at Team or Enterprise tiers.
+            Paying for Plus, Pro, Max or AI Pro buys you <em>features</em>, not privacy. Real data protection (green rows) starts at Business, Team or Enterprise tiers.
           </p>
         </div>
+        <p style={{ fontSize: 12, color: C.stone, lineHeight: 1.6, margin: '14px 0 0' }}>
+          Plans, prices and data terms checked {CHECKED_AT} against each company&apos;s own pages:{' '}
+          {SOURCES.map((s, i) => (
+            <span key={s.url}>
+              <a href={s.url} target="_blank" rel="noopener noreferrer" style={{ color: C.stone }}>{s.label}</a>{i < SOURCES.length - 1 ? ', ' : '.'}
+            </span>
+          ))}
+        </p>
       </div>
     </div>
   );
