@@ -36,6 +36,65 @@ export function initRevengeOrJustice(root, opts) {
   function src(p){ return p && p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.source) + '</a>' : esc(p && p.source || ''); }
   function host(u){ try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } }
 
+  // Branding (Whit, 2026-11-09: "the news articles should jump off the page including the outlet that wrote
+  // them, there is not bold, no highlighting, no branding"). Each outlet shows its own icon (served through
+  // this site, never from the visitor's browser to a third party), its name in bold capitals, and its colour
+  // as the card's edge where the colour is well known; every other outlet takes the ink.
+  var OUTLET_HUE = {
+    'cnn.com': '#CC0000', 'theguardian.com': '#052962', 'time.com': '#E90606', 'usatoday.com': '#0098FE',
+    'newsweek.com': '#E1251B', 'yahoo.com': '#6001D2', 'reuters.com': '#FA6400', 'apnews.com': '#E2231A',
+    'foxnews.com': '#003366', 'nypost.com': '#C8102E', 'politico.com': '#DC0D15', 'axios.com': '#2A62D6',
+    'huffpost.com': '#0DBE98', 'theatlantic.com': '#E7131A', 'thehill.com': '#0B3B6E', 'npr.org': '#237BBD',
+    'nbcnews.com': '#2D5DA8', 'msnbc.com': '#2D5DA8', 'ms.now': '#2D5DA8', 'dailykos.com': '#E8641B',
+    'newrepublic.com': '#D52B1E', 'motherjones.com': '#C8102E', 'rollcall.com': '#0B3B6E', 'salon.com': '#CF3A2C',
+    'timesofindia.indiatimes.com': '#B71C1C', 'abc7.com': '#1B4E9B', 'abcnews.go.com': '#1B4E9B', 'cbsnews.com': '#1B4E9B'
+  };
+  function hueOf(h){ h = String(h || '').replace(/^www\./, ''); if (OUTLET_HUE[h]) return OUTLET_HUE[h]; var parts = h.split('.'); return OUTLET_HUE[parts.slice(-2).join('.')] || ''; }
+  function logo(h, name){
+    var initial = esc(String(name || h || '?').replace(/^the\s+/i, '').charAt(0).toUpperCase());
+    return '<span class="logo" aria-hidden="true"><span class="mono">' + initial + '</span>' +
+      (h ? '<img src="/api/revenge-or-justice/logo?host=' + encodeURIComponent(h) + '" alt="" width="20" height="20" loading="lazy" onerror="this.remove()">' : '') + '</span>';
+  }
+  // Where the news search gives an outlet a name nobody would know it by.
+  var OUTLET_NAME = { 'ms.now': 'MS NOW', 'msnbc.com': 'MS NOW' };
+  function outletBadge(h, name){
+    var hue = hueOf(h);
+    name = OUTLET_NAME[String(h || '').replace(/^www\./, '')] || name;
+    return '<span class="outlet"' + (hue ? ' style="--oc:' + hue + '"' : '') + '>' + logo(h, name) + '<b>' + esc(name || h) + '</b></span>';
+  }
+
+  // Who is in it. The headline list names the Democrats the list watches (quick-tools lib/justice-feed.mjs);
+  // the chamber here is only for the title on the tag, so a name missing from this map still gets a tag.
+  var CHAMBER = {
+    'Jamie Raskin': 'House', 'Robert Garcia': 'House', 'Hakeem Jeffries': 'House', 'Katherine Clark': 'House',
+    'Pete Aguilar': 'House', 'Richard Neal': 'House', 'Maxine Waters': 'House', 'Frank Pallone': 'House',
+    'Rosa DeLauro': 'House', 'Bennie Thompson': 'House', 'Jim Himes': 'House', 'Gregory Meeks': 'House',
+    'Chuck Schumer': 'Senate', 'Dick Durbin': 'Senate', 'Elizabeth Warren': 'Senate', 'Ron Wyden': 'Senate',
+    'Richard Blumenthal': 'Senate', 'Gary Peters': 'Senate'
+  };
+  function personTag(name){
+    var c = CHAMBER[name];
+    return '<span class="who elected">' + (c === 'Senate' ? 'Sen. ' : c === 'House' ? 'Rep. ' : '') + '<b>' + esc(name) + '</b></span>';
+  }
+  // A quoted speaker from the reading: elected officials first, in gold (the same gold as the list's tags),
+  // everyone else (staff, spokespeople, advocates) outlined in ink, each with the role the text gives them.
+  var NOT_ELECTED = /\b(spokes\w*|aide|staff\w*|press secretary|adviser|advisor|strategist|operative|consultant|lawyer|attorney for|counsel|analyst|director|executive|ceo|founder|professor|former|candidate|nominee|activist|advocate|organizer|president of|head of|reporter|editor|columnist)\b/i;
+  var ELECTED = /\b(rep\.|representative|sen\.|senator|congress\w*|governor|gov\.|mayor|speaker|whip|leader|ranking member|chair\w*|committee|caucus|vice president|president|attorney general|council\s?\w*|assembly\w*|state senator|delegate|lawmaker|legislator)\b|\b[DR]-[A-Z]{2}\b|\([DR][-–]/i;
+  function elected(role){ role = String(role || ''); return !NOT_ELECTED.test(role) && ELECTED.test(role); }
+  function speakerTag(sp){
+    return '<span class="who ' + (elected(sp.role) ? 'elected' : 'other') + '"><b>' + esc(sp.name) + '</b>' + (sp.role ? '<span class="role">' + esc(sp.role) + '</span>' : '') + '</span>';
+  }
+  function quotedBlock(speakers){
+    speakers = (speakers || []).filter(function(s){ return s && s.name; });
+    if (!speakers.length) return '';
+    var el = speakers.filter(function(s){ return elected(s.role); }), rest = speakers.filter(function(s){ return !elected(s.role); });
+    var out = '';
+    if (el.length) out += '<div class="qgroup"><span class="ql">' + (el.length === 1 ? 'Elected official quoted' : 'Elected officials quoted') + '</span><span class="tags">' + el.map(speakerTag).join('') + '</span></div>';
+    if (rest.length) out += '<div class="qgroup"><span class="ql">' + (el.length ? 'Also quoted' : 'Quoted') + '</span><span class="tags">' + rest.map(speakerTag).join('') + '</span></div>';
+    return out;
+  }
+  var feedByUrl = {};
+
   // A bar out from the centre: left of 50 for retribution, right of 50 for justice. Returns the inline style and the side class.
   function bar(pos, extra){
     var p = Math.max(0, Math.min(100, +pos || 0)), left = p < 50 ? p : 50, w = Math.abs(p - 50);
@@ -47,6 +106,13 @@ export function initRevengeOrJustice(root, opts) {
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
     var voices = reply.voices || {};
+    // The source line and who is quoted belong to the article, so they stay put whichever voice or issue is picked.
+    var item = reply.fetched ? feedByUrl[reply.fetched] : null;
+    var h = reply.fetched ? host(reply.fetched) : '';
+    var outletName = (item && item.source) || (voices.coverage && voices.coverage.outlet) || h;
+    $('srcline').innerHTML = outletName ? outletBadge(item ? item.host : h, outletName) +
+      (item && item.title ? '<a class="art" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(item.title) + '</a>' : reply.fetched ? '<a class="art" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">Read the article</a>' : '') : '';
+    $('quoted').innerHTML = quotedBlock(voices.politicians && voices.politicians.speakers);
     var views = [];
     if (voices.politicians) views.push({ k: 'politicians', label: 'The politicians', j: voices.politicians });
     if (voices.coverage) views.push({ k: 'coverage', label: 'The coverage', j: voices.coverage });
@@ -106,6 +172,7 @@ export function initRevengeOrJustice(root, opts) {
     if (j.error) m.push('<span class="warn">this reading could not be graded: ' + esc(j.error) + '</span>');
     $('meta').innerHTML = m.join(' · ');
     $('verdict').textContent = j.error ? '' : (j.verdict === 'mixed' ? 'Mixed' : j.verdict ? 'Leans ' + word(j.verdict) : '');
+    $('verdict').className = 'v ' + (j.verdict === 'retribution' ? 'revenge' : j.verdict === 'justice' ? 'justice' : 'mixed');
     $('headline').textContent = j.error ? 'This reading did not come back.' : rw(j.headline || '');
 
     var rows = j.rows || [];
@@ -119,19 +186,19 @@ export function initRevengeOrJustice(root, opts) {
 
     $('detail').innerHTML = rows.map(function(r, i){
       var s = side(r.position);
-      var ev = r.evidence ? '<dd class="ev">' + esc(r.evidence) + '</dd>' : '<dd class="ev none">The text says nothing on this.</dd>';
+      var ev = r.evidence ? '<dd class="ev"><mark>' + esc(r.evidence) + '</mark></dd>' : '<dd class="ev none">The text says nothing on this.</dd>';
       var said = 'They said';
-      if (ctx.kind === 'coverage') said = (ctx.outlet ? ctx.outlet : 'The outlet') + ' wrote';
+      if (ctx.kind === 'coverage') said = '<b>' + esc(ctx.outlet ? ctx.outlet : 'The outlet') + '</b> wrote';
       else if (ctx.kind === 'politicians' && r.evidence) {
         var q = String(r.evidence).toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/\s+/g, ' ').trim().slice(0, 80);
         var hit = (ctx.passages || []).filter(function(p){ return String(p.text || '').toLowerCase().replace(/[\u2018\u2019]/g, "'").replace(/[\u201c\u201d]/g, '"').replace(/\s+/g, ' ').indexOf(q) >= 0; })[0];
-        if (hit) said = hit.who + ' said';
+        if (hit) said = '<b>' + esc(hit.who) + '</b> said';
       }
       var rec = r.precedent ? '<dt>The record</dt><dd class="rec">' + esc(r.precedent_line || '') + ' ' + esc(r.precedent.name) + ', ' + esc(r.precedent.year) + ' (' + src(r.precedent) + ').</dd>' : '';
       return '<article class="r" id="row' + i + '">' +
         '<div class="rh"><span class="thumb" aria-hidden="true">' + bar(r.position) + '</span>' +
         '<h3>' + esc(r.title) + '</h3><span class="side ' + s + '">' + Math.round(r.position) + ', ' + sideWords(r.position) + '</span></div>' +
-        '<dl class="tiers"><dt>' + esc(said) + '</dt>' + ev +
+        '<dl class="tiers"><dt>' + said + '</dt>' + ev +
         '<dt>How it reads</dt><dd class="crit">' + esc(rw(r.critique)) + '</dd>' + rec + '</dl></article>';
     }).join('');
 
@@ -178,7 +245,8 @@ export function initRevengeOrJustice(root, opts) {
   function collapse(text){
     var isUrl = /^https?:\/\/\S+$/.test(text);
     var shown = isUrl ? host(text) : text.replace(/\s+/g, ' ').slice(0, 140) + (text.length > 140 ? '…' : '');
-    $('what').innerHTML = '<b>Read:</b> ' + esc(shown);
+    var it = isUrl ? feedByUrl[text] : null;
+    $('what').innerHTML = it ? outletBadge(it.host, it.source) + ' ' + esc(it.title) : '<b>Read:</b> ' + esc(shown);
     root.classList.add('read');
     $('strip').classList.add('on');
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -203,9 +271,14 @@ export function initRevengeOrJustice(root, opts) {
     $('feed').hidden = false;
     var SHOW = 8;
     $('feedlist').innerHTML = items.map(function(it, k){
-      var who = (it.people || []).join(', ');
-      return '<li' + (k >= SHOW ? ' class="rj-more"' : '') + '><button type="button" class="pick" data-url="' + esc(it.url) + '"><span class="hl">' + esc(it.title) + '</span>' +
-        '<span class="by"><b>' + esc(it.source) + '</b>' + (when(it.published) ? ' · ' + when(it.published) : '') + (who ? ' · ' + esc(who) : '') + '</span></button></li>';
+      feedByUrl[it.url] = it;
+      var hue = hueOf(it.host);
+      var people = it.people || [];
+      return '<li' + (k >= SHOW ? ' class="rj-more"' : '') + '><button type="button" class="pick"' + (hue ? ' style="--oc:' + hue + '"' : '') + ' data-url="' + esc(it.url) + '">' +
+        '<span class="by">' + outletBadge(it.host, it.source) + (when(it.published) ? '<span class="when">' + when(it.published) + '</span>' : '') + '</span>' +
+        '<span class="hl">' + esc(it.title) + '</span>' +
+        (people.length ? '<span class="tags">' + people.map(personTag).join('') + '</span>' : '') +
+        '</button></li>';
     }).join('') + (items.length > SHOW ? '<li class="all"><button type="button" class="quietbtn" id="feedall">All ' + items.length + ' articles</button></li>' : '');
     if ($('feedall')) $('feedall').addEventListener('click', function(){ track('headlines-all', { count: items.length }); $('feedlist').classList.add('open'); $('feedall').parentNode.removeChild($('feedall')); });
     Array.prototype.forEach.call($('feedlist').querySelectorAll('.pick'), function(b){

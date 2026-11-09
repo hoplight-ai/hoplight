@@ -65,20 +65,33 @@
 }
 .rj .feed h2{margin-top:0;padding-top:0;border-top:0;font-size:18px}
 .rj .feed .h2sub{font-size:14px}
-.rj .feed ol{list-style:none;margin-top:var(--s2)}
-.rj .feed li{border-top:1px solid var(--rule2)}
-.rj .feed li:first-child{border-top:0}
-.rj .feed .pick{display:block;width:100%;text-align:left;font:inherit;background:none;border:0;padding:12px 0;cursor:pointer;color:var(--ink)}
-.rj .feed .pick:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--gold)}
-@media (hover:hover){.feed .pick:hover .hl{text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:3px}}
-.rj .feed .hl{font-size:16px;line-height:1.4;font-weight:400;color:var(--ink2)}
-.rj .feed .by{display:block;margin-top:3px;font-size:14px;color:var(--stone)}
+/* Each article is a card that carries its outlet: the outlet's icon and name in bold capitals on top, the
+   outlet's colour as the card's left edge (ink where the colour is not known), the headline in bold, and a
+   gold tag for each elected official it names (Whit, 2026-11-09: "the news articles should jump off the
+   page including the outlet that wrote them ... tags of ... what elected officials are in the article"). */
+.rj .feed ol{list-style:none;margin-top:var(--s2);display:grid;gap:10px}
+.rj .feed .pick{--oc:var(--ink);display:block;width:100%;text-align:left;font:inherit;background:var(--white);border:1px solid var(--rule);border-left:4px solid var(--oc);border-radius:6px;padding:12px 14px 13px;cursor:pointer;color:var(--ink);transition:border-color .15s ease-out,box-shadow .15s ease-out,transform .15s ease-out}
+.rj .feed .pick:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
+@media (hover:hover){.rj .feed .pick:hover{box-shadow:0 6px 18px rgba(15,27,45,.10);transform:translateY(-1px)}.rj .feed .pick:hover .hl{text-decoration:underline;text-decoration-color:var(--oc);text-decoration-thickness:2px;text-underline-offset:3px}}
+.rj .feed .hl{display:block;margin-top:6px;font-size:17px;line-height:1.32;font-weight:600;letter-spacing:-.005em;color:var(--ink);text-wrap:pretty}
+.rj .feed .by{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--stone)}
+.rj .feed .when{margin-left:auto;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rj .outlet{--oc:var(--ink);display:inline-flex;align-items:center;gap:7px;min-width:0}
+.rj .outlet b{font-size:12.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--oc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rj .logo{position:relative;flex:none;width:20px;height:20px;border-radius:4px;overflow:hidden;background:var(--oc)}
+.rj .logo .mono{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--white);line-height:1}
+.rj .logo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:var(--white)}
+.rj .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.rj .who{display:inline-flex;align-items:baseline;gap:6px;font-size:13px;line-height:1.3;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.rj .who b{font-weight:700}
+.rj .who.elected{background:#FBEFD2;color:#5C4100;box-shadow:inset 0 0 0 1px rgba(153,109,0,.35)}
+.rj .who.other{background:var(--white);color:var(--ink2);box-shadow:inset 0 0 0 1px var(--rule)}
+.rj .who .role{font-weight:400;opacity:.85;white-space:normal}
 .rj .feed li.rj-more{display:none}
 .rj .feed ol.open li.rj-more{display:block}
 .rj .feed li.all{border-top:0;padding-top:var(--s2)}
 .rj .quietbtn{font:inherit;font-size:14px;color:var(--ink2);background:none;border:0;padding:0;border-bottom:1px solid var(--rule);cursor:pointer;min-height:44px}
 .rj .quietbtn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
-.rj .feed .by b{font-weight:500;color:var(--ink2)}
 .rj .feed .note{font-size:14px;color:var(--stone);margin-top:var(--s2)}
 .rj .feed .note.err{color:var(--flag)}
 /* Exhibit */
@@ -99,9 +112,26 @@
 @media (hover:hover){.issues button:hover{color:var(--ink)}}
 .rj .rj-hero{padding-top:var(--s5)}
 .rj .claim{font-size:clamp(23px,1.1rem + 1.4vw,31px);line-height:1.3;letter-spacing:-.012em;font-weight:400;max-width:30em;text-wrap:balance}
-.rj .claim .v{font-weight:500;color:var(--ink);box-shadow:inset 0 -3px 0 var(--gold)}
+.rj .claim .v{font-weight:700;color:var(--ink);box-shadow:inset 0 -3px 0 var(--gold)}
 .rj .claim .v::after{content:"."}
 .rj .claim .v:empty::after{content:none}
+/* The verdict wears its side: revenge in the flag colour, justice in ink with the gold underline, mixed outlined. */
+.rj .claim .v.revenge{color:var(--white);background:var(--flag);box-shadow:none;padding:0 .28em;border-radius:4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rj .claim .v.justice{color:var(--white);background:var(--ink);box-shadow:inset 0 -4px 0 var(--gold);padding:0 .28em;border-radius:4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rj .claim .v.mixed{box-shadow:inset 0 0 0 2px var(--ink);padding:0 .28em;border-radius:4px}
+/* The article read: its outlet's icon and name, then its headline as a link. */
+.rj .srcline{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-bottom:var(--s2)}
+.rj .srcline:empty{display:none}
+.rj .srcline .outlet b{font-size:13px}
+.rj .srcline .logo{width:24px;height:24px}
+.rj .srcline .art{font-size:16px;font-weight:600;color:var(--ink2);border-bottom-color:var(--rule)}
+/* Who is quoted: elected officials in gold, everyone else outlined. */
+.rj .quoted{margin-top:var(--s3);display:grid;gap:10px}
+.rj .quoted:empty{display:none}
+.rj .qgroup{display:grid;grid-template-columns:minmax(150px,200px) 1fr;column-gap:var(--s3);align-items:start}
+.rj .qgroup .ql{font-size:14px;font-weight:600;color:var(--ink);padding-top:5px}
+.rj .qgroup .tags{margin-top:0}
+.rj .quoted .who{font-size:14px;white-space:normal}
 .rj .meta{font-size:14px;line-height:1.5;color:var(--stone);margin-top:var(--s2)}
 .rj .meta a{color:var(--stone)}
 .rj .meta .warn{color:var(--flag)}
@@ -148,6 +178,10 @@
 .rj .tiers dt{font-size:14px;line-height:1.5;color:var(--stone);padding-top:6px}
 .rj .tiers dd{min-width:0}
 .rj .ev{font-family:var(--serif);font-size:23px;line-height:1.4;color:var(--ink);padding-left:var(--s2);border-left:2px solid var(--rule)}
+/* The quoted words carry a highlighter stroke, so the source's own words stand apart from the analysis. */
+.rj .ev{border-left-color:var(--gold)}
+.rj .ev mark{color:inherit;background:linear-gradient(transparent 58%,rgba(212,149,10,.30) 58%,rgba(212,149,10,.30) 92%,transparent 92%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rj .tiers dt b{font-weight:700;color:var(--ink)}
 .rj .ev.none{font-family:var(--sans);font-size:16px;line-height:1.5;color:var(--stone);border-left-color:var(--rule);padding-left:var(--s2)}
 .rj .crit{font-size:16px;line-height:1.6;color:var(--ink2)}
 .rj .rec{font-size:14px;line-height:1.5;color:var(--stone)}
@@ -192,6 +226,8 @@
   .rj .tiers dt:first-child{padding-top:0}
   .rj .ev{font-size:18px}
   .rj .pair{grid-template-columns:1fr;gap:var(--s3)}
+  .rj .qgroup{grid-template-columns:1fr;row-gap:6px}
+  .rj .qgroup .ql{padding-top:0}
   .rj h2{margin-top:var(--s6)}
 }
 
