@@ -53,7 +53,8 @@ export function initRevengeOrJustice(root, opts) {
   function logo(h, name){
     var initial = esc(String(name || h || '?').replace(/^the\s+/i, '').charAt(0).toUpperCase());
     return '<span class="logo" aria-hidden="true"><span class="mono">' + initial + '</span>' +
-      (h ? '<img src="/api/revenge-or-justice/logo?host=' + encodeURIComponent(h) + '" alt="" width="20" height="20" loading="lazy" onerror="this.remove()">' : '') + '</span>';
+      // The icon stays invisible until it has loaded, so a slow or missing icon shows the outlet's letter on its colour, never an empty box.
+      (h ? '<img src="/api/revenge-or-justice/logo?host=' + encodeURIComponent(h) + '" alt="" width="24" height="24" loading="lazy" onload="this.classList.add(\'ok\')" onerror="this.remove()">' : '') + '</span>';
   }
   // Where the news search gives an outlet a name nobody would know it by.
   var OUTLET_NAME = { 'ms.now': 'MS NOW', 'msnbc.com': 'MS NOW' };
@@ -131,7 +132,7 @@ export function initRevengeOrJustice(root, opts) {
         var graded = p.verdict && !p.error;
         var pos = graded ? (p.mean_position != null ? p.mean_position : 50) : null;
         html += '<button type="button" class="prow' + (i === chosen ? ' on' : '') + '" data-p="' + i + '" aria-expanded="' + (i === chosen ? 'true' : 'false') + '" aria-controls="pq' + i + '">' +
-          tagHtml(p, true) +
+          '<span class="pwho">' + tagHtml(p, false) + (p.role ? '<span class="prole">' + esc(p.role) + '</span>' : '') + '</span>' +
           '<span class="ptrack" aria-hidden="true">' + (graded ? bar(pos) : '') + '</span>' +
           '<span class="pn ' + (graded ? side(pos) : '') + '">' + (graded ? Math.round(pos) : '') + '</span>' +
           '<span class="sr">' + (graded ? sideWords(pos) + ', ' + Math.round(pos) + ' of 100 toward justice. ' : '') + (i === chosen ? 'Showing their words.' : 'Show their words and their reading.') + '</span>' +
@@ -207,33 +208,33 @@ export function initRevengeOrJustice(root, opts) {
 
   // The five measures, each a term that opens a small window over the page (Whit, 2026-11-09: "i wanted these
   // metrics defined- someone should be able to click on the metric and a pop up happens that explains what this
-  // means, why it matters, what it activates in a reader/listener"). Each "why it matters" leans on a case in
-  // the grader's own precedent record, the same record the reading cites.
+  // means, why it matters, what it activates in a reader/listener"). One sentence each, so the window fits a
+  // phone screen (design review, 2026-11-09); the cases behind them are in the reading's own record.
   var TERMS = {
     practice: {
-      means: 'Whether the words name a thing that was done (a fee charged, a contract steered, a rule broken) or a person to be brought down.',
-      matters: 'A practice can be stopped by a law and outlives any one villain. A person invites the question of whether this is about him or about the public. Gerald Nye’s munitions inquiry held the country until it turned on Woodrow Wilson by name, and his own party cut its funding.',
-      activates: 'A named practice makes a listener ask whether it happened to them. A named enemy makes them pick a team, and the voters who just switched sides may pick the other one.'
+      means: 'Whether the words name a thing that was done, like a fee charged or a rule broken, or a person to be brought down.',
+      matters: 'A practice can be ended by a law; a named villain makes people ask whether this is about him or about them.',
+      activates: 'A practice makes a listener ask if it happened to them; an enemy makes them pick a team, and swing voters may pick the other one.'
     },
     price: {
-      means: 'Whether the words say what this cost the person hearing them: their bill, their paycheck, their premium, their safety, their vote.',
-      matters: 'Wrongdoing with no price tag is a fight between powerful people. A price tag makes it the listener’s fight. Elizabeth Warren judged the 2008 bailout by one question the public would ask: what does it buy taxpayers?',
-      activates: 'Self-interest and attention. A cost on their own bill reads as news about them; an abstract wrong reads as politics, and politics gets tuned out.'
+      means: 'Whether the words say what this cost the listener: their bill, paycheck, premium, safety or vote.',
+      matters: 'Without a price tag, wrongdoing sounds like a fight between powerful people; with one, it becomes the listener’s fight.',
+      activates: 'Self-interest: a cost on their own bill reads as news about them, while an abstract wrong reads as politics and gets tuned out.'
     },
     remedy: {
-      means: 'Whether the words name the law, rule, vote or office that stops this from happening again.',
-      matters: 'An investigation that ends in a fix reads as governing; one that ends in punishment reads as payback. Frank Church’s hearings on spying on citizens ended in the Foreign Intelligence Surveillance Act.',
-      activates: 'Hope and a reason to back the effort. With no remedy, a listener hears a grievance with no end and decides the point is the fight itself.'
+      means: 'Whether the words name the law, rule or vote that stops this from happening again.',
+      matters: 'An inquiry that ends in a fix reads as governing; one that ends in punishment reads as payback.',
+      activates: 'A reason to back the effort; with no remedy, a listener hears a grievance with no end and decides the point is the fight.'
     },
     umpire: {
-      means: 'Whether the speaker sounds like someone with nothing to gain from the subject’s fall, or like someone running against them.',
-      matters: 'Listeners judge the motive before the facts. Sam Ervin, chosen to chair the Watergate hearings because he wanted no higher office, kept a divided country listening.',
-      activates: 'Trust. An umpire lowers a listener’s guard; a rival sets off “they are just out to get him,” and the facts bounce off.'
+      means: 'Whether the speaker sounds like someone with nothing to gain from the subject’s fall, or like a rival running against them.',
+      matters: 'Listeners judge the motive before they weigh the facts.',
+      activates: 'Trust: an umpire lowers a listener’s guard, while a rival sets off “they are just out to get him” and the facts bounce off.'
     },
     knot: {
-      means: 'Whether the words tie the wrongdoing to what matters most to the listener, so the corruption and their own life become one story.',
-      matters: 'Two separate stories, “they are corrupt” and “costs are up,” each lose. Tied together, each proves the other. Ferdinand Pecora put an ordinary investor on the stand beside the bank chairman, and deposit insurance was law within four months.',
-      activates: 'Recognition: this is why my life is harder. That feeling moves a voter who could go either way; outrage alone mostly moves the people already on your side.'
+      means: 'Whether the words tie the wrongdoing to what matters most in the listener’s own life, so the two become one story.',
+      matters: '“They are corrupt” and “costs are up” each lose alone; tied together, each proves the other.',
+      activates: 'Recognition, the sense that this is why life is harder, which moves voters who could go either way more than outrage does.'
     }
   };
   function term(key, title){
@@ -263,7 +264,9 @@ export function initRevengeOrJustice(root, opts) {
     pop.style.width = w + 'px';
     var left = Math.max(16, Math.min(r.left, window.innerWidth - w - 16));
     pop.style.left = (left - base.left) + 'px';
-    pop.style.top = (r.bottom - base.top + 8) + 'px';
+    // Below the term when it fits on screen, else above it.
+    var above = r.bottom + 8 + pop.offsetHeight > window.innerHeight && r.top - 8 - pop.offsetHeight > 0;
+    pop.style.top = (above ? r.top - base.top - 8 - pop.offsetHeight : r.bottom - base.top + 8) + 'px';
     pop.querySelector('.pop-x').addEventListener('click', function(){ closePop(true); });
   }
   // One listener for every term on the page, wherever it is drawn. A term inside a reading row opens its
