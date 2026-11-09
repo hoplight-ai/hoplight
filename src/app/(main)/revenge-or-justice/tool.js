@@ -177,7 +177,8 @@ export function initRevengeOrJustice(root, opts) {
         html += '<button type="button" class="prow' + (i === chosen ? ' on' : '') + '" data-p="' + i + '" aria-expanded="' + (i === chosen ? 'true' : 'false') + '" aria-controls="pq' + i + '">' +
           // A byline (name, then role) and the person's own dial (the approved mockup, 2026-11-09).
           '<span class="pwho"><span class="pname k-' + kindOf(p) + '">' + esc(p.name) + '</span>' + (p.role ? '<span class="prole">' + esc(p.role) + '</span>' : '') + '</span>' +
-          '<span class="pdial" aria-hidden="true">' + (graded ? dial(pos, 'small') : '') + '</span>' +
+          // With one person quoted, their dial would repeat the big one, so it is left out.
+          '<span class="pdial" aria-hidden="true">' + (graded && people.length > 1 ? dial(pos, 'small') : '') + '</span>' +
           '<span class="sr">' + (graded ? sideWords(pos) + ', ' + Math.round(pos) + ' of 100 toward justice. ' : '') + (i === chosen ? 'Showing their words.' : 'Show their words and their reading.') + '</span>' +
           '</button>' +
           '<div class="pquotes" id="pq' + i + '"' + (i === chosen ? '' : ' hidden') + '>' +
@@ -420,8 +421,9 @@ export function initRevengeOrJustice(root, opts) {
     var isUrl = /^https?:\/\/\S+$/.test(text);
     var shown = isUrl ? host(text) : text.replace(/\s+/g, ' ').slice(0, 140) + (text.length > 140 ? '…' : '');
     var it = isUrl ? feedByUrl[text] : null;
-    // The headline itself now sits over the claim, so the strip names only what was read.
-    $('what').innerHTML = it ? outletBadge(it.host, it.source) : '<b>Read:</b> ' + esc(shown);
+    // An article from the list shows its outlet and headline over the claim, so the strip carries only "Read
+    // another"; a pasted link or text is named here.
+    $('what').innerHTML = it ? '' : '<b>Read:</b> ' + esc(shown);
     root.classList.add('read');
     $('strip').classList.add('on');
     window.scrollTo({ top: 0, behavior: 'auto' });
