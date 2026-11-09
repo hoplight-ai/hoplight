@@ -176,3 +176,15 @@ test('built: The Undo List tile shows on /portfolio with its pen mark (UNDONOW1)
   assert.ok(tile, 'The Undo List has no tile on the built /portfolio');
   assert.ok(tile.includes(tileMarkSvg('undo')), 'The Undo List tile does not draw its pen mark');
 });
+
+// RJCLEAR1, 2026-11-08. Revenge or Justice is cleared from 2026-11-08 (Whit, 2026-11-08: "Yes, I'll set it", then
+// "It's set", to a monthly billing cap on the Anthropic workspace behind the grader). A build from that day on
+// draws its tile with its scales mark.
+test('built: the Revenge or Justice tile shows on /portfolio with its scales mark (RJCLEAR1)', { skip: built ? false : 'no build present' }, async () => {
+  const { tileMarkSvg } = await marks();
+  const html = readFileSync(built, 'utf8');
+  const roj = TOOLS.find((t) => t.slug === 'revenge-or-justice');
+  const tile = html.split('<li>').slice(1).find((x) => x.includes(`href="${roj.href}"`));
+  assert.ok(tile, 'Revenge or Justice has no tile on the built /portfolio');
+  assert.ok(tile.includes(tileMarkSvg('revenge-or-justice')), 'the Revenge or Justice tile does not draw its scales mark');
+});
