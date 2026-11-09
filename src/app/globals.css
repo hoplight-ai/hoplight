@@ -833,7 +833,6 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-items { list-style: none; margin: 0; padding: 0; }
 .undo-item {
   display: flex; align-items: flex-start; gap: 4px; padding: 14px 0; border-bottom: 1px solid var(--line);
-  content-visibility: auto; contain-intrinsic-size: auto 150px;
 }
 .undo-item p { margin: 0; }
 .undo-item-body { flex: 1 1 auto; min-width: 0; }
