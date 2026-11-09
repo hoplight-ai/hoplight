@@ -1142,12 +1142,13 @@ test('(p) the agency inventory\'s "Uncertain" reaches 4.5:1 on white and on the 
 // Google's stylesheet and font files, so a page that links them draws in a fallback face. The one file left
 // out is the link-preview image route: it fetches Inter on the server to draw a PNG, which no browser loads.
 // The tool cards' route (/api/og/tool/<slug>, 2026-11-07) does the same with each tool's own face, so it is
-// left out for the same reason.
+// left out for the same reason, and so is the Revenge or Justice share card's route (/api/og/rj/<token>,
+// 2026-11-09), which draws Inter into a PNG on the server the same way.
 const GOOGLE_FONTS = /fonts\.googleapis\.com|fonts\.gstatic\.com/;
 const SELF_HOSTED = ['barlow-semi-condensed', 'dm-sans', 'dm-mono', 'inter', 'jetbrains-mono', 'archivo'];
 
 test('(q) no served page loads a font from fonts.googleapis.com or fonts.gstatic.com', () => {
-  const ogRoutes = [join('src', 'app', 'api', 'og', 'route.tsx'), join('src', 'app', 'api', 'og', 'tool', '[slug]', 'route.tsx')];
+  const ogRoutes = [join('src', 'app', 'api', 'og', 'route.tsx'), join('src', 'app', 'api', 'og', 'tool', '[slug]', 'route.tsx'), join('src', 'app', 'api', 'og', 'rj', '[token]', 'route.tsx')];
   const files = [
     ...walkFiles('public', new Set(['.html', '.css', '.js', '.svg', '.json'])),
     ...walkFiles('src', new Set(['.ts', '.tsx', '.css'])).filter((f) => !ogRoutes.includes(f)),

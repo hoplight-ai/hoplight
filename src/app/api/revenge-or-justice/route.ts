@@ -14,6 +14,7 @@
 import { NextResponse } from 'next/server';
 import { checkLimitIn, clientIp } from '@/lib/rate-limit';
 import { LOOKS_LIKE_LINK, publicHttpUrl } from '@/lib/safe-url';
+import { encodeShare, shareEnabled, type Verdict } from '@/lib/rj-share';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
@@ -67,5 +68,50 @@ export async function POST(req: Request) {
     cache: 'no-store',
   });
   const out = await res.text();
-  return new NextResponse(out, { status: res.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+  if (!res.ok || !shareEnabled()) return new NextResponse(out, { status: res.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+  // Every reading in the reply gets its own signed share link (src/lib/rj-share.ts), so whichever voice, issue
+  // or person is on screen can be shared as it reads. Only readings the grader itself returned are signed here.
+  let reply: Reading;
+  try { reply = JSON.parse(out) as Reading; } catch { return new NextResponse(out, { status: res.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } }); }
+  try { attachShares(reply); } catch { /* a reply that cannot be shared is still a reply */ }
+  return NextResponse.json(reply, { status: res.status, headers: { 'Cache-Control': 'no-store' } });
+}
+
+interface Reading {
+  verdict?: string;
+  mean_position?: number;
+  headline?: string;
+  error?: string;
+  share?: string;
+  name?: string;
+  fetched?: string | null;
+  article?: { title?: string; site?: string } | null;
+  voices?: { politicians?: (Reading & { by_speaker?: Reading[] }) | null; coverage?: (Reading & { outlet?: string; whole?: boolean }) | null };
+  issues?: Reading[];
+  issues_of?: string;
+}
+
+function hostOf(u: string): string {
+  try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return ''; }
+}
+
+function attachShares(reply: Reading): void {
+  const fetched = typeof reply.fetched === 'string' ? reply.fetched : '';
+  const host = fetched ? hostOf(fetched) : '';
+  const outlet = (reply.article && reply.article.site) || (reply.voices && reply.voices.coverage && reply.voices.coverage.outlet) || host;
+  const title = (reply.article && reply.article.title) || '';
+  const day = new Date().toISOString().slice(0, 10);
+  const mint = (r: Reading | null | undefined, whose: string) => {
+    if (!r || r.error || !r.verdict || r.mean_position == null || !r.headline) return;
+    if (!['justice', 'mixed', 'retribution'].includes(r.verdict)) return;
+    const token = encodeShare({ u: fetched || undefined, t: title || undefined, o: outlet || undefined, h: host || undefined, s: r.mean_position, v: r.verdict as Verdict, l: r.headline, w: whose, d: day });
+    if (token) r.share = token;
+  };
+  mint(reply, 'The whole text');
+  const pol = reply.voices && reply.voices.politicians;
+  mint(pol, 'The politicians’ own words');
+  for (const p of (pol && pol.by_speaker) || []) mint(p, (p.name || 'Their') + '’s own words');
+  const cov = reply.voices && reply.voices.coverage;
+  mint(cov, cov && cov.whole ? 'The whole text' : (outlet ? outlet + '’s' : 'The outlet’s') + ' own framing');
+  for (const i of reply.issues || []) mint(i, (reply.issues_of === 'politicians' ? 'The politicians on ' : 'On ') + (i.name || 'one issue'));
 }

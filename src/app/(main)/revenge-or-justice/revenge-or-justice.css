@@ -333,7 +333,7 @@
    better, justics framing?"). #rj-print is built from the reading on screen and appended to <body> only while
    printing; on screen it sits off to the side at the page's printed width (7.5 inches) so it can be measured
    and shrunk to one page. In print, everything else is hidden. Colours print as drawn. */
-.rj .strip .rj-pdf{min-height:40px;padding:8px 16px;font-size:15px}
+.rj .strip .rj-share{min-height:40px;padding:8px 20px;font-size:15px;font-weight:600}
 #rj-print{position:absolute;left:-10000px;top:0;width:720px;background:#fff;color:#0F1B2D;font-family:var(--font-body);font-size:12px;line-height:1.4;font-variant-numeric:lining-nums tabular-nums;-webkit-print-color-adjust:exact;print-color-adjust:exact}
 #rj-print *{box-sizing:border-box;margin:0;padding:0}
 #rj-print .pp-head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:8px;border-bottom:2px solid #0F1B2D}
@@ -396,3 +396,23 @@
   html,body{background:#fff !important}
   #rj-print{position:static;left:auto;width:7.5in}
 }
+
+/* Share (2026-11-09): the one filled button after a reading; Save as PDF beside it outlined. The panel shows the
+   card exactly as it will appear when pasted, the line that goes with it, the link to copy and one plain link
+   per network. */
+.rj .rj-share[hidden]{display:none}
+.rj .rj-pdfbtn{font:inherit;font-size:15px;font-weight:500;min-height:40px;padding:8px 16px;border:1px solid var(--rule);border-radius:4px;background:var(--white);color:var(--ink);cursor:pointer}
+@media (hover:hover){.rj .rj-pdfbtn:hover{border-color:var(--ink)}}
+.rj .rj-pdfbtn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
+.rj .sharebox{flex-basis:100%;display:grid;grid-template-columns:minmax(0,420px) minmax(0,1fr);gap:24px;align-items:start;padding:var(--s2) 0 var(--s1)}
+.rj .sharebox[hidden]{display:none}
+.rj .sb-card{display:block;width:100%;height:auto;border-radius:8px;box-shadow:0 6px 20px rgba(15,27,45,.14)}
+.rj .sb-line{font-size:16px;line-height:1.5;color:var(--ink)}
+.rj .sb-copy{display:flex;gap:8px;margin-top:12px}
+.rj .sb-copy input{flex:1;min-width:0;font:inherit;font-size:14px;color:var(--stone);padding:9px 10px;border:1px solid var(--rule);border-radius:4px;background:var(--white)}
+.rj .sb-copybtn{font:inherit;font-size:14px;font-weight:600;padding:9px 14px;border:0;border-radius:4px;background:var(--ink);color:var(--white);cursor:pointer;white-space:nowrap}
+.rj .sb-nets{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.rj .sb-net{font:inherit;font-size:14px;font-weight:600;padding:8px 14px;border:1px solid var(--rule);border-radius:999px;background:var(--white);color:var(--ink);text-decoration:none;cursor:pointer;border-bottom-color:var(--rule)}
+@media (hover:hover){.rj .sb-net:hover{border-color:var(--ink)}}
+.rj .sb-net:focus-visible,.rj .sb-copybtn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
+@media (max-width:760px){.rj .sharebox{grid-template-columns:1fr}}

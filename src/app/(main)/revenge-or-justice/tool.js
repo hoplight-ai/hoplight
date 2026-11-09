@@ -109,7 +109,7 @@ export function initRevengeOrJustice(root, opts) {
   // 38 and 62; the needle points at the score, the score sits under the hub in its side's colour, and the band
   // the score falls in is drawn full while the other two step back. Big for the verdict, small on an article
   // card and on each person. An empty value draws an empty dial that says "Tap to read".
-  var DC = { revenge: '#9c3327', mixed: '#CFCAC0', justice: '#D4950A', ink: '#0F1B2D', stone: '#575752', gold: '#996D00', empty: '#E8E5DE' };
+  var DC = { revenge: '#9c3327', mixed: '#CFCAC0', justice: '#D4950A', ink: '#0F1B2D', stone: '#575752', gold: '#996D00', empty: '#E4E7EC' };
   function dpt(cx, cy, r, v){ var a = Math.PI - (v / 100) * Math.PI; return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; }
   function darc(cx, cy, r, a, b){ var p = dpt(cx, cy, r, a), q = dpt(cx, cy, r, b); return 'M' + p[0].toFixed(2) + ' ' + p[1].toFixed(2) + ' A' + r + ' ' + r + ' 0 0 1 ' + q[0].toFixed(2) + ' ' + q[1].toFixed(2); }
   function dside(v){ return v >= 62 ? 'justice' : v <= 38 ? 'revenge' : 'mixed'; }
@@ -332,6 +332,9 @@ export function initRevengeOrJustice(root, opts) {
   function show(j, issue, ctx){
     ctx = ctx || { kind: 'all' };
     last = { j: j, issue: issue, ctx: ctx };
+    // Share follows the reading on screen: shown when it carries a signed link, the open panel closed on a change.
+    $('share').hidden = !j.share;
+    closeShare();
     var m = [];
     // The names are already on the tags above, so this line keeps only the share.
     if (ctx.kind === 'politicians' && ctx.share) m.push('Their words are ' + esc(ctx.share) + '% of the text');
@@ -503,7 +506,60 @@ export function initRevengeOrJustice(root, opts) {
     window.addEventListener('afterprint', done);
     setTimeout(function(){ window.print(); }, 50);
   });
+  // Sharing (Whit, 2026-11-09: "we need social sharing- ... the graphic showing the eval of the quotes, a link to
+  // the article included, and a very quick summary of whay this tool does and what the grade was"). The grader
+  // route signs every reading it returns (src/lib/rj-share.ts); the link opens a page at /revenge-or-justice/r/
+  // with the article link and what the tool is, and its preview card (/api/og/rj/) is the question, the outlet's
+  // icon, the headline, the dial and the verdict with its one line. Each button below is a plain link the reader
+  // chooses to follow; nothing is sent anywhere until they do.
+  var SHARE_ORIGIN = 'https://hoplight.ai';
+  function closeShare(){ var box = $('sharebox'); if (box && !box.hidden) { box.hidden = true; box.innerHTML = ''; $('share').setAttribute('aria-expanded', 'false'); } }
+  function shareText(){
+    var reply = lastReply || {}, j = last.j, item = reply.fetched ? feedByUrl[reply.fetched] : null;
+    var title = (item && item.title) || (reply.article && reply.article.title) || '';
+    var outlet = (item && item.source) || (reply.article && reply.article.site) || (reply.voices && reply.voices.coverage && reply.voices.coverage.outlet) || '';
+    var score = Math.round(j.mean_position != null ? j.mean_position : 50);
+    var how = j.verdict === 'mixed' ? 'reads as mixed' : 'leans ' + word(j.verdict);
+    var subject = title ? (outlet ? outlet + '’s “' : '“') + trunc(title, 90) + '”' : 'This statement';
+    if (last.ctx.kind === 'person') subject = last.ctx.person.name + (title ? ', in “' + trunc(title, 70) + '”,' : '');
+    return { line: 'Does this sound like revenge or justice? ' + subject + ' ' + how + ', ' + score + ' of 100.', article: reply.fetched || '' };
+  }
+  $('share').addEventListener('click', function(){
+    var box = $('sharebox');
+    if (!box.hidden) { closeShare(); return; }
+    var token = last && last.j && last.j.share;
+    if (!token) return;
+    var url = SHARE_ORIGIN + '/revenge-or-justice/r/' + token;
+    var t = shareText();
+    track('share-open', { voice: last.ctx.kind });
+    var enc = encodeURIComponent;
+    var links = [
+      ['X', 'https://twitter.com/intent/tweet?text=' + enc(t.line) + '&url=' + enc(url)],
+      ['Bluesky', 'https://bsky.app/intent/compose?text=' + enc(t.line + ' ' + url)],
+      ['Threads', 'https://www.threads.net/intent/post?text=' + enc(t.line + ' ' + url)],
+      ['LinkedIn', 'https://www.linkedin.com/sharing/share-offsite/?url=' + enc(url)],
+      ['Facebook', 'https://www.facebook.com/sharer/sharer.php?u=' + enc(url)],
+      ['Email', 'mailto:?subject=' + enc('Does this sound like revenge or justice?') + '&body=' + enc(t.line + '\n\n' + url + (t.article ? '\n\nThe article: ' + t.article : ''))]
+    ];
+    box.innerHTML =
+      '<img class="sb-card" src="/api/og/rj/' + esc(token) + '" alt="The card this link shows when it is shared" width="1200" height="630">' +
+      '<div class="sb-side"><p class="sb-line">' + esc(t.line) + '</p>' +
+      '<div class="sb-copy"><input type="text" readonly value="' + esc(url) + '" aria-label="Share link"><button type="button" class="sb-copybtn">Copy link</button></div>' +
+      '<div class="sb-nets">' + links.map(function(l){ return '<a class="sb-net" href="' + esc(l[1]) + '" target="_blank" rel="noopener noreferrer" data-net="' + l[0] + '">' + l[0] + '</a>'; }).join('') +
+      (navigator.share ? '<button type="button" class="sb-net sb-more">More…</button>' : '') + '</div></div>';
+    box.hidden = false;
+    $('share').setAttribute('aria-expanded', 'true');
+    box.querySelector('.sb-copybtn').addEventListener('click', function(e){
+      var b = e.currentTarget;
+      track('share', { net: 'copy' });
+      navigator.clipboard.writeText(t.line + ' ' + url + (t.article ? '\nThe article: ' + t.article : '')).then(function(){ b.textContent = 'Copied'; setTimeout(function(){ b.textContent = 'Copy link'; }, 1500); });
+    });
+    Array.prototype.forEach.call(box.querySelectorAll('a.sb-net'), function(a){ a.addEventListener('click', function(){ track('share', { net: a.getAttribute('data-net') }); }); });
+    var more = box.querySelector('.sb-more');
+    if (more) more.addEventListener('click', function(){ track('share', { net: 'native' }); navigator.share({ title: 'Revenge or Justice', text: t.line, url: url }).catch(function(){}); });
+  });
   $('again').addEventListener('click', function(){
+    closeShare();
     track('again');
     root.classList.remove('read');
     $('strip').classList.remove('on');
@@ -549,6 +605,13 @@ export function initRevengeOrJustice(root, opts) {
       });
     });
   }).catch(function(){ /* the column stays hidden */ });
+
+  // A shared reading's "See the full reading" link arrives with ?u=<the article>: the box is filled and waits
+  // for "Read it", so a visitor from a share decides when a reading is run.
+  try {
+    var pre = new URLSearchParams(window.location.search).get('u');
+    if (pre && /^https?:\/\/\S+$/.test(pre) && pre.length < 2000) { $('t').value = pre; from = 'share'; }
+  } catch (e) { /* no prefill */ }
 
   $('f').addEventListener('submit', function(e){
     e.preventDefault();

@@ -1,0 +1,36 @@
+/* A shared Revenge or Justice reading (2026-11-09): the same picture as its preview card, as a page. */
+.rjs{background:#fff;color:#0F1B2D;font-family:var(--font-body);font-variant-numeric:lining-nums tabular-nums}
+.rjs-wrap{max-width:1040px;margin:0 auto;padding:48px 24px 96px}
+.rjs-q{font-family:var(--font-display);font-size:clamp(26px,1.2rem + 1.6vw,36px);font-weight:700;letter-spacing:-.015em;color:#996D00}
+.rjs-card{display:grid;grid-template-columns:320px minmax(0,1fr);gap:44px;align-items:center;margin-top:28px;padding:32px;border:1px solid rgba(15,27,45,.14);border-top:6px solid #0F1B2D;border-radius:10px}
+.rjs-dial{position:relative;width:320px}
+.rjs-dial svg{display:block;width:320px;height:auto}
+.rjs-ends{display:flex;justify-content:space-between;margin-top:-6px;font-size:15px;font-weight:700}
+.rjs-ends .r{color:#9c3327}
+.rjs-ends .j{color:#996D00}
+.rjs-score{text-align:center;margin-top:-30px;font-size:64px;font-weight:800;line-height:1}
+.rjs-outlet{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.rjs-outlet img{width:28px;height:28px;border-radius:5px;background:#fff}
+.rjs-hl{display:block;margin-top:10px;font-size:clamp(24px,1rem + 1.4vw,32px);line-height:1.15;font-weight:800;letter-spacing:-.015em;color:#0F1B2D;text-decoration:none;text-wrap:balance}
+a.rjs-hl:hover{text-decoration:underline;text-decoration-color:#D4950A;text-decoration-thickness:2px;text-underline-offset:4px}
+.rjs-claim{margin-top:16px;font-size:20px;line-height:1.45;color:#2A3F5F}
+.rjs-v{font-weight:800;color:#fff;padding:0 .3em;border-radius:4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rjs-v.revenge{background:#9c3327}
+.rjs-v.justice{background:#996D00}
+.rjs-v.mixed{background:#0F1B2D}
+.rjs-meta{margin-top:12px;font-size:14px;color:#575752}
+.rjs-act{display:flex;align-items:center;flex-wrap:wrap;gap:16px 28px;margin-top:28px}
+.rjs-btn{display:inline-block;font-size:16px;font-weight:600;padding:12px 22px;border-radius:4px;background:#D4950A;color:#0F1B2D;text-decoration:none}
+.rjs-btn:focus-visible,.rjs-quiet:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
+.rjs-quiet{font-size:16px;color:#2A3F5F;text-decoration:none;border-bottom:1px solid rgba(15,27,45,.18);padding-bottom:2px}
+.rjs-about{margin-top:56px;padding-top:20px;border-top:1px solid rgba(15,27,45,.14);max-width:65ch}
+.rjs-about h2{font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#575752}
+.rjs-about p{margin-top:8px;font-size:17px;line-height:1.6;color:#2A3F5F}
+.rjs-about a{color:#0F1B2D;border-bottom:1px solid rgba(15,27,45,.18);text-decoration:none}
+@media (max-width:760px){
+  .rjs-card{grid-template-columns:1fr;gap:16px;padding:20px}
+  .rjs-dial{margin:0 auto;width:260px}
+  .rjs-dial svg{width:260px}
+  .rjs-score{font-size:52px;margin-top:-24px}
+  .rjs-claim{font-size:18px}
+}

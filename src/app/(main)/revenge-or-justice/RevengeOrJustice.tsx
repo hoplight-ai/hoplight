@@ -68,8 +68,11 @@ export default function RevengeOrJustice() {
           <span className="what" id="what" />
           {/* Whit, 2026-11-09: "can we make this produce a pdf 1 pager w the assessment and recs for better,
               justics framing?" One page laid out for Letter from the reading on screen; the browser saves it. */}
-          <button className="rj-btn rj-pdf" id="pdf" type="button">Save as PDF</button>
+          {/* Whit, 2026-11-09: "we need social sharing". Shown only when the reading carries a signed share link. */}
+          <button className="rj-btn rj-share" id="share" type="button" aria-expanded="false" aria-controls="sharebox" hidden>Share</button>
+          <button className="rj-pdfbtn" id="pdf" type="button">Save as PDF</button>
           <button className="quietbtn" id="again" type="button">Read another</button>
+          <div className="sharebox" id="sharebox" hidden />
         </div>
 
         <section id="out" aria-live="polite">

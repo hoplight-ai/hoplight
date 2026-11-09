@@ -181,7 +181,7 @@ body{background:#fff;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSy
     var bands = [[0, 38, 'revenge'], [38, 62, 'mixed'], [62, 100, 'justice']];
     bands.forEach(function(b){
       var on = has && side(+v) === b[2];
-      s += '<path d="' + arc(cx, cy, r, b[0] + (b[0] ? gap : 0), b[1] - (b[1] < 100 ? gap : 0)) + '" fill="none" stroke="' + (has ? C[b[2]] : '#E8E5DE') + '" stroke-width="' + sw + '" stroke-opacity="' + (has && !on ? 0.6 : 1) + '"/>';
+      s += '<path d="' + arc(cx, cy, r, b[0] + (b[0] ? gap : 0), b[1] - (b[1] < 100 ? gap : 0)) + '" fill="none" stroke="' + (has ? C[b[2]] : '#E4E7EC') + '" stroke-width="' + sw + '" stroke-opacity="' + (has && !on ? 0.6 : 1) + '"/>';
     });
     if (big) {
       [0, 25, 50, 75, 100].forEach(function(t){ var a = pt(cx, cy, r + sw / 2 + 4, t), b = pt(cx, cy, r + sw / 2 + 10, t); s += '<line x1="' + a[0] + '" y1="' + a[1] + '" x2="' + b[0] + '" y2="' + b[1] + '" stroke="' + C.stone + '" stroke-width="1.5"/>'; });
