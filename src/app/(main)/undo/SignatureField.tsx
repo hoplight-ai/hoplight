@@ -59,11 +59,10 @@ export default function SignatureField({
                 {done > 0 ? `${done}/${b.ids.length}` : b.ids.length}
               </span>
             </span>
-            {b.cols >= 8 ? (
-              <span className="undo-block-name" aria-hidden="true">
-                {b.title}
-              </span>
-            ) : null}
+            {/* Every block carries its order's name (round 2, 2026-11-08), not only the wide ones. */}
+            <span className="undo-block-name" aria-hidden="true">
+              {b.title}
+            </span>
           </button>
         );
       })}

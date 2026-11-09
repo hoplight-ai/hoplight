@@ -928,12 +928,26 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
   display: inline-block; padding: 0 6px; border: 1px solid var(--line); border-radius: var(--radius-sm);
   font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6; letter-spacing: 0.04em; color: var(--stone);
 }
-#undo-lunch-h { scroll-margin-top: 150px; }
-#undo-lunch-h:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
 
 /* Filter chips and the sort control, under the search */
 .undo-filters { margin-top: 24px; display: grid; gap: 20px; }
 .undo-fchips { display: flex; flex-wrap: wrap; gap: 8px; }
+/* On a phone the seventeen issue filters sit behind one control, so the rows come first (round 2,
+   2026-11-08). On a wide screen the filters always show and the control is hidden. */
+.undo-fchips-toggle {
+  display: none; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 44px; padding: 0 14px;
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; color: var(--ink); background: var(--white);
+  border: 1px solid var(--line-card); border-radius: var(--radius-sm); cursor: pointer; text-align: left;
+}
+.undo-fchips-toggle::after { content: '+'; font-size: 1.1rem; }
+.undo-filters.is-open .undo-fchips-toggle::after { content: '\2212'; }
+.undo-fchips-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+@media (max-width: 759px) {
+  .undo-filters { gap: 12px; }
+  .undo-fchips-toggle { display: flex; }
+  .undo-filters:not(.is-open) #undo-fchips { display: none; }
+  .undo-filters #undo-issue-legend { display: none; }
+}
 .undo-fchip {
   position: relative; display: inline-flex; align-items: baseline; gap: 8px; min-height: 36px; padding: 0 12px;
   font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--stone-deep); background: var(--white);
@@ -982,10 +996,6 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 /* How far the reader's ticks have gone through this issue's pen items: a hairline over the pen segment */
 .undo-bar-mark { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); box-shadow: 0 0 0 1px var(--white); transition: left 200ms ease-out; }
 .undo-bar-count { grid-area: count; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.undo-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 18px 0 0; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--stone); }
-.undo-legend-item { display: inline-flex; align-items: center; gap: 8px; }
-.undo-legend-swatch { display: inline-block; width: 12px; height: 12px; flex: none; }
-.undo-legend-mark { display: inline-block; width: 2px; height: 14px; flex: none; background: var(--ink); }
 @media (min-width: 760px) {
   .undo-bar { grid-template-columns: minmax(220px, 300px) 1fr 150px; grid-template-areas: 'label track count'; column-gap: 24px; padding: 14px 0; }
   .undo-bar-line { display: block; }
@@ -1107,23 +1117,15 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
    screen 94; two counts for one label). The list is its own page, the key is a bar under the hero,
    the issue bars are the one filter. ----- */
 
-/* The key: one bar of the executive actions a pen undoes, then one line per kind with swatch, name,
-   count (2026-11-08: executive actions only, so the four other buckets left the key) */
+/* The key: the executive actions a pen undoes by document type, drawn as the same sideways bars
+   as "Who feels it" with the count on each (round 2, 2026-11-08). The bars here are not buttons. */
 .undo-key { padding-top: 20px; }
-.undo-keybar { display: flex; gap: 2px; height: 14px; margin: 18px 0 16px; max-width: 760px; }
-.undo-keyseg { display: block; flex-basis: 0; min-width: 4px; height: 100%; border-radius: 2px; }
-.undo-keyseg-pen { background: var(--gold); }
-.undo-keylist { margin: 0; padding: 0; list-style: none; max-width: 760px; }
-.undo-keyrow { display: grid; grid-template-columns: 1fr; gap: 2px 20px; padding: 10px 0; border-top: 1px solid var(--line); }
-.undo-keyrow .undo-keyterm { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
-.undo-keyswatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; flex: none; }
-.undo-keycount { margin-left: auto; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
-@media (min-width: 760px) {
-  .undo-keyrow { grid-template-columns: 300px 1fr; align-items: baseline; }
-}
+.undo-kinds { max-width: 100%; margin-top: 18px; }
+.undo-bar-static { cursor: default; }
+.undo-bar-static:hover .undo-bar-name { border-bottom-color: transparent; }
 
 /* The field names its wide blocks, so the biggest shape on the page carries its name */
-.undo-block-name { display: block; max-width: calc(var(--cols) * (var(--cell) + var(--gap))); font-size: 0.74rem; line-height: 1.25; font-weight: 600; color: var(--ink); text-wrap: balance; }
+.undo-block-name { display: block; width: max(calc(var(--cols) * (var(--cell) + var(--gap))), 6.5rem); font-size: 0.74rem; line-height: 1.25; font-weight: 600; color: var(--ink); text-wrap: balance; }
 
 /* The bar filter: first five bars, the rest on a tap, clear beside it */
 .undo-who { padding-top: 24px; }

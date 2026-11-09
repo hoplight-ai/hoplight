@@ -27,7 +27,7 @@ export default async function UndoAllPage() {
             {COPY.all.back}
           </a>
           <h1>{COPY.all.title}</h1>
-          <p className="undo-hero-read">{COPY.all.intro(data.total, data.penInForce)}</p>
+          <p className="undo-hero-read">{COPY.all.intro(data.penInForce)}</p>
         </div>
       </div>
       <UndoAll rows={data.slim} penInForce={data.penInForce} orders={data.orders} />

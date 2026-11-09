@@ -6,7 +6,7 @@ import type { Instrument } from '@/lib/undo/types';
 import { COPY } from '@/lib/undo/copy';
 import { track } from '@/lib/track';
 import { orderText } from '@/lib/undo/order-text';
-import { ISSUES } from '@/lib/undo/issues';
+import { ISSUES, ISSUE_BY_KEY } from '@/lib/undo/issues';
 import type { IssueKey } from '@/lib/undo/issues';
 import type { ForwardOrderView } from '@/lib/undo/forward-text';
 import { groupByBundle, PEN_SORTS, sortByDate } from '@/lib/undo/pen';
@@ -189,40 +189,7 @@ function PagedItems({
 
 function SubHead({ label, count }: { label: string; count: number }) {
   return (
-    <h3 className="undo-subhead">
-      {label} <span className="undo-subcount">{count.toLocaleString('en-US')}</span>
-    </h3>
-  );
-}
-
-// A section of the list: closed until tapped, open on its own while a search or filter runs.
-function Fold({
-  id,
-  title,
-  count,
-  forceOpen,
-  children,
-}: {
-  id: string;
-  title: string;
-  count: number;
-  forceOpen: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="undo-section undo-section-ruled" aria-labelledby={id}>
-      <div className="wrap">
-        <details className="undo-fold" open={forceOpen || undefined}>
-          <summary className="undo-fold-summary">
-            <h2 id={id} className="undo-h2">
-              {title}
-            </h2>
-            <span className="undo-subcount">{count.toLocaleString('en-US')}</span>
-          </summary>
-          {children}
-        </details>
-      </div>
-    </section>
+    <h3 className="undo-subhead">{COPY.groups.titled(label, count)}</h3>
   );
 }
 
@@ -277,6 +244,9 @@ export default function UndoAll({
   const [issue, setIssue] = useState<IssueKey | null>(null);
   const [sort, setSort] = useState<PenSort>(PEN_SORTS[0]);
   const [signed, setSigned] = useState<Set<string>>(() => new Set());
+  // The issue filters sit behind one control on a phone, so the rows come first; on a wide screen
+  // the stylesheet shows them always and hides the control.
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     // Reading storage must wait for the browser, so this one setState in an effect is deliberate.
@@ -292,11 +262,12 @@ export default function UndoAll({
     writeSigned([...next]);
   }
 
-  // Chip counts are taken over the rows the search leaves, so a chip's number is what its click shows.
+  // Chip counts are taken over the rows still standing that the search leaves, so a chip's number
+  // is what its click shows in "To undo" and matches the bar for the same issue on /undo.
   const issueCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const r of rows) {
-      if (!matchesQuery(r, query)) continue;
+      if (!isPenInForce(r) || !matchesQuery(r, query)) continue;
       for (const k of new Set(r.issues ?? [])) counts[k] = (counts[k] ?? 0) + 1;
     }
     return counts;
@@ -334,7 +305,7 @@ export default function UndoAll({
     track('undo', 'filter', { issue: key ?? 'all', page: 'all' });
   }
 
-  const searching = query.trim() !== '' || issue !== null;
+  const restCount = view.done.length + view.justIn.length + view.leave.length + view.ceremonial.length;
 
   const activeIds = useMemo(() => new Set(rows.filter(isPenInForce).map((r) => r.id)), [rows]);
   let signedCount = 0;
@@ -380,8 +351,17 @@ export default function UndoAll({
               </div>
             </fieldset>
           </div>
-          <div className="undo-filters">
-            <div role="group" aria-labelledby="undo-issue-legend">
+          <div className={`undo-filters${filtersOpen ? ' is-open' : ''}`}>
+            <button
+              type="button"
+              className="undo-fchips-toggle"
+              aria-expanded={filtersOpen}
+              aria-controls="undo-fchips"
+              onClick={() => setFiltersOpen(!filtersOpen)}
+            >
+              {COPY.issues.toggle(issue ? ISSUE_BY_KEY[issue].label : undefined)}
+            </button>
+            <div role="group" aria-labelledby="undo-issue-legend" id="undo-fchips">
               <span id="undo-issue-legend" className="undo-filter-legend">
                 {COPY.issues.filterLabel}
               </span>
@@ -409,7 +389,7 @@ export default function UndoAll({
             </div>
           </div>
           <p className="undo-count" role="status" aria-live="polite">
-            {COPY.search.count(view.shown, rows.length)}. {COPY.strip.signedOf(signedCount, penInForce)}.
+            {COPY.search.count(view.lunchRows.length, penInForce)}. {COPY.strip.signedOf(signedCount, penInForce)}.
           </p>
           {rows.length === 0 ? (
             <p className="undo-empty">{COPY.search.noRows}</p>
@@ -419,39 +399,51 @@ export default function UndoAll({
         </div>
       </section>
 
+      {/* THE LIST: the executive actions still standing, open, so the sort and the filter visibly move it */}
       {view.lunchRows.length > 0 ? (
-        <Fold id="undo-lunch-h" title={COPY.lunch.title} count={view.lunchRows.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.lunch.intro}</p>
-          <Rows rows={view.lunchRows} orders={orders} variant="check" sort={sort} signed={signed} onToggle={toggle} />
-        </Fold>
+        <section className="undo-section undo-section-ruled" aria-labelledby="undo-standing-h">
+          <div className="wrap">
+            <h2 id="undo-standing-h" className="undo-h2">
+              {COPY.groups.titled(COPY.groups.standing, view.lunchRows.length)}
+            </h2>
+            <p className="undo-intro">{COPY.groups.standingIntro}</p>
+            <Rows rows={view.lunchRows} orders={orders} variant="check" sort={sort} signed={signed} onToggle={toggle} />
+          </div>
+        </section>
       ) : null}
 
-      {view.done.length > 0 ? (
-        <Fold id="undo-done-h" title={COPY.done.title} count={view.done.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.done.intro}</p>
-          <Rows rows={view.done} variant="done" sort={sort} />
-        </Fold>
-      ) : null}
-
-      {view.justIn.length > 0 ? (
-        <Fold id="undo-justin-h" title={COPY.justIn.title} count={view.justIn.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.justIn.intro}</p>
-          <Rows rows={view.justIn} variant="done" sort={sort} />
-        </Fold>
-      ) : null}
-
-      {view.leave.length > 0 ? (
-        <Fold id="undo-leave-h" title={COPY.leave.title} count={view.leave.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.leave.intro}</p>
-          <Rows rows={view.leave} variant="done" sort={sort} />
-        </Fold>
-      ) : null}
-
-      {view.ceremonial.length > 0 ? (
-        <Fold id="undo-ceremonial-h" title={COPY.ceremonial.title} count={view.ceremonial.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.ceremonial.intro}</p>
-          <Rows rows={view.ceremonial} variant="done" sort={sort} />
-        </Fold>
+      {/* THE REST: what a pen reached that needs no signature now, behind one tap */}
+      {restCount > 0 ? (
+        <section className="undo-section undo-section-ruled" aria-labelledby="undo-rest-h">
+          <div className="wrap">
+            {/* Opens on its own only for a typed search, which may hit a row in here; an issue pick
+                narrows the list above and leaves this closed until tapped. */}
+            <details className="undo-fold undo-rest" open={query.trim() !== '' || undefined}>
+              <summary className="undo-fold-summary">
+                <h2 id="undo-rest-h" className="undo-h2">
+                  {COPY.groups.rest(restCount)}
+                </h2>
+              </summary>
+              <p className="undo-intro">{COPY.groups.restIntro(rows.length)}</p>
+              {(
+                [
+                  [COPY.groups.done, COPY.done.intro, view.done],
+                  [COPY.groups.justIn, COPY.justIn.intro, view.justIn],
+                  [COPY.groups.leave, COPY.leave.intro, view.leave],
+                  [COPY.groups.ceremonial, COPY.ceremonial.intro, view.ceremonial],
+                ] as const
+              ).map(([label, intro, items]) =>
+                items.length > 0 ? (
+                  <div key={label} className="undo-group">
+                    <SubHead label={label} count={items.length} />
+                    <p className="undo-intro">{intro}</p>
+                    <Rows rows={items} variant="done" sort={sort} />
+                  </div>
+                ) : null,
+              )}
+            </details>
+          </div>
+        </section>
       ) : null}
     </>
   );

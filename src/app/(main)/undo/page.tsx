@@ -52,9 +52,9 @@ export default async function UndoPage() {
           <h2 id="undo-all-h" className="undo-h2">
             {COPY.all.title}
           </h2>
-          <p className="undo-intro">{COPY.all.intro(data.total, data.penInForce)}</p>
+          <p className="undo-intro">{COPY.all.intro(data.penInForce)}</p>
           <TrackedLink className="btn btn-ghost" href="/undo/all" tool="undo" action="see-all">
-            {COPY.all.link(data.total)}
+            {COPY.all.link(data.penInForce)}
           </TrackedLink>
         </div>
       </section>

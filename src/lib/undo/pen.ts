@@ -1,7 +1,7 @@
 import type { UndoRow } from './types';
 // Explicit .ts extension: scripts/undo-pen.test.mjs loads this file with Node's native TypeScript
 // support, which does not resolve extensionless relative imports.
-import { groupPen, isPenInForce } from './sections.ts';
+import { isPenInForce } from './sections.ts';
 import type { Group } from './sections.ts';
 
 // The Undo List is executive actions only (2026-11-08). Whit: "wait yes the undo list is supposed
@@ -14,12 +14,27 @@ export function penRows<T extends Pick<UndoRow, 'bucket'>>(rows: readonly T[]): 
   return rows.filter((r) => r.bucket === 'pen');
 }
 
-/** The pen rows still standing, by kind (executive orders, proclamations, memoranda, and so on),
- *  for the key under the field. The counts sum to the hero number. */
+// The key counts by document type only (round 2, 2026-11-08): a subject label such as "Tariffs"
+// counted the one curated tariff row while order 04 bundles 29 tariff proclamations, so the two
+// numbers contradicted each other. Every instrument not named here is "Other".
+const KINDS: { key: string; label: string; instruments: UndoRow['instrument'][] }[] = [
+  { key: 'eo', label: 'Executive orders', instruments: ['executive_order'] },
+  { key: 'proc', label: 'Proclamations', instruments: ['proclamation'] },
+  { key: 'memo', label: 'Memoranda', instruments: ['memorandum'] },
+  { key: 'withdrawal', label: 'Withdrawals', instruments: ['treaty'] },
+];
+
+/** The pen rows still standing, by document type, for the key under the field. The counts sum to
+ *  the hero number; a type with nothing standing drops out. */
 export function penKinds<T extends Parameters<typeof isPenInForce>[0] & Pick<UndoRow, 'instrument'>>(
   rows: readonly T[],
 ): { key: string; label: string; count: number }[] {
-  return groupPen(rows.filter(isPenInForce)).map((g) => ({ key: g.key, label: g.label, count: g.rows.length }));
+  const standing = rows.filter(isPenInForce);
+  const named = new Set(KINDS.flatMap((k) => k.instruments));
+  return [
+    ...KINDS.map((k) => ({ key: k.key, label: k.label, count: standing.filter((r) => k.instruments.includes(r.instrument)).length })),
+    { key: 'other', label: 'Other', count: standing.filter((r) => !named.has(r.instrument)).length },
+  ].filter((k) => k.count > 0);
 }
 
 /** The orders the one sort control offers, the default first. */
