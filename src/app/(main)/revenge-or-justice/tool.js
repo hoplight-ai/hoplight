@@ -79,8 +79,10 @@ export function initRevengeOrJustice(root, opts) {
   // A quoted speaker from the reading: elected officials first, in gold (the same gold as the list's tags),
   // everyone else (staff, spokespeople, advocates) outlined in ink, each with the role the text gives them.
   var NOT_ELECTED = /\b(spokes\w*|aide|staff\w*|press secretary|adviser|advisor|strategist|operative|consultant|lawyer|attorney for|counsel|analyst|director|executive|ceo|founder|professor|former|candidate|nominee|activist|advocate|organizer|president of|head of|reporter|editor|columnist)\b/i;
-  var ELECTED = /\b(rep\.|representative|sen\.|senator|congress\w*|governor|gov\.|mayor|speaker|whip|leader|ranking member|chair\w*|committee|caucus|vice president|president|attorney general|council\s?\w*|assembly\w*|state senator|delegate|lawmaker|legislator)\b|\b[DR]-[A-Z]{2}\b|\([DR][-–]/i;
-  function elected(role){ role = String(role || ''); return !NOT_ELECTED.test(role) && ELECTED.test(role); }
+  // A chair counts only of a committee or caucus, and a leader or whip only of a party or chamber, so a
+  // company's chairman or a union's leader is never tagged as elected.
+  var ELECTED = /\b(rep\.|representative|sen\.|senator|congress(man|woman|member|person)|governor|gov\.|mayor|speaker of|house speaker|ranking member|vice president|president of the united states|attorney general|council\s?(member|man|woman)|assembly(member|man|woman)|state senator|state representative|delegate|lawmaker|legislator)\b|\b(majority|minority|democratic|republican|house|senate)\s+(leader|whip)\b|\bchair\w*\b.*\b(committee|subcommittee|caucus)\b|\b[DR]-[A-Z]{2}\b|\([DR][-–]/i;
+  function elected(role){ role = String(role || '').trim(); return /^(the\s+)?(u\.?s\.?\s+)?president$/i.test(role) || (!NOT_ELECTED.test(role) && ELECTED.test(role)); }
   function speakerTag(sp){
     return '<span class="who ' + (elected(sp.role) ? 'elected' : 'other') + '"><b>' + esc(sp.name) + '</b>' + (sp.role ? '<span class="role">' + esc(sp.role) + '</span>' : '') + '</span>';
   }
@@ -106,12 +108,11 @@ export function initRevengeOrJustice(root, opts) {
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
     var voices = reply.voices || {};
-    // The source line and who is quoted belong to the article, so they stay put whichever voice or issue is picked.
-    var item = reply.fetched ? feedByUrl[reply.fetched] : null;
-    var h = reply.fetched ? host(reply.fetched) : '';
-    var outletName = (item && item.source) || (voices.coverage && voices.coverage.outlet) || h;
-    $('srcline').innerHTML = outletName ? outletBadge(item ? item.host : h, outletName) +
-      (item && item.title ? '<a class="art" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(item.title) + '</a>' : reply.fetched ? '<a class="art" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">Read the article</a>' : '') : '';
+    // The outlet, from the grader's own read of the article, for a pasted link the headline list does not hold.
+    if (reply.fetched && !feedByUrl[reply.fetched] && voices.coverage && voices.coverage.outlet) {
+      $('what').innerHTML = outletBadge(host(reply.fetched), voices.coverage.outlet) + ' <a href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(host(reply.fetched)) + '</a>';
+    }
+    // Who is quoted belongs to the article, so it stays put whichever voice or issue is picked.
     $('quoted').innerHTML = quotedBlock(voices.politicians && voices.politicians.speakers);
     var views = [];
     if (voices.politicians) views.push({ k: 'politicians', label: 'The politicians', j: voices.politicians });
@@ -246,7 +247,7 @@ export function initRevengeOrJustice(root, opts) {
     var isUrl = /^https?:\/\/\S+$/.test(text);
     var shown = isUrl ? host(text) : text.replace(/\s+/g, ' ').slice(0, 140) + (text.length > 140 ? '…' : '');
     var it = isUrl ? feedByUrl[text] : null;
-    $('what').innerHTML = it ? outletBadge(it.host, it.source) + ' ' + esc(it.title) : '<b>Read:</b> ' + esc(shown);
+    $('what').innerHTML = it ? outletBadge(it.host, it.source) + ' <a href="' + esc(text) + '" target="_blank" rel="noopener">' + esc(it.title) + '</a>' : '<b>Read:</b> ' + esc(shown);
     root.classList.add('read');
     $('strip').classList.add('on');
     window.scrollTo({ top: 0, behavior: 'auto' });

@@ -119,12 +119,11 @@
 .rj .claim .v.revenge{color:var(--white);background:var(--flag);box-shadow:none;padding:0 .28em;border-radius:4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .rj .claim .v.justice{color:var(--white);background:var(--ink);box-shadow:inset 0 -4px 0 var(--gold);padding:0 .28em;border-radius:4px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .rj .claim .v.mixed{box-shadow:inset 0 0 0 2px var(--ink);padding:0 .28em;border-radius:4px}
-/* The article read: its outlet's icon and name, then its headline as a link. */
-.rj .srcline{display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-bottom:var(--s2)}
-.rj .srcline:empty{display:none}
-.rj .srcline .outlet b{font-size:13px}
-.rj .srcline .logo{width:24px;height:24px}
-.rj .srcline .art{font-size:16px;font-weight:600;color:var(--ink2);border-bottom-color:var(--rule)}
+/* The article read, in the strip over the reading: its outlet's icon and name, then its headline as a link. */
+.rj .strip .what .outlet{vertical-align:-5px;margin-right:10px}
+.rj .strip .what .outlet b{font-size:13px}
+.rj .strip .what .logo{width:22px;height:22px}
+.rj .strip .what a{font-size:17px;font-weight:600;color:var(--ink);border-bottom-color:var(--rule)}
 /* Who is quoted: elected officials in gold, everyone else outlined. */
 .rj .quoted{margin-top:var(--s3);display:grid;gap:10px}
 .rj .quoted:empty{display:none}
@@ -171,7 +170,7 @@
 .rj .rh .thumb .bar{top:5px;height:10px;transition:none;border-radius:0 2px 2px 0}
 .rj .rh .thumb .bar.left{border-radius:2px 0 0 2px}
 .rj .rh .thumb .bar.mixed{border-width:1.5px}
-.rj .rh h3{font-size:18px;font-weight:500;letter-spacing:-.01em;line-height:1.3}
+.rj .rh h3{font-size:18px;font-weight:700;letter-spacing:-.01em;line-height:1.3}
 .rj .rh .side{font-size:14px;color:var(--stone);font-variant-numeric:tabular-nums}
 .rj .rh .side.retribution{color:var(--flag)}
 .rj .tiers{display:grid;grid-template-columns:120px 1fr;column-gap:var(--s3);row-gap:var(--s2);margin-top:var(--s2);max-width:calc(120px + var(--s3) + var(--measure))}
@@ -180,7 +179,7 @@
 .rj .ev{font-family:var(--serif);font-size:23px;line-height:1.4;color:var(--ink);padding-left:var(--s2);border-left:2px solid var(--rule)}
 /* The quoted words carry a highlighter stroke, so the source's own words stand apart from the analysis. */
 .rj .ev{border-left-color:var(--gold)}
-.rj .ev mark{color:inherit;background:linear-gradient(transparent 58%,rgba(212,149,10,.30) 58%,rgba(212,149,10,.30) 92%,transparent 92%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.rj .ev mark{color:inherit;background:linear-gradient(transparent 48%,rgba(212,149,10,.42) 48%,rgba(212,149,10,.42) 94%,transparent 94%);-webkit-box-decoration-break:clone;box-decoration-break:clone}
 .rj .tiers dt b{font-weight:700;color:var(--ink)}
 .rj .ev.none{font-family:var(--sans);font-size:16px;line-height:1.5;color:var(--stone);border-left-color:var(--rule);padding-left:var(--s2)}
 .rj .crit{font-size:16px;line-height:1.6;color:var(--ink2)}

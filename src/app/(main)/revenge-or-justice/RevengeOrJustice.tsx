@@ -73,7 +73,6 @@ export default function RevengeOrJustice() {
           <div className="voices" id="voices" role="tablist" aria-label="Whose words to read" />
           <div className="issues" id="issues" role="tablist" aria-label="Which issue to read" />
           <div className="rj-hero">
-            <div className="srcline" id="srcline" />
             <p className="claim"><span className="v" id="verdict" /> <span id="headline" /></p>
             <div className="quoted" id="quoted" />
             <p className="meta" id="meta" />
