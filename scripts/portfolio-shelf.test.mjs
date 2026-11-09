@@ -64,13 +64,17 @@ test('onShelf: at 2026-11-07 noon /portfolio shows exactly these products (PORTH
     ['wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
 });
 
-test('onShelf: at 2026-11-08 noon /portfolio shows The Undo List first, then the same four (UNDONOW1)', () => {
+test('onShelf: at 2026-11-08 noon /portfolio shows Revenge or Justice, The Undo List, then the same four (UNDONOW1, RJCLEAR1)', () => {
   // Whit, 2026-11-08: "The undo list is supposed to be one of the products. And I want you to make this live.
-  // My website is still the old one." Its day moved from 2026-11-10 to 2026-11-08.
+  // My website is still the old one." Its day moved from 2026-11-10 to 2026-11-08. Revenge or Justice moved to
+  // the same day once its security report passed on Whit's billing cap (Whit, 2026-11-08: "Yes, I'll set it",
+  // then "It's set") and its go-public check passed seven of seven; it sits above the Undo List in the list.
   const now = at('2026-11-08T12:00:00-08:00');
   assert.deepEqual(slugs(onShelf('product', visibleTools(now))),
-    ['undo', 'wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
-  assert.ok(!slugs(onShelf('product', visibleTools(at('2026-11-07T23:59:00-08:00')))).includes('undo'));
+    ['revenge-or-justice', 'undo', 'wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
+  const before = slugs(onShelf('product', visibleTools(at('2026-11-07T23:59:00-08:00'))));
+  assert.ok(!before.includes('undo'));
+  assert.ok(!before.includes('revenge-or-justice'));
 });
 
 // WCKIDS2, 2026-11-07, visual-sociologist review of the renders: at 1440 the AI Election Errors tile ended

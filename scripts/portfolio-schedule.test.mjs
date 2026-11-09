@@ -51,11 +51,16 @@ const WONDER_CLEARED = true;
 const SHOWN_NOW = WONDER_CLEARED ? [WONDER, ...SHOWN_GALLERY] : SHOWN_GALLERY;
 // The Undo List moved from 2026-11-10 to 2026-11-08 (UNDONOW1). Whit, 2026-11-08: "The undo list is supposed
 // to be one of the products. And I want you to make this live. My website is still the old one." It is
-// cleared (UNDOCLEAR1, go-public check 7 of 7, security report PASS), so from 2026-11-08 it shows first.
+// cleared (UNDOCLEAR1, go-public check 7 of 7, security report PASS), so from 2026-11-08 it shows.
 const UNDO = 'undo';
-const SHOWN_FROM_8 = [UNDO, ...SHOWN_NOW];
+// Revenge or Justice moved from 2026-11-10 to 2026-11-08 and is cleared (RJCLEAR1): its security report says
+// STATUS: PASS once Whit set a monthly billing cap on the Anthropic workspace behind the grader (Whit,
+// 2026-11-08: "Yes, I'll set it", then "It's set"), and its go-public check passed seven of seven. It shares
+// the Undo List's day and sits above it in the list, so from 2026-11-08 it shows first and the Undo List second.
+const ROJ = 'revenge-or-justice';
+const SHOWN_FROM_8 = [ROJ, UNDO, ...SHOWN_NOW];
 
-test('undo: the Undo List shows first on /portfolio from 2026-11-08, and not the minute before (UNDONOW1)', () => {
+test('undo: the Undo List shows on /portfolio from 2026-11-08, after Revenge or Justice, and not the minute before (UNDONOW1)', () => {
   const undo = TOOLS.find((t) => t.slug === UNDO);
   assert.equal(undo.releaseAt, '2026-11-08');
   assert.equal(undo.cleared, true);
@@ -110,19 +115,30 @@ test('wonder cards: cleared, the real list shows it first at 2026-11-07 noon Pac
   assert.ok(!slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))).includes(WONDER));
 });
 
-test('revenge or justice: never shows before 2026-11-10, and stays off while its security report says FAIL (CLEARTWO1)', () => {
-  const roj = TOOLS.find((t) => t.slug === 'revenge-or-justice');
-  assert.equal(roj.releaseAt, '2026-11-10');
-  assert.ok(!slugs(visibleTools(at('2026-11-09T23:59:00-08:00'))).includes('revenge-or-justice'));
+test('revenge or justice: cleared, it shows first on /portfolio from 2026-11-08, and not the minute before (RJCLEAR1)', () => {
+  const roj = TOOLS.find((t) => t.slug === ROJ);
+  assert.equal(roj.releaseAt, '2026-11-08');
+  assert.equal(roj.cleared, true, 'the go-public check passed seven of seven and the entry is not cleared');
+  assert.equal(roj.hold, undefined);
+  assert.equal(roj.shelf, 'product');
+  assert.ok(!slugs(visibleTools(at('2026-11-07T23:59:00-08:00'))).includes(ROJ));
+  assert.deepEqual(slugs(visibleTools(at('2026-11-08T00:00:00-08:00'))), SHOWN_FROM_8);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-08T12:00:00-08:00'))), SHOWN_FROM_8);
+});
+
+test('revenge or justice: cleared only while its security report says STATUS: PASS (RJCLEAR1)', () => {
+  const roj = TOOLS.find((t) => t.slug === ROJ);
   const report = readFileSync(path.join(ROOT, 'docs/security/revenge-or-justice-2026-11-07.md'), 'utf8');
-  if (!/^STATUS: PASS\s*$/m.test(report)) {
-    assert.equal(roj.cleared, false, 'cleared while its security report has no STATUS: PASS line');
-    assert.ok(!slugs(visibleTools(at('2026-11-10T12:00:00-08:00'))).includes('revenge-or-justice'));
-  }
-  // Once cleared it shows at noon Pacific on its day and not the minute before.
-  const list = TOOLS.map((t) => (t.slug === 'revenge-or-justice' ? { ...t, cleared: true } : t));
-  assert.ok(!slugs(visibleTools(at('2026-11-09T23:59:00-08:00'), list)).includes('revenge-or-justice'));
-  assert.equal(slugs(visibleTools(at('2026-11-10T12:00:00-08:00'), list))[0], 'revenge-or-justice');
+  assert.equal(report.split('\n')[0], 'STATUS: PASS', 'the report\'s first line is not STATUS: PASS');
+  if (!/^STATUS: PASS\s*$/m.test(report)) assert.equal(roj.cleared, false, 'cleared while its security report has no STATUS: PASS line');
+  // The update says what closed the high finding and on whose word.
+  assert.match(report, /^## Update, 2026-11-08$/m);
+  assert.ok(report.includes('"It\'s set"'), 'the update does not carry Whit\'s words');
+  assert.ok(report.includes('not seen by Code'), 'the update does not say Code did not see the setting');
+  // The medium and low findings stay open, as written.
+  assert.match(report, /^### Medium: the grader fetches any address it is handed, and reads what it finds$/m);
+  assert.match(report, /^### Low: the headline list's grade call is a smaller paid door$/m);
+  assert.match(report, /^### Low: the site-wide script policy allows inline script$/m);
 });
 
 test('letters: released 2026-11-07 and cleared, and held as a feature of Rumi (LETTERSOFF1)', () => {
@@ -185,18 +201,17 @@ test('schedule: a day starts at midnight Los Angeles time, standard and daylight
 });
 
 test('schedule: an uncleared entry never shows, even on its day', () => {
-  const list = visibleTools(at('2026-11-10T09:00:00-08:00'));
+  const list = visibleTools(at('2026-11-24T09:00:00-08:00'));
   assert.ok(slugs(list).includes('undo'), 'the Undo List is cleared (security PASS, 2026-11-07) and shows from its day, 2026-11-08');
-  assert.ok(!slugs(list).includes('revenge-or-justice'));
+  assert.equal(TOOLS.find((t) => t.slug === 'rumi').cleared, false);
+  assert.ok(!slugs(list).includes('rumi'), 'Rumi is not cleared and shows on its day');
 });
 
 test('schedule: a cleared entry shows from the first minute of its day, newest first', () => {
-  const cleared = TOOLS.map((t) => (['undo', 'revenge-or-justice'].includes(t.slug) ? { ...t, cleared: true } : t));
+  const cleared = TOOLS.map((t) => (t.slug === 'rumi' ? { ...t, cleared: true } : t));
   assert.deepEqual(slugs(visibleTools(at('2026-11-07T23:59:00-08:00'), cleared)), SHOWN_NOW);
-  assert.deepEqual(slugs(visibleTools(at('2026-11-09T23:59:00-08:00'), cleared)), SHOWN_FROM_8);
-  const day = slugs(visibleTools(at('2026-11-10T00:00:00-08:00'), cleared));
-  assert.deepEqual(day.slice(0, 2), ['revenge-or-justice', 'undo']);
-  assert.deepEqual(day.slice(1), SHOWN_FROM_8);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-23T23:59:00-08:00'), cleared)), SHOWN_FROM_8);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-24T00:00:00-08:00'), cleared)), ['rumi', ...SHOWN_FROM_8]);
 });
 
 test('schedule: an entry that replaces another takes its place once it shows, never both', () => {
@@ -228,7 +243,7 @@ test('schedule: the posting calendar dates', () => {
   assert.equal(byslug['rumi'].releaseAt, '2026-11-24');
   assert.equal(byslug['letters'].releaseAt, '2026-11-07');
   assert.ok(byslug['letters'].hold, 'Letters is on the posting calendar again; it ships inside Rumi');
-  assert.equal(byslug['revenge-or-justice'].releaseAt, '2026-11-10');
+  assert.equal(byslug['revenge-or-justice'].releaseAt, '2026-11-08', 'Revenge or Justice goes live 2026-11-08 (RJCLEAR1)');
   assert.equal(byslug['undo'].releaseAt, '2026-11-08', 'the Undo List goes live 2026-11-08 (UNDONOW1)');
   assert.equal(byslug['gut-check'].releaseAt, '2026-11-07');
   assert.equal(byslug['gut-check'].cleared, true);
@@ -243,9 +258,9 @@ test('schedule: the preview clock is ignored in production and honoured elsewher
   assert.deepEqual(portfolioClock({ PORTFOLIO_NOW: 'garbage' }, real), { now: real, includeUncleared: false });
   const preview = slugs(visibleTools(at('2026-11-10T09:00:00-08:00'), TOOLS, { includeUncleared: true }));
   assert.deepEqual(preview.slice(0, 4), ['revenge-or-justice', 'undo', WONDER, ...SHOWN_GALLERY.slice(0, 1)]);
-  // A preview on 2026-11-08 shows the Undo List first and Revenge or Justice not yet (UNDONOW1).
+  // A preview on 2026-11-08 shows Revenge or Justice first, then the Undo List (RJCLEAR1).
   const preview8 = slugs(visibleTools(at('2026-11-08T12:00:00-08:00'), TOOLS, { includeUncleared: true }));
-  assert.deepEqual(preview8.slice(0, 3), ['undo', WONDER, ...SHOWN_GALLERY.slice(0, 1)]);
+  assert.deepEqual(preview8.slice(0, 4), ['revenge-or-justice', 'undo', WONDER, ...SHOWN_GALLERY.slice(0, 1)]);
   assert.ok(!preview.includes('gut-check'), 'a held entry shows in a preview render');
   assert.ok(!preview.includes('letters'), 'Letters shows in a preview render');
 });

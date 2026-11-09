@@ -96,7 +96,8 @@ const GOLD_DEEP = '#996D00';
 const GALLERY_AS_OF = '2026-10-21';
 
 export const TOOLS: Tool[] = [
-  // ---- The first drop, 2026-11-10 (Whit, 2026-11-07: "launch portfolio page w 3 builds") ----
+  // ---- The first drop, planned for 2026-11-10 (Whit, 2026-11-07: "launch portfolio page w 3 builds");
+  // Revenge or Justice and The Undo List both moved up to 2026-11-08 ----
   {
     slug: 'revenge-or-justice',
     name: 'Revenge or Justice',
@@ -115,13 +116,15 @@ export const TOOLS: Tool[] = [
       wordmark: [{ text: 'Revenge or' }, { text: 'Justice', accent: true }],
       glyph: 'bars',
     },
-    releaseAt: '2026-11-10',
-    // Not cleared. `npm run launch:check -- revenge-or-justice` on 2026-11-07 Pacific (CLEARTWO1) passed six
-    // of seven, failing (e): docs/security/revenge-or-justice-2026-11-07.md says STATUS: FAIL, its high
-    // finding (no hard cap on the model bill) still open. It closes with a spend limit on the Anthropic
-    // workspace behind quick-tools, or a shared daily counter in quick-tools' route; then the report's first
-    // line goes to PASS, the check is rerun, and this flips.
-    cleared: false,
+    // Moved up from 2026-11-10 and cleared (RJCLEAR1). On 2026-11-07 Pacific (CLEARTWO1) the go-public check
+    // passed six of seven, failing (e): the security report said STATUS: FAIL, its high finding (no hard cap on
+    // the model bill) open. Whit set a monthly billing cap on the Anthropic workspace behind quick-tools (Whit,
+    // 2026-11-08: "Yes, I'll set it", then "It's set"), which closes it; the report's first line is PASS with
+    // an "Update, 2026-11-08" section. `npm run launch:check -- revenge-or-justice` then passed seven of seven
+    // on 2026-11-08 Pacific against the live page: (g) entry, (a) public, (b) card 1200 by 630 PNG,
+    // (c) feedback box, (d) usage logging, (e) security PASS, (f) rate limiter on both routes.
+    releaseAt: '2026-11-08',
+    cleared: true,
   },
   {
     slug: 'undo',
