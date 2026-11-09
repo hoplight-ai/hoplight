@@ -9,6 +9,11 @@
 // are hidden and listed nowhere: the CBA playbook, the federal agency AI inventory, the AI governance
 // checklist, the AI lobbyist player map and the investment dashboard.
 //
+// The Oregon school budget report joined them on 2026-11-08 (LOCKOREGON1). Whit, 2026-11-07: "all the pages
+// need to be behind passwords and not served on public links from any of my sites"; and on 2026-11-08 "1 yes"
+// to "both pages go behind the password". It stays listed as a report on /insights, with the lock drawn,
+// so the four kept reports are five and the nine locked pieces are ten.
+//
 // What it proves:
 //   1. Every one of the nine is gated, and a browser without the cookie gets the sign-in page for each,
 //      while the gate is armed.
@@ -46,6 +51,7 @@ const KEPT = [
   'every-political-dollar-buys-less', // electoral cost: cost per vote, 2000 to 2024
   'worker-equity-dilution-at-ge', // dilution model, GE
   'pdi-trust-dilution-model', // dilution model, Predistribution Initiative worker trust
+  'oregon-school-budget-report', // Oregon school budget report, locked 2026-11-08 (LOCKOREGON1)
 ];
 const HIDDEN = [
   'cba-win-pattern-playbook',
@@ -54,7 +60,9 @@ const HIDDEN = [
   'ai-lobbyist-player-map',
   'where-political-money-actually-works', // the investment dashboard: what the same money buys, state against federal
 ];
-const NINE = [...KEPT, ...HIDDEN];
+const NINE = [...KEPT, ...HIDDEN]; // ten since 2026-11-08, the name kept
+// The three reports the report shelf and the Insights Reports list still carry, each with the lock.
+const LISTED = ['dnc-autopsy-taken-apart', 'worker-equity-dilution-at-ge', 'oregon-school-budget-report'];
 
 // The Insights links, read from the content file's source (its @/ imports do not load under plain node).
 const INSIGHTS = read('src/lib/insights-content.ts');
@@ -103,8 +111,8 @@ test('3. any of the nine the site lists is an Insights report row that draws the
   }
 });
 
-test('4. the DNC and GE reports stay listed: on Insights, on the report shelf, cleared and not held', () => {
-  for (const slug of ['dnc-autopsy-taken-apart', 'worker-equity-dilution-at-ge']) {
+test('4. the DNC, GE and Oregon reports stay listed: on Insights, on the report shelf, cleared and not held', () => {
+  for (const slug of LISTED) {
     const t = TOOLS.find((x) => x.slug === slug);
     assert.ok(t, `${slug} left the tool list`);
     assert.equal(t.shelf, 'report', slug);
@@ -118,10 +126,10 @@ const BUILT = ['.next/server/app/insights.html', '.next/server/app/(main)/insigh
   .map((rel) => path.join(ROOT, rel))
   .find((p) => existsSync(p));
 
-test('5. built Insights: the DNC and GE rows carry the lock, the CBA and checklist rows are gone', { skip: BUILT ? false : 'no build present' }, () => {
+test('5. built Insights: the DNC, GE and Oregon rows carry the lock, the CBA and checklist rows are gone', { skip: BUILT ? false : 'no build present' }, () => {
   const html = readFileSync(BUILT, 'utf8');
   const rows = new Map([...html.matchAll(/<a class="(?:rep|ptile)" href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)].map((m) => [m[1], m[2]]));
-  for (const slug of ['dnc-autopsy-taken-apart', 'worker-equity-dilution-at-ge']) {
+  for (const slug of LISTED) {
     assert.ok(rows.has(piece(slug)), `${slug} is not on the built Insights page`);
     assert.match(rows.get(piece(slug)), /aria-label="sign-in required"/, `${slug} draws no lock`);
   }
