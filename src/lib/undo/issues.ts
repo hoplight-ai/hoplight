@@ -47,7 +47,7 @@ export const ISSUES: Issue[] = [
   { key: 'science', label: 'Science and research', line: 'Labs, data, weather, AI, the research that others build on.', covers: 'NIH, NSF, NOAA, NASA, AI, data, research grants, gain of function, scientific integrity, quantum' },
   { key: 'checks-on-power', label: 'Checks on power', line: 'Independent agencies, inspectors general, courts, the press, elections.', covers: 'inspectors general, independent agencies, Humphrey, DOJ independence, law firms, press, speech, elections, pardons, emoluments, Schedule F' },
   { key: 'government-works', label: 'A government that works', line: 'Civil servants, agencies that answer the phone, benefits that arrive.', covers: 'civil service, RIFs, hiring freeze, DOGE, USAID structure, agency dismantling, procurement, Social Security staffing, IRS' },
-  { key: 'allies', label: "Allies and America's word", line: 'Treaties, alliances, aid, the organizations we helped build.', covers: 'withdrawals, WHO, UN bodies, NATO, foreign aid, treaties, trade deals with allies, sanctions, development policy' },
+  { key: 'allies', label: 'Allies, treaties and aid', line: 'Treaties, alliances, aid, the organizations we helped build.', covers: 'withdrawals, WHO, UN bodies, NATO, foreign aid, treaties, trade deals with allies, sanctions, development policy' },
   { key: 'public-safety', label: 'Public safety', line: 'Policing, guns, disasters, drugs, the response when things go wrong.', covers: 'police, consent decrees, FEMA, disasters, wildfire, fentanyl, guns, lead ammunition, National Guard in cities, cartels' },
 ];
 

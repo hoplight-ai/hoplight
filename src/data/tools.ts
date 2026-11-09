@@ -75,6 +75,12 @@ export interface Tool {
   cleared: boolean;
   /** The slug of an older entry this one takes the place of once it is showing. */
   replaces?: string;
+  /**
+   * Set, with a one-line reason, to keep an entry off the portfolio whatever its date and clearance
+   * (PORTHOLD1, 2026-11-07): a cut, or a tool held back for its own announcement. The entry stays in
+   * the list so its old links and its preview card keep working.
+   */
+  hold?: string;
 }
 
 // The site's own tokens (src/app/globals.css :root), for pieces that carry the Hoplight look.
@@ -90,7 +96,8 @@ const GOLD_DEEP = '#996D00';
 const GALLERY_AS_OF = '2026-10-21';
 
 export const TOOLS: Tool[] = [
-  // ---- The first drop, 2026-11-10 (Whit, 2026-11-07: "launch portfolio page w 3 builds") ----
+  // ---- The first drop, planned for 2026-11-10 (Whit, 2026-11-07: "launch portfolio page w 3 builds");
+  // Revenge or Justice and The Undo List both moved up to 2026-11-08 ----
   {
     slug: 'revenge-or-justice',
     name: 'Revenge or Justice',
@@ -109,13 +116,21 @@ export const TOOLS: Tool[] = [
       wordmark: [{ text: 'Revenge or' }, { text: 'Justice', accent: true }],
       glyph: 'bars',
     },
-    releaseAt: '2026-11-10',
-    cleared: false,
+    // Moved up from 2026-11-10 and cleared (RJCLEAR1). On 2026-11-07 Pacific (CLEARTWO1) the go-public check
+    // passed six of seven, failing (e): the security report said STATUS: FAIL, its high finding (no hard cap on
+    // the model bill) open. Whit set a monthly billing cap on the Anthropic workspace behind quick-tools (Whit,
+    // 2026-11-08: "Yes, I'll set it", then "It's set"), which closes it; the report's first line is PASS with
+    // an "Update, 2026-11-08" section. `npm run launch:check -- revenge-or-justice` then passed seven of seven
+    // on 2026-11-08 Pacific against the live page: (g) entry, (a) public, (b) card 1200 by 630 PNG,
+    // (c) feedback box, (d) usage logging, (e) security PASS, (f) rate limiter on both routes.
+    releaseAt: '2026-11-08',
+    cleared: true,
   },
   {
     slug: 'undo',
     name: 'The Undo List',
-    line: 'Everything the second Trump administration did, sorted by what it takes to undo it in 2029.',
+    // Whit, 2026-11-08: "and the undo list is everything The Trump administration did that can be undone with a stroke of a pen-  filterable, sortable and bundled for efficiency of reversal"
+    line: 'Everything the Trump administration did that can be undone with a stroke of a pen, filterable, sortable and bundled for efficiency of reversal.',
     href: '/undo',
     kind: 'live',
     shelf: 'product',
@@ -128,7 +143,8 @@ export const TOOLS: Tool[] = [
       wordmark: [{ text: 'The Undo' }, { text: 'List' }],
       glyph: 'field',
     },
-    releaseAt: '2026-11-10',
+    // Whit, 2026-11-08: "The undo list is supposed to be one of the products. And I want you to make this live."
+    releaseAt: '2026-11-08',
     cleared: true, // launch:check 7 of 7 and docs/security/undo-2026-11-07.md STATUS: PASS, 2026-11-07
   },
   {
@@ -152,6 +168,8 @@ export const TOOLS: Tool[] = [
     // before the security report exists.
     releaseAt: '2026-11-07',
     cleared: true,
+    // Whit, 2026-11-07: "gut check should be an announcment too so hide that." The app stays up.
+    hold: 'held for its own announcement (Whit, 2026-11-07)',
   },
 
   // ---- Queued on the posting calendar (publicist, 2026-11-07) ----
@@ -194,8 +212,47 @@ export const TOOLS: Tool[] = [
       wordmark: [{ text: 'Letters' }],
       glyph: 'letter',
     },
-    releaseAt: '2026-12-09',
-    cleared: false,
+    // Live from 2026-11-07 (LETTERSON1; Whit, 2026-11-07: "make letters live now", then "SHIP IT").
+    // `npm run launch:check -- letters` passed all seven on 2026-11-07 against the live page, after
+    // letters PR #1 put the feedback box and the /kit/signal.js usage tag on it: (a) public, (b) card,
+    // (c) feedback box, (d) usage logging, (e) security PASS, (f) not a paid-model tool, (g) entry.
+    releaseAt: '2026-11-07',
+    cleared: true,
+    // Held the same day (LETTERSOFF1). Whit, 2026-11-07: "And I’m honestly not certain that letters as its
+    // own standalone thing that was supposed to just be a feature of roomie.", then "1 yes." Letter tracing
+    // reaches the public inside Rumi. The entry stays so its link and preview card keep working.
+    hold: 'folded into Rumi, its letter tracing ships there (Whit, 2026-11-07)',
+  },
+  {
+    // The kids Wonder Cards deck, "What Should We Wonder?" (WCKIDS2, 2026-11-07). Whit, 2026-11-07: "wonder
+    // cards is a yes", then "the wonder cards that I was thinking of is actually the one that's geared
+    // towards kids not the adult one." The line is its own page's description, its dash made a comma.
+    slug: 'wonder-cards',
+    name: 'Wonder Cards',
+    line: '60 tap-to-draw question and activity cards for little kids, made for restaurant tables, waiting rooms and car rides.',
+    href: 'https://wonder-cards.vercel.app/junior',
+    kind: 'live',
+    shelf: 'product',
+    // Read from wonder-cards.vercel.app/junior on 2026-11-07: its home-screen name "Wonder Cards"
+    // (apple-mobile-web-app-title), its display face Fredoka 600, its blueberry ink #3B3560, its tangerine
+    // #FFAA5C. The ground is the blueberry of its own app icon, not the page's icing #FFF4E4, which is a
+    // cream and is not used on Hoplight; the cards picture is the deck's card in tangerine, as the approved
+    // tile mockup draws it (TILEVALUE1, 382e574).
+    brand: {
+      ground: '#3B3560',
+      accent: '#FFAA5C',
+      ink: WHITE,
+      display: { family: 'Fredoka', weight: 600 },
+      wordmark: [{ text: 'Wonder' }, { text: 'Cards' }],
+      glyph: 'cards',
+    },
+    releaseAt: '2026-11-07',
+    // Cleared (CLEARTWO1). `npm run launch:check -- wonder-cards` passed all seven on 2026-11-07 Pacific
+    // against the live deck, after wonder-cards 0626d2a put the og:image tags on /junior: (g) entry,
+    // (a) public, (b) card https://hoplight.ai/api/og/tool/wonder-cards 1200 by 630 PNG, (c) feedback box,
+    // (d) usage logging, (e) docs/security/wonder-cards-2026-11-07.md STATUS: PASS, (f) not a paid-model
+    // tool. WONDER_CLEARED in scripts/portfolio-schedule.test.mjs moved with it.
+    cleared: true,
   },
 
   // ---- The gallery as of 2026-10-21, unchanged ----
@@ -241,6 +298,8 @@ export const TOOLS: Tool[] = [
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
+    // Whit, 2026-11-07: "hide agis and lets plan a post to announce it w analogy as partner in december."
+    hold: 'held for its December announcement with Analogy as partner (Whit, 2026-11-07)',
   },
   // Whit, 2026-10-20: "add AI Election Errors to the hoplight.ai portfolio page." Served at
   // /ai-election-errors from its own Vercel project (see next.config.ts rewrites).
@@ -282,6 +341,8 @@ export const TOOLS: Tool[] = [
     },
     releaseAt: GALLERY_AS_OF,
     cleared: true,
+    // Whit, 2026-11-07: "cut bet apetit". Kept in the list so /bet-appetit and its card still resolve.
+    hold: 'cut by Whit, 2026-11-07',
   },
   {
     slug: 'oregon-school-budget-report',
@@ -388,11 +449,14 @@ export interface VisibleOptions {
 }
 
 /**
- * What the portfolio shows at `now`: released and cleared entries, newest release first (ties keep
- * their order in TOOLS), minus any older entry a showing entry replaces.
+ * What the portfolio shows at `now`: released and cleared entries that are not held, newest release
+ * first (ties keep their order in TOOLS), minus any older entry a showing entry replaces. A held entry
+ * never shows, not even in an uncleared preview render.
  */
 export function visibleTools(now: number, tools: Tool[] = TOOLS, opts: VisibleOptions = {}): Tool[] {
-  const showing = tools.filter((t) => releaseInstant(t.releaseAt) <= now && (t.cleared || opts.includeUncleared === true));
+  const showing = tools.filter(
+    (t) => !t.hold && releaseInstant(t.releaseAt) <= now && (t.cleared || opts.includeUncleared === true),
+  );
   const replaced = new Set(showing.map((t) => t.replaces).filter((s): s is string => Boolean(s)));
   return showing
     .filter((t) => !replaced.has(t.slug))

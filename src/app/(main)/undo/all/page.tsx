@@ -9,12 +9,12 @@ import ToolFeedback from '@/components/ToolFeedback';
 export const revalidate = 3600;
 
 export const metadata: Metadata = toolMetadata('undo', {
-  title: 'The Undo List, every item',
+  title: 'The Undo List, every executive action',
   name: 'The Undo List',
   description:
-    'Every action of the second Trump administration on its own row, with the exact sentence that undoes it, searchable and sorted by who feels it.',
+    'Every executive action of the second Trump administration that a pen undoes, one row each, with the exact sentence that undoes it. Search it, filter it by who feels it, sort it by date or by signing order.',
   path: '/undo/all',
-  ogDescription: 'Every item, one by one, with the sentence that undoes it.',
+  ogDescription: 'Every Trump executive action a pen undoes, one by one, with the sentence that undoes it.',
 });
 
 export default async function UndoAllPage() {
@@ -27,7 +27,7 @@ export default async function UndoAllPage() {
             {COPY.all.back}
           </a>
           <h1>{COPY.all.title}</h1>
-          <p className="undo-hero-read">{COPY.all.intro(data.total)}</p>
+          <p className="undo-hero-read">{COPY.all.intro(data.penInForce)}</p>
         </div>
       </div>
       <UndoAll rows={data.slim} penInForce={data.penInForce} orders={data.orders} />

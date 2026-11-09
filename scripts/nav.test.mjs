@@ -203,12 +203,16 @@ test('the Products page is gone and AI Election Errors is on the portfolio list'
   assert.ok(tools.includes("href: '/ai-election-errors'"), 'AI Election Errors is not on the portfolio list');
 });
 
-test('Insights lists the Undo List and the two restored reports, and the analyses carry no label', () => {
+// The CBA playbook and the governance checklist came off Insights on 2026-11-07 (LOCKREPORTS1; Whit: "hide
+// them all the dnc after action report, the electoral cost, the dilution models  can remain a report but
+// locked up."). scripts/reports-locked.test.mjs keeps them listed nowhere.
+test('Insights lists the Undo List, not the two hidden reports, and the analyses carry no label', () => {
   const content = read('src/lib/insights-content.ts');
-  for (const href of ['/undo', '/portfolio/cba-win-pattern-playbook.html', '/portfolio/ai-governance-checklist.html']) {
-    assert.ok(content.includes(`href: '${href}'`), `${href} is not listed under Reports`);
+  assert.ok(content.includes("href: '/undo'"), '/undo is not listed under Reports');
+  assert.ok(content.includes('The Undo List'), 'The Undo List is missing');
+  for (const href of ['/portfolio/cba-win-pattern-playbook.html', '/portfolio/ai-governance-checklist.html']) {
+    assert.ok(!content.includes(`href: '${href}'`), `${href} is still listed under Reports`);
   }
-  for (const title of ['CBA win pattern playbook', 'AI governance checklist', 'The Undo List']) assert.ok(content.includes(title), `${title} is missing`);
   // The Analysis labels went in the HOPSITE2 design review, 2026-11-07.
   assert.equal((content.match(/label: 'Analysis'/g) || []).length, 0, 'an Analysis label came back');
 });

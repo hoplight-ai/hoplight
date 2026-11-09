@@ -34,7 +34,7 @@ test('shelf: every entry says product or report', () => {
 test('shelf: the three reports are DNC, Oregon and GE, and everything else is a product', () => {
   assert.deepEqual(slugs(reportTools()).sort(), [...REPORTS].sort());
   for (const s of ['revenge-or-justice', 'undo', 'gut-check', 'rumi', 'letters', 'agis-policy-search-aria',
-    'ai-election-errors', 'bet-appetit', 'what-s-human', 'which-ai-should-i-use']) {
+    'ai-election-errors', 'bet-appetit', 'what-s-human', 'which-ai-should-i-use', 'wonder-cards']) {
     assert.equal(TOOLS.find((t) => t.slug === s).shelf, 'product', s);
   }
 });
@@ -51,6 +51,42 @@ test('onShelf: keeps the schedule order and only that shelf', () => {
   assert.deepEqual(slugs(onShelf('report', all)), ['dnc-autopsy-taken-apart', 'oregon-school-budget-report', 'worker-equity-dilution-at-ge']);
   assert.deepEqual(slugs(onShelf('product', all)), slugs(all).filter((s) => !REPORTS.includes(s)));
   assert.deepEqual(onShelf('report', TOOLS.filter((t) => t.shelf === 'product')), []);
+});
+
+test('onShelf: at 2026-11-07 noon /portfolio shows exactly these products (PORTHOLD1)', () => {
+  // Whit, 2026-11-07: Bet Appetit cut; AGIS and Gut Check held for their own announcements; Letters held
+  // the same day as a feature of Rumi (LETTERSOFF1; Whit, 2026-11-07: "1 yes.").
+  const now = at('2026-11-07T12:00:00-08:00');
+  // The kids Wonder Cards deck (WCKIDS2) is a product from 2026-11-07, cleared on its go-public check
+  // (CLEARTWO1, all seven passed against the live deck), so it shows first, in a preview render too.
+  assert.deepEqual(slugs(onShelf('product', visibleTools(now))), ['wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
+  assert.deepEqual(slugs(onShelf('product', visibleTools(now, undefined, { includeUncleared: true }))),
+    ['wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
+});
+
+test('onShelf: at 2026-11-08 noon /portfolio shows Revenge or Justice, The Undo List, then the same four (UNDONOW1, RJCLEAR1)', () => {
+  // Whit, 2026-11-08: "The undo list is supposed to be one of the products. And I want you to make this live.
+  // My website is still the old one." Its day moved from 2026-11-10 to 2026-11-08. Revenge or Justice moved to
+  // the same day once its security report passed on Whit's billing cap (Whit, 2026-11-08: "Yes, I'll set it",
+  // then "It's set") and its go-public check passed seven of seven; it sits above the Undo List in the list.
+  const now = at('2026-11-08T12:00:00-08:00');
+  assert.deepEqual(slugs(onShelf('product', visibleTools(now))),
+    ['revenge-or-justice', 'undo', 'wonder-cards', 'ai-election-errors', 'what-s-human', 'which-ai-should-i-use']);
+  const before = slugs(onShelf('product', visibleTools(at('2026-11-07T23:59:00-08:00'))));
+  assert.ok(!before.includes('undo'));
+  assert.ok(!before.includes('revenge-or-justice'));
+});
+
+// WCKIDS2, 2026-11-07, visual-sociologist review of the renders: at 1440 the AI Election Errors tile ended
+// about 23px lower than its two neighbours, because its line runs three lines and each tile was only as tall
+// as its own text. Every tile in a row is the row's height, with "Open it" at its foot on one shared line.
+test('page: tiles in a row are one height and "Open it" sits at each tile\'s foot', () => {
+  const css = read('src/app/globals.css');
+  assert.match(css, /\.portfolio-products \.gallery-grid > li \{[^}]*display: flex;/, 'the grid cell does not pass its height to the tile');
+  assert.match(css, /\.portfolio-products \.gallery-grid \.wcard \{[^}]*flex: 1 1 auto;/, 'the tile does not fill its grid cell');
+  assert.match(css, /\.wcard \{[^}]*display: flex; flex-direction: column;/, 'the tile is not a column');
+  assert.match(css, /\.wcard-body \{[^}]*flex: 1;[^}]*display: flex; flex-direction: column;/, 'the tile body does not take the spare height');
+  assert.match(css, /\.wcard-body p \{[^}]*flex: 1;/, 'the line does not push "Open it" to the foot');
 });
 
 test('page: /portfolio draws products only and carries no Reports part', () => {
@@ -83,3 +119,7 @@ test('built: every report is listed once on /insights', { skip: BUILT_INSIGHTS ?
     assert.equal(html.split(`href="${t.href}"`).length - 1, 1, `${t.slug} is not listed exactly once on /insights`);
   }
 });
+
+// The portfolio tiles' marks (MARKSLIVE1, 2026-11-07) are tested in their own file, run from here so they
+// sit in npm test and CI: this lane's brief could write the shelf test but not the package's test line.
+import './tool-marks.test.mjs';

@@ -6,7 +6,10 @@
 // it returns when it has a URL (Whit, 2026-10-21: "the CPR piece isnt live yet"). The trial was fielded in
 // August 2025 (FACTS.rct.date). The Reports list (2026-10-23, owner: "mock up these changes"): the Undo List, the CBA playbook and the
 // governance checklist, then the three analyses with one line on what each draws on. Their Analysis labels
-// went in the HOPSITE2 design review, 2026-11-07.
+// went in the HOPSITE2 design review, 2026-11-07. The CBA playbook and the governance checklist came off on
+// 2026-11-07 (LOCKREPORTS1; Whit: "hide them all the dnc after action report, the electoral cost, the
+// dilution models  can remain a report but locked up."): hidden, listed nowhere. The DNC and GE rows stay,
+// gated, so they draw the lock (scripts/reports-locked.test.mjs).
 
 import { FACTS } from '@/lib/facts';
 
@@ -68,8 +71,6 @@ export const RESEARCH: InsightItem[] = [
 
 export const REPORTS: InsightItem[] = [
   { kind: 'Report', title: 'The Undo List', line: 'Live Federal Register feed, by what undoes each.', href: '/undo' },
-  { kind: 'Report', title: 'CBA win pattern playbook', line: 'Contract language for a local at the table.', href: '/portfolio/cba-win-pattern-playbook.html' },
-  { kind: 'Report', title: 'AI governance checklist', line: 'For teams beginning with AI.', href: '/portfolio/ai-governance-checklist.html' },
   { kind: 'Report', title: 'DNC autopsy, taken apart', line: 'From its own report, cited by page.', href: '/portfolio/dnc-autopsy-taken-apart.html' },
   { kind: 'Report', title: 'Oregon school budget report', line: 'From state actuals and Census data.', href: '/portfolio/oregon-school-budget-report.html' },
   { kind: 'Report', title: 'Worker equity dilution at GE', line: 'From public headcount and filings.', href: '/portfolio/worker-equity-dilution-at-ge.html' },

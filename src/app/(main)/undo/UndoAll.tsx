@@ -2,18 +2,16 @@
 
 import { useEffect, useMemo, useState } from 'react';
 import type React from 'react';
-import { INSTRUMENT_LABEL } from '@/lib/undo/types';
 import type { Instrument } from '@/lib/undo/types';
 import { COPY } from '@/lib/undo/copy';
 import { track } from '@/lib/track';
 import { orderText } from '@/lib/undo/order-text';
 import { ISSUES, ISSUE_BY_KEY } from '@/lib/undo/issues';
 import type { IssueKey } from '@/lib/undo/issues';
-import { groupByIssue } from '@/lib/undo/issues-merge';
 import type { ForwardOrderView } from '@/lib/undo/forward-text';
+import { groupByBundle, PEN_SORTS, sortByDate } from '@/lib/undo/pen';
+import type { PenSort } from '@/lib/undo/pen';
 import {
-  groupByInstrument,
-  groupPen,
   howOf,
   footnoteOf,
   isAlreadyDone,
@@ -22,10 +20,9 @@ import {
   isJustIn,
   isPenInForce,
   matchesQuery,
-  tagOf,
   whyOf,
 } from '@/lib/undo/sections';
-import type { Group, SlimRow } from '@/lib/undo/sections';
+import type { SlimRow } from '@/lib/undo/sections';
 import CopyButton from './CopyButton';
 import IssueChips from './IssueChips';
 import { readSigned, safeId, writeSigned } from './signed';
@@ -33,7 +30,7 @@ import { readSigned, safeId, writeSigned } from './signed';
 const ORDER_INSTRUMENTS: Instrument[] = ['executive_order', 'proclamation', 'memorandum'];
 const PAGE = 25;
 
-type Variant = 'check' | 'hollow' | 'flat' | 'done';
+type Variant = 'check' | 'done';
 
 function OrderDisclosure({ row }: { row: SlimRow }) {
   const [open, setOpen] = useState(false);
@@ -87,7 +84,6 @@ function Item({
   const titleId = `undo-t-${safeId(row.id)}`;
   const showStatus = row.status !== 'in-force';
   const hasOrder = variant === 'check' && ORDER_INSTRUMENTS.includes(row.instrument);
-  const tag = variant === 'check' || variant === 'hollow' ? tagOf(row.bucket) : null;
 
   return (
     <li
@@ -105,21 +101,18 @@ function Item({
           />
           <span className="undo-box" aria-hidden="true" />
         </span>
-      ) : variant === 'hollow' ? (
-        <span className="undo-glyph" aria-hidden="true" />
       ) : null}
       <details className="undo-row">
         <summary className="undo-row-sum">
           <span className="undo-title" id={titleId}>
             {row.title}
           </span>
-          {tag ? <span className="undo-tag">{tag}</span> : null}
           <span className="undo-row-more" aria-hidden="true">
             {COPY.row.more}
           </span>
         </summary>
         <div className="undo-item-body">
-          {variant === 'check' || variant === 'hollow' ? <p className="undo-how">{howOf(row)}</p> : null}
+          {variant === 'check' ? <p className="undo-how">{howOf(row)}</p> : null}
           <p className="undo-foot">
             {footnoteOf(row)}
             {showStatus ? (
@@ -193,81 +186,33 @@ function PagedItems({
 
 function SubHead({ label, count }: { label: string; count: number }) {
   return (
-    <h3 className="undo-subhead">
-      {label} <span className="undo-subcount">{count.toLocaleString('en-US')}</span>
-    </h3>
+    <h3 className="undo-subhead">{COPY.groups.titled(label, count)}</h3>
   );
 }
 
-// A section of the list: closed until tapped, open on its own while a search or filter runs.
-function Fold({
-  id,
-  title,
-  count,
-  forceOpen,
-  children,
-}: {
-  id: string;
-  title: string;
-  count: number;
-  forceOpen: boolean;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="undo-section undo-section-ruled" aria-labelledby={id}>
-      <div className="wrap">
-        <details className="undo-fold" open={forceOpen || undefined}>
-          <summary className="undo-fold-summary">
-            <h2 id={id} className="undo-h2">
-              {title}
-            </h2>
-            <span className="undo-subcount">{count.toLocaleString('en-US')}</span>
-          </summary>
-          {children}
-        </details>
-      </div>
-    </section>
-  );
-}
-
-type SortMode = 'newest' | 'issue';
-
-// One list of rows. Newest first, it is a plain list, or the groups the section already had (the
-// instrument groups). By issue, every row sits under its first issue only, so no count doubles.
+// One list of rows in the order the sort control names. Newest first and oldest first are one plain
+// list by date. By signing order, the rows a Forward Order revokes sit under that order, in the
+// orders' own sequence; a section no order reaches (already done, just in) stays a list by date.
 function Rows({
   rows,
   variant,
-  groups,
-  byIssue,
-  nested,
+  sort,
+  orders,
   signed,
   onToggle,
 }: {
   rows: SlimRow[];
   variant: Variant;
-  groups?: Group<SlimRow>[];
-  byIssue: boolean;
-  nested?: boolean;
+  sort: PenSort;
+  orders?: ForwardOrderView[];
   signed?: ReadonlySet<string>;
   onToggle?: (id: string) => void;
 }) {
   const list = (items: SlimRow[]) => <PagedItems items={items} variant={variant} signed={signed} onToggle={onToggle} />;
-  if (byIssue) {
+  if (sort === 'bundle' && orders) {
     return (
       <>
-        {groupByIssue(rows).map((g) => (
-          <div key={g.key} className={`undo-group${nested ? ' undo-group-nested' : ''}`}>
-            <SubHead label={g.key === 'none' ? COPY.issues.noIssue : ISSUE_BY_KEY[g.key].label} count={g.rows.length} />
-            {list(g.rows)}
-          </div>
-        ))}
-      </>
-    );
-  }
-  if (groups) {
-    return (
-      <>
-        {groups.map((g) => (
+        {groupByBundle(rows, orders, COPY.field.unbundled).map((g) => (
           <div key={g.key} className="undo-group">
             <SubHead label={g.label} count={g.rows.length} />
             {list(g.rows)}
@@ -276,14 +221,17 @@ function Rows({
       </>
     );
   }
-  return list(rows);
+  return list(sortByDate(rows, sort === 'oldest' ? 'oldest' : 'newest'));
 }
 
-// /undo/all: every row on its own, searchable, sorted by date or by issue, each section closed
-// until tapped and each open list paged. The ticks are the same ticks as the front page.
+// /undo/all: every executive action a pen reaches, one row each, searchable, filtered by who feels
+// it and sorted by one control; each section closed until tapped and each open list paged. The
+// ticks are the same ticks as the front page. Executive actions only since 2026-11-08: the rows
+// that arrive are the pen rows, so the sections a pen does not reach are gone.
 export default function UndoAll({
   rows,
   penInForce,
+  orders,
 }: {
   rows: SlimRow[];
   penInForce: number;
@@ -291,8 +239,11 @@ export default function UndoAll({
 }) {
   const [query, setQuery] = useState('');
   const [issue, setIssue] = useState<IssueKey | null>(null);
-  const [sort, setSort] = useState<SortMode>('newest');
+  const [sort, setSort] = useState<PenSort>(PEN_SORTS[0]);
   const [signed, setSigned] = useState<Set<string>>(() => new Set());
+  // The issue filters sit behind one control on a phone, so the rows come first; on a wide screen
+  // the stylesheet shows them always and hides the control.
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   useEffect(() => {
     // Reading storage must wait for the browser, so this one setState in an effect is deliberate.
@@ -308,11 +259,12 @@ export default function UndoAll({
     writeSigned([...next]);
   }
 
-  // Chip counts are taken over the rows the search leaves, so a chip's number is what its click shows.
+  // Chip counts are taken over the rows still standing that the search leaves, so a chip's number
+  // is what its click shows in "To undo" and matches the bar for the same issue on /undo.
   const issueCounts = useMemo(() => {
     const counts: Record<string, number> = {};
     for (const r of rows) {
-      if (!matchesQuery(r, query)) continue;
+      if (!isPenInForce(r) || !matchesQuery(r, query)) continue;
       for (const k of new Set(r.issues ?? [])) counts[k] = (counts[k] ?? 0) + 1;
     }
     return counts;
@@ -320,17 +272,9 @@ export default function UndoAll({
 
   const view = useMemo(() => {
     const hit = rows.filter((r) => matchesQuery(r, query) && (issue === null || !!r.issues?.includes(issue)));
-    const lunchRows = hit.filter(isPenInForce);
-    const lockedRows = hit.filter((r) => r.bucket === 'locked' && !isLeave(r));
     return {
       shown: hit.length,
-      lunchRows,
-      lunch: groupPen(lunchRows),
-      year: hit.filter((r) => r.bucket === 'pen-process' && !isAlreadyDone(r) && !isLeave(r)),
-      majority: hit.filter((r) => r.bucket === 'majority' && !isLeave(r)),
-      sixty: hit.filter((r) => r.bucket === 'sixty' && !isLeave(r)),
-      lockedRows,
-      locked: groupByInstrument(lockedRows, INSTRUMENT_LABEL),
+      lunchRows: hit.filter(isPenInForce),
       done: hit.filter(isAlreadyDone),
       // A commemorative proclamation stays in its own group even if a ruling marks it leave.
       leave: hit.filter((r) => isLeave(r) && !isCeremonial(r)),
@@ -338,7 +282,6 @@ export default function UndoAll({
       ceremonial: hit.filter(isCeremonial),
     };
   }, [rows, query, issue]);
-
   // Anonymous usage (2026-11-07): a search is logged once typing pauses, with how many rows it found.
   useEffect(() => {
     const q = query.trim();
@@ -349,7 +292,7 @@ export default function UndoAll({
     return () => clearTimeout(t);
   }, [query, rows]);
 
-  function chooseSort(value: SortMode) {
+  function chooseSort(value: PenSort) {
     setSort(value);
     track('undo', 'sort', { sort: value, page: 'all' });
   }
@@ -359,9 +302,7 @@ export default function UndoAll({
     track('undo', 'filter', { issue: key ?? 'all', page: 'all' });
   }
 
-  const byIssue = sort === 'issue';
-  const searching = query.trim() !== '' || issue !== null;
-  const congressCount = view.majority.length + view.sixty.length;
+  const restCount = view.done.length + view.justIn.length + view.leave.length + view.ceremonial.length;
 
   const activeIds = useMemo(() => new Set(rows.filter(isPenInForce).map((r) => r.id)), [rows]);
   let signedCount = 0;
@@ -369,7 +310,7 @@ export default function UndoAll({
 
   return (
     <>
-      <section className="undo-section" aria-labelledby="undo-tools-h">
+      <section className="undo-section undo-all-tools" aria-labelledby="undo-tools-h">
         <div className="wrap">
           <h2 id="undo-tools-h" className="sr-only">
             {COPY.search.label}
@@ -390,14 +331,9 @@ export default function UndoAll({
               />
             </div>
             <fieldset className="undo-sort">
-              <legend className="undo-filter-legend">{COPY.issues.sortLabel}</legend>
+              <legend className="undo-filter-legend">{COPY.sort.label}</legend>
               <div className="undo-sort-opts">
-                {(
-                  [
-                    ['newest', COPY.issues.newest],
-                    ['issue', COPY.issues.byIssue],
-                  ] as const
-                ).map(([value, label]) => (
+                {PEN_SORTS.map((value) => (
                   <label key={value} className="undo-sort-opt">
                     <input
                       type="radio"
@@ -406,17 +342,24 @@ export default function UndoAll({
                       checked={sort === value}
                       onChange={() => chooseSort(value)}
                     />
-                    <span className="undo-sort-text">{label}</span>
+                    <span className="undo-sort-text">{COPY.sort[value]}</span>
                   </label>
                 ))}
               </div>
             </fieldset>
           </div>
-          <div className="undo-filters">
-            <div role="group" aria-labelledby="undo-issue-legend">
-              <span id="undo-issue-legend" className="undo-filter-legend">
-                {COPY.issues.filterLabel}
-              </span>
+          <div className={`undo-filters${filtersOpen ? ' is-open' : ''}`}>
+            <button
+              type="button"
+              className="undo-fchips-toggle"
+              id="undo-fchips-toggle"
+              aria-expanded={filtersOpen}
+              aria-controls="undo-fchips"
+              onClick={() => setFiltersOpen(!filtersOpen)}
+            >
+              {COPY.issues.toggle(issue ? ISSUE_BY_KEY[issue].label : undefined)}
+            </button>
+            <div role="group" aria-labelledby="undo-fchips-toggle" id="undo-fchips">
               <div className="undo-fchips">
                 <button type="button" className="undo-fchip" aria-pressed={issue === null} onClick={() => chooseIssue(null)}>
                   {COPY.issues.all}
@@ -441,7 +384,7 @@ export default function UndoAll({
             </div>
           </div>
           <p className="undo-count" role="status" aria-live="polite">
-            {COPY.search.count(view.shown, rows.length)}. {COPY.strip.signedOf(signedCount, penInForce)}.
+            {COPY.search.count(view.lunchRows.length, penInForce)}. {COPY.strip.signedOf(signedCount, penInForce)}.
           </p>
           {rows.length === 0 ? (
             <p className="undo-empty">{COPY.search.noRows}</p>
@@ -451,72 +394,48 @@ export default function UndoAll({
         </div>
       </section>
 
+      {/* THE LIST: the executive actions still standing, open, so the sort and the filter visibly move it */}
       {view.lunchRows.length > 0 ? (
-        <Fold id="undo-lunch-h" title={COPY.lunch.title} count={view.lunchRows.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.lunch.intro}</p>
-          <Rows rows={view.lunchRows} groups={view.lunch} variant="check" byIssue={byIssue} signed={signed} onToggle={toggle} />
-        </Fold>
+        <section className="undo-section undo-all-list" aria-label={COPY.groups.titled(COPY.groups.standing, view.lunchRows.length)}>
+          <div className="wrap">
+            <Rows rows={view.lunchRows} orders={orders} variant="check" sort={sort} signed={signed} onToggle={toggle} />
+          </div>
+        </section>
       ) : null}
 
-      {view.year.length > 0 ? (
-        <Fold id="undo-year-h" title={COPY.thisYear.title} count={view.year.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.thisYear.intro}</p>
-          <Rows rows={view.year} variant="hollow" byIssue={byIssue} />
-        </Fold>
-      ) : null}
-
-      {congressCount > 0 ? (
-        <Fold id="undo-congress-h" title={COPY.congress.title} count={congressCount} forceOpen={searching}>
-          {view.majority.length > 0 ? (
-            <div className="undo-group">
-              <SubHead label={COPY.congress.majority.title} count={view.majority.length} />
-              <p className="undo-intro">{COPY.congress.majority.intro}</p>
-              <Rows rows={view.majority} variant="hollow" byIssue={byIssue} nested />
-            </div>
-          ) : null}
-          {view.sixty.length > 0 ? (
-            <div className="undo-group">
-              <SubHead label={COPY.congress.sixty.title} count={view.sixty.length} />
-              <p className="undo-intro">{COPY.congress.sixty.intro}</p>
-              <Rows rows={view.sixty} variant="hollow" byIssue={byIssue} nested />
-            </div>
-          ) : null}
-        </Fold>
-      ) : null}
-
-      {view.lockedRows.length > 0 ? (
-        <Fold id="undo-locked-h" title={COPY.locked.title} count={view.lockedRows.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.locked.intro}</p>
-          <Rows rows={view.lockedRows} groups={view.locked} variant="flat" byIssue={byIssue} />
-        </Fold>
-      ) : null}
-
-      {view.done.length > 0 ? (
-        <Fold id="undo-done-h" title={COPY.done.title} count={view.done.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.done.intro}</p>
-          <Rows rows={view.done} variant="done" byIssue={byIssue} />
-        </Fold>
-      ) : null}
-
-      {view.justIn.length > 0 ? (
-        <Fold id="undo-justin-h" title={COPY.justIn.title} count={view.justIn.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.justIn.intro}</p>
-          <Rows rows={view.justIn} variant="done" byIssue={byIssue} />
-        </Fold>
-      ) : null}
-
-      {view.leave.length > 0 ? (
-        <Fold id="undo-leave-h" title={COPY.leave.title} count={view.leave.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.leave.intro}</p>
-          <Rows rows={view.leave} variant="done" byIssue={byIssue} />
-        </Fold>
-      ) : null}
-
-      {view.ceremonial.length > 0 ? (
-        <Fold id="undo-ceremonial-h" title={COPY.ceremonial.title} count={view.ceremonial.length} forceOpen={searching}>
-          <p className="undo-intro">{COPY.ceremonial.intro}</p>
-          <Rows rows={view.ceremonial} variant="done" byIssue={byIssue} />
-        </Fold>
+      {/* THE REST: what a pen reached that needs no signature now, behind one tap */}
+      {restCount > 0 ? (
+        <section className="undo-section undo-section-ruled" aria-labelledby="undo-rest-h">
+          <div className="wrap">
+            {/* Opens on its own only for a typed search, which may hit a row in here; an issue pick
+                narrows the list above and leaves this closed until tapped. */}
+            <details className="undo-fold undo-rest" open={query.trim() !== '' || undefined}>
+              <summary className="undo-fold-summary">
+                <h2 id="undo-rest-h" className="undo-h2">
+                  {COPY.groups.rest(restCount)}
+                </h2>
+                <span className="undo-fold-line">{COPY.groups.restLine}</span>
+              </summary>
+              <p className="undo-intro">{COPY.groups.restIntro(rows.length)}</p>
+              {(
+                [
+                  [COPY.groups.done, COPY.done.intro, view.done],
+                  [COPY.groups.justIn, COPY.justIn.intro, view.justIn],
+                  [COPY.groups.leave, COPY.leave.intro, view.leave],
+                  [COPY.groups.ceremonial, COPY.ceremonial.intro, view.ceremonial],
+                ] as const
+              ).map(([label, intro, items]) =>
+                items.length > 0 ? (
+                  <div key={label} className="undo-group">
+                    <SubHead label={label} count={items.length} />
+                    <p className="undo-intro">{intro}</p>
+                    <Rows rows={items} variant="done" sort={sort} />
+                  </div>
+                ) : null,
+              )}
+            </details>
+          </div>
+        </section>
       ) : null}
     </>
   );

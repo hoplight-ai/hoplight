@@ -1,34 +1,32 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { BUCKETS } from '@/lib/undo/types';
-import type { Bucket } from '@/lib/undo/types';
 import { COPY } from '@/lib/undo/copy';
 import { track } from '@/lib/track';
 import { fieldBlocks } from '@/lib/undo/field';
 import type { IssueKey } from '@/lib/undo/issues';
 import { issueBars } from '@/lib/undo/progress';
 import type { ForwardOrderView } from '@/lib/undo/forward-text';
-import { isAlreadyDone, isJustIn, isLeave, isPenInForce } from '@/lib/undo/sections';
+import { isPenInForce } from '@/lib/undo/sections';
 import type { SlimRow } from '@/lib/undo/sections';
 import ForwardOrders from './ForwardOrders';
 import type { OrderPick } from './ForwardOrders';
-import IssueBars from './IssueBars';
+import IssueBars, { BAR_SPAN } from './IssueBars';
 import SignatureField from './SignatureField';
 import { readSigned, writeSigned } from './signed';
 
 // The front page of The Undo List: the headline over the field, the key, the one filter, the
-// thirteen orders. Every row on its own is /undo/all (UndoAll.tsx); the two pages share the
+// thirteen orders. Executive actions only (2026-11-08): the rows that arrive are the pen rows. Every row on its own is /undo/all (UndoAll.tsx); the two pages share the
 // reader's ticks through one storage key.
 export default function UndoList({
   rows,
   penInForce,
-  locked,
+  kinds,
   orders,
 }: {
   rows: SlimRow[];
   penInForce: number;
-  locked: number;
+  kinds: { key: string; label: string; count: number }[];
   orders: ForwardOrderView[];
 }) {
   // The issue filter is never stored: a reload starts from the whole list.
@@ -108,23 +106,9 @@ export default function UndoList({
   const penIds = useMemo(() => rows.filter(isPenInForce).map((r) => r.id), [rows]);
   const blocks = useMemo(() => fieldBlocks(orders, penIds, COPY.field.unbundled), [orders, penIds]);
 
-  // The counts the key prints, over the whole list, never the filtered one.
-  const whole = useMemo(
-    () => ({
-      rule: rows.filter((r) => r.bucket === 'pen-process' && !isAlreadyDone(r) && !isLeave(r) && !isJustIn(r)).length,
-      majority: rows.filter((r) => r.bucket === 'majority' && !isLeave(r)).length,
-      sixty: rows.filter((r) => r.bucket === 'sixty' && !isLeave(r)).length,
-    }),
-    [rows],
-  );
-  const keyRows: [Bucket, number][] = [
-    ['pen', penInForce],
-    ['pen-process', whole.rule],
-    ['majority', whole.majority],
-    ['sixty', whole.sixty],
-    ['locked', locked],
-  ];
-  const keyTotal = keyRows.reduce((n, [, c]) => n + c, 0);
+  // The key: the pen rows still standing, by the document that issued each, over the whole list,
+  // never the filtered one. Counted on the server, where every row still carries all its sources.
+  const kindMax = Math.max(1, ...kinds.map((k) => k.count));
 
   const bars = useMemo(() => issueBars(rows, signed), [rows, signed]);
 
@@ -149,37 +133,31 @@ export default function UndoList({
         </div>
       </div>
 
-      {/* THE KEY: one bar of everything, five kinds of undo, each with its count and one line */}
+      {/* THE KEY: the executive actions a pen undoes by document type, one sideways bar each with its
+          count, the same form as "Who feels it" below (round 2, 2026-11-08) */}
       <section className="undo-section undo-key" aria-labelledby="undo-key-h">
         <div className="wrap">
           <h2 id="undo-key-h" className="undo-h2">
-            {COPY.key.title(keyTotal)}
+            {COPY.key.title(penInForce)}
           </h2>
           <p className="undo-intro">{COPY.key.intro}</p>
-          <div className="undo-keybar" aria-hidden="true">
-            {keyRows.map(([b, n]) =>
-              n > 0 ? <span key={b} className={`undo-keyseg undo-keyseg-${b}`} style={{ flexGrow: n }} /> : null,
-            )}
-          </div>
-          <dl className="undo-keylist">
-            {keyRows.map(([b, n]) => (
-              <div key={b} className="undo-keyrow">
-                <dt>
-                  <span className={`undo-keyswatch undo-keyseg-${b}`} aria-hidden="true" />
-                  <span className="undo-keyname">{BUCKETS[b].label}</span>
-                  <span className="undo-keycount">{n.toLocaleString('en-US')}</span>
-                </dt>
-                <dd>{BUCKETS[b].line}</dd>
-              </div>
+          <ul className="undo-land undo-kinds">
+            {kinds.map((k) => (
+              <li key={k.key}>
+                <div className="undo-bar undo-bar-static">
+                  <span className="undo-bar-label">
+                    <span className="undo-bar-name undo-kind-name">{k.label}</span>
+                  </span>
+                  <span className="undo-bar-track">
+                    <span className="undo-bar-fill" aria-hidden="true" style={{ width: `${(k.count / kindMax) * BAR_SPAN}%` }}>
+                      <span className="undo-seg undo-seg-pen" style={{ flexGrow: 1 }} />
+                    </span>
+                    <span className="undo-bar-count undo-kind-count">{k.count.toLocaleString('en-US')}</span>
+                  </span>
+                </div>
+              </li>
             ))}
-          </dl>
-          <details className="undo-keymore">
-            <summary className="undo-disclose">{COPY.key.more}</summary>
-            <div className="undo-prose">
-              <p>{COPY.key.reconciliation}</p>
-              <p>{COPY.key.cra}</p>
-            </div>
-          </details>
+          </ul>
         </div>
       </section>
 

@@ -65,15 +65,18 @@ export function normalizePath(pathname: string): string {
 }
 
 // The portfolio is public (HOPSITE2, 2026-11-07; Whit that day: the portfolio page "live w the rebuild
-// and dialed in for public sharing"). /portfolio itself opens to anyone, and so do the pieces its own
-// list (src/data/tools.ts) links to, so a tile never lands a stranger on the sign-in. Every other file
-// under /portfolio/ (the nine pieces that left the gallery on 2026-10-21, the thumbnails) stays gated.
-// scripts/portfolio-public.test.mjs fails when a cleared entry links to a piece missing here.
+// and dialed in for public sharing"). /portfolio itself opens to anyone, and so do the product pieces its
+// own list (src/data/tools.ts) links to, so a tile never lands a stranger on the sign-in. Every other file
+// under /portfolio/ (the pieces that left the gallery on 2026-10-21, the thumbnails) stays gated.
+// scripts/portfolio-public.test.mjs fails when a cleared product links to a piece missing here.
+//
+// The DNC and GE reports came off this list on 2026-11-07 (LOCKREPORTS1; Whit: "hide them all the dnc after
+// action report, the electoral cost, the dilution models  can remain a report but locked up."). They stay
+// listed as reports on /insights, where their rows draw the lock. scripts/reports-locked.test.mjs holds it.
+// The Oregon report was not part of that ruling and stays open.
 export const PUBLIC_PORTFOLIO = [
   '/portfolio',
-  '/portfolio/dnc-autopsy-taken-apart.html',
   '/portfolio/oregon-school-budget-report.html',
-  '/portfolio/worker-equity-dilution-at-ge.html',
 ]
 
 export function isGated(pathname: string): boolean {

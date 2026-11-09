@@ -105,9 +105,10 @@ test('card: a ground too close to the mat gets a light hairline at the window ed
   assert.deepEqual(close, ['what-s-human'], 'today only What\'s Human is that dark');
 });
 
-// Polish fix 2: the portfolio card shows the launch-day three, drawn larger, so they read at 300px.
-test('card: the portfolio card shows Revenge or Justice, The Undo List and Gut Check as large tiles', () => {
-  assert.deepEqual(LIBRARY, ['revenge-or-justice', 'undo', 'gut-check']);
+// Polish fix 2: the portfolio card shows the launch-day three, drawn larger, so they read at 300px. Which three is main's:
+// Gut Check is held (PORTHOLD1), so Rumi takes its place (merge of main, 2026-11-08).
+test('card: the portfolio card shows Revenge or Justice, The Undo List and Rumi as large tiles', () => {
+  assert.deepEqual(LIBRARY, ['revenge-or-justice', 'undo', 'rumi']);
   const { els } = walk(toolCard(PORTFOLIO_CARD, FONTS));
   const tiles = els.filter((el) => el.props?.style?.borderRadius && el.props.style.width === el.props.style.height && el.key && LIBRARY.includes(el.key));
   assert.deepEqual(tiles.map((el) => el.key), LIBRARY, 'three tiles, in launch order');
@@ -174,4 +175,21 @@ test('picture: revenge-or-justice (glyph bars) is the balance scale and has no b
     if (pts.length >= 3) assert.ok(sharpestCorner(pts) >= 30, `a sharp straight-sided shape: ${d}`);
   }
   assert.ok(!/height="26"/.test(svg), 'none of the old bar rows');
+});
+
+// Merge of main, 2026-11-08: main's portfolio tiles lay each approved mark (src/data/tool-marks.ts) over the
+// tile's 280 square picture box (MARK_BOX). The framed card draws the balance scale at the mockup's 340 by 320,
+// but a frameless tile must keep the 280 box, or the scale shows round the edge of the scales mark.
+test('tile: a marked tool\'s frameless tile draws its picture inside the 280 mark box', async () => {
+  const { TOOL_MARKS, MARK_BOX } = await import('../src/data/tool-marks.ts');
+  for (const slug of Object.keys(TOOL_MARKS)) {
+    const t = TOOL_BY_SLUG[slug];
+    const imgs = walk(toolCard(t, FONTS, { band: false })).els.filter((el) => el.type === 'img');
+    assert.equal(imgs.length, 1, `${slug} tile: one picture`);
+    assert.ok(imgs[0].props.width <= MARK_BOX.size && imgs[0].props.height <= MARK_BOX.size, `${slug} tile picture ${imgs[0].props.width} by ${imgs[0].props.height} spills past the ${MARK_BOX.size} mark box`);
+  }
+  // The framed card keeps the mockup's size for the scale.
+  const rojCard = walk(toolCard(TOOL_BY_SLUG['revenge-or-justice'], FONTS)).els.filter((el) => el.type === 'img' && el.props.width === 340);
+  assert.equal(rojCard.length, 1, 'the framed Revenge or Justice card draws the scale at 340 by 320');
+  assert.equal(rojCard[0].props.height, 320);
 });

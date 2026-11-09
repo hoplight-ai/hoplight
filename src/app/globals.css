@@ -381,12 +381,22 @@ section { padding: var(--space-section) 0; }
 /* Every tile shows the tool's own link-preview card (src/data/tools.ts, 2026-11-07), whole, at the card's shape. */
 .gallery-grid .wcard-img.wcard-img-card { aspect-ratio: 1200 / 630; }
 .gallery-grid .wcard-img img.wcard-card { object-fit: contain; object-position: center; }
+/* MARKSLIVE1, 2026-11-07: a tile's mark lies over the whole card picture at the card's own shape, filled
+   from the centre like the card image, so it lands on the card's corner picture at every width. */
+.gallery-grid .wcard-img .wcard-mark { position: absolute; inset: 0; pointer-events: none; }
+.gallery-grid .wcard-img .wcard-mark svg { display: block; width: 100%; height: 100%; }
 /* The portfolio's first screen: the headline and its one line, then straight into a full row of tiles
    at 1440 by 900 (visual review, 2026-11-07). */
 .page-hero.portfolio-hero { padding: clamp(32px, 4vw, 48px) 0 clamp(24px, 3vw, 32px); }
 .page-hero.portfolio-hero p { margin-top: 12px; }
 .portfolio-gallery { padding-top: clamp(24px, 3vw, 36px); }
 .portfolio-gallery .gallery-grid { margin-top: 0; }
+/* WCKIDS2, 2026-11-07, visual-sociologist review: every tile in a row is the row's height, with "Open it"
+   at its foot on one shared line. The grid cell already stretches; the tile now fills it, and the line's
+   flex: 1 in .wcard-body pushes "Open it" down. Before, a three-line tile ended about 23px below its
+   neighbours at 1440. */
+.portfolio-products .gallery-grid > li { display: flex; }
+.portfolio-products .gallery-grid .wcard { flex: 1 1 auto; }
 /* The hover used to brighten the link to --gold, 2.6:1 on the white card. It keeps option C and gains an
    underline instead, so the link still answers the pointer; the card's gold edge and shadow do the rest. */
 .wcard:hover .wc-go { color: var(--gold-deep); text-decoration: underline; text-underline-offset: 3px; }
@@ -823,7 +833,6 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-items { list-style: none; margin: 0; padding: 0; }
 .undo-item {
   display: flex; align-items: flex-start; gap: 4px; padding: 14px 0; border-bottom: 1px solid var(--line);
-  content-visibility: auto; contain-intrinsic-size: auto 150px;
 }
 .undo-item p { margin: 0; }
 .undo-item-body { flex: 1 1 auto; min-width: 0; }
@@ -918,12 +927,38 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
   display: inline-block; padding: 0 6px; border: 1px solid var(--line); border-radius: var(--radius-sm);
   font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.6; letter-spacing: 0.04em; color: var(--stone);
 }
-#undo-lunch-h { scroll-margin-top: 150px; }
-#undo-lunch-h:focus-visible { outline: 2px solid var(--ring); outline-offset: 4px; }
 
 /* Filter chips and the sort control, under the search */
 .undo-filters { margin-top: 24px; display: grid; gap: 20px; }
 .undo-fchips { display: flex; flex-wrap: wrap; gap: 8px; }
+/* The seventeen issue filters sit behind one control at every width, so the rows come first (round
+   2 on a phone, round 3 on a wide screen, 2026-11-08). */
+.undo-fchips-toggle {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; max-width: 480px; min-height: 44px; padding: 0 14px;
+  font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.04em; color: var(--ink); background: var(--white);
+  border: 1px solid var(--line-card); border-radius: var(--radius-sm); cursor: pointer; text-align: left;
+}
+.undo-fchips-toggle::after { content: '+'; font-size: 1.1rem; }
+.undo-filters.is-open .undo-fchips-toggle::after { content: '\2212'; }
+.undo-fchips-toggle:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+.undo-filters:not(.is-open) #undo-fchips { display: none; }
+.undo-all-tools .undo-filters { margin-top: 16px; gap: 12px; }
+
+/* /undo/all, round 3: rows start in the first screen. The tools sit close under the hero and the
+   list follows the counter with no heading of its own. */
+.undo-hero-all { padding-top: clamp(28px, 5vw, 56px); }
+.undo-all-tools { padding: 12px 0 8px; }
+.undo-all-tools .undo-count { margin-top: 10px; }
+.undo-all-list { padding-top: 4px; }
+.undo-all-list .undo-items { border-top: 1px solid var(--line); }
+.undo-rest > .undo-fold-summary { flex-wrap: wrap; }
+.undo-rest > .undo-fold-summary::after { order: 2; }
+.undo-rest .undo-fold-line { order: 3; }
+
+/* Controls take the page's font. A button or a field does not inherit it by default, which showed
+   the browser's own Arial in the block names and buttons (round 3). Classes that set the mono face
+   still win: this rule carries only an element's weight. */
+:where(.undo-hero, .undo-section, .undo-strip) :is(button, input, select, textarea) { font-family: inherit; }
 .undo-fchip {
   position: relative; display: inline-flex; align-items: baseline; gap: 8px; min-height: 36px; padding: 0 12px;
   font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--stone-deep); background: var(--white);
@@ -955,7 +990,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-land > li { border-bottom: 1px solid var(--line); }
 .undo-land > li:first-child { border-top: 1px solid var(--line); }
 .undo-bar {
-  display: grid; grid-template-columns: 1fr auto; grid-template-areas: 'label label' 'track count'; align-items: center;
+  display: grid; grid-template-columns: 1fr; grid-template-areas: 'label' 'track'; align-items: center;
   column-gap: 14px; row-gap: 8px; width: 100%; min-height: 44px; padding: 12px 0; font: inherit; text-align: left;
   color: var(--ink); background: none; border: 0; cursor: pointer;
 }
@@ -965,24 +1000,17 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-bar:hover .undo-bar-name { border-bottom-color: var(--gold); }
 .undo-bar.is-active .undo-bar-name { border-bottom: 2px solid var(--gold); }
 .undo-bar-line { display: none; margin-top: 4px; font-size: 0.85rem; line-height: 1.45; color: var(--stone); }
-.undo-bar-track { grid-area: track; display: block; height: 18px; border: 1px solid var(--line-card); border-radius: var(--radius-sm); overflow: hidden; background: var(--white); }
-.undo-bar-fill { position: relative; display: flex; height: 100%; min-width: 6px; transition: width 200ms ease-out; }
+/* Round 3 (2026-11-08): each bar ends in its count, so the number sits where the bar stops. */
+.undo-bar-track { grid-area: track; display: flex; align-items: center; gap: 10px; height: 18px; }
+.undo-bar-fill { position: relative; display: flex; flex: none; height: 100%; min-width: 6px; border-radius: var(--radius-sm); overflow: hidden; transition: width 200ms ease-out; }
 .undo-seg { display: block; flex-basis: 0; min-width: 2px; height: 100%; box-shadow: inset -1px 0 0 var(--white); }
 .undo-seg-pen { background: var(--gold); }
-.undo-seg-process { background: var(--gold-deep); }
-.undo-seg-congress { background: var(--ink-soft); }
-.undo-seg-locked { background: var(--stone); }
 /* How far the reader's ticks have gone through this issue's pen items: a hairline over the pen segment */
 .undo-bar-mark { position: absolute; top: 0; bottom: 0; width: 2px; margin-left: -1px; background: var(--ink); box-shadow: 0 0 0 1px var(--white); transition: left 200ms ease-out; }
-.undo-bar-count { grid-area: count; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.undo-legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 18px 0 0; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.04em; color: var(--stone); }
-.undo-legend-item { display: inline-flex; align-items: center; gap: 8px; }
-.undo-legend-swatch { display: inline-block; width: 12px; height: 12px; flex: none; }
-.undo-legend-mark { display: inline-block; width: 2px; height: 14px; flex: none; background: var(--ink); }
+.undo-bar-count { flex: none; font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.02em; color: var(--ink); white-space: nowrap; font-variant-numeric: tabular-nums; }
 @media (min-width: 760px) {
-  .undo-bar { grid-template-columns: minmax(220px, 300px) 1fr 150px; grid-template-areas: 'label track count'; column-gap: 24px; padding: 14px 0; }
+  .undo-bar { grid-template-columns: minmax(220px, 300px) 1fr; grid-template-areas: 'label track'; column-gap: 24px; padding: 14px 0; }
   .undo-bar-line { display: block; }
-  .undo-bar-count { text-align: right; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1015,7 +1043,7 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
 .undo-cell.is-off { opacity: 0.16; transition-delay: 0ms !important; }
 .undo-block.is-off { opacity: 0.4; }
 @media (hover: hover) { .undo-block:hover .undo-cell:not(.is-on):not(.is-off) { border-color: var(--gold-deep); } }
-.undo-block-n { display: flex; align-items: baseline; gap: 6px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.undo-block-n { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 6px; font-family: var(--font-mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
 .undo-block-count { color: var(--stone); }
 .undo-block.is-signed .undo-block-n { color: var(--gold-deep); }
 @media (min-width: 700px) { .undo-field { --cell: 13px; --gap: 3px; gap: 22px 26px; } }
@@ -1100,32 +1128,15 @@ footer.site { padding: 28px 0; border-top: 1px solid var(--line); background: va
    screen 94; two counts for one label). The list is its own page, the key is a bar under the hero,
    the issue bars are the one filter. ----- */
 
-/* The key: one bar of everything, then five lines with swatch, name, count, one sentence */
+/* The key: the executive actions a pen undoes by document type, drawn as the same sideways bars
+   as "Who feels it" with the count on each (round 2, 2026-11-08). The bars here are not buttons. */
 .undo-key { padding-top: 20px; }
-.undo-keybar { display: flex; gap: 2px; height: 14px; margin: 18px 0 16px; max-width: 760px; }
-.undo-keyseg { display: block; flex-basis: 0; min-width: 4px; height: 100%; border-radius: 2px; }
-.undo-keyseg-pen { background: var(--gold); }
-.undo-keyseg-pen-process { background: var(--gold-deep); }
-.undo-keyseg-majority { background: var(--ink-soft); }
-.undo-keyseg-sixty { background: var(--ink); }
-.undo-keyseg-locked { background: var(--stone); }
-.undo-keylist { margin: 0; max-width: 760px; }
-.undo-keyrow { display: grid; grid-template-columns: 1fr; gap: 2px 20px; padding: 10px 0; border-top: 1px solid var(--line); }
-.undo-keyrow dt { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 0.98rem; color: var(--ink); }
-.undo-keyswatch { display: inline-block; width: 12px; height: 12px; border-radius: 2px; flex: none; }
-.undo-keycount { margin-left: auto; font-family: var(--font-mono); font-size: 0.82rem; font-weight: 500; color: var(--ink); font-variant-numeric: tabular-nums; }
-.undo-keyrow dd { margin: 0 0 0 22px; font-size: 0.9rem; line-height: 1.5; color: var(--stone-deep); }
-.undo-keymore { margin-top: 14px; }
-.undo-keymore > summary { list-style: none; width: fit-content; }
-.undo-keymore > summary::-webkit-details-marker { display: none; }
-.undo-keymore .undo-prose { margin-top: 12px; }
-@media (min-width: 760px) {
-  .undo-keyrow { grid-template-columns: 300px 1fr; align-items: baseline; }
-  .undo-keyrow dd { margin-left: 0; }
-}
+.undo-kinds { max-width: 100%; margin-top: 18px; }
+.undo-bar-static { cursor: default; }
+.undo-bar-static:hover .undo-bar-name { border-bottom-color: transparent; }
 
 /* The field names its wide blocks, so the biggest shape on the page carries its name */
-.undo-block-name { display: block; max-width: calc(var(--cols) * (var(--cell) + var(--gap))); font-size: 0.74rem; line-height: 1.25; font-weight: 600; color: var(--ink); text-wrap: balance; }
+.undo-block-name { display: block; width: max(calc(var(--cols) * (var(--cell) + var(--gap))), 6.5rem); font-size: 0.74rem; line-height: 1.25; font-weight: 600; color: var(--ink); text-wrap: balance; }
 
 /* The bar filter: first five bars, the rest on a tap, clear beside it */
 .undo-who { padding-top: 24px; }

@@ -1,4 +1,4 @@
-STATUS: FAIL
+STATUS: PASS
 
 # Revenge or Justice, security check of 2026-11-07
 
@@ -60,3 +60,9 @@ Content-Security-Policy on every page carries `script-src 'self' 'unsafe-inline'
 ## Update, 2026-11-07 evening (Publicist Dispatch)
 
 Counted, `vercel firewall overview` on project hoplight: the firewall was "Not configured" (no rule existed). Two rules are now live: "Revenge or Justice model cap", POST to any path starting /api/revenge-or-justice, 10 per address per hour, deny past it; and "Signal and sign-in cap", POST /api/signal or /api/grant, 150 per address per ten minutes. A cap across all addresses was refused by Vercel ("Rate limit key header:host is not available for this plan (402)"), so a rotating set of addresses is still bounded only by the in-memory caps. The high finding stays open until fix 2 (a spend limit on the Anthropic workspace that holds quick-tools' ANTHROPIC_API_KEY) or fix 3 lands; with either, change the first line to PASS.
+
+## Update, 2026-11-08
+
+The high finding (no hard limit on the model bill) is closed by fix 2: a monthly billing cap on the Anthropic workspace that holds quick-tools' ANTHROPIC_API_KEY (Anthropic Console, Limits). Whit set it and confirmed it to Publicist Dispatch on 2026-11-08, first "Yes, I'll set it", then "It's set". The cap was not seen by Code: nobody in Code can read the Anthropic Console, so this rests on his word, dictated on his phone. With the cap in place the bill stops whatever the traffic does, so the first line is now PASS (lane RJCLEAR1, Revenge or Justice joins the portfolio).
+
+Nothing else above changed. The medium finding (the grader fetches any address it is handed) and both low findings (the headline list's grade call, the site-wide inline script policy) stay open as written; none of them blocks the launch. The cap across all addresses that Vercel refused on this plan is still absent, so the in-memory caps and the per-address firewall rule are the only limits on traffic; the billing cap is the limit on the bill.

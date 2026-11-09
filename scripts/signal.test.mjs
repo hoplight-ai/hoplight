@@ -109,6 +109,26 @@ test('signal: only this site and the three external tools may post', () => {
   assert.equal(bad.forward, null);
 });
 
+// WCKIDS2, 2026-11-07: the kids Wonder Cards deck ("What Should We Wonder?") loads /kit/signal.js with the
+// tool slug wonder-cards from its own site; before this lane its CORS preflight answered 403 (lane WCKIDS1).
+test('signal: the kids Wonder Cards deck may post its usage and its grown-ups\' note from its own site', () => {
+  const o = 'https://wonder-cards.vercel.app';
+  assert.ok(EXTERNAL_ORIGINS.includes(o), 'the deck\'s site is not an allowed origin');
+  assert.ok(SIGNAL_TOOLS.has('wonder-cards'), 'wonder-cards is not in the tool map');
+  // The deck's own actions and prop keys (its page script at wonder-cards main 752c28d).
+  for (const [action, props] of [['open', {}], ['draw', { suit: 'feel', filter: 'all', card: 12, n: 3 }], ['filter', { filter: 'imagine' }],
+    ['tips-open', {}], ['list-open', {}], ['note-open', {}], ['note-sent', { ok: true }]]) {
+    const r = req({ kind: 'event', tool: 'wonder-cards', action, props }, { origin: o });
+    assert.equal(r.status, 202, action);
+    assert.equal(r.cors, o);
+    assert.equal(storeBody(r.forward).tool, 'wonder-cards');
+  }
+  const note = req({ kind: 'feedback', tool: 'wonder-cards', message: 'my kid loved the imagine cards' }, { origin: o });
+  assert.equal(note.status, 202);
+  assert.equal(storeBody(note.forward).tool, 'wonder-cards');
+  assert.equal(originPolicy('https://wondercards-teal.vercel.app', 'hoplight.ai').allowed, false, 'only the address the deck is served from');
+});
+
 test('signal: over the limit answers 429 and forwards nothing', () => {
   const seen = [];
   const r = req({ kind: 'feedback', tool: 'undo', message: 'x' }, {}, (kind, key) => (seen.push([kind, key]), false));
@@ -127,9 +147,10 @@ test('kit: public/kit/signal.js is under 3KB and exposes track and feedback', ()
 });
 
 // The store is quick-tools POST /api/tool-signal (lane signal1, 2026-11-07). Its validator refuses
-// any field outside these ten, any tool outside these seven, and any action with an underscore.
+// any field outside these ten, any tool outside these eight, and any action with an underscore. The eighth,
+// wonder-cards, is lane WCSTORE1's change to the store (2026-11-07), made beside this site's WCKIDS2.
 const STORE_FIELDS = ['kind', 'tool', 'action', 'props', 'message', 'contact', 'visitor_hash', 'country', 'region', 'path'];
-const STORE_TOOLS = ['revenge-or-justice', 'undo', 'which-ai', 'gut-check', 'rumi-espanol', 'letters', 'portfolio'];
+const STORE_TOOLS = ['revenge-or-justice', 'undo', 'which-ai', 'gut-check', 'rumi-espanol', 'letters', 'portfolio', 'wonder-cards'];
 const STORE_ACTION = /^[a-z0-9][a-z0-9._:-]*$/;
 
 test('store: the forwarded body carries only the store\'s fields and names', () => {

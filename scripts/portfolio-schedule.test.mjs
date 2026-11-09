@@ -5,10 +5,16 @@
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 import { TOOLS, releaseInstant, visibleTools, portfolioClock } from '../src/data/tools.ts';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 const at = (iso) => Date.parse(iso);
 const slugs = (list) => list.map((t) => t.slug);
+// The eight pieces of the 2026-10-21 gallery, every one still in the list so old links and cards work.
 const GALLERY = [
   'dnc-autopsy-taken-apart',
   'agis-policy-search-aria',
@@ -19,11 +25,165 @@ const GALLERY = [
   'which-ai-should-i-use',
   'worker-equity-dilution-at-ge',
 ];
+// Held off the portfolio whatever their date and clearance (PORTHOLD1). Whit, 2026-11-07: "cut bet apetit,
+// make letters live now, hide agis and lets plan a post to announce it w analogy as partner in december.
+// gut check should be an announcment too so hide that."
+const HELD = {
+  'bet-appetit': 'cut by Whit, 2026-11-07',
+  'agis-policy-search-aria': 'held for its December announcement with Analogy as partner (Whit, 2026-11-07)',
+  'gut-check': 'held for its own announcement (Whit, 2026-11-07)',
+  // LETTERSOFF1. Whit, 2026-11-07: "And I’m honestly not certain that letters as its own standalone thing
+  // that was supposed to just be a feature of roomie.", then "1 yes." to taking it off today.
+  letters: 'folded into Rumi, its letter tracing ships there (Whit, 2026-11-07)',
+};
+const SHOWN_GALLERY = GALLERY.filter((s) => !(s in HELD));
+// The kids Wonder Cards deck, "What Should We Wonder?" (WCKIDS2, 2026-11-07). Whit, 2026-11-07: "the wonder
+// cards that I was thinking of is actually the one that's geared towards kids not the adult one." Its day is
+// 2026-11-07; it shows once `npm run launch:check -- wonder-cards` passes and the entry says cleared. This
+// constant moves with the entry's `cleared`, so the flip is made here too, with the check's result.
+// CLEARTWO1, 2026-11-08 UTC (2026-11-07 Pacific): `npm run launch:check -- wonder-cards` passed all seven
+// against the live deck once its page carried the og:image tags (wonder-cards 0626d2a).
+const WONDER = 'wonder-cards';
+const WONDER_CLEARED = true;
+// Letters went live on 2026-11-07 (LETTERSON1) and came off the same day, held as a feature of Rumi
+// (LETTERSOFF1), so from 2026-11-07 the page shows the kids Wonder Cards deck once it is cleared, then the
+// gallery pieces not held, and nothing else.
+const SHOWN_NOW = WONDER_CLEARED ? [WONDER, ...SHOWN_GALLERY] : SHOWN_GALLERY;
+// The Undo List moved from 2026-11-10 to 2026-11-08 (UNDONOW1). Whit, 2026-11-08: "The undo list is supposed
+// to be one of the products. And I want you to make this live. My website is still the old one." It is
+// cleared (UNDOCLEAR1, go-public check 7 of 7, security report PASS), so from 2026-11-08 it shows.
+const UNDO = 'undo';
+// Revenge or Justice moved from 2026-11-10 to 2026-11-08 and is cleared (RJCLEAR1): its security report says
+// STATUS: PASS once Whit set a monthly billing cap on the Anthropic workspace behind the grader (Whit,
+// 2026-11-08: "Yes, I'll set it", then "It's set"), and its go-public check passed seven of seven. It shares
+// the Undo List's day and sits above it in the list, so from 2026-11-08 it shows first and the Undo List second.
+const ROJ = 'revenge-or-justice';
+const SHOWN_FROM_8 = [ROJ, UNDO, ...SHOWN_NOW];
 
-test('schedule: from 2026-11-07 the page shows Gut Check first, then the eight gallery pieces in their old order', () => {
-  // Whit, 2026-11-07: "get gut punch up early" (Gut Check, moved up from 2026-11-10).
-  assert.deepEqual(slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))), GALLERY);
-  assert.deepEqual(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'))), ['gut-check', ...GALLERY]);
+test('undo: the Undo List shows on /portfolio from 2026-11-08, after Revenge or Justice, and not the minute before (UNDONOW1)', () => {
+  const undo = TOOLS.find((t) => t.slug === UNDO);
+  assert.equal(undo.releaseAt, '2026-11-08');
+  assert.equal(undo.cleared, true);
+  assert.equal(undo.hold, undefined);
+  assert.equal(undo.shelf, 'product');
+  assert.ok(!slugs(visibleTools(at('2026-11-07T23:59:00-08:00'))).includes(UNDO));
+  assert.deepEqual(slugs(visibleTools(at('2026-11-08T00:00:00-08:00'))), SHOWN_FROM_8);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-08T12:00:00-08:00'))), SHOWN_FROM_8);
+});
+
+test('schedule: before and after 2026-11-07 the page shows the gallery pieces not held, in their old order, and no Letters', () => {
+  assert.deepEqual(slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))), SHOWN_GALLERY);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-07T00:00:00-08:00'))), SHOWN_NOW);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'))), SHOWN_NOW);
+  for (const iso of ['2026-11-07T12:00:00-08:00', '2026-11-10T09:00:00-08:00', '2026-11-24T09:00:00-08:00', '2027-01-06T08:00:00-08:00']) {
+    for (const opts of [{}, { includeUncleared: true }]) {
+      assert.ok(!slugs(visibleTools(at(iso), TOOLS, opts)).includes('letters'), `letters shows at ${iso}`);
+    }
+  }
+});
+
+test('wonder cards: the kids deck is a product from 2026-11-07, at its own address, in its own look', () => {
+  const w = TOOLS.find((t) => t.slug === WONDER);
+  assert.ok(w, 'the kids Wonder Cards deck is not on the tool list');
+  assert.equal(w.name, 'Wonder Cards');
+  assert.equal(w.line, '60 tap-to-draw question and activity cards for little kids, made for restaurant tables, waiting rooms and car rides.');
+  assert.equal(w.href, 'https://wonder-cards.vercel.app/junior', 'the kids deck, not the adult one');
+  assert.equal(w.shelf, 'product');
+  assert.equal(w.releaseAt, '2026-11-07');
+  assert.equal(w.cleared, WONDER_CLEARED);
+  assert.equal(w.hold, undefined);
+  assert.deepEqual(w.brand, {
+    ground: '#3B3560', accent: '#FFAA5C', ink: '#FFFFFF',
+    display: { family: 'Fredoka', weight: 600 },
+    wordmark: [{ text: 'Wonder' }, { text: 'Cards' }],
+    glyph: 'cards',
+  });
+});
+
+test('wonder cards: once cleared it shows first from the first minute of 2026-11-07, and never before', () => {
+  const list = TOOLS.map((t) => (t.slug === WONDER ? { ...t, cleared: true } : t));
+  assert.ok(!slugs(visibleTools(at('2026-11-06T23:59:00-08:00'), list)).includes(WONDER));
+  assert.deepEqual(slugs(visibleTools(at('2026-11-07T00:00:00-08:00'), list)), [WONDER, ...SHOWN_GALLERY]);
+  const uncleared = TOOLS.map((t) => (t.slug === WONDER ? { ...t, cleared: false } : t));
+  assert.ok(!slugs(visibleTools(at('2026-11-07T12:00:00-08:00'), uncleared)).includes(WONDER), 'an uncleared deck shows');
+  assert.equal(slugs(visibleTools(at('2026-11-07T12:00:00-08:00'), uncleared, { includeUncleared: true }))[0], WONDER);
+});
+
+test('wonder cards: cleared, the real list shows it first at 2026-11-07 noon Pacific and not the minute before its day (CLEARTWO1)', () => {
+  assert.equal(TOOLS.find((t) => t.slug === WONDER).cleared, true, 'the kids deck passed its go-public check and is not cleared');
+  assert.equal(slugs(visibleTools(at('2026-11-07T12:00:00-08:00')))[0], WONDER);
+  assert.ok(!slugs(visibleTools(at('2026-11-06T23:59:00-08:00'))).includes(WONDER));
+});
+
+test('revenge or justice: cleared, it shows first on /portfolio from 2026-11-08, and not the minute before (RJCLEAR1)', () => {
+  const roj = TOOLS.find((t) => t.slug === ROJ);
+  assert.equal(roj.releaseAt, '2026-11-08');
+  assert.equal(roj.cleared, true, 'the go-public check passed seven of seven and the entry is not cleared');
+  assert.equal(roj.hold, undefined);
+  assert.equal(roj.shelf, 'product');
+  assert.ok(!slugs(visibleTools(at('2026-11-07T23:59:00-08:00'))).includes(ROJ));
+  assert.deepEqual(slugs(visibleTools(at('2026-11-08T00:00:00-08:00'))), SHOWN_FROM_8);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-08T12:00:00-08:00'))), SHOWN_FROM_8);
+});
+
+test('revenge or justice: cleared only while its security report says STATUS: PASS (RJCLEAR1)', () => {
+  const roj = TOOLS.find((t) => t.slug === ROJ);
+  const report = readFileSync(path.join(ROOT, 'docs/security/revenge-or-justice-2026-11-07.md'), 'utf8');
+  assert.equal(report.split('\n')[0], 'STATUS: PASS', 'the report\'s first line is not STATUS: PASS');
+  if (!/^STATUS: PASS\s*$/m.test(report)) assert.equal(roj.cleared, false, 'cleared while its security report has no STATUS: PASS line');
+  // The update says what closed the high finding and on whose word.
+  assert.match(report, /^## Update, 2026-11-08$/m);
+  assert.ok(report.includes('"It\'s set"'), 'the update does not carry Whit\'s words');
+  assert.ok(report.includes('not seen by Code'), 'the update does not say Code did not see the setting');
+  // The medium and low findings stay open, as written.
+  assert.match(report, /^### Medium: the grader fetches any address it is handed, and reads what it finds$/m);
+  assert.match(report, /^### Low: the headline list's grade call is a smaller paid door$/m);
+  assert.match(report, /^### Low: the site-wide script policy allows inline script$/m);
+});
+
+test('letters: released 2026-11-07 and cleared, and held as a feature of Rumi (LETTERSOFF1)', () => {
+  const letters = TOOLS.find((t) => t.slug === 'letters');
+  assert.equal(letters.releaseAt, '2026-11-07');
+  assert.equal(letters.cleared, true);
+  assert.equal(letters.hold, 'folded into Rumi, its letter tracing ships there (Whit, 2026-11-07)');
+  assert.equal(letters.shelf, 'product');
+});
+
+test('hold: a held entry never shows, even released, cleared, or in an uncleared preview', () => {
+  const base = TOOLS.find((t) => t.slug === 'what-s-human');
+  const held = { ...base, slug: 'held-probe', releaseAt: '2026-01-01', cleared: true, hold: 'probe' };
+  const list = [...TOOLS, held];
+  const now = at('2026-11-07T12:00:00-08:00');
+  assert.ok(!slugs(visibleTools(now, list)).includes('held-probe'));
+  assert.ok(!slugs(visibleTools(now, list, { includeUncleared: true })).includes('held-probe'));
+  assert.ok(slugs(visibleTools(now, [...TOOLS, { ...held, hold: undefined }])).includes('held-probe'), 'the same entry shows unheld');
+});
+
+test('hold: the four held entries stay in the list with their reasons, and none shows at 2026-11-07 noon', () => {
+  const byslug = Object.fromEntries(TOOLS.map((t) => [t.slug, t]));
+  for (const [s, why] of Object.entries(HELD)) {
+    assert.ok(byslug[s], `${s} was deleted; it must stay so old links and cards work`);
+    assert.equal(byslug[s].hold, why, s);
+  }
+  assert.deepEqual(TOOLS.filter((t) => t.hold).map((t) => t.slug).sort(), Object.keys(HELD).sort());
+  const now = at('2026-11-07T12:00:00-08:00');
+  for (const opts of [{}, { includeUncleared: true }]) {
+    const shown = slugs(visibleTools(now, TOOLS, opts));
+    for (const s of Object.keys(HELD)) assert.ok(!shown.includes(s), `${s} shows`);
+  }
+});
+
+test('hold: the portfolio preview card draws no held tool', () => {
+  const src = readFileSync(path.join(ROOT, 'src/lib/brand/tool-card.ts'), 'utf8');
+  const m = /const LIBRARY = \[([^\]]*)\]/.exec(src);
+  assert.ok(m, 'LIBRARY not found in tool-card.ts');
+  const library = [...m[1].matchAll(/'([^']+)'/g)].map((x) => x[1]);
+  assert.ok(library.length > 0);
+  assert.ok(!library.includes('letters'), 'letters is held and still drawn on the portfolio card');
+  for (const s of library) {
+    assert.ok(TOOLS.some((t) => t.slug === s), `${s} is not a tool`);
+    assert.ok(!TOOLS.find((t) => t.slug === s).hold, `${s} is held but drawn on the portfolio card`);
+  }
 });
 
 test('schedule: the eight gallery pieces keep their words exactly', () => {
@@ -31,7 +191,7 @@ test('schedule: the eight gallery pieces keep their words exactly', () => {
   assert.equal(byslug['dnc-autopsy-taken-apart'].line, 'The party’s own 2024 after-action report, argued from its own numbers.');
   assert.equal(byslug['what-s-human'].href, 'https://whatshuman.vercel.app');
   assert.equal(byslug['bet-appetit'].line, 'Bet tracker skinned as the Michelin Guide. Bets paid in dinners. Demo copy with invented data.');
-  for (const s of GALLERY) assert.equal(byslug[s].cleared, true, s);
+  for (const s of GALLERY) assert.equal(byslug[s].cleared, true, s); // held entries keep cleared: true
 });
 
 test('schedule: a day starts at midnight Los Angeles time, standard and daylight', () => {
@@ -41,17 +201,17 @@ test('schedule: a day starts at midnight Los Angeles time, standard and daylight
 });
 
 test('schedule: an uncleared entry never shows, even on its day', () => {
-  const list = visibleTools(at('2026-11-10T09:00:00-08:00'));
-  assert.ok(slugs(list).includes('undo'), 'the Undo List is cleared (security PASS, 2026-11-07) and shows on its day');
-  assert.ok(!slugs(list).includes('revenge-or-justice'));
+  const list = visibleTools(at('2026-11-24T09:00:00-08:00'));
+  assert.ok(slugs(list).includes('undo'), 'the Undo List is cleared (security PASS, 2026-11-07) and shows from its day, 2026-11-08');
+  assert.equal(TOOLS.find((t) => t.slug === 'rumi').cleared, false);
+  assert.ok(!slugs(list).includes('rumi'), 'Rumi is not cleared and shows on its day');
 });
 
 test('schedule: a cleared entry shows from the first minute of its day, newest first', () => {
-  const cleared = TOOLS.map((t) => (['undo', 'revenge-or-justice'].includes(t.slug) ? { ...t, cleared: true } : t));
-  assert.deepEqual(slugs(visibleTools(at('2026-11-09T23:59:00-08:00'), cleared)), ['gut-check', ...GALLERY]);
-  const day = slugs(visibleTools(at('2026-11-10T00:00:00-08:00'), cleared));
-  assert.deepEqual(day.slice(0, 2), ['revenge-or-justice', 'undo']);
-  assert.deepEqual(day.slice(2), ['gut-check', ...GALLERY]);
+  const cleared = TOOLS.map((t) => (t.slug === 'rumi' ? { ...t, cleared: true } : t));
+  assert.deepEqual(slugs(visibleTools(at('2026-11-07T23:59:00-08:00'), cleared)), SHOWN_NOW);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-23T23:59:00-08:00'), cleared)), SHOWN_FROM_8);
+  assert.deepEqual(slugs(visibleTools(at('2026-11-24T00:00:00-08:00'), cleared)), ['rumi', ...SHOWN_FROM_8]);
 });
 
 test('schedule: an entry that replaces another takes its place once it shows, never both', () => {
@@ -81,10 +241,13 @@ test('cards: every tool card carries one picture from its own first screen, and 
 test('schedule: the posting calendar dates', () => {
   const byslug = Object.fromEntries(TOOLS.map((t) => [t.slug, t]));
   assert.equal(byslug['rumi'].releaseAt, '2026-11-24');
-  assert.equal(byslug['letters'].releaseAt, '2026-12-09');
-  for (const s of ['revenge-or-justice', 'undo']) assert.equal(byslug[s].releaseAt, '2026-11-10');
+  assert.equal(byslug['letters'].releaseAt, '2026-11-07');
+  assert.ok(byslug['letters'].hold, 'Letters is on the posting calendar again; it ships inside Rumi');
+  assert.equal(byslug['revenge-or-justice'].releaseAt, '2026-11-08', 'Revenge or Justice goes live 2026-11-08 (RJCLEAR1)');
+  assert.equal(byslug['undo'].releaseAt, '2026-11-08', 'the Undo List goes live 2026-11-08 (UNDONOW1)');
   assert.equal(byslug['gut-check'].releaseAt, '2026-11-07');
   assert.equal(byslug['gut-check'].cleared, true);
+  assert.equal(byslug[WONDER].releaseAt, '2026-11-07');
 });
 
 test('schedule: the preview clock is ignored in production and honoured elsewhere', () => {
@@ -94,7 +257,12 @@ test('schedule: the preview clock is ignored in production and honoured elsewher
   assert.deepEqual(portfolioClock({ ...env, VERCEL_ENV: 'preview' }, real), { now: at('2026-11-10T09:00:00-08:00'), includeUncleared: true });
   assert.deepEqual(portfolioClock({ PORTFOLIO_NOW: 'garbage' }, real), { now: real, includeUncleared: false });
   const preview = slugs(visibleTools(at('2026-11-10T09:00:00-08:00'), TOOLS, { includeUncleared: true }));
-  assert.deepEqual(preview.slice(0, 3), ['revenge-or-justice', 'undo', 'gut-check']);
+  assert.deepEqual(preview.slice(0, 4), ['revenge-or-justice', 'undo', WONDER, ...SHOWN_GALLERY.slice(0, 1)]);
+  // A preview on 2026-11-08 shows Revenge or Justice first, then the Undo List (RJCLEAR1).
+  const preview8 = slugs(visibleTools(at('2026-11-08T12:00:00-08:00'), TOOLS, { includeUncleared: true }));
+  assert.deepEqual(preview8.slice(0, 4), ['revenge-or-justice', 'undo', WONDER, ...SHOWN_GALLERY.slice(0, 1)]);
+  assert.ok(!preview.includes('gut-check'), 'a held entry shows in a preview render');
+  assert.ok(!preview.includes('letters'), 'Letters shows in a preview render');
 });
 
 test('schedule: every slug is unique and every date is a real day', () => {

@@ -56,14 +56,13 @@ export default function SignatureField({
             <span className="undo-block-n" aria-hidden="true">
               {b.n > 0 ? String(b.n).padStart(2, '0') : '+'}
               <span className="undo-block-count">
-                {done > 0 ? `${done}/${b.ids.length}` : b.ids.length}
+                {COPY.field.count(b.ids.length, done)}
               </span>
             </span>
-            {b.cols >= 8 ? (
-              <span className="undo-block-name" aria-hidden="true">
-                {b.title}
-              </span>
-            ) : null}
+            {/* Every block carries its order's name (round 2, 2026-11-08), not only the wide ones. */}
+            <span className="undo-block-name" aria-hidden="true">
+              {b.title}
+            </span>
           </button>
         );
       })}

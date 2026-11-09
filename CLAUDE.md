@@ -21,10 +21,12 @@
 - **Notes:** Fonts are Inter and JetBrains Mono, loaded through `next/font/google` in `src/app/layout.tsx`. **Not GT America** (corrected 2026-09-16 under Whit's typed GOVERNANCE EDIT): the ten GT America, Outfit and Playfair files in `public/fonts/` are referenced only by the static `public/pme-lever.html` and by nothing under `src/`; they stay only because that file needs them. Standard Next.js app router. One environment variable, `MAKE_INTAKE_WEBHOOK` (see README); the intake form's Make listener is scenario 6294831, rebuilt 2026-09-16 after the old webhook was found with no scenario attached.
 ## The Undo List, `/undo` (added 2026-10-09)
 
-- **What it is:** every action of the second Trump administration since 2025-01-20, one row each,
-  placed in one of five buckets by what it takes a president sworn in 2029-01-20 to undo it: a pen,
-  a pen then a process, a simple majority, sixty votes, or locked. Public, deliberately not in the
-  nav. Whit asked for it on 2026-10-09 ("a running list of everything that Trump has done that we
+- **What it is:** every executive action of the second Trump administration since 2025-01-20 (the
+  orders, proclamations and memoranda a president sworn in 2029-01-20 can undo with a pen), one row
+  each. Both pages list executive actions only (since 2026-11-08, see "Executive actions only"
+  below). The data still places every row in one of five buckets (a pen, a pen then a process, a
+  simple majority, sixty votes, or locked), and the other four buckets stay in the data, untouched;
+  the pages draw the pen bucket alone. Public, deliberately not in the nav. Whit asked for it on 2026-10-09 ("a running list of everything that Trump has done that we
   can step into the oval office in 2029 and undo"). Nothing public did this; three research agents
   checked about sixty trackers first.
 - **Where the rows come from.** Executive orders, proclamations and memoranda are read LIVE from the
@@ -80,6 +82,14 @@
   curated row that carries a feed number as its own. Both pages read one loader,
   `src/lib/undo/load.ts`. The five-model Design Murder Board webhook was refused by the session's
   auto-mode classifier (outbound POST), so the review was the three in-house critics.
+- **Executive actions only (2026-11-08, lane undopen1; Whit: "wait yes the undo list is supposed ot be just exec orders").** `load.ts` hands both pages the pen-bucket rows only (`penRows` in `src/lib/undo/pen.ts`; the classifier and the data are untouched), the key counts the pen rows still standing by kind, /undo/all lists the same pen rows with one sort control (newest first, oldest first, by signing order), and `scripts/undo-pen.test.mjs` pins that no other bucket renders, the counts, one bundle per pen row and the sort.
+- **Round 2 the same day, after a visual-sociologist review failed the first pass on seven points.** One count everywhere, the rows still standing: /undo/all opens on "To undo (N)" with rows showing, and the other pen rows (Already undone, Not yet written up, Worth keeping, Ceremonial) sit behind one closed fold, the only place the whole pen total prints; the chips count the standing rows, so they match the bars on /undo. The issue filters sit behind one "Filter by issue" control under 760px. The key counts by document type only (executive orders, proclamations, memoranda, withdrawals, other) as sideways bars in the same form as "Who feels it". The ticks legend is gone, and every hero block carries its order's name. The built-page checks in `scripts/undo-pen.test.mjs` skip until `npm run build` has run.
+- **Round 3 the same day, after a second review failed round 2 on nine points.**
+  - /undo/all: rows start in the first screen at 1440 and 390. There is no heading over the list, and the issue filters sit behind the "Filter by issue" control at every width. Rows carry no "one signature" chip. The fold reads "Off the to-undo list (N)" with a line naming its four groups.
+  - Units, labels and type: every count is in executive actions (never "items"), and each bar's count sits at its end. The sort labels are Newest, Oldest, By order. Buttons and fields take the page font instead of Arial.
+  - By kind: the key counts each row under the document that issued it, read from every source label on the server (the 2026-01-07 memorandum's 64 withdrawals count as memoranda), so there is no Withdrawals kind.
+  - Names: the allies issue is "Allies, treaties and aid". "America isn't a quitter" stays, because it is Whit's own words (2026-10-19, quoted above).
+- **Rows draw at their real height (2026-11-08, lane undotidy1).** List rows no longer use deferred drawing (`content-visibility: auto` with a 150px placeholder, from the first build when the list was one 700-row page). Measured at 1440, a one-line row is 63px and a row still waiting drew at 179px, so a full-page render showed blank rows and the scroll bar jumped. The list pages by 25, so nothing needs deferring; `scripts/undo-pen.test.mjs` pins it.
 
 ## The Command Center door, `/command-center` (added 2026-10-28, lane sendlist1)
 
@@ -87,8 +97,16 @@
 - **Route:** `src/app/command-center/route.ts` (GET serves the page or the sign-in form, POST is the form sign-in). Door logic: `src/lib/command-center.ts`. Page file: `src/private/command-center.html`, read at request time, so the route is the only way in (`outputFileTracingIncludes` in `next.config.ts` ships it).
 - **Password:** env var name `COMMAND_CENTER_PASSWORD` on the `hoplight` Vercel project (production, preview, development). The value lives there and in no file. A request passes with Basic auth (any user plus the password) or the thirty-day `cc_access` cookie. With the variable missing, nobody gets in (fails closed).
 - **Test:** `scripts/command-center.test.mjs`, seven tests, part of `npm test`. It is the proof that his own way in still works; a change to the door is not done until it passes.
-- **Never add `/command-center` to the site gate** (`GATED_PREFIXES` in `src/lib/gate.ts` once the site-posture branch lands; the file does not exist on main yet). The door is page-level on one route so one link can go to one person, and it never touches the site-wide sign-in.
-- **Merge note:** when `site-posture-mockups` merges, the `package.json` test line carries both lists (gate and nav tests from the branch, `command-center.test.mjs` from here).
+- **Never add `/command-center` to the site gate** (`GATED_PREFIXES` in `src/lib/gate.ts`). The door is page-level on one route so one link can go to one person, and it never touches the site-wide sign-in.
+
+## The site gate (written 2026-11-08 from main's code, lane cardlive1)
+
+- **What it gates:** `src/lib/gate.ts`. `GATED_PREFIXES` gates a path equal to or under `/persuasion`, `/research`, `/portfolio`, `/rayli`, `/shelf-options`, `/mockups` and the seven moved tools (`MOVED_TOOLS`: `/tools-hub`, `/visualizations`, `/whatshuman`, `/pme`, `/research-books`, `/board`, `/daily`). `GATED_EXACT` gates five single files (`/hoplight-rct-research-brief.pdf`, `/pme-lever.html` and its manifest, the 2026-09-20 brand tokens page and its manifest). `PUBLIC_PORTFOLIO` opens `/portfolio` itself and the Oregon report under it; every other file under `/portfolio/` stays gated. `/tools/which-ai` is public and `/tools` is not gated on purpose.
+- **Where it runs:** `src/proxy.ts`. Its `config.matcher` must list the same paths as `gate.ts` (it lists `/portfolio/:path*` and not `/portfolio`, since the page is public). A moved tool answers a 307 to its vercel.app address, and only after sign-in.
+- **Sign-in:** env var names `PRIVATE_SITE_USER` and `PRIVATE_SITE_PASSWORD` (the values live on the Vercel project and in no file). A browser gets the sign-in page, a script gets a 401 with a Basic challenge, and a cookie or the Basic pair opens the path. With no password set, every gated path stays shut.
+- **Test:** `scripts/gate.test.mjs`, in the `package.json` test line. It fails when the matcher and the gate list drift, when the sitemap names a gated path, or when a moved tool forwards before sign-in.
+- **Redirects** (`next.config.ts`; they run before the proxy, so no gated path is redirected there): `hoplight-rouge.vercel.app` to `hoplight.ai`; `/engine` and `/pme.html` to `/persuasion`; `/index.html`, `/services.html`, `/persuasion.html`, `/about.html`, `/faq.html`, `/contact.html` and `/portfolio.html` to their routes; `/work`, `/work.html` and `/products` to `/portfolio`; four 2026-09-21 draft home pages, the 2026-09-09 productized services mockup and `/home-art/` to the visualizations site's private folder.
+- **`public/mockups`** (gated under `/mockups`): the three site posture mockups `a-discretion`, `b-candor` and `c-hybrid` (four pages each: home, products, services, insights), and the link-card mockups `card-frames.html`, `card-lockup.html` and `card-marks.html`.
 
 ## Revenge or Justice, `/revenge-or-justice` (added 2026-11-06)
 
@@ -128,6 +146,7 @@
   first, and revalidates hourly, so a cleared entry appears on its day with no deploy. Flip `cleared` only
   after `npm run launch:check -- <slug>` passes. Outside production, `PORTFOLIO_NOW` and
   `PORTFOLIO_SHOW_UNCLEARED=1` let a render show a future drop. Tested in `scripts/portfolio-schedule.test.mjs`.
+- **`hold: '<one-line reason>'` keeps an entry off `/portfolio` whatever its date and clearance**, even in an uncleared preview render, for a cut or a tool held back for its own announcement (PORTHOLD1, 2026-11-07: Bet Appetit cut, AGIS and Gut Check held). The entry stays in the list so its links and preview card still work, and a held slug must not appear in the portfolio card's `LIBRARY` in `src/lib/brand/tool-card.ts` (tested). Delete the `hold` line to put it back.
 - **Every entry carries `shelf: 'product' | 'report'`** (required by the type; PORTSPLIT1, 2026-11-07, Whit: "we had previously split out reports from apps and dashboards and I think we need that sort of division"). `/portfolio` shows products only, through `onShelf('product', ...)` in `src/data/tools.ts`. `/insights` keeps its own hand-kept Reports list in `src/lib/insights-content.ts`, which names the three reports (Whit, 2026-11-07, after seeing a redesign: "The insights page the before version is the winner and the products page ... the after version is the winner"). So a new report goes in the tool list with `shelf: 'report'` and also in the Insights Reports list; the shelf test fails if a report is not listed once on the built /insights. `shelf` is not `kind`, which stays the state label. Tested in `scripts/portfolio-shelf.test.mjs`.
 - **Writing on `/insights` is Whit's Substack feed** (`src/lib/substack.ts`, `https://whitpendergast.substack.com/feed`, cached an hour), falling back to the hand-kept `WRITING` list when the feed fails or is empty. Tested on a saved copy of the feed in `scripts/fixtures/`, never on the network (`scripts/insights-writing.test.mjs`).
 - **Every tool has its own preview card** at `/api/og/tool/<slug>` (`src/lib/brand/tool-card.ts`): the tool's

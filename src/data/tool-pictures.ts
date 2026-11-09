@@ -15,14 +15,20 @@ export const PIC = 280;
 /** The pictures that need a wider box than the square (re-review, 2026-11-07: the AGIS map about 360
  *  wide with dots of at least 12, the What's Human chips about 300 wide). Units are card pixels. */
 const BOX: Partial<Record<string, { w: number; h: number }>> = {
-  bars: { w: 340, h: 320 },
   map: { w: 360, h: 152 },
   chips: { w: 300, h: 250 },
 };
 
-/** The size a card draws a brand's picture at, in pixels. */
-export function pictureSize(b: ToolBrand): { w: number; h: number } {
-  return BOX[b.glyph] ?? { w: PIC, h: PIC };
+/** Boxes used on the framed link-preview card only. The balance scale is drawn at the frames mockup's
+ *  340 by 320 there; a frameless portfolio tile keeps the 280 square, because the tile lays the tool's
+ *  approved mark (src/data/tool-marks.ts) over exactly that box and a larger picture would show round it. */
+const FRAMED_BOX: Partial<Record<string, { w: number; h: number }>> = {
+  bars: { w: 340, h: 320 },
+};
+
+/** The size a card draws a brand's picture at, in pixels; framed is the band-on link-preview card. */
+export function pictureSize(b: ToolBrand, framed = false): { w: number; h: number } {
+  return (framed ? FRAMED_BOX[b.glyph] : undefined) ?? BOX[b.glyph] ?? { w: PIC, h: PIC };
 }
 
 const svg = (body: string, view = `0 0 ${PIC} ${PIC}`) => `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${view}">${body}</svg>`;

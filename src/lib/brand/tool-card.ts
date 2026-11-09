@@ -122,9 +122,10 @@ function picture(svg: string, w: number, hh: number = w): ReactElement {
 }
 
 /** The portfolio's own card: "Tool library" and a row of the tools' pictures, each on its own ground.
- *  The launch-day three only, drawn large so each reads as a tool at text-message size (card review,
+ *  Which three is main's call: Gut Check is held for its announcement (PORTHOLD1) and Letters is a
+ *  feature of Rumi (LETTERSOFF1). Drawn large so each reads as a tool at text-message size (card review,
  *  2026-11-07: five tiles of 96 were 24px each at 300 wide; three of 180 are 45px). */
-export const LIBRARY = ['revenge-or-justice', 'undo', 'gut-check'];
+export const LIBRARY = ['revenge-or-justice', 'undo', 'rumi'];
 const TILE = 180;
 const TILE_GAP = 20;
 
@@ -170,7 +171,7 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
   const onWhite = !band && !tool.library && raw.tileOnWhite === true;
   const b: ToolBrand = onWhite ? { ...raw, ground: '#FFFFFF', ink: raw.ground, accent: raw.ground } : raw;
   const svg = tool.library ? null : pictureSvg(raw);
-  const size = b.pic ? { w: b.pic, h: b.pic } : pictureSize(b);
+  const size = b.pic ? { w: b.pic, h: b.pic } : pictureSize(b, band);
   // A smaller picture sits a little closer to its name, so a two-line long name keeps its lines.
   const gap = b.pic ? 32 : GAP;
   // Framed, the field is the window; frameless, it is the whole tile.

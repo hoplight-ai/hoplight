@@ -39,6 +39,8 @@ export const EXTERNAL_ORIGINS = [
   'https://gut-check-hoplight.vercel.app',
   'https://rumi-rouge.vercel.app',
   'https://letters-ten-eta.vercel.app',
+  // The kids Wonder Cards deck, "What Should We Wonder?", served at /junior (WCKIDS2, 2026-11-07).
+  'https://wonder-cards.vercel.app',
 ];
 
 export type Props = Record<string, string | number | boolean>;
@@ -62,7 +64,7 @@ export interface Forwarded extends Signal {
 
 /**
  * This site's tool slug to the store's. The store is POST /api/tool-signal in quick-tools (lane
- * signal1, 2026-11-07), which takes seven tools by its own names and refuses any field it does not
+ * signal1, 2026-11-07), which takes its tools by its own names and refuses any field it does not
  * list. A slug missing here is not accepted by /api/signal at all.
  */
 export const STORE_TOOL: Readonly<Record<string, string>> = {
@@ -74,6 +76,9 @@ export const STORE_TOOL: Readonly<Record<string, string>> = {
   rumi: 'rumi-espanol',
   letters: 'letters',
   portfolio: 'portfolio',
+  // The store takes the kids deck by the same name once lane WCSTORE1's change to it is live (2026-11-07);
+  // until then the store refuses it and this route only logs that.
+  'wonder-cards': 'wonder-cards',
 };
 export const SIGNAL_TOOLS: ReadonlySet<string> = new Set(Object.keys(STORE_TOOL));
 
