@@ -563,3 +563,12 @@
 @media (max-width:599px){
   .rj .stagenow:not(:empty){min-height:40px;flex-wrap:wrap;column-gap:8px;row-gap:0;text-align:center}
 }
+/* Seventh review, 2026-11-11. (2) The dial sits at the top of its column in every state, so a tall waiting column
+   does not float it down and the finished reading does not lift it. */
+.rj .rj-top-line{align-items:start}
+.rj .rj-dialcol{padding-top:var(--s2)}
+/* (3) The rules over the sections run the full content width, like the content under them. */
+.rj #out > h2{max-width:none}
+/* (4) A quick read's five bars in the empty tracks, at reduced strength, with their scores dimmed. */
+.rj .ir.wait.quick .bar{opacity:.45}
+.rj .ir.wait.quick .n{opacity:.55}

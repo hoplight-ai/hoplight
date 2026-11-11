@@ -302,6 +302,24 @@ test('4e. a link the site will not read says so in plain words and paints no sta
   assert.equal(r.stopped, '');
 });
 
+test('4f. a quick read that carries its five rows draws them in the empty tracks, marked as the quick read', async () => {
+  const dom = fakeDom();
+  globalThis.document = dom.document;
+  globalThis.window = dom.window;
+  globalThis.fetch = () => new Promise(() => {});
+  const { initRevengeOrJustice } = await import('../src/app/(main)/revenge-or-justice/tool.js');
+  const rows = ['practice', 'price', 'remedy', 'umpire', 'knot'].map((key, i) => ({ key, position: 20 + i * 15 }));
+  const item = { url: 'https://www.example.com/q', title: 'Q', source: 'Example', host: 'example.com', reading: { position: 50, verdict: 'mixed', headline: 'x', rows } };
+  initRevengeOrJustice(dom.el('root-q'), { items: [item] });
+  dom.el('t').value = item.url;
+  dom.el('f').listeners.submit[0]({ preventDefault() {} });
+  const html = dom.el('rows').innerHTML;
+  assert.equal((html.match(/class="ir wait quick"/g) || []).length, 5);
+  assert.equal((html.match(/class="bar /g) || []).length, 5);
+  assert.match(dom.el('dial').innerHTML, /Quick read/);
+  dom.el('again').listeners.click[0]();
+});
+
 test('4b. when the reply lands it fills the same slots, and a copy says the day it was read', async () => {
   const dom = fakeDom();
   globalThis.document = dom.document;

@@ -475,9 +475,15 @@ export function initRevengeOrJustice(root, opts) {
     $('headline').textContent = j.error ? 'This reading did not come back.' : oneVerdict(j.headline);
 
     var rows = j.rows || [];
+    // The quick bars on screen, by measure, so the full reading's bars grow from them rather than from the centre.
+    var fromQuick = {};
+    Array.prototype.forEach.call(document.querySelectorAll('#rows .ir.wait.quick'), function(el){
+      var b = el.querySelector('.bar');
+      if (b) fromQuick[el.getAttribute('data-key')] = { left: b.getAttribute('data-left'), width: b.getAttribute('data-width') };
+    });
     $('rows').innerHTML = rows.map(function(r, i){
       var s = side(r.position);
-      return '<div class="ir" role="link" tabindex="0" data-row="' + i + '" aria-label="' + esc(r.title) + ': ' + sideWords(r.position) + ', ' + Math.round(r.position) + ' of 100 toward justice. Read the words behind it.">' +
+      return '<div class="ir" role="link" tabindex="0" data-row="' + i + '" data-key="' + esc(r.key) + '" aria-label="' + esc(r.title) + ': ' + sideWords(r.position) + ', ' + Math.round(r.position) + ' of 100 toward justice. Read the words behind it.">' +
         '<span class="t">' + term(r.key, r.title) + '</span>' +
         '<span class="track">' + bar(r.position) + '</span>' +
         '<span class="n ' + s + '">' + Math.round(r.position) + '</span>' +
@@ -525,7 +531,10 @@ export function initRevengeOrJustice(root, opts) {
     // One motion moment: each bar grows out from the centre line to its reading.
     var bars = document.querySelectorAll('#rows .bar');
     if (!reduced) {
-      Array.prototype.forEach.call(bars, function(b){ b.style.transition = 'none'; b.style.left = '50%'; b.style.width = '0%'; });
+      Array.prototype.forEach.call(bars, function(b){
+        var key = b.closest && b.closest('.ir') ? b.closest('.ir').getAttribute('data-key') : '', q = key && fromQuick[key];
+        b.style.transition = 'none'; b.style.left = q ? q.left : '50%'; b.style.width = q ? q.width : '0%';
+      });
       requestAnimationFrame(function(){ requestAnimationFrame(function(){
         Array.prototype.forEach.call(bars, function(b){ b.style.transition = ''; b.style.left = b.getAttribute('data-left'); b.style.width = b.getAttribute('data-width'); });
       }); });
@@ -813,9 +822,13 @@ export function initRevengeOrJustice(root, opts) {
     // justice: ...") starts after its colon (review of 2026-11-11).
     $('headline').textContent = quick ? oneVerdict(quick.headline) : '';
     $('meta').innerHTML = quick ? 'A quick read of the whole text in one pass. The full reading replaces it when it lands.' : '';
+    // Where the list's quick read carries the five rows, each empty track shows its quick bar at reduced strength,
+    // under the dial's Quick read tag; the full reading grows each bar from there (review of 2026-11-11).
     $('rows').innerHTML = rubric.map(function(r){
-      return '<div class="ir wait" data-key="' + esc(r.key) + '"><span class="t">' + term(r.key, r.title) + '</span>' +
-        '<span class="track"></span><span class="n"></span><span class="q">' + esc(r.question) + '</span></div>';
+      var qr = quick && quick.rows ? quick.rows.filter(function(x){ return x.key === r.key; })[0] : null;
+      return '<div class="ir wait' + (qr ? ' quick' : '') + '" data-key="' + esc(r.key) + '"><span class="t">' + term(r.key, r.title) + '</span>' +
+        '<span class="track">' + (qr ? bar(qr.position) : '') + '</span><span class="n' + (qr ? ' ' + side(qr.position) : '') + '">' + (qr ? Math.round(qr.position) : '') + '</span>' +
+        '<span class="q">' + esc(r.question) + '</span></div>';
     }).join('');
     var slot = function(tag){ return '<div class="prec wait ' + tag + '"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div>' + sk('h') + sk('yr') + sk('l') + sk('l') + sk('l s') + '</div>'; };
     $('prec').innerHTML = slot('better') + slot('worse');
