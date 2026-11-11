@@ -680,3 +680,13 @@
 /* On a phone the current step and its estimate show once, on the line under the dial; in the list the current
    step is marked only by its gold ring and bold name. */
 @media (max-width:599px){.rj .st-list li .st-what,.rj .st-list li.here .st-what{display:none}}
+/* Review of after16. The Quick read label inside the waiting tag is legible (0.75rem, weight 500, gold deep);
+   it keeps line-height 1, so the tag's box stays the height of the final tag. */
+.rj .claim .v .qv{font-size:.75rem;font-weight:500;color:var(--gold-deep);vertical-align:.15em}
+/* Once the reading lands the measures' label is hidden in place. On a phone it has its own line, left-aligned
+   above Revenge and Justice (not centred, where the scale's middle would be named), and that line keeps its
+   place when the label goes, so the bars do not move. */
+.rj .ends .qmeasures.gone{visibility:hidden}
+@media (max-width:599px){
+  .rj .ends .qmeasures{position:static;transform:none;grid-column:1/-1;justify-self:start;margin:0 0 4px}
+}

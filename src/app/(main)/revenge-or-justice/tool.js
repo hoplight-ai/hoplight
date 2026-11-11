@@ -799,7 +799,9 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.remove('failed');
     $('stages').innerHTML = '';
     $('stagenow').innerHTML = '';
-    if ($('qmeasures')) $('qmeasures').textContent = '';
+    // The measures' Quick read label goes once the reading lands; on a phone, where it has a line of its own, the
+    // line keeps its place (hidden) so the bars do not move (RJFAST4).
+    if ($('qmeasures') && $('qmeasures').textContent) $('qmeasures').classList.add('gone');
     root.classList.remove('waiting');
   }
   // `limited`: the reading was refused before it began (the hourly or daily limit), so no stage is named as
@@ -899,7 +901,7 @@ export function initRevengeOrJustice(root, opts) {
     root.classList.add('waiting');
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
     // The measures carry the Quick read label while the quick bars stand in for the reading.
-    if ($('qmeasures')) $('qmeasures').textContent = quick && quick.rows && quick.rows.length ? 'Quick read' : '';
+    if ($('qmeasures')) { $('qmeasures').textContent = quick && quick.rows && quick.rows.length ? 'Quick read' : ''; $('qmeasures').classList.remove('gone'); }
     if (it && it.held) { $('stages').innerHTML = ''; return; }
     waitT0 = Date.now(); waitStage = 0;
     drawStages(0);
