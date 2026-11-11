@@ -427,7 +427,7 @@
 .rj .st-now{display:flex;flex-direction:column;gap:2px}
 .rj .st-lead{font-size:15px;font-weight:700;color:var(--gold-deep)}
 .rj .failed .st-lead{color:var(--flag)}
-.rj .st-name{font-size:clamp(24px,1.1rem + 1vw,30px);line-height:1.2;font-weight:700;letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
+.rj .st-name{font-size:clamp(22px,1rem + .8vw,26px);line-height:1.2;font-weight:700;letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
 .rj .st-what{font-size:17px;line-height:1.5;color:var(--ink2);margin-top:var(--s1);max-width:40em}
 .rj .st-what.st-err{color:var(--flag);font-weight:500}
 .rj .st-act{margin-top:var(--s2)}
@@ -465,3 +465,7 @@
   .rj .st-list{gap:8px 16px}
   .rj .ir.wait .q{left:4px;right:4px;padding:1px 4px;font-size:12px;line-height:1.25;-webkit-line-clamp:3}
 }
+/* Look pass 1: the question sat over the centre line and the tick showed above and below it in pieces. While a
+   bar is empty its track carries the question alone, on a gold rule where the bar will grow from. */
+.rj .ir.wait .track::before,.rj .ir.wait .track::after{display:none}
+.rj .ir.wait .q{left:0;right:0;padding:2px 0 2px 12px;background:none;box-shadow:inset 2px 0 0 var(--gold)}

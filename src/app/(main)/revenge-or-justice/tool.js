@@ -77,7 +77,8 @@ function dial(v, size, wait){
   var cx = W / 2, cy = r + sw / 2 + 4, H = cy + (big ? 60 : 32);
   var has = v !== '' && v != null && !isNaN(+v);
   if (has) v = Math.round(+v);
-  var label = has ? (dside(v) === 'mixed' ? 'Mixed' : dside(v) === 'revenge' ? 'Leans revenge' : 'Leans justice') + ', ' + v + ' of 100 toward justice' : wait ? 'Being read now' : 'Not read yet';
+  var stop = wait === 'stop';
+  var label = has ? (dside(v) === 'mixed' ? 'Mixed' : dside(v) === 'revenge' ? 'Leans revenge' : 'Leans justice') + ', ' + v + ' of 100 toward justice' : stop ? 'Not read' : wait ? 'Being read now' : 'Not read yet';
   var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' + label + '">';
   [[0, 38, 'revenge'], [38, 62, 'mixed'], [62, 100, 'justice']].forEach(function(b){
     var on = has && dside(v) === b[2];
@@ -93,7 +94,7 @@ function dial(v, size, wait){
     s += '<text x="' + cx + '" y="' + (cy + (big ? 50 : 26)) + '" text-anchor="middle" font-size="' + (big ? 44 : 22) + '" font-weight="800" fill="' + col + '">' + v + '</text>';
   } else if (wait) {
     s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 11 : 6) + '" fill="' + DC.ink + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 4 : 2) + '" fill="#fff"/>';
-    s += '<text x="' + cx + '" y="' + (cy + (big ? 46 : 26)) + '" text-anchor="middle" font-size="' + (big ? 20 : 13) + '" font-weight="700" fill="' + DC.ink + '">Reading</text>';
+    s += '<text x="' + cx + '" y="' + (cy + (big ? 46 : 26)) + '" text-anchor="middle" font-size="' + (big ? 20 : 13) + '" font-weight="700" fill="' + DC.ink + '">' + (stop ? 'Not read' : 'Reading') + '</text>';
   } else {
     s += '<text x="' + cx + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.stone + '">Tap to read</text>';
   }
@@ -228,6 +229,7 @@ export function initRevengeOrJustice(root, opts) {
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
     stopWait();
+    $('pdf').hidden = false;
     lastReply = reply;
     var voices = reply.voices || {};
     // The article over the claim: its outlet and its headline as the headline it is, with the officials the list
@@ -519,10 +521,9 @@ export function initRevengeOrJustice(root, opts) {
   function collapse(text){
     var isUrl = /^https?:\/\/\S+$/.test(text);
     var shown = isUrl ? host(text) : text.replace(/\s+/g, ' ').slice(0, 140) + (text.length > 140 ? '…' : '');
-    var it = isUrl ? feedByUrl[text] : null;
-    // An article from the list shows its outlet and headline over the claim, so the strip carries only "Read
-    // another"; a pasted link or text is named here.
-    $('what').innerHTML = it ? '' : '<b>Read:</b> ' + esc(shown);
+    // A link (from the list or pasted) shows its outlet over the claim, so the strip carries only "Read another";
+    // pasted text is named here (RJFAST1: a pasted link was named three times, here, on the badge and in the link).
+    $('what').innerHTML = isUrl ? '' : '<b>Read:</b> ' + esc(shown);
     root.classList.add('read');
     $('strip').classList.add('on');
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -712,15 +713,23 @@ export function initRevengeOrJustice(root, opts) {
   // the current one named, and the five measures as empty bars each carrying its question, the two precedent
   // slots, the words behind each reading and the three rewrites as outlines of what is coming. When the reply
   // lands each fills in place. A reading the site already holds skips the stages and opens at once.
-  var runId = 0, waitTimer = null, waitT0 = 0, waitStage = 0;
+  var runId = 0, waitTimer = null, waitT0 = 0, waitStage = 0, lastQuick = null;
   function stopWait(){
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
     $('out').classList.remove('wait');
     $('out').classList.remove('failed');
     $('stages').innerHTML = '';
   }
-  function drawStages(i, failed){
+  // `limited`: the reading was refused before it began (the hourly or daily limit), so no stage is named as
+  // stopped and trying again now would be refused too; an article the site already holds still opens.
+  function drawStages(i, failed, limited){
     var s = STAGES[i];
+    if (limited) {
+      $('stages').innerHTML =
+        '<p class="st-now"><span class="st-lead">Not read</span><span class="st-name">' + esc(failed) + '</span></p>' +
+        '<p class="st-what">An article marked Full reading ready in the list still opens at once, since the site keeps those readings.</p>';
+      return;
+    }
     $('stages').innerHTML =
       '<p class="st-now"><span class="st-lead">' + (failed ? 'Stopped at' : 'Now') + '</span><span class="st-name">' + esc(s.name) + '</span></p>' +
       (failed
@@ -752,6 +761,9 @@ export function initRevengeOrJustice(root, opts) {
     else $('art').innerHTML = '';
     // The quick read: the light reading the list carries (the whole text in one pass), labelled as such.
     var quick = it && it.reading && it.reading.position != null ? it.reading : null;
+    lastQuick = quick;
+    // Save as PDF prints the reading on screen, so it waits for the reading.
+    $('pdf').hidden = true;
     var qv = quick ? quick.verdict || dside(+quick.position) : '';
     $('dial').innerHTML = quick ? dial(quick.position, 'big') : dial('', 'big', true);
     $('verdict').textContent = quick ? verdictWords(qv) : '';
@@ -778,10 +790,11 @@ export function initRevengeOrJustice(root, opts) {
     drawStages(0);
     advance();
   }
-  function failWait(message){
+  function failWait(message, limited){
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
     $('out').classList.add('failed');
-    drawStages(waitStage, message);
+    if (!lastQuick) $('dial').innerHTML = dial('', 'big', 'stop');
+    drawStages(waitStage, message, limited);
     var retry = $('retry');
     if (retry) retry.addEventListener('click', function(){ track('retry'); run(lastText); });
   }
@@ -797,10 +810,10 @@ export function initRevengeOrJustice(root, opts) {
     $('status').textContent = ''; $('status').className = '';
     waitScreen(text);
     fetch(API, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: text }) })
-      .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }, function(){ return { ok: false, j: { error: 'The grader sent back something this page cannot read.' } }; }); })
+      .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, status: r.status, j: j }; }, function(){ return { ok: false, j: { error: 'The grader sent back something this page cannot read.' } }; }); })
       .then(function(x){
         if (my !== runId) return;
-        if (!x.ok || x.j.error) { track('grade-failed', { source: source }); failWait(sentence(x.j.error || 'The reading did not come back.')); return; }
+        if (!x.ok || x.j.error) { track('grade-failed', { source: source }); failWait(sentence(x.j.error || 'The reading did not come back.'), x.status === 429); return; }
         track('result', { source: source, cached: !!x.j.cached, verdict: String(x.j.verdict || 'none'), voices: [x.j.voices && x.j.voices.politicians ? 'politicians' : '', x.j.voices && x.j.voices.coverage ? 'coverage' : ''].filter(Boolean).join(',') || 'all' });
         render(x.j);
       })
