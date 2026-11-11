@@ -572,3 +572,17 @@
 /* (4) A quick read's five bars in the empty tracks, at reduced strength, with their scores dimmed. */
 .rj .ir.wait.quick .bar{opacity:.45}
 .rj .ir.wait.quick .n{opacity:.55}
+/* Eighth review, 2026-11-11. Every quick bar wears one fill, a pale navy, with no number beside it; the measures
+   carry the Quick read label while the quick bars stand in for the reading. */
+.rj .bar.qbar{background:var(--ink2);border:0;border-radius:3px;opacity:.3}
+.rj .ends .qmeasures{grid-column:1;font-size:13px;font-weight:700;color:var(--gold-deep)}
+.rj .ends .qmeasures:empty{display:none}
+@media (max-width:599px){.rj .ends .qmeasures{grid-column:1/-1;margin-bottom:4px}}
+/* From 721px the steps sit in the column under the dial, so the verdict column never holds their height. */
+@media (min-width:721px){
+  .rj .rj-dialcol .stages{margin-top:var(--s3);max-width:300px}
+  .rj .rj-dialcol .st-list li{font-size:15px}
+  .rj .rj-dialcol .st-what{font-size:14px}
+  .rj .rj-dialcol .st-note{font-size:13px}
+  .rj .rj-dialcol .st-err{font-size:15px}
+}

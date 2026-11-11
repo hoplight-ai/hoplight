@@ -245,13 +245,15 @@ export function initRevengeOrJustice(root, opts) {
   // (Whit, 2026-11-06: "in the output i should see the politicians and operative etc first, and i should be able
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
-    // Nothing jumps when the reply lands (the brief, and the review of 2026-11-11): the slot under the article keeps
-    // the height the waiting screen gave it, so the bars and everything below stay where they were.
-    // A reply that comes back at once (a held reading) was never seen waiting, so it takes its own height.
-    var slot = $('slot'), now = $('stagenow'), seen = slot && $('out').classList.contains('wait') && Date.now() - waitShownAt > 600;
-    var held = seen ? slot.offsetHeight : 0, heldNow = seen && now ? now.offsetHeight : 0;
+    // Nothing visible moves when the reply lands (the brief, and the reviews of 2026-11-11). The reading takes its own
+    // height, with no reserved white; if the visitor has scrolled, the page scrolls by however much the content above
+    // the measures changed, so what is on screen stays where it was. On a phone the one line under the dial keeps
+    // its place. A reply that comes back at once (a held reading) was never seen waiting.
+    var now = $('stagenow'), seen = $('out').classList.contains('wait') && Date.now() - waitShownAt > 600;
+    var heldNow = seen && now ? now.offsetHeight : 0;
+    var anchor = document.querySelector ? document.querySelector('#out #rows') : null, before = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect().top : null;
     stopWait();
-    if (slot && slot.style) slot.style.minHeight = held ? held + 'px' : '';
+    if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
     if (now && now.style) { now.style.minHeight = heldNow ? heldNow + 'px' : ''; if (now.classList) now.classList[heldNow ? 'add' : 'remove']('held'); }
     $('pdf').hidden = false;
     lastReply = reply;
@@ -367,6 +369,10 @@ export function initRevengeOrJustice(root, opts) {
       show(v.j, null, ctx);
     }
     pick(views[0].k);
+    if (seen && before != null && anchor && (window.scrollY || window.pageYOffset) > 0) {
+      var after = anchor.getBoundingClientRect().top;
+      if (Math.abs(after - before) > 1) window.scrollBy(0, after - before);
+    }
   }
 
   // The five measures, each a term that opens a small window over the page (Whit, 2026-11-09: "i wanted these
@@ -757,6 +763,7 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.remove('failed');
     $('stages').innerHTML = '';
     $('stagenow').innerHTML = '';
+    if ($('qmeasures')) $('qmeasures').textContent = '';
     root.classList.remove('waiting');
   }
   // `limited`: the reading was refused before it began (the hourly or daily limit), so no stage is named as
@@ -827,7 +834,8 @@ export function initRevengeOrJustice(root, opts) {
     $('rows').innerHTML = rubric.map(function(r){
       var qr = quick && quick.rows ? quick.rows.filter(function(x){ return x.key === r.key; })[0] : null;
       return '<div class="ir wait' + (qr ? ' quick' : '') + '" data-key="' + esc(r.key) + '"><span class="t">' + term(r.key, r.title) + '</span>' +
-        '<span class="track">' + (qr ? bar(qr.position) : '') + '</span><span class="n' + (qr ? ' ' + side(qr.position) : '') + '">' + (qr ? Math.round(qr.position) : '') + '</span>' +
+        // No number on a quick bar: the score is the full reading's to give (review of 2026-11-11).
+        '<span class="track">' + (qr ? bar(qr.position, ' qbar') : '') + '</span><span class="n"></span>' +
         '<span class="q">' + esc(r.question) + '</span></div>';
     }).join('');
     var slot = function(tag){ return '<div class="prec wait ' + tag + '"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div>' + sk('h') + sk('yr') + sk('l') + sk('l') + sk('l s') + '</div>'; };
@@ -844,6 +852,13 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.add('wait');
     root.classList.add('waiting');
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
+    // From 721px the steps sit in the column under the dial, so the verdict column never holds their height; on a
+    // narrower screen they stay in the slot under the article (review of 2026-11-11).
+    var wide = window.matchMedia && window.matchMedia('(min-width: 721px)').matches;
+    var home = wide ? document.querySelector('#out .rj-dialcol') : $('slot');
+    if (home && home.appendChild && $('stages').parentNode !== home) home.appendChild($('stages'));
+    // The measures carry the Quick read label while the quick bars stand in for the reading.
+    if ($('qmeasures')) $('qmeasures').textContent = quick && quick.rows && quick.rows.length ? 'Quick read' : '';
     if (it && it.held) { $('stages').innerHTML = ''; return; }
     waitT0 = Date.now(); waitStage = 0;
     drawStages(0);

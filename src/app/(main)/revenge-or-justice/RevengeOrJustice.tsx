@@ -108,7 +108,7 @@ export default function RevengeOrJustice({ items = [], source = 'unconfigured' }
             </div>
             <div className="quoted" id="quoted" />
             <div className="instrument">
-              <div className="ends"><div className="l"><span>Revenge</span><span>Justice</span></div></div>
+              <div className="ends"><span className="qmeasures" id="qmeasures" /><div className="l"><span>Revenge</span><span>Justice</span></div></div>
               <div className="rows" id="rows" />
             </div>
           </div>
