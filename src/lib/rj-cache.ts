@@ -198,7 +198,7 @@ async function callAndKeep(input: { text: string; url: string }, link: string, d
 export interface FeedItem {
   url: string;
   title?: string;
-  reading?: { position?: number | null; verdict?: string | null; headline?: string; error?: string } | null;
+  reading?: { position?: number | null; verdict?: string | null; headline?: string; error?: string; rows?: { key?: string; position?: number }[] | null } | null;
   held?: { read_at: string };
   [k: string]: unknown;
 }
@@ -226,7 +226,8 @@ export function cardItem(it: FeedItem): FeedItem {
   return {
     url: it.url,
     ...pick('title'), ...pick('source'), ...pick('host'), ...pick('published'), ...pick('people'), ...pick('officials'), ...pick('held'),
-    ...(r && r.position != null ? { reading: { position: r.position, verdict: r.verdict ?? null, headline: r.headline || '' } } : {}),
+    // The quick read's five positions only (no prose), so the waiting screen can colour each measure's tick.
+    ...(r && r.position != null ? { reading: { position: r.position, verdict: r.verdict ?? null, headline: r.headline || '', ...(Array.isArray(r.rows) ? { rows: r.rows.filter((x) => x && typeof x.position === 'number').map((x) => ({ key: x.key, position: x.position })) } : {}) } } : {}),
   };
 }
 

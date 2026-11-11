@@ -149,6 +149,16 @@ function artHtml(item, link){
   return '<div class="art-by">' + outletBadge(item.host, item.source) + '</div><a class="art-hl" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(item.title) + '</a>' +
     bylineHtml(officialsOf(item)).replace('class="byline"', 'class="byline art-byline"');
 }
+// A link the list does not hold: the outlet's letter mark, its name only when the reader has one that is not the
+// address itself, and the link once, as the headline line (review of 2026-11-11).
+function linkArt(link, outlet){
+  var h = host(link), name = outlet && outlet.toLowerCase() !== h.toLowerCase() ? outlet : '';
+  var shown = String(link).replace(/^https?:\/\/(www\.)?/, '').replace(/[?#].*$/, '');
+  if (shown.length > 90) shown = shown.slice(0, 89) + '\u2026';
+  var hue = hueOf(h);
+  return '<div class="art-by">' + (name ? outletBadge(h, name) : '<span class="outlet"' + (hue ? ' style="--oc:' + hue + '"' : '') + '>' + logo(h, h) + '</span>') + '</div>' +
+    '<a class="art-hl art-url" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(shown) + '</a>';
+}
 function bylineHtml(people){
   return people.length ? '<span class="byline">' + people.map(function(o){ return '<span><b>' + esc(o.name) + '</b>' + (o.role ? ', ' + esc(o.role) : '') + '</span>'; }).join('') + '</span>' : '';
 }
@@ -238,9 +248,11 @@ export function initRevengeOrJustice(root, opts) {
     // Nothing jumps when the reply lands (the brief, and the review of 2026-11-11): the slot under the article keeps
     // the height the waiting screen gave it, so the bars and everything below stay where they were.
     // A reply that comes back at once (a held reading) was never seen waiting, so it takes its own height.
-    var slot = $('slot'), held = slot && $('out').classList.contains('wait') && Date.now() - waitShownAt > 600 ? slot.offsetHeight : 0;
+    var slot = $('slot'), now = $('stagenow'), seen = slot && $('out').classList.contains('wait') && Date.now() - waitShownAt > 600;
+    var held = seen ? slot.offsetHeight : 0, heldNow = seen && now ? now.offsetHeight : 0;
     stopWait();
     if (slot && slot.style) slot.style.minHeight = held ? held + 'px' : '';
+    if (now && now.style) { now.style.minHeight = heldNow ? heldNow + 'px' : ''; if (now.classList) now.classList[heldNow ? 'add' : 'remove']('held'); }
     $('pdf').hidden = false;
     lastReply = reply;
     var voices = reply.voices || {};
@@ -249,7 +261,7 @@ export function initRevengeOrJustice(root, opts) {
     // grader read and the address; pasted text shows nothing here.
     var item = reply.fetched ? feedByUrl[reply.fetched] : null;
     if (item) $('art').innerHTML = artHtml(item, reply.fetched);
-    else if (reply.fetched) $('art').innerHTML = '<div class="art-by">' + outletBadge(host(reply.fetched), (voices.coverage && voices.coverage.outlet) || host(reply.fetched)) + '</div><a class="art-link" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(host(reply.fetched)) + '</a>';
+    else if (reply.fetched) $('art').innerHTML = linkArt(reply.fetched, voices.coverage && voices.coverage.outlet);
     else $('art').innerHTML = '';
     // The list's card for this article takes the reading too, so its dial and verdict fill once read, and it is
     // marked as held: the site now keeps this reading, so the next click on it answers at once.
@@ -504,7 +516,7 @@ export function initRevengeOrJustice(root, opts) {
 
     function precBlock(tag, p){
       if (!p) return '';
-      return '<div class="prec"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div><h3>' + esc(p.name) + '</h3><div class="yr">' + esc(p.year) + '</div>' +
+      return '<div class="prec ' + tag + '"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div><h3>' + esc(p.name) + '</h3><div class="yr">' + esc(p.year) + '</div>' +
         '<p class="this">' + esc(rw(p.why_this_one)) + '</p><p>' + esc(p.move) + '</p><p>' + esc(p.lesson) + '</p><p class="src">' + src(p) + '</p></div>';
     }
     $('prec').innerHTML = precBlock('better', j.precedent && j.precedent.better) + precBlock('worse', j.precedent && j.precedent.worse);
@@ -670,6 +682,7 @@ export function initRevengeOrJustice(root, opts) {
     runId += 1; // a reading still on its way is dropped when it lands
     stopWait();
     if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
+    if ($('stagenow') && $('stagenow').style) { $('stagenow').style.minHeight = ''; $('stagenow').classList.remove('held'); }
     $('go').disabled = false;
     track('again');
     root.classList.remove('read');
@@ -734,6 +747,7 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.remove('wait');
     $('out').classList.remove('failed');
     $('stages').innerHTML = '';
+    $('stagenow').innerHTML = '';
     root.classList.remove('waiting');
   }
   // `limited`: the reading was refused before it began (the hourly or daily limit), so no stage is named as
@@ -743,6 +757,8 @@ export function initRevengeOrJustice(root, opts) {
   // with one line on what it looks at, steps to come are rings, and the label over the list says it is an
   // estimate. A failure stops on its step.
   function drawStages(i, failed, limited){
+    // On a phone, the current step under the dial (review of 2026-11-11): the gold dot, its name, which of six.
+    $('stagenow').innerHTML = failed || limited ? '' : '<span class="sn-dot"></span><b>' + esc(STAGES[i].name) + '</b><span class="sn-of">step ' + (i + 1) + ' of ' + STAGES.length + '</span>';
     if (limited) {
       $('stages').innerHTML =
         '<p class="st-err"><b>Not read.</b> ' + esc(failed.raw) + '</p>' +
@@ -778,13 +794,14 @@ export function initRevengeOrJustice(root, opts) {
     $('issues').innerHTML = ''; $('issues').classList.remove('on');
     $('quoted').innerHTML = '';
     if (it) $('art').innerHTML = artHtml(it, text);
-    else if (isUrl) $('art').innerHTML = '<div class="art-by">' + outletBadge(host(text), host(text)) + '</div><a class="art-link" href="' + esc(text) + '" target="_blank" rel="noopener">' + esc(host(text)) + '</a>';
+    else if (isUrl) $('art').innerHTML = linkArt(text, '');
     else $('art').innerHTML = '';
     // The quick read: the light reading the list carries (the whole text in one pass), labelled as such.
     var quick = it && it.reading && it.reading.position != null ? it.reading : null;
     lastQuick = quick;
     waitShownAt = Date.now();
     if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
+    if ($('stagenow') && $('stagenow').style) { $('stagenow').style.minHeight = ''; $('stagenow').innerHTML = ''; $('stagenow').classList.remove('held'); }
     // Save as PDF prints the reading on screen, so it waits for the reading.
     $('pdf').hidden = true;
     var qv = quick ? quick.verdict || dside(+quick.position) : '';
@@ -800,10 +817,12 @@ export function initRevengeOrJustice(root, opts) {
       return '<div class="ir wait" data-key="' + esc(r.key) + '"><span class="t">' + term(r.key, r.title) + '</span>' +
         '<span class="track"></span><span class="n"></span><span class="q">' + esc(r.question) + '</span></div>';
     }).join('');
-    var slot = function(tag){ return '<div class="prec wait"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div>' + sk('h') + sk('yr') + sk('l') + sk('l') + sk('l s') + '</div>'; };
+    var slot = function(tag){ return '<div class="prec wait ' + tag + '"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div>' + sk('h') + sk('yr') + sk('l') + sk('l') + sk('l s') + '</div>'; };
     $('prec').innerHTML = slot('better') + slot('worse');
     $('detail').innerHTML = rubric.map(function(r){
-      return '<article class="r wait"><div class="rh"><span class="thumb" aria-hidden="true"></span><h3>' + esc(r.title) + '</h3></div>' +
+      // The heading's tick wears its bar's colour where the quick read knows it; otherwise a neutral tick.
+      var qr = quick && quick.rows ? quick.rows.filter(function(x){ return x.key === r.key; })[0] : null;
+      return '<article class="r wait"><div class="rh"><span class="thumb' + (qr ? ' quick' : ' tick') + '" aria-hidden="true">' + (qr ? bar(qr.position) : '') + '</span><h3>' + esc(r.title) + '</h3></div>' +
         '<dl class="tiers"><dt>They said</dt><dd>' + sk('l') + sk('l s') + '</dd><dt>How it reads</dt><dd>' + sk('l') + sk('l') + sk('l s') + '</dd></dl></article>';
     }).join('');
     $('reframes').innerHTML = [1, 2, 3].map(function(n){ return '<div class="reframe wait"><h3>Rewrite ' + n + '</h3>' + sk('l') + sk('l') + sk('l') + sk('l s') + '</div>'; }).join('');

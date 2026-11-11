@@ -90,7 +90,11 @@ export default function RevengeOrJustice({ items = [], source = 'unconfigured' }
               topline is stornger as a dial ... the 5 measures i think should be the bars still"). */}
           <div className="rj-hero">
             <div className="rj-top-line">
-              <div className="rj-dial" id="dial" />
+              <div className="rj-dialcol">
+                <div className="rj-dial" id="dial" />
+                {/* On a phone the step list sits below the fold, so the current step shows under the dial (RJFAST1). */}
+                <div className="stagenow" id="stagenow" aria-hidden="true" />
+              </div>
               <div className="rj-top-words">
                 <div className="art" id="art" />
                 {/* The slot under the article (RJFAST1): the stages while a first reading is made, the claim and its

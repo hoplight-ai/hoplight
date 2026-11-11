@@ -243,11 +243,13 @@ test('4. on submit the page draws the article, the stage list and the five empty
   assert.match(dom.el('dial').innerHTML, /class="qtag">Quick read<\/span><svg class="quick"/);
   assert.match(stages, /Usually in this order/);
   assert.doesNotMatch(stages, /✓|check|tick/i);
+  // On a phone the current step shows under the dial: its name and which of six.
+  assert.match(dom.el('stagenow').innerHTML, /Getting the article<\/b><span class="sn-of">step 1 of 6/);
   // The pill says the verdict once; the line beside it does not say it again.
   assert.equal(dom.el('verdict').textContent, 'Leans revenge');
   assert.equal(dom.el('headline').textContent, 'It names a man, not a practice.');
   // The two precedent slots and the three rewrite slots wait in the shapes they will fill.
-  assert.equal((dom.el('prec').innerHTML.match(/class="prec wait"/g) || []).length, 2);
+  assert.equal((dom.el('prec').innerHTML.match(/class="prec wait (better|worse)"/g) || []).length, 2);
   assert.equal((dom.el('reframes').innerHTML.match(/class="reframe wait"/g) || []).length, 3);
   assert.ok(dom.el('out').classList.contains('on') && dom.el('out').classList.contains('wait'));
   // No clock words, no em dash, no percentage anywhere on the waiting screen.
