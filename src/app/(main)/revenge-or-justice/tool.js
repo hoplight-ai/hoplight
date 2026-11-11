@@ -156,15 +156,15 @@ function bylineHtml(people){
 // The stages the grader runs, in its own order (quick-tools api/justice-or-retribution.js: fetch the page, split
 // the voices, split the issues, then every grade at once, each grade carrying the five rows, the precedent pair
 // and the rewrites). The grader does not stream, so `at` is when the page moves its own marker on, an estimate
-// from the "twenty to forty seconds" the page has always given; nothing on screen says a stage has finished,
+// from the "twenty to forty seconds" the page has always given; each line fits one line at 390; nothing on screen says a stage has finished,
 // and the last one holds until the reply arrives.
 var STAGES = [
-  { at: 0, name: 'Getting the article', what: 'The page itself, from the outlet that published it.' },
-  { at: 3000, name: 'Separating the politicians from the outlet', what: 'Who said what in their own words, and what the outlet wrote around them. Each is read on its own.' },
-  { at: 9000, name: 'Finding the issues', what: 'Each issue the words take up gets its own reading.' },
-  { at: 14000, name: 'Reading the five measures', what: 'Each measure below is a question, answered from the words quoted.' },
-  { at: 22000, name: 'Matching the precedent', what: 'One who did this and kept the public, one who did this and lost them.' },
-  { at: 27000, name: 'Writing the rewrites', what: 'Same facts, none added. Each rewrite borrows one move from the record.' }
+  { at: 0, name: 'Getting the article', what: 'The page, from the outlet that published it.' },
+  { at: 3000, name: 'Separating the politicians from the outlet', what: 'Who said what, apart from the outlet’s words.' },
+  { at: 9000, name: 'Finding the issues', what: 'Each issue gets its own reading.' },
+  { at: 14000, name: 'Reading the five measures', what: 'Each measure below answers one question.' },
+  { at: 22000, name: 'Matching the precedent', what: 'One who kept the public, one who lost it.' },
+  { at: 27000, name: 'Writing the rewrites', what: 'Same facts, none added.' }
 ];
 
 // The rubric as the grader holds it, for the empty bars when its own copy (the GET) has not arrived yet.
@@ -739,7 +739,8 @@ export function initRevengeOrJustice(root, opts) {
       return;
     }
     $('stages').innerHTML =
-      (failed ? '<p class="st-err"><b>Stopped.</b> ' + esc(failed) + '</p><p class="st-act"><button type="button" class="rj-btn" id="retry">Try again</button></p>' : '') +
+      // The grader's own error is machinery, not something a visitor can act on: it stays in the title and the console.
+      (failed ? '<p class="st-err" title="' + esc(failed) + '"><b>This one couldn’t be read.</b> Try again, or pick another article.</p><p class="st-act"><button type="button" class="rj-btn" id="retry">Try again</button></p>' : '') +
       '<ol class="st-list" aria-label="What the reading does, in order">' + STAGES.map(function(x, k){
         var state = k < i ? 'past' : k === i ? 'here' : 'ahead';
         return '<li class="' + state + '"' + (k === i ? ' aria-current="step"' : '') + '><span class="st-name">' + esc(x.name) + '</span>' +
@@ -801,8 +802,11 @@ export function initRevengeOrJustice(root, opts) {
   }
   function failWait(message, limited){
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
+    if (!limited && window.console && console.warn) console.warn('Revenge or Justice: the reading stopped:', message);
     $('out').classList.add('failed');
     if (!lastQuick) $('dial').innerHTML = dial('', 'big', 'stop');
+    // Once a reading stops, nothing is coming: the empty tracks and the outlines go (review of 2026-11-11).
+    $('rows').innerHTML = ''; $('prec').innerHTML = ''; $('detail').innerHTML = ''; $('reframes').innerHTML = '';
     drawStages(waitStage, message, limited);
     var retry = $('retry');
     if (retry) retry.addEventListener('click', function(){ track('retry'); run(lastText); });

@@ -477,3 +477,15 @@
   .rj #status{margin-top:var(--s1);min-height:0}
   .rj .feed{margin-top:var(--s3);padding-top:var(--s2)}
 }
+/* Second review, 2026-11-11. (1) An empty measure is a pale track the height of the bar it will hold, with a tick
+   at each end and the centre line, so it reads as an instrument waiting, not as a ruled list. */
+.rj .ir.wait .track::before{top:14px;height:20px;background:rgba(15,27,45,.06);border-left:2px solid rgba(42,63,95,.55);border-right:2px solid rgba(42,63,95,.55);border-radius:2px}
+/* (2) Once a reading stops nothing is coming, so the sections waiting for it go too. */
+.rj #out.failed .instrument,.rj #out.failed > h2,.rj #out.failed > .h2sub{display:none}
+@media (max-width:720px){
+  .rj .ir.wait .track::before{top:12px}
+  /* (3) The current step's line fits one line on a phone. */
+  .rj .st-what{font-size:14px}
+  /* (4) The verdict pill at the size of the sentence it heads, on its own line, so the sentence wraps cleanly. */
+  .rj .claim .v{display:table;font-size:inherit;margin-bottom:6px}
+}
