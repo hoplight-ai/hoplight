@@ -474,7 +474,7 @@ export function initRevengeOrJustice(root, opts) {
     if (j.fallbacks && j.fallbacks.length) m.push('<span class="warn">' + j.fallbacks.length + (j.fallbacks.length === 1 ? ' model refused' : ' models refused') + ' before this one answered</span>');
     if (j.error) m.push('<span class="warn">this reading could not be graded: ' + esc(j.error) + '</span>');
     $('meta').innerHTML = m.join(' · ');
-    $('verdict').textContent = j.error ? '' : (j.verdict === 'mixed' ? 'Mixed' : j.verdict ? 'Leans ' + word(j.verdict) : '');
+    $('verdict').innerHTML = j.error ? '' : esc(j.verdict === 'mixed' ? 'Mixed' : j.verdict ? 'Leans ' + word(j.verdict) : '');
     $('verdict').className = 'v ' + (j.verdict === 'retribution' ? 'revenge' : j.verdict === 'justice' ? 'justice' : 'mixed');
     // The dial reads the same score the verdict word is read from: the mean of the five rows.
     var mean = j.mean_position != null ? j.mean_position : ((j.rows || []).length ? (j.rows || []).reduce(function(t, r){ return t + (+r.position || 0); }, 0) / j.rows.length : null);
@@ -799,7 +799,9 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.remove('failed');
     $('stages').innerHTML = '';
     $('stagenow').innerHTML = '';
-    if ($('qmeasures')) $('qmeasures').textContent = '';
+    // The measures' Quick read label goes once the reading lands; on a phone, where it has a line of its own, the
+    // line keeps its place (hidden) so the bars do not move (RJFAST4).
+    if ($('qmeasures') && $('qmeasures').textContent) $('qmeasures').classList.add('gone');
     root.classList.remove('waiting');
   }
   // `limited`: the reading was refused before it began (the hourly or daily limit), so no stage is named as
@@ -865,8 +867,10 @@ export function initRevengeOrJustice(root, opts) {
     var qv = quick ? quick.verdict || dside(+quick.position) : '';
     // The quick read's dial is drawn lighter and carries its own tag, so the change shows when the full reading lands.
     $('dial').innerHTML = quick ? '<span class="qtag">Quick read</span>' + dial(quick.position, 'big', 'quick') : dial('', 'big', true);
-    $('verdict').textContent = quick ? verdictWords(qv) : '';
-    $('verdict').className = 'v' + (quick ? ' ' + verdictClass(qv) : '');
+    // RJFAST4 (Revenge or Justice marks the quick verdict as provisional): the waiting tag says Quick read inside it
+    // and wears the dial's muted fill, at the same height as the final tag that replaces it.
+    $('verdict').innerHTML = quick ? '<span class="qv">Quick read</span>' + esc(verdictWords(qv)) : '';
+    $('verdict').className = 'v' + (quick ? ' quick ' + verdictClass(qv) : '');
     // The pill already says the verdict, so a line that opens by saying it again ("Mixed: ...", "It leans
     // justice: ...") starts after its colon (review of 2026-11-11).
     $('headline').textContent = quick ? oneVerdict(quick.headline) : '';
@@ -897,7 +901,7 @@ export function initRevengeOrJustice(root, opts) {
     root.classList.add('waiting');
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
     // The measures carry the Quick read label while the quick bars stand in for the reading.
-    if ($('qmeasures')) $('qmeasures').textContent = quick && quick.rows && quick.rows.length ? 'Quick read' : '';
+    if ($('qmeasures')) { $('qmeasures').textContent = quick && quick.rows && quick.rows.length ? 'Quick read' : ''; $('qmeasures').classList.remove('gone'); }
     if (it && it.held) { $('stages').innerHTML = ''; return; }
     waitT0 = Date.now(); waitStage = 0;
     drawStages(0);
