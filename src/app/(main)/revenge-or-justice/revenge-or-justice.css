@@ -147,7 +147,7 @@
 .rj .art-hl{display:block;margin-top:10px;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;color:var(--ink);border-bottom:0;text-wrap:balance}
 @media (hover:hover){.rj .art-hl:hover{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}}
 .rj .art-link{display:inline-block;margin-top:6px;font-size:16px;color:var(--ink2)}
-.rj .art:not(:empty) + .claim{font-size:20px;line-height:1.45;color:var(--ink2);margin-top:var(--s2)}
+.rj .art:not(:empty) + .rj-slot .claim{font-size:20px;line-height:1.45;color:var(--ink2);margin-top:var(--s2)}
 
 /* Who is quoted: a byline per person (name, role) with their own dial; a tap opens their words as a pull
    quote and turns the reading to them. */
@@ -416,3 +416,173 @@
 @media (hover:hover){.rj .sb-net:hover{border-color:var(--ink)}}
 .rj .sb-net:focus-visible,.rj .sb-copybtn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(212,149,10,.6)}
 @media (max-width:760px){.rj .sharebox{grid-template-columns:1fr}}
+
+/* The waiting screen (lane RJFAST1, 2026-11-10; Whit: "we need great ui for maintianing attentoin and
+   demonstratting features before someone navigates away"), as revised after the review of 2026-11-11. The result
+   area takes the screen in the shape the reading will fill: the article on top, the grader's steps in one ordered
+   column at body size, and the five measures as the same empty tracks the reading draws, each question under its
+   track. Outlines of the precedent, the words and the rewrites wait below in light tints of the page's navy.
+   No spinner, no percentage, no bar to 100. */
+.rj .stages:empty{display:none}
+.rj .stages{margin-top:var(--s3);max-width:40em}
+.rj .st-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.rj .st-list li{position:relative;padding-left:30px;font-size:16px;line-height:1.4;color:var(--ink)}
+.rj .st-list li::before{content:"";position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%;box-sizing:border-box;border:2px solid var(--ink2);background:var(--white)}
+.rj .st-list li.ahead{color:var(--ink2)}
+.rj .st-list li.ahead::before{border-color:rgba(42,63,95,.45)}
+.rj .st-list li.past::before{background:var(--ink);border-color:var(--ink)}
+.rj .st-list li.past::after{content:"";position:absolute;left:6px;top:5px;width:5px;height:9px;border:solid var(--white);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.rj .st-list li.here::before{background:var(--gold);border-color:var(--gold)}
+.rj .st-list li.here .st-name{font-weight:700}
+.rj .st-what{display:block;font-size:15px;line-height:1.45;color:var(--ink2);margin-top:2px}
+.rj .failed .st-list li.here::before{background:var(--flag);border-color:var(--flag)}
+.rj .st-err{font-size:16px;line-height:1.5;color:var(--flag);margin-bottom:var(--s2)}
+.rj .st-err b{font-weight:700}
+.rj .st-act{margin-bottom:var(--s3)}
+.rj .st-note{font-size:14px;line-height:1.5;color:var(--stone);margin-top:var(--s2)}
+.rj .meta .qr{font-weight:700;color:var(--gold-deep)}
+.rj .art-byline{display:flex;flex-wrap:wrap;gap:2px 18px;margin-top:10px;font-size:15px;line-height:1.4;color:var(--stone)}
+.rj .art-byline b{font-weight:700;color:var(--ink)}
+/* Each verdict pill wears its pole's hue, the dial's own colour roles: revenge in the flag red, justice in the
+   gold, mixed in the dial's middle band (review of 2026-11-11). */
+.rj .claim .v.justice{color:var(--ink);background:var(--gold);box-shadow:none}
+.rj .claim .v.mixed{color:var(--ink);background:#CFCAC0;box-shadow:none}
+/* The five measures, empty: the same track the reading draws (centre line, the Revenge and Justice ends above),
+   no fill, and the question each bar will answer in small type under it. */
+.rj .ir.wait{cursor:default}
+.rj .ir{grid-template-rows:auto auto;row-gap:0}
+.rj .ir .q{grid-column:2/4;font-size:13px;line-height:1.35;color:var(--ink2);padding:0 0 10px}
+/* Outlines of what is coming, in light tints of the page's navy. */
+.rj .sk{display:block;height:14px;width:100%;border-radius:3px;background:rgba(15,27,45,.045);margin-top:10px}
+.rj .sk.h{height:22px;width:55%;margin-top:var(--s1)}
+.rj .sk.yr{height:12px;width:18%;margin-top:6px}
+.rj .sk.s{width:62%}
+.rj .tiers .sk:first-child{margin-top:8px}
+.rj .reframe.wait h3{color:var(--ink2)}
+.rj .wait .sk{background:linear-gradient(90deg,rgba(15,27,45,.04) 0%,rgba(15,27,45,.085) 50%,rgba(15,27,45,.04) 100%);background-size:200% 100%;animation:rj-sh 1.8s ease-in-out infinite}
+.rj .failed .sk{animation:none;background:rgba(15,27,45,.04)}
+@keyframes rj-sh{0%{background-position:100% 0}100%{background-position:-100% 0}}
+@media (prefers-reduced-motion:reduce){.rj .wait .sk{animation:none;background:rgba(15,27,45,.045)}}
+/* A headline's card carries its verdict under its dial, and says when the site holds its full reading. */
+.rj .feed .cv{display:block;margin-top:2px;font-size:12px;font-weight:700;line-height:1.2;text-align:center}
+.rj .feed .cv.revenge{color:var(--flag)}
+.rj .feed .cv.justice{color:var(--gold-deep)}
+.rj .feed .cv.mixed{color:var(--ink)}
+.rj .feed .cheld{display:block;margin-top:6px;font-size:12px;font-weight:600;line-height:1.25;text-align:center;color:var(--ink2)}
+/* At 390 the first article card shows whole on first paint (review of 2026-11-11): a shorter box and less air
+   between the box and the list. */
+@media (max-width:720px){
+  .rj .ir .q{grid-column:1/4;font-size:12px}
+  .rj .rj-head{padding-top:var(--s3);padding-bottom:var(--s2)}
+  .rj textarea{min-height:104px}
+  .rj #status{margin-top:var(--s1);min-height:0}
+  .rj .feed{margin-top:var(--s3);padding-top:var(--s2)}
+}
+/* Second review, 2026-11-11. (1) An empty measure is a pale track the height of the bar it will hold, with a tick
+   at each end and the centre line, so it reads as an instrument waiting, not as a ruled list. */
+.rj .ir.wait .track::before{top:14px;height:20px;background:rgba(15,27,45,.06);border-left:2px solid rgba(42,63,95,.55);border-right:2px solid rgba(42,63,95,.55);border-radius:2px}
+/* (2) Once a reading stops nothing is coming, so the sections waiting for it go too. */
+.rj #out.failed .instrument,.rj #out.failed > h2,.rj #out.failed > .h2sub{display:none}
+@media (max-width:720px){
+  .rj .ir.wait .track::before{top:12px}
+  /* (3) The current step's line fits one line on a phone. */
+  .rj .st-what{font-size:14px}
+  /* (4) The verdict pill at the size of the sentence it heads, on its own line, so the sentence wraps cleanly. */
+  .rj .claim .v{display:table;font-size:inherit;margin-bottom:6px}
+}
+/* Third review, 2026-11-11. (AF-05) The page cannot know a stage finished, so a passed step is a plain muted dot,
+   never a tick, and one label over the list says the order is the usual one. */
+.rj .st-list li.past::after{content:none}
+.rj .st-list li.past::before{background:rgba(42,63,95,.42);border-color:transparent}
+.rj .st-list li.past{color:var(--ink2)}
+.rj .st-label{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--stone);margin-bottom:var(--s1)}
+/* The quick read is tagged on the dial itself and drawn lighter, so the change shows when the full reading lands. */
+.rj .rj-dial{position:relative}
+.rj .rj-dial .qtag{position:absolute;left:50%;top:0;transform:translate(-50%,-100%);font-size:13px;font-weight:700;line-height:1;color:var(--gold-deep);background:var(--white);padding:4px 10px;border:1.5px solid var(--gold);border-radius:999px;white-space:nowrap}
+.rj .rj-dial svg.quick{opacity:.55}
+/* Fourth review, 2026-11-11: nothing jumps when the reply lands. The slot under the article holds its own
+   margins (so the height the script keeps is the whole of it), the measures keep their question line in both
+   states, and the outlines of the words behind each reading are sized to a typical reading. */
+.rj .rj-slot{display:flow-root}
+.rj .r.wait .tiers dd:last-of-type .sk.s{margin-bottom:26px}
+@media (max-width:720px){
+  .rj .r.wait .rh{min-height:50px}
+  .rj .r.wait .tiers dd:first-of-type{min-height:75px}
+  .rj .r.wait .tiers dd:last-of-type{min-height:154px}
+}
+/* Fifth review, 2026-11-11. (1) On a phone the current step shows under the dial, one line. */
+.rj .stagenow{display:none}
+@media (max-width:599px){
+  .rj .stagenow:not(:empty){display:flex;align-items:center;justify-content:center;gap:8px;margin-top:var(--s1);font-size:15px;line-height:1.3;color:var(--ink)}
+  .rj .stagenow b{font-weight:700}
+  .rj .stagenow .sn-dot{flex:none;width:12px;height:12px;border-radius:50%;background:var(--gold)}
+  .rj .stagenow .sn-of{color:var(--stone);font-size:13px;white-space:nowrap}
+}
+/* (2) A passed step is dimmed text on a dotted ring; the gold dot is the only filled state. */
+.rj .st-list li.past{color:var(--ink2);opacity:.6}
+.rj .st-list li.past::before{background:var(--white);border:2px dotted rgba(42,63,95,.6)}
+/* (3) On a phone each measure stacks: its name, then a full-width bar with the score at its end, then the
+   question, in both states alike. */
+@media (max-width:599px){
+  .rj .ends{grid-template-columns:minmax(0,1fr) 32px;column-gap:12px}
+  .rj .ends .l{grid-column:1}
+  .rj .ir{grid-template-columns:minmax(0,1fr) 32px;grid-template-areas:"t t" "track n" "q q";column-gap:12px}
+  .rj .ir .t{grid-area:t;padding:10px 0 0}
+  .rj .ir .track{grid-area:track}
+  .rj .ir .n{grid-area:n}
+  .rj .ir .q{grid-area:q}
+}
+/* (4) The outlines wear the edges their finished content wears: gold-deep over the one who did it better, the
+   flag red over the one who did it worse; each measure's heading carries a tick in its bar's colour where the
+   quick read knows it, and a neutral one where it does not. */
+.rj .prec.better{border-top:3px solid var(--gold-deep)}
+.rj .prec.worse{border-top:3px solid var(--flag)}
+.rj .prec.better .tag{color:var(--gold-deep);font-weight:600}
+.rj .rh .thumb.quick{opacity:.55}
+.rj .rh .thumb.tick::after{background:var(--ink2)}
+/* (5) The Mixed chip in a light ink tint, not a paper tone. */
+.rj .claim .v.mixed{background:rgba(15,27,45,.07)}
+/* (6) A link the list does not hold: the letter mark, then the link once as the headline line. */
+.rj .art-hl.art-url{font-size:22px;font-weight:700;overflow-wrap:anywhere}
+@media (max-width:720px){.rj .art-hl.art-url{font-size:19px}}
+/* Once a reading lands after a visible wait, the line under the dial keeps its place, empty, so nothing moves. */
+@media (max-width:599px){.rj .stagenow.held{display:block;margin-top:var(--s1)}}
+/* Sixth review, 2026-11-11. Steps likely passed are a light gold ring joined to the current gold dot by a thin
+   line, so the list reads as a path walked; no tick, no fill but the current step's. */
+.rj .st-list li.past{opacity:1;color:var(--ink2)}
+.rj .st-list li.past::before{background:var(--white);border:2px solid rgba(212,149,10,.55)}
+.rj .st-list li.past::after{content:"";position:absolute;left:8px;top:20px;width:2px;height:calc(100% - 8px);background:rgba(212,149,10,.55);border:0;transform:none}
+/* On a phone the action row is compact in every state, so the dial starts close under the site bar; the row
+   holds the same height whether it carries Read another alone or Share and Save as PDF too. */
+@media (max-width:599px){
+  .rj .strip{margin-top:0;padding:var(--s1) 0;border-bottom:0}
+  .rj #out .rj-hero{padding-top:var(--s2)}
+}
+/* The step line under the dial keeps room for two lines at every step (the longest names wrap at 390), so the
+   page below it never moves as the steps change, or when the reading lands. */
+@media (max-width:599px){
+  .rj .stagenow:not(:empty){min-height:40px;flex-wrap:wrap;column-gap:8px;row-gap:0;text-align:center}
+}
+/* Seventh review, 2026-11-11. (2) The dial sits at the top of its column in every state, so a tall waiting column
+   does not float it down and the finished reading does not lift it. */
+.rj .rj-top-line{align-items:start}
+.rj .rj-dialcol{padding-top:var(--s2)}
+/* (3) The rules over the sections run the full content width, like the content under them. */
+.rj #out > h2{max-width:none}
+/* (4) A quick read's five bars in the empty tracks, at reduced strength, with their scores dimmed. */
+.rj .ir.wait.quick .bar{opacity:.45}
+.rj .ir.wait.quick .n{opacity:.55}
+/* Eighth review, 2026-11-11. Every quick bar wears one fill, a pale navy, with no number beside it; the measures
+   carry the Quick read label while the quick bars stand in for the reading. */
+.rj .bar.qbar{background:var(--ink2);border:0;border-radius:3px;opacity:.3}
+.rj .ends .qmeasures{grid-column:1;font-size:13px;font-weight:700;color:var(--gold-deep)}
+.rj .ends .qmeasures:empty{display:none}
+@media (max-width:599px){.rj .ends .qmeasures{grid-column:1/-1;margin-bottom:4px}}
+/* From 721px the steps sit in the column under the dial, so the verdict column never holds their height. */
+@media (min-width:721px){
+  .rj .rj-dialcol .stages{margin-top:var(--s3);max-width:300px}
+  .rj .rj-dialcol .st-list li{font-size:15px}
+  .rj .rj-dialcol .st-what{font-size:14px}
+  .rj .rj-dialcol .st-note{font-size:13px}
+  .rj .rj-dialcol .st-err{font-size:15px}
+}

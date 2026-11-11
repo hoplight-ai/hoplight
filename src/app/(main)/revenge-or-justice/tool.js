@@ -8,6 +8,184 @@
 // `opts.track` is src/lib/track.ts's track() bound to this tool. It logs a reading asked for (how it
 // came in, its length, the first thousand characters as `query`), the verdict shown, the voice and
 // issue picked, a headline clicked, a rewrite copied. What the server keeps and cuts: src/lib/signal.ts.
+
+// Pure drawing helpers, at module scope so the page can draw the headline cards on the server (lane
+// RJFAST1, 2026-11-10: the list arrives with the page). Nothing here touches the document.
+var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+
+function host(u){ try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } }
+
+// Branding (Whit, 2026-11-09: "the news articles should jump off the page including the outlet that wrote
+// them, there is not bold, no highlighting, no branding"). Each outlet shows its own icon (served through
+// this site, never from the visitor's browser to a third party), its name in bold capitals, and its colour
+// as the card's edge where the colour is well known; every other outlet takes the ink.
+var OUTLET_HUE = {
+  'cnn.com': '#CC0000', 'theguardian.com': '#052962', 'time.com': '#E90606', 'usatoday.com': '#0098FE',
+  'newsweek.com': '#E1251B', 'yahoo.com': '#6001D2', 'reuters.com': '#FA6400', 'apnews.com': '#E2231A',
+  'foxnews.com': '#003366', 'nypost.com': '#C8102E', 'politico.com': '#DC0D15', 'axios.com': '#2A62D6',
+  'huffpost.com': '#0DBE98', 'theatlantic.com': '#E7131A', 'thehill.com': '#0B3B6E', 'npr.org': '#237BBD',
+  'nbcnews.com': '#2D5DA8', 'msnbc.com': '#2D5DA8', 'ms.now': '#2D5DA8', 'dailykos.com': '#E8641B',
+  'newrepublic.com': '#D52B1E', 'motherjones.com': '#C8102E', 'rollcall.com': '#0B3B6E', 'salon.com': '#CF3A2C',
+  'timesofindia.indiatimes.com': '#B71C1C', 'abc7.com': '#1B4E9B', 'abcnews.go.com': '#1B4E9B', 'cbsnews.com': '#1B4E9B'
+};
+function hueOf(h){ h = String(h || '').replace(/^www\./, ''); if (OUTLET_HUE[h]) return OUTLET_HUE[h]; var parts = h.split('.'); return OUTLET_HUE[parts.slice(-2).join('.')] || ''; }
+function logo(h, name){
+  var initial = esc(String(name || h || '?').replace(/^the\s+/i, '').charAt(0).toUpperCase());
+  return '<span class="logo" aria-hidden="true"><span class="mono">' + initial + '</span>' +
+    // The icon stays invisible until it has loaded, so a slow or missing icon shows the outlet's letter on its colour, never an empty box.
+    (h ? '<img src="/api/revenge-or-justice/logo?host=' + encodeURIComponent(h) + '" alt="" width="24" height="24" loading="lazy" onload="this.classList.add(\'ok\')" onerror="this.remove()">' : '') + '</span>';
+}
+// Where the news search gives an outlet a name nobody would know it by.
+var OUTLET_NAME = { 'ms.now': 'MS NOW', 'msnbc.com': 'MS NOW' };
+function outletBadge(h, name){
+  var hue = hueOf(h);
+  name = OUTLET_NAME[String(h || '').replace(/^www\./, '')] || name;
+  return '<span class="outlet"' + (hue ? ' style="--oc:' + hue + '"' : '') + '>' + logo(h, name) + '<b>' + esc(name || h) + '</b></span>';
+}
+
+// Who is in it. The headline list names the Democrats the list watches (quick-tools lib/justice-feed.mjs);
+// the chamber here is only for the title on the tag, so a name missing from this map still gets a tag.
+var CHAMBER = {
+  'Jamie Raskin': 'House', 'Robert Garcia': 'House', 'Hakeem Jeffries': 'House', 'Katherine Clark': 'House',
+  'Pete Aguilar': 'House', 'Richard Neal': 'House', 'Maxine Waters': 'House', 'Frank Pallone': 'House',
+  'Rosa DeLauro': 'House', 'Bennie Thompson': 'House', 'Jim Himes': 'House', 'Gregory Meeks': 'House',
+  'Chuck Schumer': 'Senate', 'Dick Durbin': 'Senate', 'Elizabeth Warren': 'Senate', 'Ron Wyden': 'Senate',
+  'Richard Blumenthal': 'Senate', 'Gary Peters': 'Senate'
+};
+
+// A headline's officials, from the list's tagger; an older list carries only the watched names.
+function officialsOf(it){
+  if (it.officials && it.officials.length) return it.officials;
+  return (it.people || []).map(function(n){ return { name: n, role: CHAMBER[n] === 'Senate' ? 'Senator' : CHAMBER[n] === 'House' ? 'Representative' : '', kind: 'elected' }; });
+}
+
+// The dial (Whit, 2026-11-09: "oh oh oh snopes has those little dials"; on the mockup: "that topline is stornger
+// as a dial ... the article one is good. the name and quote is good- but the 5 measures i think should be the
+// bars still"). A half circle from revenge (left) to justice (right) in three bands at the tool's own cut-offs,
+// 38 and 62; the needle points at the score, the score sits under the hub in its side's colour, and the band
+// the score falls in is drawn full while the other two step back. Big for the verdict, small on an article
+// card and on each person. An empty value draws an empty dial that says "Tap to read".
+var DC = { revenge: '#9c3327', mixed: '#CFCAC0', justice: '#D4950A', ink: '#0F1B2D', stone: '#575752', gold: '#996D00', empty: '#E4E7EC' };
+function dpt(cx, cy, r, v){ var a = Math.PI - (v / 100) * Math.PI; return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; }
+function darc(cx, cy, r, a, b){ var p = dpt(cx, cy, r, a), q = dpt(cx, cy, r, b); return 'M' + p[0].toFixed(2) + ' ' + p[1].toFixed(2) + ' A' + r + ' ' + r + ' 0 0 1 ' + q[0].toFixed(2) + ' ' + q[1].toFixed(2); }
+function dside(v){ return v >= 62 ? 'justice' : v <= 38 ? 'revenge' : 'mixed'; }
+// `wait` draws the big dial a first reading is filling: its three bands in their own colours, stepped back, no
+// needle, "Reading" under the hub (lane RJFAST1, 2026-11-10: the wait shows what the visitor is about to get).
+function dial(v, size, wait){
+  var big = size === 'big';
+  var W = big ? 300 : 120, r = big ? 118 : 44, sw = big ? 26 : 11;
+  var cx = W / 2, cy = r + sw / 2 + 4, H = cy + (big ? 60 : 32);
+  var has = v !== '' && v != null && !isNaN(+v);
+  if (has) v = Math.round(+v);
+  var stop = wait === 'stop';
+  var label = has ? (dside(v) === 'mixed' ? 'Mixed' : dside(v) === 'revenge' ? 'Leans revenge' : 'Leans justice') + ', ' + v + ' of 100 toward justice' : stop ? 'Not read' : wait ? 'Being read now' : 'Not read yet';
+  var s = '<svg' + (wait === 'quick' ? ' class="quick"' : '') + ' viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' + label + '">';
+  [[0, 38, 'revenge'], [38, 62, 'mixed'], [62, 100, 'justice']].forEach(function(b){
+    var on = has && dside(v) === b[2];
+    s += '<path d="' + darc(cx, cy, r, b[0] + (b[0] ? 1.2 : 0), b[1] - (b[1] < 100 ? 1.2 : 0)) + '" fill="none" stroke="' + (has || wait ? DC[b[2]] : DC.empty) + '" stroke-width="' + sw + '" stroke-opacity="' + (has && !on ? 0.6 : !has && wait ? 0.28 : 1) + '"/>';
+  });
+  if (big) [0, 25, 50, 75, 100].forEach(function(t){ var a = dpt(cx, cy, r + sw / 2 + 4, t), b = dpt(cx, cy, r + sw / 2 + 10, t); s += '<line x1="' + a[0].toFixed(2) + '" y1="' + a[1].toFixed(2) + '" x2="' + b[0].toFixed(2) + '" y2="' + b[1].toFixed(2) + '" stroke="' + DC.stone + '" stroke-width="1.5"/>'; });
+  if (has) {
+    var tip = dpt(cx, cy, r - sw / 2 - (big ? 6 : 3), v), a = Math.PI - (v / 100) * Math.PI, hw = big ? 7 : 4;
+    var l = [cx + hw * Math.cos(a + Math.PI / 2), cy - hw * Math.sin(a + Math.PI / 2)], rr = [cx + hw * Math.cos(a - Math.PI / 2), cy - hw * Math.sin(a - Math.PI / 2)];
+    s += '<path class="needle" d="M' + l[0].toFixed(2) + ' ' + l[1].toFixed(2) + ' L' + tip[0].toFixed(2) + ' ' + tip[1].toFixed(2) + ' L' + rr[0].toFixed(2) + ' ' + rr[1].toFixed(2) + ' Z" fill="' + DC.ink + '"/>';
+    s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 11 : 6) + '" fill="' + DC.ink + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 4 : 2) + '" fill="#fff"/>';
+    var col = dside(v) === 'revenge' ? DC.revenge : dside(v) === 'justice' ? DC.gold : DC.stone;
+    s += '<text x="' + cx + '" y="' + (cy + (big ? 50 : 26)) + '" text-anchor="middle" font-size="' + (big ? 44 : 22) + '" font-weight="800" fill="' + col + '">' + v + '</text>';
+  } else if (wait) {
+    s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 11 : 6) + '" fill="' + DC.ink + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 4 : 2) + '" fill="#fff"/>';
+    s += '<text x="' + cx + '" y="' + (cy + (big ? 46 : 26)) + '" text-anchor="middle" font-size="' + (big ? 20 : 13) + '" font-weight="700" fill="' + DC.ink + '">' + (stop ? 'Not read' : 'Reading') + '</text>';
+  } else {
+    s += '<text x="' + cx + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.stone + '">Tap to read</text>';
+  }
+  if (big) {
+    s += '<text x="' + (cx - r) + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.revenge + '">Revenge</text>';
+    s += '<text x="' + (cx + r) + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.gold + '">Justice</text>';
+  }
+  return s + '</svg>';
+}
+
+// One date format on the server and in the browser, so the card the page arrives with is the card the script keeps.
+function when(iso){ if (!iso) return ''; var d = new Date(iso); if (isNaN(d)) return ''; return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' }); }
+
+// The pill beside a reading's line already says the verdict, so a line that opens by saying it again ("Mixed: ...",
+// "It sounds like revenge: ...") starts after its colon (review of 2026-11-11), with revenge for the API's word.
+function oneVerdict(s){
+  s = String(s == null ? '' : s).replace(/\bRetribution\b/g, 'Revenge').replace(/\bretribution\b/g, 'revenge')
+    .replace(/^(it\s+)?(sounds\s+like|leans|reads\s+as|is)?\s*(revenge|justice|mixed)\b[^:.]{0,40}:\s*/i, '');
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+function verdictWords(v){ return v === 'retribution' || v === 'revenge' ? 'Leans revenge' : v === 'justice' ? 'Leans justice' : v === 'mixed' ? 'Mixed' : ''; }
+function verdictClass(v){ return v === 'retribution' || v === 'revenge' ? 'revenge' : v === 'justice' ? 'justice' : 'mixed'; }
+
+// The article's dial on its card: its stored reading where there is one, else an empty dial that fills once it
+// is read. A reading this site holds in full is marked, since a click on it answers at once.
+function cardDial(it){
+  var has = it.reading && it.reading.position != null;
+  var v = has ? it.reading.verdict || dside(+it.reading.position) : '';
+  return '<span class="cdial" aria-hidden="' + (has ? 'false' : 'true') + '">' + dial(has ? it.reading.position : '', 'small') +
+    (has && verdictWords(v) ? '<span class="cv ' + verdictClass(v) + '">' + verdictWords(v) + '</span>' : '') +
+    (it.held ? '<span class="cheld">Full reading ready</span>' : '') + '</span>';
+}
+
+var SHOW = 8;
+/** The headline list's cards, the same on the server (drawn into the page) and in the browser (the fallback). */
+export function feedCardsHtml(items){
+  items = items || [];
+  return items.map(function(it, k){
+    var hue = hueOf(it.host);
+    var people = officialsOf(it);
+    return '<li' + (k >= SHOW ? ' class="rj-more"' : '') + '><button type="button" class="pick' + (it.held ? ' held' : '') + '"' + (hue ? ' style="--oc:' + hue + '"' : '') + ' data-url="' + esc(it.url) + '">' +
+      '<span class="cbody">' +
+      '<span class="by">' + outletBadge(it.host, it.source) + (when(it.published) ? '<span class="when">' + when(it.published) + '</span>' : '') + '</span>' +
+      '<span class="hl">' + esc(it.title) + '</span>' +
+      // The officials as a plain byline, name in bold and role after it (the approved mockup, 2026-11-09).
+      bylineHtml(people) +
+      '</span>' + cardDial(it) + '</button></li>';
+  }).join('') + (items.length > SHOW ? '<li class="all"><button type="button" class="quietbtn" id="feedall">All ' + items.length + ' articles</button></li>' : '');
+}
+// The article at the top of the reading: its outlet, its headline as the headline it is, its officials.
+function artHtml(item, link){
+  return '<div class="art-by">' + outletBadge(item.host, item.source) + '</div><a class="art-hl" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(item.title) + '</a>' +
+    bylineHtml(officialsOf(item)).replace('class="byline"', 'class="byline art-byline"');
+}
+// A link the list does not hold: the outlet's letter mark, its name only when the reader has one that is not the
+// address itself, and the link once, as the headline line (review of 2026-11-11).
+function linkArt(link, outlet){
+  var h = host(link), name = outlet && outlet.toLowerCase() !== h.toLowerCase() ? outlet : '';
+  var shown = String(link).replace(/^https?:\/\/(www\.)?/, '').replace(/[?#].*$/, '');
+  if (shown.length > 90) shown = shown.slice(0, 89) + '\u2026';
+  var hue = hueOf(h);
+  return '<div class="art-by">' + (name ? outletBadge(h, name) : '<span class="outlet"' + (hue ? ' style="--oc:' + hue + '"' : '') + '>' + logo(h, h) + '</span>') + '</div>' +
+    '<a class="art-hl art-url" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(shown) + '</a>';
+}
+function bylineHtml(people){
+  return people.length ? '<span class="byline">' + people.map(function(o){ return '<span><b>' + esc(o.name) + '</b>' + (o.role ? ', ' + esc(o.role) : '') + '</span>'; }).join('') + '</span>' : '';
+}
+
+// The stages the grader runs, in its own order (quick-tools api/justice-or-retribution.js: fetch the page, split
+// the voices, split the issues, then every grade at once, each grade carrying the five rows, the precedent pair
+// and the rewrites). The grader does not stream, so `at` is when the page moves its own marker on, an estimate
+// from the "twenty to forty seconds" the page has always given; each line fits one line at 390; nothing on screen says a stage has finished,
+// and the last one holds until the reply arrives.
+var STAGES = [
+  { at: 0, name: 'Getting the article', what: 'The page, from the outlet that published it.' },
+  { at: 3000, name: 'Separating the politicians from the outlet', what: 'Who said what, apart from the outlet’s words.' },
+  { at: 9000, name: 'Finding the issues', what: 'Each issue gets its own reading.' },
+  { at: 14000, name: 'Reading the five measures', what: 'Each measure below answers one question.' },
+  { at: 22000, name: 'Matching the precedent', what: 'One who kept the public, one who lost it.' },
+  { at: 27000, name: 'Writing the rewrites', what: 'Same facts, none added.' }
+];
+
+// The rubric as the grader holds it, for the empty bars when its own copy (the GET) has not arrived yet.
+var RUBRIC = [
+  { key: 'practice', title: 'Practice, not person', question: 'Is the subject a practice, named by what it did, or a person, named by who he is?' },
+  { key: 'price', title: 'Priced in the listener’s money', question: 'Does it say what this cost the reader: their bill, their paycheck, their safety, their vote?' },
+  { key: 'remedy', title: 'Ends in a remedy', question: 'Does it name the law, rule, vote or office that stops this from happening again?' },
+  { key: 'umpire', title: 'Umpire, not prosecutor-candidate', question: 'Does the speaker sound like someone with nothing to gain from the subject’s fall, or like someone running against him?' },
+  { key: 'knot', title: 'Anchored back to the listener', question: 'Does it tie the corruption to what matters most to the listener, so the two become one story?' }
+];
+
 export function initRevengeOrJustice(root, opts) {
   if (!root || root.dataset.init) return;
   root.dataset.init = '1';
@@ -16,12 +194,14 @@ export function initRevengeOrJustice(root, opts) {
 
   var API = '/api/revenge-or-justice';
   var $ = function(id){ return document.getElementById(id); };
-  var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // The rubric text comes from the route, so the page and the grader never drift.
+  // The rubric text comes from the route, so the page and the grader never drift; until it arrives the empty bars
+  // of a first reading carry the copy above.
+  var rubric = RUBRIC;
   fetch(API, { credentials: 'same-origin' }).then(function(r){ return r.json(); }).then(function(j){
     if (!j || !j.rubric) return;
+    if (j.rubric.length === 5) rubric = j.rubric;
     $('rubric').innerHTML = j.rubric.map(function(r){ return '<dt>' + esc(r.title) + '</dt><dd>' + esc(r.question) + '</dd>'; }).join('');
     if (j.available === false) { $('status').textContent = 'The grader is off on this deploy.'; $('status').className = 'err'; $('go').disabled = true; }
   }).catch(function(){});
@@ -34,45 +214,7 @@ export function initRevengeOrJustice(root, opts) {
   function rw(s){ return String(s == null ? '' : s).replace(/\bRetribution\b/g, 'Revenge').replace(/\bretribution\b/g, 'revenge'); }
   function sideWords(pos){ var s = side(pos); return s === 'mixed' ? 'mixed' : 'leans ' + word(s); }
   function src(p){ return p && p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.source) + '</a>' : esc(p && p.source || ''); }
-  function host(u){ try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; } }
 
-  // Branding (Whit, 2026-11-09: "the news articles should jump off the page including the outlet that wrote
-  // them, there is not bold, no highlighting, no branding"). Each outlet shows its own icon (served through
-  // this site, never from the visitor's browser to a third party), its name in bold capitals, and its colour
-  // as the card's edge where the colour is well known; every other outlet takes the ink.
-  var OUTLET_HUE = {
-    'cnn.com': '#CC0000', 'theguardian.com': '#052962', 'time.com': '#E90606', 'usatoday.com': '#0098FE',
-    'newsweek.com': '#E1251B', 'yahoo.com': '#6001D2', 'reuters.com': '#FA6400', 'apnews.com': '#E2231A',
-    'foxnews.com': '#003366', 'nypost.com': '#C8102E', 'politico.com': '#DC0D15', 'axios.com': '#2A62D6',
-    'huffpost.com': '#0DBE98', 'theatlantic.com': '#E7131A', 'thehill.com': '#0B3B6E', 'npr.org': '#237BBD',
-    'nbcnews.com': '#2D5DA8', 'msnbc.com': '#2D5DA8', 'ms.now': '#2D5DA8', 'dailykos.com': '#E8641B',
-    'newrepublic.com': '#D52B1E', 'motherjones.com': '#C8102E', 'rollcall.com': '#0B3B6E', 'salon.com': '#CF3A2C',
-    'timesofindia.indiatimes.com': '#B71C1C', 'abc7.com': '#1B4E9B', 'abcnews.go.com': '#1B4E9B', 'cbsnews.com': '#1B4E9B'
-  };
-  function hueOf(h){ h = String(h || '').replace(/^www\./, ''); if (OUTLET_HUE[h]) return OUTLET_HUE[h]; var parts = h.split('.'); return OUTLET_HUE[parts.slice(-2).join('.')] || ''; }
-  function logo(h, name){
-    var initial = esc(String(name || h || '?').replace(/^the\s+/i, '').charAt(0).toUpperCase());
-    return '<span class="logo" aria-hidden="true"><span class="mono">' + initial + '</span>' +
-      // The icon stays invisible until it has loaded, so a slow or missing icon shows the outlet's letter on its colour, never an empty box.
-      (h ? '<img src="/api/revenge-or-justice/logo?host=' + encodeURIComponent(h) + '" alt="" width="24" height="24" loading="lazy" onload="this.classList.add(\'ok\')" onerror="this.remove()">' : '') + '</span>';
-  }
-  // Where the news search gives an outlet a name nobody would know it by.
-  var OUTLET_NAME = { 'ms.now': 'MS NOW', 'msnbc.com': 'MS NOW' };
-  function outletBadge(h, name){
-    var hue = hueOf(h);
-    name = OUTLET_NAME[String(h || '').replace(/^www\./, '')] || name;
-    return '<span class="outlet"' + (hue ? ' style="--oc:' + hue + '"' : '') + '>' + logo(h, name) + '<b>' + esc(name || h) + '</b></span>';
-  }
-
-  // Who is in it. The headline list names the Democrats the list watches (quick-tools lib/justice-feed.mjs);
-  // the chamber here is only for the title on the tag, so a name missing from this map still gets a tag.
-  var CHAMBER = {
-    'Jamie Raskin': 'House', 'Robert Garcia': 'House', 'Hakeem Jeffries': 'House', 'Katherine Clark': 'House',
-    'Pete Aguilar': 'House', 'Richard Neal': 'House', 'Maxine Waters': 'House', 'Frank Pallone': 'House',
-    'Rosa DeLauro': 'House', 'Bennie Thompson': 'House', 'Jim Himes': 'House', 'Gregory Meeks': 'House',
-    'Chuck Schumer': 'Senate', 'Dick Durbin': 'Senate', 'Elizabeth Warren': 'Senate', 'Ron Wyden': 'Senate',
-    'Richard Blumenthal': 'Senate', 'Gary Peters': 'Senate'
-  };
   // A quoted speaker from the reading: elected officials first, in gold (the same gold as the list's tags),
   // everyone else (staff, spokespeople, advocates) outlined in ink, each with the role the text gives them.
   var NOT_ELECTED = /\b(spokes\w*|aide|staff\w*|press secretary|adviser|advisor|strategist|operative|consultant|lawyer|attorney for|counsel|analyst|director|executive|ceo|founder|professor|former|candidate|nominee|activist|advocate|organizer|president of|head of|reporter|editor|columnist)\b/i;
@@ -87,11 +229,6 @@ export function initRevengeOrJustice(root, opts) {
   function tagHtml(sp, withRole){
     return '<span class="who ' + kindOf(sp) + '"><b>' + esc(sp.name) + '</b>' + (withRole && sp.role ? '<span class="role">' + esc(sp.role) + '</span>' : '') + '</span>';
   }
-  // A headline's officials, from the list's tagger; an older list carries only the watched names.
-  function officialsOf(it){
-    if (it.officials && it.officials.length) return it.officials;
-    return (it.people || []).map(function(n){ return { name: n, role: CHAMBER[n] === 'Senate' ? 'Senator' : CHAMBER[n] === 'House' ? 'Representative' : '', kind: 'elected' }; });
-  }
   var GROUP_LABEL = { elected: 'Elected officials', official: 'Government officials', other: 'Also quoted' };
   var feedByUrl = {};
   // What is on screen now, so the one-page PDF matches it: the reply, and the reading shown (voice, issue or person).
@@ -103,60 +240,41 @@ export function initRevengeOrJustice(root, opts) {
     return '<i class="bar ' + side(p) + (p < 50 ? ' left' : '') + (extra || '') + '" style="left:' + left + '%;width:' + w + '%" data-left="' + left + '%" data-width="' + w + '%"></i>';
   }
 
-  // The dial (Whit, 2026-11-09: "oh oh oh snopes has those little dials"; on the mockup: "that topline is stornger
-  // as a dial ... the article one is good. the name and quote is good- but the 5 measures i think should be the
-  // bars still"). A half circle from revenge (left) to justice (right) in three bands at the tool's own cut-offs,
-  // 38 and 62; the needle points at the score, the score sits under the hub in its side's colour, and the band
-  // the score falls in is drawn full while the other two step back. Big for the verdict, small on an article
-  // card and on each person. An empty value draws an empty dial that says "Tap to read".
-  var DC = { revenge: '#9c3327', mixed: '#CFCAC0', justice: '#D4950A', ink: '#0F1B2D', stone: '#575752', gold: '#996D00', empty: '#E4E7EC' };
-  function dpt(cx, cy, r, v){ var a = Math.PI - (v / 100) * Math.PI; return [cx + r * Math.cos(a), cy - r * Math.sin(a)]; }
-  function darc(cx, cy, r, a, b){ var p = dpt(cx, cy, r, a), q = dpt(cx, cy, r, b); return 'M' + p[0].toFixed(2) + ' ' + p[1].toFixed(2) + ' A' + r + ' ' + r + ' 0 0 1 ' + q[0].toFixed(2) + ' ' + q[1].toFixed(2); }
-  function dside(v){ return v >= 62 ? 'justice' : v <= 38 ? 'revenge' : 'mixed'; }
-  function dial(v, size){
-    var big = size === 'big';
-    var W = big ? 300 : 120, r = big ? 118 : 44, sw = big ? 26 : 11;
-    var cx = W / 2, cy = r + sw / 2 + 4, H = cy + (big ? 60 : 32);
-    var has = v !== '' && v != null && !isNaN(+v);
-    if (has) v = Math.round(+v);
-    var label = has ? (dside(v) === 'mixed' ? 'Mixed' : dside(v) === 'revenge' ? 'Leans revenge' : 'Leans justice') + ', ' + v + ' of 100 toward justice' : 'Not read yet';
-    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' + label + '">';
-    [[0, 38, 'revenge'], [38, 62, 'mixed'], [62, 100, 'justice']].forEach(function(b){
-      var on = has && dside(v) === b[2];
-      s += '<path d="' + darc(cx, cy, r, b[0] + (b[0] ? 1.2 : 0), b[1] - (b[1] < 100 ? 1.2 : 0)) + '" fill="none" stroke="' + (has ? DC[b[2]] : DC.empty) + '" stroke-width="' + sw + '" stroke-opacity="' + (has && !on ? 0.6 : 1) + '"/>';
-    });
-    if (big) [0, 25, 50, 75, 100].forEach(function(t){ var a = dpt(cx, cy, r + sw / 2 + 4, t), b = dpt(cx, cy, r + sw / 2 + 10, t); s += '<line x1="' + a[0].toFixed(2) + '" y1="' + a[1].toFixed(2) + '" x2="' + b[0].toFixed(2) + '" y2="' + b[1].toFixed(2) + '" stroke="' + DC.stone + '" stroke-width="1.5"/>'; });
-    if (has) {
-      var tip = dpt(cx, cy, r - sw / 2 - (big ? 6 : 3), v), a = Math.PI - (v / 100) * Math.PI, hw = big ? 7 : 4;
-      var l = [cx + hw * Math.cos(a + Math.PI / 2), cy - hw * Math.sin(a + Math.PI / 2)], rr = [cx + hw * Math.cos(a - Math.PI / 2), cy - hw * Math.sin(a - Math.PI / 2)];
-      s += '<path class="needle" d="M' + l[0].toFixed(2) + ' ' + l[1].toFixed(2) + ' L' + tip[0].toFixed(2) + ' ' + tip[1].toFixed(2) + ' L' + rr[0].toFixed(2) + ' ' + rr[1].toFixed(2) + ' Z" fill="' + DC.ink + '"/>';
-      s += '<circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 11 : 6) + '" fill="' + DC.ink + '"/><circle cx="' + cx + '" cy="' + cy + '" r="' + (big ? 4 : 2) + '" fill="#fff"/>';
-      var col = dside(v) === 'revenge' ? DC.revenge : dside(v) === 'justice' ? DC.gold : DC.stone;
-      s += '<text x="' + cx + '" y="' + (cy + (big ? 50 : 26)) + '" text-anchor="middle" font-size="' + (big ? 44 : 22) + '" font-weight="800" fill="' + col + '">' + v + '</text>';
-    } else {
-      s += '<text x="' + cx + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.stone + '">Tap to read</text>';
-    }
-    if (big) {
-      s += '<text x="' + (cx - r) + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.revenge + '">Revenge</text>';
-      s += '<text x="' + (cx + r) + '" y="' + (cy + 22) + '" text-anchor="middle" font-size="13" font-weight="600" fill="' + DC.gold + '">Justice</text>';
-    }
-    return s + '</svg>';
-  }
 
   // Whose words: the politicians and operatives first, the outlet's own framing on a toggle, the whole text last
   // (Whit, 2026-11-06: "in the output i should see the politicians and operative etc first, and i should be able
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
+    // Nothing visible moves when the reply lands (the brief, and the reviews of 2026-11-11). The reading takes its own
+    // height, with no reserved white; if the visitor has scrolled, the page scrolls by however much the content above
+    // the measures changed, so what is on screen stays where it was. On a phone the one line under the dial keeps
+    // its place. A reply that comes back at once (a held reading) was never seen waiting.
+    var now = $('stagenow'), seen = $('out').classList.contains('wait') && Date.now() - waitShownAt > 600;
+    var heldNow = seen && now ? now.offsetHeight : 0;
+    var anchor = document.querySelector ? document.querySelector('#out #rows') : null, before = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect().top : null;
+    stopWait();
+    if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
+    if (now && now.style) { now.style.minHeight = heldNow ? heldNow + 'px' : ''; if (now.classList) now.classList[heldNow ? 'add' : 'remove']('held'); }
+    $('pdf').hidden = false;
     lastReply = reply;
     var voices = reply.voices || {};
-    // The article over the claim: its outlet and its headline as the headline it is. A pasted link the list does
-    // not hold shows the outlet the grader read and the address; pasted text shows nothing here.
+    // The article over the claim: its outlet and its headline as the headline it is, with the officials the list
+    // names as the byline the waiting screen showed. A pasted link the list does not hold shows the outlet the
+    // grader read and the address; pasted text shows nothing here.
     var item = reply.fetched ? feedByUrl[reply.fetched] : null;
-    if (item) $('art').innerHTML = '<div class="art-by">' + outletBadge(item.host, item.source) + '</div><a class="art-hl" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(item.title) + '</a>';
-    else if (reply.fetched) $('art').innerHTML = '<div class="art-by">' + outletBadge(host(reply.fetched), (voices.coverage && voices.coverage.outlet) || host(reply.fetched)) + '</div><a class="art-link" href="' + esc(reply.fetched) + '" target="_blank" rel="noopener">' + esc(host(reply.fetched)) + '</a>';
+    if (item) $('art').innerHTML = artHtml(item, reply.fetched);
+    else if (reply.fetched) $('art').innerHTML = linkArt(reply.fetched, voices.coverage && voices.coverage.outlet);
     else $('art').innerHTML = '';
-    // The list's card for this article takes the reading too, so its dial fills once read.
-    if (item) { item.reading = { position: reply.mean_position, verdict: reply.verdict }; var card = $('feedlist').querySelector('.pick[data-url="' + (window.CSS && CSS.escape ? CSS.escape(reply.fetched) : reply.fetched) + '"] .cdial'); if (card) card.innerHTML = dial(reply.mean_position, 'small'); }
+    // The list's card for this article takes the reading too, so its dial and verdict fill once read, and it is
+    // marked as held: the site now keeps this reading, so the next click on it answers at once.
+    if (item && !reply.error && reply.mean_position != null) {
+      item.reading = { position: reply.mean_position, verdict: reply.verdict, headline: reply.headline };
+      item.held = { read_at: reply.read_at || new Date().toISOString() };
+      // (Not named `pick`: that is the voice picker declared below in this function.)
+      var cardBtn = $('feedlist').querySelector('.pick[data-url="' + (window.CSS && CSS.escape ? CSS.escape(reply.fetched) : reply.fetched) + '"]');
+      var card = cardBtn && cardBtn.querySelector('.cdial');
+      if (card) { card.outerHTML = cardDial(item); cardBtn.classList.add('held'); }
+    }
     // Who is quoted, one row each, every row placed on the same revenge-to-justice line by that person's own
     // words (Whit, 2026-11-09: "if i click on the quoted person chip, maybe it expands to show the quotes? and
     // i want to be able to toggle to different electeds or officials to see how their framing stacks up").
@@ -251,6 +369,10 @@ export function initRevengeOrJustice(root, opts) {
       show(v.j, null, ctx);
     }
     pick(views[0].k);
+    if (seen && before != null && anchor && (window.scrollY || window.pageYOffset) > 0) {
+      var after = anchor.getBoundingClientRect().top;
+      if (Math.abs(after - before) > 1) window.scrollBy(0, after - before);
+    }
   }
 
   // The five measures, each a term that opens a small window over the page (Whit, 2026-11-09: "i wanted these
@@ -336,6 +458,8 @@ export function initRevengeOrJustice(root, opts) {
     $('share').hidden = !j.share;
     closeShare();
     var m = [];
+    // A reading from the site's copy says the day it was made, as a date (RJFAST1, 2026-11-10).
+    if (lastReply && lastReply.cached && lastReply.read_at && when(lastReply.read_at)) m.push('Read on ' + when(lastReply.read_at));
     // The names are already on the tags above, so this line keeps only the share.
     if (ctx.kind === 'politicians' && ctx.share) m.push('Their words are ' + esc(ctx.share) + '% of the text');
     else if (ctx.kind === 'person') m.push('Read on ' + esc(ctx.person.name) + '’s words alone' + (ctx.share ? ', ' + esc(ctx.share) + '% of the text' : ''));
@@ -354,15 +478,23 @@ export function initRevengeOrJustice(root, opts) {
     // The dial reads the same score the verdict word is read from: the mean of the five rows.
     var mean = j.mean_position != null ? j.mean_position : ((j.rows || []).length ? (j.rows || []).reduce(function(t, r){ return t + (+r.position || 0); }, 0) / j.rows.length : null);
     $('dial').innerHTML = j.error || mean == null ? '' : dial(mean, 'big');
-    $('headline').textContent = j.error ? 'This reading did not come back.' : rw(j.headline || '');
+    $('headline').textContent = j.error ? 'This reading did not come back.' : oneVerdict(j.headline);
 
     var rows = j.rows || [];
+    // The quick bars on screen, by measure, so the full reading's bars grow from them rather than from the centre.
+    var fromQuick = {};
+    Array.prototype.forEach.call(document.querySelectorAll('#rows .ir.wait.quick'), function(el){
+      var b = el.querySelector('.bar');
+      if (b) fromQuick[el.getAttribute('data-key')] = { left: b.getAttribute('data-left'), width: b.getAttribute('data-width') };
+    });
     $('rows').innerHTML = rows.map(function(r, i){
       var s = side(r.position);
-      return '<div class="ir" role="link" tabindex="0" data-row="' + i + '" aria-label="' + esc(r.title) + ': ' + sideWords(r.position) + ', ' + Math.round(r.position) + ' of 100 toward justice. Read the words behind it.">' +
+      return '<div class="ir" role="link" tabindex="0" data-row="' + i + '" data-key="' + esc(r.key) + '" aria-label="' + esc(r.title) + ': ' + sideWords(r.position) + ', ' + Math.round(r.position) + ' of 100 toward justice. Read the words behind it.">' +
         '<span class="t">' + term(r.key, r.title) + '</span>' +
         '<span class="track">' + bar(r.position) + '</span>' +
-        '<span class="n ' + s + '">' + Math.round(r.position) + '</span></div>';
+        '<span class="n ' + s + '">' + Math.round(r.position) + '</span>' +
+        // The question each bar answers, under it in both states, so the rows keep one height (review of 2026-11-11).
+        (questionOf(r.key) ? '<span class="q">' + esc(questionOf(r.key)) + '</span>' : '') + '</div>';
     }).join('');
 
     $('detail').innerHTML = rows.map(function(r, i){
@@ -396,7 +528,7 @@ export function initRevengeOrJustice(root, opts) {
 
     function precBlock(tag, p){
       if (!p) return '';
-      return '<div class="prec"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div><h3>' + esc(p.name) + '</h3><div class="yr">' + esc(p.year) + '</div>' +
+      return '<div class="prec ' + tag + '"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div><h3>' + esc(p.name) + '</h3><div class="yr">' + esc(p.year) + '</div>' +
         '<p class="this">' + esc(rw(p.why_this_one)) + '</p><p>' + esc(p.move) + '</p><p>' + esc(p.lesson) + '</p><p class="src">' + src(p) + '</p></div>';
     }
     $('prec').innerHTML = precBlock('better', j.precedent && j.precedent.better) + precBlock('worse', j.precedent && j.precedent.worse);
@@ -405,7 +537,10 @@ export function initRevengeOrJustice(root, opts) {
     // One motion moment: each bar grows out from the centre line to its reading.
     var bars = document.querySelectorAll('#rows .bar');
     if (!reduced) {
-      Array.prototype.forEach.call(bars, function(b){ b.style.transition = 'none'; b.style.left = '50%'; b.style.width = '0%'; });
+      Array.prototype.forEach.call(bars, function(b){
+        var key = b.closest && b.closest('.ir') ? b.closest('.ir').getAttribute('data-key') : '', q = key && fromQuick[key];
+        b.style.transition = 'none'; b.style.left = q ? q.left : '50%'; b.style.width = q ? q.width : '0%';
+      });
       requestAnimationFrame(function(){ requestAnimationFrame(function(){
         Array.prototype.forEach.call(bars, function(b){ b.style.transition = ''; b.style.left = b.getAttribute('data-left'); b.style.width = b.getAttribute('data-width'); });
       }); });
@@ -427,10 +562,9 @@ export function initRevengeOrJustice(root, opts) {
   function collapse(text){
     var isUrl = /^https?:\/\/\S+$/.test(text);
     var shown = isUrl ? host(text) : text.replace(/\s+/g, ' ').slice(0, 140) + (text.length > 140 ? '…' : '');
-    var it = isUrl ? feedByUrl[text] : null;
-    // An article from the list shows its outlet and headline over the claim, so the strip carries only "Read
-    // another"; a pasted link or text is named here.
-    $('what').innerHTML = it ? '' : '<b>Read:</b> ' + esc(shown);
+    // A link (from the list or pasted) shows its outlet over the claim, so the strip carries only "Read another";
+    // pasted text is named here (RJFAST1: a pasted link was named three times, here, on the badge and in the link).
+    $('what').innerHTML = isUrl ? '' : '<b>Read:</b> ' + esc(shown);
     root.classList.add('read');
     $('strip').classList.add('on');
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -560,6 +694,11 @@ export function initRevengeOrJustice(root, opts) {
   });
   $('again').addEventListener('click', function(){
     closeShare();
+    runId += 1; // a reading still on its way is dropped when it lands
+    stopWait();
+    if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
+    if ($('stagenow') && $('stagenow').style) { $('stagenow').style.minHeight = ''; $('stagenow').classList.remove('held'); }
+    $('go').disabled = false;
     track('again');
     root.classList.remove('read');
     $('strip').classList.remove('on');
@@ -570,41 +709,38 @@ export function initRevengeOrJustice(root, opts) {
   });
 
   // The headline list. A click drops the link in the box and submits it, so the strip and the result read as any pasted link.
+  // Since RJFAST1 (2026-11-10) the page arrives with the list already drawn from the server's shared copy
+  // (`opts.items`, the same cards feedCardsHtml draws here); the request below is only the fallback for a page
+  // drawn while that copy was empty.
   var FEED = '/api/revenge-or-justice/feed';
-  function when(iso){ if (!iso) return ''; var d = new Date(iso); if (isNaN(d)) return ''; return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' }); }
-  fetch(FEED, { credentials: 'same-origin' }).then(function(r){ return r.json(); }).then(function(j){
-    var items = j.items || [];
-    // An empty or failed list leaves the column hidden; nothing about it is shown to a visitor.
-    if (!items.length) return;
+  function wireFeed(items){
+    items.forEach(function(it){ feedByUrl[it.url] = it; });
     $('feed').hidden = false;
-    var SHOW = 8;
-    $('feedlist').innerHTML = items.map(function(it, k){
-      feedByUrl[it.url] = it;
-      var hue = hueOf(it.host);
-      var people = officialsOf(it);
-      return '<li' + (k >= SHOW ? ' class="rj-more"' : '') + '><button type="button" class="pick"' + (hue ? ' style="--oc:' + hue + '"' : '') + ' data-url="' + esc(it.url) + '">' +
-        '<span class="cbody">' +
-        '<span class="by">' + outletBadge(it.host, it.source) + (when(it.published) ? '<span class="when">' + when(it.published) + '</span>' : '') + '</span>' +
-        '<span class="hl">' + esc(it.title) + '</span>' +
-        // The officials as a plain byline, name in bold and role after it (the approved mockup, 2026-11-09).
-        (people.length ? '<span class="byline">' + people.map(function(o){ return '<span><b>' + esc(o.name) + '</b>' + (o.role ? ', ' + esc(o.role) + '' : '') + '</span>'; }).join('') + '</span>' : '') +
-        '</span>' +
-        // The article's dial: its stored reading where there is one, else an empty dial that fills once it is read.
-        '<span class="cdial" aria-hidden="' + (it.reading && it.reading.position != null ? 'false' : 'true') + '">' + dial(it.reading && it.reading.position != null ? it.reading.position : '', 'small') + '</span>' +
-        '</button></li>';
-    }).join('') + (items.length > SHOW ? '<li class="all"><button type="button" class="quietbtn" id="feedall">All ' + items.length + ' articles</button></li>' : '');
     if ($('feedall')) $('feedall').addEventListener('click', function(){ track('headlines-all', { count: items.length }); $('feedlist').classList.add('open'); $('feedall').parentNode.removeChild($('feedall')); });
     Array.prototype.forEach.call($('feedlist').querySelectorAll('.pick'), function(b){
       b.addEventListener('click', function(){
         var list = $('feedlist').querySelectorAll('.pick');
-        track('headline', { url: b.getAttribute('data-url').slice(0, 300), rank: Array.prototype.indexOf.call(list, b) + 1 });
+        track('headline', { url: b.getAttribute('data-url').slice(0, 300), rank: Array.prototype.indexOf.call(list, b) + 1, held: b.classList.contains('held') });
         from = 'headline';
         $('t').value = b.getAttribute('data-url');
         if ($('f').requestSubmit) $('f').requestSubmit(); else $('f').dispatchEvent(new Event('submit', { cancelable: true }));
         window.scrollTo({ top: 0, behavior: 'auto' });
       });
     });
-  }).catch(function(){ /* the column stays hidden */ });
+  }
+  var given = (opts && opts.items) || [];
+  if (given.length) {
+    if (!$('feedlist').querySelector('.pick')) $('feedlist').innerHTML = feedCardsHtml(given);
+    wireFeed(given);
+  } else {
+    fetch(FEED, { credentials: 'same-origin' }).then(function(r){ return r.json(); }).then(function(j){
+      var items = j.items || [];
+      // An empty or failed list leaves the column hidden; nothing about it is shown to a visitor.
+      if (!items.length) return;
+      $('feedlist').innerHTML = feedCardsHtml(items);
+      wireFeed(items);
+    }).catch(function(){ /* the column stays hidden */ });
+  }
 
   // A shared reading's "See the full reading" link arrives with ?u=<the article>: the box is filled and waits
   // for "Read it", so a visitor from a share decides when a reading is run.
@@ -613,28 +749,175 @@ export function initRevengeOrJustice(root, opts) {
     if (pre && /^https?:\/\/\S+$/.test(pre) && pre.length < 2000) { $('t').value = pre; from = 'share'; }
   } catch (e) { /* no prefill */ }
 
+  // The waiting screen (lane RJFAST1, 2026-11-10; Whit: "we need great ui for maintianing attentoin and
+  // demonstratting features before someone navigates away"). In the same turn as the submit, the result area
+  // takes the screen in the shape the reading will fill: the article (outlet, headline, officials) from the
+  // list item in hand, its quick read on the dial where the list carries one, the stages the grader runs with
+  // the current one named, and the five measures as empty bars each carrying its question, the two precedent
+  // slots, the words behind each reading and the three rewrites as outlines of what is coming. When the reply
+  // lands each fills in place. A reading the site already holds skips the stages and opens at once.
+  var runId = 0, waitTimer = null, waitT0 = 0, waitStage = 0, lastQuick = null, waitShownAt = 0;
+  function stopWait(){
+    if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
+    $('out').classList.remove('wait');
+    $('out').classList.remove('failed');
+    $('stages').innerHTML = '';
+    $('stagenow').innerHTML = '';
+    if ($('qmeasures')) $('qmeasures').textContent = '';
+    root.classList.remove('waiting');
+  }
+  // `limited`: the reading was refused before it began (the hourly or daily limit), so no stage is named as
+  // stopped and trying again now would be refused too; an article the site already holds still opens.
+  // One ordered column of steps at body size (reviews of 2026-11-11). The page cannot know a stage finished (the
+  // grader does not stream), so steps passed are plain muted dots, never ticks; the current step is the gold dot
+  // with one line on what it looks at, steps to come are rings, and the label over the list says it is an
+  // estimate. A failure stops on its step.
+  function drawStages(i, failed, limited){
+    // On a phone, the current step under the dial (review of 2026-11-11): the gold dot, its name, which of six.
+    $('stagenow').innerHTML = failed || limited ? '' : '<span class="sn-dot"></span><b>' + esc(STAGES[i].name) + '</b><span class="sn-of">usually step ' + (i + 1) + ' of ' + STAGES.length + ' by now</span>';
+    if (limited) {
+      $('stages').innerHTML =
+        '<p class="st-err"><b>Not read.</b> ' + esc(failed.raw) + '</p>' +
+        '<p class="st-note">An article marked Full reading ready in the list still opens at once, since the site keeps those readings.</p>';
+      return;
+    }
+    $('stages').innerHTML =
+      // The grader's own error is machinery, not something a visitor can act on: it stays in the title and the console.
+      (failed ? '<p class="st-err" title="' + esc(failed.raw) + '"><b>' + esc(failed.msg) + '</b> Try again, or pick another article.</p><p class="st-act"><button type="button" class="rj-btn" id="retry">Try again</button></p>' : '') +
+      '<p class="st-label">Usually in this order</p><ol class="st-list" aria-label="What the reading usually does, in order">' + STAGES.map(function(x, k){
+        // A stopped reading stops the estimates: no step is shown as passed, and one is marked only when the error names it.
+        var state = failed ? (k === failed.stage ? 'here' : 'ahead') : k < i ? 'past' : k === i ? 'here' : 'ahead';
+        return '<li class="' + state + '"' + (state === 'here' ? ' aria-current="step"' : '') + '><span class="st-name">' + esc(x.name) + '</span>' +
+          (state === 'here' && !failed ? '<span class="st-what">' + esc(x.what) + '</span>' : '') + '</li>';
+      }).join('') + '</ol>' +
+      (failed ? '' : '<p class="st-note">A first reading takes twenty to forty seconds. An article read before opens at once.</p>');
+  }
+  function advance(){
+    var t = Date.now() - waitT0, i = waitStage;
+    while (i + 1 < STAGES.length && STAGES[i + 1].at <= t) i++;
+    if (i !== waitStage) { waitStage = i; drawStages(i); }
+    // The last stage holds until the reply arrives.
+    if (waitStage + 1 < STAGES.length) waitTimer = setTimeout(advance, Math.max(50, STAGES[waitStage + 1].at - t));
+  }
+  function questionOf(key){ var r = rubric.filter(function(x){ return x.key === key; })[0]; return r ? r.question : ''; }
+  function sk(cls){ return '<span class="sk ' + cls + '" aria-hidden="true"></span>'; }
+  function waitScreen(text){
+    var isUrl = /^https?:\/\/\S+$/.test(text);
+    var it = isUrl ? feedByUrl[text] : null;
+    collapse(text);
+    $('share').hidden = true;
+    $('voices').innerHTML = ''; $('voices').classList.remove('on');
+    $('issues').innerHTML = ''; $('issues').classList.remove('on');
+    $('quoted').innerHTML = '';
+    if (it) $('art').innerHTML = artHtml(it, text);
+    else if (isUrl) $('art').innerHTML = linkArt(text, '');
+    else $('art').innerHTML = '';
+    // The quick read: the light reading the list carries (the whole text in one pass), labelled as such.
+    var quick = it && it.reading && it.reading.position != null ? it.reading : null;
+    lastQuick = quick;
+    waitShownAt = Date.now();
+    if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
+    if ($('stagenow') && $('stagenow').style) { $('stagenow').style.minHeight = ''; $('stagenow').innerHTML = ''; $('stagenow').classList.remove('held'); }
+    // Save as PDF prints the reading on screen, so it waits for the reading.
+    $('pdf').hidden = true;
+    var qv = quick ? quick.verdict || dside(+quick.position) : '';
+    // The quick read's dial is drawn lighter and carries its own tag, so the change shows when the full reading lands.
+    $('dial').innerHTML = quick ? '<span class="qtag">Quick read</span>' + dial(quick.position, 'big', 'quick') : dial('', 'big', true);
+    $('verdict').textContent = quick ? verdictWords(qv) : '';
+    $('verdict').className = 'v' + (quick ? ' ' + verdictClass(qv) : '');
+    // The pill already says the verdict, so a line that opens by saying it again ("Mixed: ...", "It leans
+    // justice: ...") starts after its colon (review of 2026-11-11).
+    $('headline').textContent = quick ? oneVerdict(quick.headline) : '';
+    $('meta').innerHTML = quick ? 'A quick read of the whole text in one pass. The full reading replaces it when it lands.' : '';
+    // Where the list's quick read carries the five rows, each empty track shows its quick bar at reduced strength,
+    // under the dial's Quick read tag; the full reading grows each bar from there (review of 2026-11-11).
+    $('rows').innerHTML = rubric.map(function(r){
+      var qr = quick && quick.rows ? quick.rows.filter(function(x){ return x.key === r.key; })[0] : null;
+      return '<div class="ir wait' + (qr ? ' quick' : '') + '" data-key="' + esc(r.key) + '"><span class="t">' + term(r.key, r.title) + '</span>' +
+        // No number on a quick bar: the score is the full reading's to give (review of 2026-11-11).
+        '<span class="track">' + (qr ? bar(qr.position, ' qbar') : '') + '</span><span class="n"></span>' +
+        '<span class="q">' + esc(r.question) + '</span></div>';
+    }).join('');
+    var slot = function(tag){ return '<div class="prec wait ' + tag + '"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div>' + sk('h') + sk('yr') + sk('l') + sk('l') + sk('l s') + '</div>'; };
+    $('prec').innerHTML = slot('better') + slot('worse');
+    $('detail').innerHTML = rubric.map(function(r){
+      // The heading's tick wears its bar's colour where the quick read knows it; otherwise a neutral tick.
+      var qr = quick && quick.rows ? quick.rows.filter(function(x){ return x.key === r.key; })[0] : null;
+      return '<article class="r wait"><div class="rh"><span class="thumb' + (qr ? ' quick' : ' tick') + '" aria-hidden="true">' + (qr ? bar(qr.position) : '') + '</span><h3>' + esc(r.title) + '</h3></div>' +
+        '<dl class="tiers"><dt>They said</dt><dd>' + sk('l') + sk('l s') + '</dd><dt>How it reads</dt><dd>' + sk('l') + sk('l') + sk('l s') + '</dd></dl></article>';
+    }).join('');
+    $('reframes').innerHTML = [1, 2, 3].map(function(n){ return '<div class="reframe wait"><h3>Rewrite ' + n + '</h3>' + sk('l') + sk('l') + sk('l') + sk('l s') + '</div>'; }).join('');
+    $('out').classList.remove('failed');
+    $('out').classList.add('on');
+    $('out').classList.add('wait');
+    root.classList.add('waiting');
+    if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
+    // From 721px the steps sit in the column under the dial, so the verdict column never holds their height; on a
+    // narrower screen they stay in the slot under the article (review of 2026-11-11).
+    var wide = window.matchMedia && window.matchMedia('(min-width: 721px)').matches;
+    var home = wide ? document.querySelector('#out .rj-dialcol') : $('slot');
+    if (home && home.appendChild && $('stages').parentNode !== home) home.appendChild($('stages'));
+    // The measures carry the Quick read label while the quick bars stand in for the reading.
+    if ($('qmeasures')) $('qmeasures').textContent = quick && quick.rows && quick.rows.length ? 'Quick read' : '';
+    if (it && it.held) { $('stages').innerHTML = ''; return; }
+    waitT0 = Date.now(); waitStage = 0;
+    drawStages(0);
+    advance();
+  }
+  // What failed, in plain words built from the reply (review of 2026-11-11). The grader's own words are machinery:
+  // they stay in the title and the console. A page that would not load names the first step; nothing else does.
+  var OUR_REFUSALS = /^(that is not a link|only http and https links|a link with a sign-in in it is not read|that link points somewhere this reader does not go)$/i;
+  function failCopy(status, error, text){
+    var raw = String(error || '').trim(), isLink = /^https?:\/\/\S+$/.test(text), where = isLink ? host(text) : '';
+    if (status === 429) return { msg: sentence(raw), raw: sentence(raw), stage: -1, limited: true };
+    if (status === 400 && OUR_REFUSALS.test(raw)) return { msg: 'That link can’t be read here.', raw: raw, stage: -1 };
+    if (status === 400 && isLink) return { msg: 'The article at ' + where + ' would not load.', raw: raw, stage: 0 };
+    if (status === 503) return { msg: 'The reader is switched off right now.', raw: raw, stage: -1 };
+    if (status === 0) return { msg: 'The connection dropped before the reading came back.', raw: raw, stage: -1 };
+    return { msg: isLink ? 'The reading of the article at ' + where + ' could not be finished.' : 'The reading of this text could not be finished.', raw: raw, stage: -1 };
+  }
+  function failWait(f){
+    var limited = !!f.limited;
+    if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
+    if (!limited && window.console && console.warn) console.warn('Revenge or Justice: the reading stopped:', f.raw);
+    $('out').classList.add('failed');
+    if (!lastQuick) $('dial').innerHTML = dial('', 'big', 'stop');
+    // Once a reading stops, nothing is coming: the empty tracks and the outlines go (review of 2026-11-11).
+    $('rows').innerHTML = ''; $('prec').innerHTML = ''; $('detail').innerHTML = ''; $('reframes').innerHTML = '';
+    drawStages(waitStage, f, limited);
+    var retry = $('retry');
+    if (retry) retry.addEventListener('click', function(){ track('retry'); run(lastText); });
+  }
+
+  var lastText = '';
+  function run(text){
+    var source = /^https?:\/\/\S+$/.test(text) ? 'url' : 'text';
+    var came = from; from = 'paste';
+    var my = ++runId;
+    lastText = text;
+    track('grade', { source: source, from: came, length: text.length, query: text.slice(0, 1000) });
+    $('go').disabled = true;
+    $('status').textContent = ''; $('status').className = '';
+    waitScreen(text);
+    fetch(API, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: text }) })
+      .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, status: r.status, j: j }; }, function(){ return { ok: false, j: { error: 'The grader sent back something this page cannot read.' } }; }); })
+      .then(function(x){
+        if (my !== runId) return;
+        if (!x.ok || x.j.error) { track('grade-failed', { source: source }); failWait(failCopy(x.status, x.j.error, text)); return; }
+        track('result', { source: source, cached: !!x.j.cached, verdict: String(x.j.verdict || 'none'), voices: [x.j.voices && x.j.voices.politicians ? 'politicians' : '', x.j.voices && x.j.voices.coverage ? 'coverage' : ''].filter(Boolean).join(',') || 'all' });
+        render(x.j);
+      })
+      .catch(function(err){ if (my === runId) failWait(failCopy(0, err.message, text)); })
+      .then(function(){ if (my === runId) $('go').disabled = false; });
+  }
+  // What failed, as a sentence: a capital first and a full stop last.
+  function sentence(s){ s = String(s || '').trim(); if (!s) return ''; s = s.charAt(0).toUpperCase() + s.slice(1); return /[.!?]$/.test(s) ? s : s + '.'; }
+
   $('f').addEventListener('submit', function(e){
     e.preventDefault();
     var text = $('t').value.trim();
     if (!text) { $('status').textContent = 'Paste something first.'; $('status').className = 'err'; return; }
-    var source = /^https?:\/\/\S+$/.test(text) ? 'url' : 'text';
-    var came = from; from = 'paste';
-    track('grade', { source: source, from: came, length: text.length, query: text.slice(0, 1000) });
-    $('go').disabled = true;
-    $('status').className = 'busy';
-    $('status').textContent = 'Reading it against the rubric and the record. Twenty to forty seconds.';
-    $('out').classList.remove('on');
-    fetch(API, { method: 'POST', credentials: 'same-origin', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: text }) })
-      .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, j: j }; }); })
-      .then(function(x){
-        if (!x.ok || x.j.error) { track('grade-failed', { source: source }); $('status').textContent = x.j.error || 'It failed.'; $('status').className = 'err'; return; }
-        track('result', { source: source, verdict: String(x.j.verdict || 'none'), voices: [x.j.voices && x.j.voices.politicians ? 'politicians' : '', x.j.voices && x.j.voices.coverage ? 'coverage' : ''].filter(Boolean).join(',') || 'all' });
-        $('status').textContent = ''; $('status').className = '';
-        collapse(text);
-        render(x.j);
-      })
-      .catch(function(err){ $('status').textContent = 'It failed: ' + err.message; $('status').className = 'err'; })
-      .then(function(){ $('go').disabled = false; });
+    run(text);
   });
 
 }

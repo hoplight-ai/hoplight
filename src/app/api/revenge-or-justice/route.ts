@@ -9,17 +9,20 @@
 //   - a per-instance ceiling, 300 grades a day, so a flood on one instance stops at a known cost;
 //   - the input cap the grader already has (14,000 characters);
 //   - the Vercel Firewall rate-limit rule, the hard limit, which is set in the dashboard.
+// A link already read is answered from the seven-day shared copy and counts against none of these.
 // Env, names only: PRIVATE_SITE_USER, PRIVATE_SITE_PASSWORD (already on the project for the gate).
 
 import { NextResponse } from 'next/server';
 import { checkLimitIn, clientIp } from '@/lib/rate-limit';
 import { LOOKS_LIKE_LINK, publicHttpUrl } from '@/lib/safe-url';
 import { encodeShare, shareEnabled, type Verdict } from '@/lib/rj-share';
+import { gradeThroughCopy, nextStore } from '@/lib/rj-cache';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
-const UPSTREAM = 'https://quick-tools-pi.vercel.app/api/justice-or-retribution';
+// RJ_UPSTREAM_ORIGIN points a local run at a stand-in for quick-tools (lane RJFAST1's renders); unset, it is quick-tools.
+const UPSTREAM = (process.env.RJ_UPSTREAM_ORIGIN || 'https://quick-tools-pi.vercel.app') + '/api/justice-or-retribution';
 const PER_IP = { max: 6, windowMs: 60 * 60 * 1000 };
 const PER_DAY = { max: 300, windowMs: 24 * 60 * 60 * 1000 };
 
@@ -41,12 +44,6 @@ export async function GET() {
 export async function POST(req: Request) {
   const a = auth();
   if (!a) return NextResponse.json({ error: 'the grader is not configured on this site' }, { status: 503 });
-  if (!checkLimitIn('grade-ip', clientIp(req), PER_IP.max, PER_IP.windowMs)) {
-    return NextResponse.json({ error: 'That is six readings in an hour from your address. Come back in a bit.' }, { status: 429 });
-  }
-  if (!checkLimitIn('grade-day', 'all', PER_DAY.max, PER_DAY.windowMs)) {
-    return NextResponse.json({ error: 'The grader has done its day’s share of readings. Try again tomorrow.' }, { status: 429 });
-  }
   let body: unknown;
   try { body = await req.json(); } catch { return NextResponse.json({ error: 'bad JSON' }, { status: 400 }); }
   const b = (body && typeof body === 'object' ? body : {}) as { text?: unknown; url?: unknown };
@@ -61,20 +58,24 @@ export async function POST(req: Request) {
     const safe = publicHttpUrl(link);
     if (!safe.ok) return NextResponse.json({ error: safe.reason }, { status: 400 });
   }
-  const res = await fetch(UPSTREAM, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: a },
-    body: JSON.stringify(text ? { text } : { url }),
-    cache: 'no-store',
+  // RJFAST1, 2026-11-10: a link already read answers from the shared copy (src/lib/rj-cache.ts), with
+  // `cached: true` and the day it was read, and costs nothing, so the limits are asked only before a real
+  // model call. Every reading the grader returns gets its own signed share link (src/lib/rj-share.ts) before
+  // it is kept, so whichever voice, issue or person is on screen shares as it reads, from the copy too.
+  const ip = clientIp(req);
+  const out = await gradeThroughCopy({ text, url }, {
+    store: nextStore(),
+    fetchImpl: fetch,
+    upstream: UPSTREAM,
+    auth: a,
+    allow: () => {
+      if (!checkLimitIn('grade-ip', ip, PER_IP.max, PER_IP.windowMs)) return 'That is six readings in an hour from your address. Come back in a bit.';
+      if (!checkLimitIn('grade-day', 'all', PER_DAY.max, PER_DAY.windowMs)) return 'The grader has done its day’s share of readings. Try again tomorrow.';
+      return null;
+    },
+    attach: shareEnabled() ? (r) => attachShares(r as Reading) : undefined,
   });
-  const out = await res.text();
-  if (!res.ok || !shareEnabled()) return new NextResponse(out, { status: res.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
-  // Every reading in the reply gets its own signed share link (src/lib/rj-share.ts), so whichever voice, issue
-  // or person is on screen can be shared as it reads. Only readings the grader itself returned are signed here.
-  let reply: Reading;
-  try { reply = JSON.parse(out) as Reading; } catch { return new NextResponse(out, { status: res.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } }); }
-  try { attachShares(reply); } catch { /* a reply that cannot be shared is still a reply */ }
-  return NextResponse.json(reply, { status: res.status, headers: { 'Cache-Control': 'no-store' } });
+  return new NextResponse(out.body, { status: out.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 }
 
 interface Reading {
