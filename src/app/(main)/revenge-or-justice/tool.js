@@ -108,6 +108,13 @@ function dial(v, size, wait){
 // One date format on the server and in the browser, so the card the page arrives with is the card the script keeps.
 function when(iso){ if (!iso) return ''; var d = new Date(iso); if (isNaN(d)) return ''; return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' }); }
 
+// The pill beside a reading's line already says the verdict, so a line that opens by saying it again ("Mixed: ...",
+// "It sounds like revenge: ...") starts after its colon (review of 2026-11-11), with revenge for the API's word.
+function oneVerdict(s){
+  s = String(s == null ? '' : s).replace(/\bRetribution\b/g, 'Revenge').replace(/\bretribution\b/g, 'revenge')
+    .replace(/^(it\s+)?(sounds\s+like|leans|reads\s+as|is)?\s*(revenge|justice|mixed)\b[^:.]{0,40}:\s*/i, '');
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
 function verdictWords(v){ return v === 'retribution' || v === 'revenge' ? 'Leans revenge' : v === 'justice' ? 'Leans justice' : v === 'mixed' ? 'Mixed' : ''; }
 function verdictClass(v){ return v === 'retribution' || v === 'revenge' ? 'revenge' : v === 'justice' ? 'justice' : 'mixed'; }
 
@@ -448,7 +455,7 @@ export function initRevengeOrJustice(root, opts) {
     // The dial reads the same score the verdict word is read from: the mean of the five rows.
     var mean = j.mean_position != null ? j.mean_position : ((j.rows || []).length ? (j.rows || []).reduce(function(t, r){ return t + (+r.position || 0); }, 0) / j.rows.length : null);
     $('dial').innerHTML = j.error || mean == null ? '' : dial(mean, 'big');
-    $('headline').textContent = j.error ? 'This reading did not come back.' : rw(j.headline || '');
+    $('headline').textContent = j.error ? 'This reading did not come back.' : oneVerdict(j.headline);
 
     var rows = j.rows || [];
     $('rows').innerHTML = rows.map(function(r, i){
@@ -722,21 +729,21 @@ export function initRevengeOrJustice(root, opts) {
   }
   // `limited`: the reading was refused before it began (the hourly or daily limit), so no stage is named as
   // stopped and trying again now would be refused too; an article the site already holds still opens.
+  // One ordered column of steps at body size (review of 2026-11-11): steps passed carry a filled tick, the current
+  // step the gold dot with one line on what it looks at, steps to come an outline. A failure stops on its step.
   function drawStages(i, failed, limited){
-    var s = STAGES[i];
     if (limited) {
       $('stages').innerHTML =
-        '<p class="st-now"><span class="st-lead">Not read</span><span class="st-name">' + esc(failed) + '</span></p>' +
-        '<p class="st-what">An article marked Full reading ready in the list still opens at once, since the site keeps those readings.</p>';
+        '<p class="st-err"><b>Not read.</b> ' + esc(failed) + '</p>' +
+        '<p class="st-note">An article marked Full reading ready in the list still opens at once, since the site keeps those readings.</p>';
       return;
     }
     $('stages').innerHTML =
-      '<p class="st-now"><span class="st-lead">' + (failed ? 'Stopped at' : 'Now') + '</span><span class="st-name">' + esc(s.name) + '</span></p>' +
-      (failed
-        ? '<p class="st-what st-err">' + esc(failed) + '</p><p class="st-act"><button type="button" class="rj-btn" id="retry">Try again</button></p>'
-        : '<p class="st-what">' + esc(s.what) + '</p>') +
+      (failed ? '<p class="st-err"><b>Stopped.</b> ' + esc(failed) + '</p><p class="st-act"><button type="button" class="rj-btn" id="retry">Try again</button></p>' : '') +
       '<ol class="st-list" aria-label="What the reading does, in order">' + STAGES.map(function(x, k){
-        return '<li class="' + (k < i ? 'past' : k === i ? 'here' : 'ahead') + '"' + (k === i ? ' aria-current="step"' : '') + '>' + esc(x.name) + '</li>';
+        var state = k < i ? 'past' : k === i ? 'here' : 'ahead';
+        return '<li class="' + state + '"' + (k === i ? ' aria-current="step"' : '') + '><span class="st-name">' + esc(x.name) + '</span>' +
+          (k === i && !failed ? '<span class="st-what">' + esc(x.what) + '</span>' : '') + '</li>';
       }).join('') + '</ol>' +
       (failed ? '' : '<p class="st-note">A first reading takes twenty to forty seconds. An article read before opens at once.</p>');
   }
@@ -768,11 +775,13 @@ export function initRevengeOrJustice(root, opts) {
     $('dial').innerHTML = quick ? dial(quick.position, 'big') : dial('', 'big', true);
     $('verdict').textContent = quick ? verdictWords(qv) : '';
     $('verdict').className = 'v' + (quick ? ' ' + verdictClass(qv) : '');
-    $('headline').textContent = quick ? rw(quick.headline || '') : '';
+    // The pill already says the verdict, so a line that opens by saying it again ("Mixed: ...", "It leans
+    // justice: ...") starts after its colon (review of 2026-11-11).
+    $('headline').textContent = quick ? oneVerdict(quick.headline) : '';
     $('meta').innerHTML = quick ? '<b class="qr">Quick read</b> of the whole text in one pass. The full reading replaces it when it lands.' : '';
     $('rows').innerHTML = rubric.map(function(r){
       return '<div class="ir wait" data-key="' + esc(r.key) + '"><span class="t">' + term(r.key, r.title) + '</span>' +
-        '<span class="track"><span class="q">' + esc(r.question) + '</span></span><span class="n"></span></div>';
+        '<span class="track"></span><span class="n"></span><span class="q">' + esc(r.question) + '</span></div>';
     }).join('');
     var slot = function(tag){ return '<div class="prec wait"><div class="tag ' + tag + '">' + (tag === 'better' ? 'Did it better' : 'Did it worse') + '</div>' + sk('h') + sk('yr') + sk('l') + sk('l') + sk('l s') + '</div>'; };
     $('prec').innerHTML = slot('better') + slot('worse');
@@ -780,7 +789,7 @@ export function initRevengeOrJustice(root, opts) {
       return '<article class="r wait"><div class="rh"><span class="thumb" aria-hidden="true"></span><h3>' + esc(r.title) + '</h3></div>' +
         '<dl class="tiers"><dt>They said</dt><dd>' + sk('l') + sk('l s') + '</dd><dt>How it reads</dt><dd>' + sk('l') + sk('l') + sk('l s') + '</dd></dl></article>';
     }).join('');
-    $('reframes').innerHTML = [1, 2, 3].map(function(){ return '<div class="reframe wait">' + sk('h') + sk('l') + sk('l') + sk('l') + sk('l s') + '</div>'; }).join('');
+    $('reframes').innerHTML = [1, 2, 3].map(function(n){ return '<div class="reframe wait"><h3>Rewrite ' + n + '</h3>' + sk('l') + sk('l') + sk('l') + sk('l s') + '</div>'; }).join('');
     $('out').classList.remove('failed');
     $('out').classList.add('on');
     $('out').classList.add('wait');

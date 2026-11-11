@@ -418,54 +418,62 @@
 @media (max-width:760px){.rj .sharebox{grid-template-columns:1fr}}
 
 /* The waiting screen (lane RJFAST1, 2026-11-10; Whit: "we need great ui for maintianing attentoin and
-   demonstratting features before someone navigates away"). The result area takes the screen in the shape the
-   reading will fill: the article on top, the stage the grader is on named in one bold line that rewrites as it
-   moves on, the six stages in order under it, and the five measures as empty bars each carrying its question.
-   Outlines of the precedent, the words and the rewrites wait below. No spinner, no percentage, no bar to 100. */
+   demonstratting features before someone navigates away"), as revised after the review of 2026-11-11. The result
+   area takes the screen in the shape the reading will fill: the article on top, the grader's steps in one ordered
+   column at body size, and the five measures as the same empty tracks the reading draws, each question under its
+   track. Outlines of the precedent, the words and the rewrites wait below in light tints of the page's navy.
+   No spinner, no percentage, no bar to 100. */
 .rj .stages:empty{display:none}
-.rj .stages{margin-top:var(--s3);max-width:44em}
-.rj .st-now{display:flex;flex-direction:column;gap:2px}
-.rj .st-lead{font-size:15px;font-weight:700;color:var(--gold-deep)}
-.rj .failed .st-lead{color:var(--flag)}
-.rj .st-name{font-size:clamp(22px,1rem + .8vw,26px);line-height:1.2;font-weight:700;letter-spacing:-.012em;color:var(--ink);text-wrap:balance}
-.rj .st-what{font-size:17px;line-height:1.5;color:var(--ink2);margin-top:var(--s1);max-width:40em}
-.rj .st-what.st-err{color:var(--flag);font-weight:500}
-.rj .st-act{margin-top:var(--s2)}
-.rj .st-list{list-style:none;display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:var(--s3);padding-top:var(--s2);border-top:1px solid var(--rule2)}
-.rj .st-list li{display:inline-flex;align-items:center;gap:8px;font-size:14px;line-height:1.3;color:var(--ink)}
-.rj .st-list li::before{content:"";flex:none;width:10px;height:10px;border-radius:2px;box-shadow:inset 0 0 0 1.5px currentColor}
-.rj .st-list li.ahead{color:var(--ink2);opacity:.7}
-.rj .st-list li.here{font-weight:700}
-.rj .st-list li.here::before{background:var(--gold);box-shadow:none}
-.rj .failed .st-list li.here::before{background:var(--flag)}
+.rj .stages{margin-top:var(--s3);max-width:40em}
+.rj .st-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.rj .st-list li{position:relative;padding-left:30px;font-size:16px;line-height:1.4;color:var(--ink)}
+.rj .st-list li::before{content:"";position:absolute;left:0;top:2px;width:18px;height:18px;border-radius:50%;box-sizing:border-box;border:2px solid var(--ink2);background:var(--white)}
+.rj .st-list li.ahead{color:var(--ink2)}
+.rj .st-list li.ahead::before{border-color:rgba(42,63,95,.45)}
+.rj .st-list li.past::before{background:var(--ink);border-color:var(--ink)}
+.rj .st-list li.past::after{content:"";position:absolute;left:6px;top:5px;width:5px;height:9px;border:solid var(--white);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.rj .st-list li.here::before{background:var(--gold);border-color:var(--gold)}
+.rj .st-list li.here .st-name{font-weight:700}
+.rj .st-what{display:block;font-size:15px;line-height:1.45;color:var(--ink2);margin-top:2px}
+.rj .failed .st-list li.here::before{background:var(--flag);border-color:var(--flag)}
+.rj .st-err{font-size:16px;line-height:1.5;color:var(--flag);margin-bottom:var(--s2)}
+.rj .st-err b{font-weight:700}
+.rj .st-act{margin-bottom:var(--s3)}
 .rj .st-note{font-size:14px;line-height:1.5;color:var(--stone);margin-top:var(--s2)}
 .rj .meta .qr{font-weight:700;color:var(--gold-deep)}
 .rj .art-byline{display:flex;flex-wrap:wrap;gap:2px 18px;margin-top:10px;font-size:15px;line-height:1.4;color:var(--stone)}
 .rj .art-byline b{font-weight:700;color:var(--ink)}
-/* The five measures, empty: each track carries the question its bar will answer, over the centre line. */
-.rj .ir.wait{cursor:default}
-.rj .ir.wait .q{position:absolute;z-index:4;left:10px;right:10px;top:50%;transform:translateY(-50%);font-size:14px;line-height:1.3;color:var(--ink2);background:var(--white);padding:2px 6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-/* Outlines of what is coming, in the shapes they will fill. */
-.rj .sk{display:block;height:14px;width:100%;border-radius:3px;background:rgba(15,27,45,.07);margin-top:10px}
+/* Each verdict pill wears its pole's hue, the dial's own colour roles: revenge in the flag red, justice in the
+   gold, mixed in the dial's middle band (review of 2026-11-11). */
+.rj .claim .v.justice{color:var(--ink);background:var(--gold);box-shadow:none}
+.rj .claim .v.mixed{color:var(--ink);background:#CFCAC0;box-shadow:none}
+/* The five measures, empty: the same track the reading draws (centre line, the Revenge and Justice ends above),
+   no fill, and the question each bar will answer in small type under it. */
+.rj .ir.wait{cursor:default;grid-template-rows:auto auto;row-gap:0}
+.rj .ir.wait .q{grid-column:2/4;font-size:13px;line-height:1.35;color:var(--ink2);padding:0 0 10px}
+/* Outlines of what is coming, in light tints of the page's navy. */
+.rj .sk{display:block;height:14px;width:100%;border-radius:3px;background:rgba(15,27,45,.045);margin-top:10px}
 .rj .sk.h{height:22px;width:55%;margin-top:var(--s1)}
 .rj .sk.yr{height:12px;width:18%;margin-top:6px}
 .rj .sk.s{width:62%}
 .rj .tiers .sk:first-child{margin-top:8px}
-.rj .wait .sk{background:linear-gradient(90deg,rgba(15,27,45,.06) 0%,rgba(212,149,10,.18) 50%,rgba(15,27,45,.06) 100%);background-size:200% 100%;animation:rj-sh 1.8s ease-in-out infinite}
-.rj .failed .sk{animation:none;background:rgba(15,27,45,.06)}
+.rj .reframe.wait h3{color:var(--ink2)}
+.rj .wait .sk{background:linear-gradient(90deg,rgba(15,27,45,.04) 0%,rgba(15,27,45,.085) 50%,rgba(15,27,45,.04) 100%);background-size:200% 100%;animation:rj-sh 1.8s ease-in-out infinite}
+.rj .failed .sk{animation:none;background:rgba(15,27,45,.04)}
 @keyframes rj-sh{0%{background-position:100% 0}100%{background-position:-100% 0}}
-@media (prefers-reduced-motion:reduce){.rj .wait .sk{animation:none;background:rgba(15,27,45,.07)}}
+@media (prefers-reduced-motion:reduce){.rj .wait .sk{animation:none;background:rgba(15,27,45,.045)}}
 /* A headline's card carries its verdict under its dial, and says when the site holds its full reading. */
 .rj .feed .cv{display:block;margin-top:2px;font-size:12px;font-weight:700;line-height:1.2;text-align:center}
 .rj .feed .cv.revenge{color:var(--flag)}
 .rj .feed .cv.justice{color:var(--gold-deep)}
 .rj .feed .cv.mixed{color:var(--ink)}
 .rj .feed .cheld{display:block;margin-top:6px;font-size:12px;font-weight:600;line-height:1.25;text-align:center;color:var(--ink2)}
+/* At 390 the first article card shows whole on first paint (review of 2026-11-11): a shorter box and less air
+   between the box and the list. */
 @media (max-width:720px){
-  .rj .st-list{gap:8px 16px}
-  .rj .ir.wait .q{left:4px;right:4px;padding:1px 4px;font-size:12px;line-height:1.25;-webkit-line-clamp:3}
+  .rj .ir.wait .q{grid-column:1/4;font-size:12px}
+  .rj .rj-head{padding-top:var(--s3);padding-bottom:var(--s2)}
+  .rj textarea{min-height:104px}
+  .rj #status{margin-top:var(--s1);min-height:0}
+  .rj .feed{margin-top:var(--s3);padding-top:var(--s2)}
 }
-/* Look pass 1: the question sat over the centre line and the tick showed above and below it in pieces. While a
-   bar is empty its track carries the question alone, on a gold rule where the bar will grow from. */
-.rj .ir.wait .track::before,.rj .ir.wait .track::after{display:none}
-.rj .ir.wait .q{left:0;right:0;padding:2px 0 2px 12px;background:none;box-shadow:inset 2px 0 0 var(--gold)}

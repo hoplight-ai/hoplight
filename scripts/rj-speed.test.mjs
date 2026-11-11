@@ -216,7 +216,7 @@ test('4. on submit the page draws the article, the stage list and the five empty
   const item = {
     url: 'https://www.example.com/news/raskin-hearing', title: 'Raskin opens the hearing on the overcharges', source: 'Example News', host: 'example.com',
     officials: [{ name: 'Jamie Raskin', role: 'Representative', kind: 'elected' }],
-    reading: { position: 24, verdict: 'retribution', headline: 'It names a man, not a practice.' },
+    reading: { position: 24, verdict: 'retribution', headline: 'It sounds like revenge: it names a man, not a practice.' },
   };
   initRevengeOrJustice(root, { items: [item] });
   dom.el('t').value = item.url;
@@ -240,6 +240,9 @@ test('4. on submit the page draws the article, the stage list and the five empty
   // Its light reading draws at once as the quick read.
   assert.match(dom.el('dial').innerHTML, /<svg/);
   assert.match(dom.el('verdict').textContent + ' ' + dom.el('meta').innerHTML, /Quick read/);
+  // The pill says the verdict once; the line beside it does not say it again.
+  assert.equal(dom.el('verdict').textContent, 'Leans revenge');
+  assert.equal(dom.el('headline').textContent, 'It names a man, not a practice.');
   // The two precedent slots and the three rewrite slots wait in the shapes they will fill.
   assert.equal((dom.el('prec').innerHTML.match(/class="prec wait"/g) || []).length, 2);
   assert.equal((dom.el('reframes').innerHTML.match(/class="reframe wait"/g) || []).length, 3);
