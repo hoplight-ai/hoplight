@@ -245,6 +245,8 @@ test('4. on submit the page draws the article, the stage list and the five empty
   assert.doesNotMatch(stages, /✓|check|tick/i);
   // On a phone the current step shows under the dial: its name and which of six.
   assert.match(dom.el('stagenow').innerHTML, /Getting the article<\/b><span class="sn-of">usually step 1 of 6 by now/);
+  // The estimate also travels with the current step in the list, at every width (RJFAST3).
+  assert.match(stages, /Getting the article<\/span><span class="st-of">usually step 1 of 6 by now<\/span>/);
   // The pill says the verdict once; the line beside it does not say it again.
   assert.equal(dom.el('verdict').textContent, 'Leans revenge');
   assert.equal(dom.el('headline').textContent, 'It names a man, not a practice.');
@@ -318,6 +320,29 @@ test('4f. a quick read that carries its five rows draws them in the empty tracks
   assert.equal((html.match(/class="bar /g) || []).length, 5);
   assert.match(dom.el('dial').innerHTML, /Quick read/);
   dom.el('again').listeners.click[0]();
+});
+
+// RJFAST3 (2026-11-11): the waiting screen's steps sit in the slot under the article, and when a reading lands
+// after a visible wait the slot keeps the height the steps gave it, so the measures below do not move. The fake
+// DOM has no layout, so the slot's measured height is set by hand and the test reads what the page keeps.
+test('4g. a reading that lands after a visible wait keeps the slot at its waiting height, so the measures hold still', async () => {
+  const dom = fakeDom();
+  globalThis.document = dom.document;
+  globalThis.window = dom.window;
+  let answer;
+  globalThis.fetch = (url, init) => (init && init.method === 'POST' ? new Promise((r) => { answer = r; }) : new Promise(() => {}));
+  const { initRevengeOrJustice } = await import('../src/app/(main)/revenge-or-justice/tool.js');
+  initRevengeOrJustice(dom.el('root-hold'), { items: [{ url: READING.fetched, title: 'Raskin opens the hearing', source: 'Example News', host: 'example.com' }] });
+  dom.el('t').value = READING.fetched;
+  dom.el('f').listeners.submit[0]({ preventDefault() {} });
+  assert.match(dom.el('stages').innerHTML, /Usually in this order/);
+  dom.el('slot').offsetHeight = 312; // the steps' block as the browser measured it
+  await new Promise((r) => setTimeout(r, 700)); // a wait the visitor saw
+  const rows = ['practice', 'price', 'remedy', 'umpire', 'knot'].map((key, i) => ({ key, title: key, position: 20 + i * 10, evidence: 'w', critique: 'c' }));
+  answer({ ok: true, json: () => Promise.resolve({ ...READING, rows, reframes: [], precedent: {} }) });
+  await new Promise((r) => setTimeout(r, 20));
+  assert.ok(!dom.el('out').classList.contains('wait'), 'the reading did not land');
+  assert.equal(dom.el('slot').style.minHeight, '312px', 'the slot gave up its height, so the measures moved by the steps\' height');
 });
 
 test('4b. when the reply lands it fills the same slots, and a copy says the day it was read', async () => {

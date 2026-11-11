@@ -245,15 +245,15 @@ export function initRevengeOrJustice(root, opts) {
   // (Whit, 2026-11-06: "in the output i should see the politicians and operative etc first, and i should be able
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
-    // Nothing visible moves when the reply lands (the brief, and the reviews of 2026-11-11). The reading takes its own
-    // height, with no reserved white; if the visitor has scrolled, the page scrolls by however much the content above
-    // the measures changed, so what is on screen stays where it was. On a phone the one line under the dial keeps
-    // its place. A reply that comes back at once (a held reading) was never seen waiting.
+    // Nothing moves when the reply lands, scrolled or not (the brief; RJFAST2, 2026-11-11). The slot under the article
+    // keeps the height the steps gave it, now a compact block, so the measures' top edge stays where it was; on a
+    // phone the one line under the dial keeps its place too. If the visitor has scrolled, the page also scrolls by any
+    // change left above the measures. A reply that comes back at once (a held reading) was never seen waiting.
     var now = $('stagenow'), seen = $('out').classList.contains('wait') && Date.now() - waitShownAt > 600;
-    var heldNow = seen && now ? now.offsetHeight : 0;
+    var heldNow = seen && now ? now.offsetHeight : 0, heldSlot = seen && $('slot') ? $('slot').offsetHeight : 0;
     var anchor = document.querySelector ? document.querySelector('#out #rows') : null, before = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect().top : null;
     stopWait();
-    if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
+    if ($('slot') && $('slot').style) $('slot').style.minHeight = heldSlot ? heldSlot + 'px' : '';
     if (now && now.style) { now.style.minHeight = heldNow ? heldNow + 'px' : ''; if (now.classList) now.classList[heldNow ? 'add' : 'remove']('held'); }
     $('pdf').hidden = false;
     lastReply = reply;
@@ -788,8 +788,13 @@ export function initRevengeOrJustice(root, opts) {
         // A stopped reading stops the estimates: no step is shown as passed, and one is marked only when the error names it.
         var state = failed ? (k === failed.stage ? 'here' : 'ahead') : k < i ? 'past' : k === i ? 'here' : 'ahead';
         return '<li class="' + state + '"' + (state === 'here' ? ' aria-current="step"' : '') + '><span class="st-name">' + esc(x.name) + '</span>' +
+          // The estimate travels with the current step at every width (RJFAST2): "usually step 3 of 6 by now".
+          (state === 'here' && !failed ? '<span class="st-of">usually step ' + (k + 1) + ' of ' + STAGES.length + ' by now</span>' : '') +
           (state === 'here' && !failed ? '<span class="st-what">' + esc(x.what) + '</span>' : '') + '</li>';
       }).join('') + '</ol>' +
+      // From 721px the current step's line sits under the list, one line, so the block keeps one height whichever
+      // step is current (RJFAST3); on a phone it sits under the step itself.
+      (failed ? '' : '<p class="st-what st-what-wide">' + esc(STAGES[i].what) + '</p>') +
       (failed ? '' : '<p class="st-note">A first reading takes twenty to forty seconds. An article read before opens at once.</p>');
   }
   function advance(){
@@ -852,11 +857,6 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.add('wait');
     root.classList.add('waiting');
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
-    // From 721px the steps sit in the column under the dial, so the verdict column never holds their height; on a
-    // narrower screen they stay in the slot under the article (review of 2026-11-11).
-    var wide = window.matchMedia && window.matchMedia('(min-width: 721px)').matches;
-    var home = wide ? document.querySelector('#out .rj-dialcol') : $('slot');
-    if (home && home.appendChild && $('stages').parentNode !== home) home.appendChild($('stages'));
     // The measures carry the Quick read label while the quick bars stand in for the reading.
     if ($('qmeasures')) $('qmeasures').textContent = quick && quick.rows && quick.rows.length ? 'Quick read' : '';
     if (it && it.held) { $('stages').innerHTML = ''; return; }

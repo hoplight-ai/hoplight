@@ -586,3 +586,34 @@
   .rj .rj-dialcol .st-note{font-size:13px}
   .rj .rj-dialcol .st-err{font-size:15px}
 }
+/* RJFAST2, 2026-11-11. The page cannot know a step finished, so an earlier step wears the same neutral ring as a
+   later one; gold is only the current step, which carries "usually step N of 6 by now" beside it. */
+.rj .st-list li.past{color:var(--ink2);opacity:1}
+.rj .st-list li.past::before{background:var(--white);border:2px solid rgba(42,63,95,.45)}
+.rj .st-list li.past::after{content:none}
+.rj .st-of{display:inline;margin-left:10px;font-size:13px;font-weight:400;color:var(--stone);white-space:nowrap}
+.rj .st-list li.here .st-what{display:block}
+@media (max-width:599px){.rj .st-of{display:none}}
+/* From 721px the steps sit under the verdict in the article's column as a compact block: two columns that read
+   down then across, so the slot the finished claim and its meta line fill is about as tall as the steps. */
+@media (min-width:721px){
+  .rj .stages .st-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(3,auto);grid-auto-flow:column;gap:8px 28px}
+  .rj .stages .st-list li{font-size:15px}
+  .rj .stages .st-what{font-size:14px}
+  .rj .stages{margin-top:var(--s2)}
+}
+/* RJFAST3: the steps' block keeps one height whichever step is current, so nothing below it moves while waiting
+   either. From 721px every step holds two lines and the current step's line sits once under the list. */
+.rj .st-what-wide{display:none}
+@media (min-width:721px){
+  .rj .stages .st-list li{min-height:44px}
+  .rj .stages .st-list li .st-what{display:none}
+  .rj .stages .st-what-wide{display:block;margin-top:var(--s1);font-size:14px;color:var(--ink2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .rj .stages .st-of{display:block;margin-left:0}
+}
+/* On a phone the measures' Quick read label sits between Revenge and Justice on their own line, so taking it
+   away when the full reading lands moves nothing. */
+@media (max-width:599px){
+  .rj .ends{position:relative}
+  .rj .ends .qmeasures{position:absolute;left:50%;top:0;transform:translateX(-50%);margin:0;white-space:nowrap}
+}
