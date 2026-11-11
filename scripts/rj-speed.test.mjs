@@ -345,6 +345,34 @@ test('4g. a reading that lands after a visible wait keeps the slot at its waitin
   assert.equal(dom.el('slot').style.minHeight, '312px', 'the slot gave up its height, so the measures moved by the steps\' height');
 });
 
+// RJFAST3, second pass: the space the steps held is never left blank. The slot's natural height in the fake DOM is
+// worked out from what is in it (the claim and meta line take 140 px, each measure line 34 px, its heading 20 px),
+// so the test can read how much empty space is left under the last line once the reading lands.
+test('4h. the finished slot fills the steps\' space with the measures that pulled furthest, leaving no more than 24 px empty', async () => {
+  const dom = fakeDom();
+  globalThis.document = dom.document;
+  globalThis.window = dom.window;
+  let answer;
+  globalThis.fetch = (url, init) => (init && init.method === 'POST' ? new Promise((r) => { answer = r; }) : new Promise(() => {}));
+  const { initRevengeOrJustice } = await import('../src/app/(main)/revenge-or-justice/tool.js');
+  initRevengeOrJustice(dom.el('root-fill'), { items: [{ url: READING.fetched, title: 'Raskin opens the hearing', source: 'Example News', host: 'example.com' }] });
+  const slot = dom.el('slot'), stages = dom.el('stages'), lines = dom.el('keylines');
+  const natural = () => (stages.innerHTML ? 300 : 140 + (/kl-h/.test(lines.innerHTML) ? 20 : 0) + 34 * (lines.innerHTML.match(/class="kl"/g) || []).length);
+  Object.defineProperty(slot, 'offsetHeight', { get: () => Math.max(natural(), parseInt(slot.style.minHeight, 10) || 0) });
+  dom.el('t').value = READING.fetched;
+  dom.el('f').listeners.submit[0]({ preventDefault() {} });
+  await new Promise((r) => setTimeout(r, 700));
+  const rows = [['practice', 35], ['price', 8], ['remedy', 30], ['umpire', 25], ['knot', 5]].map(([key, position]) => ({ key, title: key, position, evidence: 'w', critique: 'c' }));
+  answer({ ok: true, json: () => Promise.resolve({ ...READING, rows, reframes: [], precedent: {} }) });
+  await new Promise((r) => setTimeout(r, 20));
+  assert.equal(slot.style.minHeight, '300px', 'the slot did not keep the steps\' height');
+  const empty = 300 - natural();
+  assert.ok(empty >= 0 && empty <= 24, 'the finished slot leaves ' + empty + ' px empty under its last line');
+  assert.match(lines.innerHTML, /^<p class="kl-h">/);
+  // Furthest from the middle first: price (8), then knot (5) is further, so knot leads.
+  assert.ok(lines.innerHTML.indexOf('knot') < lines.innerHTML.indexOf('price'), 'the measure furthest from the middle comes first');
+});
+
 test('4b. when the reply lands it fills the same slots, and a copy says the day it was read', async () => {
   const dom = fakeDom();
   globalThis.document = dom.document;

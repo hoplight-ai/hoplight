@@ -617,3 +617,43 @@
   .rj .ends{position:relative}
   .rj .ends .qmeasures{position:absolute;left:50%;top:0;transform:translateX(-50%);margin:0;white-space:nowrap}
 }
+/* RJFAST3, second pass (review of after13). The steps are one numbered column at every width, one line each, the
+   current step's line directly under it; the number sits inside each ring, so the order holds however the eye
+   scans. The block is about the height the finished claim and its meta line take. */
+.rj .st-list{counter-reset:st;gap:4px}
+.rj .st-list li{counter-increment:st;font-size:15px;line-height:1.35;padding-left:28px}
+.rj .st-list li::before{content:counter(st);display:grid;place-items:center;width:18px;height:18px;top:1px;font-size:11px;font-weight:700;line-height:1;color:var(--ink2)}
+.rj .st-list li.here::before{color:var(--white)}
+.rj .failed .st-list li.here::before{color:var(--white)}
+.rj .st-of{display:inline;margin-left:10px}
+.rj .st-what{font-size:14px;margin-top:0}
+.rj .st-label{margin-bottom:6px}
+.rj .st-note{margin-top:var(--s1)}
+@media (min-width:721px){
+  .rj .stages .st-list{display:flex;flex-direction:column;gap:4px}
+  .rj .stages .st-list li{min-height:0;font-size:15px}
+  .rj .stages .st-list li .st-what{display:block}
+  .rj .stages .st-what-wide{display:none}
+  .rj .stages .st-of{display:inline;margin-left:10px}
+}
+/* The measures that pulled furthest, in the room the steps held: one line each with its bar and its score. */
+.rj .keylines:empty{display:none}
+.rj .keylines{margin-top:var(--s2)}
+.rj .kl-h{font-size:13px;font-weight:700;color:var(--ink2);margin-bottom:2px}
+.rj .kl{display:flex;align-items:center;gap:12px;font-size:15px;line-height:1.3;padding:5px 0}
+.rj .kl .kl-t{flex:1 1 auto;min-width:0;color:var(--ink)}
+.rj .kl .n{flex:none;font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+.rj .kl .n.retribution{color:var(--flag)}
+.rj .kl .n.justice{color:var(--gold-deep)}
+.rj .kl .thumb{position:relative;flex:0 0 72px;width:72px;height:20px}
+.rj .kl .thumb::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:var(--rule2)}
+.rj .kl .thumb::after{content:"";position:absolute;left:50%;top:2px;height:16px;width:1px;background:var(--ink);z-index:3}
+.rj .kl .thumb .bar{top:5px;height:10px;transition:none;border-radius:0 2px 2px 0}
+.rj .kl .thumb .bar.left{border-radius:2px 0 0 2px}
+/* The steps' block is at least as tall as a long finished claim and its meta line, so the reading never grows the
+   slot when it lands; the room left over carries the measures that pulled furthest. */
+.rj .kl{padding:3px 0}
+.rj #out.wait .rj-slot{min-height:260px}
+@media (max-width:599px){.rj #out.wait .rj-slot{min-height:330px}}
+/* On a phone the estimate is on the line under the dial, so the list keeps each step to one line. */
+@media (max-width:599px){.rj .st-list .st-of{display:none}}
