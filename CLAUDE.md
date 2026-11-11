@@ -129,6 +129,15 @@
   key stays on the one project that holds it. The rubric, the precedent corpus, the issue split, the
   people and key words of the headline list, and the verify script are all in the quick-tools repo.
   The API's word for the bad side stays `retribution`; `tool.js` shows `revenge`.
+- **The two copies (lane RJFAST1, 2026-11-10; Whit: "the articles take forever to load"):** the headline
+  list is one shared copy in Next's data cache (`src/lib/rj-cache.ts`, `unstable_cache`, refreshed every
+  fifteen minutes and served stale while it refreshes), drawn into the page's own HTML, and the page is drawn
+  again at most every five minutes (`revalidate = 300`). The full reading of a link-only request is kept in
+  the same cache for seven days, keyed by the link with only its tracking parameters and hash dropped (the
+  query stays, because some outlets name an article by it), never for pasted text and never for an error; a
+  reading served from it says `cached: true` with `read_at` and does not count against the limits
+  (`scripts/rj-speed.test.mjs`). A deploy that changes `rj-cache.ts` can start a fresh copy, so readings are
+  made again on demand.
 - **The page is a port, on purpose:** `RevengeOrJustice.tsx` is static markup drawn into by id by
   `tool.js`, the quick-tools page script as it stood at build v6 (plus the word swap and the route
   names), and `revenge-or-justice.css` is that page's stylesheet scoped under `.rj` with the site's
