@@ -657,3 +657,16 @@
 @media (max-width:599px){.rj #out.wait .rj-slot{min-height:330px}}
 /* On a phone the estimate is on the line under the dial, so the list keeps each step to one line. */
 @media (max-width:599px){.rj .st-list .st-of{display:none}}
+/* Review of after14 (AF-10): on a phone every tappable control is at least 44 px tall. The action row already
+   holds 44 px for Read another, so raising Share and Save as PDF to it moves nothing below. */
+@media (max-width:599px){
+  .rj .strip .rj-share,.rj .rj-pdfbtn,.rj .quietbtn,.rj .rj-btn,.rj #retry,.rj .copy,.rj .voices button,.rj .issues button,.rj .sb-net,.rj .sb-copybtn,.rj .prow,.rj .feed .pick{min-height:44px}
+}
+/* The measures that pulled furthest: the score sits right after its bar, and the list keeps to the verdict's
+   column width, so a label and its score read together. */
+.rj .keylines{max-width:30em}
+.rj .kl{display:grid;grid-template-columns:72px 36px minmax(0,1fr);column-gap:10px}
+.rj .kl .thumb{grid-column:1}
+.rj .kl .n{grid-column:2;grid-row:1;text-align:right}
+.rj .kl .kl-t{grid-column:3;grid-row:1}
+@media (max-width:599px){.rj .kl{font-size:14px;grid-template-columns:56px 30px minmax(0,1fr);column-gap:8px}.rj .kl .thumb{width:56px;flex-basis:56px}.rj .kl .n{font-size:14px}}

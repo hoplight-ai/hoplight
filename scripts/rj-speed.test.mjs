@@ -373,6 +373,17 @@ test('4h. the finished slot fills the steps\' space with the measures that pulle
   assert.ok(lines.innerHTML.indexOf('knot') < lines.innerHTML.indexOf('price'), 'the measure furthest from the middle comes first');
 });
 
+// AF-10 (review of after14): on a phone every tappable control is at least 44 px tall.
+test('4i. at phone width every tappable control has a 44 px minimum height', () => {
+  const css = readFileSync(join(ROOT, 'src/app/(main)/revenge-or-justice/revenge-or-justice.css'), 'utf8');
+  const blocks = [...css.matchAll(/@media \(max-width:599px\)\{([\s\S]*?)\n\}/g)].map((m) => m[1]).join('\n');
+  const rule = blocks.match(/([^{}]+)\{min-height:44px[^}]*\}/g) || [];
+  const covered = rule.join(' ');
+  for (const sel of ['.rj-share', '.rj-pdfbtn', '.quietbtn', '.rj-btn', '.copy', '.voices button', '.issues button', '.sb-net', '.sb-copybtn', '.prow', '.pick']) {
+    assert.ok(covered.includes(sel), sel + ' has no 44 px minimum height under the phone breakpoint');
+  }
+});
+
 test('4b. when the reply lands it fills the same slots, and a copy says the day it was read', async () => {
   const dom = fakeDom();
   globalThis.document = dom.document;

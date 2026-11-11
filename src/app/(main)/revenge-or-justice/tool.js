@@ -782,7 +782,8 @@ export function initRevengeOrJustice(root, opts) {
     for (var k = 0; k < rows.length; k++) {
       var next = html + keyLine(rows[k]);
       box.innerHTML = next;
-      if (natural() > held) { box.innerHTML = html; break; }
+      // A line that does not fit is skipped and the next, perhaps shorter, one tried.
+      if (natural() > held) { box.innerHTML = html; continue; }
       html = next; shown++;
       if (held - natural() <= 24) break;
     }
