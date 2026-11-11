@@ -1,8 +1,11 @@
 // /api/revenge-or-justice/feed: the headline list beside the grader, forwarded from quick-tools'
 // /api/justice-feed (Bing News, no key; the people and the key words live in that repo's
-// lib/justice-feed.mjs). Same credential pair as the grader route. Cached a quarter hour here so a
-// busy page does not ask the upstream again on every load.
-
+// lib/justice-feed.mjs). Same credential pair as the grader route.
+//
+// RJFAST1, 2026-11-10: the list is one shared copy for every instance (src/lib/rj-cache.ts), refreshed every
+// fifteen minutes behind the visitor and served stale while it refreshes, and the page draws it into its
+// own HTML; this route is the page's fallback when that copy was empty. Each headline whose full reading
+// the site holds is marked `held`, and fills its dial from that reading when the list carries none.
 //
 // POST (2026-11-06, Whit: "yes to 1 and 2", "dots on what track?"): forwards to the upstream's
 // ?action=grade, which reads up to three of the listed articles that have no reading yet and keeps
@@ -11,15 +14,16 @@
 // limit of twenty calls an hour holds a loop on one address to that.
 
 import { NextResponse } from 'next/server';
+import { revalidateTag } from 'next/cache';
 import { checkLimitIn, clientIp } from '@/lib/rate-limit';
+import { feedThroughCopy } from '@/lib/rj-cache';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
 
-const UPSTREAM = 'https://quick-tools-pi.vercel.app/api/justice-feed';
-const TTL_MS = 2 * 60 * 1000;
+// RJ_UPSTREAM_ORIGIN points a local run at a stand-in for quick-tools (lane RJFAST1's renders); unset, it is quick-tools.
+const UPSTREAM = (process.env.RJ_UPSTREAM_ORIGIN || 'https://quick-tools-pi.vercel.app') + '/api/justice-feed';
 const PER_IP = { max: 20, windowMs: 60 * 60 * 1000 };
-let cache: { at: number; body: string } | null = null;
 
 function auth(): string | null {
   const u = process.env.PRIVATE_SITE_USER;
@@ -31,13 +35,9 @@ function auth(): string | null {
 export async function GET() {
   const a = auth();
   if (!a) return NextResponse.json({ items: [], error: 'the headline list is not configured on this site' }, { status: 503 });
-  if (cache && Date.now() - cache.at < TTL_MS) {
-    return new NextResponse(cache.body, { status: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
-  }
-  const res = await fetch(UPSTREAM, { headers: { Authorization: a }, cache: 'no-store' });
-  const body = await res.text();
-  if (res.ok) cache = { at: Date.now(), body };
-  return new NextResponse(body, { status: res.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
+  const feed = await feedThroughCopy(UPSTREAM, a);
+  const status = feed.source === 'failed' ? 502 : 200;
+  return NextResponse.json(feed.source === 'failed' ? { items: [], error: 'the headline list did not come back' } : feed.body, { status, headers: { 'Cache-Control': 'no-store' } });
 }
 
 export async function POST(req: Request) {
@@ -53,6 +53,7 @@ export async function POST(req: Request) {
     cache: 'no-store',
   });
   const body = await res.text();
-  if (res.ok) cache = null; // the list now carries new readings; the next GET fetches them
+  // The list now carries new readings: the shared copy refreshes on the next read.
+  if (res.ok) revalidateTag('rj-feed', 'max');
   return new NextResponse(body, { status: res.status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 }

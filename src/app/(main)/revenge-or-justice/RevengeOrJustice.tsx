@@ -1,7 +1,8 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { initRevengeOrJustice } from './tool.js';
+import { feedCardsHtml, initRevengeOrJustice } from './tool.js';
+import type { FeedItem, FeedSource } from '@/lib/rj-cache';
 import { track } from '@/lib/track';
 import { USAGE_NOTE } from '@/components/ToolFeedback';
 import { TOOL_BY_SLUG } from '@/data/tools';
@@ -16,12 +17,19 @@ import './revenge-or-justice.css';
 // drawing (src/data/tool-pictures.ts), so the page and a pasted link show the same face.
 const BARS = pictureSvg(TOOL_BY_SLUG['revenge-or-justice'].brand) ?? '';
 
-export default function RevengeOrJustice() {
+// The headline list arrives with the page (lane RJFAST1, 2026-11-10): the server hands over the list from its
+// shared copy, its cards are drawn into the HTML by the same function the script uses, and the script wires them
+// up without asking for the list again. `source` says where the list came from, on the list's own section, so a
+// build with no site pair (no list to fetch) is told apart from a page that should carry one.
+export default function RevengeOrJustice({ items = [], source = 'unconfigured' }: { items?: FeedItem[]; source?: FeedSource }) {
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
     initRevengeOrJustice(root.current, {
+      items,
       track: (action: string, props?: Record<string, string | number | boolean>) => track('revenge-or-justice', action, props),
     });
+    // The markup is drawn once and never re-rendered (see the note above), so the first items are the only ones.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -55,12 +63,12 @@ export default function RevengeOrJustice() {
             <div id="status" aria-live="polite" />
           </form>
 
-          {/* Hidden until the list arrives with at least one headline; an empty or failed list keeps the
-              whole column out of sight rather than showing an error to a stranger. */}
-          <section className="feed" id="feed" aria-labelledby="feedh" hidden>
+          {/* Hidden only when there is no headline to show; an empty or failed list keeps the whole column out
+              of sight rather than showing an error to a stranger. */}
+          <section className="feed" id="feed" aria-labelledby="feedh" hidden={items.length === 0} data-feed-source={source}>
             <h2 id="feedh">Or pick a recent article</h2>
             <p className="h2sub">Democrats in leadership on investigations, hearings and corruption, the last two weeks. One click reads it.</p>
-            <ol id="feedlist" />
+            <ol id="feedlist" dangerouslySetInnerHTML={{ __html: feedCardsHtml(items) }} />
           </section>
         </div>
 
@@ -87,6 +95,8 @@ export default function RevengeOrJustice() {
                 <div className="art" id="art" />
                 <p className="claim"><span className="v" id="verdict" /> <span id="headline" /></p>
                 <p className="meta" id="meta" />
+                {/* A first reading's stages, while it is being made (RJFAST1); empty once the reading lands. */}
+                <div className="stages" id="stages" aria-live="polite" />
               </div>
             </div>
             <div className="quoted" id="quoted" />

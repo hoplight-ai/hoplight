@@ -231,4 +231,8 @@ test('4. on submit the page draws the article, the stage list and the five empty
   // No clock words, no em dash, no percentage anywhere on the waiting screen.
   const all = [stages, rows, art, dom.el('meta').innerHTML, dom.el('prec').innerHTML, dom.el('reframes').innerHTML].join(' ');
   assert.doesNotMatch(all, /\b(ago|stale|fresh)\b|—|\d+%/);
+  // "Read another" drops the reading still on its way and stops the stage marker.
+  dom.el('again').listeners.click[0]();
+  assert.equal(dom.el('stages').innerHTML, '');
+  assert.ok(!dom.el('out').classList.contains('wait'));
 });
