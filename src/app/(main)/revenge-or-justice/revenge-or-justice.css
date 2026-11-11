@@ -502,7 +502,7 @@
 .rj .rj-dial svg.quick > :not(text){opacity:.55}
 /* The quick read's number stays legible text (stone at full strength, which passes contrast on white) while the
    arcs and needle stay faint; the finished number keeps its side's colour, so the change still shows. */
-.rj .rj-dial svg.quick text{fill:var(--stone)}
+.rj .rj-dial svg.quick text[font-weight="800"]{fill:var(--stone)}
 /* Fourth review, 2026-11-11: nothing jumps when the reply lands. The slot under the article holds its own
    margins (so the height the script keeps is the whole of it), the measures keep their question line in both
    states, and the outlines of the words behind each reading are sized to a typical reading. */
