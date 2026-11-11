@@ -239,7 +239,10 @@ test('4. on submit the page draws the article, the stage list and the five empty
   assert.ok(art.includes('Jamie Raskin'));
   // Its light reading draws at once as the quick read.
   assert.match(dom.el('dial').innerHTML, /<svg/);
-  assert.match(dom.el('verdict').textContent + ' ' + dom.el('meta').innerHTML, /Quick read/);
+  // The quick read is tagged on the dial itself, drawn lighter, and the steps say they are an estimate with no ticks.
+  assert.match(dom.el('dial').innerHTML, /class="qtag">Quick read<\/span><svg class="quick"/);
+  assert.match(stages, /Usually in this order/);
+  assert.doesNotMatch(stages, /✓|check|tick/i);
   // The pill says the verdict once; the line beside it does not say it again.
   assert.equal(dom.el('verdict').textContent, 'Leans revenge');
   assert.equal(dom.el('headline').textContent, 'It names a man, not a practice.');

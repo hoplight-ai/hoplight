@@ -79,7 +79,7 @@ function dial(v, size, wait){
   if (has) v = Math.round(+v);
   var stop = wait === 'stop';
   var label = has ? (dside(v) === 'mixed' ? 'Mixed' : dside(v) === 'revenge' ? 'Leans revenge' : 'Leans justice') + ', ' + v + ' of 100 toward justice' : stop ? 'Not read' : wait ? 'Being read now' : 'Not read yet';
-  var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' + label + '">';
+  var s = '<svg' + (wait === 'quick' ? ' class="quick"' : '') + ' viewBox="0 0 ' + W + ' ' + H + '" width="100%" role="img" aria-label="' + label + '">';
   [[0, 38, 'revenge'], [38, 62, 'mixed'], [62, 100, 'justice']].forEach(function(b){
     var on = has && dside(v) === b[2];
     s += '<path d="' + darc(cx, cy, r, b[0] + (b[0] ? 1.2 : 0), b[1] - (b[1] < 100 ? 1.2 : 0)) + '" fill="none" stroke="' + (has || wait ? DC[b[2]] : DC.empty) + '" stroke-width="' + sw + '" stroke-opacity="' + (has && !on ? 0.6 : !has && wait ? 0.28 : 1) + '"/>';
@@ -726,11 +726,14 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.remove('wait');
     $('out').classList.remove('failed');
     $('stages').innerHTML = '';
+    root.classList.remove('waiting');
   }
   // `limited`: the reading was refused before it began (the hourly or daily limit), so no stage is named as
   // stopped and trying again now would be refused too; an article the site already holds still opens.
-  // One ordered column of steps at body size (review of 2026-11-11): steps passed carry a filled tick, the current
-  // step the gold dot with one line on what it looks at, steps to come an outline. A failure stops on its step.
+  // One ordered column of steps at body size (reviews of 2026-11-11). The page cannot know a stage finished (the
+  // grader does not stream), so steps passed are plain muted dots, never ticks; the current step is the gold dot
+  // with one line on what it looks at, steps to come are rings, and the label over the list says it is an
+  // estimate. A failure stops on its step.
   function drawStages(i, failed, limited){
     if (limited) {
       $('stages').innerHTML =
@@ -741,7 +744,7 @@ export function initRevengeOrJustice(root, opts) {
     $('stages').innerHTML =
       // The grader's own error is machinery, not something a visitor can act on: it stays in the title and the console.
       (failed ? '<p class="st-err" title="' + esc(failed) + '"><b>This one couldn’t be read.</b> Try again, or pick another article.</p><p class="st-act"><button type="button" class="rj-btn" id="retry">Try again</button></p>' : '') +
-      '<ol class="st-list" aria-label="What the reading does, in order">' + STAGES.map(function(x, k){
+      '<p class="st-label">Usually in this order</p><ol class="st-list" aria-label="What the reading usually does, in order">' + STAGES.map(function(x, k){
         var state = k < i ? 'past' : k === i ? 'here' : 'ahead';
         return '<li class="' + state + '"' + (k === i ? ' aria-current="step"' : '') + '><span class="st-name">' + esc(x.name) + '</span>' +
           (k === i && !failed ? '<span class="st-what">' + esc(x.what) + '</span>' : '') + '</li>';
@@ -773,13 +776,14 @@ export function initRevengeOrJustice(root, opts) {
     // Save as PDF prints the reading on screen, so it waits for the reading.
     $('pdf').hidden = true;
     var qv = quick ? quick.verdict || dside(+quick.position) : '';
-    $('dial').innerHTML = quick ? dial(quick.position, 'big') : dial('', 'big', true);
+    // The quick read's dial is drawn lighter and carries its own tag, so the change shows when the full reading lands.
+    $('dial').innerHTML = quick ? '<span class="qtag">Quick read</span>' + dial(quick.position, 'big', 'quick') : dial('', 'big', true);
     $('verdict').textContent = quick ? verdictWords(qv) : '';
     $('verdict').className = 'v' + (quick ? ' ' + verdictClass(qv) : '');
     // The pill already says the verdict, so a line that opens by saying it again ("Mixed: ...", "It leans
     // justice: ...") starts after its colon (review of 2026-11-11).
     $('headline').textContent = quick ? oneVerdict(quick.headline) : '';
-    $('meta').innerHTML = quick ? '<b class="qr">Quick read</b> of the whole text in one pass. The full reading replaces it when it lands.' : '';
+    $('meta').innerHTML = quick ? 'A quick read of the whole text in one pass. The full reading replaces it when it lands.' : '';
     $('rows').innerHTML = rubric.map(function(r){
       return '<div class="ir wait" data-key="' + esc(r.key) + '"><span class="t">' + term(r.key, r.title) + '</span>' +
         '<span class="track"></span><span class="n"></span><span class="q">' + esc(r.question) + '</span></div>';
@@ -794,6 +798,7 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.remove('failed');
     $('out').classList.add('on');
     $('out').classList.add('wait');
+    root.classList.add('waiting');
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
     if (it && it.held) { $('stages').innerHTML = ''; return; }
     waitT0 = Date.now(); waitStage = 0;

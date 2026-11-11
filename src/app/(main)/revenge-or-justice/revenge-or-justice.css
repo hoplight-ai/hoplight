@@ -489,3 +489,24 @@
   /* (4) The verdict pill at the size of the sentence it heads, on its own line, so the sentence wraps cleanly. */
   .rj .claim .v{display:table;font-size:inherit;margin-bottom:6px}
 }
+/* Third review, 2026-11-11. (AF-05) The page cannot know a stage finished, so a passed step is a plain muted dot,
+   never a tick, and one label over the list says the order is the usual one. */
+.rj .st-list li.past::after{content:none}
+.rj .st-list li.past::before{background:rgba(42,63,95,.42);border-color:transparent}
+.rj .st-list li.past{color:var(--ink2)}
+.rj .st-label{font-size:13px;font-weight:600;letter-spacing:.02em;color:var(--stone);margin-bottom:var(--s1)}
+/* The quick read is tagged on the dial itself and drawn lighter, so the change shows when the full reading lands. */
+.rj .rj-dial{position:relative}
+.rj .rj-dial .qtag{position:absolute;left:50%;top:0;transform:translate(-50%,-100%);font-size:13px;font-weight:700;line-height:1;color:var(--gold-deep);background:var(--white);padding:4px 10px;border:1.5px solid var(--gold);border-radius:999px;white-space:nowrap}
+.rj .rj-dial svg.quick{opacity:.55}
+/* While a reading is being made, "Read another" sits on the article's first line instead of holding a row of its own. */
+.rj-wrap{position:relative}
+@media (min-width:721px){
+  .rj.waiting .strip{position:absolute;top:var(--s3);right:var(--s3);z-index:5;margin:0;padding:0;border:0}
+  .rj.waiting .strip .what{display:none}
+  .rj.waiting #out .rj-hero{padding-top:var(--s3)}
+}
+@media (max-width:720px){
+  .rj.waiting .strip{padding:var(--s1) 0;margin-top:0;border-bottom:0}
+  .rj.waiting #out .rj-hero{padding-top:var(--s4)}
+}
