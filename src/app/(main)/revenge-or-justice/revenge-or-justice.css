@@ -499,7 +499,10 @@
 /* The quick read is tagged on the dial itself and drawn lighter, so the change shows when the full reading lands. */
 .rj .rj-dial{position:relative}
 .rj .rj-dial .qtag{position:absolute;left:50%;top:0;transform:translate(-50%,-100%);font-size:13px;font-weight:700;line-height:1;color:var(--gold-deep);background:var(--white);padding:4px 10px;border:1.5px solid var(--gold);border-radius:999px;white-space:nowrap}
-.rj .rj-dial svg.quick{opacity:.55}
+.rj .rj-dial svg.quick > :not(text){opacity:.55}
+/* The quick read's number stays legible text (stone at full strength, which passes contrast on white) while the
+   arcs and needle stay faint; the finished number keeps its side's colour, so the change still shows. */
+.rj .rj-dial svg.quick text{fill:var(--stone)}
 /* Fourth review, 2026-11-11: nothing jumps when the reply lands. The slot under the article holds its own
    margins (so the height the script keeps is the whole of it), the measures keep their question line in both
    states, and the outlines of the words behind each reading are sized to a typical reading. */
