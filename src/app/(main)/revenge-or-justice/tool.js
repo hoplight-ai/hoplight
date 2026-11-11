@@ -245,15 +245,16 @@ export function initRevengeOrJustice(root, opts) {
   // (Whit, 2026-11-06: "in the output i should see the politicians and operative etc first, and i should be able
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
-    // Nothing visible moves when the reply lands (the brief, and the reviews of 2026-11-11). The reading takes its own
-    // height, with no reserved white; if the visitor has scrolled, the page scrolls by however much the content above
-    // the measures changed, so what is on screen stays where it was. On a phone the one line under the dial keeps
-    // its place. A reply that comes back at once (a held reading) was never seen waiting.
+    // Nothing moves when the reply lands, scrolled or not (the brief; RJFAST2, 2026-11-11). The slot under the article
+    // keeps the height the steps gave it, now a compact block, so the measures' top edge stays where it was; on a
+    // phone the one line under the dial keeps its place too. If the visitor has scrolled, the page also scrolls by any
+    // change left above the measures. A reply that comes back at once (a held reading) was never seen waiting.
     var now = $('stagenow'), seen = $('out').classList.contains('wait') && Date.now() - waitShownAt > 600;
-    var heldNow = seen && now ? now.offsetHeight : 0;
+    var heldNow = seen && now ? now.offsetHeight : 0, heldSlot = seen && $('slot') ? $('slot').offsetHeight : 0;
     var anchor = document.querySelector ? document.querySelector('#out #rows') : null, before = anchor && anchor.getBoundingClientRect ? anchor.getBoundingClientRect().top : null;
     stopWait();
-    if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
+    slotHeld = heldSlot;
+    if ($('slot') && $('slot').style) $('slot').style.minHeight = heldSlot ? heldSlot + 'px' : '';
     if (now && now.style) { now.style.minHeight = heldNow ? heldNow + 'px' : ''; if (now.classList) now.classList[heldNow ? 'add' : 'remove']('held'); }
     $('pdf').hidden = false;
     lastReply = reply;
@@ -534,6 +535,7 @@ export function initRevengeOrJustice(root, opts) {
     $('prec').innerHTML = precBlock('better', j.precedent && j.precedent.better) + precBlock('worse', j.precedent && j.precedent.worse);
 
     $('out').classList.add('on');
+    fillKeylines(j);
     // One motion moment: each bar grows out from the centre line to its reading.
     var bars = document.querySelectorAll('#rows .bar');
     if (!reduced) {
@@ -696,6 +698,7 @@ export function initRevengeOrJustice(root, opts) {
     closeShare();
     runId += 1; // a reading still on its way is dropped when it lands
     stopWait();
+    slotHeld = 0;
     if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
     if ($('stagenow') && $('stagenow').style) { $('stagenow').style.minHeight = ''; $('stagenow').classList.remove('held'); }
     $('go').disabled = false;
@@ -757,6 +760,39 @@ export function initRevengeOrJustice(root, opts) {
   // slots, the words behind each reading and the three rewrites as outlines of what is coming. When the reply
   // lands each fills in place. A reading the site already holds skips the stages and opens at once.
   var runId = 0, waitTimer = null, waitT0 = 0, waitStage = 0, lastQuick = null, waitShownAt = 0;
+  // The height the steps gave the slot, held once a reading lands after a visible wait (RJFAST3).
+  var slotHeld = 0;
+  // The room the steps held is never left blank (review of after13): under the claim and its meta line go the
+  // measures that pulled furthest from the middle, one line each with its bar, as many as fit with no more than
+  // 24 px left over. Measured against the slot itself, so it holds at every width.
+  function keyLine(r){
+    var p = Math.max(0, Math.min(100, +r.position || 0));
+    return '<p class="kl"><span class="thumb" aria-hidden="true">' + bar(p) + '</span><span class="kl-t">' + esc(r.title) + '</span><span class="n ' + side(p) + '">' + Math.round(p) + '</span></p>';
+  }
+  function fillKeylines(j){
+    var box = $('keylines'), slot = $('slot');
+    if (!box) return;
+    box.innerHTML = '';
+    if (!slotHeld || !slot || !slot.style) return;
+    var held = slotHeld;
+    var natural = function(){ slot.style.minHeight = ''; var h = slot.offsetHeight; slot.style.minHeight = held + 'px'; return h; };
+    if (held - natural() <= 24) return;
+    var rows = (j.rows || []).slice().sort(function(a, b){ return Math.abs(b.position - 50) - Math.abs(a.position - 50); });
+    var html = '<p class="kl-h">Furthest from the middle</p>', shown = 0;
+    for (var k = 0; k < rows.length; k++) {
+      var next = html + keyLine(rows[k]);
+      box.innerHTML = next;
+      // A line that does not fit is skipped and the next, perhaps shorter, one tried.
+      if (natural() > held) { box.innerHTML = html; continue; }
+      html = next; shown++;
+      if (held - natural() <= 24) break;
+    }
+    if (!shown) box.innerHTML = '';
+    // Whatever is left beyond 24 px, when it is a few pixels, comes off the slot rather than staying blank; the
+    // measures move by those few pixels at most (the brief allows 8).
+    var left = held - natural();
+    if (left > 24 && left - 24 <= 8) slot.style.minHeight = (held - (left - 24)) + 'px';
+  }
   function stopWait(){
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
     $('out').classList.remove('wait');
@@ -788,8 +824,13 @@ export function initRevengeOrJustice(root, opts) {
         // A stopped reading stops the estimates: no step is shown as passed, and one is marked only when the error names it.
         var state = failed ? (k === failed.stage ? 'here' : 'ahead') : k < i ? 'past' : k === i ? 'here' : 'ahead';
         return '<li class="' + state + '"' + (state === 'here' ? ' aria-current="step"' : '') + '><span class="st-name">' + esc(x.name) + '</span>' +
+          // The estimate travels with the current step at every width (RJFAST2): "usually step 3 of 6 by now".
+          (state === 'here' && !failed ? '<span class="st-of">usually step ' + (k + 1) + ' of ' + STAGES.length + ' by now</span>' : '') +
           (state === 'here' && !failed ? '<span class="st-what">' + esc(x.what) + '</span>' : '') + '</li>';
       }).join('') + '</ol>' +
+      // From 721px the current step's line sits under the list, one line, so the block keeps one height whichever
+      // step is current (RJFAST3); on a phone it sits under the step itself.
+      (failed ? '' : '<p class="st-what st-what-wide">' + esc(STAGES[i].what) + '</p>') +
       (failed ? '' : '<p class="st-note">A first reading takes twenty to forty seconds. An article read before opens at once.</p>');
   }
   function advance(){
@@ -816,6 +857,7 @@ export function initRevengeOrJustice(root, opts) {
     var quick = it && it.reading && it.reading.position != null ? it.reading : null;
     lastQuick = quick;
     waitShownAt = Date.now();
+    slotHeld = 0;
     if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
     if ($('stagenow') && $('stagenow').style) { $('stagenow').style.minHeight = ''; $('stagenow').innerHTML = ''; $('stagenow').classList.remove('held'); }
     // Save as PDF prints the reading on screen, so it waits for the reading.
@@ -828,7 +870,9 @@ export function initRevengeOrJustice(root, opts) {
     // The pill already says the verdict, so a line that opens by saying it again ("Mixed: ...", "It leans
     // justice: ...") starts after its colon (review of 2026-11-11).
     $('headline').textContent = quick ? oneVerdict(quick.headline) : '';
-    $('meta').innerHTML = quick ? 'A quick read of the whole text in one pass. The full reading replaces it when it lands.' : '';
+    // The quick read is named on the dial and over the measures; the line under it stays empty, so the slot is no
+    // taller than the steps need (RJFAST3).
+    $('meta').innerHTML = '';
     // Where the list's quick read carries the five rows, each empty track shows its quick bar at reduced strength,
     // under the dial's Quick read tag; the full reading grows each bar from there (review of 2026-11-11).
     $('rows').innerHTML = rubric.map(function(r){
@@ -852,11 +896,6 @@ export function initRevengeOrJustice(root, opts) {
     $('out').classList.add('wait');
     root.classList.add('waiting');
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
-    // From 721px the steps sit in the column under the dial, so the verdict column never holds their height; on a
-    // narrower screen they stay in the slot under the article (review of 2026-11-11).
-    var wide = window.matchMedia && window.matchMedia('(min-width: 721px)').matches;
-    var home = wide ? document.querySelector('#out .rj-dialcol') : $('slot');
-    if (home && home.appendChild && $('stages').parentNode !== home) home.appendChild($('stages'));
     // The measures carry the Quick read label while the quick bars stand in for the reading.
     if ($('qmeasures')) $('qmeasures').textContent = quick && quick.rows && quick.rows.length ? 'Quick read' : '';
     if (it && it.held) { $('stages').innerHTML = ''; return; }

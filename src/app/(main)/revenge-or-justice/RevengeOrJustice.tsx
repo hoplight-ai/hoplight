@@ -102,6 +102,8 @@ export default function RevengeOrJustice({ items = [], source = 'unconfigured' }
                 <div className="rj-slot" id="slot">
                   <p className="claim"><span className="v" id="verdict" /> <span id="headline" /></p>
                   <p className="meta" id="meta" />
+                  {/* Once a reading lands after a wait, the room the steps held carries the measures that pulled furthest (RJFAST3). */}
+                  <div className="keylines" id="keylines" />
                   <div className="stages" id="stages" aria-live="polite" />
                 </div>
               </div>
