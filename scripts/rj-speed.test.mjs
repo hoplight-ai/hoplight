@@ -248,7 +248,10 @@ test('4. on submit the page draws the article, the stage list and the five empty
   // The estimate also travels with the current step in the list, at every width (RJFAST3).
   assert.match(stages, /Getting the article<\/span><span class="st-of">usually step 1 of 6 by now<\/span>/);
   // The pill says the verdict once; the line beside it does not say it again.
-  assert.equal(dom.el('verdict').textContent, 'Leans revenge');
+  // RJFAST4 (Revenge or Justice marks the quick verdict as provisional): the waiting tag says Quick read inside it
+  // and wears the muted fill.
+  assert.match(dom.el('verdict').className, /\bquick\b/, 'the waiting verdict tag is not marked as the quick read');
+  assert.match(dom.el('verdict').innerHTML, /<span class="qv">Quick read<\/span>Leans revenge/);
   assert.equal(dom.el('headline').textContent, 'It names a man, not a practice.');
   // The two precedent slots and the three rewrite slots wait in the shapes they will fill.
   assert.equal((dom.el('prec').innerHTML.match(/class="prec wait (better|worse)"/g) || []).length, 2);
@@ -403,5 +406,8 @@ test('4b. when the reply lands it fills the same slots, and a copy says the day 
   assert.equal(dom.el('stages').innerHTML, '');
   assert.equal((dom.el('rows').innerHTML.match(/class="ir"/g) || []).length, 5);
   assert.match(dom.el('meta').innerHTML, /Read on Nov 9/);
+  // The finished tag carries no quick-read marker (RJFAST4).
+  assert.doesNotMatch(dom.el('verdict').className, /\bquick\b/);
+  assert.doesNotMatch(dom.el('verdict').innerHTML || dom.el('verdict').textContent, /Quick read/);
   assert.match(dom.el('dial').innerHTML, /<svg/);
 });

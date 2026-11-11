@@ -670,3 +670,13 @@
 .rj .kl .n{grid-column:2;grid-row:1;text-align:right}
 .rj .kl .kl-t{grid-column:3;grid-row:1}
 @media (max-width:599px){.rj .kl{font-size:14px;grid-template-columns:56px 30px minmax(0,1fr);column-gap:8px}.rj .kl .thumb{width:56px;flex-basis:56px}.rj .kl .n{font-size:14px}}
+/* RJFAST4 (Revenge or Justice marks the quick verdict as provisional): while waiting, the verdict tag wears the
+   dial's muted fill and says Quick read inside it, at the same height as the final tag that replaces it. */
+.rj .claim .v.quick{color:var(--ink);box-shadow:none}
+.rj .claim .v.quick.revenge{background:rgba(156,51,39,.22)}
+.rj .claim .v.quick.justice{background:rgba(212,149,10,.3)}
+.rj .claim .v.quick.mixed{background:rgba(15,27,45,.05)}
+.rj .claim .v .qv{display:inline-block;margin-right:.5em;font-size:.55em;font-weight:700;line-height:1;vertical-align:.2em;color:var(--ink2)}
+/* On a phone the current step and its estimate show once, on the line under the dial; in the list the current
+   step is marked only by its gold ring and bold name. */
+@media (max-width:599px){.rj .st-list li .st-what,.rj .st-list li.here .st-what{display:none}}
