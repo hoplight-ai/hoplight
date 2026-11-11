@@ -73,8 +73,24 @@ test('1. a second link-only reading of the same article makes no upstream call a
   }
   // A reading served from the copy costs nothing, so it does not count against the visitor's six an hour.
   assert.equal(limitCalls(), 1, 'the rate limit was asked ' + limitCalls() + ' times');
-  // The key is the brief's normalisation, the same as quick-tools lib/justice-readings.mjs keyOf.
-  assert.equal(lib.keyOf('https://WWW.Example.com/a/b/?q=1#h'), 'https://www.example.com/a/b');
+});
+
+// The dispatcher's ruling, 2026-11-11: some outlets name an article only by its query (?id=, ?p=, ?storyId=), and
+// two articles sharing one reading is worse than a missed copy. Only tracking parameters and the hash are dropped,
+// what remains is sorted, only the host is lower-cased, and a trailing slash goes.
+test('1c. links differing only in ?id= get separate copies; links differing only in utm_source share one', async () => {
+  const lib = await cacheLib();
+  const up = upstream({ status: 200, body: READING });
+  const { d } = deps(lib, up.fetchImpl);
+  await lib.gradeThroughCopy({ url: 'https://news.example.com/story?id=101' }, d);
+  const other = await lib.gradeThroughCopy({ url: 'https://news.example.com/story?id=202' }, d);
+  assert.equal(other.cached, false, 'two articles told apart by ?id= shared one reading');
+  assert.equal(up.calls.length, 2);
+  await lib.gradeThroughCopy({ url: 'https://news.example.com/a?utm_source=x&p=7' }, d);
+  const same = await lib.gradeThroughCopy({ url: 'https://NEWS.example.com/a/?p=7&utm_source=y&fbclid=z#top' }, d);
+  assert.equal(same.cached, true, 'two links differing only in tracking parameters did not share one copy');
+  assert.equal(up.calls.length, 3);
+  assert.equal(lib.keyOf('https://WWW.Example.com/A/b/?z=2&utm_medium=m&a=1&gclid=g#h'), 'https://www.example.com/A/b?a=1&z=2');
 });
 
 test('1b. a copy older than seven days is read again', async () => {

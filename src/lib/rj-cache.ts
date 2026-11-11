@@ -6,7 +6,7 @@
 //     upstream's tagger once any copy exists. Fifteen minutes is the upstream's own copy (quick-tools
 //     api/justice-feed.js); asking more often only re-reads it.
 //   - The full reading of a link-only request (the text is one bare link, or the url field): kept seven days,
-//     keyed by the link as quick-tools lib/justice-readings.mjs keyOf normalises it. Pasted text is never kept
+//     keyed by the link less its tracking parameters and hash (keyOf below). Pasted text is never kept
 //     and never served from the copy; a failed or error reply is never kept. A reading served from the copy
 //     says so (`cached: true`, `read_at`) and costs nothing, so it does not count against the rate limits.
 //
@@ -17,9 +17,20 @@ export const LIST_REVALIDATE_S = 15 * 60;
 export const READING_TTL_S = 7 * 24 * 60 * 60;
 const READING_TTL_MS = READING_TTL_S * 1000;
 
-/** quick-tools lib/justice-readings.mjs keyOf: no query, no hash, no trailing slash, lower case. */
+// The dispatcher's ruling, 2026-11-11: the query stays, because some outlets name an article only by it (?id=, ?p=,
+// ?storyId=) and two articles sharing one reading is worse than a missed copy. Only tracking parameters and the
+// hash go; what remains is sorted; only the host is lower-cased; a trailing slash goes.
+const TRACKING = /^(utm_.*|fbclid|gclid|mc_cid|mc_eid|ocid|cmpid|smid|ref|taid)$/i;
+
+/** The key a link's reading is kept under. */
 export function keyOf(url: string): string {
-  return String(url || '').replace(/[?#].*$/, '').replace(/\/$/, '').toLowerCase();
+  const raw = String(url || '').trim();
+  let u: URL;
+  try { u = new URL(raw); } catch { return raw.replace(/#.*$/, '').replace(/\/$/, ''); }
+  const kept = [...u.searchParams.entries()].filter(([k]) => !TRACKING.test(k)).sort(([a, x], [b, y]) => (a === b ? (x < y ? -1 : x > y ? 1 : 0) : a < b ? -1 : 1));
+  const path = u.pathname.length > 1 ? u.pathname.replace(/\/$/, '') : '';
+  const query = kept.length ? '?' + new URLSearchParams(kept).toString() : '';
+  return u.protocol + '//' + u.host.toLowerCase() + path + query;
 }
 
 const BARE_LINK = /^https?:\/\/\S+$/;
