@@ -242,9 +242,10 @@ export function initRevengeOrJustice(root, opts) {
     if (item && !reply.error && reply.mean_position != null) {
       item.reading = { position: reply.mean_position, verdict: reply.verdict, headline: reply.headline };
       item.held = { read_at: reply.read_at || new Date().toISOString() };
-      var pick = $('feedlist').querySelector('.pick[data-url="' + (window.CSS && CSS.escape ? CSS.escape(reply.fetched) : reply.fetched) + '"]');
-      var card = pick && pick.querySelector('.cdial');
-      if (card) { card.outerHTML = cardDial(item); pick.classList.add('held'); }
+      // (Not named `pick`: that is the voice picker declared below in this function.)
+      var cardBtn = $('feedlist').querySelector('.pick[data-url="' + (window.CSS && CSS.escape ? CSS.escape(reply.fetched) : reply.fetched) + '"]');
+      var card = cardBtn && cardBtn.querySelector('.cdial');
+      if (card) { card.outerHTML = cardDial(item); cardBtn.classList.add('held'); }
     }
     // Who is quoted, one row each, every row placed on the same revenge-to-justice line by that person's own
     // words (Whit, 2026-11-09: "if i click on the quoted person chip, maybe it expands to show the quotes? and

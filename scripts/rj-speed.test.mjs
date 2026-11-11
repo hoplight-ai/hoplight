@@ -236,3 +236,25 @@ test('4. on submit the page draws the article, the stage list and the five empty
   assert.equal(dom.el('stages').innerHTML, '');
   assert.ok(!dom.el('out').classList.contains('wait'));
 });
+
+test('4b. when the reply lands it fills the same slots, and a copy says the day it was read', async () => {
+  const dom = fakeDom();
+  globalThis.document = dom.document;
+  globalThis.window = dom.window;
+  const rows = ['practice', 'price', 'remedy', 'umpire', 'knot'].map((key, i) => ({ key, title: key, position: 20 + i * 10, evidence: 'words', critique: 'how it reads' }));
+  const reply = { ...READING, rows, reframes: [{ label: 'One', text: 'a', why: 'b' }], precedent: {}, cached: true, read_at: '2026-11-09T15:00:00.000Z' };
+  let answer;
+  globalThis.fetch = (url, init) => (init && init.method === 'POST' ? new Promise((r) => { answer = r; }) : new Promise(() => {}));
+  const { initRevengeOrJustice } = await import('../src/app/(main)/revenge-or-justice/tool.js');
+  initRevengeOrJustice(dom.el('root2'), { items: [{ url: READING.fetched, title: 'Raskin opens the hearing', source: 'Example News', host: 'example.com' }] });
+  dom.el('t').value = READING.fetched;
+  dom.el('f').listeners.submit[0]({ preventDefault() {} });
+  answer({ ok: true, json: () => Promise.resolve(reply) });
+  await new Promise((r) => setTimeout(r, 20));
+  assert.ok(!dom.el('out').classList.contains('failed'), 'the reply was drawn as a failure: ' + dom.el('stages').innerHTML.replace(/<[^>]+>/g, ' '));
+  assert.ok(!dom.el('out').classList.contains('wait'));
+  assert.equal(dom.el('stages').innerHTML, '');
+  assert.equal((dom.el('rows').innerHTML.match(/class="ir"/g) || []).length, 5);
+  assert.match(dom.el('meta').innerHTML, /Read on Nov 9/);
+  assert.match(dom.el('dial').innerHTML, /<svg/);
+});
