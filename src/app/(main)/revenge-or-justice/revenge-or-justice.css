@@ -547,3 +547,19 @@
 @media (max-width:720px){.rj .art-hl.art-url{font-size:19px}}
 /* Once a reading lands after a visible wait, the line under the dial keeps its place, empty, so nothing moves. */
 @media (max-width:599px){.rj .stagenow.held{display:block;margin-top:var(--s1)}}
+/* Sixth review, 2026-11-11. Steps likely passed are a light gold ring joined to the current gold dot by a thin
+   line, so the list reads as a path walked; no tick, no fill but the current step's. */
+.rj .st-list li.past{opacity:1;color:var(--ink2)}
+.rj .st-list li.past::before{background:var(--white);border:2px solid rgba(212,149,10,.55)}
+.rj .st-list li.past::after{content:"";position:absolute;left:8px;top:20px;width:2px;height:calc(100% - 8px);background:rgba(212,149,10,.55);border:0;transform:none}
+/* On a phone the action row is compact in every state, so the dial starts close under the site bar; the row
+   holds the same height whether it carries Read another alone or Share and Save as PDF too. */
+@media (max-width:599px){
+  .rj .strip{margin-top:0;padding:var(--s1) 0;border-bottom:0}
+  .rj #out .rj-hero{padding-top:var(--s2)}
+}
+/* The step line under the dial keeps room for two lines at every step (the longest names wrap at 390), so the
+   page below it never moves as the steps change, or when the reading lands. */
+@media (max-width:599px){
+  .rj .stagenow:not(:empty){min-height:40px;flex-wrap:wrap;column-gap:8px;row-gap:0;text-align:center}
+}

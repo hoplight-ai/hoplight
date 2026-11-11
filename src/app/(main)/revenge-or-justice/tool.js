@@ -758,7 +758,7 @@ export function initRevengeOrJustice(root, opts) {
   // estimate. A failure stops on its step.
   function drawStages(i, failed, limited){
     // On a phone, the current step under the dial (review of 2026-11-11): the gold dot, its name, which of six.
-    $('stagenow').innerHTML = failed || limited ? '' : '<span class="sn-dot"></span><b>' + esc(STAGES[i].name) + '</b><span class="sn-of">step ' + (i + 1) + ' of ' + STAGES.length + '</span>';
+    $('stagenow').innerHTML = failed || limited ? '' : '<span class="sn-dot"></span><b>' + esc(STAGES[i].name) + '</b><span class="sn-of">usually step ' + (i + 1) + ' of ' + STAGES.length + ' by now</span>';
     if (limited) {
       $('stages').innerHTML =
         '<p class="st-err"><b>Not read.</b> ' + esc(failed.raw) + '</p>' +

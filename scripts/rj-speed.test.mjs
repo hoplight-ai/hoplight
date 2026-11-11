@@ -244,7 +244,7 @@ test('4. on submit the page draws the article, the stage list and the five empty
   assert.match(stages, /Usually in this order/);
   assert.doesNotMatch(stages, /✓|check|tick/i);
   // On a phone the current step shows under the dial: its name and which of six.
-  assert.match(dom.el('stagenow').innerHTML, /Getting the article<\/b><span class="sn-of">step 1 of 6/);
+  assert.match(dom.el('stagenow').innerHTML, /Getting the article<\/b><span class="sn-of">usually step 1 of 6 by now/);
   // The pill says the verdict once; the line beside it does not say it again.
   assert.equal(dom.el('verdict').textContent, 'Leans revenge');
   assert.equal(dom.el('headline').textContent, 'It names a man, not a practice.');
