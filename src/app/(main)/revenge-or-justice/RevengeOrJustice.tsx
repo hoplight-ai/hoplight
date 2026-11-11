@@ -93,10 +93,13 @@ export default function RevengeOrJustice({ items = [], source = 'unconfigured' }
               <div className="rj-dial" id="dial" />
               <div className="rj-top-words">
                 <div className="art" id="art" />
-                <p className="claim"><span className="v" id="verdict" /> <span id="headline" /></p>
-                <p className="meta" id="meta" />
-                {/* A first reading's stages, while it is being made (RJFAST1); empty once the reading lands. */}
-                <div className="stages" id="stages" aria-live="polite" />
+                {/* The slot under the article (RJFAST1): the stages while a first reading is made, the claim and its
+                    meta line once it lands. The script holds the slot at the waiting height so nothing below moves. */}
+                <div className="rj-slot" id="slot">
+                  <p className="claim"><span className="v" id="verdict" /> <span id="headline" /></p>
+                  <p className="meta" id="meta" />
+                  <div className="stages" id="stages" aria-live="polite" />
+                </div>
               </div>
             </div>
             <div className="quoted" id="quoted" />

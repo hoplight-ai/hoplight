@@ -235,7 +235,12 @@ export function initRevengeOrJustice(root, opts) {
   // (Whit, 2026-11-06: "in the output i should see the politicians and operative etc first, and i should be able
   // to toggle to have the outlet/coverage evaluated for the same thing"). Within a voice, one tab per issue.
   function render(reply){
+    // Nothing jumps when the reply lands (the brief, and the review of 2026-11-11): the slot under the article keeps
+    // the height the waiting screen gave it, so the bars and everything below stay where they were.
+    // A reply that comes back at once (a held reading) was never seen waiting, so it takes its own height.
+    var slot = $('slot'), held = slot && $('out').classList.contains('wait') && Date.now() - waitShownAt > 600 ? slot.offsetHeight : 0;
     stopWait();
+    if (slot && slot.style) slot.style.minHeight = held ? held + 'px' : '';
     $('pdf').hidden = false;
     lastReply = reply;
     var voices = reply.voices || {};
@@ -463,7 +468,9 @@ export function initRevengeOrJustice(root, opts) {
       return '<div class="ir" role="link" tabindex="0" data-row="' + i + '" aria-label="' + esc(r.title) + ': ' + sideWords(r.position) + ', ' + Math.round(r.position) + ' of 100 toward justice. Read the words behind it.">' +
         '<span class="t">' + term(r.key, r.title) + '</span>' +
         '<span class="track">' + bar(r.position) + '</span>' +
-        '<span class="n ' + s + '">' + Math.round(r.position) + '</span></div>';
+        '<span class="n ' + s + '">' + Math.round(r.position) + '</span>' +
+        // The question each bar answers, under it in both states, so the rows keep one height (review of 2026-11-11).
+        (questionOf(r.key) ? '<span class="q">' + esc(questionOf(r.key)) + '</span>' : '') + '</div>';
     }).join('');
 
     $('detail').innerHTML = rows.map(function(r, i){
@@ -662,6 +669,7 @@ export function initRevengeOrJustice(root, opts) {
     closeShare();
     runId += 1; // a reading still on its way is dropped when it lands
     stopWait();
+    if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
     $('go').disabled = false;
     track('again');
     root.classList.remove('read');
@@ -720,7 +728,7 @@ export function initRevengeOrJustice(root, opts) {
   // the current one named, and the five measures as empty bars each carrying its question, the two precedent
   // slots, the words behind each reading and the three rewrites as outlines of what is coming. When the reply
   // lands each fills in place. A reading the site already holds skips the stages and opens at once.
-  var runId = 0, waitTimer = null, waitT0 = 0, waitStage = 0, lastQuick = null;
+  var runId = 0, waitTimer = null, waitT0 = 0, waitStage = 0, lastQuick = null, waitShownAt = 0;
   function stopWait(){
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
     $('out').classList.remove('wait');
@@ -737,17 +745,18 @@ export function initRevengeOrJustice(root, opts) {
   function drawStages(i, failed, limited){
     if (limited) {
       $('stages').innerHTML =
-        '<p class="st-err"><b>Not read.</b> ' + esc(failed) + '</p>' +
+        '<p class="st-err"><b>Not read.</b> ' + esc(failed.raw) + '</p>' +
         '<p class="st-note">An article marked Full reading ready in the list still opens at once, since the site keeps those readings.</p>';
       return;
     }
     $('stages').innerHTML =
       // The grader's own error is machinery, not something a visitor can act on: it stays in the title and the console.
-      (failed ? '<p class="st-err" title="' + esc(failed) + '"><b>This one couldn’t be read.</b> Try again, or pick another article.</p><p class="st-act"><button type="button" class="rj-btn" id="retry">Try again</button></p>' : '') +
+      (failed ? '<p class="st-err" title="' + esc(failed.raw) + '"><b>' + esc(failed.msg) + '</b> Try again, or pick another article.</p><p class="st-act"><button type="button" class="rj-btn" id="retry">Try again</button></p>' : '') +
       '<p class="st-label">Usually in this order</p><ol class="st-list" aria-label="What the reading usually does, in order">' + STAGES.map(function(x, k){
-        var state = k < i ? 'past' : k === i ? 'here' : 'ahead';
-        return '<li class="' + state + '"' + (k === i ? ' aria-current="step"' : '') + '><span class="st-name">' + esc(x.name) + '</span>' +
-          (k === i && !failed ? '<span class="st-what">' + esc(x.what) + '</span>' : '') + '</li>';
+        // A stopped reading stops the estimates: no step is shown as passed, and one is marked only when the error names it.
+        var state = failed ? (k === failed.stage ? 'here' : 'ahead') : k < i ? 'past' : k === i ? 'here' : 'ahead';
+        return '<li class="' + state + '"' + (state === 'here' ? ' aria-current="step"' : '') + '><span class="st-name">' + esc(x.name) + '</span>' +
+          (state === 'here' && !failed ? '<span class="st-what">' + esc(x.what) + '</span>' : '') + '</li>';
       }).join('') + '</ol>' +
       (failed ? '' : '<p class="st-note">A first reading takes twenty to forty seconds. An article read before opens at once.</p>');
   }
@@ -758,6 +767,7 @@ export function initRevengeOrJustice(root, opts) {
     // The last stage holds until the reply arrives.
     if (waitStage + 1 < STAGES.length) waitTimer = setTimeout(advance, Math.max(50, STAGES[waitStage + 1].at - t));
   }
+  function questionOf(key){ var r = rubric.filter(function(x){ return x.key === key; })[0]; return r ? r.question : ''; }
   function sk(cls){ return '<span class="sk ' + cls + '" aria-hidden="true"></span>'; }
   function waitScreen(text){
     var isUrl = /^https?:\/\/\S+$/.test(text);
@@ -773,6 +783,8 @@ export function initRevengeOrJustice(root, opts) {
     // The quick read: the light reading the list carries (the whole text in one pass), labelled as such.
     var quick = it && it.reading && it.reading.position != null ? it.reading : null;
     lastQuick = quick;
+    waitShownAt = Date.now();
+    if ($('slot') && $('slot').style) $('slot').style.minHeight = '';
     // Save as PDF prints the reading on screen, so it waits for the reading.
     $('pdf').hidden = true;
     var qv = quick ? quick.verdict || dside(+quick.position) : '';
@@ -805,14 +817,27 @@ export function initRevengeOrJustice(root, opts) {
     drawStages(0);
     advance();
   }
-  function failWait(message, limited){
+  // What failed, in plain words built from the reply (review of 2026-11-11). The grader's own words are machinery:
+  // they stay in the title and the console. A page that would not load names the first step; nothing else does.
+  var OUR_REFUSALS = /^(that is not a link|only http and https links|a link with a sign-in in it is not read|that link points somewhere this reader does not go)$/i;
+  function failCopy(status, error, text){
+    var raw = String(error || '').trim(), isLink = /^https?:\/\/\S+$/.test(text), where = isLink ? host(text) : '';
+    if (status === 429) return { msg: sentence(raw), raw: sentence(raw), stage: -1, limited: true };
+    if (status === 400 && OUR_REFUSALS.test(raw)) return { msg: 'That link can’t be read here.', raw: raw, stage: -1 };
+    if (status === 400 && isLink) return { msg: 'The article at ' + where + ' would not load.', raw: raw, stage: 0 };
+    if (status === 503) return { msg: 'The reader is switched off right now.', raw: raw, stage: -1 };
+    if (status === 0) return { msg: 'The connection dropped before the reading came back.', raw: raw, stage: -1 };
+    return { msg: isLink ? 'The reading of the article at ' + where + ' could not be finished.' : 'The reading of this text could not be finished.', raw: raw, stage: -1 };
+  }
+  function failWait(f){
+    var limited = !!f.limited;
     if (waitTimer) { clearTimeout(waitTimer); waitTimer = null; }
-    if (!limited && window.console && console.warn) console.warn('Revenge or Justice: the reading stopped:', message);
+    if (!limited && window.console && console.warn) console.warn('Revenge or Justice: the reading stopped:', f.raw);
     $('out').classList.add('failed');
     if (!lastQuick) $('dial').innerHTML = dial('', 'big', 'stop');
     // Once a reading stops, nothing is coming: the empty tracks and the outlines go (review of 2026-11-11).
     $('rows').innerHTML = ''; $('prec').innerHTML = ''; $('detail').innerHTML = ''; $('reframes').innerHTML = '';
-    drawStages(waitStage, message, limited);
+    drawStages(waitStage, f, limited);
     var retry = $('retry');
     if (retry) retry.addEventListener('click', function(){ track('retry'); run(lastText); });
   }
@@ -831,11 +856,11 @@ export function initRevengeOrJustice(root, opts) {
       .then(function(r){ return r.json().then(function(j){ return { ok: r.ok, status: r.status, j: j }; }, function(){ return { ok: false, j: { error: 'The grader sent back something this page cannot read.' } }; }); })
       .then(function(x){
         if (my !== runId) return;
-        if (!x.ok || x.j.error) { track('grade-failed', { source: source }); failWait(sentence(x.j.error || 'The reading did not come back.'), x.status === 429); return; }
+        if (!x.ok || x.j.error) { track('grade-failed', { source: source }); failWait(failCopy(x.status, x.j.error, text)); return; }
         track('result', { source: source, cached: !!x.j.cached, verdict: String(x.j.verdict || 'none'), voices: [x.j.voices && x.j.voices.politicians ? 'politicians' : '', x.j.voices && x.j.voices.coverage ? 'coverage' : ''].filter(Boolean).join(',') || 'all' });
         render(x.j);
       })
-      .catch(function(err){ if (my === runId) failWait(sentence('The reading did not come back: ' + err.message)); })
+      .catch(function(err){ if (my === runId) failWait(failCopy(0, err.message, text)); })
       .then(function(){ if (my === runId) $('go').disabled = false; });
   }
   // What failed, as a sentence: a capital first and a full stop last.

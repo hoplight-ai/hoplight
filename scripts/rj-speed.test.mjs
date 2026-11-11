@@ -259,25 +259,45 @@ test('4. on submit the page draws the article, the stage list and the five empty
   assert.ok(!dom.el('out').classList.contains('wait'));
 });
 
-test('4c. a reading that stops says so in plain words, keeps the grader\'s own error out of sight, and clears the outlines', async () => {
+// A reading that stops: one sentence on what failed, built from the reply's error in plain words (review of
+// 2026-11-11), the stage estimates stopped, and a stage painted as stopped only when the error names it.
+async function stopWith(status, error, link) {
   const dom = fakeDom();
   globalThis.document = dom.document;
   globalThis.window = dom.window;
   let answer;
   globalThis.fetch = (url, init) => (init && init.method === 'POST' ? new Promise((r) => { answer = r; }) : new Promise(() => {}));
   const { initRevengeOrJustice } = await import('../src/app/(main)/revenge-or-justice/tool.js');
-  initRevengeOrJustice(dom.el('root3'), { items: [] });
-  dom.el('t').value = 'https://example.com/a-story';
+  initRevengeOrJustice(dom.el('root-' + status + error.length), { items: [] });
+  dom.el('t').value = link;
   dom.el('f').listeners.submit[0]({ preventDefault() {} });
-  answer({ ok: false, status: 502, json: () => Promise.resolve({ error: 'the grader failed: every model in the chain refused' }) });
+  answer({ ok: false, status, json: () => Promise.resolve({ error }) });
   await new Promise((r) => setTimeout(r, 20));
   const shown = dom.el('stages').innerHTML;
   assert.ok(dom.el('out').classList.contains('failed'));
-  assert.match(shown, /This one couldn’t be read\./);
   assert.match(shown, /id="retry"/);
-  assert.doesNotMatch(shown.replace(/title="[^"]*"/g, ''), /grader|model|chain/i, 'the grader\'s own error is on the page');
+  assert.doesNotMatch(shown.replace(/title="[^"]*"/g, ''), /grader|model|chain|refused|HTTP|\b[45]\d\d\b/i, 'machinery on the page: ' + shown);
   assert.equal(dom.el('rows').innerHTML, '');
   assert.equal(dom.el('prec').innerHTML + dom.el('detail').innerHTML + dom.el('reframes').innerHTML, '');
+  return { text: shown.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' '), stopped: (shown.match(/<li class="here"[^>]*><span class="st-name">([^<]+)/) || [])[1] || '' };
+}
+
+test('4c. a grader failure says the reading could not be finished and paints no stage as stopped', async () => {
+  const r = await stopWith(502, 'the grader failed: every model in the chain refused', 'https://example.com/a-story');
+  assert.match(r.text, /The reading of the article at example\.com could not be finished\./);
+  assert.equal(r.stopped, '');
+});
+
+test('4d. an article that would not load says so and stops at Getting the article', async () => {
+  const r = await stopWith(400, 'could not fetch that page: 403', 'https://www.example.com/a-story');
+  assert.match(r.text, /The article at example\.com would not load\./);
+  assert.equal(r.stopped, 'Getting the article');
+});
+
+test('4e. a link the site will not read says so in plain words and paints no stage', async () => {
+  const r = await stopWith(400, 'that link points somewhere this reader does not go', 'https://intranet.example.local/x');
+  assert.match(r.text, /That link can’t be read here\./);
+  assert.equal(r.stopped, '');
 });
 
 test('4b. when the reply lands it fills the same slots, and a copy says the day it was read', async () => {

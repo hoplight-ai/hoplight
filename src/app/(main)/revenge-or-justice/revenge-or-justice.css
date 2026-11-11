@@ -147,7 +147,7 @@
 .rj .art-hl{display:block;margin-top:10px;font-size:30px;line-height:1.15;font-weight:800;letter-spacing:-.015em;color:var(--ink);border-bottom:0;text-wrap:balance}
 @media (hover:hover){.rj .art-hl:hover{text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px}}
 .rj .art-link{display:inline-block;margin-top:6px;font-size:16px;color:var(--ink2)}
-.rj .art:not(:empty) + .claim{font-size:20px;line-height:1.45;color:var(--ink2);margin-top:var(--s2)}
+.rj .art:not(:empty) + .rj-slot .claim{font-size:20px;line-height:1.45;color:var(--ink2);margin-top:var(--s2)}
 
 /* Who is quoted: a byline per person (name, role) with their own dial; a tap opens their words as a pull
    quote and turns the reading to them. */
@@ -449,8 +449,9 @@
 .rj .claim .v.mixed{color:var(--ink);background:#CFCAC0;box-shadow:none}
 /* The five measures, empty: the same track the reading draws (centre line, the Revenge and Justice ends above),
    no fill, and the question each bar will answer in small type under it. */
-.rj .ir.wait{cursor:default;grid-template-rows:auto auto;row-gap:0}
-.rj .ir.wait .q{grid-column:2/4;font-size:13px;line-height:1.35;color:var(--ink2);padding:0 0 10px}
+.rj .ir.wait{cursor:default}
+.rj .ir{grid-template-rows:auto auto;row-gap:0}
+.rj .ir .q{grid-column:2/4;font-size:13px;line-height:1.35;color:var(--ink2);padding:0 0 10px}
 /* Outlines of what is coming, in light tints of the page's navy. */
 .rj .sk{display:block;height:14px;width:100%;border-radius:3px;background:rgba(15,27,45,.045);margin-top:10px}
 .rj .sk.h{height:22px;width:55%;margin-top:var(--s1)}
@@ -471,7 +472,7 @@
 /* At 390 the first article card shows whole on first paint (review of 2026-11-11): a shorter box and less air
    between the box and the list. */
 @media (max-width:720px){
-  .rj .ir.wait .q{grid-column:1/4;font-size:12px}
+  .rj .ir .q{grid-column:1/4;font-size:12px}
   .rj .rj-head{padding-top:var(--s3);padding-bottom:var(--s2)}
   .rj textarea{min-height:104px}
   .rj #status{margin-top:var(--s1);min-height:0}
@@ -499,14 +500,13 @@
 .rj .rj-dial{position:relative}
 .rj .rj-dial .qtag{position:absolute;left:50%;top:0;transform:translate(-50%,-100%);font-size:13px;font-weight:700;line-height:1;color:var(--gold-deep);background:var(--white);padding:4px 10px;border:1.5px solid var(--gold);border-radius:999px;white-space:nowrap}
 .rj .rj-dial svg.quick{opacity:.55}
-/* While a reading is being made, "Read another" sits on the article's first line instead of holding a row of its own. */
-.rj-wrap{position:relative}
-@media (min-width:721px){
-  .rj.waiting .strip{position:absolute;top:var(--s3);right:var(--s3);z-index:5;margin:0;padding:0;border:0}
-  .rj.waiting .strip .what{display:none}
-  .rj.waiting #out .rj-hero{padding-top:var(--s3)}
-}
+/* Fourth review, 2026-11-11: nothing jumps when the reply lands. The slot under the article holds its own
+   margins (so the height the script keeps is the whole of it), the measures keep their question line in both
+   states, and the outlines of the words behind each reading are sized to a typical reading. */
+.rj .rj-slot{display:flow-root}
+.rj .r.wait .tiers dd:last-of-type .sk.s{margin-bottom:26px}
 @media (max-width:720px){
-  .rj.waiting .strip{padding:var(--s1) 0;margin-top:0;border-bottom:0}
-  .rj.waiting #out .rj-hero{padding-top:var(--s4)}
+  .rj .r.wait .rh{min-height:50px}
+  .rj .r.wait .tiers dd:first-of-type{min-height:75px}
+  .rj .r.wait .tiers dd:last-of-type{min-height:154px}
 }
