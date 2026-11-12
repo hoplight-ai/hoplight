@@ -12,9 +12,9 @@ const newsreader = Newsreader({ subsets: ['latin'], weight: ['400'], variable: '
 export const metadata: Metadata = toolMetadata('revenge-or-justice', {
   title: 'Revenge or Justice',
   description:
-    'Paste a press release, a quote or an article. It says whether the words sound like revenge or justice, shows the words it judged, and rewrites the passage so it lands.',
+    'Investigations win when voters can see what they get and backfire when they sound like a vendetta. A test built from thirteen that won or failed, 1905 to 2021, reads what an official says about an investigation, scores it and rewrites it so it lands.',
   path: '/revenge-or-justice',
-  ogDescription: 'Does it sound like revenge or justice? Paste it and see.',
+  ogDescription: 'A test built from thirteen investigations that won or backfired. Paste what an official says and see whether voters will hear justice or a vendetta.',
 });
 
 // The headline list arrives with the page (lane RJFAST1, 2026-11-10; Whit: "the articles take forever to load").

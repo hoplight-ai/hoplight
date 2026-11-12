@@ -101,7 +101,11 @@ export const TOOLS: Tool[] = [
   {
     slug: 'revenge-or-justice',
     name: 'Revenge or Justice',
-    line: 'Paste a statement or a link. It says whether the words sound like revenge or justice, and how to say it so it lands.',
+    // Whit, 2026-11-12: "revenge or justice just reiterates the name of the tool". Distilled from his
+    // account the same day: research on historical wins and fails, a rubric from the pattern, a tool that
+    // reads how officials message their investigations. Thirteen is the grader's precedent corpus, counted
+    // in quick-tools/api/justice-or-retribution.js (1905 to 2021).
+    line: 'A test built from thirteen investigations that won or backfired, Truman to Lava Jato. Paste what an official says about an investigation and see whether voters will hear justice or a vendetta.',
     href: '/revenge-or-justice',
     kind: 'live',
     shelf: 'product',
