@@ -104,16 +104,29 @@ export default function UndoList({
     [blocks, themeOf, rowById],
   );
   const layout = useMemo(() => treeLayout(sorted, width, opts), [sorted, width, opts]);
+  // The layout reserves room for the name by a word-wrap estimate; once drawn, each name is measured
+  // and its squares move up to sit right under it, so any slack falls at the tile's foot only.
+  const [labelH, setLabelH] = useState<Record<string, number>>({});
+  useLayoutEffect(() => {
+    const got: Record<string, number> = {};
+    boxRef.current?.querySelectorAll<HTMLElement>('.undo-rect-name[data-order]').forEach((el) => {
+      got[el.dataset.order!] = el.offsetHeight - opts.pad + 4;
+    });
+    // Measuring the drawn names must wait for them to draw, so this setState in a layout effect is deliberate.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setLabelH(got);
+  }, [layout, opts]);
   const squares = useMemo<PlacedSquare[]>(() => {
     const out: PlacedSquare[] = [];
     for (const r of layout.rects) {
+      const lift = Math.max(0, r.labelH - (labelH[r.id] ?? r.labelH));
       r.ids.forEach((id, k) => {
         const at = cellAt(r, k, opts);
-        out.push({ id, title: rowById.get(id)?.title ?? id, theme: themeOf.get(id) ?? 'gov', order: r.id, x: r.x + at.x, y: r.y + at.y });
+        out.push({ id, title: rowById.get(id)?.title ?? id, theme: themeOf.get(id) ?? 'gov', order: r.id, x: r.x + at.x, y: r.y + at.y - lift });
       });
     }
     return out;
-  }, [layout, opts, rowById, themeOf]);
+  }, [layout, opts, rowById, themeOf, labelH]);
   const squareById = useMemo(() => new Map(squares.map((s, i) => [s.id, { s, i }])), [squares]);
 
   // The chips count the squares by theme, so the key always adds up to the tree.
@@ -261,18 +274,20 @@ export default function UndoList({
     setPopPos({ left: spots[0].left, top });
   }, [phone, litOrder, open, layout, squares, squareById]);
 
-  // On the phone the sheet covers the lower 40 percent, so the lit rectangle is brought into the
-  // part of the screen above it (a link straight to ?open= or ?order= lands there too).
+  // On the phone the sheet covers the lower 40 percent, so the lit order is brought into the part of
+  // the screen above it, its name just under the sticky site bar (a link straight to ?open= or
+  // ?order= lands there too). Nothing moves when the order is already in that band.
   useEffect(() => {
     if (!phone || !litOrder) return;
-    const el = open
-      ? boxRef.current?.querySelector<HTMLElement>(`.undo-sq[data-id="${CSS.escape(open)}"]`)
-      : boxRef.current?.querySelector<HTMLElement>(`.undo-rect-name[data-order="${CSS.escape(litOrder)}"]`);
-    if (!el) return;
-    const b = el.getBoundingClientRect();
-    const room = window.innerHeight * 0.58;
-    if (b.top < 64 || b.bottom > room) window.scrollBy({ top: b.top - room * 0.45, behavior: 'smooth' });
-  }, [phone, litOrder, open]);
+    const name = boxRef.current?.querySelector<HTMLElement>(`.undo-rect-name[data-order="${CSS.escape(litOrder)}"]`);
+    if (!name) return;
+    const tile = name.parentElement ?? name;
+    const bar = document.querySelector('header')?.getBoundingClientRect().bottom ?? 0;
+    const top = Math.max(0, bar) + 12;
+    const room = window.innerHeight * 0.6;
+    const b = tile.getBoundingClientRect();
+    if (b.top < top || b.bottom > room) window.scrollBy({ top: b.top - top, behavior: 'smooth' });
+  }, [phone, litOrder]);
 
   const popOrderId = litOrder;
   const popOrder = popOrderId ? (orderById.get(popOrderId) ?? null) : null;

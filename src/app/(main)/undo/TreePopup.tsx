@@ -69,7 +69,7 @@ export default function TreePopup({
         {order.frame}
       </p>
       {order.title !== order.frame ? <p className="undo-pop-title">{order.title}</p> : null}
-      <p className="undo-pop-teach">{COPY.tree.teach(order.frame, order.line, orderIds.length, row !== null)}</p>
+      <p className="undo-pop-teach">{COPY.tree.teach(order.line, orderIds.length, row !== null)}</p>
       {row ? (
         <div className="undo-pop-act">
           <p className="undo-pop-head">{row.title}</p>

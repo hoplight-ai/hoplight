@@ -1365,7 +1365,7 @@ header.site .brand, footer.site .brand { min-height: 44px; }
 
 /* ===== The Undo List first screen: the tree of lit squares (UNDOTREE1, 2026-11-18) =====
    Inter only, two weights (400, 500), four sizes (44 or 30 on the phone, 22, 15, 13). White ground;
-   navy for type, outlines and the one button; fill gold for focus and signed squares; text gold for
+   navy for type, outlines, the one button and signed squares (with a fill-gold ring); text gold for
    the Sign links; the five theme hues from src/lib/undo/themes.ts (hue, then its tint); deep gold (--ring) for focus,
    since fill gold is 2.6:1 on white;
    grey only for the table's rules. */
@@ -1387,26 +1387,27 @@ header.site .brand, footer.site .brand { min-height: 44px; }
 
 /* The tree: rectangles placed by the squarified layout, squares placed inside them. */
 .undo-tree { position: relative; margin: 0 -14px; }
-.undo-rect { position: absolute; padding: 4px; pointer-events: none; }
+.undo-rect { position: absolute; padding: 4px; pointer-events: none; background-color: #F2F4F7; background-clip: content-box; }
 .undo-rect-name { pointer-events: auto; position: absolute; left: 4px; right: 4px; top: 4px; display: block; padding: 10px 10px 0; text-align: left; font: inherit; color: var(--ink); background: none; border: 0; cursor: pointer; }
 .undo-rect-frame { display: block; font-size: 15px; line-height: 19px; font-weight: 500; }
 .undo-rect-count { display: block; font-size: 13px; line-height: 18px; font-variant-numeric: tabular-nums lining-nums; }
 .undo-rect-name:hover .undo-rect-frame, .undo-rect.is-lit .undo-rect-frame { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
 .undo-sq { position: absolute; padding: 0; border: 0; border-radius: 3px; cursor: pointer; transition: background-color 160ms ease-out, box-shadow 160ms ease-out; }
 .undo-sq:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--ring); z-index: 2; }
-.t-world { background-color: #2C5CA4; }
-.t-money { background-color: #E0A82A; }
-.t-land { background-color: #4AA36E; }
-.t-people { background-color: #6C2763; }
-.t-gov { background-color: #CB5A41; }
-.undo-sq.is-tint.t-world { background-color: #CCD8E9; }
-.undo-sq.is-tint.t-money { background-color: #F4E0B2; }
-.undo-sq.is-tint.t-land { background-color: #D4E9DC; }
-.undo-sq.is-tint.t-people { background-color: #DCCBDA; }
-.undo-sq.is-tint.t-gov { background-color: #F3D7D1; }
-.undo-sq.is-signed { background-color: var(--gold); }
-.undo-sq.is-signed.is-tint { background-color: #F0D9A7; }
+.t-world { background-color: #275497; }
+.t-money { background-color: #EAB73E; }
+.t-land { background-color: #3F9461; }
+.t-people { background-color: #521A4A; }
+.t-gov { background-color: #E57B5E; }
+.undo-sq.is-tint.t-world { background-color: #CBD6E6; }
+.undo-sq.is-tint.t-money { background-color: #F6E1AE; }
+.undo-sq.is-tint.t-land { background-color: #D1E5D9; }
+.undo-sq.is-tint.t-people { background-color: #D5C8D4; }
+.undo-sq.is-tint.t-gov { background-color: #F9DFD8; }
 .undo-sq.is-lit { box-shadow: inset 0 0 0 2px var(--ink); }
+/* Signed: navy with a fill-gold ring, so it never reads as a money square, in colour or in grey. */
+.undo-sq.is-signed { background-color: #0F1B2D; box-shadow: inset 0 0 0 2px #D4950A; }
+.undo-sq.is-signed.is-tint { background-color: #A9ADB3; }
 .undo-sq.is-me { box-shadow: inset 0 0 0 3px var(--ink), inset 0 0 0 5px var(--white); }
 
 /* The popup: beside the lit rectangle on the desktop, a bottom sheet on the phone. Fill and shadow,
@@ -1460,10 +1461,13 @@ span.undo-th { cursor: default; }
   .undo-tree-head { flex-direction: column; align-items: stretch; gap: 14px; margin-bottom: 10px; }
   .undo-tree-head h1 { font-size: 30px; }
   .undo-sign-all { width: 100%; }
-  .undo-chips { gap: 0 16px; }
-  .undo-chip { min-height: 44px; font-size: 13px; }
-  .undo-chip i { width: 12px; height: 12px; }
+  .undo-chips { gap: 8px; margin-bottom: 12px; }
+  .undo-chip { min-height: 44px; gap: 5px; padding: 0 7px; font-size: 13px; border-radius: var(--radius-sm); box-shadow: inset 0 0 0 1px var(--line); }
+  .undo-chip i { width: 10px; height: 10px; border-radius: 2px; }
+  .undo-chip[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--ink); }
+  .undo-chip[aria-pressed="true"] .undo-chip-name { text-decoration: none; }
   .undo-tree { margin: 0 -9px; }
+  .undo-rect { padding: 3px; }
   .undo-rect-name { padding: 6px 6px 0; left: 3px; right: 3px; top: 3px; }
   .undo-rect-frame { font-size: 13px; line-height: 16px; }
   .undo-rect-count { line-height: 16px; }

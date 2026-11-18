@@ -41,7 +41,7 @@ import { applyIssues, groupByIssue, MAX_ISSUES_PER_ROW } from '../src/lib/undo/i
 import { forwardOrderText, forwardOrderView, resolveOrderItems } from '../src/lib/undo/forward-text.ts';
 import { issueBars } from '../src/lib/undo/progress.ts';
 import { cellAt, fieldBlocks, nameLines, squarify, treeLayout, TREE_DESKTOP, TREE_PHONE } from '../src/lib/undo/field.ts';
-import { SIGNED_TINT, THEMES, THEME_BY_KEY, themeOfIssue, themeOfRow, tintOf } from '../src/lib/undo/themes.ts';
+import { greyOf, SIGNED, SIGNED_RING, SIGNED_TINT, THEMES, THEME_BY_KEY, themeOfIssue, themeOfRow, tintOf } from '../src/lib/undo/themes.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (rel) => JSON.parse(readFileSync(join(ROOT, rel), 'utf8'));
@@ -870,12 +870,18 @@ test('the five themes: every issue key in exactly one theme, five hues, tints of
   assert.deepEqual([...seen].sort(), [...ISSUE_KEYS].sort(), 'every issue key is in a theme and none is in two');
   assert.equal(new Set(seen).size, seen.length);
   assert.deepEqual(THEMES.map((t) => [t.key, t.name, t.hex]), [
-    ['world', 'The world', '#2C5CA4'],
-    ['money', 'Money and work', '#E0A82A'],
-    ['land', 'Health, land and science', '#4AA36E'],
-    ['people', 'Who counts', '#6C2763'],
-    ['gov', 'Government and safety', '#CB5A41'],
+    ['world', 'The world', '#275497'],
+    ['money', 'Money and work', '#EAB73E'],
+    ['land', 'Health, land and science', '#3F9461'],
+    ['people', 'Who counts', '#521A4A'],
+    ['gov', 'Government and safety', '#E57B5E'],
   ]);
+  // Five distinct grey steps, at least 25 apart: who counts darkest, then the world, health, government, money.
+  const greys = ['people', 'world', 'land', 'gov', 'money'].map((k) => greyOf(THEME_BY_KEY[k].hex));
+  for (let i = 1; i < greys.length; i++) assert.ok(greys[i] - greys[i - 1] >= 25, `grey steps ${greys.join(', ')} are 25 apart`);
+  // A signed square is navy with a gold ring, never the money gold: far apart in grey too.
+  assert.equal(SIGNED, '#0F1B2D');
+  assert.ok(greyOf(THEME_BY_KEY.money.hex) - greyOf(SIGNED) >= 100, 'signed and money read apart in grey');
   for (const k of ISSUE_KEYS) assert.ok(THEME_BY_KEY[themeOfIssue(k)], `${k} has a theme`);
   assert.equal(themeOfRow({ issues: ['veterans', 'allies'] }), 'gov', 'the first issue decides');
   assert.equal(themeOfRow({ issues: [] }, ['prices']), 'money', 'an untagged action takes its order\'s theme');
@@ -887,7 +893,9 @@ test('the five themes: every issue key in exactly one theme, five hues, tints of
     assert.ok(css.includes(`.t-${t.key} { background-color: ${t.hex}; }`), `the CSS draws ${t.key} in ${t.hex}`);
     assert.ok(css.includes(`.undo-sq.is-tint.t-${t.key} { background-color: ${t.tint}; }`), `the CSS tints ${t.key} to ${t.tint}`);
   }
+  assert.ok(css.includes(`.undo-sq.is-signed { background-color: ${SIGNED}; box-shadow: inset 0 0 0 2px ${SIGNED_RING}; }`), 'a signed square is navy with a gold ring');
   assert.ok(css.includes(`.undo-sq.is-signed.is-tint { background-color: ${SIGNED_TINT}; }`), `a signed square steps back to ${SIGNED_TINT}`);
+  assert.ok(!/\.undo-sq\.is-signed \{ background-color: var\(--gold\)/.test(css), 'signed squares no longer share the gold');
 });
 
 test('the frame names: thirteen, one per order, America isn\'t a quitter kept as Whit wrote it', () => {
@@ -913,11 +921,11 @@ test('the hero, the tree and the table copy follows the house rules and spells t
   assert.equal(COPY.tree.count(81), '81 actions');
   assert.equal(COPY.tree.count(1), '1 action');
   assert.equal(
-    COPY.tree.teach("America isn't a quitter", 'Rejoins the treaties, councils, science panels and aid programs America quit.', 81, true),
-    "America isn't a quitter: one signature rejoins the treaties, councils, science panels and aid programs America quit. 81 actions, this one among them.",
+    COPY.tree.teach('Rejoins the treaties, councils, science panels and aid programs America quit.', 81, true),
+    'One signature rejoins the treaties, councils, science panels and aid programs America quit. 81 actions, this one among them.',
   );
-  assert.equal(COPY.tree.teach('No pass to pollute', 'Ends the pollution exemptions.', 35, false), 'No pass to pollute: one signature ends the pollution exemptions. 35 actions.');
-  assert.equal(COPY.tree.more(77), 'and 77 more, lit in the tree');
+  assert.equal(COPY.tree.teach('Ends the pollution exemptions.', 35, false), 'One signature ends the pollution exemptions. 35 actions.');
+  assert.equal(COPY.tree.more(77), 'and 77 more');
   assert.equal(COPY.tree.rect('No pass to pollute', 35, 2), 'No pass to pollute: 35 executive actions, 2 signed. Show the order.');
   assert.equal(COPY.table.shown(275), '275 shown');
   assert.equal(COPY.table.showAll(275), 'Show all 275');

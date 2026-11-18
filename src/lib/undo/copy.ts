@@ -54,12 +54,12 @@ export const COPY = {
     count: (n: number) => `${n} ${n === 1 ? 'action' : 'actions'}`,
     rect: (frame: string, n: number, signed: number) => `${frame}: ${actions(n)}, ${signed} signed. Show the order.`,
     chip: (name: string, n: number) => `${name}: ${actions(n)}. Show only these.`,
-    /** The teaching line the popup leads with, built from the order's frame and its own line. */
-    teach: (frame: string, line: string, n: number, withOne: boolean) =>
-      `${frame}: one signature ${String(line).charAt(0).toLowerCase()}${String(line).slice(1)} ${n} ${n === 1 ? 'action' : 'actions'}${withOne ? ', this one among them' : ''}.`,
+    /** The teaching line under the frame heading, built from the order's own line. */
+    teach: (line: string, n: number, withOne: boolean) =>
+      `One signature ${String(line).charAt(0).toLowerCase()}${String(line).slice(1)} ${n} ${n === 1 ? 'action' : 'actions'}${withOne ? ', this one among them' : ''}.`,
     signedOn: (kind: string, date: string) => `${kind}, signed ${date}`,
     bundled: 'Bundled with',
-    more: (n: number) => `and ${n} more, lit in the tree`,
+    more: (n: number) => `and ${n} more`,
     close: 'Close',
     prev: 'Previous',
     next: 'Next',
