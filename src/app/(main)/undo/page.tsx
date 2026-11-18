@@ -30,9 +30,9 @@ export default async function UndoPage() {
 
   return (
     <>
-      {/* HERO, THE KEY, THE FILTER, THE ORDERS: one client tree, because the field, the strip and
-          the ticks share one set of signed ids. The full list is its own page, /undo/all. */}
-      <UndoList rows={data.slim} penInForce={data.penInForce} kinds={data.kinds} orders={data.orders} />
+      {/* HERO, THE CHIPS, THE TREE, THE TABLE: one client tree, because the squares, the popup and
+          the table share one set of signed ids (UNDOTREE1, 2026-11-18). /undo/all stays its own page. */}
+      <UndoList rows={data.slim} penInForce={data.penInForce} orders={data.orders} rowKind={data.rowKind} />
 
       {/* CLOSING CALL TO ACTION */}
       <section className="close-cta slate undo-cta" aria-labelledby="undo-cta-h">

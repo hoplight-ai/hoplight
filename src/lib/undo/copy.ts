@@ -31,9 +31,8 @@ export const COPY = {
     /** The first line on the page: the job, as a count of signatures and a count of executive actions. */
     headline: (orders: number, pen: number) =>
       `${countWord(orders)} signatures undo ${pen} executive ${pen === 1 ? 'action' : 'actions'}.`,
-    /** What the field is, in one breath, for the line under the headline. */
-    read: 'Each square is one executive action the next president undoes with a signature. Each block is one order that undoes its whole bundle. Sign an order and its block turns gold.',
-    cta: 'Sign the first order',
+    /** The one filled button: it signs every order at once (UNDOTREE1, 2026-11-18). */
+    cta: (orders: number) => `Sign all ${countWord(orders).toLowerCase()}`,
     count: (signed: number, total: number) => `${signed} of ${total} signed`,
   },
   /** The link-preview words (og and twitter), from the headline's two counts: the signing orders and the
@@ -45,12 +44,38 @@ export const COPY = {
       `What a pen did, a pen can undo. ${orders} ${orders === 1 ? 'signature' : 'signatures'} on January 20, 2029 could undo ${pen} ${pen === 1 ? 'action' : 'actions'}. Find the ones that touch your life.`,
   },
   field: {
-    label: 'The signature field: one square for each executive action a pen undoes, one block for each order',
-    block: (n: number, title: string, total: number, done: number) =>
-      `${n > 0 ? `Order ${n}, ` : ''}${title}: ${actions(total)}, ${done} signed. Open the order.`,
-    /** The count under each block, in the page's unit. */
-    count: (total: number, done: number) => (done > 0 ? `${done}/${actions(total)}` : actions(total)),
     unbundled: 'Not yet in an order',
+  },
+  /** The tree of lit squares, the first screen of /undo (UNDOTREE1, 2026-11-18). */
+  tree: {
+    label: 'The thirteen signing orders, one rectangle each, one square for each executive action it undoes',
+    keyLabel: 'Themes. Press one to show only its executive actions.',
+    /** The count on every rectangle, in one form. */
+    count: (n: number) => `${n} ${n === 1 ? 'action' : 'actions'}`,
+    rect: (frame: string, n: number, signed: number) => `${frame}: ${actions(n)}, ${signed} signed. Show the order.`,
+    chip: (name: string, n: number) => `${name}: ${actions(n)}. Show only these.`,
+    /** The teaching line the popup leads with, built from the order's frame and its own line. */
+    teach: (frame: string, line: string, n: number, withOne: boolean) =>
+      `${frame}: one signature ${String(line).charAt(0).toLowerCase()}${String(line).slice(1)} ${n} ${n === 1 ? 'action' : 'actions'}${withOne ? ', this one among them' : ''}.`,
+    signedOn: (kind: string, date: string) => `${kind}, signed ${date}`,
+    bundled: 'Bundled with',
+    more: (n: number) => `and ${n} more, lit in the tree`,
+    close: 'Close',
+    prev: 'Previous',
+    next: 'Next',
+  },
+  /** The table of every standing executive action, under the tree. */
+  table: {
+    caption: 'Every executive action still standing',
+    shown: (n: number) => `${n} shown`,
+    inOrder: (frame: string) => `in ${frame}`,
+    inTheme: (name: string) => `in ${name}`,
+    showAll: (n: number) => `Show all ${n}`,
+    cols: { action: 'Action', order: 'Order', theme: 'Theme', kind: 'Kind', date: 'Signed', sign: 'Sign' },
+    sign: 'Sign',
+    signed: 'Signed',
+    /** The kind of document, one row at a time, keyed as pen.ts keys it. */
+    kind: { eo: 'Executive order', proc: 'Proclamation', memo: 'Memorandum', other: 'Other' } as Record<string, string>,
   },
   strip: {
     signedOf: (signed: number, total: number) => `${signed} of ${total} signed`,
@@ -82,39 +107,15 @@ export const COPY = {
     oldest: 'Oldest',
     bundle: 'By order',
   },
-  land: {
-    title: 'Who feels it',
-    intro: 'Every executive action, by who feels it. Tap a bar and the field and the orders narrow to it.',
-    more: (n: number) => `Show ${n} more`,
-    fewer: 'Show fewer',
-    countLabel: (pen: number) => `${pen}`,
-    // Read out by a screen reader for each bar, so the numbers are in words and not only in widths.
-    bar: (label: string, pen: number, signed: number) =>
-      pen === 1
-        ? `${label}: 1 executive action. You have ${signed > 0 ? 'signed' : 'not signed'} it. Show it.`
-        : `${label}: ${pen} executive actions. You have signed ${signed} of them. Show these.`,
-  },
+  /** The order's own actions, in the popup a square or a rectangle opens (UNDOTREE1, 2026-11-18). */
   forward: {
-    title: (n: number) => `${countWord(n)} ${n === 1 ? 'order' : 'orders'}, one afternoon`,
-    intro:
-      "The precedent is the other side's: one order on January 20, 2025 cancelled 78 orders and memoranda at once. These do the same, in the other direction. Open one to read what it bundles and where the country goes next.",
     sign: 'Sign this order',
     signed: 'Signed',
-    open: 'Read the order',
-    close: 'Close the order',
-    items: (n: number) => actions(n),
-    itemsFor: (hit: number, n: number, label: string) => `${hit} of ${actions(n)} for ${label}`,
-    noneFor: (label: string) => `No order touches ${label}.`,
-    undoes: (n: number) => `undoes ${actions(n)}`,
     draftShow: 'Draft the order',
     draftHide: 'Hide the draft',
     copy: 'Copy',
     copied: 'Copied',
     footnote: (n: number) => `${actions(n)}, one signature.`,
-  },
-  key: {
-    title: (n: number) => `${n} executive ${n === 1 ? 'action' : 'actions'}, by kind`,
-    intro: 'Every one is undone with a signature. The orders below bundle them.',
   },
   list: {
     title: 'Every executive action, one by one',
