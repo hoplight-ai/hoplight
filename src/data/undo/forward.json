@@ -2,6 +2,7 @@
   {
     "id": "civil-service",
     "title": "A civil service that serves the public",
+    "frame": "No loyalty test to serve",
     "purpose": "This order puts career public servants back to work answering the phone, processing claims and inspecting what needs inspecting. It ends the fireable-at-will job categories, the political sign-off on routine hiring and grants, the hiring freeze and the mass layoffs that cut about 317,000 federal workers. A veteran waiting on a benefit, a farmer waiting on a loan and a small business waiting on a permit feel it first, because the people who know the work are back at their desks. It also reopens the small agencies, from libraries to mediation services, that were cut to the legal minimum.",
     "issues": [
       "government-works"
@@ -88,6 +89,7 @@
   {
     "id": "equal-treatment",
     "title": "Equal treatment under the law",
+    "frame": "One law for everyone",
     "purpose": "This order sets one rule for federal agencies, contractors and schools: people are judged on what they do, and the same law protects everyone. It ends the shutdown of every federal diversity office, the rules that single out one group for federal recognition, and the dropping of disparate-impact enforcement, so civil-rights law is applied evenly again. A disabled worker, a tribal member, a Spanish speaker at a federal counter and a small contractor trying to win a bid feel it first. It also protects religious communities and offices that serve them on the same terms as everyone else.",
     "issues": [
       "equal-treatment",
@@ -139,6 +141,7 @@
   {
     "id": "citizenship-and-borders",
     "title": "Citizenship as the Constitution wrote it",
+    "frame": "Born here means American",
     "purpose": "This order sets the border and the immigration system on written rules and a fair hearing. It ends the denial of birthright citizenship, the use of a 1798 wartime law for deportations, the shutdown of the refugee program and the blanket entry bans on dozens of countries. Families waiting on a visa, a crop grower short of workers and a hospital recruiting nurses from abroad feel it first. It also drops the $100,000 fee on each new skilled worker, which has kept small employers and universities out of the program.",
     "issues": [
       "immigrants"
@@ -204,6 +207,7 @@
   {
     "id": "fair-prices",
     "title": "Fair prices for what families buy",
+    "frame": "No tax at the checkout",
     "purpose": "This order ends the tariff proclamations and wartime-style trade measures that raised prices on cars, lumber, furniture, drugs, steel and groceries. A family buying a truck, a builder pricing lumber and a family stocking up on groceries feel it first. It also lifts the bans on Canadian dairy, beer and vehicles and the order that pulled Canadian goods from federal purchasing. Future trade terms are then set through negotiated agreements with allies, in the open, with Congress at the table.",
     "issues": [
       "prices",
@@ -303,6 +307,7 @@
   {
     "id": "clean-air-water-land",
     "title": "Clean air and water for every county",
+    "frame": "No pass to pollute",
     "purpose": "This order restores the pollution limits and the protected land that were lifted by presidential action. It ends the two-year exemptions that let coal plants, chemical plants, copper smelters, taconite mines and medical sterilizers skip toxic air limits, and it returns the cut Bears Ears and Grand Staircase-Escalante monuments to their original size. A family living beside a coke oven plant, a hunter on public land and a fisher working a protected ocean monument feel it first. It also brings wetlands, river, forest and wildlife rules back under steady, published standards.",
     "issues": [
       "air-water",
@@ -420,6 +425,7 @@
   {
     "id": "allies-and-aid",
     "title": "America isn't a quitter",
+    "frame": "America isn't a quitter",
     "purpose": "America isn't a quitter. This order puts the United States back at the table in the treaties, councils, science panels and aid programs it helped build, including the dozens of bodies it quit in a few weeks. It ends the freeze on foreign aid and restores the policy that sets how development money is spent. Farmers selling abroad, scientists sharing data and a diplomat working a crisis feel it first, because partners can count on the American word again. Dues and treaty ratification still belong to Congress, and this order asks for them.",
     "issues": [
       "allies"
@@ -674,6 +680,7 @@
   {
     "id": "health-and-science",
     "title": "Health care and research families can trust",
+    "frame": "Keep politics out of medicine",
     "purpose": "This order puts medical advice and research back in the hands of scientists who publish their work and answer for it. It ends the political sign-off on agency scientific integrity rules and the cuts to the childhood vaccine schedule, including the split of the MMR shot. A parent scheduling a pediatric visit, a nurse on a hospital floor and a researcher waiting on a grant feel it first. It also restores safety planning for artificial intelligence and the software security standards for companies that sell to the federal government.",
     "issues": [
       "health",
@@ -726,6 +733,7 @@
   {
     "id": "service-members",
     "title": "Service members led with care",
+    "frame": "Our troops aren't props",
     "purpose": "This order keeps the Guard and the armed forces to their proper missions and keeps every person who is willing to serve eligible to do so. It ends the open-ended Guard deployments in American cities, the new Guard unit built to police them, and the pledge to defend a foreign country with no treaty or Senate vote. A reservist pulled from a civilian job, a military family and a veteran who wants the next generation to serve feel it first. The Defense Department keeps its statutory name until Congress says otherwise.",
     "issues": [
       "veterans"
@@ -758,6 +766,7 @@
   {
     "id": "schools-and-students",
     "title": "Schools and colleges open to every student",
+    "frame": "The school door stays open",
     "purpose": "This order keeps the Education Department doing the jobs the law gives it: delivering aid, enforcing civil rights in schools and running loan relief. It ends the transfer of its programs to other agencies, the threats to school funds over lessons, and the cut to loan forgiveness for public service workers. A student filling out financial aid forms, a teacher in a Title I school and a foreign student with a visa feel it first. It also stops federal pressure that tells colleges how to run accreditation and athletics.",
     "issues": [
       "schools"
@@ -799,6 +808,7 @@
   {
     "id": "checks-on-power",
     "title": "Government that answers to the law",
+    "frame": "Hands off the referees",
     "purpose": "This order keeps the Justice Department, the courts, the press and the ballot box outside the reach of any one president. It ends the use of security clearances to punish four law firms, the dismissal of seventeen inspectors general by email, and the orders directing investigations of named former officials. A voter registering, a reporter filing a request and a lawyer taking an unpopular case feel it first. It also returns the Smithsonian and national parks to the curators who run them, and it ends the grant cutoffs aimed at groups that speak to Congress.",
     "issues": [
       "checks-on-power"
@@ -858,6 +868,7 @@
   {
     "id": "safe-communities",
     "title": "Safe streets and ready disaster response",
+    "frame": "No town left on its own",
     "purpose": "This order keeps public safety local, accountable and funded for the next storm. It ends the plan to hand disaster response from the federal agency to the states, the council set up to shrink FEMA, and the override of local fire-rebuilding permits in Los Angeles. A town hit by a flood, a police chief working under a consent decree and a family in a high-crime neighborhood feel it first. It also replaces the federal directives on cartels, cash bail and city policing with plans worked out with state and local law enforcement.",
     "issues": [
       "public-safety"
@@ -902,6 +913,7 @@
   {
     "id": "fair-pay-and-voice",
     "title": "Fair pay and a voice at work",
+    "frame": "Your contract still counts",
     "purpose": "This order protects what working people earn and the right to bargain over it. It ends the orders that stripped union contract rights from most of the federal workforce, voided agreements signed in the weeks before an inauguration, and cancelled the federal contractor minimum wage. A mechanic at a federal facility, a contractor paid at the federal wage and a retiree watching a 401(k) feel it first. It also pulls private equity and crypto back out of the default retirement plan menu.",
     "issues": [
       "paycheck"
@@ -931,6 +943,7 @@
   {
     "id": "honest-markets",
     "title": "Honest rules for money and markets",
+    "frame": "Rules for Wall Street too",
     "purpose": "This order sets one clear standard for banks, brokers, crypto firms and companies that sell to government. It ends the blanket rule to repeal ten regulations for every new one, the pause on enforcing the law against foreign bribery, and the order scrapping antitrust coordination across agencies. A saver, a small bank and a business competing against a dominant supplier feel it first. Rules come back through notice and comment, with reasons published, so the next change is also open to challenge.",
     "issues": [
       "prices",

@@ -52,7 +52,9 @@ const PAGE_FILES = [
   'src/app/(main)/undo/all/page.tsx',
   'src/app/(main)/undo/UndoList.tsx',
   'src/app/(main)/undo/UndoAll.tsx',
-  'src/app/(main)/undo/IssueBars.tsx',
+  'src/app/(main)/undo/TreeOfSquares.tsx',
+  'src/app/(main)/undo/TreePopup.tsx',
+  'src/app/(main)/undo/UndoTable.tsx',
 ];
 
 test('penRows keeps only the pen bucket, and the merged data has rows in every other bucket to drop', async () => {
@@ -80,7 +82,7 @@ test('no component of /undo or /undo/all draws a bucket other than the pen', () 
   for (const f of PAGE_FILES) assert.doesNotMatch(read(f), nonPen, `${f} names a bucket a pen does not undo`);
 });
 
-test('the counts equal the pen rows: hero, key, bars and the link to the list', async () => {
+test('the counts equal the pen rows: hero, kinds, the tree and the link to the list', async () => {
   const { penRows, penKinds } = await pen();
   assert.equal(typeof penKinds, 'function', 'src/lib/undo/pen.ts exports penKinds');
   const rows = penRows(merged);
@@ -92,14 +94,10 @@ test('the counts equal the pen rows: hero, key, bars and the link to the list', 
   );
   assert.ok(kinds.every((k) => k.count > 0 && k.label), 'no empty kind, every kind named');
   assert.equal(COPY.hero.headline(13, 275), 'Thirteen signatures undo 275 executive actions.');
-  assert.equal(COPY.key.title(275), '275 executive actions, by kind');
   assert.equal(COPY.all.link(275), 'Open all 275 executive actions');
   assert.equal(COPY.all.intro(275), 'The 275 executive actions still standing, one row each, with the exact sentence that undoes each. Search them, filter them by who feels it, sort them.');
-  assert.equal(COPY.land.countLabel(41), '41');
-  assert.equal(
-    COPY.land.bar('Your health care', 7, 2),
-    'Your health care: 7 executive actions. You have signed 2 of them. Show these.',
-  );
+  assert.equal(COPY.tree.chip('The world', 82), 'The world: 82 executive actions. Show only these.');
+  assert.equal(COPY.table.shown(275), '275 shown');
 });
 
 test('every pen row still standing belongs to exactly one signing order', async () => {
@@ -155,12 +153,11 @@ test('the sort control orders as named: newest first by default, oldest first, b
 
 test('the copy says executive actions and nothing about Congress or the locked bucket', () => {
   for (const k of ['congress', 'thisYear', 'locked']) assert.ok(!(k in COPY), `COPY.${k} is gone`);
-  assert.ok(!('reconciliation' in COPY.key) && !('cra' in COPY.key), 'the Congress notes left the key');
+  assert.ok(!('key' in COPY), 'the key by kind, and the Congress notes it once carried, left /undo (UNDOTREE1)');
   const off = /five kinds|simple majority|sixty votes|sixty senators|nothing undoes|Congressional Review|a new rule for each/i;
   for (const [path, text] of copyStrings()) assert.doesNotMatch(text, off, `${path}: ${text}`);
   for (const [path, text] of [
-    ['hero.read', COPY.hero.read],
-    ['land.intro', COPY.land.intro],
+    ['tree.label', COPY.tree.label],
     ['cta.body', COPY.cta.body],
   ]) assert.match(text, /executive action/, `${path} says executive actions`);
 });
@@ -231,9 +228,8 @@ test('round 2: plain group names with the count beside them, no coined labels', 
 
 test('round 2: one count, the 275, on the link and the list; the ticks legend is gone', () => {
   assert.equal(COPY.all.link(275), 'Open all 275 executive actions');
-  assert.ok(!('legendTicks' in COPY.land), 'the ticks legend line is gone');
+  assert.ok(!('land' in COPY), 'the issue bars and their ticks legend are gone from /undo (UNDOTREE1)');
   assert.match(read('src/app/(main)/undo/page.tsx'), /COPY\.all\.link\(data\.penInForce\)/, 'the /undo link counts the standing rows');
-  assert.doesNotMatch(read('src/app/(main)/undo/IssueBars.tsx'), /undo-legend/, 'no legend under the bars');
 });
 
 const built = (name) => ['.next/server/app', '.next/server/app/(main)'].map((d) => join(ROOT, d, name)).find((p) => existsSync(p));
@@ -261,27 +257,30 @@ test('round 2, built /undo/all: the 275 are open with rows showing, the other 31
   assert.match(html, /class="undo-fchips-toggle"[^>]*aria-expanded="false"/, 'the issue filters sit behind one control');
 });
 
-test('round 2, built pages agree: the link, the chips and the bars count the same 275', { skip: noBuild }, () => {
+test('round 2, built pages agree: the link, the theme chips, the tree and the table count the same standing rows', { skip: noBuild }, () => {
   const undo = readFileSync(UNDO_HTML, 'utf8');
   const all = readFileSync(ALL_HTML, 'utf8');
   const n = standingOf();
   assert.ok(text(undo).includes(`Open all ${n} executive actions`), 'the link counts the standing rows');
   const total = Number(text(all).match(/the pen reached (\d+) in all/)[1]);
   assert.ok(!new RegExp(`\\b${total}\\b`).test(text(undo)), '/undo shows no second count');
-  const bars = new Map([...undo.matchAll(/undo-bar-name">([^<]+)<\/span>[\s\S]*?undo-bar-count"[^>]*>(\d+)</g)].map((m) => [m[1].replace(/&#x27;/g, "'"), Number(m[2])]));
-  const chips = new Map([...all.matchAll(/class="undo-fchip"[^>]*>([^<]+)<span class="undo-fchip-n">(\d+)</g)].map((m) => [m[1].replace(/&#x27;/g, "'"), Number(m[2])]));
-  assert.ok(bars.size >= 5 && chips.size >= 5);
-  for (const [label, n] of bars) assert.equal(chips.get(label), n, `${label}: bar ${n}, chip ${chips.get(label)}`);
+  const chips = [...undo.matchAll(/undo-chip-name">([^<]+)<\/span><span class="undo-chip-n[^"]*">(\d+)</g)].map((m) => [m[1], Number(m[2])]);
+  assert.equal(chips.length, 5, 'five theme chips');
+  assert.equal(chips.reduce((t, [, c]) => t + c, 0), n, 'the chips add up to the hero count');
+  assert.equal((undo.match(/class="undo-sq /g) ?? []).length, n, 'one square per standing row');
+  const rects = [...undo.matchAll(/undo-rect-count">(\d+) actions?</g)].map((m) => Number(m[1]));
+  assert.equal(rects.reduce((t, c) => t + c, 0), n, 'the rectangles add up to the hero count');
+  assert.ok(text(undo).includes(`${n} shown`), 'the table says how many it shows');
+  assert.equal((undo.match(/<tr[ >]/g) ?? []).length - 1, n, 'the table draws every standing row');
 });
 
-test('round 2, built /undo: the key is sideways bars with counts, no swatches, no stacked bar, no ticks line', { skip: noBuild }, () => {
+test('round 2, built /undo: no key by kind, no swatch bar, no ticks line; the table carries the kind', { skip: noBuild }, () => {
   const undo = readFileSync(UNDO_HTML, 'utf8');
-  assert.doesNotMatch(undo, /undo-keyswatch|undo-keybar/);
-  assert.doesNotMatch(text(undo), /how far your ticks have gone/);
-  const kinds = [...undo.matchAll(/undo-kind-name">([^<]+)<[\s\S]*?undo-kind-count">(\d+)</g)].map((m) => [m[1], Number(m[2])]);
-  assert.deepEqual(kinds.map(([l]) => l), ['Executive orders', 'Proclamations', 'Memoranda', 'Withdrawals', 'Other'].filter((l) => kinds.some(([k]) => k === l)));
-  assert.ok(kinds.length >= 4);
-  assert.equal(kinds.reduce((n, [, c]) => n + c, 0), Number(text(undo).match(/(\d+) executive actions, by kind/)[1]));
+  assert.doesNotMatch(undo, /undo-keyswatch|undo-keybar|undo-kind-name|undo-bar-name/);
+  assert.doesNotMatch(text(undo), /how far your ticks have gone|by kind/);
+  const kinds = new Set([...undo.matchAll(/<td class="c-kind">([^<]+)</g)].map((m) => m[1]));
+  for (const k of kinds) assert.ok(['Executive order', 'Proclamation', 'Memorandum', 'Other'].includes(k), `kind ${k}`);
+  assert.ok(kinds.size >= 3);
 });
 
 // ROUND 3 (2026-11-08): the second review failed round 2 on nine points.
@@ -305,9 +304,8 @@ test('round 3: withdrawals count under the document that issued them; no Withdra
 test('round 3: one unit, executive actions, everywhere; short sort labels; plain names', async () => {
   const { ISSUE_BY_KEY } = await import('../src/lib/undo/issues.ts');
   for (const [path, s] of copyStrings()) assert.doesNotMatch(s, /\bitems?\b/i, `${path}: ${s}`);
-  assert.equal(COPY.field.count(25, 0), '25 executive actions');
-  assert.equal(COPY.field.count(25, 3), '3/25 executive actions');
-  assert.ok(COPY.field.block(3, 'Citizenship as the Constitution wrote it', 18, 2).includes('18 executive actions, 2 signed'));
+  assert.equal(COPY.tree.count(25), '25 actions', 'one form for every rectangle\'s count (UNDOTREE1)');
+  assert.ok(COPY.tree.rect('Born here means American', 18, 2).includes('18 executive actions, 2 signed'));
   for (const s of Object.values(COPY.sort)) assert.ok(s.length <= 8, `sort label "${s}" fits a phone`);
   assert.equal(ISSUE_BY_KEY.allies.label, 'Allies, treaties and aid');
   // Whit's own words, kept: "America isn't a Quitter" (2026-10-19, quoted in hoplight-site/CLAUDE.md).
@@ -326,19 +324,18 @@ test('round 3: the issue filters sit behind the one control at every width; rows
   assert.match(css, /:is\(button, input, select, textarea\) \{ font-family: inherit; \}/, 'undo controls take the page font, never the browser default');
 });
 
-test('round 3, built pages: rows first, counts at the end of each bar, the unit under each block', { skip: noBuild }, () => {
+test('round 3, built pages: rows first, one count form on every rectangle, no items unit', { skip: noBuild }, () => {
   const undo = readFileSync(UNDO_HTML, 'utf8');
   const all = readFileSync(ALL_HTML, 'utf8');
   assert.doesNotMatch(text(all), /To undo \(/, 'no second heading over the list');
   assert.doesNotMatch(all, /class="undo-tag"/);
-  const bars = (undo.match(/class="undo-bar[ "]/g) ?? []).length;
-  const ends = (undo.match(/undo-bar-count[^"]*"[^>]*>[\d,]+<\/span><\/span><\/(button|div)>/g) ?? []).length;
-  assert.ok(bars >= 9, 'kind bars and issue bars render');
-  assert.equal(ends, bars, 'every bar ends in its count, inside the track');
   assert.doesNotMatch(text(undo), /Withdrawals/);
-  const blocks = (undo.match(/class="undo-block[ "]/g) ?? []).length;
-  const units = (undo.match(/undo-block-count">[^<]*executive actions?</g) ?? []).length;
-  assert.equal(units, blocks, 'each block says its count in executive actions');
+  const rects = (undo.match(/class="undo-rect[ "]/g) ?? []).length;
+  const counts = (undo.match(/undo-rect-count">\d+ actions?</g) ?? []).length;
+  const names = (undo.match(/undo-rect-frame">[^<]+</g) ?? []).length;
+  assert.ok(rects >= 13, 'thirteen rectangles');
+  assert.equal(counts, rects, 'each rectangle says its count in one form');
+  assert.equal(names, rects, 'each rectangle carries its frame name');
   assert.doesNotMatch(text(undo), /\b\d+ items?\b/, 'no "items" unit on /undo');
 });
 

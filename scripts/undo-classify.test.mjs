@@ -40,7 +40,8 @@ import { ISSUES, ISSUE_KEYS, ISSUE_BY_KEY } from '../src/lib/undo/issues.ts';
 import { applyIssues, groupByIssue, MAX_ISSUES_PER_ROW } from '../src/lib/undo/issues-merge.ts';
 import { forwardOrderText, forwardOrderView, resolveOrderItems } from '../src/lib/undo/forward-text.ts';
 import { issueBars } from '../src/lib/undo/progress.ts';
-import { colsFor, fieldBlocks, MAX_COLS } from '../src/lib/undo/field.ts';
+import { cellAt, fieldBlocks, nameLines, squarify, treeLayout, TREE_DESKTOP, TREE_PHONE } from '../src/lib/undo/field.ts';
+import { greyOf, SIGNED, SIGNED_EDGE, SIGNED_TINT, THEMES, THEME_BY_KEY, themeOfIssue, themeOfRow, tintOf } from '../src/lib/undo/themes.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (rel) => JSON.parse(readFileSync(join(ROOT, rel), 'utf8'));
@@ -764,6 +765,10 @@ test('forward.json: every order has a title, a purpose, one to three issues, rea
     assert.ok(typeof o.id === 'string' && o.id.length > 0 && !seenIds.has(o.id), `${at} has a unique id`);
     seenIds.add(o.id);
     assert.ok(typeof o.title === 'string' && o.title.trim().length > 0, `${at} has a title`);
+    // UNDOTREE1 (2026-11-18): every order carries the frame name its rectangle wears.
+    assert.ok(typeof o.frame === 'string' && o.frame.trim().length > 0 && o.frame.length <= 32, `${at} has a frame name of 32 characters or fewer`);
+    assert.ok(!BANNED_IN_HEADINGS.test(o.frame), `${at} frame says reverse, roll back or restore`);
+    assertCleanCopy([[`${at}.frame`, o.frame]], FORWARD_FILE);
     assert.ok(typeof o.purpose === 'string' && o.purpose.trim().length > 0, `${at} has a purpose`);
     assert.ok(Array.isArray(o.issues) && o.issues.length >= 1 && o.issues.length <= 3, `${at} has one to three issues`);
     for (const k of o.issues) assert.ok(ISSUE_KEYS.includes(k), `${at} issue ${k} is not in ISSUES`);
@@ -782,41 +787,32 @@ test('forward.json: every order has a title, a purpose, one to three issues, rea
   }
 });
 
-test('the new page copy follows the house rules: spelled heading, no reverse, roll back or restore in a heading', () => {
-  assert.equal(COPY.forward.title(12), 'Twelve orders, one afternoon');
-  assert.equal(COPY.forward.title(13), 'Thirteen orders, one afternoon');
-  assert.equal(COPY.forward.title(1), 'One order, one afternoon');
-  assert.equal(COPY.forward.title(21), '21 orders, one afternoon');
+test('the order copy left on the page follows the house rules: no reverse, roll back or restore', () => {
   for (const [path, text] of [
-    ['land.title', COPY.land.title],
-    ['forward.title(12)', COPY.forward.title(12)],
-    ['forward.title(13)', COPY.forward.title(13)],
     ['forward.draftShow', COPY.forward.draftShow],
     ['forward.sign', COPY.forward.sign],
+    ['tree.label', COPY.tree.label],
+    ['tree.bundled', COPY.tree.bundled],
   ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
-  // Executive actions only since 2026-11-08 (lane undopen1): every bar is pen items, one count each.
-  assert.ok(COPY.land.intro.startsWith('Every executive action, by who feels it.'));
-  assert.equal(COPY.land.countLabel(22), '22');
   // Round 3 (2026-11-08): the page's one unit is "executive actions", never "items".
-  assert.equal(COPY.forward.undoes(41), 'undoes 41 executive actions');
-  assert.equal(COPY.forward.undoes(1), 'undoes 1 executive action');
   assert.equal(COPY.forward.footnote(41), '41 executive actions, one signature.');
-  assert.equal(COPY.land.bar('Your health care', 3, 1), 'Your health care: 3 executive actions. You have signed 1 of them. Show these.');
-  assert.equal(COPY.land.bar('Your health care', 1, 0), 'Your health care: 1 executive action. You have not signed it. Show it.');
+  // UNDOTREE1 (2026-11-18): the issue bars, the order rows and the key by kind left the first page.
+  for (const k of ['land', 'key']) assert.ok(!(k in COPY), `COPY.${k} is gone with its section`);
+  for (const k of ['title', 'intro', 'open', 'close', 'itemsFor', 'noneFor', 'undoes']) assert.ok(!(k in COPY.forward), `COPY.forward.${k} is gone with the order rows`);
 });
 
-test('the signature field: every pen item sits in exactly one block, orders first, strays last', () => {
+test('the tree: every pen item sits in exactly one block, orders first, strays last', () => {
   const orders = [
-    { id: 'o1', title: 'One', issues: ['health'], ids: ['a', 'b', 'c'] },
+    { id: 'o1', title: 'One', frame: 'Frame one', issues: ['health'], ids: ['a', 'b', 'c'] },
     { id: 'o2', title: 'Two', issues: ['prices'], ids: ['d', 'x', 'b'] },
     { id: 'o3', title: 'Three', issues: ['allies'], ids: ['x'] },
   ];
   // 'x' is not a pen item (revoked already); 'e' is a pen item no order names; 'b' is named twice.
   const blocks = fieldBlocks(orders, ['a', 'b', 'c', 'd', 'e'], 'Not yet in an order');
-  assert.deepEqual(blocks.map((b) => [b.id, b.n, b.ids]), [
-    ['o1', 1, ['a', 'b', 'c']],
-    ['o2', 2, ['d']],
-    ['unbundled', 0, ['e']],
+  assert.deepEqual(blocks.map((b) => [b.id, b.n, b.frame, b.ids]), [
+    ['o1', 1, 'Frame one', ['a', 'b', 'c']],
+    ['o2', 2, 'Two', ['d']],
+    ['unbundled', 0, 'Not yet in an order', ['e']],
   ]);
   const all = blocks.flatMap((b) => b.ids);
   assert.equal(all.length, new Set(all).size, 'no id twice');
@@ -824,27 +820,126 @@ test('the signature field: every pen item sits in exactly one block, orders firs
   assert.deepEqual(fieldBlocks(orders, ['a'], 'x').map((b) => b.id), ['o1'], 'an order with nothing standing draws no block');
 });
 
-test('colsFor packs a block about 1.7 wide for 1 tall, between 2 and MAX_COLS columns', () => {
-  assert.equal(colsFor(0), 1);
-  assert.equal(colsFor(1), 2);
-  assert.equal(colsFor(6), 4);
-  assert.equal(colsFor(25), 7);
-  assert.equal(colsFor(83), MAX_COLS);
-  assert.equal(colsFor(1000), MAX_COLS);
+test('squarify tiles the whole area, largest first, with no box lost', () => {
+  const items = [{ k: 'a', v: 6 }, { k: 'b', v: 6 }, { k: 'c', v: 4 }, { k: 'd', v: 3 }, { k: 'e', v: 2 }, { k: 'f', v: 2 }, { k: 'g', v: 1 }];
+  const boxes = squarify(items, 0, 0, 600, 400);
+  assert.deepEqual(boxes.map((b) => b.k), ['a', 'b', 'c', 'd', 'e', 'f', 'g']);
+  const area = boxes.reduce((s, b) => s + b.w * b.h, 0);
+  assert.ok(Math.abs(area - 600 * 400) < 1e-6, 'the boxes fill the area exactly');
+  for (const b of boxes) {
+    assert.ok(Math.abs(b.w * b.h - (b.v / 24) * 600 * 400) < 1e-6, `${b.k} is sized by its value`);
+    assert.ok(b.x >= -1e-9 && b.y >= -1e-9 && b.x + b.w <= 600 + 1e-6 && b.y + b.h <= 400 + 1e-6, `${b.k} stays inside`);
+  }
 });
 
-test('the reshaped hero and order copy follows the house rules and spells the count', () => {
+test('nameLines wraps by whole words at the estimate width', () => {
+  assert.equal(nameLines("America isn't a quitter", 400, 15), 1);
+  assert.equal(nameLines("America isn't a quitter", 100, 15), 3);
+  assert.equal(nameLines('Rules for Wall Street too', 120, 13), 2);
+});
+
+// The real orders' sizes and frames, so the layout is pinned on the shape the page draws.
+const REAL = forwardData.map((o, i) => ({ id: o.id, n: i + 1, title: o.title, frame: o.frame, issues: o.issues, ids: Array.from({ length: [25, 13, 18, 29, 35, 81, 13, 7, 10, 16, 11, 6, 11][i] ?? 5 }, (_, k) => `${o.id}-${k}`) }));
+
+for (const [label, width, opts] of [['1440', 1276, TREE_DESKTOP], ['390', 376, TREE_PHONE]]) {
+  test(`the tree at ${label}: every square in one rectangle, all one size, inside its rectangle, no sliver, every name held`, () => {
+    const L = treeLayout(REAL, width, opts);
+    assert.equal(L.rects.length, REAL.length, 'one rectangle per order');
+    const ids = L.rects.flatMap((r) => r.ids);
+    assert.equal(ids.length, REAL.reduce((s, b) => s + b.ids.length, 0), 'the squares are the count');
+    assert.equal(new Set(ids).size, ids.length, 'no square twice');
+    assert.equal(L.cell, opts.cell, 'one square size across the whole tree');
+    for (const r of L.rects) {
+      assert.ok(r.x >= -0.5 && r.y >= -0.5 && r.x + r.w <= width + 0.5 && r.y + r.h <= L.height + 0.5, `${r.id} inside the tree`);
+      assert.ok(r.w >= opts.minW - 0.5, `${r.id} is ${Math.round(r.w)}px wide, a sliver`);
+      assert.ok(Math.max(r.w / r.h, r.h / r.w) <= 4, `${r.id} is ${Math.round(r.w)} by ${Math.round(r.h)}, a sliver`);
+      const last = cellAt(r, r.ids.length - 1, opts);
+      assert.ok(last.x + opts.cell <= r.w - opts.gutter / 2 - opts.pad + 0.5, `${r.id}: squares run past its right edge`);
+      assert.ok(last.y + opts.cell <= r.h - opts.gutter / 2 - opts.pad + 0.5, `${r.id}: squares run past its bottom edge`);
+      assert.ok(r.labelH >= opts.nameLine + opts.countLine, `${r.id} keeps room for its name and count`);
+    }
+    // Squares never overlap: their positions are unique across the tree.
+    const at = new Set(L.rects.flatMap((r) => r.ids.map((_, k) => { const c = cellAt(r, k, opts); return `${Math.round(r.x + c.x)},${Math.round(r.y + c.y)}`; })));
+    assert.equal(at.size, ids.length, 'no two squares in one place');
+  });
+}
+
+test('the five themes: every issue key in exactly one theme, five hues, tints of their own hue', () => {
+  assert.equal(THEMES.length, 5);
+  const seen = THEMES.flatMap((t) => t.issues);
+  assert.deepEqual([...seen].sort(), [...ISSUE_KEYS].sort(), 'every issue key is in a theme and none is in two');
+  assert.equal(new Set(seen).size, seen.length);
+  assert.deepEqual(THEMES.map((t) => [t.key, t.name, t.hex]), [
+    ['world', 'The world', '#234C8A'],
+    ['money', 'Money and work', '#EDBA42'],
+    ['land', 'Health, land and science', '#3A8C5A'],
+    ['people', 'Who counts', '#3E1238'],
+    ['gov', 'Government and safety', '#E57B5E'],
+  ]);
+  // Five grey steps about evenly spread (35, 71, 110, 151, 188), at least 33 apart: who counts darkest,
+  // then the world, health, government, money.
+  const greys = ['people', 'world', 'land', 'gov', 'money'].map((k) => greyOf(THEME_BY_KEY[k].hex));
+  for (let i = 1; i < greys.length; i++) assert.ok(greys[i] - greys[i - 1] >= 33, `grey steps ${greys.join(', ')} are 33 apart`);
+  // A signed square is hollow: white inside, a navy edge. It differs from every theme square by
+  // shape, so it survives grayscale and colour blindness; its edge is far from the money gold in grey.
+  assert.equal(SIGNED, '#FFFFFF');
+  assert.equal(SIGNED_EDGE, '#0F1B2D');
+  assert.ok(greyOf(THEME_BY_KEY.money.hex) - greyOf(SIGNED_EDGE) >= 100, 'the signed edge and money read apart in grey');
+  for (const k of ISSUE_KEYS) assert.ok(THEME_BY_KEY[themeOfIssue(k)], `${k} has a theme`);
+  assert.equal(themeOfRow({ issues: ['veterans', 'allies'] }), 'gov', 'the first issue decides');
+  assert.equal(themeOfRow({ issues: [] }, ['prices']), 'money', 'an untagged action takes its order\'s theme');
+  assert.equal(themeOfRow({}), 'gov', 'and every action gets one');
+  assert.equal(tintOf('#FFFFFF', 0.24), '#FFFFFF');
+  // The page's CSS carries each hue and its tint, never a grey.
+  const css = readFileSync(join(ROOT, 'src/app/globals.css'), 'utf8');
+  assert.deepEqual(greys, [35, 71, 110, 151, 188]);
+  // A tile is white, marked by the line-card edge, never a tint (grey is for table rules only).
+  assert.ok(/\.undo-rect \{[^}]*\}/.test(css) && !/\.undo-rect \{[^}]*background/.test(css), 'a tile has no ground');
+  assert.ok(css.includes('.undo-rect::before { content: ""; position: absolute; inset: 4px; border: 1px solid var(--line-card);'), 'a tile is marked by the line-card edge');
+  for (const t of THEMES) {
+    assert.ok(css.includes(`.t-${t.key} { background-color: ${t.hex}; }`), `the CSS draws ${t.key} in ${t.hex}`);
+    assert.ok(css.includes(`.undo-sq.is-tint.t-${t.key} { background-color: ${t.tint}; }`), `the CSS tints ${t.key} to ${t.tint}`);
+  }
+  assert.ok(css.includes(`.undo-sq.is-signed { background-color: ${SIGNED}; box-shadow: inset 0 0 0 2px ${SIGNED_EDGE}; }`), 'a signed square is hollow with a navy edge');
+  assert.ok(css.includes(`.undo-sq.is-signed.is-tint { background-color: ${SIGNED}; box-shadow: inset 0 0 0 2px ${SIGNED_TINT}; }`), `a signed square steps back to a ${SIGNED_TINT} edge`);
+  assert.ok(!/\.undo-sq\.is-signed \{ background-color: var\(--gold\)/.test(css), 'signed squares no longer share the gold');
+});
+
+test('the frame names: thirteen, one per order, America isn\'t a quitter kept as Whit wrote it', () => {
+  const frames = forwardData.map((o) => o.frame);
+  assert.equal(frames.length, 13);
+  assert.equal(new Set(frames).size, 13, 'no two orders share a frame');
+  assert.equal(forwardData.find((o) => o.id === 'allies-and-aid').frame, "America isn't a quitter");
+  // The six the brief kept from the mockups, and no twin of "One law for everyone".
+  for (const f of ['No pass to pollute', "Our troops aren't props", 'Born here means American', 'Rules for Wall Street too', 'No tax at the checkout', 'One law for everyone']) {
+    assert.ok(frames.includes(f), `${f} is on a rectangle`);
+  }
+  for (const f of ['No one is above the law', 'A deal is a deal', 'America shows up for work', 'Medicine answers to doctors', 'Every kid gets a seat', 'Help arrives when disaster hits']) {
+    assert.ok(!frames.includes(f), `${f} was redrafted`);
+  }
+});
+
+test('the hero, the tree and the table copy follows the house rules and spells the count', () => {
   assert.equal(COPY.hero.headline(13, 275), 'Thirteen signatures undo 275 executive actions.');
   assert.equal(COPY.hero.headline(21, 1), '21 signatures undo 1 executive action.');
+  assert.equal(COPY.hero.cta(13), 'Sign all thirteen');
   assert.equal(COPY.hero.count(3, 287), '3 of 287 signed');
-  assert.equal(COPY.forward.items(1), '1 executive action');
-  assert.equal(COPY.forward.items(25), '25 executive actions');
-  assert.equal(COPY.forward.itemsFor(4, 25, 'Veterans and troops'), '4 of 25 executive actions for Veterans and troops');
-  assert.ok(COPY.field.block(3, 'Citizenship as the Constitution wrote it', 18, 2).startsWith('Order 3, Citizenship'));
-  assert.ok(COPY.field.block(0, 'Not yet in an order', 2, 0).startsWith('Not yet in an order'));
+  assert.ok(!('read' in COPY.hero), 'no how-to sentence under the headline');
+  assert.equal(COPY.tree.count(81), '81 actions');
+  assert.equal(COPY.tree.count(1), '1 action');
+  assert.equal(
+    COPY.tree.teach('Rejoins the treaties, councils, science panels and aid programs America quit.', 81, true),
+    'One signature rejoins the treaties, councils, science panels and aid programs America quit. 81 actions, this one among them.',
+  );
+  assert.equal(COPY.tree.teach('Ends the pollution exemptions.', 35, false), 'One signature ends the pollution exemptions. 35 actions.');
+  assert.equal(COPY.tree.more(77), 'and 77 more');
+  assert.equal(COPY.tree.rect('No pass to pollute', 35, 2), 'No pass to pollute: 35 executive actions, 2 signed. Show the order.');
+  assert.equal(COPY.table.shown(275), '275 shown');
+  assert.equal(COPY.table.showAll(275), 'Show all 275');
+  assert.deepEqual(Object.values(COPY.table.cols), ['Action', 'Order', 'Theme', 'Kind', 'Signed', 'Sign']);
   for (const [path, text] of [
     ['hero.headline(13, 275)', COPY.hero.headline(13, 275)],
-    ['hero.cta', COPY.hero.cta],
+    ['hero.cta(13)', COPY.hero.cta(13)],
     ['list.title', COPY.list.title],
     ['issues.who', COPY.issues.who],
   ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
@@ -863,15 +958,12 @@ test('no curated row is a twin of a Federal Register row (counted 2026-10-19: 19
   assert.deepEqual(rowsFromFederalRegister({ results: [{ ...FIXTURE.results[0], document_number: 'R1-2025-02005' }] }, 'executive_order'), []);
 });
 
-test('the key, the all page and the bar filter copy follows the house rules', () => {
-  assert.equal(COPY.key.title(275), '275 executive actions, by kind');
+test('the all page link and list copy follows the house rules', () => {
   assert.equal(COPY.all.link(275), 'Open all 275 executive actions');
-  assert.equal(COPY.land.more(11), 'Show 11 more');
   assert.equal(COPY.list.showMore(25, 262), 'Show 25 more of 262');
   assert.equal(COPY.list.showMore(12, 12), 'Show the last 12');
   for (const [path, text] of [
-    ['key.title', COPY.key.title(275)],
     ['all.title', COPY.all.title],
-    ['land.title', COPY.land.title],
+    ['table.caption', COPY.table.caption],
   ]) assert.ok(!BANNED_IN_HEADINGS.test(text), `${path} says reverse, roll back or restore`);
 });

@@ -66,6 +66,9 @@ export interface ForwardOrder {
   id: string;
   /** Short, forward-looking, no "restore" or "reverse" in the title. */
   title: string;
+  /** The frame name on its rectangle in the tree (UNDOTREE1, 2026-11-18). "America isn't a quitter"
+   *  is Whit's (2026-10-19); the other twelve are proposals. */
+  frame: string;
   /** One line, plain, what the order ends or rejoins: the words on its row before it opens. */
   line: string;
   /** One paragraph, plain, what the country gets. */

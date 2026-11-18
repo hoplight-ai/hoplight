@@ -16,6 +16,8 @@ type OrderLike = Pick<ForwardOrder, 'title' | 'purpose' | 'items'>;
 export interface ForwardOrderView {
   id: string;
   title: string;
+  /** The frame name on the order's rectangle; the title when the order carries none. */
+  frame: string;
   line: string;
   purpose: string;
   issues: IssueKey[];
@@ -46,6 +48,7 @@ export function forwardOrderView<R extends OrderRow>(order: ForwardOrder, rows: 
   return {
     id: order.id,
     title: order.title,
+    frame: order.frame ?? order.title,
     line: order.line,
     purpose: order.purpose,
     issues: order.issues,
