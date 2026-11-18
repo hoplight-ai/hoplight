@@ -224,6 +224,26 @@ test('undo card: the framed card draws the pen mark, not the field grid, at the 
   framed(toolCard(t, FONTS), 'undo', t.brand);
 });
 
+// Round three (UNDOPEN2, 2026-11-17): the signature line under the stroke was navy at 35% opacity, which
+// draws grey, the only grey mark on the card. Whit, 2026-11-07, on grey marks: "it must die". On the card
+// it is a solid light tint of the gold, and nothing in the card's mark is drawn at a reduced opacity or in
+// a colour without hue.
+test('undo card: no grey mark; the signature line is a light tint of the gold', () => {
+  const svg = decode(walk(toolCard(TOOL_BY_SLUG.undo, FONTS)).els.filter(fieldPicture)[0].props.src);
+  assert.doesNotMatch(svg, /(stroke|fill)-opacity=/, 'nothing drawn see-through, which reads as grey on white');
+  const line = svg.match(/<path d="M20 216 H252" stroke="(#[0-9A-Fa-f]{6})"/);
+  assert.ok(line, 'the signature line is still drawn where it was');
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(line[1].slice(i, i + 2), 16));
+  assert.ok(r > g && g > b && r - b >= 60, `${line[1]} is a warm gold tint, not a grey`);
+  assert.ok(r >= 0xE0, `${line[1]} is light`);
+  for (const m of svg.matchAll(/(?:stroke|fill)="(#[0-9A-Fa-f]{6})"/g)) {
+    const [R, G, B] = [1, 3, 5].map((i) => parseInt(m[1].slice(i, i + 2), 16));
+    const white = R === 255 && G === 255 && B === 255;
+    const navy = m[1].toUpperCase() === '#0F1B2D';
+    assert.ok(white || navy || Math.max(R, G, B) - Math.min(R, G, B) >= 40, `${m[1]} is a grey`);
+  }
+});
+
 // Round two, fix 2: the navy cap sat apart from the gold nib and read as a separate block. On the card a
 // navy barrel runs straight on from the nib's top edge (y -82 in the pen's own frame), as wide as the nib,
 // so the pen is one object, and every corner of it stays inside the mark's 280 square (the old cap's

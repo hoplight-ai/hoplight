@@ -68,9 +68,15 @@ export const CARD_MARK_SCALE = 1.5;
  *  pen's navy cap sat 4 apart from its gold nib with nothing between them and read as a separate block,
  *  and its far corner was cut off by the square's edge. On the card a navy barrel as wide as the nib runs
  *  straight on from the nib's top edge, so the pen is one object and stays inside the square. The stroke
- *  is untouched. The tile's mark stays as approved (scripts/tool-marks.test.mjs pins it by hash). */
+ *  is untouched. Round three, the same day: the signature line under the stroke was navy at 35% opacity,
+ *  which draws grey, the only grey mark on the card (Whit, 2026-11-07, on grey marks: "it must die"); on
+ *  the card it is a solid light tint of the fill gold #D4950A, 40% gold on white. The tile's mark stays as
+ *  approved (scripts/tool-marks.test.mjs pins it by hash). */
 const CARD_EDITS: Readonly<Record<string, readonly [string, string][]>> = {
-  undo: [['<rect x="-24" y="-136" width="48" height="50" rx="9" fill="#0F1B2D"/>', '<rect x="-22" y="-114" width="44" height="38" rx="8" fill="#0F1B2D"/>']],
+  undo: [
+    ['<rect x="-24" y="-136" width="48" height="50" rx="9" fill="#0F1B2D"/>', '<rect x="-22" y="-114" width="44" height="38" rx="8" fill="#0F1B2D"/>'],
+    ['<path d="M20 216 H252" stroke="#0F1B2D" stroke-opacity="0.35"', '<path d="M20 216 H252" stroke="#EED59D"'],
+  ],
 };
 
 /** The mark a framed link-preview card draws, as a standalone SVG the card renderer can load, or null when
