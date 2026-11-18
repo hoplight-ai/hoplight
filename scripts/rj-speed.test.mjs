@@ -151,7 +151,7 @@ test('2b. the list marks each headline whose full reading is held, and fills a m
   const items = await lib.markHeld([
     { url: 'https://www.example.com/news/raskin-hearing', title: 'Raskin opens the hearing' },
     { url: 'https://example.com/other', title: 'Another', reading: { position: 70, verdict: 'justice' } },
-  ], d.store);
+  ], d.store, new Date('2026-11-10T16:00:00Z'));
   assert.equal(items[0].held.read_at, '2026-11-10T15:00:00.000Z');
   assert.equal(items[0].reading.position, 24);
   assert.equal(items[0].reading.verdict, 'retribution');
