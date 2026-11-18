@@ -37,6 +37,8 @@ export default async function Page() {
   return (
     <div className={newsreader.variable}>
       <RevengeOrJustice items={feed.body.items.map(cardItem)} source={feed.source} />
+      {/* One line to the spot's page (lane RJPAGE1, 2026-11-17). */}
+      <div className="rj"><div className="rj-wrap" style={{ paddingBottom: 0 }}><p className="rj-lede"><a href="/revenge-or-justice/spot">Watch the 45-second spot</a></p></div></div>
       {/* The usage note is already in the tool's own foot line, so the box leaves it out. */}
       <ToolFeedback tool="revenge-or-justice" note={false} align="rj" />
     </div>

@@ -1,0 +1,63 @@
+/* The spot page (/revenge-or-justice/spot, lane RJPAGE1, 2026-11-17). Rides on the tool's own stylesheet
+   (revenge-or-justice.css, scoped under .rj) for tokens, type, the filled button and the copy button; this file
+   only lays out what that one does not have. No new fonts or colours. */
+.rj-spot .spot-film{position:relative;margin-top:var(--s4);border-radius:6px;overflow:hidden;background:var(--ink);box-shadow:0 0 0 1px var(--rule)}
+.rj-spot video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:var(--ink)}
+/* The cover before the first play: the whole poster and one play button, so the paused control bar never
+   sits over the scores or the mark. */
+.rj-spot .spot-cover{position:absolute;inset:0;display:block;width:100%;height:100%;padding:0;border:0;background:none;cursor:pointer}
+.rj-spot .spot-cover img{display:block;width:100%;height:100%;object-fit:cover}
+.rj-spot .spot-play{position:absolute;left:calc(50% + 40px);bottom:20px;display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px 0 12px;border:1px solid var(--ink);border-radius:20px;background:var(--white);color:var(--ink);font-size:15px;font-weight:500;line-height:1;transition:transform .15s ease-out}
+.rj-spot .spot-play svg{flex:none}
+.rj-spot .spot-len{color:var(--stone);font-weight:400;font-variant-numeric:tabular-nums lining-nums}
+.rj-spot .spot-cover:focus-visible{outline:none;box-shadow:inset 0 0 0 3px var(--gold)}
+@media (hover:hover){.rj-spot .spot-cover:hover .spot-play{transform:scale(1.06)}}
+@media (prefers-reduced-motion:reduce){.rj-spot .spot-play{transition:none}}
+.rj-spot .dl-note{display:block;font-size:14px}
+.rj-spot .spot-head{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);flex-wrap:wrap;padding:var(--s3) 0 0}
+.rj-spot .spot-head h1{font-family:var(--font-display);font-size:clamp(26px,1.1rem + 1.4vw,34px);font-weight:600;letter-spacing:-.02em;line-height:1.12;max-width:20ch}
+.rj-spot .spot-head .rj-j{color:var(--gold-deep)}
+.rj-spot a.rj-btn{display:inline-flex;align-items:center;border-bottom:0;text-decoration:none;color:var(--ink)}
+@media (hover:hover){.rj-spot a.rj-btn:hover{background:#e8a820}}
+.rj-spot .spot-go{flex:none}
+
+/* Downloads: platform, what it is with its real size, the link. One row each. */
+.rj-spot .dls{list-style:none;margin-top:var(--s3);border-top:1px solid var(--rule2)}
+.rj-spot h2{max-width:none}
+.rj-spot .dls-h{font-size:16px;font-weight:500;margin-top:var(--s5)}
+.rj-spot .dls-more{margin-top:var(--s2)}
+.rj-spot .dl{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,1fr) auto;align-items:center;column-gap:var(--s3);padding:var(--s1) 0;border-bottom:1px solid var(--rule2);min-height:56px}
+.rj-spot .dl-for{font-weight:500}
+.rj-spot .dl-what{color:var(--stone);font-size:15px;font-variant-numeric:tabular-nums lining-nums}
+.rj-spot .dl-get{font-size:14px;font-weight:500;border:1px solid var(--rule);border-radius:4px;padding:9px 14px;min-height:44px;display:inline-flex;align-items:center;justify-self:end}
+@media (hover:hover){.rj-spot .dl-get:hover{border-color:var(--ink);background:var(--hover)}}
+.rj-spot .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Draft posts. */
+.rj-spot .posts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s4);margin-top:var(--s4)}
+.rj-spot .post{display:flex;flex-direction:column;padding-top:var(--s2);border-top:2px solid var(--ink)}
+.rj-spot .post h3{font-size:18px;font-weight:500;display:flex;align-items:baseline;gap:var(--s1)}
+.rj-spot .draft{font-size:13px;font-weight:400;color:var(--stone);letter-spacing:.02em}
+.rj-spot .post-t{font-size:16px;line-height:1.6;margin-top:var(--s1);flex:1;user-select:text;-webkit-user-select:text}
+.rj-spot .post-n{font-size:13px;color:var(--stone);margin-top:var(--s2);font-variant-numeric:tabular-nums lining-nums}
+.rj-spot .post .copy{align-self:flex-start;min-height:44px;margin-top:var(--s1)}
+
+/* Substack steps. */
+.rj-spot .steps{margin-top:var(--s3);padding-left:1.4em;max-width:var(--measure)}
+.rj-spot .steps li{padding-left:var(--s1);margin-top:var(--s2);line-height:1.55}
+.rj-spot .steps li::marker{color:var(--gold-deep);font-weight:600}
+
+@media (max-width:720px){
+  .rj-spot .spot-film{margin:0 calc(-1 * var(--s2));border-radius:0}
+  .rj-spot .spot-play{left:calc(50% + 10px);bottom:3px;height:30px;padding:0 11px 0 9px;gap:6px;font-size:13px;border-radius:15px}
+  .rj-spot .spot-play svg{width:12px;height:12px}
+  .rj-spot .rj-foot a{display:inline-flex;align-items:center;min-height:44px}
+  .rj-spot .spot-head{flex-direction:column;align-items:stretch;gap:var(--s2)}
+  .rj-spot .spot-head .rj-btn{align-self:flex-start;font-size:15px}
+  .rj-spot .posts{grid-template-columns:1fr;gap:var(--s5)}
+  .rj-spot .dl{grid-template-columns:minmax(0,1fr) auto;row-gap:2px;padding:var(--s2) 0}
+  .rj-spot .dl-for{grid-column:1}
+  .rj-spot .dl-what{grid-column:1;grid-row:2;font-size:14px}
+  .rj-spot .dl-get{grid-column:2;grid-row:1/3}
+  .rj-spot h2{margin-top:var(--s6)}
+}
