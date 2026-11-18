@@ -40,13 +40,11 @@ export const metadata: Metadata = {
   },
 };
 
-function sizeOf(name: string): string | null {
-  try {
-    const bytes = fs.statSync(path.join(process.cwd(), 'public', DIR, name)).size;
-    return `${(bytes / 1_000_000).toFixed(1)} MB`;
-  } catch {
-    return null;
-  }
+// A missing file fails the build rather than drawing a row with no size: the build runs from the repo root
+// (npm run build, and Vercel), so the path is read from there.
+function sizeOf(name: string): string {
+  const bytes = fs.statSync(path.join(process.cwd(), 'public', DIR, name)).size;
+  return `${(bytes / 1_000_000).toFixed(1)} MB`;
 }
 
 type Cut = { platform: string; file: string; shape: string; length: string; note?: string };
@@ -92,7 +90,7 @@ function DownloadRow({ c }: { c: Cut }) {
       <span className="dl-for">{c.platform}</span>
       <span className="dl-what">
         {c.length}, {c.shape}
-        {size ? <>, {size}</> : null}
+        , {size}
         {c.note ? <span className="dl-note">{c.note}</span> : null}
       </span>
       <a className="dl-get" href={`${DIR}/${c.file}`} download={c.file}>
