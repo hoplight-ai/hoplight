@@ -41,7 +41,7 @@ import { applyIssues, groupByIssue, MAX_ISSUES_PER_ROW } from '../src/lib/undo/i
 import { forwardOrderText, forwardOrderView, resolveOrderItems } from '../src/lib/undo/forward-text.ts';
 import { issueBars } from '../src/lib/undo/progress.ts';
 import { cellAt, fieldBlocks, nameLines, squarify, treeLayout, TREE_DESKTOP, TREE_PHONE } from '../src/lib/undo/field.ts';
-import { greyOf, SIGNED, SIGNED_RING, SIGNED_TINT, THEMES, THEME_BY_KEY, themeOfIssue, themeOfRow, tintOf } from '../src/lib/undo/themes.ts';
+import { greyOf, SIGNED, SIGNED_EDGE, SIGNED_TINT, THEMES, THEME_BY_KEY, themeOfIssue, themeOfRow, tintOf } from '../src/lib/undo/themes.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = (rel) => JSON.parse(readFileSync(join(ROOT, rel), 'utf8'));
@@ -870,18 +870,21 @@ test('the five themes: every issue key in exactly one theme, five hues, tints of
   assert.deepEqual([...seen].sort(), [...ISSUE_KEYS].sort(), 'every issue key is in a theme and none is in two');
   assert.equal(new Set(seen).size, seen.length);
   assert.deepEqual(THEMES.map((t) => [t.key, t.name, t.hex]), [
-    ['world', 'The world', '#275497'],
-    ['money', 'Money and work', '#EAB73E'],
-    ['land', 'Health, land and science', '#3F9461'],
-    ['people', 'Who counts', '#521A4A'],
+    ['world', 'The world', '#234C8A'],
+    ['money', 'Money and work', '#EDBA42'],
+    ['land', 'Health, land and science', '#3A8C5A'],
+    ['people', 'Who counts', '#3E1238'],
     ['gov', 'Government and safety', '#E57B5E'],
   ]);
-  // Five distinct grey steps, at least 25 apart: who counts darkest, then the world, health, government, money.
+  // Five grey steps about evenly spread (35, 71, 110, 151, 188), at least 33 apart: who counts darkest,
+  // then the world, health, government, money.
   const greys = ['people', 'world', 'land', 'gov', 'money'].map((k) => greyOf(THEME_BY_KEY[k].hex));
-  for (let i = 1; i < greys.length; i++) assert.ok(greys[i] - greys[i - 1] >= 25, `grey steps ${greys.join(', ')} are 25 apart`);
-  // A signed square is navy with a gold ring, never the money gold: far apart in grey too.
-  assert.equal(SIGNED, '#0F1B2D');
-  assert.ok(greyOf(THEME_BY_KEY.money.hex) - greyOf(SIGNED) >= 100, 'signed and money read apart in grey');
+  for (let i = 1; i < greys.length; i++) assert.ok(greys[i] - greys[i - 1] >= 33, `grey steps ${greys.join(', ')} are 33 apart`);
+  // A signed square is hollow: white inside, a navy edge. It differs from every theme square by
+  // shape, so it survives grayscale and colour blindness; its edge is far from the money gold in grey.
+  assert.equal(SIGNED, '#FFFFFF');
+  assert.equal(SIGNED_EDGE, '#0F1B2D');
+  assert.ok(greyOf(THEME_BY_KEY.money.hex) - greyOf(SIGNED_EDGE) >= 100, 'the signed edge and money read apart in grey');
   for (const k of ISSUE_KEYS) assert.ok(THEME_BY_KEY[themeOfIssue(k)], `${k} has a theme`);
   assert.equal(themeOfRow({ issues: ['veterans', 'allies'] }), 'gov', 'the first issue decides');
   assert.equal(themeOfRow({ issues: [] }, ['prices']), 'money', 'an untagged action takes its order\'s theme');
@@ -889,12 +892,16 @@ test('the five themes: every issue key in exactly one theme, five hues, tints of
   assert.equal(tintOf('#FFFFFF', 0.24), '#FFFFFF');
   // The page's CSS carries each hue and its tint, never a grey.
   const css = readFileSync(join(ROOT, 'src/app/globals.css'), 'utf8');
+  assert.deepEqual(greys, [35, 71, 110, 151, 188]);
+  // A tile is white, marked by the line-card edge, never a tint (grey is for table rules only).
+  assert.ok(/\.undo-rect \{[^}]*\}/.test(css) && !/\.undo-rect \{[^}]*background/.test(css), 'a tile has no ground');
+  assert.ok(css.includes('.undo-rect::before { content: ""; position: absolute; inset: 4px; border: 1px solid var(--line-card);'), 'a tile is marked by the line-card edge');
   for (const t of THEMES) {
     assert.ok(css.includes(`.t-${t.key} { background-color: ${t.hex}; }`), `the CSS draws ${t.key} in ${t.hex}`);
     assert.ok(css.includes(`.undo-sq.is-tint.t-${t.key} { background-color: ${t.tint}; }`), `the CSS tints ${t.key} to ${t.tint}`);
   }
-  assert.ok(css.includes(`.undo-sq.is-signed { background-color: ${SIGNED}; box-shadow: inset 0 0 0 2px ${SIGNED_RING}; }`), 'a signed square is navy with a gold ring');
-  assert.ok(css.includes(`.undo-sq.is-signed.is-tint { background-color: ${SIGNED_TINT}; }`), `a signed square steps back to ${SIGNED_TINT}`);
+  assert.ok(css.includes(`.undo-sq.is-signed { background-color: ${SIGNED}; box-shadow: inset 0 0 0 2px ${SIGNED_EDGE}; }`), 'a signed square is hollow with a navy edge');
+  assert.ok(css.includes(`.undo-sq.is-signed.is-tint { background-color: ${SIGNED}; box-shadow: inset 0 0 0 2px ${SIGNED_TINT}; }`), `a signed square steps back to a ${SIGNED_TINT} edge`);
   assert.ok(!/\.undo-sq\.is-signed \{ background-color: var\(--gold\)/.test(css), 'signed squares no longer share the gold');
 });
 

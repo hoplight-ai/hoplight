@@ -27,15 +27,18 @@ export function tintOf(hex: string, a: number): string {
 
 // The tint is 24 percent of the hue; gold's is 42 percent, because a paler gold reads as cream and
 // the site refuses a cream ground (scripts/no-cream-test.mjs: a warm tint lighter than 85 percent).
-// The five hues sit on five grey steps (Rec. 601 luma 48, 78, 117, 151, 184; round two of UNDOTREE1,
-// 2026-11-18), so the tree still reads in grayscale: who counts darkest, money lightest.
+// The five hues sit on five grey steps about evenly spread (Rec. 601 luma 35, 71, 110, 151, 188;
+// round three of UNDOTREE1, 2026-11-18), so the tree still reads in grayscale: who counts darkest,
+// money lightest.
 const T = (key: ThemeKey, name: string, hex: string, issues: IssueKey[], a = 0.24): Theme => ({ key, name, hex, tint: tintOf(hex, a), issues });
 
-/** A signed square is navy with a fill-gold inner outline, so it never reads as a money square,
- *  in colour or in grey. When it steps back, the navy goes to 36 percent and keeps the outline. */
-export const SIGNED = '#0F1B2D';
-export const SIGNED_RING = '#D4950A';
-export const SIGNED_TINT = tintOf(SIGNED, 0.36);
+/** A signed square is hollow: white inside with a 2px navy edge (round three of UNDOTREE1,
+ *  2026-11-18). It differs from every theme square by shape, so it survives grayscale and colour
+ *  blindness; a navy fill read the same as the who-counts plum in grey. When it steps back, the
+ *  edge goes to 36 percent navy. */
+export const SIGNED = '#FFFFFF';
+export const SIGNED_EDGE = '#0F1B2D';
+export const SIGNED_TINT = tintOf(SIGNED_EDGE, 0.36);
 
 /** Rec. 601 luma, the grey a colour prints as. */
 export function greyOf(hex: string): number {
@@ -44,10 +47,10 @@ export function greyOf(hex: string): number {
 }
 
 export const THEMES: Theme[] = [
-  T('world', 'The world', '#275497', ['allies']),
-  T('money', 'Money and work', '#EAB73E', ['prices', 'paycheck', 'farms-rural'], 0.42),
-  T('land', 'Health, land and science', '#3F9461', ['health', 'air-water', 'science']),
-  T('people', 'Who counts', '#521A4A', ['immigrants', 'equal-treatment', 'women', 'lgbtq']),
+  T('world', 'The world', '#234C8A', ['allies']),
+  T('money', 'Money and work', '#EDBA42', ['prices', 'paycheck', 'farms-rural'], 0.42),
+  T('land', 'Health, land and science', '#3A8C5A', ['health', 'air-water', 'science']),
+  T('people', 'Who counts', '#3E1238', ['immigrants', 'equal-treatment', 'women', 'lgbtq']),
   T('gov', 'Government and safety', '#E57B5E', ['government-works', 'checks-on-power', 'public-safety', 'veterans', 'schools']),
 ];
 
