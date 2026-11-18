@@ -216,10 +216,37 @@ test('undo card: the framed card draws the pen mark, not the field grid, at the 
   assert.ok(svg.includes('fill="#D4950A"'), 'the gold nib');
   assert.ok(svg.includes('xmlns="http://www.w3.org/2000/svg"'), 'a standalone SVG the renderer can read');
   assert.doesNotMatch(svg, GRID_CELL, 'none of the grid\'s squares');
+  // Round two (UNDOPEN2, 2026-11-17, the stranger's read of the deployed card): at 300 wide the pen read
+  // as a small scribble in an empty half, so the card draws it at 1.5 times the grid's square.
   const size = pictureSize(t.brand, true);
-  assert.equal(imgs[0].props.width, size.w, 'the grid\'s width');
-  assert.equal(imgs[0].props.height, size.h, 'the grid\'s height');
+  assert.equal(imgs[0].props.width, size.w * 1.5, 'one and a half times the grid\'s width');
+  assert.equal(imgs[0].props.height, size.h * 1.5, 'one and a half times the grid\'s height');
   framed(toolCard(t, FONTS), 'undo', t.brand);
+});
+
+// Round two, fix 2: the navy cap sat apart from the gold nib and read as a separate block. On the card a
+// navy barrel runs straight on from the nib's top edge (y -82 in the pen's own frame), as wide as the nib,
+// so the pen is one object, and every corner of it stays inside the mark's 280 square (the old cap's
+// corner was cut off by the square's right edge).
+test('undo card: the pen is one object, a navy barrel joined to the gold nib, inside its square', async () => {
+  const imgs = walk(toolCard(TOOL_BY_SLUG.undo, FONTS)).els.filter(fieldPicture);
+  const svg = decode(imgs[0].props.src);
+  const g = svg.match(/<g transform="translate\((\d+) (\d+)\) rotate\((\d+)\)">([\s\S]*?)<\/g>/);
+  assert.ok(g, 'the pen is drawn in its own rotated frame');
+  const [tx, ty, deg] = [Number(g[1]), Number(g[2]), (Number(g[3]) * Math.PI) / 180];
+  assert.doesNotMatch(g[4], /y="-136"/, 'the old cap, apart from the nib, is gone');
+  const navy = [...g[4].matchAll(/<rect x="(-?[\d.]+)" y="(-?[\d.]+)" width="([\d.]+)" height="([\d.]+)"[^>]*fill="#0F1B2D"/g)]
+    .map((m) => ({ x: +m[1], y: +m[2], w: +m[3], h: +m[4] }));
+  assert.equal(navy.length, 1, 'one navy barrel');
+  const b = navy[0];
+  assert.ok(b.y < -82 && b.y + b.h >= -82, `the barrel meets the nib's top edge (${b.y} to ${b.y + b.h})`);
+  assert.equal(b.x, -22, 'the barrel runs straight on from the nib, as wide as it');
+  assert.equal(b.w, 44);
+  for (const [px, py] of [[b.x, b.y], [b.x + b.w, b.y], [b.x, b.y + b.h], [b.x + b.w, b.y + b.h]]) {
+    const X = tx + px * Math.cos(deg) - py * Math.sin(deg);
+    const Y = ty + px * Math.sin(deg) + py * Math.cos(deg);
+    assert.ok(X >= 0 && X <= 280 && Y >= 0 && Y <= 280, `barrel corner at ${X.toFixed(1)}, ${Y.toFixed(1)} is outside the square`);
+  }
 });
 
 test('undo card: every other card, the undo tile and the portfolio row still draw tool-pictures.ts', () => {

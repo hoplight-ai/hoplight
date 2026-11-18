@@ -20,7 +20,7 @@
 import { createElement as h, type ReactElement } from 'react';
 import { TOOL_BY_SLUG, type ToolBrand } from '../../data/tools.ts';
 import { pictureSize, pictureSvg } from '../../data/tool-pictures.ts';
-import { cardMarkSvg } from '../../data/tool-marks.ts';
+import { CARD_MARK_SCALE, cardMarkSvg } from '../../data/tool-marks.ts';
 import { bloomLockup } from './marks.ts';
 
 export const CARD_W = 1200;
@@ -177,7 +177,10 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
   // mark in the picture's box; every other card, and every tile, draws its tool-pictures.ts picture.
   const mark = band && !tool.library && tool.slug ? cardMarkSvg(tool.slug) : null;
   const svg = tool.library ? null : mark ?? pictureSvg(raw);
-  const size = b.pic ? { w: b.pic, h: b.pic } : pictureSize(b, band);
+  const base = b.pic ? { w: b.pic, h: b.pic } : pictureSize(b, band);
+  // A mark on the card is drawn larger than the picture it replaces (UNDOPEN2 round two), to the height of
+  // the two title lines.
+  const size = mark ? { w: base.w * CARD_MARK_SCALE, h: base.h * CARD_MARK_SCALE } : base;
   // A smaller picture sits a little closer to its name, so a two-line long name keeps its lines.
   const gap = b.pic ? 32 : GAP;
   // Framed, the field is the window; frameless, it is the whole tile.

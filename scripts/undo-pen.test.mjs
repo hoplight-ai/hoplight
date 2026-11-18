@@ -372,10 +372,10 @@ test('undopen2: the link-preview title and description carry the headline\'s two
   assert.equal(COPY.share.title(13, 275), "Thirteen signatures undo 275 of Trump's executive actions");
   assert.equal(
     COPY.share.description(13, 275),
-    'What a pen did, a pen can undo. 275 actions, 13 signatures, day one of 2029. Find the ones that touch your life.',
+    'What a pen did, a pen can undo. 275 actions, 13 signatures, from January 20, 2029. Find the ones that touch your life.',
   );
   assert.equal(COPY.share.title(21, 1), "21 signatures undo 1 of Trump's executive actions");
-  assert.match(COPY.share.description(1, 1), /^What a pen did, a pen can undo\. 1 action, 1 signature, day one of 2029\./);
+  assert.match(COPY.share.description(1, 1), /^What a pen did, a pen can undo\. 1 action, 1 signature, from January 20, 2029\./);
   for (const s of [COPY.share.title(13, 275), COPY.share.description(13, 275)]) assert.ok(!s.includes('—'), `em dash in ${s}`);
 });
 
@@ -425,7 +425,7 @@ test('undopen2, built /undo: og and twitter carry the hero\'s counts; the plain 
   }
   for (const [attr, name] of [['property', 'og:description'], ['name', 'twitter:description']]) {
     const d = meta(attr, name);
-    assert.ok(d && d.startsWith('What a pen did, a pen can undo. ') && d.includes(`${standing} actions, `), `${name}: ${d}`);
+    assert.ok(d && d.startsWith('What a pen did, a pen can undo. ') && d.includes(`${standing} actions, `) && d.includes(' signatures, from January 20, 2029. '), `${name}: ${d}`);
   }
   assert.match(meta('name', 'description') ?? '', /^Every executive action of the second Trump administration/);
   assert.equal(meta('property', 'og:image'), 'https://hoplight.ai/api/og/tool/undo', 'og:image is absolute');
