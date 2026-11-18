@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Undo List, the treemap</title>
+<meta name="description" content="Mockup: thirteen signatures undo 275 executive actions. The thirteen orders as rectangles sized by the actions each undoes; a click filters the table to that order.">
+<meta property="og:title" content="The Undo List, the treemap">
+<meta property="og:description" content="Mockup: the thirteen orders as rectangles sized by count, over the table of every action.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-title" content="Undo treemap">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.webmanifest">
+<!--
+  UNDOQUILT1, the treemap. Whit, 2026-11-18: "maybe instead fo a bar we need that like area chart of
+  rectangles? and if i click in one of the rectangles for ex american istn a quitter- it sholuld
+  filter to those bills."
+  References (references/REFERENCES.md): Pentagram, the hero is the filter (pressing a piece of the
+  picture rewrites what sits beneath it); Stripe, one real number that changes while you watch (the
+  count of actions shown moves when a rectangle is pressed).
+  Signature element: "America isn't a quitter" as the one rectangle bigger than any other two.
+  Proposals: the five themes and their hues; the twelve frame names other than "America isn't a quitter".
+-->
+<style>
+@font-face { font-family: 'Inter'; src: url('../../fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: block; }
+:root { --ink: #0F1B2D; --gold: #D4950A; --gold-deep: #996D00; --line: #E3E7EE; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #fff; color: var(--ink); font-size: 15px; line-height: 1.45; font-variant-numeric: tabular-nums lining-nums; }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+header.site { height: 56px; display: flex; align-items: center; }
+.mark { font-size: 15px; font-weight: 600; color: var(--ink); text-decoration: none; }
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 4px 0 24px; }
+h1 { font-size: 44px; line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; text-wrap: balance; }
+.btn-primary { font-size: 15px; font-weight: 600; border-radius: 8px; padding: 14px 22px; cursor: pointer; white-space: nowrap; background: var(--ink); color: #fff; border: 0; }
+.btn-primary:hover { background: var(--gold); color: var(--ink); }
+:focus-visible { outline: none; }
+.btn-primary:focus-visible, .theme:focus-visible, th button:focus-visible, .sign:focus-visible, .plain:focus-visible { box-shadow: 0 0 0 3px var(--gold); }
+
+#key { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-bottom: 12px; }
+.theme { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; cursor: pointer; padding: 6px 0; border-radius: 4px; font-size: 15px; }
+.theme i { width: 16px; height: 16px; border-radius: 3px; display: block; }
+.theme b { font-weight: 600; }
+.theme[aria-pressed="true"] b { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+/* The treemap: thirteen orders, each rectangle's area its count, squarified. */
+#map { position: relative; height: 300px; }
+.r { position: absolute; border: 0; padding: 1px; background: none; cursor: pointer; text-align: left; }
+.r > span { display: block; width: 100%; height: 100%; border-radius: 4px; background: var(--h); color: var(--fg); padding: 10px 12px; overflow: hidden; }
+.r.fade > span { background: var(--t); color: var(--ink); }
+.r b { display: block; font-size: 22px; font-weight: 600; line-height: 1.15; overflow-wrap: normal; }
+.r em { display: block; font-style: normal; font-size: 15px; margin-top: 4px; }
+.r.small b { font-size: 15px; }
+.r.tiny b { font-size: 13px; line-height: 1.2; }
+.r:focus-visible > span { box-shadow: inset 0 0 0 3px var(--gold); }
+
+.now { display: flex; align-items: baseline; gap: 16px; min-height: 48px; padding-top: 20px; font-size: 15px; }
+.now b { font-weight: 600; }
+.plain { background: none; border: 0; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--gold-deep); padding: 2px 0; border-radius: 3px; white-space: nowrap; }
+table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+th { text-align: left; border-bottom: 2px solid var(--ink); padding: 0; }
+th button, th span { font-size: 13px; font-weight: 600; background: none; border: 0; padding: 8px 8px 8px 0; cursor: pointer; display: inline-block; }
+th button[aria-sort]::after { content: ' \2193'; }
+th button[aria-sort="ascending"]::after { content: ' \2191'; }
+td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 15px; }
+td.f, td.t, td.k, td.d { font-size: 13px; padding-top: 10px; }
+td.t, td.d { white-space: nowrap; }
+td.t i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; }
+.sign { font-size: 13px; font-weight: 600; color: var(--gold-deep); background: none; border: 0; cursor: pointer; padding: 0; }
+.foot { height: 96px; }
+
+@media (max-width: 760px) {
+  .wrap { padding: 0 16px; }
+  header.site { height: 48px; }
+  .hero { flex-direction: column; align-items: stretch; gap: 16px; padding: 4px 0 16px; }
+  h1 { font-size: 30px; }
+  .btn-primary { width: 100%; }
+  #key { gap: 0 16px; }
+  .theme { font-size: 13px; padding: 4px 0; }
+  .theme i { width: 12px; height: 12px; }
+  #map { height: 420px; }
+  .r > span { padding: 6px 8px; }
+  .r b { font-size: 15px; }
+  .r em { font-size: 13px; margin-top: 2px; }
+  .now { min-height: 44px; padding-top: 16px; font-size: 13px; flex-wrap: wrap; gap: 4px 16px; }
+  table thead { display: none; }
+  table, tbody, tr, td { display: block; }
+  tr { border-bottom: 1px solid var(--line); padding: 10px 0; position: relative; padding-right: 48px; }
+  td { border: 0; padding: 0; }
+  td.f { display: block; padding: 2px 0 0; }
+  td.t { display: block; padding: 2px 0 0; }
+  td.k, td.d { display: none; }
+  td.s { position: absolute; right: 0; top: 10px; }
+}
+</style>
+</head>
+<body>
+<header class="site wrap"><a class="mark" href="/">Hoplight</a></header>
+<main class="wrap">
+  <section class="hero">
+    <h1>Thirteen signatures undo 275 executive actions.</h1>
+    <button class="btn-primary" type="button">Sign all thirteen</button>
+  </section>
+  <div id="key" role="group" aria-label="Theme key: each order is coloured by the theme most of its actions touch"></div>
+  <div id="map" role="group" aria-label="The thirteen orders, each rectangle sized by the actions it undoes"></div>
+  <p class="now" id="now"></p>
+  <table>
+    <thead><tr>
+      <th><button type="button" data-k="1">Action</button></th>
+      <th><button type="button" data-k="0">Order</button></th>
+      <th><button type="button" data-k="5">Theme</button></th>
+      <th><button type="button" data-k="3">Kind</button></th>
+      <th><button type="button" data-k="4" aria-sort="descending">Signed</button></th>
+      <th><span>Sign</span></th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div class="foot"></div>
+</main>
+<script src="undo-data.js"></script>
+<script>
+(function () {
+  const U = window.UNDO;
+  const LIGHT = new Set(['money', 'land']);
+  const TH = Object.fromEntries(U.themes.map(([k, name, hex]) => [k, { name, hex, tint: tint(hex, 0.26) }]));
+  let theme = null, order = null;
+
+  function tint(hex, a) {
+    const n = parseInt(hex.slice(1), 16);
+    const mix = (c) => Math.round(c * a + 255 * (1 - a)).toString(16).padStart(2, '0');
+    return '#' + mix((n >> 16) & 255) + mix((n >> 8) & 255) + mix(n & 255);
+  }
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  // Each order wears the theme most of its actions carry.
+  const MAIN = U.orders.map((o, i) => {
+    const c = {};
+    for (const r of U.rows) if (r[0] === i) c[r[5]] = (c[r[5]] || 0) + 1;
+    return Object.keys(c).sort((a, b) => c[b] - c[a])[0];
+  });
+
+  // Squarified treemap (Bruls, Huizing and van Wijk): lay rows along the shorter side, keeping each
+  // row's worst aspect ratio as low as it will go, so no rectangle is a sliver.
+  function squarify(items, x, y, w, h) {
+    const total = items.reduce((s, it) => s + it.v, 0);
+    const scale = (w * h) / total;
+    const list = items.map((it) => ({ ...it, a: it.v * scale }));
+    const out = [];
+    const worst = (row, side) => {
+      const s = row.reduce((t, r) => t + r.a, 0);
+      const mx = Math.max(...row.map((r) => r.a)), mn = Math.min(...row.map((r) => r.a));
+      return Math.max((side * side * mx) / (s * s), (s * s) / (side * side * mn));
+    };
+    let row = [];
+    while (list.length) {
+      const side = Math.min(w, h);
+      const next = list[0];
+      if (!row.length || worst([...row, next], side) <= worst(row, side)) { row.push(list.shift()); continue; }
+      ({ x, y, w, h } = lay(row, x, y, w, h)); row = [];
+    }
+    if (row.length) lay(row, x, y, w, h);
+    return out;
+    function lay(row, x, y, w, h) {
+      const s = row.reduce((t, r) => t + r.a, 0);
+      if (w >= h) {
+        const cw = s / h; let cy = y;
+        for (const r of row) { const rh = r.a / cw; out.push({ ...r, x, y: cy, w: cw, h: rh }); cy += rh; }
+        return { x: x + cw, y, w: w - cw, h };
+      }
+      const ch = s / w; let cx = x;
+      for (const r of row) { const rw = r.a / ch; out.push({ ...r, x: cx, y, w: rw, h: ch }); cx += rw; }
+      return { x, y: y + ch, w, h: h - ch };
+    }
+  }
+
+  function key() {
+    const c = {};
+    for (const r of U.rows) c[r[5]] = (c[r[5]] || 0) + 1;
+    const el = document.getElementById('key');
+    el.innerHTML = U.themes.map(([k, name, hex]) => `<button class="theme" type="button" aria-pressed="false" data-t="${k}"><i style="background:${hex}"></i><b>${name}</b><span>${c[k]}</span></button>`).join('');
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('.theme'); if (!b) return;
+      theme = theme === b.dataset.t ? null : b.dataset.t; order = null;
+      paint(); table();
+    });
+  }
+
+  function map() {
+    const el = document.getElementById('map');
+    const W = el.clientWidth, H = el.clientHeight;
+    const items = U.orders.map((o, i) => ({ i, v: o.n })).sort((a, b) => b.v - a.v);
+    const rects = squarify(items, 0, 0, W, H);
+    el.innerHTML = rects.map((r) => {
+      const o = U.orders[r.i], t = MAIN[r.i];
+      return `<button class="r" type="button" aria-pressed="false" data-o="${r.i}" title="${esc(o.frame)}: ${o.n} actions" style="left:${r.x}px;top:${r.y}px;width:${r.w}px;height:${r.h}px;--h:${TH[t].hex};--t:${TH[t].tint};--fg:${LIGHT.has(t) ? '#0F1B2D' : '#fff'}"><span><b>${esc(o.frame)}</b><em>${o.n}${r.w > 120 ? ' actions' : ''}</em></span></button>`;
+    }).join('');
+    // The frame name shows where the rectangle can hold it, smaller where it cannot, and on a tap below.
+    el.querySelectorAll('.r').forEach((b) => {
+      const s = b.firstElementChild, name = s.querySelector('b');
+      const fits = () => name.scrollWidth <= s.clientWidth - 16 && s.scrollHeight <= s.clientHeight + 1;
+      if (!fits()) b.classList.add('small');
+      if (!fits()) b.classList.add('tiny');
+      if (!fits()) name.style.display = 'none';
+    });
+  }
+  document.getElementById('map').addEventListener('click', (e) => {
+    const b = e.target.closest('.r'); if (!b) return;
+    order = order === +b.dataset.o ? null : +b.dataset.o; theme = null;
+    paint(); table();
+  });
+
+  function paint() {
+    document.querySelectorAll('.r').forEach((b) => {
+      const i = +b.dataset.o;
+      const off = (order !== null && i !== order) || (theme && !U.rows.some((r) => r[0] === i && r[5] === theme));
+      b.classList.toggle('fade', !!off);
+      b.setAttribute('aria-pressed', String(i === order));
+    });
+    document.querySelectorAll('.theme').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.t === theme)));
+  }
+
+  let sortK = 4, dir = -1;
+  function table() {
+    const rows = U.rows.filter((r) => (!theme || r[5] === theme) && (order === null || r[0] === order)).slice().sort((a, b) => {
+      const va = sortK === 0 ? U.orders[a[0]].frame : sortK === 5 ? TH[a[5]].name : a[sortK];
+      const vb = sortK === 0 ? U.orders[b[0]].frame : sortK === 5 ? TH[b[5]].name : b[sortK];
+      return va < vb ? -dir : va > vb ? dir : 0;
+    });
+    const now = document.getElementById('now');
+    if (order !== null) { const o = U.orders[order]; now.innerHTML = `<span><b>${rows.length} actions in ${esc(o.frame)}.</b> ${esc(o.line)}</span><button class="plain" type="button" id="all">Show all 275</button>`; }
+    else if (theme) now.innerHTML = `<span><b>${rows.length} actions</b> in ${esc(TH[theme].name)}</span><button class="plain" type="button" id="all">Show all 275</button>`;
+    else now.innerHTML = `<span><b>All 275 actions</b>, newest first</span>`;
+    const all = document.getElementById('all');
+    if (all) all.addEventListener('click', () => { theme = null; order = null; paint(); table(); });
+    document.getElementById('rows').innerHTML = rows.map((r) => `<tr><td>${esc(r[1])}</td><td class="f">${esc(U.orders[r[0]].frame)}</td><td class="t"><i style="background:${TH[r[5]].hex}"></i>${TH[r[5]].name}</td><td class="k">${esc(r[3])}</td><td class="d">${esc(r[4])}</td><td class="s"><button class="sign" type="button">Sign</button></td></tr>`).join('');
+  }
+  document.querySelector('thead').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    const k = +b.dataset.k; dir = k === sortK ? -dir : (k === 4 ? -1 : 1); sortK = k;
+    document.querySelectorAll('th button').forEach((x) => x.removeAttribute('aria-sort'));
+    b.setAttribute('aria-sort', dir === 1 ? 'ascending' : 'descending');
+    table();
+  });
+  let rw = window.innerWidth;
+  window.addEventListener('resize', () => { if (window.innerWidth === rw) return; rw = window.innerWidth; map(); paint(); });
+
+  key(); map();
+  const q = new URLSearchParams(location.search).get('order');
+  const qi = U.orders.findIndex((o) => o.id === q);
+  if (qi > -1) order = qi;
+  paint(); table();
+  // Measure the names again once Inter has loaded, so a name is hidden only when it truly cannot fit.
+  document.fonts.ready.then(() => { map(); paint(); });
+})();
+</script>
+</body>
+</html>
