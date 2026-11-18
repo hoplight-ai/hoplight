@@ -42,7 +42,7 @@ export const COPY = {
   share: {
     title: (orders: number, pen: number) => `${countWord(orders)} signatures undo ${pen} of Trump's executive actions`,
     description: (orders: number, pen: number) =>
-      `What a pen did, a pen can undo. ${pen} ${pen === 1 ? 'action' : 'actions'}, ${orders} ${orders === 1 ? 'signature' : 'signatures'}, day one of 2029. Find the ones that touch your life.`,
+      `What a pen did, a pen can undo. ${pen} ${pen === 1 ? 'action' : 'actions'}, ${orders} ${orders === 1 ? 'signature' : 'signatures'}, from January 20, 2029. Find the ones that touch your life.`,
   },
   field: {
     label: 'The signature field: one square for each executive action a pen undoes, one block for each order',

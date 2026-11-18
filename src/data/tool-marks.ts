@@ -58,13 +58,33 @@ const OPEN = '<svg viewBox="0 0 280 280" aria-hidden="true">';
  *  The Undo List only (Whit, 2026-11-17, quoted above). */
 export const CARD_MARKS: readonly string[] = ['undo'];
 
+/** How much larger than the picture's own square a card draws its mark. Round two of UNDOPEN2 (2026-11-17,
+ *  a stranger's read of the deployed card): at 300 wide the pen was about 66 by 44 pixels in a mostly empty
+ *  white half and read as a scribble, so the card draws it at one and a half times, to the height of the
+ *  two title lines. The tile keeps its 280 square. */
+export const CARD_MARK_SCALE = 1.5;
+
+/** The card's changes to a mark, as [drawn on the tile, drawn on the card]. Round two, the same read: the
+ *  pen's navy cap sat 4 apart from its gold nib with nothing between them and read as a separate block,
+ *  and its far corner was cut off by the square's edge. On the card a navy barrel as wide as the nib runs
+ *  straight on from the nib's top edge, so the pen is one object and stays inside the square. The stroke
+ *  is untouched. The tile's mark stays as approved (scripts/tool-marks.test.mjs pins it by hash). */
+const CARD_EDITS: Readonly<Record<string, readonly [string, string][]>> = {
+  undo: [['<rect x="-24" y="-136" width="48" height="50" rx="9" fill="#0F1B2D"/>', '<rect x="-22" y="-114" width="44" height="38" rx="8" fill="#0F1B2D"/>']],
+};
+
 /** The mark a framed link-preview card draws, as a standalone SVG the card renderer can load, or null when
  *  the tool keeps its tool-pictures.ts picture. */
 export function cardMarkSvg(slug: string): string | null {
   if (!CARD_MARKS.includes(slug)) return null;
   const mark = Object.prototype.hasOwnProperty.call(TOOL_MARKS, slug) ? TOOL_MARKS[slug] : undefined;
   if (!mark || !mark.startsWith(OPEN)) return null;
-  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280">' + mark.slice(OPEN.length);
+  let body = mark.slice(OPEN.length);
+  for (const [from, to] of CARD_EDITS[slug] ?? []) {
+    if (!body.includes(from)) return null;
+    body = body.replace(from, to);
+  }
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280">' + body;
 }
 
 /**
