@@ -425,5 +425,15 @@ test('undopen2, built /undo: og and twitter carry the hero\'s counts; the plain 
     assert.ok(d && d.startsWith('What a pen did, a pen can undo. ') && d.includes(` signatures on January 20, 2029 could undo ${standing} actions. `), `${name}: ${d}`);
   }
   assert.match(meta('name', 'description') ?? '', /^Every executive action of the second Trump administration/);
-  assert.equal(meta('property', 'og:image'), 'https://hoplight.ai/api/og/tool/undo', 'og:image is absolute');
+  assert.equal(meta('property', 'og:image'), 'https://hoplight.ai/api/og/tool/undo?v=pen-2026-11-17', 'og:image is absolute and versioned');
+});
+
+// The pen went live on 2026-11-17 at the same address the grid had held, so every app that had already
+// saved the Undo List's preview (iMessage, LinkedIn, Slack) kept showing the grid. Whit, 2026-11-18: "why
+// tf is my undo list preview STILL NOT A FUCKING PEN". A card whose picture changes gets a new address,
+// so a fresh fetch of the page fetches the new picture; the other cards keep their plain address.
+test('a changed card carries a version in its address; an unchanged card does not', async () => {
+  const { toolCardUrl } = await import('../src/lib/metadata.ts');
+  assert.equal(toolCardUrl('undo'), 'https://hoplight.ai/api/og/tool/undo?v=pen-2026-11-17');
+  assert.equal(toolCardUrl('revenge-or-justice'), 'https://hoplight.ai/api/og/tool/revenge-or-justice');
 });

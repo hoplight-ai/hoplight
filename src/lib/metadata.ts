@@ -67,8 +67,18 @@ export function pageMetadata({
 // hoplight consistently as the shop behind it." The image URL is absolute, because a relative
 // og:image draws a blank card in iMessage.
 export function toolCardUrl(slug: string): string {
-  return `${ORIGIN}/api/og/tool/${slug}`;
+  const version = CARD_VERSIONS[slug];
+  return `${ORIGIN}/api/og/tool/${slug}${version ? `?v=${version}` : ''}`;
 }
+
+// A card whose picture changes gets a new address, because the apps that show link previews
+// (iMessage, LinkedIn, Slack) keep the picture they first fetched for an address. The Undo List's
+// card became the pen on 2026-11-17 at the address the grid had held, and the saved previews kept
+// the grid. Whit, 2026-11-18: "why tf is my undo list preview STILL NOT A FUCKING PEN". Add a slug
+// here, or change its value, whenever its card's drawing changes; the route ignores the query.
+const CARD_VERSIONS: Readonly<Record<string, string>> = {
+  undo: 'pen-2026-11-17',
+};
 
 export function toolMetadata(
   slug: string,
