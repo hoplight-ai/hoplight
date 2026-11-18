@@ -10,13 +10,20 @@ import TrackedLink from '@/components/TrackedLink';
 // Rebuilt at most once an hour. The Federal Register fetch inside carries the same interval.
 export const revalidate = 3600;
 
-export const metadata: Metadata = toolMetadata('undo', {
-  title: 'The Undo List',
-  description:
-    'Every executive action of the second Trump administration that the next president can undo with a signature, filterable by who feels it, sortable, and bundled into signing orders.',
-  path: '/undo',
-  ogDescription: 'Every Trump executive action a pen undoes, bundled into signing orders for 2029.',
-});
+// The link-preview title and description carry the hero's own two counts, read from the same loader
+// (UNDOPEN2, 2026-11-17). With the Federal Register feed down they take the curated rows' counts, as
+// the hero does. The plain description is typed and unchanged.
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await loadUndo();
+  return toolMetadata('undo', {
+    title: 'The Undo List',
+    description:
+      'Every executive action of the second Trump administration that the next president can undo with a signature, filterable by who feels it, sortable, and bundled into signing orders.',
+    path: '/undo',
+    ogTitle: COPY.share.title(data.orders.length, data.penInForce),
+    ogDescription: COPY.share.description(data.orders.length, data.penInForce),
+  });
+}
 
 export default async function UndoPage() {
   const data = await loadUndo();

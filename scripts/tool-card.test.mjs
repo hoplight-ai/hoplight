@@ -193,3 +193,93 @@ test('tile: a marked tool\'s frameless tile draws its picture inside the 280 mar
   assert.equal(rojCard.length, 1, 'the framed Revenge or Justice card draws the scale at 340 by 320');
   assert.equal(rojCard[0].props.height, 320);
 });
+
+// UNDOPEN2, 2026-11-17. Whit: "the preview icon for the undo list is the pen not what happens now. need
+// that fixed". The Undo List's link-preview card draws its approved pen mark (src/data/tool-marks.ts)
+// in place of the signature field's grid, at the grid's size, inside the same frame. Every other card,
+// the undo tile (band off, which the portfolio already covers with the pen) and the portfolio card's
+// library row keep drawing src/data/tool-pictures.ts.
+const decode = (src) => Buffer.from(src.replace(/^data:image\/svg\+xml;base64,/, ''), 'base64').toString('utf8');
+const fieldPicture = (el) => el.type === 'img' && el.props.alt !== 'Hoplight';
+const GRID_CELL = /<rect x="[\d.]+" y="[\d.]+" width="26" height="26" rx="3"/;
+
+test('undo card: the framed card draws the pen mark, not the field grid, at the grid\'s size', async () => {
+  const { TOOL_MARKS } = await import('../src/data/tool-marks.ts');
+  const { pictureSize } = await import('../src/data/tool-pictures.ts');
+  const t = TOOL_BY_SLUG.undo;
+  const imgs = walk(toolCard(t, FONTS)).els.filter(fieldPicture);
+  assert.equal(imgs.length, 1, 'one picture beside the name');
+  const svg = decode(imgs[0].props.src);
+  const nib = TOOL_MARKS.undo.match(/<path d="M24 186 C[^"]+"/);
+  assert.ok(nib, 'the pen mark carries its signature stroke');
+  assert.ok(svg.includes(nib[0]), 'the card draws the pen mark\'s signature stroke');
+  assert.ok(svg.includes('fill="#D4950A"'), 'the gold nib');
+  assert.ok(svg.includes('xmlns="http://www.w3.org/2000/svg"'), 'a standalone SVG the renderer can read');
+  assert.doesNotMatch(svg, GRID_CELL, 'none of the grid\'s squares');
+  // Round two (UNDOPEN2, 2026-11-17, the stranger's read of the deployed card): at 300 wide the pen read
+  // as a small scribble in an empty half, so the card draws it at 1.5 times the grid's square.
+  const size = pictureSize(t.brand, true);
+  assert.equal(imgs[0].props.width, size.w * 1.5, 'one and a half times the grid\'s width');
+  assert.equal(imgs[0].props.height, size.h * 1.5, 'one and a half times the grid\'s height');
+  framed(toolCard(t, FONTS), 'undo', t.brand);
+});
+
+// Round three (UNDOPEN2, 2026-11-17): the signature line under the stroke was navy at 35% opacity, which
+// draws grey, the only grey mark on the card. Whit, 2026-11-07, on grey marks: "it must die". On the card
+// it is a solid light tint of the gold, and nothing in the card's mark is drawn at a reduced opacity or in
+// a colour without hue.
+test('undo card: no grey mark; the signature line is a light tint of the gold', () => {
+  const svg = decode(walk(toolCard(TOOL_BY_SLUG.undo, FONTS)).els.filter(fieldPicture)[0].props.src);
+  assert.doesNotMatch(svg, /(stroke|fill)-opacity=/, 'nothing drawn see-through, which reads as grey on white');
+  const line = svg.match(/<path d="M20 216 H252" stroke="(#[0-9A-Fa-f]{6})"/);
+  assert.ok(line, 'the signature line is still drawn where it was');
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(line[1].slice(i, i + 2), 16));
+  assert.ok(r > g && g > b && r - b >= 60, `${line[1]} is a warm gold tint, not a grey`);
+  assert.ok(r >= 0xE0, `${line[1]} is light`);
+  for (const m of svg.matchAll(/(?:stroke|fill)="(#[0-9A-Fa-f]{6})"/g)) {
+    const [R, G, B] = [1, 3, 5].map((i) => parseInt(m[1].slice(i, i + 2), 16));
+    const white = R === 255 && G === 255 && B === 255;
+    const navy = m[1].toUpperCase() === '#0F1B2D';
+    assert.ok(white || navy || Math.max(R, G, B) - Math.min(R, G, B) >= 40, `${m[1]} is a grey`);
+  }
+});
+
+// Round two, fix 2: the navy cap sat apart from the gold nib and read as a separate block. On the card a
+// navy barrel runs straight on from the nib's top edge (y -82 in the pen's own frame), as wide as the nib,
+// so the pen is one object, and every corner of it stays inside the mark's 280 square (the old cap's
+// corner was cut off by the square's right edge).
+test('undo card: the pen is one object, a navy barrel joined to the gold nib, inside its square', async () => {
+  const imgs = walk(toolCard(TOOL_BY_SLUG.undo, FONTS)).els.filter(fieldPicture);
+  const svg = decode(imgs[0].props.src);
+  const g = svg.match(/<g transform="translate\((\d+) (\d+)\) rotate\((\d+)\)">([\s\S]*?)<\/g>/);
+  assert.ok(g, 'the pen is drawn in its own rotated frame');
+  const [tx, ty, deg] = [Number(g[1]), Number(g[2]), (Number(g[3]) * Math.PI) / 180];
+  assert.doesNotMatch(g[4], /y="-136"/, 'the old cap, apart from the nib, is gone');
+  const navy = [...g[4].matchAll(/<rect x="(-?[\d.]+)" y="(-?[\d.]+)" width="([\d.]+)" height="([\d.]+)"[^>]*fill="#0F1B2D"/g)]
+    .map((m) => ({ x: +m[1], y: +m[2], w: +m[3], h: +m[4] }));
+  assert.equal(navy.length, 1, 'one navy barrel');
+  const b = navy[0];
+  assert.ok(b.y < -82 && b.y + b.h >= -82, `the barrel meets the nib's top edge (${b.y} to ${b.y + b.h})`);
+  assert.equal(b.x, -22, 'the barrel runs straight on from the nib, as wide as it');
+  assert.equal(b.w, 44);
+  for (const [px, py] of [[b.x, b.y], [b.x + b.w, b.y], [b.x, b.y + b.h], [b.x + b.w, b.y + b.h]]) {
+    const X = tx + px * Math.cos(deg) - py * Math.sin(deg);
+    const Y = ty + px * Math.sin(deg) + py * Math.cos(deg);
+    assert.ok(X >= 0 && X <= 280 && Y >= 0 && Y <= 280, `barrel corner at ${X.toFixed(1)}, ${Y.toFixed(1)} is outside the square`);
+  }
+});
+
+test('undo card: every other card, the undo tile and the portfolio row still draw tool-pictures.ts', () => {
+  const uri = (svg) => `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+  for (const t of TOOLS) {
+    const want = pictureSvg(t.brand);
+    if (!want) continue;
+    for (const band of t.slug === 'undo' ? [false] : [true, false]) {
+      const imgs = walk(toolCard(t, FONTS, { band })).els.filter(fieldPicture);
+      assert.equal(imgs.length, 1, `${t.slug} band ${band}: one picture`);
+      assert.equal(imgs[0].props.src, uri(want), `${t.slug} band ${band}: its own tool-pictures.ts picture`);
+    }
+  }
+  const row = walk(toolCard(PORTFOLIO_CARD, FONTS)).els.filter(fieldPicture);
+  assert.ok(row.some((el) => el.props.src === uri(pictureSvg(TOOL_BY_SLUG.undo.brand))), 'the portfolio row keeps the undo field');
+});

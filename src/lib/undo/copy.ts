@@ -36,6 +36,14 @@ export const COPY = {
     cta: 'Sign the first order',
     count: (signed: number, total: number) => `${signed} of ${total} signed`,
   },
+  /** The link-preview words (og and twitter), from the headline's two counts: the signing orders and the
+   *  executive actions still standing (UNDOPEN2, 2026-11-17; Whit: "need a cat nippy preview description
+   *  for it"). The page's plain description stays typed in page.tsx. */
+  share: {
+    title: (orders: number, pen: number) => `${countWord(orders)} signatures undo ${pen} of Trump's executive actions`,
+    description: (orders: number, pen: number) =>
+      `What a pen did, a pen can undo. ${orders} ${orders === 1 ? 'signature' : 'signatures'} on January 20, 2029 could undo ${pen} ${pen === 1 ? 'action' : 'actions'}. Find the ones that touch your life.`,
+  },
   field: {
     label: 'The signature field: one square for each executive action a pen undoes, one block for each order',
     block: (n: number, title: string, total: number, done: number) =>

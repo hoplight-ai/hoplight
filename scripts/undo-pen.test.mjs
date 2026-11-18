@@ -166,12 +166,20 @@ test('the copy says executive actions and nothing about Congress or the locked b
 });
 
 test('the page metadata and the method note say executive actions', () => {
+  // /undo builds its link-preview words from the live counts (UNDOPEN2, 2026-11-17), so its
+  // og:description is COPY.share.description, tested below; its plain description stays typed.
+  const shared = COPY.share ? COPY.share.description(13, 275) : '';
   for (const f of ['src/app/(main)/undo/page.tsx', 'src/app/(main)/undo/all/page.tsx']) {
     const src = read(f);
     const desc = src.match(/description:\s*'([^']+)'/);
-    const og = src.match(/ogDescription:\s*'([^']+)'/);
-    assert.ok(desc && og, `${f} carries a description and a link-preview description`);
+    const og = f.endsWith('undo/page.tsx') ? [null, shared] : src.match(/ogDescription:\s*'([^']+)'/);
+    assert.ok(desc && og && og[1], `${f} carries a description and a link-preview description`);
+    assert.match(desc[1], /executive action/i, `${f}: ${desc[1]}`);
     for (const text of [desc[1], og[1]]) {
+      if (text === shared) {
+        assert.doesNotMatch(text, /majority|sixty|nothing at all|Everything Trump did|—/, `${f}: ${text}`);
+        continue;
+      }
       assert.match(text, /executive action/i, `${f}: ${text}`);
       assert.doesNotMatch(text, /majority|sixty|nothing at all|Everything Trump did|—/, `${f}: ${text}`);
     }
@@ -354,4 +362,71 @@ test('undotidy1: every list row draws at its real height; the list pages by 25 i
   assert.doesNotMatch(rule[0], /content-visibility/, 'list rows are not drawn late');
   assert.doesNotMatch(rule[0], /contain-intrinsic-size/, 'no placeholder height on list rows');
   assert.match(read('src/app/(main)/undo/UndoAll.tsx'), /const PAGE = 25;/, 'the list pages by 25');
+});
+
+// UNDOPEN2, 2026-11-17. Whit: "need a cat nippy preview description for it". The link-preview title
+// and description are built from the same two counts as the hero headline (the signing orders and the
+// executive actions still standing), never typed numbers, and carry no em dash.
+test('undopen2: the link-preview title and description carry the headline\'s two counts', () => {
+  assert.ok(COPY.share, 'COPY.share holds the link-preview words');
+  assert.equal(COPY.share.title(13, 275), "Thirteen signatures undo 275 of Trump's executive actions");
+  assert.equal(
+    COPY.share.description(13, 275),
+    'What a pen did, a pen can undo. 13 signatures on January 20, 2029 could undo 275 actions. Find the ones that touch your life.',
+  );
+  assert.equal(COPY.share.title(21, 1), "21 signatures undo 1 of Trump's executive actions");
+  assert.match(COPY.share.description(1, 1), /^What a pen did, a pen can undo\. 1 signature on January 20, 2029 could undo 1 action\./);
+  for (const s of [COPY.share.title(13, 275), COPY.share.description(13, 275)]) assert.ok(!s.includes('—'), `em dash in ${s}`);
+});
+
+test('undopen2: /undo builds its metadata from loadUndo, with no typed og words', () => {
+  const page = read('src/app/(main)/undo/page.tsx');
+  assert.match(page, /export async function generateMetadata\(/, 'the page builds its metadata at render');
+  assert.doesNotMatch(page, /export const metadata\b/, 'no static metadata left');
+  const gen = page.slice(page.indexOf('export async function generateMetadata('));
+  const body = gen.slice(0, gen.indexOf('\n}\n'));
+  assert.match(body, /await loadUndo\(\)/, 'it reads the loader');
+  assert.match(body, /COPY\.share\.title\(data\.orders\.length, data\.penInForce\)/, 'the title takes the headline\'s counts');
+  assert.match(body, /COPY\.share\.description\(data\.orders\.length, data\.penInForce\)/, 'the description takes the headline\'s counts');
+  assert.doesNotMatch(body, /ogDescription:\s*'/, 'no typed link-preview description');
+  assert.doesNotMatch(body, /\b\d{2,}\b/, 'no typed count');
+  // The plain description stays as it was.
+  assert.match(body, /description:\s*'Every executive action of the second Trump administration that the next president can undo with a signature, filterable by who feels it, sortable, and bundled into signing orders\.'/);
+  assert.match(read('src/app/(main)/undo/UndoList.tsx'), /COPY\.hero\.headline\(orders\.length, penInForce\)/, 'the headline takes the same two counts');
+});
+
+test('undopen2: with the Federal Register feed down, the preview words still carry real counts', async () => {
+  // `merged` above is the loader's failure path: no feed rows, the curated files only.
+  const { penRows } = await pen();
+  const rows = penRows(merged);
+  const orders = forward.map((o) => forwardOrderView(o, rows)).filter((o) => o.ids.length > 0).length;
+  const standing = countPenInForce(rows);
+  assert.ok(orders > 0, 'at least one signing order survives a dead feed');
+  assert.ok(standing > 0, 'at least one standing action survives a dead feed');
+  const title = COPY.share.title(orders, standing);
+  const desc = COPY.share.description(orders, standing);
+  assert.ok(title.includes(` ${standing} of Trump's`), title);
+  assert.ok(desc.includes(`${standing} action`) && desc.includes(`${orders} signature`), desc);
+  assert.doesNotMatch(`${title} ${desc}`, /\b0 (action|signature)|Zero signatures/, 'never a zero count');
+});
+
+test('undopen2, built /undo: og and twitter carry the hero\'s counts; the plain description is unchanged', { skip: noBuild }, () => {
+  const html = readFileSync(UNDO_HTML, 'utf8');
+  const meta = (attr, name) => {
+    const m = html.match(new RegExp(`<meta ${attr}="${name}" content="([^"]*)"`));
+    return m ? m[1].replace(/&#x27;|&#39;/g, "'").replace(/&amp;/g, '&') : null;
+  };
+  const hero = text(html).match(/(\S+) signatures undo (\d+) executive actions\./);
+  assert.ok(hero, 'the hero headline is on the built page');
+  const standing = Number(hero[2]);
+  const orderWord = hero[1];
+  for (const [attr, name] of [['property', 'og:title'], ['name', 'twitter:title']]) {
+    assert.equal(meta(attr, name), `${orderWord} signatures undo ${standing} of Trump's executive actions`, name);
+  }
+  for (const [attr, name] of [['property', 'og:description'], ['name', 'twitter:description']]) {
+    const d = meta(attr, name);
+    assert.ok(d && d.startsWith('What a pen did, a pen can undo. ') && d.includes(` signatures on January 20, 2029 could undo ${standing} actions. `), `${name}: ${d}`);
+  }
+  assert.match(meta('name', 'description') ?? '', /^Every executive action of the second Trump administration/);
+  assert.equal(meta('property', 'og:image'), 'https://hoplight.ai/api/og/tool/undo', 'og:image is absolute');
 });

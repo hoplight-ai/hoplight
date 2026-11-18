@@ -16,6 +16,11 @@
 // formatting of the output loks like the toolkit they recieved"). A tile with no mark here shows its card as
 // it is.
 //
+// The one exception is The Undo List, whose link-preview card draws its pen mark in place of the signature
+// field's grid, at the grid's 280 square in the same frame (UNDOPEN2). Whit, 2026-11-17: "the preview icon
+// for the undo list is the pen not what happens now. need that fixed". CARD_MARKS lists it; every other
+// card still draws tool-pictures.ts.
+//
 // Each mark is drawn in the card's 280 by 280 picture box and first paints that box in the card's own
 // ground (white, or the deck's blueberry for Wonder Cards), so the card's own drawing under it is covered
 // and nothing else on the tile moves. The colours are the tools' own, which is why this file sits beside
@@ -48,6 +53,45 @@ export const TOOL_MARKS: Readonly<Record<string, string>> = {
 export const MARK_BOX = { x: 848, y: 175, size: 280 } as const;
 
 const OPEN = '<svg viewBox="0 0 280 280" aria-hidden="true">';
+
+/** The tools whose framed link-preview card draws the mark here instead of their tool-pictures.ts picture:
+ *  The Undo List only (Whit, 2026-11-17, quoted above). */
+export const CARD_MARKS: readonly string[] = ['undo'];
+
+/** How much larger than the picture's own square a card draws its mark. Round two of UNDOPEN2 (2026-11-17,
+ *  a stranger's read of the deployed card): at 300 wide the pen was about 66 by 44 pixels in a mostly empty
+ *  white half and read as a scribble, so the card draws it at one and a half times, to the height of the
+ *  two title lines. The tile keeps its 280 square. */
+export const CARD_MARK_SCALE = 1.5;
+
+/** The card's changes to a mark, as [drawn on the tile, drawn on the card]. Round two, the same read: the
+ *  pen's navy cap sat 4 apart from its gold nib with nothing between them and read as a separate block,
+ *  and its far corner was cut off by the square's edge. On the card a navy barrel as wide as the nib runs
+ *  straight on from the nib's top edge, so the pen is one object and stays inside the square. The stroke
+ *  is untouched. Round three, the same day: the signature line under the stroke was navy at 35% opacity,
+ *  which draws grey, the only grey mark on the card (Whit, 2026-11-07, on grey marks: "it must die"); on
+ *  the card it is a solid light tint of the fill gold #D4950A, 40% gold on white. The tile's mark stays as
+ *  approved (scripts/tool-marks.test.mjs pins it by hash). */
+const CARD_EDITS: Readonly<Record<string, readonly [string, string][]>> = {
+  undo: [
+    ['<rect x="-24" y="-136" width="48" height="50" rx="9" fill="#0F1B2D"/>', '<rect x="-22" y="-114" width="44" height="38" rx="8" fill="#0F1B2D"/>'],
+    ['<path d="M20 216 H252" stroke="#0F1B2D" stroke-opacity="0.35"', '<path d="M20 216 H252" stroke="#EED59D"'],
+  ],
+};
+
+/** The mark a framed link-preview card draws, as a standalone SVG the card renderer can load, or null when
+ *  the tool keeps its tool-pictures.ts picture. */
+export function cardMarkSvg(slug: string): string | null {
+  if (!CARD_MARKS.includes(slug)) return null;
+  const mark = Object.prototype.hasOwnProperty.call(TOOL_MARKS, slug) ? TOOL_MARKS[slug] : undefined;
+  if (!mark || !mark.startsWith(OPEN)) return null;
+  let body = mark.slice(OPEN.length);
+  for (const [from, to] of CARD_EDITS[slug] ?? []) {
+    if (!body.includes(from)) return null;
+    body = body.replace(from, to);
+  }
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280">' + body;
+}
 
 /**
  * The mark laid over a tile's card, or null when the tool has none. The outer SVG has the card's own shape

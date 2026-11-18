@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Undo List, direction B: the frames</title>
+<meta name="description" content="Mockup: thirteen signatures undo 275 executive actions, drawn as the thirteen order names on bands as long as their counts.">
+<meta property="og:title" content="The Undo List, direction B: the frames">
+<meta property="og:description" content="Mockup: the thirteen order names, each on a band as long as the actions it undoes.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-title" content="Undo frames">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.webmanifest">
+<!--
+  UNDOMOCK1, direction B, the frames. 2026-11-17. Whit: "the marvel of this is the bundling of EOs,
+  the strategic message framing, and the tools encyclopedia of signed things to undo- available in a
+  filterable sortable database".
+  References (references/REFERENCES.md): It's Nice That, hierarchy by shock then rest: the names at
+  poster scale, then a calm table beneath; Pentagram, the words are the navigation: a name, pressed,
+  filters the archive beneath it.
+  Signature element: each order's name riding on a band as long as its count, the band split by who
+  feels it.
+  Proposals: the twelve frame names other than "America isn't a quitter", and the issue hues.
+-->
+<style>
+@font-face { font-family: 'Inter'; src: url('../../fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: block; }
+:root { --ink: #0F1B2D; --ink2: #3A4A63; --gold: #D4950A; --line: #E3E7EE; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #fff; color: var(--ink); font-size: 15px; line-height: 1.45; font-variant-numeric: tabular-nums lining-nums; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+header.site { height: 56px; display: flex; align-items: center; }
+.mark { font-size: 15px; font-weight: 600; color: var(--ink); text-decoration: none; }
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 4px 0 20px; }
+h1 { font-size: 44px; line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; text-wrap: balance; }
+.btn { font: inherit; font-size: 15px; font-weight: 600; border-radius: 8px; padding: 14px 22px; cursor: pointer; white-space: nowrap; }
+.btn-primary { background: var(--ink); color: #fff; border: 0; }
+.btn-primary:hover { background: var(--gold); color: var(--ink); }
+.btn:focus-visible, .frame:focus-visible, .bar:focus-visible, th button:focus-visible { outline: none; box-shadow: 0 0 0 3px var(--gold); }
+
+#frames { list-style: none; }
+.frame { display: block; width: 100%; background: none; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; padding: 0 0 5px; border-radius: 4px; }
+.frame h2 { font-size: 26px; line-height: 1.08; font-weight: 600; letter-spacing: -0.012em; }
+.frame .band { display: flex; align-items: center; gap: 10px; margin-top: 3px; }
+.frame .band small { font-size: 13px; color: var(--ink2); white-space: nowrap; }
+.frame .band span.s { display: flex; height: 12px; border-radius: 2px; overflow: hidden; }
+.frame .band span.s b { display: block; height: 100%; transition: opacity .15s ease-out; }
+.frame .band em { font-style: normal; font-size: 15px; font-weight: 600; white-space: nowrap; }
+.frame[aria-pressed="true"] h2 { text-decoration: underline; text-decoration-thickness: 3px; text-decoration-color: var(--gold); text-underline-offset: 5px; }
+
+.below { padding: 48px 0 0; }
+h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+#bars { display: grid; grid-template-columns: 1fr 1fr; column-gap: 64px; row-gap: 4px; }
+.bar { display: grid; grid-template-columns: 210px 1fr; align-items: center; gap: 12px; background: none; border: 0; font: inherit; color: inherit; text-align: left; cursor: pointer; padding: 4px 0; border-radius: 4px; }
+.bar span.l { font-size: 13px; }
+.bar span.t { display: flex; align-items: center; gap: 8px; }
+.bar span.t b { display: block; height: 14px; border-radius: 2px; }
+.bar span.t em { font-style: normal; font-size: 13px; }
+.bar[aria-pressed="true"] span.l { font-weight: 600; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 48px; }
+th { text-align: left; border-bottom: 2px solid var(--ink); padding: 0; }
+th button { font: inherit; font-size: 13px; font-weight: 600; color: var(--ink); background: none; border: 0; padding: 10px 8px 10px 0; cursor: pointer; }
+th button[aria-sort]::after { content: ' \2193'; }
+th button[aria-sort="ascending"]::after { content: ' \2191'; }
+td { padding: 9px 8px 9px 0; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 15px; }
+td.who { white-space: nowrap; }
+td.who i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 8px; }
+td.d { white-space: nowrap; }
+.foot { height: 96px; }
+
+@media (max-width: 760px) {
+  .wrap { padding: 0 16px; }
+  header.site { height: 48px; }
+  .hero { flex-direction: column; align-items: stretch; gap: 16px; padding: 4px 0 20px; }
+  h1 { font-size: 30px; }
+  .btn-primary { width: 100%; }
+  .frame { padding-bottom: 10px; }
+  .frame h2 { font-size: 20px; }
+  .frame .band { margin-top: 4px; }
+  .frame .band span.s { height: 10px; }
+  .frame .band em { font-size: 13px; }
+  .frame .band small { display: none; }
+  #bars { grid-template-columns: 1fr; }
+  .bar { grid-template-columns: 150px 1fr; }
+  table thead { display: none; }
+  table, tbody, tr, td { display: block; }
+  tr { border-bottom: 1px solid var(--line); padding: 10px 0; }
+  td { border: 0; padding: 0; }
+  td.k, td.d { display: inline; font-size: 13px; color: var(--ink2); margin-right: 8px; }
+  td.f, td.who { font-size: 13px; }
+}
+</style>
+</head>
+<body>
+<header class="site wrap"><a class="mark" href="/">Hoplight</a></header>
+<main class="wrap">
+  <section class="hero">
+    <h1>Thirteen signatures undo 275 executive actions.</h1>
+    <button class="btn btn-primary" type="button">Sign all thirteen</button>
+  </section>
+  <ol id="frames" aria-label="The thirteen signing orders, longest first"></ol>
+  <section class="below">
+    <h3>Who feels it</h3>
+    <div id="bars"></div>
+    <table>
+      <thead><tr>
+        <th><button type="button" data-k="1">Action</button></th>
+        <th><button type="button" data-k="0">Order</button></th>
+        <th><button type="button" data-k="2">Who feels it</button></th>
+        <th><button type="button" data-k="3">Kind</button></th>
+        <th><button type="button" data-k="4" aria-sort="descending">Signed</button></th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </section>
+  <div class="foot"></div>
+</main>
+<script src="undo-data-2026-11-17.js"></script>
+<script>
+(function () {
+  const U = window.UNDO;
+  const HUE = Object.fromEntries(U.issues.map((x) => [x[0], x[2]]));
+  const LABEL = Object.fromEntries(U.issues.map((x) => [x[0], x[1]]));
+  const ORDER = Object.fromEntries(U.issues.map((x, i) => [x[0], i]));
+  let on = null, frame = null;
+
+  function top(c) {
+    const k = Object.keys(c).sort((a, b) => c[b] - c[a])[0];
+    return /^[A-Z][a-z ]/.test(LABEL[k]) ? LABEL[k].charAt(0).toLowerCase() + LABEL[k].slice(1) : LABEL[k];
+  }
+
+  function frames() {
+    const max = Math.max(...U.orders.map((o) => o.n));
+    const list = U.orders.map((o, i) => ({ o, i })).sort((a, b) => b.o.n - a.o.n);
+    document.getElementById('frames').innerHTML = list.map(({ o, i }, k) => {
+      const c = {};
+      for (const x of U.rows) if (x[0] === i) c[x[2]] = (c[x[2]] || 0) + 1;
+      const segs = Object.keys(c).sort((a, b) => ORDER[a] - ORDER[b]).map((key) => `<b data-i="${key}" title="${LABEL[key]}: ${c[key]}" style="width:${(c[key] / o.n) * 100}%;background:${HUE[key]}"></b>`).join('');
+      return `<li><button class="frame" type="button" aria-pressed="false" data-o="${i}" title="${o.title}. ${o.line}"><h2>${o.frame}</h2><span class="band"><span class="s" style="width:calc((100% - ${k === 0 && innerWidth > 760 ? 400 : 96}px) * ${o.n / max})">${segs}</span><em>${o.n}${k === 0 ? ' actions' : ''}</em><small>most on ${top(c)}</small></span></button></li>`;
+    }).join('');
+    document.getElementById('frames').addEventListener('click', (e) => {
+      const b = e.target.closest('.frame'); if (!b) return;
+      frame = frame === b.dataset.o ? null : b.dataset.o;
+      document.querySelectorAll('.frame').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.o === frame)));
+      table();
+    });
+  }
+
+  function bars() {
+    const counts = {};
+    for (const r of U.rows) counts[r[2]] = (counts[r[2]] || 0) + 1;
+    const max = Math.max(...Object.values(counts));
+    const keys = U.issues.map((x) => x[0]).sort((a, b) => counts[b] - counts[a]);
+    const el = document.getElementById('bars');
+    el.innerHTML = keys.map((k) => `<button class="bar" type="button" aria-pressed="false" data-i="${k}"><span class="l">${LABEL[k]}</span><span class="t"><b style="width:${(counts[k] / max) * 100}%;background:${HUE[k]}"></b><em>${counts[k]}</em></span></button>`).join('');
+    if (innerWidth > 760) { el.style.gridAutoFlow = 'column'; el.style.gridTemplateRows = `repeat(${Math.ceil(keys.length / 2)}, auto)`; }
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('.bar'); if (!b) return;
+      on = on === b.dataset.i ? null : b.dataset.i;
+      el.querySelectorAll('.bar').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.i === on)));
+      document.querySelectorAll('.frame b').forEach((x) => { x.style.opacity = !on || x.dataset.i === on ? 1 : 0.18; });
+      table();
+    });
+  }
+
+  let sortK = 4, dir = -1;
+  function table() {
+    const rows = U.rows.filter((r) => (!on || r[2] === on) && (frame === null || String(r[0]) === frame)).slice().sort((a, b) => {
+      const va = sortK === 0 ? U.orders[a[0]].frame : sortK === 2 ? LABEL[a[2]] : a[sortK];
+      const vb = sortK === 0 ? U.orders[b[0]].frame : sortK === 2 ? LABEL[b[2]] : b[sortK];
+      return va < vb ? -dir : va > vb ? dir : 0;
+    });
+    document.getElementById('rows').innerHTML = rows.map((r) => `<tr><td>${r[1]}</td><td class="f">${U.orders[r[0]].frame}</td><td class="who"><i style="background:${HUE[r[2]]}"></i>${LABEL[r[2]]}</td><td class="k">${r[3]}</td><td class="d">${r[4]}</td></tr>`).join('');
+  }
+  document.querySelector('thead').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    const k = +b.dataset.k; dir = k === sortK ? -dir : (k === 4 ? -1 : 1); sortK = k;
+    document.querySelectorAll('th button').forEach((x) => x.removeAttribute('aria-sort'));
+    b.setAttribute('aria-sort', dir === 1 ? 'ascending' : 'descending');
+    table();
+  });
+
+  frames(); bars(); table();
+})();
+</script>
+</body>
+</html>
