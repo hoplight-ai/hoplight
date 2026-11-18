@@ -193,3 +193,46 @@ test('tile: a marked tool\'s frameless tile draws its picture inside the 280 mar
   assert.equal(rojCard.length, 1, 'the framed Revenge or Justice card draws the scale at 340 by 320');
   assert.equal(rojCard[0].props.height, 320);
 });
+
+// UNDOPEN2, 2026-11-17. Whit: "the preview icon for the undo list is the pen not what happens now. need
+// that fixed". The Undo List's link-preview card draws its approved pen mark (src/data/tool-marks.ts)
+// in place of the signature field's grid, at the grid's size, inside the same frame. Every other card,
+// the undo tile (band off, which the portfolio already covers with the pen) and the portfolio card's
+// library row keep drawing src/data/tool-pictures.ts.
+const decode = (src) => Buffer.from(src.replace(/^data:image\/svg\+xml;base64,/, ''), 'base64').toString('utf8');
+const fieldPicture = (el) => el.type === 'img' && el.props.alt !== 'Hoplight';
+const GRID_CELL = /<rect x="[\d.]+" y="[\d.]+" width="26" height="26" rx="3"/;
+
+test('undo card: the framed card draws the pen mark, not the field grid, at the grid\'s size', async () => {
+  const { TOOL_MARKS } = await import('../src/data/tool-marks.ts');
+  const { pictureSize } = await import('../src/data/tool-pictures.ts');
+  const t = TOOL_BY_SLUG.undo;
+  const imgs = walk(toolCard(t, FONTS)).els.filter(fieldPicture);
+  assert.equal(imgs.length, 1, 'one picture beside the name');
+  const svg = decode(imgs[0].props.src);
+  const nib = TOOL_MARKS.undo.match(/<path d="M24 186 C[^"]+"/);
+  assert.ok(nib, 'the pen mark carries its signature stroke');
+  assert.ok(svg.includes(nib[0]), 'the card draws the pen mark\'s signature stroke');
+  assert.ok(svg.includes('fill="#D4950A"'), 'the gold nib');
+  assert.ok(svg.includes('xmlns="http://www.w3.org/2000/svg"'), 'a standalone SVG the renderer can read');
+  assert.doesNotMatch(svg, GRID_CELL, 'none of the grid\'s squares');
+  const size = pictureSize(t.brand, true);
+  assert.equal(imgs[0].props.width, size.w, 'the grid\'s width');
+  assert.equal(imgs[0].props.height, size.h, 'the grid\'s height');
+  framed(toolCard(t, FONTS), 'undo', t.brand);
+});
+
+test('undo card: every other card, the undo tile and the portfolio row still draw tool-pictures.ts', () => {
+  const uri = (svg) => `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+  for (const t of TOOLS) {
+    const want = pictureSvg(t.brand);
+    if (!want) continue;
+    for (const band of t.slug === 'undo' ? [false] : [true, false]) {
+      const imgs = walk(toolCard(t, FONTS, { band })).els.filter(fieldPicture);
+      assert.equal(imgs.length, 1, `${t.slug} band ${band}: one picture`);
+      assert.equal(imgs[0].props.src, uri(want), `${t.slug} band ${band}: its own tool-pictures.ts picture`);
+    }
+  }
+  const row = walk(toolCard(PORTFOLIO_CARD, FONTS)).els.filter(fieldPicture);
+  assert.ok(row.some((el) => el.props.src === uri(pictureSvg(TOOL_BY_SLUG.undo.brand))), 'the portfolio row keeps the undo field');
+});

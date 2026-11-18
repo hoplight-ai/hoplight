@@ -20,6 +20,7 @@
 import { createElement as h, type ReactElement } from 'react';
 import { TOOL_BY_SLUG, type ToolBrand } from '../../data/tools.ts';
 import { pictureSize, pictureSvg } from '../../data/tool-pictures.ts';
+import { cardMarkSvg } from '../../data/tool-marks.ts';
 import { bloomLockup } from './marks.ts';
 
 export const CARD_W = 1200;
@@ -158,6 +159,8 @@ function libraryRow(): ReactElement {
 }
 
 export interface CardSubject {
+  /** The tool's slug, which picks its approved mark for the framed card where it has one. */
+  slug?: string;
   brand: ToolBrand;
   /** Set on the portfolio's card only: draw the row of tool pictures instead of one picture. */
   library?: boolean;
@@ -170,7 +173,10 @@ export function toolCard(tool: CardSubject, fonts: CardFonts, opts: { band?: boo
   // picture on its own ground in a rounded square. The link-preview card keeps the full ground.
   const onWhite = !band && !tool.library && raw.tileOnWhite === true;
   const b: ToolBrand = onWhite ? { ...raw, ground: '#FFFFFF', ink: raw.ground, accent: raw.ground } : raw;
-  const svg = tool.library ? null : pictureSvg(raw);
+  // The framed card of a tool on the card-mark list (The Undo List only, UNDOPEN2) draws its approved
+  // mark in the picture's box; every other card, and every tile, draws its tool-pictures.ts picture.
+  const mark = band && !tool.library && tool.slug ? cardMarkSvg(tool.slug) : null;
+  const svg = tool.library ? null : mark ?? pictureSvg(raw);
   const size = b.pic ? { w: b.pic, h: b.pic } : pictureSize(b, band);
   // A smaller picture sits a little closer to its name, so a two-line long name keeps its lines.
   const gap = b.pic ? 32 : GAP;

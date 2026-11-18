@@ -16,6 +16,11 @@
 // formatting of the output loks like the toolkit they recieved"). A tile with no mark here shows its card as
 // it is.
 //
+// The one exception is The Undo List, whose link-preview card draws its pen mark in place of the signature
+// field's grid, at the grid's 280 square in the same frame (UNDOPEN2). Whit, 2026-11-17: "the preview icon
+// for the undo list is the pen not what happens now. need that fixed". CARD_MARKS lists it; every other
+// card still draws tool-pictures.ts.
+//
 // Each mark is drawn in the card's 280 by 280 picture box and first paints that box in the card's own
 // ground (white, or the deck's blueberry for Wonder Cards), so the card's own drawing under it is covered
 // and nothing else on the tile moves. The colours are the tools' own, which is why this file sits beside
@@ -48,6 +53,19 @@ export const TOOL_MARKS: Readonly<Record<string, string>> = {
 export const MARK_BOX = { x: 848, y: 175, size: 280 } as const;
 
 const OPEN = '<svg viewBox="0 0 280 280" aria-hidden="true">';
+
+/** The tools whose framed link-preview card draws the mark here instead of their tool-pictures.ts picture:
+ *  The Undo List only (Whit, 2026-11-17, quoted above). */
+export const CARD_MARKS: readonly string[] = ['undo'];
+
+/** The mark a framed link-preview card draws, as a standalone SVG the card renderer can load, or null when
+ *  the tool keeps its tool-pictures.ts picture. */
+export function cardMarkSvg(slug: string): string | null {
+  if (!CARD_MARKS.includes(slug)) return null;
+  const mark = Object.prototype.hasOwnProperty.call(TOOL_MARKS, slug) ? TOOL_MARKS[slug] : undefined;
+  if (!mark || !mark.startsWith(OPEN)) return null;
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280">' + mark.slice(OPEN.length);
+}
 
 /**
  * The mark laid over a tile's card, or null when the tool has none. The outer SVG has the card's own shape
