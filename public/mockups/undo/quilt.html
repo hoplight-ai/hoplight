@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>The Undo List, the quilt</title>
+<meta name="description" content="Mockup: thirteen signatures undo 275 executive actions. One square per action, coloured by theme; a click opens the action, the order that undoes it and everything bundled with it.">
+<meta property="og:title" content="The Undo List, the quilt">
+<meta property="og:description" content="Mockup: one square per action, coloured by theme, over the table of every action.">
+<meta property="og:image" content="https://hoplight.ai/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-mobile-web-app-title" content="Undo quilt">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="icon" href="/favicon.ico">
+<link rel="manifest" href="/manifest.webmanifest">
+<!--
+  UNDOQUILT1, the quilt. Whit, 2026-11-18: "could you make a giant quilt of squares, colored by
+  impacted theme, and wehn you click one you get a pop up of that EO, the roll back framing, and the
+  associated things that would be bundled together in a rollback of them also light up in the quilt".
+  References (references/REFERENCES.md): Pentagram, the hero is the filter (pressing a piece of the
+  picture rewrites what sits beneath it); Linear, the real thing is the hero, dense inside and empty
+  around it.
+  Signature element: one click lights a whole bundle across the field.
+  Proposals: the five themes and their hues; the twelve frame names other than "America isn't a quitter".
+-->
+<style>
+@font-face { font-family: 'Inter'; src: url('../../fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: block; }
+:root { --ink: #0F1B2D; --gold: #D4950A; --gold-deep: #996D00; --line: #E3E7EE; --sq: 2px; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif; background: #fff; color: var(--ink); font-size: 15px; line-height: 1.45; font-variant-numeric: tabular-nums lining-nums; }
+button { font: inherit; color: inherit; }
+.wrap { max-width: 1440px; margin: 0 auto; padding: 0 64px; }
+header.site { height: 56px; display: flex; align-items: center; }
+.mark { font-size: 15px; font-weight: 600; color: var(--ink); text-decoration: none; }
+.hero { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding: 4px 0 24px; }
+h1 { font-size: 44px; line-height: 1.1; font-weight: 600; letter-spacing: -0.015em; text-wrap: balance; }
+.btn-primary { font-size: 15px; font-weight: 600; border-radius: 8px; padding: 14px 22px; cursor: pointer; white-space: nowrap; background: var(--ink); color: #fff; border: 0; }
+.btn-primary:hover { background: var(--gold); color: var(--ink); }
+:focus-visible { outline: none; }
+.btn-primary:focus-visible, .theme:focus-visible, th button:focus-visible, .sign:focus-visible, .plain:focus-visible { box-shadow: 0 0 0 3px var(--gold); }
+
+/* The theme key: the picture's own legend and its filter. */
+#key { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-bottom: 12px; }
+.theme { display: inline-flex; align-items: center; gap: 8px; background: none; border: 0; cursor: pointer; padding: 6px 0; border-radius: 4px; font-size: 15px; }
+.theme i { width: 16px; height: 16px; border-radius: 3px; display: block; }
+.theme b { font-weight: 600; }
+.theme span { font-weight: 400; }
+.theme[aria-pressed="true"] b { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+/* The quilt: one square per action, every square the same size, the bundles packed in reading order. */
+.field { position: relative; }
+#quilt { display: grid; grid-template-columns: repeat(40, 1fr); gap: var(--sq); }
+.q { display: block; aspect-ratio: 1; border: 0; padding: 0; background: none; cursor: pointer; border-radius: 3px; }
+.q i { display: block; width: 100%; height: 100%; border-radius: 3px; background: var(--h); }
+.q.fade i { background: var(--t); }
+.q.lit i { box-shadow: inset 0 0 0 2px var(--ink); }
+.q.me i { box-shadow: inset 0 0 0 3px var(--ink), inset 0 0 0 5px #fff; }
+.q:focus-visible i { box-shadow: inset 0 0 0 3px var(--gold); }
+
+/* The popup sits beside the square it opened from. Fill and shadow, no border. */
+#pop { position: absolute; z-index: 5; width: 380px; background: #fff; border-radius: 8px; padding: 20px 22px 18px; box-shadow: 0 1px 2px rgba(15,27,45,.12), 0 12px 32px rgba(15,27,45,.18); }
+#pop[hidden] { display: none; }
+#pop .h { font-size: 15px; font-weight: 600; line-height: 1.35; padding-right: 48px; }
+#pop .m { font-size: 13px; margin-top: 4px; }
+#pop .by { font-size: 13px; margin-top: 16px; }
+#pop .fr { font-size: 22px; font-weight: 600; line-height: 1.2; margin-top: 2px; }
+#pop .tt { font-size: 13px; margin-top: 2px; }
+#pop .bw { font-size: 13px; font-weight: 600; margin-top: 16px; }
+#pop ul { list-style: none; margin-top: 4px; }
+#pop li { font-size: 13px; line-height: 1.35; padding: 3px 0 3px 14px; position: relative; }
+#pop li i { position: absolute; left: 0; top: 7px; width: 8px; height: 8px; border-radius: 2px; }
+#pop li.more { padding-left: 0; }
+#pop .teach { font-size: 15px; margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--line); }
+#pop .teach b { font-weight: 600; }
+.plain { background: none; border: 0; cursor: pointer; font-size: 13px; font-weight: 600; color: var(--gold-deep); padding: 2px 0; border-radius: 3px; }
+#pop .x { position: absolute; top: 18px; right: 22px; }
+
+/* The table, C's, under the picture. */
+.now { display: flex; align-items: baseline; gap: 16px; height: 48px; padding-top: 20px; font-size: 15px; }
+.now b { font-weight: 600; }
+table { width: 100%; border-collapse: collapse; }
+th { text-align: left; border-bottom: 2px solid var(--ink); padding: 0; }
+th button, th span { font-size: 13px; font-weight: 600; background: none; border: 0; padding: 8px 8px 8px 0; cursor: pointer; display: inline-block; }
+th button[aria-sort]::after { content: ' \2193'; }
+th button[aria-sort="ascending"]::after { content: ' \2191'; }
+td { padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); vertical-align: top; font-size: 15px; }
+td.f, td.t, td.k, td.d { font-size: 13px; padding-top: 10px; }
+td.t, td.d { white-space: nowrap; }
+td.t i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 6px; }
+.sign { font-size: 13px; font-weight: 600; color: var(--gold-deep); background: none; border: 0; cursor: pointer; padding: 0; }
+.foot { height: 96px; }
+
+@media (max-width: 760px) {
+  .wrap { padding: 0 16px; }
+  header.site { height: 48px; }
+  .hero { flex-direction: column; align-items: stretch; gap: 16px; padding: 4px 0 16px; }
+  h1 { font-size: 30px; }
+  .btn-primary { width: 100%; }
+  #key { gap: 0 16px; }
+  .theme { font-size: 13px; padding: 4px 0; }
+  .theme i { width: 12px; height: 12px; }
+  #quilt { grid-template-columns: repeat(18, 1fr); }
+  .q, .q i { border-radius: 2px; }
+  #pop { left: 0 !important; width: 100%; padding: 16px; }
+  .now { height: 44px; padding-top: 16px; font-size: 13px; }
+  table thead { display: none; }
+  table, tbody, tr, td { display: block; }
+  tr { border-bottom: 1px solid var(--line); padding: 10px 0; position: relative; padding-right: 48px; }
+  td { border: 0; padding: 0; }
+  td.f { display: block; padding: 2px 0 0; }
+  td.t { display: block; padding: 2px 0 0; }
+  td.k, td.d { display: none; }
+  td.s { position: absolute; right: 0; top: 10px; }
+}
+</style>
+</head>
+<body>
+<header class="site wrap"><a class="mark" href="/">Hoplight</a></header>
+<main class="wrap">
+  <section class="hero">
+    <h1>Thirteen signatures undo 275 executive actions.</h1>
+    <button class="btn-primary" type="button">Sign all thirteen</button>
+  </section>
+  <div id="key" role="group" aria-label="Theme key: each square is one action, coloured by the theme it touches"></div>
+  <div class="field">
+    <div id="quilt" role="group" aria-label="275 executive actions, one square each, packed by the order that undoes them"></div>
+    <div id="pop" role="dialog" aria-live="polite" hidden></div>
+  </div>
+  <p class="now" id="now"></p>
+  <table>
+    <thead><tr>
+      <th><button type="button" data-k="1">Action</button></th>
+      <th><button type="button" data-k="0">Order</button></th>
+      <th><button type="button" data-k="5">Theme</button></th>
+      <th><button type="button" data-k="3">Kind</button></th>
+      <th><button type="button" data-k="4" aria-sort="descending">Signed</button></th>
+      <th><span>Sign</span></th>
+    </tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div class="foot"></div>
+</main>
+<script src="undo-data.js"></script>
+<script>
+(function () {
+  const U = window.UNDO;
+  const TH = Object.fromEntries(U.themes.map(([k, name, hex]) => [k, { name, hex, tint: tint(hex, 0.26) }]));
+  const ORDER_RANK = U.orders.map((o, i) => i).sort((a, b) => U.orders[b].n - U.orders[a].n);
+  const BY_ID = new Map(U.rows.map((r) => [r[6], r]));
+  let theme = null, order = null, open = null, focusOpenedAt = 0;
+
+  function tint(hex, a) {
+    const n = parseInt(hex.slice(1), 16);
+    const mix = (c) => Math.round(c * a + 255 * (1 - a)).toString(16).padStart(2, '0');
+    return '#' + mix((n >> 16) & 255) + mix((n >> 8) & 255) + mix(n & 255);
+  }
+  const lc = (s) => s.charAt(0).toLowerCase() + s.slice(1);
+  const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const themeRank = Object.fromEntries(U.themes.map(([k], i) => [k, i]));
+
+  // Reading order: the biggest bundle first; inside a bundle, its squares grouped by theme.
+  const field = ORDER_RANK.flatMap((oi) => U.rows.filter((r) => r[0] === oi).sort((a, b) => themeRank[a[5]] - themeRank[b[5]]));
+
+  function key() {
+    const c = {};
+    for (const r of U.rows) c[r[5]] = (c[r[5]] || 0) + 1;
+    const el = document.getElementById('key');
+    el.innerHTML = U.themes.map(([k, name, hex]) => `<button class="theme" type="button" aria-pressed="false" data-t="${k}"><i style="background:${hex}"></i><b>${name}</b><span>${c[k]}</span></button>`).join('');
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('.theme'); if (!b) return;
+      theme = theme === b.dataset.t ? null : b.dataset.t;
+      order = null; close(false);
+      paint(); table();
+    });
+  }
+
+  function quilt() {
+    const el = document.getElementById('quilt');
+    el.innerHTML = field.map((r) => `<button class="q" type="button" data-id="${esc(r[6])}" title="${esc(r[1])}" aria-label="${esc(r[1])}" style="--h:${TH[r[5]].hex};--t:${TH[r[5]].tint}"><i></i></button>`).join('');
+    el.addEventListener('focusin', (e) => {
+      const b = e.target.closest('.q'); if (!b || open === b.dataset.id) return;
+      show(b.dataset.id); focusOpenedAt = Date.now();
+    });
+    el.addEventListener('click', (e) => {
+      const b = e.target.closest('.q'); if (!b) return;
+      if (open === b.dataset.id) { if (Date.now() - focusOpenedAt > 400) close(true); return; }
+      show(b.dataset.id);
+    });
+  }
+
+  function paint() {
+    const me = open ? BY_ID.get(open) : null;
+    document.querySelectorAll('.q').forEach((q) => {
+      const r = BY_ID.get(q.dataset.id);
+      const inBundle = me ? r[0] === me[0] : true;
+      const inTheme = theme ? r[5] === theme : true;
+      q.classList.toggle('fade', !(inBundle && inTheme));
+      q.classList.toggle('lit', !!me && inBundle && r !== me);
+      q.classList.toggle('me', r === me);
+    });
+    document.querySelectorAll('.theme').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.t === theme)));
+  }
+
+  function show(id) {
+    const r = BY_ID.get(id); if (!r) return;
+    open = id; order = r[0]; theme = null;
+    const o = U.orders[r[0]];
+    const mates = U.rows.filter((x) => x[0] === r[0] && x !== r);
+    const pick = [];
+    const step = mates.length / Math.min(5, mates.length);
+    for (let k = 0; k < Math.min(5, mates.length); k++) pick.push(mates[Math.floor(k * step)]);
+    const more = mates.length - pick.length;
+    const pop = document.getElementById('pop');
+    pop.innerHTML = `
+      <button class="plain x" type="button">Close</button>
+      <p class="h">${esc(r[1])}</p>
+      <p class="m">${esc(r[3])}, signed ${esc(r[4])}</p>
+      <p class="by">Undone by the order</p>
+      <p class="fr">${esc(o.frame)}</p>
+      ${o.title !== o.frame ? `<p class="tt">${esc(o.title)}</p>` : ''}
+      <p class="bw">Bundled with</p>
+      <ul>${pick.map((x) => `<li><i style="background:${TH[x[5]].hex}"></i>${esc(x[1])}</li>`).join('')}${more ? `<li class="more">and ${more} more, lit in the quilt</li>` : ''}</ul>
+      <p class="teach"><b>${esc(o.frame)}:</b> one signature ${esc(lc(o.line))} ${o.n} actions, this one among them.</p>`;
+    pop.hidden = false;
+    pop.querySelector('.x').addEventListener('click', () => close(true));
+    paint(); table();
+    place(document.querySelector(`.q[data-id="${CSS.escape(id)}"]`), pop);
+  }
+
+  function place(sq, pop) {
+    const f = document.querySelector('.field').getBoundingClientRect();
+    const s = sq.getBoundingClientRect();
+    const w = pop.offsetWidth;
+    if (window.innerWidth <= 760) { pop.style.left = '0px'; pop.style.top = (s.bottom - f.top + 8) + 'px'; return; }
+    // Beside the square: right, left or below it, whichever covers the fewest lit squares of its bundle.
+    const h = pop.offsetHeight;
+    const x0 = s.left - f.left, y0 = s.top - f.top;
+    const clampX = (x) => Math.min(Math.max(0, x), f.width - w);
+    const spots = [
+      { left: x0 + s.width + 10, top: y0 - 8 },
+      { left: x0 - w - 10, top: y0 - 8 },
+      { left: clampX(x0 - 8), top: y0 + s.height + 10 },
+    ].filter((p) => p.left >= 0 && p.left + w <= f.width);
+    const lit = [...document.querySelectorAll('.q.lit')].map((q) => q.getBoundingClientRect());
+    const cover = (p) => lit.filter((r) => r.right - f.left > p.left && r.left - f.left < p.left + w && r.bottom - f.top > p.top && r.top - f.top < p.top + h).length;
+    let best = spots[0], bestN = Infinity;
+    for (const p of spots) { const n = cover(p); if (n < bestN) { best = p; bestN = n; } }
+    pop.style.left = best.left + 'px';
+    pop.style.top = Math.max(0, best.top) + 'px';
+  }
+
+  function close(restore) {
+    const pop = document.getElementById('pop');
+    pop.hidden = true;
+    const was = open; open = null;
+    if (restore) {
+      order = null; paint(); table();
+      if (was) { const q = document.querySelector(`.q[data-id="${CSS.escape(was)}"]`); if (q && document.activeElement !== q) q.focus({ preventScroll: true }); focusOpenedAt = Date.now(); }
+    }
+  }
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && open) close(true); });
+  document.addEventListener('click', (e) => { if (open && !e.target.closest('#pop') && !e.target.closest('.q')) close(true); });
+
+  let sortK = 4, dir = -1;
+  function table() {
+    const rows = U.rows.filter((r) => (!theme || r[5] === theme) && (order === null || r[0] === order)).slice().sort((a, b) => {
+      const va = sortK === 0 ? U.orders[a[0]].frame : sortK === 5 ? TH[a[5]].name : a[sortK];
+      const vb = sortK === 0 ? U.orders[b[0]].frame : sortK === 5 ? TH[b[5]].name : b[sortK];
+      return va < vb ? -dir : va > vb ? dir : 0;
+    });
+    const now = document.getElementById('now');
+    if (order !== null) now.innerHTML = `<span><b>${rows.length} actions</b> in ${esc(U.orders[order].frame)}</span><button class="plain" type="button" id="all">Show all 275</button>`;
+    else if (theme) now.innerHTML = `<span><b>${rows.length} actions</b> in ${esc(TH[theme].name)}</span><button class="plain" type="button" id="all">Show all 275</button>`;
+    else now.innerHTML = `<span><b>All 275 actions</b>, newest first</span>`;
+    const all = document.getElementById('all');
+    if (all) all.addEventListener('click', (e) => { e.stopPropagation(); theme = null; close(false); order = null; paint(); table(); });
+    document.getElementById('rows').innerHTML = rows.map((r) => `<tr><td>${esc(r[1])}</td><td class="f">${esc(U.orders[r[0]].frame)}</td><td class="t"><i style="background:${TH[r[5]].hex}"></i>${TH[r[5]].name}</td><td class="k">${esc(r[3])}</td><td class="d">${esc(r[4])}</td><td class="s"><button class="sign" type="button">Sign</button></td></tr>`).join('');
+  }
+  document.querySelector('thead').addEventListener('click', (e) => {
+    const b = e.target.closest('button'); if (!b) return;
+    const k = +b.dataset.k; dir = k === sortK ? -dir : (k === 4 ? -1 : 1); sortK = k;
+    document.querySelectorAll('th button').forEach((x) => x.removeAttribute('aria-sort'));
+    b.setAttribute('aria-sort', dir === 1 ? 'ascending' : 'descending');
+    table();
+  });
+  window.addEventListener('resize', () => { if (open) place(document.querySelector(`.q[data-id="${CSS.escape(open)}"]`), document.getElementById('pop')); });
+
+  key(); quilt(); paint(); table();
+  const q = new URLSearchParams(location.search).get('open');
+  if (q && BY_ID.has(q)) show(q);
+})();
+</script>
+</body>
+</html>
