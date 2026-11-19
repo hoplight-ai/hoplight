@@ -37,7 +37,9 @@ const built = [`.next/server/app/portfolio.html`, `.next/server/app/(main)/portf
 // deck (WCKIDS2, 2026-11-07); Whit, 2026-11-07, of the mockup's marks: "the rest work."
 const APPROVED = {
   'revenge-or-justice': '286f28bbe021bf82d1fff206bdccda02e0f4e34efac7e7221388f5b580051f27',
-  undo: '77882aaa6940515e7fff6d26dbe88da7c21b876411d6f780bbddbbdf7fc01dcb',
+  // The Undo List's pen became the card's pen in TILEPEN2 (2026-11-18): the navy barrel on the nib, the line
+  // in gold at 40%. It was the mockup's string, 77882aaa6940515e7fff6d26dbe88da7c21b876411d6f780bbddbbdf7fc01dcb.
+  undo: 'c4ec8af03ba9c6bd2789a67104716cb2cce93b0f3be1b10363af02aa01c81739',
   'which-ai-should-i-use': 'f687685e6c95ba7da780bb503885830a6d0ba39a1ec9224d06255f742bec9136',
   'wonder-cards': '56af4780ce5b74b2061fc0d3fd81c8aa841c45316c7c57b9db6bd6b93672de91',
 };
@@ -131,6 +133,21 @@ test('marks: the tile mark draws the approved mark\'s shapes unchanged', { skip:
     assert.ok(body.length < svg.length - 20, `${slug} mark does not open as the mockup's box`);
     assert.ok(tileMarkSvg(slug).includes(body), `${slug} tile mark changed the mark`);
   }
+});
+
+// TILEPEN2, 2026-11-18: the tile draws the pen the card draws. The card's pen as accepted in UNDOPEN2
+// (2026-11-17), hashed before this lane (counted at the lane's base); the tile's pen differs from it only in
+// writing the line's light gold as the fill gold at 40%, which paints the same colour on white.
+const CARD_PEN = '7dc4155a9b75742d88ad02f051e9551fb62b33b64c0702b90875bf86dfb37bcb';
+test('marks: The Undo List tile draws the card\'s pen, one object with no grey', { skip: noMarks }, async () => {
+  const { TOOL_MARKS, cardMarkSvg } = await marks();
+  const card = cardMarkSvg('undo');
+  assert.equal(sha(card), CARD_PEN, 'the card\'s pen changed');
+  const tile = TOOL_MARKS.undo.replace('<svg viewBox="0 0 280 280" aria-hidden="true">', '');
+  const asCard = tile.replace('stroke="#D4950A" stroke-opacity="0.4"', 'stroke="#EED59D"');
+  assert.equal(card, '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 280">' + asCard, 'the tile\'s pen is not the card\'s');
+  assert.ok(TOOL_MARKS.undo.includes('<rect x="-22" y="-114" width="44" height="38" rx="8" fill="#0F1B2D"/>'), 'the barrel is not on the nib');
+  assert.ok(!/stroke="#0F1B2D" stroke-opacity/.test(TOOL_MARKS.undo), 'the tile still draws a grey mark');
 });
 
 test('pictures: every tool\'s preview-card picture is unchanged', () => {

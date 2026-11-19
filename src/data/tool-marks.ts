@@ -34,9 +34,13 @@ export const TOOL_MARKS: Readonly<Record<string, string>> = {
   // one that weighs.
   'revenge-or-justice':
     '<svg viewBox="0 0 280 280" aria-hidden="true"><rect width="280" height="280" fill="#FFFFFF"/><g fill="none" stroke="#0F1B2D" stroke-linecap="round"><path d="M140 64 V230 M36 88 L244 112" stroke-width="14"/><path d="M36 88 L8 166 M36 88 L64 166 M244 112 L216 190 M244 112 L272 190" stroke-width="8"/></g><circle cx="140" cy="56" r="13" fill="#0F1B2D"/><rect x="86" y="226" width="108" height="18" rx="9" fill="#0F1B2D"/><path d="M2 166 H70 A34 26 0 0 1 2 166 Z" fill="#9C3327"/><path d="M210 190 H278 A34 26 0 0 1 210 190 Z" fill="#996D00"/></svg>',
-  // The stroke of a pen: a signature on its line, the gold nib at its end.
+  // The stroke of a pen: a signature on its line, the gold nib at its end. Since TILEPEN2 (2026-11-18) the
+  // tile draws the card's pen: the navy barrel runs straight on from the nib's top edge, one object, and the
+  // signature line is the fill gold at 40% on white, which paints the card's light gold #EED59D and keeps
+  // the tile to its three colours. It was navy at 35%, a grey mark (Whit, 2026-11-07, on grey: "it must
+  // die"), with a cap drawn 4 apart from the nib.
   undo:
-    '<svg viewBox="0 0 280 280" aria-hidden="true"><rect width="280" height="280" fill="#FFFFFF"/><path d="M20 216 H252" stroke="#0F1B2D" stroke-opacity="0.35" stroke-width="8" stroke-linecap="round"/><path d="M24 186 C38 128 74 96 88 120 C102 146 62 206 84 200 C106 194 112 128 132 136 C152 144 124 192 146 190 C164 188 168 166 182 162" fill="none" stroke="#0F1B2D" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(184 160) rotate(40)"><path d="M0 0 L-22 -48 L-22 -82 L22 -82 L22 -48 Z" fill="#D4950A"/><path d="M0 -8 V-50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/><circle cx="0" cy="-56" r="7" fill="#FFFFFF"/><rect x="-24" y="-136" width="48" height="50" rx="9" fill="#0F1B2D"/></g></svg>',
+    '<svg viewBox="0 0 280 280" aria-hidden="true"><rect width="280" height="280" fill="#FFFFFF"/><path d="M20 216 H252" stroke="#D4950A" stroke-opacity="0.4" stroke-width="8" stroke-linecap="round"/><path d="M24 186 C38 128 74 96 88 120 C102 146 62 206 84 200 C106 194 112 128 132 136 C152 144 124 192 146 190 C164 188 168 166 182 162" fill="none" stroke="#0F1B2D" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(184 160) rotate(40)"><path d="M0 0 L-22 -48 L-22 -82 L22 -82 L22 -48 Z" fill="#D4950A"/><path d="M0 -8 V-50" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round"/><circle cx="0" cy="-56" r="7" fill="#FFFFFF"/><rect x="-22" y="-114" width="44" height="38" rx="8" fill="#0F1B2D"/></g></svg>',
   // One path forks three ways in smooth curves; the two not taken thin out, the gold one curves up and runs
   // on to an arrowhead.
   'which-ai-should-i-use':
@@ -70,12 +74,12 @@ export const CARD_MARK_SCALE = 1.5;
  *  straight on from the nib's top edge, so the pen is one object and stays inside the square. The stroke
  *  is untouched. Round three, the same day: the signature line under the stroke was navy at 35% opacity,
  *  which draws grey, the only grey mark on the card (Whit, 2026-11-07, on grey marks: "it must die"); on
- *  the card it is a solid light tint of the fill gold #D4950A, 40% gold on white. The tile's mark stays as
- *  approved (scripts/tool-marks.test.mjs pins it by hash). */
+ *  the card it is a solid light tint of the fill gold #D4950A, 40% gold on white. TILEPEN2 (2026-11-18): the
+ *  tile now draws the same pen, so the barrel edit is gone; the one edit left writes the tile's gold at 40%
+ *  as the solid colour it paints, so the card's bytes are unchanged (scripts/tool-marks.test.mjs pins both). */
 const CARD_EDITS: Readonly<Record<string, readonly [string, string][]>> = {
   undo: [
-    ['<rect x="-24" y="-136" width="48" height="50" rx="9" fill="#0F1B2D"/>', '<rect x="-22" y="-114" width="44" height="38" rx="8" fill="#0F1B2D"/>'],
-    ['<path d="M20 216 H252" stroke="#0F1B2D" stroke-opacity="0.35"', '<path d="M20 216 H252" stroke="#EED59D"'],
+    ['<path d="M20 216 H252" stroke="#D4950A" stroke-opacity="0.4"', '<path d="M20 216 H252" stroke="#EED59D"'],
   ],
 };
 
